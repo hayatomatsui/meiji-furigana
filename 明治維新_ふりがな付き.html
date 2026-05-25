@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>近代 〜明治維新から近代的立憲制国家へ〜</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --red: #c81e1e;
+    --paper: #fffdf7;
+    --line: #d8c9a8;
+    --header: #f4e9c7;
+    --furigana: #2563eb;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Hiragino Mincho ProN", "Yu Mincho", "MS Mincho", serif;
+    background: #eee4cc;
+    color: var(--ink);
+    margin: 0;
+    padding: 20px;
+    line-height: 2.0;
+    font-size: 17px;
+  }
+  .toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #fff;
+    border: 2px solid var(--ink);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 0 auto 20px;
+    max-width: 980px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .toolbar h2 {
+    margin: 0 12px 0 0;
+    font-size: 16px;
+    color: var(--ink);
+  }
+  button {
+    font-family: inherit;
+    font-size: 14px;
+    padding: 8px 14px;
+    border: 2px solid var(--ink);
+    background: #fff;
+    color: var(--ink);
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.15s;
+  }
+  button:hover { background: #ffe; }
+  button.active { background: var(--ink); color: #fff; }
+  button.red { border-color: var(--red); color: var(--red); }
+  button.red.active { background: var(--red); color: #fff; }
+
+  .sheet {
+    max-width: 980px;
+    margin: 0 auto;
+    background: var(--paper);
+    border: 3px solid var(--ink);
+    padding: 24px 28px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  }
+  .title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 12px;
+    border-bottom: 2px solid var(--ink);
+    margin-bottom: 16px;
+    background: var(--header);
+  }
+  .row {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    border-bottom: 1px solid var(--line);
+    padding: 10px 0;
+  }
+  .year {
+    font-weight: bold;
+    text-align: center;
+    border-right: 1px solid var(--line);
+    padding-right: 10px;
+    align-self: start;
+  }
+  .content { padding-left: 14px; }
+  .section-title {
+    background: #fbf4dc;
+    padding: 8px 12px;
+    margin: 14px 0 8px;
+    border-left: 5px solid var(--red);
+    font-weight: bold;
+  }
+  .ans {
+    color: var(--red);
+    font-weight: bold;
+    border-bottom: 1.5px solid var(--red);
+    padding: 0 2px;
+  }
+  .indent { padding-left: 1.8em; display: block; }
+  .indent2 { padding-left: 3.6em; display: block; }
+  .arrow { color: var(--ink); }
+
+  /* Ruby (furigana) styling */
+  ruby { ruby-position: over; }
+  rt {
+    color: var(--furigana);
+    font-size: 0.55em;
+    font-weight: normal;
+    font-family: "Hiragino Sans", "Yu Gothic", sans-serif;
+    line-height: 1;
+  }
+  /* Hide all furigana */
+  body.hide-all rt { visibility: hidden; }
+  /* Hide only-on-hover (test mode): show on tap/hover */
+  body.test rt {
+    visibility: hidden;
+  }
+  body.test ruby:hover rt,
+  body.test ruby:focus rt,
+  body.test ruby.reveal rt {
+    visibility: visible;
+  }
+  body.test ruby {
+    background: #fff3b0;
+    border-radius: 3px;
+    padding: 0 1px;
+    cursor: pointer;
+  }
+  .footer-note {
+    margin-top: 20px;
+    padding: 14px;
+    background: #fff8e1;
+    border: 2px dashed var(--ink);
+    border-radius: 6px;
+    font-size: 16px;
+  }
+  .footer-note .em { color: var(--red); font-weight: bold; }
+  @media print {
+    .toolbar { display: none; }
+    body { background: #fff; padding: 0; }
+    .sheet { border: 1px solid #000; box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <h2>表示モード</h2>
+  <button id="btn-show" class="active" onclick="setMode('show')">ふりがな表示</button>
+  <button id="btn-test" class="red" onclick="setMode('test')">テストモード（タップで表示）</button>
+  <button id="btn-hide" onclick="setMode('hide')">全部隠す</button>
+  <button onclick="window.print()">印刷</button>
+  <span style="font-size:13px;color:#555;margin-left:auto">※テストモード：黄色い漢字をタップ／クリックでふりがな表示</span>
+</div>
+
+<div class="sheet">
+  <div class="title">〜<ruby>近代<rt>きんだい</rt></ruby>〜　<ruby>明治<rt>めいじ</rt></ruby><ruby>維新<rt>いしん</rt></ruby>から<ruby>近代的<rt>きんだいてき</rt></ruby><ruby>立憲制<rt>りっけんせい</rt></ruby><ruby>国家<rt>こっか</rt></ruby>へ</div>
+
+  <div class="row">
+    <div class="year">1868年</div>
+    <div class="content">
+      <ruby>新政府<rt>しんせいふ</rt></ruby>は<ruby>新<rt>あたら</rt></ruby>しい<ruby>政治<rt>せいじ</rt></ruby><ruby>方針<rt>ほうしん</rt></ruby>「<span class="ans"><ruby>五箇条<rt>ごかじょう</rt></ruby>の<ruby>御誓文<rt>ごせいもん</rt></ruby></span>」を<ruby>定<rt>さだ</rt></ruby>める
+      <span class="indent">…<ruby>話<rt>はな</rt></ruby>し<ruby>合<rt>あ</rt></ruby>いで<ruby>政治<rt>せいじ</rt></ruby>を<ruby>行<rt>おこな</rt></ruby>い、<ruby>知識<rt>ちしき</rt></ruby>を<ruby>世界<rt>せかい</rt></ruby>に<ruby>求<rt>もと</rt></ruby>め、<ruby>天皇<rt>てんのう</rt></ruby><ruby>中心<rt>ちゅうしん</rt></ruby>の<ruby>中央<rt>ちゅうおう</rt></ruby><ruby>集権<rt>しゅうけん</rt></ruby><ruby>国家<rt>こっか</rt></ruby><ruby>建設<rt>けんせつ</rt></ruby>を<ruby>目指<rt>めざ</rt></ruby>す</span>
+      <ruby>江戸<rt>えど</rt></ruby>を <span class="ans"><ruby>東京<rt>とうきょう</rt></ruby></span> に<ruby>改称<rt>かいしょう</rt></ruby>、<ruby>年号<rt>ねんごう</rt></ruby>を <span class="ans"><ruby>明治<rt>めいじ</rt></ruby></span> と<ruby>定<rt>さだ</rt></ruby>める。
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="year">1869年</div>
+    <div class="content">
+      <ruby>藩主<rt>はんしゅ</rt></ruby>に<ruby>土地<rt>とち</rt></ruby>と<ruby>人民<rt>じんみん</rt></ruby>を<ruby>政府<rt>せいふ</rt></ruby>に<ruby>返<rt>かえ</rt></ruby>させる…<span class="ans"><ruby>版籍<rt>はんせき</rt></ruby><ruby>奉還<rt>ほうかん</rt></ruby></span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="year">1871年</div>
+    <div class="content">
+      <ruby>藩<rt>はん</rt></ruby>を<ruby>廃止<rt>はいし</rt></ruby>し<ruby>県<rt>けん</rt></ruby>を<ruby>置<rt>お</rt></ruby>き、<ruby>各県<rt>かくけん</rt></ruby>に<span class="ans"><ruby>県令<rt>けんれい</rt></ruby></span>（<ruby>後<rt>のち</rt></ruby>の<ruby>県知事<rt>けんちじ</rt></ruby>）を<ruby>中央<rt>ちゅうおう</rt></ruby><ruby>政府<rt>せいふ</rt></ruby>から<ruby>派遣<rt>はけん</rt></ruby>…<span class="ans"><ruby>廃藩<rt>はいはん</rt></ruby><ruby>置県<rt>ちけん</rt></ruby></span>
+      <span class="indent"><ruby>中央<rt>ちゅうおう</rt></ruby><ruby>政府<rt>せいふ</rt></ruby>の<ruby>中心<rt>ちゅうしん</rt></ruby>は<ruby>長州<rt>ちょうしゅう</rt></ruby>・<ruby>薩摩<rt>さつま</rt></ruby>・<ruby>土佐<rt>とさ</rt></ruby>（<ruby>高知<rt>こうち</rt></ruby>）・<ruby>肥前<rt>ひぜん</rt></ruby>（<ruby>佐賀<rt>さが</rt></ruby>）の<ruby>各藩<rt>かくはん</rt></ruby><ruby>出身者<rt>しゅっしんしゃ</rt></ruby><ruby>中心<rt>ちゅうしん</rt></ruby></span>
+      <span class="indent2">（<ruby>薩長<rt>さっちょう</rt></ruby><ruby>出身者<rt>しゅっしんしゃ</rt></ruby>が<ruby>多<rt>おお</rt></ruby>くを<ruby>占<rt>し</rt></ruby>めたため、のちに <span class="ans"><ruby>藩閥<rt>はんばつ</rt></ruby><ruby>政府<rt>せいふ</rt></ruby></span> と<ruby>呼<rt>よ</rt></ruby>ばれる）</span>
+      これまでの「えた・ひにん」<ruby>身分<rt>みぶん</rt></ruby>を<ruby>廃止<rt>はいし</rt></ruby>する <span class="ans"><ruby>解放令<rt>かいほうれい</rt></ruby></span> を<ruby>制定<rt>せいてい</rt></ruby>
+    </div>
+  </div>
+
+  <div class="section-title">【<ruby>三大<rt>さんだい</rt></ruby><ruby>改革<rt>かいかく</rt></ruby>】</div>
+
+  <div class="row">
+    <div class="year"></div>
+    <div class="content">
+      ① <span class="ans"><ruby>学制<rt>がくせい</rt></ruby></span> …小学校から大学までの<ruby>学校<rt>がっこう</rt></ruby><ruby>制度<rt>せいど</rt></ruby>の<ruby>整備<rt>せいび</rt></ruby>。<ruby>全国<rt>ぜんこく</rt></ruby><ruby>各地<rt>かくち</rt></ruby>に小学校を<ruby>建設<rt>けんせつ</rt></ruby>。
+      ② <span class="ans"><ruby>徴兵令<rt>ちょうへいれい</rt></ruby></span> …<ruby>満<rt>まん</rt></ruby> <span class="ans">20</span> <ruby>歳<rt>さい</rt></ruby>になった<ruby>男子<rt>だんし</rt></ruby>は<ruby>士族<rt>しぞく</rt></ruby>・<ruby>平民<rt>へいみん</rt></ruby>に<ruby>関<rt>かか</rt></ruby>わらず<ruby>兵役<rt>へいえき</rt></ruby>の<ruby>義務<rt>ぎむ</rt></ruby>
+      <span class="indent"><ruby>当初<rt>とうしょ</rt></ruby>は<ruby>多<rt>おお</rt></ruby>くの<ruby>免除<rt>めんじょ</rt></ruby><ruby>規定<rt>きてい</rt></ruby>があり、<ruby>実際<rt>じっさい</rt></ruby>に<ruby>兵役<rt>へいえき</rt></ruby>についたのは<ruby>平民<rt>へいみん</rt></ruby>の<ruby>次男<rt>じなん</rt></ruby><ruby>三男<rt>さんなん</rt></ruby></span>
+      ③ <span class="ans"><ruby>地租<rt>ちそ</rt></ruby><ruby>改正<rt>かいせい</rt></ruby></span> …<ruby>米<rt>こめ</rt></ruby>による<ruby>年貢<rt>ねんぐ</rt></ruby>ではなく<ruby>土地<rt>とち</rt></ruby>に<ruby>応<rt>おう</rt></ruby>じて<ruby>現金<rt>げんきん</rt></ruby>で<ruby>納<rt>おさ</rt></ruby>める→<ruby>政府<rt>せいふ</rt></ruby>の<ruby>財政<rt>ざいせい</rt></ruby><ruby>安定化<rt>あんていか</rt></ruby>
+      <span class="indent">○<ruby>土地<rt>とち</rt></ruby>の<ruby>所有者<rt>しょゆうしゃ</rt></ruby>と<ruby>価格<rt>かかく</rt></ruby>（<ruby>地価<rt>ちか</rt></ruby>）を<ruby>定<rt>さだ</rt></ruby>め <span class="ans"><ruby>地券<rt>ちけん</rt></ruby></span> を<ruby>発行<rt>はっこう</rt></ruby></span>
+      <span class="indent">→○<ruby>収穫高<rt>しゅうかくだか</rt></ruby>でなく<ruby>地価<rt>ちか</rt></ruby>に<ruby>基<rt>もと</rt></ruby>づいて<ruby>税<rt>ぜい</rt></ruby>をかける</span>
+      <span class="indent">→○<ruby>税率<rt>ぜいりつ</rt></ruby>は<ruby>地価<rt>ちか</rt></ruby>の <span class="ans">3</span> ％で<ruby>現金<rt>げんきん</rt></ruby><ruby>納付<rt>のうふ</rt></ruby></span>
+      <span class="indent2">※<ruby>税率<rt>ぜいりつ</rt></ruby>は1877年に <span class="ans">2.5</span> ％に<ruby>引<rt>ひ</rt></ruby>き<ruby>下<rt>さ</rt></ruby>げ</span>
+    </div>
+  </div>
+
+  <div class="section-title">【<ruby>明治<rt>めいじ</rt></ruby><ruby>初期<rt>しょき</rt></ruby>のスローガン〜<ruby>富国<rt>ふこく</rt></ruby><ruby>強兵<rt>きょうへい</rt></ruby>〜】</div>
+
+  <div class="row">
+    <div class="year"></div>
+    <div class="content">
+      ○<ruby>強兵<rt>きょうへい</rt></ruby>の<ruby>実現<rt>じつげん</rt></ruby>→<ruby>徴兵令<rt>ちょうへいれい</rt></ruby>による<ruby>軍<rt>ぐん</rt></ruby>の<ruby>創設<rt>そうせつ</rt></ruby>
+      ○<ruby>富国<rt>ふこく</rt></ruby>の<ruby>実現<rt>じつげん</rt></ruby>→<ruby>産業<rt>さんぎょう</rt></ruby>を<ruby>育成<rt>いくせい</rt></ruby>し、<ruby>資本<rt>しほん</rt></ruby><ruby>主義化<rt>しゅぎか</rt></ruby>を<ruby>図<rt>はか</rt></ruby>る <span class="ans"><ruby>殖産<rt>しょくさん</rt></ruby><ruby>興業<rt>こうぎょう</rt></ruby></span> <ruby>政策<rt>せいさく</rt></ruby>
+      <span class="indent"><ruby>鉄道<rt>てつどう</rt></ruby>・<ruby>郵便<rt>ゆうびん</rt></ruby>・<ruby>通信<rt>つうしん</rt></ruby>の<ruby>整備<rt>せいび</rt></ruby></span>
+      <span class="indent"><ruby>群馬県<rt>ぐんまけん</rt></ruby>の <span class="ans"><ruby>富岡<rt>とみおか</rt></ruby><ruby>製糸場<rt>せいしじょう</rt></ruby></span> などの <span class="ans"><ruby>官営<rt>かんえい</rt></ruby><ruby>模範<rt>もはん</rt></ruby></span> <ruby>工場<rt>こうじょう</rt></ruby>を<ruby>造<rt>つく</rt></ruby>る</span>
+      <ruby>欧米<rt>おうべい</rt></ruby>の<ruby>文化<rt>ぶんか</rt></ruby>が<ruby>浸透<rt>しんとう</rt></ruby>し、<ruby>伝統的<rt>でんとうてき</rt></ruby><ruby>生活<rt>せいかつ</rt></ruby>が<ruby>変化<rt>へんか</rt></ruby>（<ruby>文明<rt>ぶんめい</rt></ruby><ruby>開化<rt>かいか</rt></ruby>）
+      <span class="indent">…ランプ・ガス<ruby>灯<rt>とう</rt></ruby>・レンガ<ruby>造<rt>づく</rt></ruby>り・<ruby>洋服<rt>ようふく</rt></ruby>・<ruby>太陽暦<rt>たいようれき</rt></ruby>（1日24<ruby>時間<rt>じかん</rt></ruby>・1<ruby>週間<rt>しゅうかん</rt></ruby>は7日）</span>
+      <ruby>新<rt>あたら</rt></ruby>しい<ruby>思想<rt>しそう</rt></ruby>… <span class="ans"><ruby>福沢<rt>ふくざわ</rt></ruby><ruby>諭吉<rt>ゆきち</rt></ruby></span> は「<ruby>学問<rt>がくもん</rt></ruby>のすすめ」で<ruby>人間<rt>にんげん</rt></ruby>の<ruby>平等<rt>びょうどう</rt></ruby>を<ruby>説<rt>と</rt></ruby>く
+      <span class="indent"><span class="ans"><ruby>中江<rt>なかえ</rt></ruby><ruby>兆民<rt>ちょうみん</rt></ruby></span> はルソーの<ruby>思想<rt>しそう</rt></ruby>（<ruby>社会<rt>しゃかい</rt></ruby><ruby>契約説<rt>けいやくせつ</rt></ruby>・<ruby>人民<rt>じんみん</rt></ruby><ruby>主権<rt>しゅけん</rt></ruby>）を<ruby>紹介<rt>しょうかい</rt></ruby></span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="year">1871年</div>
+    <div class="content">
+      <ruby>不平等<rt>ふびょうどう</rt></ruby><ruby>条約<rt>じょうやく</rt></ruby>の<ruby>改正<rt>かいせい</rt></ruby>に<ruby>向<rt>む</rt></ruby>けて、<ruby>大規模<rt>だいきぼ</rt></ruby>な <span class="ans"><ruby>岩倉<rt>いわくら</rt></ruby><ruby>使節団<rt>しせつだん</rt></ruby></span> が<ruby>欧米<rt>おうべい</rt></ruby>へ（<ruby>約<rt>やく</rt></ruby>2<ruby>年間<rt>ねんかん</rt></ruby>の<ruby>海外<rt>かいがい</rt></ruby><ruby>視察<rt>しさつ</rt></ruby>）
+      <span class="indent">→<ruby>国力<rt>こくりょく</rt></ruby>の<ruby>充実<rt>じゅうじつ</rt></ruby>の<ruby>必要性<rt>ひつようせい</rt></ruby>を<ruby>痛感<rt>つうかん</rt></ruby></span>
+      <ruby>清<rt>しん</rt></ruby>と <span class="ans"><ruby>日清<rt>にっしん</rt></ruby><ruby>修好<rt>しゅうこう</rt></ruby><ruby>条規<rt>じょうき</rt></ruby></span> を<ruby>結<rt>むす</rt></ruby>ぶ（<ruby>対等<rt>たいとう</rt></ruby>な<ruby>条約<rt>じょうやく</rt></ruby>）
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="year">1873年</div>
+    <div class="content">
+      <ruby>政府内<rt>せいふない</rt></ruby>で、<ruby>朝鮮<rt>ちょうせん</rt></ruby>を<ruby>武力<rt>ぶりょく</rt></ruby>で<ruby>開国<rt>かいこく</rt></ruby>させる<ruby>主張<rt>しゅちょう</rt></ruby>（<span class="ans"><ruby>征韓論<rt>せいかんろん</rt></ruby></span>）が<ruby>高<rt>たか</rt></ruby>まる
+      <span class="indent">→<span class="ans"><ruby>西郷<rt>さいごう</rt></ruby><ruby>隆盛<rt>たかもり</rt></ruby></span> の<ruby>朝鮮<rt>ちょうせん</rt></ruby><ruby>派遣<rt>はけん</rt></ruby>が<ruby>決<rt>き</rt></ruby>まりも、<ruby>帰国<rt>きこく</rt></ruby>した <span class="ans"><ruby>岩倉<rt>いわくら</rt></ruby><ruby>具視<rt>ともみ</rt></ruby></span> らが<ruby>延期<rt>えんき</rt></ruby>させる</span>
+      <span class="indent">→<ruby>政府<rt>せいふ</rt></ruby>は<ruby>分裂<rt>ぶんれつ</rt></ruby>し、<ruby>西郷<rt>さいごう</rt></ruby>や<ruby>板垣<rt>いたがき</rt></ruby><ruby>退助<rt>たいすけ</rt></ruby>は<ruby>政府<rt>せいふ</rt></ruby>を<ruby>去<rt>さ</rt></ruby>る</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="year">1875年</div>
+    <div class="content">
+      <ruby>朝鮮<rt>ちょうせん</rt></ruby>と<ruby>日本<rt>にほん</rt></ruby>で<ruby>武力<rt>ぶりょく</rt></ruby><ruby>衝突<rt>しょうとつ</rt></ruby>（<span class="ans"><ruby>江華島<rt>こうかとう</rt></ruby><ruby>事件<rt>じけん</rt></ruby></span>）
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="year">1876年</div>
+    <div class="content">
+      →これを<ruby>口実<rt>こうじつ</rt></ruby>に<ruby>朝鮮<rt>ちょうせん</rt></ruby>と <span class="ans"><ruby>日朝<rt>にっちょう</rt></ruby><ruby>修好<rt>しゅうこう</rt></ruby><ruby>条規<rt>じょうき</rt></ruby></span> （<ruby>不平等<rt>ふびょうどう</rt></ruby>な<ruby>条約<rt>じょうやく</rt></ruby>）を<ruby>結<rt>むす</rt></ruby>ぶ
+    </div>
+  </div>
+
+  <div class="section-title">【<ruby>国境<rt>こっきょう</rt></ruby>・<ruby>領土<rt>りょうど</rt></ruby>の<ruby>確定<rt>かくてい</rt></ruby>】</div>
+
+  <div class="row">
+    <div class="year"></div>
+    <div class="content">
+      1875年 <span class="ans"><ruby>樺太<rt>からふと</rt></ruby>・<ruby>千島<rt>ちしま</rt></ruby><ruby>交換<rt>こうかん</rt></ruby><ruby>条約<rt>じょうやく</rt></ruby></span> …ロシアは<ruby>樺太<rt>からふと</rt></ruby>、<ruby>日本<rt>にほん</rt></ruby>は<ruby>千島<rt>ちしま</rt></ruby><ruby>列島<rt>れっとう</rt></ruby>の<ruby>全<rt>すべ</rt></ruby>てを<ruby>領有<rt>りょうゆう</rt></ruby>
+      <ruby>蝦夷地<rt>えぞち</rt></ruby>を <span class="ans"><ruby>北海道<rt>ほっかいどう</rt></ruby></span> に<ruby>改<rt>あらた</rt></ruby>める→<ruby>農業<rt>のうぎょう</rt></ruby><ruby>兼業<rt>けんぎょう</rt></ruby><ruby>兵士<rt>へいし</rt></ruby>（<span class="ans"><ruby>屯田兵<rt>とんでんへい</rt></ruby></span>）を<ruby>日本<rt>にほん</rt></ruby><ruby>各地<rt>かくち</rt></ruby>から<ruby>派遣<rt>はけん</rt></ruby>、<ruby>開拓<rt>かいたく</rt></ruby>
+      <span class="indent">アイヌを<ruby>迫害<rt>はくがい</rt></ruby>、<ruby>同化<rt>どうか</rt></ruby><ruby>政策<rt>せいさく</rt></ruby></span>
+      1872年 <span class="ans"><ruby>琉球藩<rt>りゅうきゅうはん</rt></ruby></span> を<ruby>琉球藩<rt>りゅうきゅうはん</rt></ruby>とする
+      1879年 <ruby>琉球藩<rt>りゅうきゅうはん</rt></ruby>を<ruby>廃止<rt>はいし</rt></ruby>し、<span class="ans"><ruby>沖縄県<rt>おきなわけん</rt></ruby></span> を<ruby>設置<rt>せっち</rt></ruby>（<span class="ans"><ruby>琉球<rt>りゅうきゅう</rt></ruby><ruby>処分<rt>しょぶん</rt></ruby></span>）
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="year">（1874年）</div>
+    <div class="content">
+      ☆<ruby>征韓論<rt>せいかんろん</rt></ruby><ruby>政変<rt>せいへん</rt></ruby>で<ruby>政府<rt>せいふ</rt></ruby>を<ruby>去<rt>さ</rt></ruby>った<ruby>板垣<rt>いたがき</rt></ruby><ruby>退助<rt>たいすけ</rt></ruby>と<ruby>西郷<rt>さいごう</rt></ruby><ruby>隆盛<rt>たかもり</rt></ruby>のその<ruby>後<rt>ご</rt></ruby>
+      ・<span class="ans"><ruby>板垣<rt>いたがき</rt></ruby><ruby>退助<rt>たいすけ</rt></ruby></span> は<ruby>政府<rt>せいふ</rt></ruby>に<ruby>議会<rt>ぎかい</rt></ruby>の<ruby>開設<rt>かいせつ</rt></ruby>を<ruby>主張<rt>しゅちょう</rt></ruby>する「<span class="ans"><ruby>民撰<rt>みんせん</rt></ruby><ruby>議院<rt>ぎいん</rt></ruby><ruby>設立<rt>せつりつ</rt></ruby><ruby>建白書<rt>けんぱくしょ</rt></ruby></span>」を<ruby>提出<rt>ていしゅつ</rt></ruby>
+      <span class="indent">→<ruby>国民<rt>こくみん</rt></ruby>の<ruby>政治<rt>せいじ</rt></ruby><ruby>参加<rt>さんか</rt></ruby>の<ruby>権利<rt>けんり</rt></ruby>を<ruby>求<rt>もと</rt></ruby>め、<span class="ans"><ruby>自由<rt>じゆう</rt></ruby><ruby>民権<rt>みんけん</rt></ruby><ruby>運動<rt>うんどう</rt></ruby></span> が<ruby>始<rt>はじ</rt></ruby>まる</span>
+      <span class="indent"><ruby>板垣<rt>いたがき</rt></ruby>は<ruby>高知県<rt>こうちけん</rt></ruby>に <span class="ans"><ruby>立志社<rt>りっししゃ</rt></ruby></span> を<ruby>結成<rt>けっせい</rt></ruby>し、<ruby>運動<rt>うんどう</rt></ruby>を<ruby>進<rt>すす</rt></ruby>める。</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="year">1877年</div>
+    <div class="content">
+      ・<ruby>明治<rt>めいじ</rt></ruby>の<ruby>改革<rt>かいかく</rt></ruby>で<ruby>特権<rt>とっけん</rt></ruby>を<ruby>奪<rt>うば</rt></ruby>われた<ruby>士族<rt>しぞく</rt></ruby>（<ruby>元<rt>もと</rt></ruby><ruby>武士<rt>ぶし</rt></ruby>）が<ruby>西日本<rt>にしにほん</rt></ruby><ruby>各地<rt>かくち</rt></ruby>で<ruby>反乱<rt>はんらん</rt></ruby>
+      <span class="indent"><ruby>西郷<rt>さいごう</rt></ruby><ruby>隆盛<rt>たかもり</rt></ruby>はその<ruby>反乱<rt>はんらん</rt></ruby>の<ruby>中心<rt>ちゅうしん</rt></ruby>になり <span class="ans"><ruby>西南<rt>せいなん</rt></ruby><ruby>戦争<rt>せんそう</rt></ruby></span> を<ruby>起<rt>お</rt></ruby>こす → <ruby>政府軍<rt>せいふぐん</rt></ruby>が<ruby>鎮圧<rt>ちんあつ</rt></ruby></span>
+      <span class="indent">→ <ruby>長州<rt>ちょうしゅう</rt></ruby>・<ruby>薩摩<rt>さつま</rt></ruby><ruby>中心<rt>ちゅうしん</rt></ruby>の<ruby>藩閥<rt>はんばつ</rt></ruby><ruby>政府<rt>せいふ</rt></ruby>の<ruby>批判<rt>ひはん</rt></ruby>は<ruby>言論<rt>げんろん</rt></ruby>によるものが<ruby>中心<rt>ちゅうしん</rt></ruby>に</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="year">1880年</div>
+    <div class="content">
+      <ruby>国会<rt>こっかい</rt></ruby>の<ruby>開設<rt>かいせつ</rt></ruby>を<ruby>求<rt>もと</rt></ruby>める <span class="ans"><ruby>国会<rt>こっかい</rt></ruby><ruby>期成<rt>きせい</rt></ruby><ruby>同盟<rt>どうめい</rt></ruby></span> が<ruby>結成<rt>けっせい</rt></ruby>
+      <ruby>政府<rt>せいふ</rt></ruby>の <span class="ans"><ruby>大隈<rt>おおくま</rt></ruby><ruby>重信<rt>しげのぶ</rt></ruby></span> （<ruby>肥前藩<rt>ひぜんはん</rt></ruby><ruby>出身<rt>しゅっしん</rt></ruby>）は<ruby>国会<rt>こっかい</rt></ruby>の<ruby>早期<rt>そうき</rt></ruby><ruby>開設<rt>かいせつ</rt></ruby>を<ruby>主張<rt>しゅちょう</rt></ruby>
+      <span class="ans"><ruby>伊藤<rt>いとう</rt></ruby><ruby>博文<rt>ひろぶみ</rt></ruby></span> （<ruby>長州藩<rt>ちょうしゅうはん</rt></ruby><ruby>出身<rt>しゅっしん</rt></ruby>）は<ruby>大隈<rt>おおくま</rt></ruby>を<ruby>政府<rt>せいふ</rt></ruby>から<ruby>追放<rt>ついほう</rt></ruby>する<ruby>一方<rt>いっぽう</rt></ruby>、10<ruby>年後<rt>ねんご</rt></ruby>の<ruby>国会<rt>こっかい</rt></ruby><ruby>開設<rt>かいせつ</rt></ruby>を<ruby>約束<rt>やくそく</rt></ruby>
+      <ruby>国会<rt>こっかい</rt></ruby><ruby>開設<rt>かいせつ</rt></ruby>に<ruby>向<rt>む</rt></ruby>けて<ruby>政党<rt>せいとう</rt></ruby>の<ruby>結成<rt>けっせい</rt></ruby> → <ruby>大隈<rt>おおくま</rt></ruby><ruby>重信<rt>しげのぶ</rt></ruby>が<ruby>党首<rt>とうしゅ</rt></ruby>の <span class="ans"><ruby>立憲<rt>りっけん</rt></ruby><ruby>改進党<rt>かいしんとう</rt></ruby></span>
+      <span class="indent2"><ruby>板垣<rt>いたがき</rt></ruby><ruby>退助<rt>たいすけ</rt></ruby>が<ruby>党首<rt>とうしゅ</rt></ruby>の <span class="ans"><ruby>自由党<rt>じゆうとう</rt></ruby></span></span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="year">1885年</div>
+    <div class="content">
+      <span class="ans"><ruby>内閣<rt>ないかく</rt></ruby></span> <ruby>制度<rt>せいど</rt></ruby>をつくり、<ruby>伊藤<rt>いとう</rt></ruby><ruby>博文<rt>ひろぶみ</rt></ruby>が<ruby>初代<rt>しょだい</rt></ruby> <span class="ans"><ruby>内閣<rt>ないかく</rt></ruby><ruby>総理<rt>そうり</rt></ruby><ruby>大臣<rt>だいじん</rt></ruby></span> に<ruby>就任<rt>しゅうにん</rt></ruby>
+      <span class="indent">→<ruby>伊藤<rt>いとう</rt></ruby>が<ruby>中心<rt>ちゅうしん</rt></ruby>になり<ruby>憲法<rt>けんぽう</rt></ruby>の<ruby>作成<rt>さくせい</rt></ruby>・<ruby>審議<rt>しんぎ</rt></ruby>を<ruby>進<rt>すす</rt></ruby>める</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="year">1889年</div>
+    <div class="content">
+      2月11日 <span class="ans"><ruby>大日本<rt>だいにっぽん</rt></ruby><ruby>帝国<rt>ていこく</rt></ruby><ruby>憲法<rt>けんぽう</rt></ruby></span> を<ruby>発布<rt>はっぷ</rt></ruby>
+
+      <div class="section-title" style="margin-top:8px">【<ruby>衆議院<rt>しゅうぎいん</rt></ruby><ruby>選挙<rt>せんきょ</rt></ruby>】</div>
+      <ruby>選挙権<rt>せんきょけん</rt></ruby>…<ruby>直接<rt>ちょくせつ</rt></ruby><ruby>国税<rt>こくぜい</rt></ruby> <span class="ans">15<ruby>円<rt>えん</rt></ruby></span> <ruby>円<rt>えん</rt></ruby><ruby>以上<rt>いじょう</rt></ruby>を<ruby>納<rt>おさ</rt></ruby>める
+      <span class="indent"><span class="ans">25</span> <ruby>歳<rt>さい</rt></ruby><ruby>以上<rt>いじょう</rt></ruby>の <span class="ans"><ruby>男子<rt>だんし</rt></ruby></span> のみに<ruby>限定<rt>げんてい</rt></ruby></span>
+      <span class="indent">（<ruby>有権者<rt>ゆうけんしゃ</rt></ruby>は<ruby>全<rt>ぜん</rt></ruby><ruby>人口<rt>じんこう</rt></ruby>の1.1％）</span>
+      <ruby>初<rt>はじ</rt></ruby>の<ruby>衆議院<rt>しゅうぎいん</rt></ruby><ruby>選挙<rt>せんきょ</rt></ruby>
+      アジアで<ruby>最初<rt>さいしょ</rt></ruby>の<ruby>近代的<rt>きんだいてき</rt></ruby><ruby>立憲制<rt>りっけんせい</rt></ruby><ruby>国家<rt>こっか</rt></ruby>に
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="year">1890年</div>
+    <div class="content">
+      <span class="ans"><ruby>教育<rt>きょういく</rt></ruby><ruby>勅語<rt>ちょくご</rt></ruby></span> を<ruby>発表<rt>はっぴょう</rt></ruby>し、<ruby>教育<rt>きょういく</rt></ruby>の<ruby>柱<rt>はしら</rt></ruby>を<ruby>示<rt>しめ</rt></ruby>す
+    </div>
+  </div>
+
+  <div class="footer-note">
+    1<ruby>学期<rt>がっき</rt></ruby><ruby>定期<rt>ていき</rt></ruby>テストで、この<ruby>年表<rt>ねんぴょう</rt></ruby>をもとにして<span class="em">15<ruby>点<rt>てん</rt></ruby><ruby>分<rt>ぶん</rt></ruby></span><ruby>出題<rt>しゅつだい</rt></ruby>します。<br>
+    <ruby>教科書<rt>きょうかしょ</rt></ruby>168〜185を<ruby>参考<rt>さんこう</rt></ruby>に<ruby>空欄<rt>くうらん</rt></ruby>を<ruby>確実<rt>かくじつ</rt></ruby>に<ruby>入<rt>い</rt></ruby>れておきましょう。<br>
+    <ruby>語句<rt>ごく</rt></ruby>だけでなく、<ruby>語句<rt>ごく</rt></ruby>の<ruby>意味<rt>いみ</rt></ruby>、<ruby>前後<rt>ぜんご</rt></ruby><ruby>関係<rt>かんけい</rt></ruby>や<ruby>流<rt>なが</rt></ruby>れ、<ruby>原因<rt>げんいん</rt></ruby>、<ruby>結果<rt>けっか</rt></ruby>、<ruby>影響<rt>えいきょう</rt></ruby>も<ruby>理解<rt>りかい</rt></ruby>しておきましょう。
+  </div>
+</div>
+
+<script>
+  function setMode(mode) {
+    document.body.classList.remove('hide-all', 'test');
+    document.querySelectorAll('.toolbar button').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('ruby.reveal').forEach(r => r.classList.remove('reveal'));
+
+    if (mode === 'hide') {
+      document.body.classList.add('hide-all');
+      document.getElementById('btn-hide').classList.add('active');
+    } else if (mode === 'test') {
+      document.body.classList.add('test');
+      document.getElementById('btn-test').classList.add('active');
+    } else {
+      document.getElementById('btn-show').classList.add('active');
+    }
+  }
+
+  // タップで個別表示（テストモード時にトグル）
+  document.addEventListener('click', function(e) {
+    if (!document.body.classList.contains('test')) return;
+    const ruby = e.target.closest('ruby');
+    if (ruby) {
+      ruby.classList.toggle('reveal');
+    }
+  });
+</script>
+
+</body>
+</html>
