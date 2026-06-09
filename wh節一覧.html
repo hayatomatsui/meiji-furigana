@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>疑問詞・関係詞が作る節の一覧</title>
+<style>
+  :root{
+    --ink:#1c1a17;
+    --ink-soft:#4a4540;
+    --paper:#faf7f0;
+    --paper-edge:#f0ebde;
+    --rule:#d8d0bf;
+    --rule-hair:#e4ddcd;
+    --noun:#7a4a2e;       /* 名詞節 */
+    --adj:#3a5a4a;        /* 形容詞節 */
+    --adv:#3f4d6b;        /* 副詞節 */
+    --noun-bg:#f4e9df;
+    --adj-bg:#e6ede8;
+    --adv-bg:#e7eaf1;
+    --accent:#9a3f28;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:
+      linear-gradient(180deg,#f4efe4 0%, var(--paper) 14%),
+      var(--paper);
+    color:var(--ink);
+    font-family:"Hiragino Mincho ProN","Yu Mincho",Georgia,"Times New Roman",serif;
+    line-height:1.85;
+    padding:clamp(20px,5vw,72px) clamp(16px,5vw,40px) 96px;
+  }
+  .wrap{max-width:920px;margin:0 auto;}
+
+  /* ---- Header ---- */
+  header{margin-bottom:clamp(32px,5vw,56px);}
+  .eyebrow{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.72rem;
+    letter-spacing:.42em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin:0 0 18px;
+    font-weight:600;
+  }
+  h1{
+    font-size:clamp(1.9rem,5.5vw,3rem);
+    line-height:1.25;
+    margin:0 0 .5em;
+    font-weight:600;
+    letter-spacing:.01em;
+  }
+  h1 .en{
+    display:block;
+    font-family:Georgia,serif;
+    font-style:italic;
+    font-size:.5em;
+    color:var(--ink-soft);
+    letter-spacing:.04em;
+    margin-top:.4em;
+  }
+  .lede{
+    font-size:1.02rem;
+    color:var(--ink-soft);
+    max-width:60ch;
+    margin:1.4em 0 0;
+  }
+  .lede b{color:var(--ink);font-weight:600;}
+
+  /* ---- Legend ---- */
+  .legend{
+    display:flex;flex-wrap:wrap;gap:10px 22px;
+    margin:30px 0 0;padding:18px 22px;
+    background:var(--paper-edge);
+    border:1px solid var(--rule-hair);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.82rem;
+  }
+  .legend span{display:inline-flex;align-items:center;gap:9px;color:var(--ink-soft);}
+  .dot{width:13px;height:13px;border-radius:2px;display:inline-block;}
+  .dot.n{background:var(--noun);}
+  .dot.a{background:var(--adj);}
+  .dot.av{background:var(--adv);}
+
+  /* ---- Section heads ---- */
+  h2{
+    font-size:1.45rem;
+    margin:clamp(48px,7vw,72px) 0 6px;
+    padding-bottom:.45em;
+    border-bottom:2px solid var(--ink);
+    font-weight:600;
+    display:flex;align-items:baseline;gap:.7em;
+  }
+  h2 .num{
+    font-family:Georgia,serif;
+    font-style:italic;
+    font-size:.78em;
+    color:var(--accent);
+  }
+  .sec-note{
+    color:var(--ink-soft);font-size:.95rem;margin:.6em 0 1.6em;max-width:62ch;
+  }
+
+  /* ---- Table ---- */
+  .tbl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -2px;}
+  table{
+    width:100%;border-collapse:collapse;font-size:.95rem;
+    min-width:560px;
+  }
+  caption{
+    text-align:left;font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;
+    color:var(--accent);padding:0 0 12px;font-weight:600;
+  }
+  thead th{
+    text-align:left;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--ink-soft);font-weight:600;
+    padding:0 14px 10px;
+    border-bottom:1.5px solid var(--ink);
+    vertical-align:bottom;
+  }
+  tbody td{
+    padding:15px 14px;
+    border-bottom:1px solid var(--rule-hair);
+    vertical-align:top;
+  }
+  tbody tr:hover{background:rgba(154,63,40,.035);}
+  .word{
+    font-family:Georgia,serif;font-style:italic;
+    font-size:1.12rem;color:var(--ink);white-space:nowrap;font-weight:600;
+  }
+  .word small{
+    display:block;font-style:normal;font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
+    font-size:.72rem;color:var(--ink-soft);letter-spacing:.04em;margin-top:3px;font-weight:400;
+  }
+  .tag{
+    display:inline-block;font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.72rem;font-weight:600;letter-spacing:.02em;
+    padding:3px 10px;border-radius:3px;white-space:nowrap;line-height:1.5;
+  }
+  .tag.n{background:var(--noun-bg);color:var(--noun);}
+  .tag.a{background:var(--adj-bg);color:var(--adj);}
+  .tag.av{background:var(--adv-bg);color:var(--adv);}
+  .tag + .tag{margin-top:5px;}
+  .ex{font-size:.9rem;color:var(--ink-soft);}
+  .ex .e{font-family:Georgia,serif;font-style:italic;color:var(--ink);display:block;}
+  .ex .j{display:block;margin-top:2px;font-size:.85rem;}
+  .role{font-size:.88rem;color:var(--ink-soft);}
+
+  /* ---- Callout ---- */
+  .note{
+    margin:26px 0 0;padding:20px 24px;
+    background:#fff;border:1px solid var(--rule);
+    border-left:4px solid var(--accent);
+    font-size:.92rem;color:var(--ink-soft);
+  }
+  .note b{color:var(--ink);font-weight:600;}
+  .note .e{font-family:Georgia,serif;font-style:italic;color:var(--ink);}
+
+  /* ---- Quick map ---- */
+  .map h2{border-bottom-color:var(--accent);}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:24px;}
+  .card{
+    padding:20px 22px;background:#fff;border:1px solid var(--rule-hair);
+    border-top:3px solid var(--c,var(--ink));
+  }
+  .card.n{--c:var(--noun);}
+  .card.a{--c:var(--adj);}
+  .card.av{--c:var(--adv);}
+  .card h3{
+    margin:0 0 .6em;font-size:1.05rem;font-weight:600;color:var(--c);
+  }
+  .card p{margin:0 0 .8em;font-size:.86rem;color:var(--ink-soft);}
+  .card ul{margin:0;padding-left:1.1em;font-size:.88rem;}
+  .card li{margin:.25em 0;}
+  .card .w{font-family:Georgia,serif;font-style:italic;color:var(--ink);}
+
+  footer{
+    margin-top:64px;padding-top:24px;border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue",Arial,sans-serif;font-size:.74rem;
+    color:var(--ink-soft);letter-spacing:.04em;
+  }
+  @media(max-width:520px){
+    body{line-height:1.7;}
+    .lede{font-size:.96rem;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">English Grammar · Reference</p>
+    <h1>疑問詞・関係詞が作る「節」一覧
+      <span class="en">What kind of clause does each wh-word build?</span>
+    </h1>
+    <p class="lede">
+      <b>why</b> と同じように、<b>how / what / who / which / where / when / whose / whom / that</b> なども節（カタマリ）を作ります。
+      ただし「どんな節になるか」は語によって幅があり、語によって <b>名詞節・形容詞節・副詞節</b> を使い分けます。
+      下の表は、それぞれの語が作りうる節と典型的な役割を整理したものです。
+    </p>
+
+    <div class="legend">
+      <span><i class="dot n"></i>名詞節 — 主語・目的語・補語になる</span>
+      <span><i class="dot a"></i>形容詞節 — 名詞を後ろから修飾する（関係詞）</span>
+      <span><i class="dot av"></i>副詞節 — 文全体を修飾する</span>
+    </div>
+  </header>
+
+  <!-- ============ 1. wh-words ============ -->
+  <section>
+    <h2><span class="num">01</span>疑問詞由来の語（wh- words）</h2>
+    <p class="sec-note">
+      もともと疑問詞である語のグループ。疑問詞として使えば名詞節（間接疑問）を作り、関係詞として使えば形容詞節を作ります。
+      一部は副詞節も作ります。
+    </p>
+
+    <div class="tbl-scroll">
+    <table>
+      <caption>Interrogatives</caption>
+      <thead>
+        <tr>
+          <th style="width:15%">語</th>
+          <th style="width:22%">作る節</th>
+          <th style="width:30%">役割・意味</th>
+          <th style="width:33%">例文</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="word">why<small>なぜ</small></td>
+          <td>
+            <span class="tag n">名詞節</span>
+            <span class="tag a">形容詞節</span>
+          </td>
+          <td class="role">疑問詞＝「なぜ〜か」／関係副詞＝the reason を修飾</td>
+          <td class="ex">
+            <span class="e">I don't know why he is angry.</span>
+            <span class="j">彼がなぜ怒っているか分からない（名詞節）</span>
+            <span class="e">That is the reason why I was late.</span>
+            <span class="j">それが遅刻した理由だ（形容詞節）</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="word">how<small>どのように</small></td>
+          <td>
+            <span class="tag n">名詞節</span>
+          </td>
+          <td class="role">疑問詞＝「どう〜か／どれほど〜か」／「方法」を表す名詞節も作る（the way how とは言えない）</td>
+          <td class="ex">
+            <span class="e">Tell me how you did it.</span>
+            <span class="j">どうやったか教えて（名詞節）</span>
+            <span class="e">This is how he solved it.</span>
+            <span class="j">こうやって彼は解いた（補語になる名詞節）</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="word">what<small>何・〜なもの/こと</small></td>
+          <td><span class="tag n">名詞節</span></td>
+          <td class="role">疑問詞＝「何が〜か」／関係代名詞＝「〜するもの・こと」（先行詞を含む）</td>
+          <td class="ex">
+            <span class="e">I know what you mean.</span>
+            <span class="j">言いたいことは分かる（名詞節）</span>
+            <span class="e">What he said was true.</span>
+            <span class="j">彼の言ったことは本当だった（主語）</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="word">who<small>誰</small></td>
+          <td>
+            <span class="tag n">名詞節</span>
+            <span class="tag a">形容詞節</span>
+          </td>
+          <td class="role">疑問詞＝「誰が〜か」／関係代名詞＝人を修飾（主格）</td>
+          <td class="ex">
+            <span class="e">I wonder who called.</span>
+            <span class="j">誰が電話したのだろう（名詞節）</span>
+            <span class="e">The man who came is my uncle.</span>
+            <span class="j">来た人は私の叔父だ（形容詞節）</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="word">whom<small>誰を</small></td>
+          <td>
+            <span class="tag a">形容詞節</span>
+          </td>
+          <td class="role">who の目的格。格式的な文で人を後ろから修飾する（関係代名詞・目的格）</td>
+          <td class="ex">
+            <span class="e">the friend whom I trust</span>
+            <span class="j">私が信頼する友人（形容詞節）</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="word">whose<small>誰の</small></td>
+          <td>
+            <span class="tag a">形容詞節</span>
+          </td>
+          <td class="role">所有を表す関係代名詞。人・物の両方を後ろから修飾できる</td>
+          <td class="ex">
+            <span class="e">the boy whose father is a doctor</span>
+            <span class="j">父親が医者である少年（形容詞節）</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="word">which<small>どちら・どれ</small></td>
+          <td>
+            <span class="tag n">名詞節</span>
+            <span class="tag a">形容詞節</span>
+          </td>
+          <td class="role">疑問詞＝「どちらが〜か」／関係代名詞＝物・事を修飾（主格・目的格）</td>
+          <td class="ex">
+            <span class="e">Tell me which you like.</span>
+            <span class="j">どちらが好きか教えて（名詞節）</span>
+            <span class="e">the book which I bought</span>
+            <span class="j">私が買った本（形容詞節）</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="word">where<small>どこ</small></td>
+          <td>
+            <span class="tag n">名詞節</span>
+            <span class="tag a">形容詞節</span>
+            <span class="tag av">副詞節</span>
+          </td>
+          <td class="role">疑問詞＝「どこで〜か」／関係副詞＝場所を表す名詞を修飾／接続詞＝「〜する所に・所で」</td>
+          <td class="ex">
+            <span class="e">I know where he lives.</span>
+            <span class="j">どこに住むか知っている（名詞節）</span>
+            <span class="e">the town where I was born</span>
+            <span class="j">私が生まれた町（形容詞節）</span>
+            <span class="e">Put it where you can see it.</span>
+            <span class="j">見える所に置いて（副詞節）</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="word">when<small>いつ</small></td>
+          <td>
+            <span class="tag n">名詞節</span>
+            <span class="tag a">形容詞節</span>
+            <span class="tag av">副詞節</span>
+          </td>
+          <td class="role">疑問詞＝「いつ〜か」／関係副詞＝時を修飾／接続詞＝「〜するとき」</td>
+          <td class="ex">
+            <span class="e">I forget when it started.</span>
+            <span class="j">いつ始まったか忘れた（名詞節）</span>
+            <span class="e">the day when we met</span>
+            <span class="j">私たちが出会った日（形容詞節）</span>
+            <span class="e">When it rains, I stay home.</span>
+            <span class="j">雨が降るとき家にいる（副詞節）</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="note">
+      <b>ポイント：</b> 関係副詞は <span class="e">where / when / why</span> の3語です。形容詞節を作るときは
+      <span class="e">the place / the time / the reason</span> という先行詞を修飾し、会話では先行詞か関係副詞のどちらかを省くのが普通です（特に <span class="e">why</span> の先行詞はほぼ <span class="e">the reason</span> に限られます）。<br>
+      <span class="e">how</span> は関係副詞には含めず、<span class="e">the way how</span> とは言えません。「方法」を後ろから説明したいときは
+      <span class="e">the way that … ／ the way in which …</span> を使い、<span class="e">how</span> 自体は名詞節（＝「どう〜か・〜する方法」）を作ります。
+    </div>
+  </section>
+
+  <!-- ============ 2. -ever ============ -->
+  <section>
+    <h2><span class="num">02</span>複合関係詞（-ever 形）</h2>
+    <p class="sec-note">
+      wh- 語に <b>-ever</b> が付いた形。「〜するものは何でも」の意味で名詞節を作るか、「たとえ〜でも」の意味で副詞節（譲歩）を作ります。
+    </p>
+
+    <div class="tbl-scroll">
+    <table>
+      <caption>Compound relatives</caption>
+      <thead>
+        <tr>
+          <th style="width:18%">語</th>
+          <th style="width:22%">作る節</th>
+          <th style="width:60%">意味・例文</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="word">whatever</td>
+          <td><span class="tag n">名詞節</span><span class="tag av">副詞節</span></td>
+          <td class="ex">
+            <span class="e">Take whatever you want.</span>
+            <span class="j">欲しいものは何でも取って（名詞節）</span>
+            <span class="e">Whatever happens, I'll stay.</span>
+            <span class="j">何が起ころうと残る（譲歩・副詞節）</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="word">whoever</td>
+          <td><span class="tag n">名詞節</span><span class="tag av">副詞節</span></td>
+          <td class="ex">
+            <span class="e">Whoever comes is welcome.</span>
+            <span class="j">来る人は誰でも歓迎（名詞節）</span>
+            <span class="e">Whoever you ask, the answer is no.</span>
+            <span class="j">誰に聞いても答えはノーだ（譲歩・副詞節）</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="word">whichever</td>
+          <td><span class="tag n">名詞節</span><span class="tag av">副詞節</span></td>
+          <td class="ex">
+            <span class="e">Choose whichever you like.</span>
+            <span class="j">どちらでも好きな方を選んで（名詞節）</span>
+            <span class="e">Whichever you choose, it's fine.</span>
+            <span class="j">どちらを選んでも構わない（譲歩・副詞節）</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="word">whenever</td>
+          <td><span class="tag av">副詞節</span></td>
+          <td class="ex">
+            <span class="e">Come whenever you like.</span>
+            <span class="j">いつでも好きなときに来て（時・副詞節）</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="word">wherever</td>
+          <td><span class="tag av">副詞節</span></td>
+          <td class="ex">
+            <span class="e">Sit wherever you like.</span>
+            <span class="j">どこでも好きな所に座って（場所・副詞節）</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="word">however</td>
+          <td><span class="tag av">副詞節</span></td>
+          <td class="ex">
+            <span class="e">However hard it is, try.</span>
+            <span class="j">どんなに難しくても挑戦して（譲歩・副詞節）</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <!-- ============ 3. that ============ -->
+  <section>
+    <h2><span class="num">03</span>that（特別枠）</h2>
+    <p class="sec-note">
+      <b>that</b> は wh- 語ではありませんが、節を作る代表格です。働きによって名詞節にも形容詞節にもなります。
+    </p>
+
+    <div class="tbl-scroll">
+    <table>
+      <caption>The word "that"</caption>
+      <thead>
+        <tr>
+          <th style="width:24%">用法</th>
+          <th style="width:20%">作る節</th>
+          <th style="width:56%">意味・例文</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="role">接続詞の that</td>
+          <td><span class="tag n">名詞節</span></td>
+          <td class="ex">
+            <span class="e">I think that he is right.</span>
+            <span class="j">彼が正しいと思う（「〜ということ」）</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="role">関係代名詞の that</td>
+          <td><span class="tag a">形容詞節</span></td>
+          <td class="ex">
+            <span class="e">the book that I read</span>
+            <span class="j">私が読んだ本（名詞を修飾）</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <!-- ============ Quick map ============ -->
+  <section class="map">
+    <h2>ひとことマップ</h2>
+    <div class="cards">
+      <div class="card n">
+        <h3>名詞節を作る</h3>
+        <p>主語・目的語・補語になるカタマリ。「間接疑問」や「〜ということ」。</p>
+        <ul>
+          <li><span class="w">what</span>（＝もの・こと）</li>
+          <li><span class="w">whether / if</span>（〜かどうか）</li>
+          <li><span class="w">that</span>（〜ということ）</li>
+          <li>疑問詞の間接疑問（why / how / who / which / where / when など）</li>
+        </ul>
+      </div>
+      <div class="card a">
+        <h3>形容詞節を作る</h3>
+        <p>名詞を後ろから修飾。関係代名詞・関係副詞。</p>
+        <ul>
+          <li><span class="w">who / which / that</span>（関係代名詞）</li>
+          <li><span class="w">whose / whom</span></li>
+          <li><span class="w">where / when / why</span>（関係副詞）</li>
+        </ul>
+      </div>
+      <div class="card av">
+        <h3>副詞節を作る</h3>
+        <p>文全体を修飾。時・場所・譲歩など。</p>
+        <ul>
+          <li><span class="w">when / where</span>（時・場所）</li>
+          <li><span class="w">whenever / wherever</span></li>
+          <li><span class="w">whatever / however</span>（譲歩）</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    English Grammar Reference — wh-clauses ／ 名詞節・形容詞節・副詞節の早見表
+  </footer>
+
+</div>
+</body>
+</html>
