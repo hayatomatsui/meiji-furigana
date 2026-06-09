@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>the same … that ／ such … that 比較</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+    background: #f4f5f7;
+    color: #2b2b2b;
+    line-height: 1.7;
+    padding: 32px 16px;
+  }
+  .container { max-width: 880px; margin: 0 auto; }
+
+  header {
+    background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+    color: #fff;
+    border-radius: 16px;
+    padding: 26px 30px;
+    box-shadow: 0 6px 20px rgba(44,62,80,0.25);
+    margin-bottom: 22px;
+  }
+  header h1 { font-size: 25px; font-weight: 800; letter-spacing: .5px; }
+  header p { margin-top: 8px; font-size: 14.5px; opacity: .9; }
+  header code { background: rgba(255,255,255,.15); padding: 1px 7px; border-radius: 5px; font-size: 14px; }
+
+  .lead {
+    background: #fff;
+    border-left: 5px solid #e67e22;
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 15px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .lead b { color: #c0392b; }
+
+  .cols { display: flex; gap: 18px; flex-wrap: wrap; }
+  .col { flex: 1 1 380px; }
+
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 22px 22px 24px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+    height: 100%;
+    border-top: 5px solid;
+  }
+  .col.same .card { border-color: #27ae60; }
+  .col.such .card { border-color: #2980b9; }
+
+  .badge {
+    display: inline-block;
+    color: #fff;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: 10px;
+  }
+  .col.same .badge { background: #27ae60; }
+  .col.such .badge { background: #2980b9; }
+
+  .form { font-size: 21px; font-weight: 800; margin-bottom: 4px; }
+  .col.same .form b { color: #27ae60; }
+  .col.such .form b { color: #2980b9; }
+  .mean { font-size: 15px; color: #555; margin-bottom: 16px; }
+
+  .row { display: flex; margin-bottom: 9px; font-size: 14px; }
+  .row .k {
+    flex: none; width: 88px; font-weight: 700; color: #888; font-size: 13px;
+  }
+  .row .v { flex: 1; }
+  .v .tag { color:#c0392b; font-weight:700; }
+
+  .ex {
+    background: #f7f9fa;
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-top: 16px;
+  }
+  .ex .en { font-size: 15.5px; }
+  .ex .en b { color: #c0392b; }
+  .ex .en u { text-decoration-color: #aaa; text-underline-offset: 3px; }
+  .ex .jp { font-size: 13.5px; color: #666; margin-top: 3px; }
+
+  .conclusion {
+    margin-top: 24px;
+    background: #2c3e50;
+    color: #fff;
+    border-radius: 14px;
+    padding: 22px 26px;
+  }
+  .conclusion h2 { font-size: 17px; margin-bottom: 10px; }
+  .conclusion ul { list-style: none; }
+  .conclusion li { padding: 5px 0; font-size: 15px; }
+  .conclusion li::before { content: "▸ "; color: #f1c40f; font-weight: 800; }
+  .conclusion .g { color: #2ecc71; font-weight: 700; }
+  .conclusion .b { color: #5dade2; font-weight: 700; }
+
+  footer { text-align:center; color:#999; font-size:12px; margin-top:22px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <h1>そっくりだけど別物 ── <code>the same … that</code> と <code>such … that</code></h1>
+    <p>どちらも「形容詞っぽい語 + that」で見た目が似ていますが、that の正体がまったく違います。</p>
+  </header>
+
+  <div class="lead">
+    結論を先に言うと、<b>the same … that</b> の that は<b>関係代名詞</b>（名詞を修飾）、<b>such … that</b> の that は<b>結果を表す接続詞</b>（節をつなぐ）。<br>
+    「同一だと言う」のか「程度・結果を言う」のかで、意味の方向が違います。
+  </div>
+
+  <div class="cols">
+
+    <!-- same -->
+    <div class="col same">
+      <div class="card">
+        <div class="badge">同一を表す</div>
+        <div class="form">the same A <b>that</b> B</div>
+        <div class="mean">「B するのと<strong>同じ</strong> A」</div>
+
+        <div class="row"><div class="k">that の正体</div><div class="v"><span class="tag">関係代名詞</span>（A を後ろから修飾）</div></div>
+        <div class="row"><div class="k">that の働き</div><div class="v">直前の名詞 A を説明する形容詞節をつくる</div></div>
+        <div class="row"><div class="k">意味の核</div><div class="v">A と B が「同じものだ」と述べる</div></div>
+        <div class="row"><div class="k">仲間</div><div class="v">the same A <strong>as</strong> B も同じ用法</div></div>
+
+        <div class="ex">
+          <div class="en">This is <b>the same</b> bag <b>that</b> <u>I lost yesterday</u>.</div>
+          <div class="jp">これは昨日なくしたのと同じカバンだ。</div>
+        </div>
+        <div class="ex">
+          <div class="en">She goes to <b>the same</b> school <b>that</b> <u>I go to</u>.</div>
+          <div class="jp">彼女は私が通っているのと同じ学校に通っている。</div>
+        </div>
+        <div class="ex">
+          <div class="en">One source is <b>the same</b> fertilizers <b>that</b> <u>pollute the ground</u>.</div>
+          <div class="jp">源の一つは、地面を汚染するのと同じ肥料だ。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- such -->
+    <div class="col such">
+      <div class="card">
+        <div class="badge">程度・結果を表す</div>
+        <div class="form">such (a) A <b>that</b> B</div>
+        <div class="mean">「<strong>とても</strong> A <strong>なので</strong> B」</div>
+
+        <div class="row"><div class="k">that の正体</div><div class="v"><span class="tag">接続詞</span>（結果の副詞節を導く）</div></div>
+        <div class="row"><div class="k">that の働き</div><div class="v">「その結果〜」という別の節をつなぐ</div></div>
+        <div class="row"><div class="k">意味の核</div><div class="v">程度が高く、その<strong>結果</strong>どうなったかを述べる</div></div>
+        <div class="row"><div class="k">仲間</div><div class="v">so + 形容詞 + that B も同じ意味</div></div>
+
+        <div class="ex">
+          <div class="en">It was <b>such</b> a heavy bag <b>that</b> <u>I couldn't carry it</u>.</div>
+          <div class="jp">とても重いカバンだったので、運べなかった。</div>
+        </div>
+        <div class="ex">
+          <div class="en">He spoke <b>so</b> fast <b>that</b> <u>no one understood him</u>.</div>
+          <div class="jp">彼はとても速く話したので、誰も理解できなかった。</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="conclusion">
+    <h2>見分け方のコツ</h2>
+    <ul>
+      <li><span class="g">the same … that</span> → that を消して「同じA」と訳せる。that 節は A の<strong>中身説明</strong>。</li>
+      <li><span class="b">such … that</span> → 「とても…なので」と<strong>結果</strong>でつながる。that の後ろは独立した文になっている。</li>
+      <li>迷ったら<strong>that 節を取り除いてみる</strong>。名詞が説明不足になる→ same（関係代名詞）／文として成立する→ such（結果）。</li>
+    </ul>
+  </div>
+
+  <footer>the same … that／as ＝ 同一　｜　such … that ＝ 程度・結果</footer>
+
+</div>
+</body>
+</html>
