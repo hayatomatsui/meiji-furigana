@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>多義語 concern まとめ</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+    background: #f4f5f7;
+    color: #2b2b2b;
+    line-height: 1.7;
+    padding: 32px 16px;
+  }
+  .container { max-width: 780px; margin: 0 auto; }
+
+  header {
+    background: linear-gradient(135deg, #1f6f78 0%, #2aa198 100%);
+    color: #fff;
+    border-radius: 16px;
+    padding: 28px 32px;
+    box-shadow: 0 6px 20px rgba(31,111,120,0.25);
+  }
+  header .tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    font-size: 13px;
+    padding: 3px 12px;
+    border-radius: 999px;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  header h1 { font-size: 34px; font-weight: 800; letter-spacing: 1px; }
+  header h1 span { font-style: italic; }
+  .core {
+    margin-top: 14px;
+    background: rgba(0,0,0,0.18);
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-size: 16px;
+  }
+  .core b { font-size: 19px; }
+
+  .eiken-note {
+    margin: 22px 0;
+    background: #fff;
+    border-left: 5px solid #e67e22;
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 14.5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .eiken-note strong { color: #1f6f78; }
+
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+    border-top: 4px solid #2aa198;
+  }
+  .card-head { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+  .num {
+    flex: none;
+    width: 34px; height: 34px;
+    background: #2aa198;
+    color: #fff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 16px;
+  }
+  .meaning { font-size: 19px; font-weight: 700; }
+  .eq {
+    font-size: 13px;
+    color: #fff;
+    background: #7f8c8d;
+    border-radius: 5px;
+    padding: 2px 9px;
+    margin-left: auto;
+    white-space: nowrap;
+    font-family: "Courier New", monospace;
+  }
+  .freq {
+    font-size: 11px;
+    background: #e74c3c;
+    color: #fff;
+    border-radius: 5px;
+    padding: 2px 8px;
+    margin-left: 8px;
+    white-space: nowrap;
+  }
+
+  .gloss { font-size: 13.5px; color: #777; margin: 2px 0 12px 46px; }
+  .idiom {
+    margin: 4px 0 12px 46px;
+    font-size: 13.5px;
+    background: #eef7f6;
+    color: #1f6f78;
+    border-radius: 6px;
+    padding: 6px 12px;
+    display: inline-block;
+  }
+  .idiom b { font-family: "Courier New", monospace; }
+  .examples { margin-left: 46px; }
+  .caution {
+    margin: 12px 0 2px 46px;
+    background: #fff7ed;
+    border: 1px solid #f0c894;
+    border-radius: 8px;
+    padding: 11px 14px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #7a4a12;
+  }
+  .caution strong { color: #c0392b; }
+  .caution code { background:#fdeccf; padding:1px 6px; border-radius:4px; font-family:"Courier New",monospace; }
+  .ex { margin-bottom: 8px; }
+  .ex .en { font-size: 15.5px; }
+  .ex .en b { color: #c0392b; }
+  .ex .jp { font-size: 13.5px; color: #555; }
+
+  .map {
+    margin-top: 8px;
+    background: #2c3e50;
+    color: #ecf0f1;
+    border-radius: 14px;
+    padding: 24px 26px;
+  }
+  .map h2 { font-size: 16px; margin-bottom: 14px; color:#fff; }
+  .map pre {
+    font-family: "Courier New", monospace;
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: #7fdbca;
+    white-space: pre;
+    overflow-x: auto;
+  }
+
+  .summary {
+    margin-top: 16px;
+    background: #fff;
+    border-radius: 14px;
+    padding: 20px 24px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+    border-top: 4px solid #e74c3c;
+  }
+  .summary h2 { font-size: 16px; margin-bottom: 10px; color:#c0392b; }
+  .summary ol { margin-left: 20px; }
+  .summary li { padding: 4px 0; font-size: 14.5px; }
+  .summary li code { background:#f4f5f7; padding:1px 6px; border-radius:4px; font-size:13.5px; }
+  .summary .tail { margin-top: 12px; font-size: 14px; color:#444; }
+  .summary .tail b { color:#1f6f78; }
+
+  /* comparison section */
+  .compare { margin: 26px 0 16px; }
+  .compare > h2 {
+    font-size: 19px; font-weight: 800; color:#1f6f78; margin-bottom: 6px;
+  }
+  .compare > .sub { font-size: 14px; color:#666; margin-bottom: 16px; }
+  .compare .lead {
+    background:#fff; border-left:5px solid #e67e22; border-radius:8px;
+    padding:14px 18px; font-size:14.5px; margin-bottom:18px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.05);
+  }
+  .compare .lead b { color:#c0392b; }
+  .cols { display:flex; gap:18px; flex-wrap:wrap; }
+  .col { flex:1 1 330px; }
+  .col .card2 {
+    background:#fff; border-radius:14px; padding:20px 22px 22px;
+    box-shadow:0 3px 12px rgba(0,0,0,0.07); height:100%; border-top:5px solid;
+  }
+  .col.a .card2 { border-color:#9b59b6; }
+  .col.b .card2 { border-color:#e67e22; }
+  .col .badge {
+    display:inline-block; color:#fff; font-weight:700; font-size:13px;
+    padding:4px 12px; border-radius:999px; margin-bottom:10px;
+  }
+  .col.a .badge { background:#9b59b6; }
+  .col.b .badge { background:#e67e22; }
+  .col .form { font-size:18px; font-weight:800; margin-bottom:4px; font-family:"Courier New",monospace; }
+  .col.a .form { color:#9b59b6; }
+  .col.b .form { color:#e67e22; }
+  .col .mean { font-size:14.5px; color:#555; margin-bottom:14px; }
+  .col .row { display:flex; margin-bottom:8px; font-size:13.5px; }
+  .col .row .k { flex:none; width:74px; font-weight:700; color:#888; font-size:12.5px; }
+  .col .row .v { flex:1; }
+  .col .ex2 { background:#f7f9fa; border-radius:8px; padding:11px 13px; margin-top:14px; }
+  .col .ex2 .en { font-size:15px; }
+  .col .ex2 .en b { color:#c0392b; }
+  .col .ex2 .en u { text-decoration-color:#aaa; text-underline-offset:3px; }
+  .col .ex2 .jp { font-size:13px; color:#666; margin-top:3px; }
+  .voice {
+    margin-top:18px; background:#2c3e50; color:#ecf0f1;
+    border-radius:14px; padding:20px 24px;
+  }
+  .voice h3 { font-size:15px; color:#fff; margin-bottom:12px; }
+  .voice .pair { font-size:15px; margin-bottom:10px; }
+  .voice .pair .lbl { display:inline-block; width:74px; color:#f1c40f; font-weight:700; font-size:13px; }
+  .voice .pair b { color:#7fdbca; }
+  .voice .note { font-size:13px; color:#bdc3c7; margin-top:8px; }
+
+  footer { text-align: center; color: #999; font-size: 12px; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="tag">多義語 ／ 英検準1〜1級頻出</div>
+    <h1><span>concern</span></h1>
+    <div class="core">中心イメージ：<b>何かに心が向く（関心が向く）</b></div>
+  </header>
+
+  <div class="eiken-note">
+    💡 中心の「心が向く」から、<strong>心配・関心・関係する</strong>などの意味が派生します。一つのイメージでつなげると整理しやすくなります。
+  </div>
+
+  <!-- 1 -->
+  <div class="card">
+    <div class="card-head">
+      <div class="num">1</div>
+      <div class="meaning">心配・懸念（名詞）</div>
+      <div class="freq">最頻出</div>
+      <div class="eq">= worry</div>
+    </div>
+    <div class="idiom">熟語：<b>concern about ～</b>（～についての懸念）</div>
+    <div class="examples">
+      <div class="ex">
+        <div class="en">Climate change is a major <b>concern</b>.</div>
+        <div class="jp">気候変動は大きな懸念事項である。</div>
+      </div>
+      <div class="ex">
+        <div class="en">Parents expressed <b>concerns</b> about online safety.</div>
+        <div class="jp">親たちはネットの安全性について懸念を表明した。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="card">
+    <div class="card-head">
+      <div class="num">2</div>
+      <div class="meaning">関心・興味（名詞）</div>
+      <div class="eq">= interest</div>
+    </div>
+    <div class="gloss">「心が向く」→「関心を持つ」</div>
+    <div class="examples">
+      <div class="ex">
+        <div class="en">Her main <b>concern</b> is education.</div>
+        <div class="jp">彼女の主な関心事は教育である。</div>
+      </div>
+      <div class="ex">
+        <div class="en">Environmental issues are of great <b>concern</b> to many people.</div>
+        <div class="jp">環境問題は多くの人にとって大きな関心事である。<span style="color:#999;">（＝大きな懸念事項である）</span></div>
+      </div>
+    </div>
+    <div class="caution">
+      ⚠️ <strong>of concern は「懸念」寄り。</strong>名詞 concern は「関心」と「心配」の中間語で、
+      <code>be of concern (to ～)</code> は「気がかりで放っておけない＝憂慮すべき」という①寄りの意味。
+      上の例も「環境問題は多くの人が大いに<strong>憂慮している</strong>問題だ」と訳せる。
+      純粋な「興味がある（interesting）」とは別物で、<strong>気がかりだから心が向く</strong>関心。
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="card">
+    <div class="card-head">
+      <div class="num">3</div>
+      <div class="meaning">～に関係する（動詞）</div>
+      <div class="eq">= relate to</div>
+    </div>
+    <div class="examples">
+      <div class="ex">
+        <div class="en">This issue <b>concerns</b> everyone.</div>
+        <div class="jp">この問題はすべての人に関係する。</div>
+      </div>
+      <div class="ex">
+        <div class="en">The book <b>concerns</b> Japanese history.</div>
+        <div class="jp">その本は日本史に関するものだ。</div>
+      </div>
+      <div class="ex">
+        <div class="en">The report <b>concerns</b> the future of energy.</div>
+        <div class="jp">その報告書はエネルギーの将来について述べている。<span style="color:#999;">（英検長文頻出）</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="card">
+    <div class="card-head">
+      <div class="num">4</div>
+      <div class="meaning">～を心配させる（動詞）</div>
+      <div class="eq">concern + 人</div>
+    </div>
+    <div class="examples">
+      <div class="ex">
+        <div class="en">The news <b>concerned</b> me.</div>
+        <div class="jp">その知らせは私を心配させた。</div>
+      </div>
+      <div class="ex">
+        <div class="en">His health condition <b>concerns</b> his family.</div>
+        <div class="jp">彼の健康状態は家族を心配させている。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="card">
+    <div class="card-head">
+      <div class="num">5</div>
+      <div class="meaning">企業・会社（名詞）</div>
+      <div class="freq">やや難・1級</div>
+      <div class="eq">business concern</div>
+    </div>
+    <div class="examples">
+      <div class="ex">
+        <div class="en">He owns several business <b>concerns</b>.</div>
+        <div class="jp">彼はいくつかの企業を所有している。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6 -->
+  <div class="card">
+    <div class="card-head">
+      <div class="num">6</div>
+      <div class="meaning">～に携わる・関心を持つ</div>
+      <div class="eq">concern oneself with ～</div>
+    </div>
+    <div class="examples">
+      <div class="ex">
+        <div class="en">She <b>concerns herself with</b> environmental problems.</div>
+        <div class="jp">彼女は環境問題に取り組んでいる。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7 -->
+  <div class="card">
+    <div class="card-head">
+      <div class="num">7</div>
+      <div class="meaning">～に関して（前置詞）</div>
+      <div class="eq">concerning = about</div>
+    </div>
+    <div class="examples">
+      <div class="ex">
+        <div class="en">We discussed issues <b>concerning</b> education.</div>
+        <div class="jp">教育に関する問題を議論した。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- comparison: concern about vs transitive concern -->
+  <div class="compare">
+    <h2>🔍 「concern about」と「他動詞 concern」の違い</h2>
+    <div class="sub">よくある誤解の整理</div>
+
+    <div class="lead">
+      大前提：動詞の concern は<b>他動詞だけ</b>。<code>I concern about ～</code> という<b>自動詞の用法は存在しません</b>。
+      "concern about" の正体は、下の2つ（名詞 ／ 受動）のどちらかです。
+    </div>
+
+    <div class="cols">
+
+      <!-- left: about型 -->
+      <div class="col a">
+        <div class="card2">
+          <div class="badge">about が続く形</div>
+          <div class="form">concern about ～</div>
+          <div class="mean">「～についての懸念」「～を心配している」</div>
+
+          <div class="row"><div class="k">concernの品詞</div><div class="v"><strong>名詞</strong>、または <strong>be concerned</strong>（受動・形容詞的）</div></div>
+          <div class="row"><div class="k">aboutの正体</div><div class="v">前置詞</div></div>
+          <div class="row"><div class="k">主語</div><div class="v"><strong>心配する側</strong>（人）</div></div>
+          <div class="row"><div class="k">自動詞?</div><div class="v">いいえ。自動詞 concern は無い</div></div>
+
+          <div class="ex2">
+            <div class="en">concerns <b>about</b> <u>online safety</u></div>
+            <div class="jp">ネットの安全性についての懸念（名詞 + about）</div>
+          </div>
+          <div class="ex2">
+            <div class="en">I am <b>concerned about</b> <u>the news</u>.</div>
+            <div class="jp">私はその知らせを心配している（受動）</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- right: 他動詞 -->
+      <div class="col b">
+        <div class="card2">
+          <div class="badge">いきなり目的語</div>
+          <div class="form">concern + 目的語</div>
+          <div class="mean">「～に関係する」「～を心配させる」</div>
+
+          <div class="row"><div class="k">concernの品詞</div><div class="v"><strong>他動詞</strong>（能動）</div></div>
+          <div class="row"><div class="k">aboutの正体</div><div class="v">なし。直後に人・物が来る</div></div>
+          <div class="row"><div class="k">主語</div><div class="v"><strong>心配させる側</strong>（物・事）</div></div>
+          <div class="row"><div class="k">自動詞?</div><div class="v">いいえ。常に目的語が必要</div></div>
+
+          <div class="ex2">
+            <div class="en">This issue <b>concerns</b> <u>everyone</u>.</div>
+            <div class="jp">この問題は全員に関係する</div>
+          </div>
+          <div class="ex2">
+            <div class="en">The news <b>concerned</b> <u>me</u>.</div>
+            <div class="jp">その知らせは私を心配させた（能動）</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 能動・受動の裏表 -->
+    <div class="voice">
+      <h3>⚖️ 他動詞 concern と be concerned about は「能動・受動の裏表」</h3>
+      <div class="pair"><span class="lbl">能動</span>The news <b>concerns</b> me.（その知らせが私を<strong>心配させる</strong>）</div>
+      <div class="pair"><span class="lbl">受動</span>I <b>am concerned about</b> the news.（私はその知らせを<strong>心配している</strong>）</div>
+      <div class="note">「心配させる側」を主語にすれば他動詞 concern + 人、「心配する人」を主語にすれば be concerned about。中身は同じ。</div>
+    </div>
+
+    <!-- 見分け方 -->
+    <div class="lead" style="margin-top:18px;border-color:#27ae60;">
+      <b style="color:#27ae60;">見分け方</b>　concern のあとに <strong>about</strong> → 名詞 or 受動（be concerned about）。
+      concern のあとに <strong>いきなり目的語</strong> → 他動詞（～に関係する／～を心配させる）。
+    </div>
+  </div>
+
+  <!-- map -->
+  <div class="map">
+    <h2>🧭 イメージマップ</h2>
+<pre>            concern
+                ↓
+         心が向くこと
+                ↓
+    ┌───────┼───────┐
+    ↓               ↓
+ 心配する         関心を持つ
+ (worry)         (interest)
+    ↓               ↓
+ 懸念事項          関係する
+ (concern)       (relate to)</pre>
+  </div>
+
+  <!-- summary -->
+  <div class="summary">
+    <h2>✅ 英検で特によく出る4つ</h2>
+    <ol>
+      <li><code>concern</code>（懸念）</li>
+      <li><code>be concerned about ～</code>（～を心配する）</li>
+      <li><code>concern</code>（～に関係する）</li>
+      <li><code>concerning ～</code>（～に関して）</li>
+    </ol>
+    <div class="tail"><b>「心が向く」</b>という中心イメージを持っておくと、さまざまな意味が一つにつながって理解しやすくなります。</div>
+  </div>
+
+  <footer>concern 多義語まとめ — 中心イメージ「心が向く」</footer>
+
+</div>
+</body>
+</html>
