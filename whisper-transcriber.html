@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>ローカル文字起こし（Whisper）</title>
+<style>
+body{font-family:"Hiragino Sans",sans-serif;max-width:760px;margin:30px auto;padding:0 16px;color:#222}
+h1{font-size:18px}
+#status{padding:10px 14px;background:#eef;border-radius:8px;font-size:14px;margin:12px 0}
+pre{white-space:pre-wrap;background:#f7f6f1;padding:14px;border-radius:8px;font-size:13.5px;line-height:1.6}
+select,input{font-size:14px;margin:4px 0}
+</style>
+</head>
+<body>
+<h1>ローカル文字起こし（ブラウザ内Whisper・外部送信なし）</h1>
+<p>モデル:
+<select id="model">
+<option value="Xenova/whisper-small.en" selected>small.en（高精度・推奨）</option>
+<option value="Xenova/whisper-base.en">base.en（速い）</option>
+<option value="Xenova/whisper-tiny.en">tiny.en（最速）</option>
+</select>
+</p>
+<p><input type="file" id="file" accept="audio/*,video/*"></p>
+<div id="status">音声/動画ファイルを選択してください。初回はモデルのダウンロードに少し時間がかかります。</div>
+<pre id="out"></pre>
+<script type="module">
+import { pipeline, env } from 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.7.0';
+const $=id=>document.getElementById(id);
+const setS=t=>{$('status').textContent=t};
+let busy=false;
+$('file').onchange=async e=>{
+  if(busy)return; busy=true;
+  try{
+    const f=e.target.files[0];
+    if(!f){busy=false;return}
+    setS('音声をデコード中…');
+    const buf=await f.arrayBuffer();
+    const ctx=new AudioContext({sampleRate:16000});
+    const audio=await ctx.decodeAudioData(buf);
+    let data=audio.getChannelData(0);
+    setS('モデルを準備中…（初回はダウンロードがあります）');
+    const model=$('model').value;
+    const prog=p=>{
+      if(p.status==='progress'&&p.file&&p.file.endsWith('.onnx')){
+        setS('モデルDL中: '+p.file.split('/').pop()+' '+Math.round(p.progress||0)+'%');
+      }
+    };
+    let asr;
+    try{
+      asr=await pipeline('automatic-speech-recognition',model,{device:'webgpu',dtype:'fp16',progress_callback:prog});
+    }catch(err){
+      setS('WebGPU不可のためCPU(wasm)で実行します…');
+      asr=await pipeline('automatic-speech-recognition',model,{device:'wasm',dtype:'q8',progress_callback:prog});
+    }
+    setS('文字起こし中…（2分音声で数十秒〜数分）');
+    const t0=Date.now();
+    const res=await asr(data,{chunk_length_s:30,stride_length_s:5,return_timestamps:true});
+    const secs=Math.round((Date.now()-t0)/1000);
+    let out='=== TRANSCRIPT START ===\n';
+    if(res.chunks){
+      for(const c of res.chunks){
+        const [a,b]=c.timestamp;
+        out+='['+(a==null?'?':a.toFixed(1))+'-'+(b==null?'?':b.toFixed(1))+'] '+c.text.trim()+'\n';
+      }
+    }
+    out+='--- full ---\n'+res.text.trim()+'\n=== TRANSCRIPT END ===';
+    $('out').textContent=out;
+    setS('完了（'+secs+'秒）。下に全文があります。');
+  }catch(err){
+    setS('エラー: '+err.message);
+    $('out').textContent='ERROR: '+err.stack;
+  }
+  busy=false;
+};
+</script>
+</body>
+</html>
