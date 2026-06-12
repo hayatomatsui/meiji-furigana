@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>漢字マスター｜挨拶――原爆の写真によせて</title>
+<style>
+  :root{
+    --bg:#f6f4ee; --card:#ffffff; --ink:#2b2b2b; --sub:#6b6b6b;
+    --primary:#2f6f6a; --primary-dark:#235550; --accent:#e8a33d;
+    --ok:#2e9e5b; --ng:#d9534f; --line:#e3ded2;
+    --chip-poem:#dcebe9; --chip-q:#f3e6cf;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic",Meiryo,sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:560px; margin:0 auto; padding:16px 16px 48px;}
+  header{
+    background:var(--primary); color:#fff; padding:14px 16px;
+    position:sticky; top:0; z-index:10; box-shadow:0 2px 6px rgba(0,0,0,.12);
+  }
+  .head-inner{max-width:560px; margin:0 auto; display:flex; align-items:center; gap:10px;}
+  .head-title{flex:1; min-width:0;}
+  .head-title h1{margin:0; font-size:18px; letter-spacing:.05em;}
+  .head-title p{margin:2px 0 0; font-size:11px; opacity:.85; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .btn-home{
+    background:rgba(255,255,255,.18); border:1px solid rgba(255,255,255,.5);
+    color:#fff; border-radius:10px; padding:8px 14px; font-size:14px; cursor:pointer;
+  }
+  .btn-home:active{background:rgba(255,255,255,.32);}
+
+  .btn{
+    display:block; width:100%; border:none; cursor:pointer;
+    border-radius:14px; padding:15px 18px; font-size:17px; font-weight:bold;
+    font-family:inherit; transition:transform .05s;
+  }
+  .btn:active{transform:scale(.985);}
+  .btn-primary{background:var(--primary); color:#fff;}
+  .btn-outline{background:#fff; color:var(--primary); border:2px solid var(--primary);}
+  .btn-ghost{background:transparent; color:var(--sub); font-weight:normal; font-size:13px; text-decoration:underline;}
+
+  /* ---- home ---- */
+  .panel{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:18px; margin-bottom:14px; box-shadow:0 1px 3px rgba(0,0,0,.05);}
+  .progress-label{display:flex; justify-content:space-between; font-size:13px; color:var(--sub); margin-bottom:6px;}
+  .bar{height:14px; background:#ece8db; border-radius:7px; overflow:hidden;}
+  .bar > div{height:100%; background:linear-gradient(90deg,var(--primary),#4da59e); border-radius:7px; transition:width .4s;}
+  .menu{display:grid; gap:12px; margin-top:16px;}
+  .menu-btn{
+    display:flex; align-items:center; gap:14px; text-align:left;
+    background:var(--card); border:1px solid var(--line); border-radius:16px;
+    padding:16px; cursor:pointer; font-family:inherit; width:100%;
+    box-shadow:0 1px 3px rgba(0,0,0,.05);
+  }
+  .menu-btn:active{background:#f1eee6;}
+  .menu-icon{font-size:28px; width:44px; height:44px; display:flex; align-items:center; justify-content:center; background:var(--bg); border-radius:12px; flex-shrink:0;}
+  .menu-text b{font-size:16px;}
+  .menu-text small{display:block; color:var(--sub); font-size:12px; margin-top:1px;}
+  .badge{margin-left:auto; background:var(--ng); color:#fff; font-size:12px; font-weight:bold; border-radius:999px; padding:2px 10px; flex-shrink:0;}
+  .badge.zero{background:#c9c4b6;}
+
+  /* ---- card mode ---- */
+  .meta-row{display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; font-size:13px; color:var(--sub);}
+  .chip{font-size:11px; border-radius:999px; padding:2px 10px; font-weight:bold;}
+  .chip.poem{background:var(--chip-poem); color:var(--primary-dark);}
+  .chip.q{background:var(--chip-q); color:#8a6210;}
+  .study-card{
+    background:var(--card); border:1px solid var(--line); border-radius:20px;
+    padding:26px 20px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,.07);
+    min-height:330px; display:flex; flex-direction:column; justify-content:center; cursor:pointer;
+  }
+  .word-big{
+    font-family:"Hiragino Mincho ProN","Yu Mincho","MS Mincho",serif;
+    font-size:52px; font-weight:bold; letter-spacing:.06em; line-height:1.3; margin:6px 0;
+  }
+  .reading-big{font-size:24px; color:var(--primary); font-weight:bold; margin:2px 0 10px;}
+  .tap-hint{color:var(--sub); font-size:13px; margin-top:18px;}
+  .meaning-box{text-align:left; background:#f4f8f7; border-radius:12px; padding:12px 14px; margin:10px 0; font-size:15px;}
+  .ex-box{text-align:left; font-size:14px; margin-top:6px; padding:0 2px;}
+  .ex-box .src{color:var(--sub); font-size:11px;}
+  .hl{background:linear-gradient(transparent 55%, #b9e6a5 55%); font-weight:bold; padding:0 1px;}
+  .card-actions{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px;}
+  .btn-ok{background:var(--ok); color:#fff;}
+  .btn-later{background:#fff; color:var(--ng); border:2px solid var(--ng);}
+  .nav-row{display:flex; justify-content:space-between; align-items:center; margin-top:12px;}
+  .nav-btn{background:none; border:none; color:var(--primary); font-size:14px; font-weight:bold; cursor:pointer; padding:8px; font-family:inherit;}
+  .speak-btn{background:#fff; border:1px solid var(--line); border-radius:999px; padding:6px 14px; font-size:13px; cursor:pointer; color:var(--ink); font-family:inherit;}
+
+  /* ---- quiz ---- */
+  .q-context{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px 16px; font-size:15px; margin-bottom:14px;}
+  .q-word-area{text-align:center; margin:6px 0 16px;}
+  .choices{display:grid; gap:10px;}
+  .choice{
+    background:var(--card); border:2px solid var(--line); border-radius:14px;
+    padding:14px 16px; font-size:18px; font-weight:bold; cursor:pointer;
+    text-align:center; font-family:inherit; transition:border-color .15s;
+  }
+  .choice:active{border-color:var(--primary);}
+  .choice.correct{background:#e4f6ec; border-color:var(--ok); color:var(--ok);}
+  .choice.wrong{background:#fceceb; border-color:var(--ng); color:var(--ng);}
+  .choice.dim{opacity:.45;}
+  .choice:disabled{cursor:default;}
+  .feedback{border-radius:14px; padding:14px 16px; margin-top:14px; font-size:15px; animation:pop .25s;}
+  .feedback.good{background:#e4f6ec; border:1px solid var(--ok);}
+  .feedback.bad{background:#fceceb; border:1px solid var(--ng);}
+  .feedback h3{margin:0 0 6px; font-size:17px;}
+  .feedback .good-t{color:var(--ok);} .feedback .bad-t{color:var(--ng);}
+  @keyframes pop{0%{transform:scale(.96); opacity:0;} 100%{transform:scale(1); opacity:1;}}
+
+  /* ---- result ---- */
+  .result-card{text-align:center;}
+  .score-big{font-size:46px; font-weight:bold; color:var(--primary); margin:4px 0;}
+  .score-big small{font-size:20px; color:var(--sub);}
+  .stars{font-size:30px; letter-spacing:.1em; margin:4px 0 8px;}
+  .wrong-list{text-align:left; margin-top:12px;}
+  .wrong-item{background:#fff; border:1px solid var(--line); border-radius:10px; padding:8px 12px; margin-top:6px; font-size:14px;}
+
+  /* ---- word list ---- */
+  .list-item{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px 16px; margin-bottom:10px;}
+  .list-top{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;}
+  .list-word{font-family:"Hiragino Mincho ProN","Yu Mincho",serif; font-size:22px; font-weight:bold;}
+  .list-reading{color:var(--primary); font-weight:bold; font-size:15px;}
+  .st{margin-left:auto; font-size:11px; border-radius:999px; padding:2px 10px; font-weight:bold;}
+  .st.learned{background:#e4f6ec; color:var(--ok);}
+  .st.weak{background:#fceceb; color:var(--ng);}
+  .st.none{background:#eee9dc; color:#8d8775;}
+  .list-meaning{font-size:14px; margin-top:6px;}
+  .list-ex{font-size:13px; color:var(--sub); margin-top:4px;}
+
+  .center{text-align:center;}
+  .mt8{margin-top:8px;} .mt14{margin-top:14px;}
+  .footer-note{text-align:center; color:#a39d8c; font-size:11px; margin-top:30px;}
+</style>
+</head>
+<body>
+<header>
+  <div class="head-inner">
+    <div class="head-title">
+      <h1>漢字マスター</h1>
+      <p>石垣りん「挨拶――原爆の写真によせて」の言葉</p>
+    </div>
+    <button class="btn-home" id="homeBtn" onclick="goHome()">ホーム</button>
+  </div>
+</header>
+<div class="wrap" id="app"></div>
+
+<script>
+"use strict";
+/* ================= データ =================
+   poem / example 中の【 】は対象語のハイライト位置 */
+const WORDS = [
+  {word:"表情", reading:"ひょうじょう", cat:"poem",
+   meaning:"気持ちが顔に表れたもの。顔つき。",
+   poem:"その顔の中に明日の【表情】をさがすとき",
+   example:"妹はうれしそうな【表情】を浮かべた。",
+   wrong:["ひょうせい","おもてじょう","びょうじょう"]},
+  {word:"広島", reading:"ひろしま", cat:"poem",
+   meaning:"中国地方の県・都市。1945年（昭和20年）8月6日、世界で初めて原子爆弾が落とされた。",
+   poem:"その時【広島】にいた人",
+   example:"修学旅行で【広島】の平和記念資料館を見学した。",
+   wrong:["こうとう","ひろじま","こうしま"]},
+  {word:"戦火の跡", reading:"せんかのあと", cat:"poem",
+   meaning:"戦争による火災や被害のしるし。「戦火」は戦争による火事・災い。",
+   poem:"【戦火の跡】もとどめぬ",
+   example:"この町には【戦火の跡】が今も残っている。",
+   wrong:["せんかのせき","せんびのあと","いくさかのあと"]},
+  {word:"原爆", reading:"げんばく", cat:"poem",
+   meaning:"「原子爆弾」の略。核分裂の巨大なエネルギーを使った爆弾。",
+   poem:"地球が【原爆】を数百個所持して",
+   example:"【原爆】ドームは平和を願う世界遺産だ。",
+   wrong:["げんぼう","がんばく","げんはく"]},
+  {word:"所持", reading:"しょじ", cat:"poem",
+   meaning:"身につけて持っていること。",
+   poem:"地球が原爆を数百個【所持】して",
+   example:"試験中は携帯電話の【所持】が禁止されている。",
+   wrong:["しょもち","しょち","ところじ"]},
+  {word:"淵", reading:"ふち", cat:"poem",
+   meaning:"川の水が深くよどんだ場所。転じて、抜け出しにくい苦しい状態のたとえ。",
+   poem:"生と死のきわどい【淵】を歩くとき",
+   example:"主人公は絶望の【淵】から立ち直った。",
+   wrong:["えん","たき","みぞ"]},
+  {word:"澄ます", reading:"すます", cat:"poem",
+   meaning:"にごりや雑念をなくす。「耳を澄ます」で、集中してよく聞こうとすること。",
+   poem:"しずかに耳を【澄ませ】",
+   example:"鳥の声に耳を【澄ます】。",
+   wrong:["さます","きよます","ちょうます"]},
+  {word:"一瞬", reading:"いっしゅん", cat:"poem",
+   meaning:"まばたきするほどの、ごく短い時間。",
+   poem:"【一瞬】にして死んだ二五万人すべて",
+   example:"【一瞬】の油断が事故につながる。",
+   wrong:["いっしん","いちじゅん","ひととき"]},
+  {word:"如く", reading:"ごとく", cat:"poem",
+   meaning:"「〜のように」という意味の古い言い方。",
+   poem:"あなたの【如く】　私の【如く】",
+   example:"矢の【如く】速く走り去った。",
+   wrong:["にょく","じょく","いわく"]},
+  {word:"油断", reading:"ゆだん", cat:"poem",
+   meaning:"大丈夫だと気をゆるめて、注意を怠ること。",
+   poem:"やすらかに　美しく　【油断】していた。",
+   example:"「【油断】大敵」とは、油断こそ一番の敵だという意味だ。",
+   wrong:["あぶらだん","ゆうだん","ゆたん"]},
+  {word:"様子", reading:"ようす", cat:"q",
+   meaning:"外から見てわかる、ものごとのありさま。状態。",
+   poem:"焼けただれる前の【様子】も思い返さねばならない",
+   example:"窓から外の【様子】をうかがう。",
+   wrong:["さまこ","ようこ","もよう"]},
+  {word:"適切", reading:"てきせつ", cat:"q",
+   meaning:"その場面や目的に、ちょうどよく合っていること。",
+   poem:"最も【適切】なものを選び、記号で答えなさい",
+   example:"状況に合った【適切】な行動をとる。",
+   wrong:["てきせち","できせつ","てっせつ"]},
+  {word:"対比", reading:"たいひ", cat:"q",
+   meaning:"二つのものを並べて、その違いをくらべること。",
+   poem:"その顔と【対比】的に表現されている「顔」",
+   example:"光と影を【対比】させて描いた絵。",
+   wrong:["ついひ","たいび","たいくらべ"]},
+  {word:"日常的", reading:"にちじょうてき", cat:"q",
+   meaning:"ふだんから当たり前にあるさま。毎日のことであるさま。",
+   poem:"午前八時一五分は【日常的】に毎朝やってくる",
+   example:"【日常的】に読書をする習慣をつけたい。",
+   wrong:["ひじょうてき","にちつねてき","にっじょうてき"]},
+  {word:"悠久", reading:"ゆうきゅう", cat:"q",
+   meaning:"果てしなく長く続くこと。",
+   poem:"【悠久】の自然の巡りとして繰り返される",
+   example:"【悠久】の時を経て、地層は固い岩になった。",
+   wrong:["ようきゅう","しゅうきゅう","ゆうく"]},
+  {word:"巡り", reading:"めぐり", cat:"q",
+   meaning:"順々にまわること。ひとまわりして元にもどる流れ。循環。",
+   poem:"悠久の自然の【巡り】として",
+   example:"季節の【巡り】とともに景色が変わる。",
+   wrong:["じゅんり","まわり","もぐり"]},
+  {word:"繰り返す", reading:"くりかえす", cat:"q",
+   meaning:"同じことを何度も行う。",
+   poem:"悠久の自然の巡りとして【繰り返される】だろう",
+   example:"同じ失敗を【繰り返さない】ように注意する。",
+   wrong:["すりかえす","おりかえす","ねりかえす"]},
+  {word:"投下", reading:"とうか", cat:"q",
+   meaning:"高い所から投げ落とすこと。",
+   poem:"原爆が【投下】されたあの日の午前八時一五分",
+   example:"ヘリコプターから救援物資が【投下】された。",
+   wrong:["とうげ","なげか","とおか"]},
+  {word:"幾たび", reading:"いくたび", cat:"q",
+   meaning:"何度も。何回も。",
+   poem:"【幾たび】も思い起こすこと",
+   example:"【幾たび】も練習を重ねて、ようやく成功した。",
+   wrong:["きたび","いくとび","まいたび"]},
+  {word:"他人事", reading:"ひとごと", cat:"q",
+   meaning:"自分には関係のない、よその人のこと。※「たにんごと」と読むこともある。",
+   poem:"それが【他人事】ではないということ",
+   example:"災害のニュースを【他人事】とは思えなかった。",
+   wrong:["たにんじ","たびとごと","ほかごと"]}
+];
+
+/* ================= 保存（localStorageが使えない環境でも動く） ================= */
+const store = {
+  mem:{},
+  get(k,d){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):d; }catch(e){ return (k in this.mem)?this.mem[k]:d; } },
+  set(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){ this.mem[k]=v; } }
+};
+let stats = store.get("kanji15_stats", {});
+function saveStats(){ store.set("kanji15_stats", stats); }
+function getStat(w){ if(!stats[w]) stats[w]={mark:null, ok:0, ng:0}; return stats[w]; }
+function isWeak(w){ const s=stats[w.word]; if(!s) return false; return s.mark==="review" || s.ng>s.ok; }
+function weakWords(){ return WORDS.filter(isWeak); }
+function learnedCount(){ return WORDS.filter(w=>stats[w.word] && stats[w.word].mark==="learned").length; }
+
+/* ================= 共通 ================= */
+const $app = document.getElementById("app");
+function shuffle(a){ const r=a.slice(); for(let i=r.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [r[i],r[j]]=[r[j],r[i]]; } return r; }
+function hl(text){ return text.replace(/【/g,'<span class="hl">').replace(/】/g,'</span>'); }
+function plain(text){ return text.replace(/【|】/g,""); }
+function catChip(c){ return c==="poem" ? '<span class="chip poem">詩の中の言葉</span>' : '<span class="chip q">問題文の言葉</span>'; }
+function speak(text){
+  try{
+    if(!("speechSynthesis" in window)) return;
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = "ja-JP"; u.rate = 0.9;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+
+/* ================= 画面状態 ================= */
+let cardState = null;   // {list, idx, flipped, fromReview}
+let quizState = null;   // {type, list, idx, score, answered, wrongWords}
+
+function goHome(){
+  cardState=null; quizState=null;
+  const lc = learnedCount(), weak = weakWords().length;
+  const pct = Math.round(lc/WORDS.length*100);
+  $app.innerHTML = `
+    <div class="panel">
+      <div class="progress-label"><span>おぼえた言葉</span><b>${lc} / ${WORDS.length}</b></div>
+      <div class="bar"><div style="width:${pct}%"></div></div>
+      <div class="mt8" style="font-size:13px;color:var(--sub)">カード学習で「おぼえた！」にした言葉の数です</div>
+    </div>
+    <div class="menu">
+      <button class="menu-btn" onclick="startCards(false)">
+        <span class="menu-icon">🃏</span>
+        <span class="menu-text"><b>カードでおぼえる</b><small>読み・意味・用例をカードで確認</small></span>
+      </button>
+      <button class="menu-btn" onclick="startQuiz('reading', WORDS)">
+        <span class="menu-icon">📖</span>
+        <span class="menu-text"><b>読みクイズ</b><small>正しい読みを4つから選ぶ（全${WORDS.length}問）</small></span>
+      </button>
+      <button class="menu-btn" onclick="startQuiz('meaning', WORDS)">
+        <span class="menu-icon">💡</span>
+        <span class="menu-text"><b>意味クイズ</b><small>正しい意味を4つから選ぶ（全${WORDS.length}問）</small></span>
+      </button>
+      <button class="menu-btn" onclick="startCards(true)">
+        <span class="menu-icon">🔁</span>
+        <span class="menu-text"><b>苦手だけ復習</b><small>「まだ」にした言葉・まちがえた言葉</small></span>
+        <span class="badge ${weak? "":"zero"}">${weak}</span>
+      </button>
+      <button class="menu-btn" onclick="showList()">
+        <span class="menu-icon">📚</span>
+        <span class="menu-text"><b>ことば一覧</b><small>全${WORDS.length}語をまとめてチェック</small></span>
+      </button>
+    </div>
+    <div class="center mt14">
+      <button class="btn-ghost btn" onclick="resetAll()" style="width:auto;margin:0 auto;">学習データをリセット</button>
+    </div>
+    <div class="footer-note">教科書 P.94〜96「挨拶――原爆の写真によせて」（石垣りん）</div>`;
+  window.scrollTo(0,0);
+}
+
+function resetAll(){
+  if(confirm("学習の記録をすべて消します。よろしいですか？")){ stats={}; saveStats(); goHome(); }
+}
+
+/* ================= カード学習 ================= */
+function startCards(reviewOnly){
+  const list = reviewOnly ? weakWords() : WORDS.slice();
+  if(reviewOnly && list.length===0){
+    $app.innerHTML = `
+      <div class="panel center">
+        <div style="font-size:44px">🎉</div>
+        <h2 style="margin:6px 0">苦手な言葉はありません！</h2>
+        <p style="color:var(--sub);font-size:14px">カード学習やクイズでまちがえた言葉が<br>ここに集まります。</p>
+        <button class="btn btn-primary mt14" onclick="goHome()">ホームへもどる</button>
+      </div>`;
+    return;
+  }
+  cardState = { list: shuffle(list), idx:0, flipped:false, fromReview:!!reviewOnly };
+  renderCard();
+}
+
+function renderCard(){
+  const s = cardState;
+  if(s.idx >= s.list.length){
+    const weak = weakWords().length;
+    $app.innerHTML = `
+      <div class="panel result-card">
+        <div style="font-size:44px">🎉</div>
+        <h2 style="margin:6px 0">カード学習 おつかれさま！</h2>
+        <p style="font-size:14px;color:var(--sub)">${s.list.length}枚 やりきりました。<br>おぼえた言葉：${learnedCount()} / ${WORDS.length}　苦手：${weak}</p>
+        <button class="btn btn-primary mt14" onclick="startCards(${s.fromReview})">もう一度</button>
+        ${weak? `<button class="btn btn-outline mt8" onclick="startQuiz('reading', weakWords())">苦手だけ読みクイズに挑戦</button>`:""}
+        <button class="btn btn-outline mt8" onclick="goHome()">ホームへもどる</button>
+      </div>`;
+    window.scrollTo(0,0);
+    return;
+  }
+  const w = s.list[s.idx];
+  const front = `
+    <div class="study-card" onclick="flipCard()">
+      <div>${catChip(w.cat)}</div>
+      <div class="word-big">${w.word}</div>
+      <div style="font-size:14px;color:var(--sub)">${hl(w.poem)}</div>
+      <div class="tap-hint">▼ タップして 読み・意味 を見る</div>
+    </div>`;
+  const back = `
+    <div class="study-card" onclick="flipCard()" style="cursor:pointer">
+      <div>${catChip(w.cat)}</div>
+      <div class="word-big" style="font-size:38px">${w.word}</div>
+      <div class="reading-big">${w.reading}</div>
+      <div class="meaning-box"><b>意味</b>　${w.meaning}</div>
+      <div class="ex-box"><span class="src">📖 本文・問題から</span><br>${hl(w.poem)}</div>
+      <div class="ex-box"><span class="src">✏️ 使い方の例</span><br>${hl(w.example)}</div>
+      <div class="mt8"><button class="speak-btn" onclick="event.stopPropagation(); speak('${w.reading}。${plain(w.example)}')">🔊 読み上げ</button></div>
+    </div>`;
+  $app.innerHTML = `
+    <div class="meta-row">
+      <button class="nav-btn" onclick="prevCard()" ${s.idx===0?"disabled style='opacity:.3'":""}>← 前へ</button>
+      <span>${s.idx+1} / ${s.list.length}</span>
+      <button class="nav-btn" onclick="skipCard()">次へ →</button>
+    </div>
+    ${s.flipped? back : front}
+    ${s.flipped? `
+    <div class="card-actions">
+      <button class="btn btn-later" onclick="markCard('review')">🔁 まだ</button>
+      <button class="btn btn-ok" onclick="markCard('learned')">✅ おぼえた！</button>
+    </div>` : ""}
+  `;
+  window.scrollTo(0,0);
+}
+function flipCard(){ cardState.flipped = !cardState.flipped; renderCard(); }
+function prevCard(){ if(cardState.idx>0){ cardState.idx--; cardState.flipped=false; renderCard(); } }
+function skipCard(){ cardState.idx++; cardState.flipped=false; renderCard(); }
+function markCard(mark){
+  const w = cardState.list[cardState.idx];
+  getStat(w.word).mark = mark;
+  saveStats();
+  skipCard();
+}
+
+/* ================= クイズ ================= */
+function buildChoices(type, w){
+  if(type==="reading"){
+    return shuffle([{t:w.reading, ok:true}].concat(w.wrong.map(x=>({t:x, ok:false}))));
+  }
+  const others = shuffle(WORDS.filter(x=>x.word!==w.word)).slice(0,3);
+  return shuffle([{t:w.meaning, ok:true}].concat(others.map(x=>({t:x.meaning, ok:false}))));
+}
+function startQuiz(type, list){
+  if(!list || list.length===0){ goHome(); return; }
+  quizState = { type, list: shuffle(list), idx:0, score:0, answered:false, wrongWords:[] };
+  renderQuiz();
+}
+function renderQuiz(){
+  const s = quizState;
+  if(s.idx >= s.list.length){ renderQuizEnd(); return; }
+  const w = s.list[s.idx];
+  s.choices = s.choices && s.answered ? s.choices : buildChoices(s.type, w);
+  const isReading = s.type==="reading";
+  const qText = isReading
+    ? `<div class="q-word-area"><div class="word-big" style="font-size:46px">${w.word}</div><div style="font-size:13px;color:var(--sub)">この言葉の<b>読み</b>はどれ？</div></div>`
+    : `<div class="q-word-area"><div class="word-big" style="font-size:40px">${w.word}</div><div class="reading-big" style="font-size:18px">（${w.reading}）</div><div style="font-size:13px;color:var(--sub)">この言葉の<b>意味</b>はどれ？</div></div>`;
+  $app.innerHTML = `
+    <div class="meta-row">
+      <span>${isReading? "📖 読みクイズ":"💡 意味クイズ"}</span>
+      <span>${s.idx+1} / ${s.list.length}　★${s.score}</span>
+    </div>
+    <div class="q-context">${hl(w.poem)}</div>
+    ${qText}
+    <div class="choices">
+      ${s.choices.map((c,i)=>`<button class="choice" id="ch${i}" onclick="answer(${i})" style="${isReading? "":"font-size:14px;text-align:left;font-weight:normal;"}">${c.t}</button>`).join("")}
+    </div>
+    <div id="fb"></div>`;
+  window.scrollTo(0,0);
+}
+function answer(i){
+  const s = quizState;
+  if(s.answered) return;
+  s.answered = true;
+  const w = s.list[s.idx];
+  const chosen = s.choices[i];
+  const st = getStat(w.word);
+  s.choices.forEach((c,j)=>{
+    const el = document.getElementById("ch"+j);
+    el.disabled = true;
+    if(c.ok) el.classList.add("correct");
+    else if(j===i) el.classList.add("wrong");
+    else el.classList.add("dim");
+  });
+  let fb;
+  if(chosen.ok){
+    s.score++; st.ok++;
+    fb = `<div class="feedback good"><h3 class="good-t">⭕ せいかい！</h3>
+      <b>${w.word}（${w.reading}）</b>：${w.meaning}<br>
+      <span style="font-size:13px">✏️ ${hl(w.example)}</span></div>`;
+  }else{
+    st.ng++; s.wrongWords.push(w);
+    fb = `<div class="feedback bad"><h3 class="bad-t">❌ ざんねん…</h3>
+      正解は <b style="font-size:17px">「${s.type==="reading"? w.reading : w.meaning}」</b><br>
+      <b>${w.word}（${w.reading}）</b>：${w.meaning}<br>
+      <span style="font-size:13px">✏️ ${hl(w.example)}</span></div>`;
+  }
+  saveStats();
+  document.getElementById("fb").innerHTML = fb + `<button class="btn btn-primary mt14" onclick="nextQ()">${s.idx+1>=s.list.length? "結果を見る":"次の問題へ →"}</button>`;
+}
+function nextQ(){ quizState.idx++; quizState.answered=false; quizState.choices=null; renderQuiz(); }
+function renderQuizEnd(){
+  const s = quizState;
+  const total = s.list.length, pct = Math.round(s.score/total*100);
+  let starCount = pct===100?3 : pct>=70?2 : pct>=40?1 : 0;
+  const stars = "★".repeat(starCount) + "☆".repeat(3-starCount);
+  const msg = pct===100? "パーフェクト！すごい！！" : pct>=70? "あと少しで満点！この調子！" : pct>=40? "よくがんばった！復習でレベルアップ！" : "まずはカード学習からじっくりいこう！";
+  const wrongs = s.wrongWords;
+  $app.innerHTML = `
+    <div class="panel result-card">
+      <div style="font-size:14px;color:var(--sub)">${s.type==="reading"? "📖 読みクイズ":"💡 意味クイズ"}の結果</div>
+      <div class="score-big">${s.score}<small> / ${total}問</small></div>
+      <div class="stars" style="color:var(--accent)">${stars}</div>
+      <div><b>${msg}</b></div>
+      ${wrongs.length? `
+        <div class="wrong-list">
+          <b style="font-size:14px">まちがえた言葉（苦手リストに入りました）</b>
+          ${wrongs.map(w=>`<div class="wrong-item"><b>${w.word}</b>（${w.reading}）　${w.meaning}</div>`).join("")}
+        </div>
+        <button class="btn btn-primary mt14" onclick="startQuiz('${s.type}', quizState.wrongWords.slice())">まちがえた言葉だけ もう一度</button>
+      `:""}
+      <button class="btn ${wrongs.length? "btn-outline":"btn-primary"} mt8" onclick="startQuiz('${s.type}', WORDS)">全問もう一度</button>
+      <button class="btn btn-outline mt8" onclick="goHome()">ホームへもどる</button>
+    </div>`;
+  window.scrollTo(0,0);
+}
+
+/* ================= ことば一覧 ================= */
+function showList(){
+  const rows = WORDS.map(w=>{
+    const st = stats[w.word];
+    const cls = st && st.mark==="learned" && !isWeak(w) ? "learned" : isWeak(w) ? "weak" : "none";
+    const label = cls==="learned"? "おぼえた" : cls==="weak"? "復習中" : "未チェック";
+    return `
+      <div class="list-item">
+        <div class="list-top">
+          <span class="list-word">${w.word}</span>
+          <span class="list-reading">${w.reading}</span>
+          ${catChip(w.cat)}
+          <span class="st ${cls}">${label}</span>
+        </div>
+        <div class="list-meaning">${w.meaning}</div>
+        <div class="list-ex">📖 ${plain(w.poem)}<br>✏️ ${plain(w.example)}</div>
+      </div>`;
+  }).join("");
+  $app.innerHTML = `
+    <div class="meta-row"><span>📚 ことば一覧（全${WORDS.length}語）</span></div>
+    ${rows}
+    <button class="btn btn-primary mt14" onclick="goHome()">ホームへもどる</button>`;
+  window.scrollTo(0,0);
+}
+
+goHome();
+</script>
+</body>
+</html>
