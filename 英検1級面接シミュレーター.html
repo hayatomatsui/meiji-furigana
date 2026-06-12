@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>英検1級 二次試験シミュレーター</title>
+<style>
+:root{
+  --ink:#1f1e1c; --sub:#6b6a64; --faint:#9b9a92;
+  --bg:#f4f3ee; --card:#ffffff; --line:#e2e0d8;
+  --acc:#534AB7; --acc-bg:#eeedfe; --acc-dark:#3c3489;
+  --ok:#0F6E56; --ok-bg:#e1f5ee; --warn:#854F0B; --warn-bg:#faeeda;
+  --bad:#A32D2D; --bad-bg:#fcebeb;
+  --r:10px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Hiragino Sans","Yu Gothic UI","Meiryo",system-ui,sans-serif;
+  font-size:15px;line-height:1.7}
+.wrap{max-width:880px;margin:0 auto;padding:18px 16px 60px}
+header{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+h1{font-size:19px;font-weight:600;margin:0}
+h1 small{font-weight:400;color:var(--sub);font-size:12px;margin-left:8px}
+nav{display:flex;gap:6px;flex-wrap:wrap}
+nav button{background:transparent;border:1px solid var(--line);border-radius:999px;
+  padding:6px 14px;font-size:13px;cursor:pointer;color:var(--sub);font-family:inherit}
+nav button.on{background:var(--acc);border-color:var(--acc);color:#fff}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;margin-bottom:14px}
+.card h2{font-size:16px;margin:0 0 10px;font-weight:600}
+.muted{color:var(--sub);font-size:13px}
+.tiny{color:var(--faint);font-size:12px}
+.btn{display:inline-block;background:var(--acc);color:#fff;border:none;border-radius:8px;
+  padding:10px 22px;font-size:15px;cursor:pointer;font-family:inherit}
+.btn:hover{background:var(--acc-dark)}
+.btn.sec{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.btn.sec:hover{background:var(--bg)}
+.btn.big{font-size:17px;padding:14px 34px}
+.btn:disabled{opacity:.45;cursor:default}
+.chip{display:inline-block;font-size:12px;border-radius:999px;padding:3px 12px;margin-right:6px}
+.chip.ok{background:var(--ok-bg);color:var(--ok)}
+.chip.bad{background:var(--bad-bg);color:var(--bad)}
+.chip.warn{background:var(--warn-bg);color:var(--warn)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;vertical-align:middle}
+.seg button{border:none;background:#fff;padding:7px 16px;font-size:13px;cursor:pointer;font-family:inherit;color:var(--sub)}
+.seg button.on{background:var(--acc);color:#fff}
+.seg button:disabled{opacity:.4;cursor:default}
+.flow{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12.5px;color:var(--sub);margin:8px 0}
+.flow span{background:var(--bg);border-radius:6px;padding:3px 9px}
+.flow i{font-style:normal;color:var(--faint)}
+section.tab{display:none}
+section.tab.on{display:block}
+.exam-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.phase{font-size:13px;background:var(--acc-bg);color:var(--acc-dark);border-radius:999px;padding:4px 14px;font-weight:600}
+.clock{font-size:34px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:1px}
+.clock.red{color:var(--bad)}
+.topicbox{background:var(--acc-bg);border:1px solid #cecbf6;border-radius:var(--r);
+  padding:14px 16px;font-size:16px;font-weight:600;color:var(--acc-dark);margin-bottom:12px}
+.cards{display:grid;grid-template-columns:1fr;gap:8px;margin:10px 0}
+.cards button{text-align:left;background:#fff;border:1px solid var(--line);border-radius:8px;
+  padding:10px 14px;font-size:14.5px;cursor:pointer;font-family:inherit;line-height:1.5}
+.cards button:hover{border-color:var(--acc);background:var(--acc-bg)}
+.conv{display:flex;flex-direction:column;gap:8px;margin:10px 0;max-height:340px;overflow-y:auto}
+.bub{max-width:85%;border-radius:10px;padding:8px 12px;font-size:14px;line-height:1.55}
+.bub.ex{background:var(--bg);align-self:flex-start}
+.bub.me{background:var(--acc-bg);color:var(--acc-dark);align-self:flex-end}
+.bub .who{display:block;font-size:11px;color:var(--faint);margin-bottom:2px}
+.live{min-height:46px;border:1px dashed var(--line);border-radius:8px;padding:8px 12px;
+  font-size:14px;color:var(--sub);font-style:italic;margin:10px 0;background:#fff}
+.recline{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--bad);margin:6px 0}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--bad);animation:bl 1.1s infinite}
+@keyframes bl{0%,100%{opacity:1}50%{opacity:.2}}
+.ctrl{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.score-row{display:flex;align-items:center;gap:10px;margin:9px 0}
+.score-row .nm{width:200px;flex-shrink:0;font-size:13.5px}
+.score-row .tr{flex:1;height:9px;background:var(--bg);border-radius:5px;overflow:hidden}
+.score-row .fl{height:100%;background:var(--acc);border-radius:5px;transition:width .8s}
+.score-row .pt{width:42px;text-align:right;font-weight:600;font-size:14px}
+.passbig{font-size:42px;font-weight:700;margin:2px 0}
+.passbig.g{color:var(--ok)} .passbig.y{color:var(--warn)} .passbig.r{color:var(--bad)}
+ul.fb{margin:6px 0;padding-left:20px;font-size:14px}
+ul.fb li{margin:4px 0}
+.ph-table{width:100%;border-collapse:collapse;font-size:13.5px;margin:8px 0}
+.ph-table td{border:1px solid var(--line);padding:7px 10px;vertical-align:top}
+.ph-table td:first-child{color:var(--bad);width:48%}
+.ph-table td:last-child{color:var(--ok)}
+.bank-cat{font-size:14px;font-weight:600;margin:16px 0 6px}
+.bank-item{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  border-bottom:1px solid var(--line);padding:7px 2px;font-size:14px}
+.bank-item button{flex-shrink:0;font-size:12px;padding:4px 12px;border-radius:6px;
+  border:1px solid var(--line);background:#fff;cursor:pointer;font-family:inherit;color:var(--sub)}
+.bank-item button:hover{border-color:var(--acc);color:var(--acc)}
+.hist-item{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;border-bottom:1px solid var(--line);padding:8px 2px;font-size:13.5px}
+.hist-item .d{color:var(--faint);font-size:12px}
+.hist-item .tp{flex:1;min-width:180px}
+input[type=password],input[type=text],select{font-family:inherit;font-size:14px;
+  border:1px solid var(--line);border-radius:8px;padding:9px 12px;width:100%;background:#fff;color:var(--ink)}
+label.fld{display:block;font-size:13px;color:var(--sub);margin:12px 0 4px}
+details{margin:10px 0}
+details summary{cursor:pointer;font-size:13.5px;color:var(--sub)}
+.spinner{display:inline-block;width:16px;height:16px;border:2.5px solid var(--acc-bg);
+  border-top-color:var(--acc);border-radius:50%;animation:sp .8s linear infinite;vertical-align:-3px;margin-right:8px}
+@keyframes sp{to{transform:rotate(360deg)}}
+.banner{border-radius:8px;padding:10px 14px;font-size:13.5px;margin-bottom:12px}
+.banner.bad{background:var(--bad-bg);color:var(--bad)}
+.banner.warn{background:var(--warn-bg);color:var(--warn)}
+audio{width:100%;margin:8px 0}
+svg.chart{width:100%;height:auto;background:#fff;border:1px solid var(--line);border-radius:8px}
+footer{margin-top:30px;font-size:11.5px;color:var(--faint);text-align:center}
+@media(min-width:640px){.cards{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>英検1級 二次試験シミュレーター<small>非公式・学習用</small></h1>
+  <nav id="nav">
+    <button data-tab="home" class="on">模擬試験</button>
+    <button data-tab="part">パート別練習</button>
+    <button data-tab="bank">トピック集</button>
+    <button data-tab="hist">履歴</button>
+    <button data-tab="set">設定</button>
+  </nav>
+</header>
+
+<div id="supportBanner"></div>
+
+<section class="tab on" id="tab-home">
+  <div class="card">
+    <h2>フル模擬試験（約10分）</h2>
+    <div class="flow">
+      <span>フリー会話</span><i>→</i><span>カード選択＋準備 1分</span><i>→</i>
+      <span>スピーチ 2分</span><i>→</i><span>Q&amp;A 4分</span><i>→</i><span>判定</span>
+    </div>
+    <p class="muted">本番と同じ流れで面接官AIが進行します。マイクに向かって英語で答えてください。
+    スピーチは2分で自動的に打ち切られ、Q&amp;Aではスピーチ内容を踏まえてAIが質問します。
+    終了後、本番と同じ4観点（各10点）で採点し、合格可能性を判定します。</p>
+    <p id="status" style="margin:10px 0"></p>
+    <p class="muted" style="margin:14px 0 6px">出題ソース</p>
+    <div id="srcHome" style="margin-bottom:16px"></div>
+    <button class="btn big" id="btnFull">模擬試験を開始</button>
+    <p class="tiny" style="margin-top:10px">発音スコアは文字起こしと流暢さ（話速・間・言い直し）からの推定です。判定は学習用の目安であり、実際の合否を保証するものではありません。</p>
+  </div>
+</section>
+
+<section class="tab" id="tab-part">
+  <div class="card" style="padding:12px 20px">
+    <span class="muted" style="margin-right:12px">出題ソース:</span><span id="srcPart"></span>
+  </div>
+  <div class="card">
+    <h2>スピーチ練習</h2>
+    <p class="muted">カード選択 → 準備1分 → スピーチ2分 → 採点（スピーチ・語彙文法・発音）。Q&amp;Aは省略して、スピーチだけを集中的に回せます。</p>
+    <button class="btn" id="btnSpeech">スピーチ練習を開始</button>
+  </div>
+  <div class="card">
+    <h2>Q&amp;A練習</h2>
+    <p class="muted">トピックを1つ選ぶと、AIがあなたの立場を尋ねたうえで4分間質問を重ねます。即応力・反論対応のトレーニングです（採点はやり取り・語彙文法中心）。</p>
+    <button class="btn" id="btnQA">Q&amp;A練習を開始</button>
+  </div>
+</section>
+
+<section class="tab" id="tab-bank">
+  <div class="card">
+    <h2>頻出トピック集</h2>
+    <p class="muted">過去問の傾向に沿った分野別の予想トピックです。「練習」を押すとそのトピックでスピーチ練習が始まります。</p>
+    <div id="bankList"></div>
+  </div>
+</section>
+
+<section class="tab" id="tab-hist">
+  <div class="card">
+    <h2>スコア履歴</h2>
+    <div id="histChartWrap"></div>
+    <div id="histList"></div>
+    <p style="margin-top:12px"><button class="btn sec" id="btnClearHist">履歴をすべて削除</button></p>
+  </div>
+</section>
+
+<section class="tab" id="tab-set">
+  <div class="card">
+    <h2>API設定</h2>
+    <p class="muted">採点と質問生成にAnthropicのClaude APIを使います。キーは
+    <a href="https://console.anthropic.com/" target="_blank" rel="noopener">console.anthropic.com</a>
+    で取得できます（従量課金・フル模試1回あたり目安数円〜十数円）。キーはこのブラウザ内にのみ保存され、外部にはAnthropic以外へ送信されません。</p>
+    <label class="fld">APIキー</label>
+    <input type="password" id="inpKey" placeholder="sk-ant-...">
+    <label class="fld">モデル</label>
+    <select id="selModel">
+      <option value="claude-sonnet-4-6">Claude Sonnet（推奨・バランス）</option>
+      <option value="claude-haiku-4-5-20251001">Claude Haiku（低コスト）</option>
+      <option value="claude-opus-4-8">Claude Opus（最高精度・高コスト）</option>
+    </select>
+    <label class="fld">採点の厳しさ</label>
+    <select id="selStrict">
+      <option value="easy">やさしめ（励まし重視）</option>
+      <option value="std">標準（外部添削と同等の目安）</option>
+      <option value="hard">本番同等（厳しめ）</option>
+    </select>
+    <p style="margin-top:14px">
+      <button class="btn" id="btnSaveKey">保存</button>
+      <button class="btn sec" id="btnTestKey">接続テスト</button>
+      <button class="btn sec" id="btnDelKey">キーを削除</button>
+    </p>
+    <p id="keyMsg" class="muted"></p>
+  </div>
+  <div class="card">
+    <h2>音声の確認</h2>
+    <p class="muted">面接官の声（ブラウザ内蔵の合成音声）を確認できます。マイクの許可は試験開始時に求められます。</p>
+    <button class="btn sec" id="btnVoiceTest">面接官の声をテスト</button>
+    <p class="tiny" style="margin-top:8px">推奨環境: Google Chrome（音声認識が最も安定）。認識言語は英語（en-US）です。静かな場所で、はっきりした声で話すと精度が上がります。</p>
+  </div>
+</section>
+
+<section class="tab" id="scr-exam">
+  <div class="card">
+    <div class="exam-top">
+      <span class="phase" id="phase">ウォームアップ</span>
+      <span class="clock" id="clock">--:--</span>
+      <button class="btn sec" id="btnAbort">中断する</button>
+    </div>
+    <div id="topicArea"></div>
+    <div class="conv" id="conv"></div>
+    <div class="recline" id="recline" style="display:none"><span class="dot"></span><span id="recTxt">録音中（英語で話してください）</span></div>
+    <div class="live" id="live" style="display:none"></div>
+    <div class="ctrl" id="ctrl"></div>
+  </div>
+</section>
+
+<section class="tab" id="scr-result">
+  <div class="card" id="resultCard"></div>
+  <div class="ctrl">
+    <button class="btn" id="btnAgain">もう一度練習する</button>
+    <button class="btn sec" id="btnHome">ホームへ戻る</button>
+  </div>
+</section>
+
+<footer>英検®は公益財団法人 日本英語検定協会の登録商標です。本ツールは協会とは無関係の非公式学習ツールです。</footer>
+</div>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+
+const TOPICS={
+"社会":[
+ "Agree or disagree: Japan should accept more immigrants",
+ "Should the government do more to reduce income inequality?",
+ "Is the declining birthrate an unsolvable problem for Japan?",
+ "Agree or disagree: Social media has done more harm than good to society",
+ "Should the retirement age be abolished?",
+ "Is a cashless society desirable?"],
+"政治・国際":[
+ "Should the United Nations be given more power?",
+ "Agree or disagree: Democracy is in decline worldwide",
+ "Should developed nations do more to help developing countries?",
+ "Is world peace an achievable goal?",
+ "Should Japan play a greater role in international security?",
+ "Agree or disagree: Economic sanctions are an effective foreign policy tool"],
+"環境・科学技術":[
+ "Can renewable energy fully replace fossil fuels?",
+ "Should nuclear power be expanded to fight climate change?",
+ "Agree or disagree: Artificial intelligence will do more good than harm",
+ "Is space exploration worth the cost?",
+ "Should governments regulate genetic engineering more strictly?",
+ "Agree or disagree: Economic growth should take priority over environmental protection"],
+"経済・ビジネス":[
+ "Agree or disagree: Globalization has benefited most people",
+ "Should governments introduce a universal basic income?",
+ "Is lifetime employment still viable in Japan?",
+ "Should large technology companies be broken up?",
+ "Agree or disagree: Remote work should become the norm",
+ "Is consumerism a threat to society?"],
+"教育・文化":[
+ "Should university education be free for all?",
+ "Agree or disagree: English should be an official language of Japan",
+ "Does the Japanese education system need fundamental reform?",
+ "Should schools place more emphasis on creativity than memorization?",
+ "Agree or disagree: Traditional culture is losing its relevance in modern society",
+ "Should children's use of smartphones be restricted?"],
+"医療・倫理":[
+ "Should euthanasia be legalized?",
+ "Can the death penalty ever be justified?",
+ "Should animal testing be banned?",
+ "Agree or disagree: Healthcare should be entirely government funded",
+ "Is it ethical to use AI in medical decision-making?",
+ "Should organ donation be based on an opt-out system?"]
+};
+const WARMUP=[
+ "How did you get here today?",
+ "Could you tell me a little bit about yourself?",
+ "How do you usually spend your weekends?",
+ "Have you been busy these days?"];
+
+const PAST_CARDS=[
+{label:"2025年度 第1回 カードA",topics:[
+ "Agree or disagree: Political parties no longer adequately represent the average person",
+ "Do strict copyright laws have a negative effect on creativity and innovation?",
+ "Should promoting free trade be a primary goal for the Japanese government?",
+ "Could the use of genetic engineering lead to greater equality in society?",
+ "Has the rise of social media had a positive impact on the field of journalism?"]},
+{label:"2025年度 第1回 カードE",topics:[
+ "Should there be more international pressure on tax-haven countries to change their tax laws?",
+ "Should law enforcement agencies have unrestricted access to people's private information?",
+ "Agree or disagree: Decentralized governments are more effective than centralized governments",
+ "Should drug research be subsidized more by the government?",
+ "Would stricter laws on political funding lead to better political candidates?"]},
+{label:"2025年度 第2回 カードA",topics:[
+ "Do people living in democratic societies take their rights for granted?",
+ "Will developments in biotechnology ensure the survival of endangered species?",
+ "Agree or disagree: Companies should abandon lifetime employment for employees",
+ "Is Japan still a good role model for the economic development of other nations?",
+ "Has large-scale manufacturing led to a decline in the quality of products?"]},
+{label:"2025年度 第2回 カードE",topics:[
+ "Has today's global society caused national identity to become less important?",
+ "Are carbon-neutral policies an effective tool to fight climate change?",
+ "Agree or disagree: Mass media organizations should have complete freedom to criticize politicians",
+ "Does a minimum wage help solve social and economic problems?",
+ "Can social movements such as gender equality benefit from social media?"]},
+{label:"2024年度 第1回 カードA",topics:[
+ "Is higher government spending the best way to tackle a recession?",
+ "Agree or disagree: Stem cell research will revolutionize medical science",
+ "Is the declining power of labor unions a problem in today's world?",
+ "Should the government put a limit on how much wealth a person can accumulate?",
+ "Has the overall quality of journalism declined in recent years?"]},
+{label:"2024年度 第1回 カードE",topics:[
+ "Will printed books ever become obsolete?",
+ "Agree or disagree: More money should be spent on solving global poverty than on protecting endangered animals",
+ "Does religion still play a meaningful role in society?",
+ "Has the general public stopped caring about tackling climate change?",
+ "Should there be greater restrictions on the use of drones in public areas?"]},
+{label:"2024年度 第2回 カードA",topics:[
+ "Are the high compensation packages for CEOs at large corporations warranted?",
+ "Can the actions of individuals ever contribute significantly to political change?",
+ "Should improving cybersecurity measures be the highest priority for government agencies?",
+ "Does the study of philosophy have any relevance in today's society?",
+ "Agree or disagree: Wealthy countries should fund efforts to preserve natural areas around the world"]},
+{label:"2024年度 第2回 カードE",topics:[
+ "Agree or disagree: The agriculture industry should focus on increasing the use of organic farming methods",
+ "Is the generation gap causing serious division in politics?",
+ "Will Japan ever be able to produce all of the energy it requires independently?",
+ "Is investigative journalism more important than general news reporting?",
+ "Should social media platforms be held responsible for the spread of misinformation?"]},
+{label:"2024年度 第3回 カードA",topics:[
+ "Will small businesses struggle to be successful in an increasingly globalized economy?",
+ "Is enough being done to reduce the wasteful spending of taxpayers' money?",
+ "Should all foreign residents in Japan be given the right to vote in Japanese elections?",
+ "Agree or disagree: Overreliance on the Internet has affected critical thinking skills",
+ "Is economic background the most important factor in determining success in life?"]},
+{label:"2024年度 第3回 カードE",topics:[
+ "Should cybercrimes be penalized as harshly as real-life crimes?",
+ "Is the adoption of plant-based diets an effective way to increase global food supplies?",
+ "Has the commercialization of professional sports been an overall benefit to society?",
+ "Can bringing back extinct species be ethically justified?",
+ "Agree or disagree: Digital skills are the most important asset in today's job market"]}
+];
+
+const LS={get(k,d){try{const v=localStorage.getItem(k);return v===null?d:v}catch(e){return d}},
+ set(k,v){try{localStorage.setItem(k,v)}catch(e){}},
+ del(k){try{localStorage.removeItem(k)}catch(e){}}};
+
+const S={mode:null,topic:null,cards:[],warmupLog:[],speechText:"",speechSec:0,
+ stats:null,qaLog:[],audioUrl:null,aborted:false,busy:false};
+
+function fmt(s){s=Math.max(0,Math.round(s));return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")}
+function esc(t){const d=document.createElement("div");d.textContent=t;return d.innerHTML}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function pickCards(){
+ if(LS.get("eiken_src","orig")==="past"&&PAST_CARDS.length){
+  const set=PAST_CARDS[Math.floor(Math.random()*PAST_CARDS.length)];
+  S.cardLabel=set.label;
+  return set.topics.slice(0,5);
+ }
+ S.cardLabel=null;
+ return shuffle(Object.keys(TOPICS)).slice(0,5).map(c=>TOPICS[c][Math.floor(Math.random()*TOPICS[c].length)]);
+}
+function renderSrc(){
+ if(!PAST_CARDS.length)LS.set("eiken_src","orig");
+ const cur=LS.get("eiken_src","orig");
+ const mk=()=>{const d=document.createElement("span");d.className="seg";
+  [["past","過去問"+(PAST_CARDS.length?"（カード"+PAST_CARDS.length+"枚）":"（未登録）")],["orig","オリジナル予想問題"]].forEach(pair=>{
+   const b=document.createElement("button");b.textContent=pair[1];
+   if(pair[0]==="past"&&!PAST_CARDS.length)b.disabled=true;
+   if(cur===pair[0])b.className="on";
+   b.onclick=()=>{LS.set("eiken_src",pair[0]);renderSrc()};
+   d.appendChild(b)});
+  return d};
+ const h=$("srcHome");if(h){h.innerHTML="";h.appendChild(mk())}
+ const p=$("srcPart");if(p){p.innerHTML="";p.appendChild(mk())}
+}
+
+function showTab(name){
+ document.querySelectorAll("section.tab").forEach(s=>s.classList.remove("on"));
+ const el=$("tab-"+name)||$(name);if(el)el.classList.add("on");
+ document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.tab===name));
+}
+document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>{if(S.busy){if(!confirm("試験を中断してページを移動しますか？"))return;cleanup()}showTab(b.dataset.tab)});
+
+function hasRec(){return !!(window.SpeechRecognition||window.webkitSpeechRecognition)}
+function refreshStatus(){
+ const key=LS.get("eiken_key","");
+ let h="";
+ h+=hasRec()?'<span class="chip ok">音声認識: 利用可</span>':'<span class="chip bad">音声認識: 非対応ブラウザ</span>';
+ h+=key?'<span class="chip ok">APIキー: 設定済み</span>':'<span class="chip warn">APIキー: 未設定（設定タブへ）</span>';
+ $("status").innerHTML=h;
+ $("supportBanner").innerHTML=hasRec()?"":'<div class="banner bad">このブラウザは音声認識（Web Speech API）に対応していません。Google Chrome で開いてください。</div>';
+}
+
+$("btnSaveKey").onclick=()=>{
+ const k=$("inpKey").value.trim();
+ if(k)LS.set("eiken_key",k);
+ LS.set("eiken_model",$("selModel").value);
+ LS.set("eiken_strict",$("selStrict").value);
+ $("keyMsg").textContent=k?"保存しました。":"モデル設定を保存しました（キーは未入力）。";
+ refreshStatus();
+};
+$("btnDelKey").onclick=()=>{LS.del("eiken_key");$("inpKey").value="";$("keyMsg").textContent="キーを削除しました。";refreshStatus()};
+$("btnTestKey").onclick=async()=>{
+ $("keyMsg").innerHTML='<span class="spinner"></span>接続テスト中…';
+ try{const r=await callClaude("Reply with exactly: OK",[{role:"user",content:"ping"}],10);
+  $("keyMsg").textContent=r.includes("OK")?"接続成功。準備完了です。":"応答は受信しましたが想定外の内容でした: "+r.slice(0,50);
+ }catch(e){$("keyMsg").textContent="接続失敗: "+e.message}
+};
+$("btnVoiceTest").onclick=()=>speak("Hello. I will be your examiner today. Let's begin the test when you are ready.");
+
+function renderBank(){
+ const item=t=>'<div class="bank-item"><span>'+esc(t)+'</span><button data-topic="'+esc(t)+'">練習</button></div>';
+ let h="";
+ if(PAST_CARDS.length){
+  h+='<div class="bank-cat" style="font-size:15px;color:var(--acc-dark)">過去問（実際の出題）</div>';
+  for(const set of PAST_CARDS){
+   h+='<div class="bank-cat">'+esc(set.label)+"</div>";
+   for(const t of set.topics)h+=item(t);
+  }
+  h+='<div class="bank-cat" style="font-size:15px;color:var(--acc-dark);margin-top:24px">オリジナル予想問題</div>';
+ }
+ for(const cat of Object.keys(TOPICS)){
+  h+='<div class="bank-cat">'+esc(cat)+"</div>";
+  for(const t of TOPICS[cat])h+=item(t);
+ }
+ $("bankList").innerHTML=h;
+ $("bankList").querySelectorAll("button").forEach(b=>b.onclick=()=>startExam("speech",b.dataset.topic));
+}
+
+function getHist(){try{return JSON.parse(LS.get("eiken_hist","[]"))}catch(e){return[]}}
+function saveHist(e){const h=getHist();h.push(e);LS.set("eiken_hist",JSON.stringify(h.slice(-100)));renderHist()}
+$("btnClearHist").onclick=()=>{if(confirm("履歴をすべて削除しますか？")){LS.del("eiken_hist");renderHist()}};
+
+const MODE_JP={full:"フル模試",speech:"スピーチ練習",qa:"Q&A練習"};
+function renderHist(){
+ const h=getHist();
+ if(!h.length){$("histChartWrap").innerHTML="";$("histList").innerHTML='<p class="muted">まだ記録がありません。模擬試験を受けると自動で保存されます。</p>';return}
+ const fulls=h.filter(x=>x.mode==="full").slice(-20);
+ let chart="";
+ if(fulls.length>=2){
+  const W=600,H=170,L=34,R=12,T=14,B=26;
+  const n=fulls.length,xs=i=>L+(W-L-R)*i/(n-1),ys=v=>T+(H-T-B)*(1-v/40);
+  let pts=fulls.map((x,i)=>xs(i)+","+ys(x.total)).join(" ");
+  chart='<svg class="chart" viewBox="0 0 '+W+" "+H+'">'
+   +'<line x1="'+L+'" y1="'+ys(28)+'" x2="'+(W-R)+'" y2="'+ys(28)+'" stroke="#0F6E56" stroke-dasharray="5 4" stroke-width="1"/>'
+   +'<text x="'+(W-R)+'" y="'+(ys(28)-5)+'" text-anchor="end" font-size="10" fill="#0F6E56">合格目安 28/40</text>'
+   +[0,10,20,30,40].map(v=>'<text x="'+(L-6)+'" y="'+(ys(v)+3)+'" text-anchor="end" font-size="9" fill="#9b9a92">'+v+"</text>").join("")
+   +'<polyline fill="none" stroke="#534AB7" stroke-width="2" points="'+pts+'"/>'
+   +fulls.map((x,i)=>'<circle cx="'+xs(i)+'" cy="'+ys(x.total)+'" r="3.5" fill="#534AB7"/>').join("")
+   +'<text x="'+L+'" y="'+(H-8)+'" font-size="10" fill="#9b9a92">フル模試の合計点（直近'+n+'回）</text>'
+   +"</svg>";
+ }
+ $("histChartWrap").innerHTML=chart;
+ $("histList").innerHTML=h.slice().reverse().map(x=>{
+  const d=new Date(x.t);
+  const ds=d.getFullYear()+"/"+(d.getMonth()+1)+"/"+d.getDate()+" "+String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0");
+  return '<div class="hist-item"><span class="d">'+ds+'</span><span class="d">'+(MODE_JP[x.mode]||x.mode)+'</span>'
+   +'<span class="tp">'+esc(x.topic||"—")+'</span><b>'+(x.total!=null?x.total+"/"+(x.max||40):"")+"</b>"
+   +(x.pass!=null?'<span style="color:'+(x.pass>=70?"var(--ok)":x.pass>=40?"var(--warn)":"var(--bad)")+'">合格可能性 '+x.pass+"%</span>":"")+"</div>";
+ }).join("");
+}
+let voices=[];
+function loadVoices(){try{voices=speechSynthesis.getVoices()}catch(e){voices=[]}}
+loadVoices();try{speechSynthesis.onvoiceschanged=loadVoices}catch(e){}
+function speak(text){return new Promise(res=>{try{
+ const u=new SpeechSynthesisUtterance(text);u.lang="en-US";
+ const v=voices.find(x=>x.name==="Google US English")||voices.find(x=>/en[-_]US/i.test(x.lang))||voices.find(x=>/^en/i.test(x.lang));
+ if(v)u.voice=v;u.rate=0.95;
+ let done=false;const f=()=>{if(!done){done=true;res()}};
+ u.onend=f;u.onerror=f;setTimeout(f,Math.max(5000,text.length*130));
+ speechSynthesis.speak(u);
+}catch(e){res()}})}
+
+let rec=null,recOn=false,recFinal="",lastResultAt=0,longPauses=0;
+function startRec(onUpdate){
+ recFinal="";lastResultAt=Date.now();longPauses=0;
+ const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+ rec=new SR();rec.lang="en-US";rec.continuous=true;rec.interimResults=true;
+ rec.onresult=e=>{let interim="";
+  for(let i=e.resultIndex;i<e.results.length;i++){const r=e.results[i];
+   if(r.isFinal){const now=Date.now();if(now-lastResultAt>2500)longPauses++;lastResultAt=now;recFinal+=r[0].transcript+" "}
+   else interim+=r[0].transcript}
+  if(onUpdate)onUpdate(recFinal,interim)};
+ rec.onend=()=>{if(recOn){try{rec.start()}catch(e){}}};
+ rec.onerror=()=>{};
+ recOn=true;try{rec.start()}catch(e){}
+}
+function stopRec(){recOn=false;if(rec){try{rec.stop()}catch(e){}}return recFinal.trim()}
+
+let mStream=null,mRec=null,mChunks=[];
+async function startAudio(){if(mStream)return;mStream=await navigator.mediaDevices.getUserMedia({audio:true})}
+function startClip(){mChunks=[];try{mRec=new MediaRecorder(mStream);mRec.ondataavailable=e=>{if(e.data.size)mChunks.push(e.data)};mRec.start()}catch(e){mRec=null}}
+function stopClip(){return new Promise(res=>{
+ if(!mRec||mRec.state==="inactive")return res(null);
+ mRec.onstop=()=>{try{res(URL.createObjectURL(new Blob(mChunks,{type:mRec.mimeType||"audio/webm"})))}catch(e){res(null)}};
+ try{mRec.stop()}catch(e){res(null)}})}
+function releaseMic(){if(mStream){try{mStream.getTracks().forEach(t=>t.stop())}catch(e){}mStream=null}}
+
+let tInt=null,tEnd=0;
+function startTimer(sec,onDone,warnAt){stopTimer();tEnd=Date.now()+sec*1000;$("clock").classList.remove("red");
+ $("clock").textContent=fmt(sec);
+ tInt=setInterval(()=>{const r=(tEnd-Date.now())/1000;
+  if(r<=0){stopTimer();$("clock").textContent="0:00";if(onDone)onDone();return}
+  $("clock").textContent=fmt(r);
+  if(warnAt!=null&&r<=warnAt)$("clock").classList.add("red")},200)}
+function stopTimer(){if(tInt){clearInterval(tInt);tInt=null}}
+
+function setPhase(t){$("phase").textContent=t}
+function addBub(who,text){const d=document.createElement("div");d.className="bub "+(who==="me"?"me":"ex");
+ d.innerHTML='<span class="who">'+(who==="me"?"あなた":"面接官")+"</span>"+esc(text);
+ $("conv").appendChild(d);$("conv").scrollTop=$("conv").scrollHeight}
+function setCtrl(list){$("ctrl").innerHTML="";list.forEach(b=>{const el=document.createElement("button");
+ el.className="btn"+(b.sec?" sec":"");el.textContent=b.label;el.onclick=b.fn;$("ctrl").appendChild(el)})}
+function showLive(on){$("live").style.display=on?"block":"none";$("recline").style.display=on?"flex":"none";if(on)$("live").textContent="…"}
+
+let listenStop=null;
+function listen(btnLabel){return new Promise(res=>{
+ showLive(true);
+ startRec((fin,inter)=>{$("live").textContent=(fin+" "+inter).trim()||"…"});
+ let done=false;
+ const finish=()=>{if(done)return;done=true;listenStop=null;const t=stopRec();showLive(false);setCtrl([]);res(t)};
+ listenStop=finish;
+ setCtrl([{label:btnLabel,fn:finish}]);
+})}
+
+async function startExam(mode,fixedTopic){
+ if(S.busy)return;
+ if(!hasRec()){alert("このブラウザは音声認識に対応していません。Google Chrome で開いてください。");return}
+ if(!LS.get("eiken_key","")){alert("先に「設定」タブでAPIキーを設定してください。");showTab("set");return}
+ try{await startAudio()}catch(e){alert("マイクを利用できません。ブラウザのマイク許可を確認してください。");return}
+ Object.assign(S,{mode,topic:fixedTopic||null,cards:[],cardLabel:null,warmupLog:[],speechText:"",speechSec:0,stats:null,qaLog:[],audioUrl:null,aborted:false,busy:true});
+ $("conv").innerHTML="";$("topicArea").innerHTML="";setCtrl([]);showLive(false);$("clock").textContent="--:--";
+ showTab("scr-exam");
+ startClip();
+ try{
+  if(mode==="full"){
+   await phaseWarmup();if(S.aborted)return;
+   await phaseCardPrep();if(S.aborted)return;
+   await phaseSpeech();if(S.aborted)return;
+   await phaseQA();if(S.aborted)return;
+  }else if(mode==="speech"){
+   if(!S.topic){await phaseCardPrep();}
+   else{showTopicBox();await phasePrep();}
+   if(S.aborted)return;
+   await phaseSpeech();if(S.aborted)return;
+  }else{
+   if(!S.topic)await phaseCards();else showTopicBox();
+   if(S.aborted)return;
+   await phaseQA();if(S.aborted)return;
+  }
+  await phaseGrade();
+ }catch(e){
+  if(!S.aborted){alert("エラーが発生しました: "+e.message);cleanup();showTab("home")}
+ }
+}
+function showTopicBox(){$("topicArea").innerHTML=(S.cardLabel?'<div class="tiny" style="margin-bottom:2px">出題: '+esc(S.cardLabel)+"</div>":"")+'<div class="topicbox">'+esc(S.topic)+"</div>"}
+
+async function phaseWarmup(){
+ setPhase("ウォームアップ");$("clock").textContent="";
+ addBub("ex","Good afternoon. I'm your examiner today. Before we begin, let me ask you a couple of questions.");
+ await speak("Good afternoon! I'm your examiner today. Before we begin, let me ask you a couple of questions.");
+ const qs=shuffle(WARMUP).slice(0,2);
+ for(const q of qs){
+  if(S.aborted)return;
+  addBub("ex",q);await speak(q);if(S.aborted)return;
+  const a=await listen("回答を終える");if(S.aborted)return;
+  addBub("me",a||"(無回答)");S.warmupLog.push({q:q,a:a});
+ }
+ addBub("ex","Great, thank you. Now let's move on to the main part of the test.");
+ await speak("Great, thank you. Now let's move on to the main part of the test.");
+}
+
+function phaseCards(){return new Promise(res=>{
+ setPhase("トピック選択");$("clock").textContent="";
+ S.cards=pickCards();
+ addBub("ex","Here is your topic card. Please choose one of the five topics.");
+ $("topicArea").innerHTML='<p class="muted" style="margin:0 0 4px">トピックを1つ選んでください'
+  +(S.cardLabel?'　<span class="tiny">出題: '+esc(S.cardLabel)+"</span>":"")+':</p><div class="cards">'
+  +S.cards.map((t,i)=>'<button data-i="'+i+'">'+(i+1)+". "+esc(t)+"</button>").join("")+"</div>";
+ speak("Here is your topic card. Please choose one of the five topics.");
+ $("topicArea").querySelectorAll("button").forEach(b=>b.onclick=()=>{
+  if(S.aborted)return;
+  S.topic=S.cards[+b.dataset.i];showTopicBox();addBub("me","I'd like to talk about: "+S.topic);res()});
+})}
+
+function phaseCardPrep(){return new Promise(res=>{
+ setPhase("カード選択＋準備（1分）");
+ S.cards=pickCards();
+ addBub("ex","Here is your topic card. You have one minute to choose one topic and prepare your speech.");
+ $("topicArea").innerHTML='<p class="muted" style="margin:0 0 4px">1分以内にトピックを選んで、そのままスピーチの準備をしてください'
+  +(S.cardLabel?'　<span class="tiny">出題: '+esc(S.cardLabel)+"</span>":"")+':</p><div class="cards">'
+  +S.cards.map((t,i)=>'<button data-i="'+i+'">'+(i+1)+". "+esc(t)+"</button>").join("")+"</div>";
+ speak("Here is your topic card. You have one minute to choose one topic and prepare your speech.");
+ let done=false,expired=false;
+ const fin=()=>{if(done)return;done=true;stopTimer();setCtrl([]);res()};
+ startTimer(60,()=>{
+  if(S.aborted)return;
+  if(S.topic){fin()}
+  else{
+   expired=true;
+   addBub("ex","Time is up. Please choose your topic now and begin your speech.");
+   speak("Time is up. Please choose your topic now.");
+  }
+ },10);
+ $("topicArea").querySelectorAll("button").forEach(b=>b.onclick=()=>{
+  if(S.aborted||done)return;
+  S.topic=S.cards[+b.dataset.i];showTopicBox();addBub("me","I'd like to talk about: "+S.topic);
+  if(expired){fin()}
+  else setCtrl([{label:"準備を終えてスピーチへ",fn:fin}]);
+ });
+})}
+
+async function phasePrep(){
+ setPhase("準備時間（1分）");
+ addBub("ex","You have one minute to prepare your speech.");
+ await speak("You have one minute to prepare your speech.");if(S.aborted)return;
+ await new Promise(res=>{let done=false;
+  const fin=()=>{if(done)return;done=true;stopTimer();setCtrl([]);res()};
+  startTimer(60,fin,10);
+  setCtrl([{label:"準備を終えてスピーチへ",fn:fin}])});
+}
+
+async function phaseSpeech(){
+ setPhase("スピーチ（2分）");
+ addBub("ex","All right. Please begin your speech.");
+ await speak("All right. Please begin your speech.");if(S.aborted)return;
+ const t0=Date.now();
+ const p=listen("スピーチを終える");
+ startTimer(120,()=>{if(listenStop)listenStop()},20);
+ const text=await p;
+ stopTimer();
+ S.speechSec=Math.min(120,Math.round((Date.now()-t0)/1000));
+ S.speechText=text;
+ const words=text?text.split(/\s+/).filter(Boolean).length:0;
+ S.stats={words:words,sec:S.speechSec,wpm:S.speechSec>5?Math.round(words/(S.speechSec/60)):0,
+  pauses:longPauses,fillers:(text.match(/\b(uh|um|er|ah)\b/gi)||[]).length};
+ addBub("me",text||"(音声を認識できませんでした)");
+ if(S.aborted)return;
+ addBub("ex","Thank you.");await speak("Thank you.");
+}
+
+async function phaseQA(){
+ setPhase("Q&A（4分）");
+ const intro=S.mode==="qa"
+  ?"Now, I would like to hear your views on this topic. Let me ask you some questions."
+  :"Now, I would like to ask you some questions related to your speech.";
+ addBub("ex",intro);await speak(intro);if(S.aborted)return;
+ const deadline=Date.now()+240*1000;
+ startTimer(240,()=>{if(listenStop)listenStop()},30);
+ while(Date.now()<deadline-12000&&S.qaLog.length<8&&!S.aborted){
+  let q;
+  setCtrl([]);$("live").style.display="none";
+  $("recline").style.display="flex";$("recTxt").textContent="面接官が次の質問を考えています…";
+  try{q=await nextQuestion()}catch(e){addBub("ex","(質問の生成に失敗しました: "+e.message+")");break}
+  $("recline").style.display="none";$("recTxt").textContent="録音中（英語で話してください）";
+  if(S.aborted)break;
+  addBub("ex",q);await speak(q);
+  if(S.aborted||Date.now()>=deadline)break;
+  const a=await listen("回答を終える");
+  addBub("me",a||"(無回答)");
+  S.qaLog.push({q:q,a:a});
+ }
+ stopTimer();$("recTxt").textContent="録音中（英語で話してください）";
+ if(S.aborted)return;
+ addBub("ex","All right, that's all for the questions. This is the end of the test. Thank you very much.");
+ await speak("All right, that's all for the questions. This is the end of the test. Thank you very much.");
+}
+
+$("btnAbort").onclick=()=>{
+ if(!S.busy){showTab("home");return}
+ if(confirm("試験を中断しますか？（記録は残りません）")){cleanup();showTab("home")}
+};
+function cleanup(){
+ S.aborted=true;S.busy=false;
+ stopTimer();
+ try{speechSynthesis.cancel()}catch(e){}
+ const f=listenStop;listenStop=null;if(f)f();
+ recOn=false;if(rec){try{rec.stop()}catch(e){}}
+ if(mRec&&mRec.state==="recording"){try{mRec.stop()}catch(e){}}
+ releaseMic();
+}
+async function callClaude(system,messages,maxTokens){
+ const key=LS.get("eiken_key","");
+ if(!key)throw new Error("APIキーが未設定です（設定タブで登録してください）");
+ const model=LS.get("eiken_model","claude-sonnet-4-6");
+ const r=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",
+  headers:{"content-type":"application/json","x-api-key":key,
+   "anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},
+  body:JSON.stringify({model:model,max_tokens:maxTokens||1000,system:system,messages:messages})});
+ if(!r.ok){let msg="HTTP "+r.status;
+  try{const j=await r.json();if(j.error&&j.error.message)msg+=" — "+j.error.message}catch(e){}
+  if(r.status===401)msg+="（APIキーが正しいか確認してください）";
+  throw new Error(msg)}
+ const d=await r.json();
+ return (d.content||[]).map(b=>b.text||"").join("");
+}
+function extractJSON(s){const m=s.match(/\{[\s\S]*\}/);if(!m)throw new Error("採点結果の解析に失敗しました");return JSON.parse(m[0])}
+
+const QA_SYS="You are an examiner for the EIKEN Grade 1 second-stage interview, conducting the 4-minute Q&A session. Ask ONE question at a time in natural spoken English (max 25 words). Be challenging but fair, like a real examiner: probe the candidate's reasoning, raise counterarguments, ask for concrete examples, or extend the topic to related social issues. Vary your angles; do not repeat earlier questions. Do not praise, evaluate, or add commentary. Output ONLY the question itself.";
+
+async function nextQuestion(){
+ let ctx="Topic: "+S.topic+"\n";
+ if(S.mode!=="qa"){
+  ctx+="Candidate's 2-minute speech (auto-transcribed; may contain recognition errors):\n"+(S.speechText||"(no speech was recognized)")+"\n";
+ }else{
+  ctx+="This is question-only practice with no speech. If no Q&A has happened yet, your first question must ask the candidate's position on the topic.\n";
+ }
+ if(S.qaLog.length){
+  ctx+="\nQ&A so far:\n"+S.qaLog.map(x=>"Examiner: "+x.q+"\nCandidate: "+(x.a||"(no answer)")).join("\n")+"\n";
+ }
+ ctx+="\nAsk the next question.";
+ const r=await callClaude(QA_SYS,[{role:"user",content:ctx}],120);
+ return r.trim().replace(/^["']+|["']+$/g,"");
+}
+
+const GRADE_SYS=`You are an examiner for the EIKEN Grade 1 second-stage speaking test (the interview stage of Japan's most advanced English certification). Official scoring uses four categories, each scored 1-10:
+- short_speech: content, structure and persuasiveness of the 2-minute speech (clear position, 2-3 supported reasons, conclusion)
+- interaction: responsiveness, depth and relevance of the Q&A answers
+- grammar_vocabulary: range and accuracy of grammar and vocabulary
+- pronunciation: intelligibility and fluency
+The pass line is roughly 26-28 out of 40 (CSE 602/850). Candidates at this stage have already passed the demanding first stage, and roughly 60% of them pass the interview, so the typical performance you will see is upper-intermediate to advanced.
+CRITICAL - transcription artifacts: The transcript comes from browser speech recognition, which often badly garbles Japanese-accented English (homophone substitutions, dropped or fused words, nonsense phrases such as "your life climbs" for "real-life crimes"). Before scoring, reconstruct what the candidate most plausibly intended to say, and grade that intended content and language. Give the candidate the benefit of the doubt for anything plausibly an ASR artifact. Treat text as genuine disfluency only when garbling is pervasive AND the fluency metrics (wpm, long pauses) are also weak.
+Scoring anchors for each category:
+- 9-10: exceptional, well above the pass standard
+- 7-8: solid passing performance
+- 6: marginal pass level
+- 5: borderline, just below standard
+- 4: clearly below standard but communicates basic ideas
+- 1-3: reserved for breakdown (mostly silence, off-topic, or almost no usable language). Never give 1-3 merely because the transcript reads awkwardly.
+Calibration reference: a dedicated Japanese learner who delivers a clear two-reason speech with a consistent stance and concrete examples, but with noticeable article/plural/word-choice errors and some fillers, typically earns about 6-7 for short_speech, 5-6 for grammar_vocabulary, and 6-7 for pronunciation — a total around 22-28/40, i.e. borderline. Score relative to this reference profile.
+pronunciation cannot be heard directly: ESTIMATE it from fluency signals only (words per minute, long pauses, restarts, coherence). Cap it at 8. If the candidate kept a reasonable pace with few long pauses, give 5-7.
+pass_probability must be consistent with the total score (for partial modes, scale the total to /40 first): 30+ gives 75-95, 27-29 gives 55-75, 24-26 gives 35-55, 20-23 gives 15-35, below 20 gives 5-15. Values under 5 or over 95 should almost never appear.
+Feedback must be constructive and specific: acknowledge what worked, then give concrete, actionable improvements.
+- If the data contains no speech section, set short_speech to null and treat pass_probability as a partial estimate from interaction. If it contains no Q&A section, set interaction to null likewise.
+- ALL feedback text must be in Japanese.
+Output ONLY valid JSON (no markdown fences, no commentary) with exactly these keys:
+{"short_speech":int or null,"interaction":int or null,"grammar_vocabulary":int,"pronunciation":int,"pass_probability":int 0-100,"comment":"60〜100字の総評（日本語）","strengths":["良かった点を日本語で2〜3項目"],"improvements":["優先度順の具体的な改善点を日本語で2〜4項目"],"phrases":[{"before":"受験者の実際の表現（ASRの文字化けのままで可）","after":"意図を汲んだ自然で高度な言い換え","note":"30字以内の日本語ワンポイント解説"}],"grammar_points":[{"error":"受験者の実際の文法的誤りの引用","fix":"正しい形","exp":"40字以内の日本語文法解説"}],"killer_phrases":[{"en":"このトピックで使える1級レベルの英語表現","ja":"日本語訳"}]}
+phrases should have 2-4 items quoting the candidate's actual words; use [] if the transcript is too short.
+grammar_points: 2-4 items. Prioritize recurring grammatical errors (articles, plurals, subject-verb agreement, word choice such as influenced/influential). Quote the candidate's actual words.
+killer_phrases: 2-3 sophisticated but mouth-friendly expressions tailored to this topic that the candidate could realistically use next time.`;
+
+const STRICT={
+ easy:"\nGrading stance: ENCOURAGING. Apply the score floors below, and when torn between two scores choose the higher one. Frame feedback around achievable next steps.\nScore floors: a speech with a recognizable structure (position + two reasons + conclusion) → short_speech at least 6; intended meaning mostly recoverable despite errors → grammar_vocabulary at least 5; wpm 80-150 with few long pauses → pronunciation at least 6; mostly on-topic answers of reasonable length → interaction at least 6.",
+ std:"\nGrading stance: STANDARD (default). Fair and balanced, anchored to the calibration reference above. Apply these score floors: a speech with a recognizable structure (position + two reasons + conclusion) → short_speech at least 6; intended meaning mostly recoverable despite errors → grammar_vocabulary at least 5; wpm 80-150 with few long pauses → pronunciation at least 6; mostly on-topic answers of reasonable length → interaction at least 6.",
+ hard:"\nGrading stance: REAL-EXAM. Apply the actual exam standard with no score floors and no extra leniency beyond the ASR allowance above."
+};
+
+function gradeData(){
+ let d="Topic: "+(S.topic||"(none)")+"\nMode: "+S.mode+"\n";
+ if(S.mode!=="qa"){
+  d+="\n=== 2-minute speech transcript ===\n"+(S.speechText||"(nothing was recognized)")+"\n";
+  if(S.stats)d+="\nSpeech metrics: duration "+S.stats.sec+"s, "+S.stats.words+" words, "+S.stats.wpm+" wpm, long pauses (>2.5s): "+S.stats.pauses+", fillers: "+S.stats.fillers+"\n";
+ }
+ if(S.mode!=="speech"){
+  d+="\n=== Q&A transcript ===\n"+(S.qaLog.length?S.qaLog.map(x=>"Examiner: "+x.q+"\nCandidate: "+(x.a||"(no answer)")).join("\n"):"(none)")+"\n";
+ }
+ if(S.warmupLog.length){
+  d+="\n=== Warm-up small talk (context only, not graded) ===\n"+S.warmupLog.map(x=>"Q: "+x.q+"\nA: "+(x.a||"(no answer)")).join("\n");
+ }
+ return d;
+}
+
+async function phaseGrade(){
+ setPhase("採点中");$("clock").textContent="";setCtrl([]);showLive(false);
+ const clip=await stopClip();if(clip)S.audioUrl=clip;
+ releaseMic();
+ addBub("ex","This is the end of the test. 採点しています…");
+ $("ctrl").innerHTML='<p class="muted"><span class="spinner"></span>採点中です（10〜30秒ほどかかります）</p>';
+ let g;
+ try{
+  const raw=await callClaude(GRADE_SYS+(STRICT[LS.get("eiken_strict","std")]||STRICT.std),[{role:"user",content:gradeData()}],3000);
+  g=extractJSON(raw);
+ }catch(e){
+  $("ctrl").innerHTML="";
+  addBub("ex","採点でエラーが発生しました: "+e.message);
+  setCtrl([{label:"採点を再試行",fn:phaseGrade},{label:"ホームへ",sec:true,fn:()=>{cleanup();showTab("home")}}]);
+  return;
+ }
+ S.busy=false;
+ renderResult(g);
+}
+
+function renderResult(g){
+ const rows=[["Short speech",g.short_speech],["Interaction",g.interaction],
+  ["Grammar & vocabulary",g.grammar_vocabulary],["Pronunciation（推定）",g.pronunciation]];
+ const avail=rows.filter(r=>typeof r[1]==="number");
+ const total=avail.reduce((s,r)=>s+r[1],0);
+ const max=avail.length*10;
+ const pass=Math.max(0,Math.min(100,Math.round(g.pass_probability||0)));
+ const cls=pass>=70?"g":pass>=40?"y":"r";
+ let h="<h2>判定結果</h2>";
+ if(S.topic)h+='<div class="topicbox" style="font-size:14px">'+esc(S.topic)+"</div>";
+ h+='<p class="muted" style="margin:8px 0 0">合格可能性'+(S.mode!=="full"?"（このパートのみからの推定）":"")+"</p>";
+ h+='<div class="passbig '+cls+'">'+pass+"%</div>";
+ h+='<p class="tiny">素点 '+total+" / "+max+(S.mode==="full"?"　（合格目安はおよそ28/40・CSE 602）":"")+"</p>";
+ for(const r of rows){
+  if(typeof r[1]!=="number")continue;
+  h+='<div class="score-row"><span class="nm">'+r[0]+'</span><div class="tr"><div class="fl" style="width:'+(r[1]*10)+'%"></div></div><span class="pt">'+r[1]+"/10</span></div>";
+ }
+ h+='<p style="margin-top:14px">'+esc(g.comment||"")+"</p>";
+ if(g.strengths&&g.strengths.length)h+='<p style="margin:12px 0 0;font-weight:600;font-size:14px">良かった点</p><ul class="fb">'+g.strengths.map(x=>"<li>"+esc(x)+"</li>").join("")+"</ul>";
+ if(g.improvements&&g.improvements.length)h+='<p style="margin:12px 0 0;font-weight:600;font-size:14px">改善ポイント</p><ul class="fb">'+g.improvements.map(x=>"<li>"+esc(x)+"</li>").join("")+"</ul>";
+ if(g.phrases&&g.phrases.length)h+='<p style="margin:12px 0 0;font-weight:600;font-size:14px">言い換え提案</p><table class="ph-table">'+g.phrases.map(p=>"<tr><td>"+esc(p.before||"")+"</td><td>"+esc(p.after||"")+(p.note?'<div class="tiny" style="margin-top:3px">'+esc(p.note)+"</div>":"")+"</td></tr>").join("")+"</table>";
+ if(g.grammar_points&&g.grammar_points.length)h+='<p style="margin:12px 0 0;font-weight:600;font-size:14px">文法の指摘と解説</p><ul class="fb">'+g.grammar_points.map(x=>"<li><b>"+esc(x.error||"")+"</b> → "+esc(x.fix||"")+'<br><span class="tiny">'+esc(x.exp||"")+"</span></li>").join("")+"</ul>";
+ if(g.killer_phrases&&g.killer_phrases.length)h+='<p style="margin:12px 0 0;font-weight:600;font-size:14px">キラーフレーズ（このトピック用）</p><ul class="fb">'+g.killer_phrases.map(x=>"<li>"+esc(x.en||"")+'<br><span class="tiny">'+esc(x.ja||"")+"</span></li>").join("")+"</ul>";
+ if(S.audioUrl){
+  const dd=new Date();
+  const fn="英検1級_"+(MODE_JP[S.mode]||S.mode)+"_"+dd.getFullYear()+"-"+String(dd.getMonth()+1).padStart(2,"0")+"-"+String(dd.getDate()).padStart(2,"0")+"_"+String(dd.getHours()).padStart(2,"0")+String(dd.getMinutes()).padStart(2,"0")+".webm";
+  h+='<p style="margin:12px 0 0;font-weight:600;font-size:14px">録音（開始から終了までの全音声）</p><audio controls src="'+S.audioUrl+'"></audio>'
+   +'<p style="margin:6px 0 0"><a class="btn sec" style="text-decoration:none" href="'+S.audioUrl+'" download="'+fn+'">音声をダウンロード</a></p>'
+   +'<p class="tiny">※面接官の声は、スピーカーの音をマイクが拾う形で録音されます。イヤホン使用時はご自身の声のみが録音されます。</p>';
+ }
+ if(S.stats)h+='<p class="tiny">スピーチ: '+S.stats.words+"語 / "+S.stats.sec+"秒（"+S.stats.wpm+" wpm）・長い間 "+S.stats.pauses+"回・つなぎ語 "+S.stats.fillers+"回</p>";
+ let tr="";
+ if(S.speechText)tr+="<p><b>スピーチ:</b> "+esc(S.speechText)+"</p>";
+ if(S.qaLog.length)tr+=S.qaLog.map(x=>"<p><b>Q:</b> "+esc(x.q)+"<br><b>A:</b> "+esc(x.a||"(無回答)")+"</p>").join("");
+ if(tr)h+="<details><summary>文字起こし全文を表示</summary>"+tr+"</details>";
+ h+='<p class="tiny">※発音スコアは文字起こしと流暢さからの推定です。判定は学習用の目安であり、実際の合否を保証するものではありません。</p>';
+ $("resultCard").innerHTML=h;
+ showTab("scr-result");
+ saveHist({t:Date.now(),mode:S.mode,topic:S.topic,total:total,max:max,pass:pass});
+}
+
+$("btnFull").onclick=()=>startExam("full");
+$("btnSpeech").onclick=()=>startExam("speech");
+$("btnQA").onclick=()=>startExam("qa");
+$("btnAgain").onclick=()=>startExam(S.mode||"full");
+$("btnHome").onclick=()=>showTab("home");
+$("inpKey").value=LS.get("eiken_key","");
+$("selModel").value=LS.get("eiken_model","claude-sonnet-4-6");
+$("selStrict").value=LS.get("eiken_strict","std");
+$("selModel").onchange=()=>LS.set("eiken_model",$("selModel").value);
+$("selStrict").onchange=()=>LS.set("eiken_strict",$("selStrict").value);
+refreshStatus();renderBank();renderHist();renderSrc();
+</script>
+</body>
+</html>
