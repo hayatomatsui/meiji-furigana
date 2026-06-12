@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>ことばマスター｜よく使われる言葉35</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:"Hiragino Maru Gothic ProN","Hiragino Kaku Gothic ProN","BIZ UDPGothic","Yu Gothic Medium","Yu Gothic",sans-serif;background:linear-gradient(180deg,#EAF5E2,#F6FAF0 260px);color:#33402f;min-height:100vh;touch-action:manipulation}
+#app{max-width:620px;margin:0 auto;padding:14px 14px 60px}
+button{font-family:inherit}
+.hdr{text-align:center;padding:16px 0 4px}
+.hdr h1{font-size:28px;color:#2C6E3A;letter-spacing:2px}
+.hdr .sub{font-size:14px;color:#7c8d73;margin-top:6px}
+.hdr .sub rt{font-size:.5em;color:#a3b598}
+.panel{background:#fff;border-radius:18px;padding:16px;margin-top:14px;box-shadow:0 2px 10px rgba(70,100,60,.08)}
+.panel h2{font-size:15px;color:#2C6E3A;margin-bottom:10px}
+.strow{display:flex;text-align:center;margin-bottom:10px}
+.st{flex:1}
+.st b{font-size:26px;color:#2C6E3A;display:block}
+.st span{font-size:12px;color:#8a967f}
+.pbar{height:10px;background:#E5EFDC;border-radius:6px;overflow:hidden}
+.pfill{height:100%;background:linear-gradient(90deg,#5CB867,#3E9B4F);border-radius:6px;transition:width .35s}
+.f1{flex:1}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:2px solid #D5E6CB;background:#fff;border-radius:999px;padding:10px 14px;font-size:15px;color:#557048;cursor:pointer}
+.chip.on{background:#3E9B4F;border-color:#3E9B4F;color:#fff;font-weight:bold}
+.modes{display:grid;gap:10px}
+.modebtn{display:block;width:100%;border:0;border-radius:16px;padding:15px 16px;font-size:19px;font-weight:bold;color:#fff;text-align:left;cursor:pointer;box-shadow:0 3px 0 rgba(0,0,0,.14)}
+.modebtn small{display:block;font-size:12px;font-weight:normal;opacity:.92;margin-top:3px}
+.modebtn:active{transform:translateY(2px);box-shadow:none}
+.m1{background:#3E9B4F}.m2{background:#E8833A}.m3{background:#4A7FD4}.m4{background:#8A67C2}.m5{background:#D45D8E}
+.stepn{display:inline-block;font-size:11px;background:rgba(255,255,255,.28);border-radius:6px;padding:2px 7px;margin-right:7px;vertical-align:2px;letter-spacing:1px}
+.note{font-size:12px;color:#8a967f;margin:-4px 0 10px}
+.tglrow{display:flex;justify-content:space-between;align-items:center;padding:9px 2px;font-size:15px}
+.sw{position:relative;width:54px;height:30px;background:#CDD9C3;border-radius:15px;cursor:pointer;transition:.2s;flex:none}
+.sw.on{background:#3E9B4F}
+.sw::after{content:"";position:absolute;width:24px;height:24px;border-radius:50%;background:#fff;top:3px;left:3px;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.sw.on::after{left:27px}
+.reset{margin-top:12px;background:none;border:0;color:#C0654A;font-size:13px;text-decoration:underline;cursor:pointer}
+.qtop{display:flex;align-items:center;gap:10px;padding:6px 0}
+.xbtn{width:40px;height:40px;border-radius:50%;border:2px solid #D5E6CB;background:#fff;font-size:17px;color:#7c8d73;cursor:pointer;flex:none}
+.qnum{font-size:14px;color:#7c8d73;min-width:52px;text-align:right}
+.qprompt{text-align:center;font-size:16px;color:#557048;margin-top:12px;font-weight:bold;line-height:1.9}
+.qprompt rt{font-size:.5em;color:#8fae82}
+.card{background:#fff;border-radius:22px;padding:30px 18px;margin-top:12px;text-align:center;box-shadow:0 3px 14px rgba(70,100,60,.10);cursor:pointer;min-height:210px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
+.bigword{font-size:clamp(46px,15vw,76px);line-height:1.7;color:#2e3a2a;font-weight:bold}
+.bigword rt{font-size:.30em;color:#E8833A;font-weight:bold;letter-spacing:1px}
+.hide-rt .bigword rt{visibility:hidden}
+.qmark{font-size:54px;color:#C9D8BF;font-weight:bold;letter-spacing:6px}
+.taphint{font-size:13px;color:#A8B89B}
+.yomi{font-size:24px;color:#E8833A;font-weight:bold}
+.spk{background:#EAF3FF;border:2px solid #BFDCF7;color:#1D6FB8;border-radius:999px;padding:9px 18px;font-size:15px;font-weight:bold;cursor:pointer}
+.spk.small{padding:6px 12px;font-size:13px}
+.meaning{font-size:17px;line-height:2.1;text-align:left;background:#F4FAEF;border-radius:14px;padding:14px 16px;margin-top:12px;color:#3c4a36}
+.meaning rt{font-size:.5em;color:#79A06B}
+.mspk{float:right;margin-left:8px}
+.tipbox{margin-top:10px;background:#FFF6E3;border-radius:14px;padding:12px 14px;font-size:14px;line-height:2;color:#7a6233}
+.tipbox rt{font-size:.5em;color:#BFA05F}
+.judge{display:flex;gap:10px;margin-top:14px}
+.btn{border:0;border-radius:16px;padding:16px 18px;font-size:18px;font-weight:bold;cursor:pointer;box-shadow:0 3px 0 rgba(0,0,0,.14)}
+.btn:active{transform:translateY(2px);box-shadow:none}
+.btn rt{font-size:.5em}
+.btn.main{display:block;width:100%;background:#3E9B4F;color:#fff;margin-top:14px}
+.okbtn{flex:1;background:#3E9B4F;color:#fff}
+.tribtn{flex:1;background:#F0A93C;color:#fff}
+.ghost{background:#fff;border:2px solid #CFE3C5;color:#2C6E3A;box-shadow:none}
+.w100{display:block;width:100%;margin-top:10px}
+.sent{background:#fff;border-radius:18px;padding:22px 18px;margin-top:12px;font-size:21px;line-height:2.5;box-shadow:0 3px 14px rgba(70,100,60,.10)}
+.sent rt{font-size:.5em;color:#79A06B}
+.blank{display:inline-block;min-width:86px;background:#FFEFD2;border:2px dashed #E8B25A;border-radius:10px;text-align:center;color:#C98A22;font-weight:bold;padding:0 10px}
+.blank.ok{background:#E3F4DF;border:2px solid #3E9B4F;color:#2C6E3A}
+.blank.ok rt{color:#E8833A;font-size:.34em}
+.center{text-align:center}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.choice{background:#fff;border:2px solid #CFE3C5;border-radius:14px;padding:13px 8px;font-size:21px;cursor:pointer;line-height:1.9;color:#2e3a2a;font-weight:bold}
+.choice rt{font-size:.42em;color:#79A06B;font-weight:normal}
+.choice.bad{background:#F3F3F3;border-color:#E0E0E0;color:#B5B5B5}
+.choice.bad rt{color:#cfcfcf}
+.shake{animation:shk .35s}
+@keyframes shk{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.pop{position:fixed;left:50%;top:34%;transform:translateX(-50%);font-size:36px;font-weight:bold;color:#3E9B4F;text-shadow:0 2px 0 #fff,0 0 14px #fff;pointer-events:none;z-index:50;animation:popa .9s forwards}
+@keyframes popa{0%{opacity:0;margin-top:18px}25%{opacity:1;margin-top:0}100%{opacity:0;margin-top:-36px}}
+.toast{position:fixed;left:50%;bottom:36px;transform:translateX(-50%);background:#4a554a;color:#fff;border-radius:999px;padding:11px 20px;font-size:14px;z-index:60;animation:tst 2.2s forwards;white-space:nowrap}
+@keyframes tst{0%{opacity:0}10%,80%{opacity:1}100%{opacity:0}}
+.score{font-size:40px;font-weight:bold;color:#2C6E3A;text-align:center;padding:8px 0}
+.wrow{display:flex;align-items:center;gap:12px;padding:10px 4px;border-bottom:1px dashed #E2EBDA;font-size:20px}
+.ww{line-height:1.9;font-weight:bold}
+.ww rt{font-size:.42em;color:#E8833A;font-weight:normal}
+.wk{color:#8a967f;font-size:14px;flex:1}
+.lrow{padding:14px 4px;border-bottom:1px dashed #E2EBDA}
+.lrow:last-child{border-bottom:0}
+.lhead{display:flex;align-items:center;gap:10px}
+.lw{font-size:26px;line-height:1.9;font-weight:bold}
+.lw rt{font-size:.40em;color:#E8833A;font-weight:normal}
+.nofuri .lw rt{visibility:hidden}
+.lst{font-size:18px;width:26px;text-align:center;flex:none;font-weight:bold}
+.lst.ok{color:#3E9B4F}.lst.tri{color:#F0A93C}.lst.no{color:#C9D8BF}
+.lm{font-size:14px;line-height:1.9;color:#5a6852;margin-top:6px}
+.lm rt{font-size:.5em;color:#9AB38C}
+.ltip{font-size:12.5px;line-height:1.8;color:#9a8350;margin-top:4px;background:#FFF9EC;border-radius:8px;padding:6px 8px}
+.ltip rt{font-size:.5em}
+.ltitle{font-size:17px;color:#2C6E3A}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+'use strict';
+// ===== データ（言葉35語：読み・意味・例文・豆知識）=====
+// ふりがなは「漢字[よみ]」の形式で書く
+const WORDS=[
+{n:1,g:1,w:"練習[れんしゅう]",k:"れんしゅう",m:"うまくなるように、同[おな]じことをくり返[かえ]して習[なら]うこと。",s:"サッカーの｛｝をする。"},
+{n:2,g:1,w:"衣類[いるい]",k:"いるい",m:"身[み]につけるもの。",s:"コートやマフラーなど冬[ふゆ]の｛｝を、まとめる。"},
+{n:3,g:1,w:"思[おも]いやり",k:"おもいやり",m:"その人[ひと]の気持[きも]ちになって考[かんが]えること。また、その気持[きも]ち。",s:"人[ひと]には｛｝をもって接[せっ]しよう。"},
+{n:4,g:1,w:"現実[げんじつ]",k:"げんじつ",m:"今[いま]、実際[じっさい]に事実[じじつ]としてあらわれていること。",s:"ゆめではなく｛｝だ。"},
+{n:5,g:1,w:"資料[しりょう]",k:"しりょう",m:"研究[けんきゅう]や調[しら]べごとのもとになる材料[ざいりょう]。",s:"｛｝をコピーする。"},
+{n:6,g:1,w:"開発[かいはつ]",k:"かいはつ",m:"①新[あたら]しく土地[とち]などを切[き]り開[ひら]き、人間[にんげん]の生活[せいかつ]に役立[やくだ]つようにすること。②新[あたら]しい技術[ぎじゅつ]や製品[せいひん]を、実際[じっさい]に使[つか]えるようにすること。",s:"この製品[せいひん]の｛｝には、五年[ごねん]もかかった。"},
+{n:7,g:1,w:"親友[しんゆう]",k:"しんゆう",m:"とても仲[なか]のよい友達[ともだち]。",s:"小学校[しょうがっこう]を卒業[そつぎょう]してもずっと｛｝でいようね。"},
+{n:8,g:1,w:"先頭[せんとう]",k:"せんとう",m:"いちばん前[まえ]。",s:"列[れつ]の｛｝になる。",tip:"「先頭[せんとう]」の反対[はんたい]の意味[いみ]をもつ言葉[ことば]には、「後尾[こうび]」があるよ。"},
+{n:9,g:2,w:"合間[あいま]",k:"あいま",m:"物事[ものごと]のとぎれる短[みじか]い時間[じかん]。",s:"気分[きぶん]をかえるため、勉強[べんきょう]の｛｝に料理[りょうり]をする。"},
+{n:10,g:2,w:"主張[しゅちょう]",k:"しゅちょう",m:"①自分[じぶん]のもっている強[つよ]い考[かんが]え。②自分[じぶん]の考[かんが]えや意見[いけん]などを、強[つよ]く言[い]い続[つづ]けること。",s:"がんこな彼[かれ]は、自分[じぶん]の｛｝をまげようとはしない。"},
+{n:11,g:2,w:"持参[じさん]",k:"じさん",m:"持[も]っていくこと。",s:"筆記具[ひっきぐ]を｛｝する。"},
+{n:12,g:2,w:"温存[おんぞん]",k:"おんぞん",m:"使[つか]わないで、そのままの状態[じょうたい]で大事[だいじ]にとっておくこと。",s:"次[つぎ]の試合[しあい]にそなえて、体力[たいりょく]を｛｝する。"},
+{n:13,g:2,w:"早期[そうき]",k:"そうき",m:"はやい時期[じき]。",s:"病気[びょうき]は｛｝の治[ち]りょうが大事[だいじ]だ。"},
+{n:14,g:2,w:"正午[しょうご]",k:"しょうご",m:"昼[ひる]の十二時[じゅうにじ]。",s:"昼食[ちゅうしょく]は｛｝からです。",tip:"夜中[よなか]の0時[れいじ]から正午[しょうご]までを「午前[ごぜん]」、正午[しょうご]から夜中[よなか]の0時[れいじ]までを「午後[ごご]」というよ。"},
+{n:15,g:2,w:"直後[ちょくご]",k:"ちょくご",m:"すぐあと。",s:"ねた｛｝に起[お]こされる。"},
+{n:16,g:2,w:"全身[ぜんしん]",k:"ぜんしん",m:"からだ全体[ぜんたい]。",s:"｛｝をきたえる。"},
+{n:17,g:2,w:"前進[ぜんしん]",k:"ぜんしん",m:"①前[まえ]に進[すす]むこと。②よい方向[ほうこう]へ進[すす]んでいくこと。",s:"目標[もくひょう]に向[む]かって、一歩一歩[いっぽいっぽ]｛｝する。"},
+{n:18,g:3,w:"強化[きょうか]",k:"きょうか",m:"強[つよ]くすること。",s:"新[あたら]しい勉強法[べんきょうほう]で、学力[がくりょく]を｛｝する。"},
+{n:19,g:3,w:"大差[たいさ]",k:"たいさ",m:"大[おお]きな差[さ]。",s:"｛｝で勝利[しょうり]する。"},
+{n:20,g:3,w:"室温[しつおん]",k:"しつおん",m:"部屋[へや]の中[なか]の温度[おんど]。",s:"｛｝が高[たか]すぎる。"},
+{n:21,g:3,w:"助言[じょげん]",k:"じょげん",m:"助[たす]けになるような言葉[ことば]をかけること。また、その言葉[ことば]。",s:"先生[せんせい]の｛｝で、気分[きぶん]がだいぶ楽[らく]になった。"},
+{n:22,g:3,w:"あらすじ",k:"あらすじ",m:"小説[しょうせつ]や映画[えいが]などのだいたいの内容[ないよう]。",s:"ドラマの｛｝を友人[ゆうじん]に聞[き]く。"},
+{n:23,g:3,w:"反省[はんせい]",k:"はんせい",m:"自分[じぶん]のしたことをふり返[かえ]って、正[ただ]しかったかどうか考[かんが]えること。",s:"ねる前[まえ]に、今日[きょう]の自分[じぶん]の行[おこな]いを｛｝する。"},
+{n:24,g:3,w:"正体[しょうたい]",k:"しょうたい",m:"かくされている、本当[ほんとう]のすがた。",s:"てきの｛｝をみやぶる。"},
+{n:25,g:3,w:"進化[しんか]",k:"しんか",m:"①生物[せいぶつ]がまわりのじょうきょうの変化[へんか]などにより、長[なが]い時間[じかん]をかけて変化[へんか]していくこと。②物事[ものごと]が進歩[しんぽ]すること。",s:"人類[じんるい]の｛｝を研究[けんきゅう]する。"},
+{n:26,g:3,w:"深夜[しんや]",k:"しんや",m:"夜[よる]のひじょうにおそい時間帯[じかんたい]。",s:"｛｝まで起[お]きている。",tip:"夜[よる]のおそい時間帯[じかんたい]は「深夜[しんや]」、朝[あさ]のはやい時間帯[じかんたい]は「早朝[そうちょう]」というよ。"},
+{n:27,g:4,w:"信用[しんよう]",k:"しんよう",m:"①信[しん]じて、受[う]け入[い]れること。②たしかであるというひょうばん。",s:"彼[かれ]の発言[はつげん]は｛｝できる。"},
+{n:28,g:4,w:"体温[たいおん]",k:"たいおん",m:"体[からだ]の温度[おんど]。",s:"かぜをひいて｛｝が上[あ]がる。"},
+{n:29,g:4,w:"視力[しりょく]",k:"しりょく",m:"ものを見[み]る目[め]の能力[のうりょく]。",s:"｛｝のけんさをする。"},
+{n:30,g:4,w:"出身[しゅっしん]",k:"しゅっしん",m:"その人[ひと]の生[う]まれたところ、育[そだ]ったところ。",s:"彼[かれ]は秋田県[あきたけん]の｛｝です。"},
+{n:31,g:4,w:"直進[ちょくしん]",k:"ちょくしん",m:"まっすぐ進[すす]むこと。",s:"道路[どうろ]を｛｝する。"},
+{n:32,g:4,w:"真相[しんそう]",k:"しんそう",m:"物事[ものごと]の本当[ほんとう]のすがた。",s:"事件[じけん]の｛｝は、まだ明[あ]かされていない。"},
+{n:33,g:4,w:"快晴[かいせい]",k:"かいせい",m:"空[そら]がよく晴[は]れわたること。",s:"昨日[きのう]は雨[あめ]だったけど、今日[きょう]は｛｝だ。"},
+{n:34,g:4,w:"上京[じょうきょう]",k:"じょうきょう",m:"地方[ちほう]から東京[とうきょう]へ行[い]くこと。",s:"受験[じゅけん]で｛｝する。"},
+{n:35,g:4,w:"食後[しょくご]",k:"しょくご",m:"食事[しょくじ]のあと。",s:"｛｝に薬[くすり]を飲[の]む。",tip:"食事[しょくじ]の前[まえ]は「食前[しょくぜん]」、食事[しょくじ]のあとは「食後[しょくご]」、食事[しょくじ]と食事[しょくじ]のあいだは「食間[しょっかん]」。"}
+];
+const GROUPS={"1":[1,8],"2":[9,17],"3":[18,26],"4":[27,35]};
+const PRAISE=["すごい！","いいね！","その調子！","よくできた！","完璧！","ナイス！"];
+// ===== アプリ本体 =====
+const KEY='kotobaMaster_v1';
+function loadS(){try{const x=JSON.parse(localStorage.getItem(KEY));if(x&&typeof x==='object'&&x.res)return x}catch(e){}return null}
+let S=Object.assign({res:{},shuffle:true,autoSpeak:true,furi:true,range:'all'},loadS()||{});
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+
+const app=document.getElementById('app');
+const RX=/([々一-鿿0-9０-９]+)\[([^\]]+)\]/g;
+function ruby(s){return s.replace(RX,'<ruby>$1<rt>$2</rt></ruby>')}
+function kana(s){return s.replace(RX,'$2')}
+function speak(t){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(String(t).replace(/[①②｛｝]/g,'、'));u.lang='ja-JP';u.rate=0.9;speechSynthesis.speak(u)}catch(e){}}
+function shuf(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));const t=a[i];a[i]=a[j];a[j]=t}return a}
+function rangeWords(sel){
+ if(sel==='weak')return WORDS.filter(w=>S.res[w.n]==='tri');
+ if(GROUPS[sel]){const r=GROUPS[sel];return WORDS.filter(w=>w.n>=r[0]&&w.n<=r[1])}
+ return WORDS.slice();
+}
+const RLBL={all:'全部','1':'1〜8','2':'9〜17','3':'18〜26','4':'27〜35',weak:'苦手'};
+function counts(){let ok=0,tri=0;WORDS.forEach(w=>{if(S.res[w.n]==='ok')ok++;else if(S.res[w.n]==='tri')tri++});return{ok:ok,tri:tri,rest:WORDS.length-ok-tri}}
+function pop(t){const d=document.createElement('div');d.className='pop';d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),950)}
+function toast(t){const d=document.createElement('div');d.className='toast';d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),2300)}
+
+let Q=null;
+
+function home(){
+ const c=counts();
+ const ranges=[['all','全部(35)'],['1','① 1〜8'],['2','② 9〜17'],['3','③ 18〜26'],['4','④ 27〜35'],['weak','🔥 苦手('+c.tri+')']];
+ const chips=ranges.map(r=>'<button class="chip '+(S.range===r[0]?'on':'')+'" onclick="setRange(\''+r[0]+'\')">'+r[1]+'</button>').join('');
+ app.innerHTML=
+ '<div class="hdr"><h1>🐸 ことばマスター</h1><p class="sub">'+ruby('よく使[つか]われる言葉[ことば]・全[ぜん]35語[ご]')+'</p></div>'
+ +'<div class="panel"><div class="strow">'
+ +'<div class="st"><b>'+c.ok+'</b><span>◯ 覚えた</span></div>'
+ +'<div class="st"><b>'+c.tri+'</b><span>△ 練習中</span></div>'
+ +'<div class="st"><b>'+c.rest+'</b><span>未学習</span></div></div>'
+ +'<div class="pbar"><div class="pfill" style="width:'+(c.ok/WORDS.length*100)+'%"></div></div></div>'
+ +'<div class="panel"><h2>① 範囲を選ぶ</h2><div class="chips">'+chips+'</div></div>'
+ +'<div class="panel"><h2>② モードを選ぶ</h2><p class="note">STEP 1 → 5 の順番で進めるのがおすすめ</p><div class="modes">'
+ +'<button class="modebtn m4" onclick="showList()"><span class="stepn">STEP 1</span>📚 言葉リスト<small>まず意味と読み方を確認しよう</small></button>'
+ +'<button class="modebtn m1" onclick="startQuiz(\'yomi\')"><span class="stepn">STEP 2</span>📖 読みクイズ<small>漢字の読み方を答えよう</small></button>'
+ +'<button class="modebtn m3" onclick="startQuiz(\'ana\')"><span class="stepn">STEP 3</span>✏️ 文の穴埋めクイズ<small>文に合う言葉を選ぼう</small></button>'
+ +'<button class="modebtn m2" onclick="startQuiz(\'imi4\')"><span class="stepn">STEP 4</span>💡 意味クイズ・四択<small>意味に合う言葉を選ぼう</small></button>'
+ +'<button class="modebtn m5" onclick="startQuiz(\'imi\')"><span class="stepn">STEP 5</span>🧠 意味クイズ・思い出す<small>仕上げ！何も見ずに思い出そう</small></button>'
+ +'</div></div>'
+ +'<div class="panel"><h2>設定</h2>'
+ +'<div class="tglrow">🔀 シャッフル出題<div class="sw '+(S.shuffle?'on':'')+'" onclick="tgl(\'shuffle\',this)"></div></div>'
+ +'<div class="tglrow">🔊 答えを自動で読み上げ<div class="sw '+(S.autoSpeak?'on':'')+'" onclick="tgl(\'autoSpeak\',this)"></div></div>'
+ +'<div class="center"><button class="reset" onclick="resetRec()">記録をリセットする</button></div></div>';
+ window.scrollTo(0,0);
+}
+function setRange(v){S.range=v;save();home()}
+function tgl(k,el){S[k]=!S[k];save();el.classList.toggle('on',S[k])}
+function resetRec(){if(confirm('これまでの ◯△の記録をすべて消します。よろしいですか？')){S.res={};save();home();toast('記録をリセットしました')}}
+
+function startQuiz(mode){
+ let list=rangeWords(S.range);
+ if(!list.length){toast('「苦手」の言葉は今はありません。すごい！');return}
+ if(S.shuffle)list=shuf(list);
+ Q={mode:mode,list:list,i:0,ok:0,wrong:[],revealed:false,solved:false,firstTry:true,choices:null,choiceState:{}};
+ qRender();
+}
+function makeChoices(w){
+ let pool=rangeWords(S.range).filter(x=>x.n!==w.n);
+ if(pool.length<3)pool=WORDS.filter(x=>x.n!==w.n);
+ return shuf(shuf(pool).slice(0,3).concat([w]));
+}
+function qRender(){
+ const w=Q.list[Q.i];
+ let h='<div class="qtop"><button class="xbtn" onclick="home()">✕</button><div class="pbar f1"><div class="pfill" style="width:'+(Q.i/Q.list.length*100)+'%"></div></div><div class="qnum">'+(Q.i+1)+' / '+Q.list.length+'</div></div>';
+ const meaningBox='<div class="meaning"><button class="spk small mspk" onclick="speak(\''+kana(w.m)+'\')">🔊</button>'+ruby(w.m)+'</div>';
+ const tipBox=w.tip?'<div class="tipbox">💡 '+ruby(w.tip)+'</div>':'';
+ const judge='<div class="judge"><button class="btn okbtn" onclick="mark(\'ok\')">◯ '+(Q.mode==='yomi'?'読めた！':'思い出せた！')+'</button><button class="btn tribtn" onclick="mark(\'tri\')">△ もう少し</button></div>';
+ const answerCard='<div class="card"><div class="bigword">'+ruby(w.w)+'</div><div class="yomi">'+w.k+'</div><button class="spk" onclick="event.stopPropagation();speak(\''+w.k+'\')">🔊 聞く</button></div>';
+ const choiceGrid=()=>'<div class="choices">'+Q.choices.map(c=>'<button id="ch'+c.n+'" class="choice '+(Q.choiceState[c.n]||'')+'" '+(Q.choiceState[c.n]?'disabled':'')+' onclick="pick('+c.n+')">'+ruby(c.w)+'</button>').join('')+'</div>';
+ if(Q.mode==='yomi'){
+  if(!Q.revealed){
+   h+='<div class="qprompt">'+ruby('この漢字[かんじ]、なんて読[よ]む？　声[こえ]に出[だ]して読[よ]んでみよう')+'</div>'
+   +'<div class="card hide-rt" onclick="reveal()"><div class="bigword">'+ruby(w.w)+'</div><div class="taphint">タップで答えを表示</div></div>'
+   +'<button class="btn main" onclick="reveal()">答えを見る</button>';
+  }else{
+   h+=answerCard+meaningBox+tipBox+judge;
+  }
+ }else if(Q.mode==='imi'){
+  if(!Q.revealed){
+   h+='<div class="qprompt">'+ruby('この意味[いみ]の言葉[ことば]は何[なん]だろう？')+'</div>'+meaningBox
+   +'<div class="card" onclick="reveal()"><div class="qmark">？？？</div><div class="taphint">思い出したらタップ</div></div>'
+   +'<button class="btn main" onclick="reveal()">答えを見る</button>';
+  }else{
+   h+=meaningBox+answerCard+tipBox+judge;
+  }
+ }else if(Q.mode==='imi4'){
+  if(!Q.choices)Q.choices=makeChoices(w);
+  h+='<div class="qprompt">'+ruby('この意味[いみ]に合[あ]う言葉[ことば]を選[えら]ぼう')+'</div>'+meaningBox;
+  if(!Q.solved){
+   h+=choiceGrid();
+  }else{
+   h+=answerCard+tipBox+'<button class="btn main" onclick="next()">次へ →</button>';
+  }
+ }else{
+  if(!Q.choices)Q.choices=makeChoices(w);
+  const blank=Q.solved?'<span class="blank ok">'+ruby(w.w)+'</span>':'<span class="blank">？</span>';
+  const spkText=kana(w.s).replace('｛｝',Q.solved?w.k:'、なになに、');
+  h+='<div class="qprompt">'+ruby('（？）に入[はい]る言葉[ことば]を選[えら]ぼう')+'</div>'
+  +'<div class="sent">'+ruby(w.s).replace('｛｝',blank)+'</div>'
+  +'<div class="center" style="margin-top:10px"><button class="spk small" onclick="speak(\''+spkText+'\')">🔊 文を聞く</button></div>';
+  if(!Q.solved){
+   h+=choiceGrid();
+  }else{
+   h+=meaningBox+tipBox+'<button class="btn main" onclick="next()">次へ →</button>';
+  }
+ }
+ app.innerHTML=h;
+ window.scrollTo(0,0);
+}
+function reveal(){
+ if(Q.revealed)return;
+ Q.revealed=true;
+ if(S.autoSpeak)speak(Q.list[Q.i].k);
+ qRender();
+}
+function mark(st){
+ const w=Q.list[Q.i];
+ S.res[w.n]=st;save();
+ if(st==='ok'){Q.ok++;pop(PRAISE[Math.floor(Math.random()*PRAISE.length)])}else{Q.wrong.push(w)}
+ next();
+}
+function pick(n){
+ const w=Q.list[Q.i];
+ if(Q.solved)return;
+ if(n===w.n){
+  const st=Q.firstTry?'ok':'tri';
+  S.res[w.n]=st;save();
+  if(st==='ok'){Q.ok++;pop(PRAISE[Math.floor(Math.random()*PRAISE.length)])}else{Q.wrong.push(w);pop('正解！')}
+  Q.solved=true;
+  if(S.autoSpeak){if(Q.mode==='ana')speak(kana(w.s).replace('｛｝',w.k));else speak(w.k)}
+  qRender();
+ }else{
+  Q.firstTry=false;Q.choiceState[n]='bad';
+  qRender();
+  const el=document.getElementById('ch'+n);if(el)el.classList.add('shake');
+ }
+}
+function next(){
+ Q.i++;Q.revealed=false;Q.solved=false;Q.firstTry=true;Q.choices=null;Q.choiceState={};
+ if(Q.i>=Q.list.length)result();else qRender();
+}
+function result(){
+ const total=Q.list.length,perfect=Q.ok===total;
+ let h='<div class="hdr"><h1>'+(perfect?'🏆 全問正解！':'🎉 おつかれさま！')+'</h1></div>'
+ +'<div class="panel"><div class="score">◯ '+Q.ok+' / '+total+'</div><div class="pbar"><div class="pfill" style="width:'+(Q.ok/total*100)+'%"></div></div></div>';
+ if(Q.wrong.length){
+  h+='<div class="panel"><h2>△ もう少しだった言葉</h2>'
+  +Q.wrong.map(w=>'<div class="wrow"><span class="ww">'+ruby(w.w)+'</span><span class="wk">'+w.k+'</span><button class="spk small" onclick="speak(\''+w.k+'\')">🔊</button></div>').join('')
+  +'<button class="btn main" onclick="retryWrong()">△だけもう一度！</button></div>';
+ }
+ h+='<div class="panel"><button class="btn ghost w100" onclick="restartSame()">同じ範囲をもう一度</button>'
+ +'<button class="btn ghost w100" onclick="home()">🏠 ホームに戻る</button></div>';
+ app.innerHTML=h;window.scrollTo(0,0);
+}
+function retryWrong(){
+ const list=S.shuffle?shuf(Q.wrong):Q.wrong.slice();
+ Q={mode:Q.mode,list:list,i:0,ok:0,wrong:[],revealed:false,solved:false,firstTry:true,choices:null,choiceState:{}};
+ qRender();
+}
+function restartSame(){startQuiz(Q.mode)}
+
+function showList(){
+ const ws=rangeWords(S.range);
+ let h='<div class="qtop"><button class="xbtn" onclick="home()">←</button><h2 class="f1 ltitle">📚 言葉リスト（'+RLBL[S.range]+'）</h2><button class="chip '+(S.furi?'on':'')+'" onclick="toggleFuri()">ふりがな</button></div>';
+ if(!ws.length){
+  h+='<div class="panel center">「苦手」の言葉は今はありません。</div>';
+ }else{
+  h+='<div class="panel '+(S.furi?'':'nofuri')+'">'+ws.map(w=>{
+   const st=S.res[w.n];const ic=st==='ok'?'◯':st==='tri'?'△':'・';const cls=st==='ok'?'ok':st==='tri'?'tri':'no';
+   return '<div class="lrow"><div class="lhead"><span class="lst '+cls+'">'+ic+'</span><span class="lw">'+ruby(w.w)+'</span><span class="f1"></span><button class="spk small" onclick="speak(\''+w.k+'\')">🔊</button></div>'
+   +'<div class="lm">'+ruby(w.m)+'</div>'+(w.tip?'<div class="ltip">💡 '+ruby(w.tip)+'</div>':'')+'</div>';
+  }).join('')+'</div>';
+ }
+ app.innerHTML=h;window.scrollTo(0,0);
+}
+function toggleFuri(){S.furi=!S.furi;save();showList()}
+
+home();
+</script>
+</body>
+</html>
