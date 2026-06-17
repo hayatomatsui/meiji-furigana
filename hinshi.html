@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>品詞分類表 — タップで具体例</title>
+<style>
+  :root{
+    --bg:#fafafa; --panel:#fff; --line:#cfcfcf;
+    --accent:#e2007a; --accent-soft:#fde6f1;
+    --text:#222; --muted:#777;
+    --ex:#0a7d4b; --ex-soft:#e6f6ee;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:"Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans JP",sans-serif;
+    -webkit-text-size-adjust:100%;
+  }
+  header{
+    text-align:center; padding:24px 16px 8px;
+  }
+  header h1{ font-size:1.5rem; margin:0 0 4px; letter-spacing:.04em; }
+  header p{ margin:0; color:var(--muted); font-size:.9rem; }
+  .controls{
+    display:flex; gap:8px; justify-content:center; flex-wrap:wrap;
+    padding:12px 16px;
+  }
+  .controls button{
+    border:1px solid var(--line); background:var(--panel); color:var(--text);
+    border-radius:999px; padding:8px 16px; font-size:.85rem; cursor:pointer;
+    font-family:inherit; transition:.15s;
+  }
+  .controls button:hover{ background:var(--accent-soft); border-color:var(--accent); }
+
+  .wrap{ max-width:920px; margin:0 auto; padding:8px 16px 64px; }
+
+  /* groups */
+  .group{ margin:22px 0; }
+  .group-title{
+    font-size:.85rem; color:var(--muted); margin:0 0 10px;
+    border-left:4px solid var(--accent); padding-left:10px; letter-spacing:.05em;
+  }
+  .group-title b{ color:var(--text); font-size:1rem; }
+
+  .cards{
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px;
+  }
+
+  .card{
+    background:var(--panel); border:1px solid var(--line); border-radius:14px;
+    overflow:hidden; cursor:pointer; transition:.18s; user-select:none;
+  }
+  .card:hover{ box-shadow:0 4px 14px rgba(0,0,0,.08); transform:translateY(-1px); }
+  .card.open{ border-color:var(--accent); }
+  .card-head{
+    padding:14px 12px; text-align:center; position:relative;
+  }
+  .card-head .name{
+    font-size:1.15rem; font-weight:700; color:var(--accent);
+  }
+  .card-head .desc{
+    font-size:.7rem; color:var(--muted); margin-top:4px; line-height:1.4;
+  }
+  .card-head .hint{
+    position:absolute; top:8px; right:10px; font-size:.7rem; color:var(--muted);
+    transition:.18s;
+  }
+  .card.open .card-head .hint{ transform:rotate(45deg); color:var(--accent); }
+
+  .examples{
+    max-height:0; overflow:hidden; transition:max-height .25s ease;
+    background:var(--ex-soft); border-top:1px solid transparent;
+  }
+  .card.open .examples{ border-top-color:var(--line); }
+  .examples ul{ list-style:none; margin:0; padding:10px 12px; }
+  .examples li{
+    padding:7px 4px; font-size:.95rem; color:var(--ex);
+    border-bottom:1px dashed rgba(10,125,75,.25);
+  }
+  .examples li:last-child{ border-bottom:none; }
+  .examples li .ruby{ color:var(--muted); font-size:.72rem; margin-left:6px; }
+
+  footer{ text-align:center; color:var(--muted); font-size:.75rem; padding:24px 16px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>品詞分類表</h1>
+  <p>カードをタップすると具体例が出ます（もう一度タップで消えます）</p>
+</header>
+
+<div class="controls">
+  <button id="openAll">すべて開く</button>
+  <button id="closeAll">すべて閉じる</button>
+</div>
+
+<div class="wrap" id="wrap"></div>
+
+<footer>自立語＝それだけで意味が通じる語／付属語＝他の語に付く語。活用＝形が変わること。</footer>
+
+<script>
+const DATA = [
+  {
+    group:"自立語・活用する（用言）",
+    note:"述語になる。単独で文節をつくれ、形が変化する。",
+    items:[
+      {name:"動詞", read:"どうし", desc:"動作・作用・存在を表す。終止形が「ウ段」で終わる。",
+        ex:[["歩く","あるく"],["食べる","たべる"],["来る","くる"]]},
+      {name:"形容詞", read:"けいようし", desc:"状態・性質を表す。終止形が「い」で終わる。",
+        ex:[["美しい","うつくしい"],["高い","たかい"],["早い","はやい"]]},
+      {name:"形容動詞", read:"けいようどうし", desc:"状態・性質を表す。終止形が「だ・です」で終わる。",
+        ex:[["静かだ","しずかだ"],["きれいだ",""],["親切だ","しんせつだ"]]},
+    ]
+  },
+  {
+    group:"自立語・活用しない",
+    note:"形が変わらない自立語。",
+    items:[
+      {name:"名詞", read:"めいし", desc:"主語になる（体言）。物事の名前を表す。",
+        ex:[["学校","がっこう"],["富士山","ふじさん"],["あなた",""]]},
+      {name:"副詞", read:"ふくし", desc:"修飾語になる。主に用言を修飾する。",
+        ex:[["ゆっくり",""],["とても",""],["もし",""]]},
+      {name:"連体詞", read:"れんたいし", desc:"修飾語になる。常に体言を修飾する。",
+        ex:[["この",""],["大きな","おおきな"],["いわゆる",""]]},
+      {name:"接続詞", read:"せつぞくし", desc:"接続語になる。前後の文・語句をつなぐ。",
+        ex:[["だから",""],["しかし",""],["または",""]]},
+      {name:"感動詞", read:"かんどうし", desc:"独立語になる。感動・呼びかけ・応答を表す。",
+        ex:[["あっ",""],["こんにちは",""],["はい",""]]},
+    ]
+  },
+  {
+    group:"付属語",
+    note:"単独では文節をつくれず、他の語に付く。",
+    items:[
+      {name:"助動詞", read:"じょどうし", desc:"付属語で活用する。意味を付け加える。",
+        ex:[["れる／られる","受け身など"],["ない／ぬ","打消し"],["ます","丁寧"]]},
+      {name:"助詞", read:"じょし", desc:"付属語で活用しない。語句の関係を示す・意味を添える。",
+        ex:[["が／を／に","格助詞"],["は／も","副助詞"],["ね／よ","終助詞"]]},
+    ]
+  },
+];
+
+const wrap = document.getElementById("wrap");
+
+DATA.forEach(g=>{
+  const sec=document.createElement("div"); sec.className="group";
+  sec.innerHTML=`<p class="group-title"><b>${g.group}</b>　${g.note}</p>`;
+  const cards=document.createElement("div"); cards.className="cards";
+
+  g.items.forEach(it=>{
+    const card=document.createElement("div"); card.className="card";
+    const lis=it.ex.map(([w,r])=>
+      `<li>${w}${r?`<span class="ruby">${r}</span>`:""}</li>`).join("");
+    card.innerHTML=`
+      <div class="card-head">
+        <span class="hint">＋</span>
+        <div class="name">${it.name}</div>
+        <div class="desc">${it.read}<br>${it.desc}</div>
+      </div>
+      <div class="examples"><ul>${lis}</ul></div>`;
+    const ex=card.querySelector(".examples");
+    card.addEventListener("click",()=>{
+      const open=card.classList.toggle("open");
+      ex.style.maxHeight = open ? ex.scrollHeight+"px" : "0";
+    });
+    cards.appendChild(card);
+  });
+  sec.appendChild(cards); wrap.appendChild(sec);
+});
+
+function setAll(open){
+  document.querySelectorAll(".card").forEach(c=>{
+    const ex=c.querySelector(".examples");
+    c.classList.toggle("open",open);
+    ex.style.maxHeight = open ? ex.scrollHeight+"px" : "0";
+  });
+}
+document.getElementById("openAll").onclick=()=>setAll(true);
+document.getElementById("closeAll").onclick=()=>setAll(false);
+</script>
+</body>
+</html>
