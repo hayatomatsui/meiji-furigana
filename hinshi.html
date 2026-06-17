@@ -10,6 +10,9 @@
     --accent:#e2007a; --accent-soft:#fde6f1;
     --text:#222; --muted:#777;
     --ex:#0a7d4b; --ex-soft:#e6f6ee;
+    /* 体言（名詞）系＝青 / 用言系＝オレンジ */
+    --taigen:#1565c0; --taigen-soft:#e3f0fb;
+    --yougen:#e65100; --yougen-soft:#fff3e0;
   }
   *{box-sizing:border-box;}
   body{
@@ -17,15 +20,28 @@
     font-family:"Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans JP",sans-serif;
     -webkit-text-size-adjust:100%;
   }
-  header{
-    text-align:center; padding:24px 16px 8px;
-  }
+  header{ text-align:center; padding:22px 16px 6px; }
   header h1{ font-size:1.5rem; margin:0 0 4px; letter-spacing:.04em; }
   header p{ margin:0; color:var(--muted); font-size:.9rem; }
-  .controls{
+
+  /* ===== タブ ===== */
+  nav.tabs{
     display:flex; gap:8px; justify-content:center; flex-wrap:wrap;
-    padding:12px 16px;
+    padding:12px 16px 4px; position:sticky; top:0; background:var(--bg); z-index:10;
   }
+  nav.tabs .tab{
+    border:1px solid var(--line); background:var(--panel); color:var(--text);
+    border-radius:999px; padding:9px 18px; font-size:.9rem; cursor:pointer;
+    font-family:inherit; font-weight:700; transition:.15s;
+  }
+  nav.tabs .tab:not(.active):hover{ background:var(--accent-soft); border-color:var(--accent); }
+  nav.tabs .tab.active{ background:var(--accent); color:#fff; border-color:var(--accent); }
+
+  .panel{ display:none; }
+  .panel.active{ display:block; animation:fade .2s ease; }
+  @keyframes fade{ from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;} }
+
+  .controls{ display:flex; gap:8px; justify-content:center; flex-wrap:wrap; padding:10px 16px 0; }
   .controls button{
     border:1px solid var(--line); background:var(--panel); color:var(--text);
     border-radius:999px; padding:8px 16px; font-size:.85rem; cursor:pointer;
@@ -33,41 +49,29 @@
   }
   .controls button:hover{ background:var(--accent-soft); border-color:var(--accent); }
 
-  .wrap{ max-width:920px; margin:0 auto; padding:8px 16px 64px; }
+  .wrap{ max-width:920px; margin:0 auto; padding:8px 16px 56px; }
 
-  /* groups */
+  /* ===== 分類表（既存） ===== */
   .group{ margin:22px 0; }
   .group-title{
     font-size:.85rem; color:var(--muted); margin:0 0 10px;
     border-left:4px solid var(--accent); padding-left:10px; letter-spacing:.05em;
   }
   .group-title b{ color:var(--text); font-size:1rem; }
-
-  .cards{
-    display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px;
-  }
-
+  .cards{ display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; }
   .card{
     background:var(--panel); border:1px solid var(--line); border-radius:14px;
     overflow:hidden; cursor:pointer; transition:.18s; user-select:none;
   }
   .card:hover{ box-shadow:0 4px 14px rgba(0,0,0,.08); transform:translateY(-1px); }
   .card.open{ border-color:var(--accent); }
-  .card-head{
-    padding:14px 12px; text-align:center; position:relative;
-  }
-  .card-head .name{
-    font-size:1.15rem; font-weight:700; color:var(--accent);
-  }
-  .card-head .desc{
-    font-size:.7rem; color:var(--muted); margin-top:4px; line-height:1.4;
-  }
+  .card-head{ padding:14px 12px; text-align:center; position:relative; }
+  .card-head .name{ font-size:1.15rem; font-weight:700; color:var(--accent); }
+  .card-head .desc{ font-size:.7rem; color:var(--muted); margin-top:4px; line-height:1.4; }
   .card-head .hint{
-    position:absolute; top:8px; right:10px; font-size:.7rem; color:var(--muted);
-    transition:.18s;
+    position:absolute; top:8px; right:10px; font-size:.7rem; color:var(--muted); transition:.18s;
   }
   .card.open .card-head .hint{ transform:rotate(45deg); color:var(--accent); }
-
   .examples{
     max-height:0; overflow:hidden; transition:max-height .25s ease;
     background:var(--ex-soft); border-top:1px solid transparent;
@@ -81,25 +85,300 @@
   .examples li:last-child{ border-bottom:none; }
   .examples li .ruby{ color:var(--muted); font-size:.72rem; margin-left:6px; }
 
-  footer{ text-align:center; color:var(--muted); font-size:.75rem; padding:24px 16px; }
+  /* ===== 共通の見出し ===== */
+  .lead{ color:var(--muted); font-size:.92rem; line-height:1.7; margin:6px 0 18px; }
+  h2.sec{ font-size:1.1rem; margin:26px 0 12px; letter-spacing:.04em; }
+  h2.sec span{ font-size:.8rem; color:var(--muted); font-weight:400; margin-left:8px; }
+
+  /* ===== 体言・用言タブ ===== */
+  .split{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  @media(max-width:560px){ .split{ grid-template-columns:1fr; } }
+  .box{
+    border:2px solid var(--line); border-radius:16px; padding:16px; background:var(--panel);
+  }
+  .box.taigen{ border-color:var(--taigen); background:var(--taigen-soft); }
+  .box.yougen{ border-color:var(--yougen); background:var(--yougen-soft); }
+  .box .label{ font-size:1.25rem; font-weight:800; }
+  .box.taigen .label{ color:var(--taigen); }
+  .box.yougen .label{ color:var(--yougen); }
+  .box .label small{ font-size:.7rem; color:var(--muted); font-weight:400; margin-left:6px; }
+  .box .eq{ font-size:1rem; font-weight:700; margin:8px 0 6px; }
+  .box .meta{ font-size:.82rem; color:#444; line-height:1.7; }
+  .box .chips{ margin-top:10px; display:flex; flex-wrap:wrap; gap:6px; }
+  .chip{
+    display:inline-block; padding:4px 10px; border-radius:999px; font-size:.85rem;
+    background:#fff; border:1px solid var(--line);
+  }
+  .box.taigen .chip{ color:var(--taigen); border-color:var(--taigen); }
+  .box.yougen .chip{ color:var(--yougen); border-color:var(--yougen); }
+
+  /* ===== 暗記カード（タップで答えを表示／隠す） ===== */
+  .fc-controls{ display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin:2px 0 12px; }
+  .fc-controls button{
+    border:1px solid var(--line); background:var(--panel); color:var(--text);
+    border-radius:999px; padding:7px 14px; font-size:.82rem; cursor:pointer; font-family:inherit; transition:.15s;
+  }
+  .fc-controls button:hover{ background:var(--accent-soft); border-color:var(--accent); }
+  .flash{
+    border:2px solid var(--line); border-radius:16px; padding:18px 14px; background:var(--panel);
+    text-align:center; cursor:pointer; user-select:none; transition:.15s; position:relative;
+  }
+  .flash:hover{ box-shadow:0 4px 14px rgba(0,0,0,.08); }
+  .flash.taigen{ border-color:var(--taigen); background:var(--taigen-soft); }
+  .flash.yougen{ border-color:var(--yougen); background:var(--yougen-soft); }
+  .flash .fc-q{ font-size:1.3rem; font-weight:800; line-height:1.4; }
+  .flash.taigen .fc-q{ color:var(--taigen); }
+  .flash.yougen .fc-q{ color:var(--yougen); }
+  .flash .fc-q small{ font-size:.7rem; color:var(--muted); font-weight:400; margin-left:4px; }
+  .flash .fc-eq{ font-size:1.2rem; color:var(--muted); margin:6px 0 2px; font-weight:700; }
+  .flash .fc-a{ min-height:2.4em; display:flex; align-items:center; justify-content:center; margin-top:6px; }
+  .flash .fc-mask{
+    font-size:.95rem; color:var(--muted); background:#fff; border-radius:10px;
+    padding:9px 18px; border:1.5px dashed var(--line);
+  }
+  .flash .fc-real{ display:none; font-size:1.35rem; font-weight:800; line-height:1.4; }
+  .flash.taigen .fc-real{ color:var(--taigen); }
+  .flash.yougen .fc-real{ color:var(--yougen); }
+  .flash.show .fc-mask{ display:none; }
+  .flash.show .fc-real{ display:inline-block; animation:pop .22s ease; }
+  @keyframes pop{ from{transform:scale(.82);opacity:0;} to{transform:none;opacity:1;} }
+  .flash .fc-note{ display:none; font-size:.78rem; color:#444; margin-top:10px; line-height:1.6; }
+  .flash .fc-note b{ color:var(--accent); }
+  .flash.show .fc-note{ display:block; }
+  .flash .fc-hint{ font-size:.72rem; color:var(--muted); margin-top:9px; }
+  .flash.show .fc-hint{ visibility:hidden; }
+
+  .rule{
+    display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+    border:1px solid var(--line); border-left:6px solid var(--yougen);
+    border-radius:12px; padding:13px 15px; margin:11px 0; background:var(--panel);
+  }
+  .rule .pos{ font-size:1.05rem; font-weight:800; color:var(--yougen); min-width:84px; }
+  .rule .pt{ font-size:.95rem; }
+  .rule .pt b{ color:var(--yougen); font-size:1.15rem; }
+  .rule .egs{ margin-left:auto; font-size:.9rem; color:var(--ex); }
+  .rule .egs .k{ color:var(--accent); font-weight:700; }
+
+  /* ウ段ストリップ */
+  .udan-note{ font-size:.85rem; color:#444; line-height:1.7; margin:6px 0 10px; }
+  .udan{
+    display:flex; gap:8px; overflow-x:auto; padding:6px 2px 10px; -webkit-overflow-scrolling:touch;
+  }
+  .udan .u{
+    flex:0 0 auto; width:62px; text-align:center; border:1px solid var(--line);
+    border-radius:12px; padding:8px 4px; background:var(--panel);
+  }
+  .udan .u .kana{
+    font-size:1.35rem; font-weight:800; color:var(--yougen);
+    background:var(--yougen-soft); border-radius:8px; padding:2px 0; display:block;
+  }
+  .udan .u .vb{ font-size:.78rem; margin-top:6px; color:var(--ex); }
+
+  /* クイズ */
+  .quiz{ border:2px dashed var(--accent); border-radius:16px; padding:18px 16px; background:#fff; }
+  .quiz .q-prompt{ text-align:center; color:var(--muted); font-size:.85rem; }
+  .quiz .q-word{
+    text-align:center; font-size:2.1rem; font-weight:800; color:var(--text);
+    margin:8px 0 2px; letter-spacing:.05em;
+  }
+  .quiz .q-read{ text-align:center; color:var(--muted); font-size:.8rem; min-height:1em; }
+  .quiz .q-choices{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin:16px 0 4px; max-width:380px; margin-inline:auto;
+  }
+  .quiz .q-choices button{
+    border:1.5px solid var(--line); background:var(--panel); color:var(--text);
+    border-radius:12px; padding:13px 8px; font-size:1rem; font-weight:700; cursor:pointer;
+    font-family:inherit; transition:.12s;
+  }
+  .quiz .q-choices button:hover:not(:disabled){ border-color:var(--accent); background:var(--accent-soft); }
+  .quiz .q-choices button.correct{ background:var(--ex-soft); border-color:var(--ex); color:var(--ex); }
+  .quiz .q-choices button.wrong{ background:#fde8e8; border-color:#d23; color:#d23; }
+  .quiz .q-fb{ text-align:center; font-size:.9rem; min-height:2.4em; line-height:1.6; margin-top:8px; }
+  .quiz .q-fb.ok{ color:var(--ex); } .quiz .q-fb.ng{ color:#d23; }
+  .quiz .q-bar{ display:flex; justify-content:space-between; align-items:center; margin-top:10px; font-size:.82rem; color:var(--muted); }
+  .quiz .q-bar button{
+    border:1px solid var(--accent); background:var(--accent); color:#fff;
+    border-radius:999px; padding:8px 18px; font-size:.9rem; cursor:pointer; font-family:inherit; font-weight:700;
+  }
+  .quiz .q-bar button[disabled]{ opacity:.35; cursor:default; }
+
+  /* ===== 修飾の関係タブ ===== */
+  .mod{
+    border:2px solid var(--line); border-radius:16px; padding:16px; margin:14px 0; background:var(--panel);
+  }
+  .mod.t-taigen{ border-color:var(--taigen); }
+  .mod.t-yougen{ border-color:var(--yougen); }
+  .mod h3{ margin:0 0 4px; font-size:1.08rem; }
+  .mod.t-taigen h3{ color:var(--taigen); }
+  .mod.t-yougen h3{ color:var(--yougen); }
+  .mod .mn{
+    font-size:.85rem; color:#444; background:#fff7fb; border:1px dashed var(--accent);
+    border-radius:10px; padding:8px 12px; margin:8px 0 12px; line-height:1.6;
+  }
+  .mod .mn b{ color:var(--accent); }
+  .flow{ display:flex; flex-direction:column; gap:10px; }
+  .pair{
+    display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+    border:1px solid var(--line); border-radius:12px; padding:10px 12px; cursor:pointer; transition:.15s;
+  }
+  .pair:hover{ box-shadow:0 3px 12px rgba(0,0,0,.07); }
+  .w-mod{
+    font-size:1.15rem; font-weight:800; padding:6px 14px; border-radius:10px; white-space:nowrap;
+  }
+  .t-taigen .w-mod{ color:#fff; background:var(--taigen); }
+  .t-yougen .w-mod{ color:#fff; background:var(--yougen); }
+  .arrow{ font-size:1.2rem; color:var(--muted); }
+  .arrow .ar-label{ display:block; font-size:.62rem; line-height:1; text-align:center; margin-top:-2px; }
+  .w-base{ font-size:1.15rem; font-weight:800; padding:6px 14px; border-radius:10px; border:2px solid; white-space:nowrap; }
+  .t-taigen .w-base{ color:var(--taigen); border-color:var(--taigen); background:var(--taigen-soft); }
+  .t-yougen .w-base{ color:var(--yougen); border-color:var(--yougen); background:var(--yougen-soft); }
+  .pos-tag{
+    font-size:.72rem; padding:3px 9px; border-radius:999px; margin-left:auto; white-space:nowrap;
+    background:#f0f0f0; color:#555;
+  }
+  .legend{ display:flex; gap:16px; flex-wrap:wrap; font-size:.82rem; color:#555; margin:4px 0 16px; }
+  .legend .sw{ display:inline-block; width:12px; height:12px; border-radius:3px; margin-right:5px; vertical-align:-1px; }
+
+  footer{ text-align:center; color:var(--muted); font-size:.75rem; padding:22px 16px; line-height:1.7; }
 </style>
 </head>
 <body>
 <header>
   <h1>品詞分類表</h1>
-  <p>カードをタップすると具体例が出ます（もう一度タップで消えます）</p>
+  <p>タブを切り替えて学べます</p>
 </header>
 
-<div class="controls">
-  <button id="openAll">すべて開く</button>
-  <button id="closeAll">すべて閉じる</button>
-</div>
+<nav class="tabs">
+  <button class="tab active" data-tab="table">分類表</button>
+  <button class="tab" data-tab="memo">体言・用言を覚える</button>
+  <button class="tab" data-tab="modify">修飾の関係</button>
+</nav>
 
-<div class="wrap" id="wrap"></div>
+<!-- ===================== タブ1：分類表 ===================== -->
+<section id="table" class="panel active">
+  <div class="controls">
+    <button id="openAll">すべて開く</button>
+    <button id="closeAll">すべて閉じる</button>
+  </div>
+  <p style="text-align:center;color:var(--muted);font-size:.82rem;margin:8px 0 0;">カードをタップすると具体例が出ます（もう一度タップで消えます）</p>
+  <div class="wrap" id="wrap"></div>
+</section>
 
-<footer>自立語＝それだけで意味が通じる語／付属語＝他の語に付く語。活用＝形が変わること。</footer>
+<!-- ===================== タブ2：体言・用言を覚える ===================== -->
+<section id="memo" class="panel">
+  <div class="wrap">
+    <p class="lead">まずは暗記カードで覚えよう。<b>カードをタップすると答えが出ます。もう一度タップで隠せます。</b>答えを隠した状態で、自分で言えるか試してみて。</p>
+
+    <div class="fc-controls">
+      <button data-fcall="memoCards" data-act="show">答えをすべて表示</button>
+      <button data-fcall="memoCards" data-act="hide">すべて隠す</button>
+    </div>
+    <div class="split" id="memoCards">
+      <div class="flash taigen">
+        <div class="fc-q">体言 <small>たいげん</small></div>
+        <div class="fc-eq">＝</div>
+        <div class="fc-a"><span class="fc-mask">？ タップで答え</span><span class="fc-real">名詞</span></div>
+        <div class="fc-note">活用しない／「が・は」をつけて<b>主語</b>になれる（例：学校・富士山）</div>
+        <div class="fc-hint">タップで表示・もう一度で隠す</div>
+      </div>
+      <div class="flash yougen">
+        <div class="fc-q">用言 <small>ようげん</small></div>
+        <div class="fc-eq">＝</div>
+        <div class="fc-a"><span class="fc-mask">？ タップで答え</span><span class="fc-real">動詞・形容詞・形容動詞</span></div>
+        <div class="fc-note">活用する／単独で<b>述語</b>になれる</div>
+        <div class="fc-hint">タップで表示・もう一度で隠す</div>
+      </div>
+    </div>
+
+    <h2 class="sec">用言の見分け方<span>言い切り（終止形）の最後に注目</span></h2>
+
+    <div class="rule">
+      <div class="pos">動詞</div>
+      <div class="pt">言い切りが <b>ウ段</b>（う・く・ぐ・す…）で終わる</div>
+      <div class="egs">歩<span class="k">く</span>・泳<span class="k">ぐ</span>・読<span class="k">む</span></div>
+    </div>
+    <div class="rule">
+      <div class="pos">形容詞</div>
+      <div class="pt">言い切りが <b>「い」</b> で終わる</div>
+      <div class="egs">高<span class="k">い</span>・美し<span class="k">い</span>・楽し<span class="k">い</span></div>
+    </div>
+    <div class="rule">
+      <div class="pos">形容動詞</div>
+      <div class="pt">言い切りが <b>「だ」</b> で終わる</div>
+      <div class="egs">静か<span class="k">だ</span>・元気<span class="k">だ</span>・きれい<span class="k">だ</span></div>
+    </div>
+
+    <h2 class="sec">「ウ段」ってどこ？<span>動詞の言い切りはこの段で終わる</span></h2>
+    <p class="udan-note">五十音の「う」の段（＝ウ段）。動詞の言い切りは下のどれかの音で終わります。</p>
+    <div class="udan" id="udan"></div>
+
+    <h2 class="sec">クイズで覚えよう<span>言い切りを見て品詞を当てよう</span></h2>
+    <div class="quiz" id="quiz">
+      <div class="q-prompt">この言葉の品詞は？</div>
+      <div class="q-word" id="qWord">―</div>
+      <div class="q-read" id="qRead"></div>
+      <div class="q-choices" id="qChoices"></div>
+      <div class="q-fb" id="qFb"></div>
+      <div class="q-bar">
+        <span id="qScore">スコア 0 / 0</span>
+        <button id="qNext" disabled>次へ ▶</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== タブ3：修飾の関係 ===================== -->
+<section id="modify" class="panel">
+  <div class="wrap">
+    <p class="lead">修飾語は、後ろの言葉を「どんな」「どのように」とくわしく説明する。<b>何を</b>修飾するかが品詞によって決まっている。</p>
+    <div class="legend">
+      <span><span class="sw" style="background:var(--taigen)"></span>連体詞・体言（名詞）</span>
+      <span><span class="sw" style="background:var(--yougen)"></span>副詞・用言</span>
+    </div>
+
+    <h2 class="sec">暗記カード<span>答えを隠して、何を修飾するか言ってみよう</span></h2>
+    <div class="fc-controls">
+      <button data-fcall="modCards" data-act="show">答えをすべて表示</button>
+      <button data-fcall="modCards" data-act="hide">すべて隠す</button>
+    </div>
+    <div class="split" id="modCards">
+      <div class="flash taigen">
+        <div class="fc-q">連体詞 は<br>何を修飾する？</div>
+        <div class="fc-a"><span class="fc-mask">？ タップで答え</span><span class="fc-real">体言（名詞）</span></div>
+        <div class="fc-note">「連<b>体</b>詞」→「<b>体</b>言」と覚える（例：この本・大きな声）</div>
+        <div class="fc-hint">タップで表示・もう一度で隠す</div>
+      </div>
+      <div class="flash yougen">
+        <div class="fc-q">副詞 は<br>何を修飾する？</div>
+        <div class="fc-a"><span class="fc-mask">？ タップで答え</span><span class="fc-real">用言（動詞・形容詞・形容動詞）</span></div>
+        <div class="fc-note">動作や様子の言葉をくわしくする（例：ゆっくり歩く・とても高い）</div>
+        <div class="fc-hint">タップで表示・もう一度で隠す</div>
+      </div>
+    </div>
+
+    <h2 class="sec">くわしい例で確認<span>矢印で「何を修飾するか」を見る</span></h2>
+
+    <div class="mod t-taigen">
+      <h3>連体詞 ──▶ 体言（名詞）を修飾</h3>
+      <div class="mn">「連<b>体</b>詞」には「<b>体</b>」の字。だから「<b>体</b>言（名詞）」を修飾する、と覚えると簡単。</div>
+      <div class="flow" id="flowRentai"></div>
+    </div>
+
+    <div class="mod t-yougen">
+      <h3>副詞 ──▶ 用言（動詞・形容詞・形容動詞）を修飾</h3>
+      <div class="mn">副詞は、動作や様子の言葉（＝<b>用言</b>）を「どのくらい・どのように」とくわしくする。</div>
+      <div class="flow" id="flowFukushi"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  自立語＝それだけで意味が通じる語／付属語＝他の語に付く語。活用＝形が変わること。<br>
+  体言＝名詞／用言＝動詞・形容詞・形容動詞。
+</footer>
 
 <script>
+/* ============ タブ1：分類表データ（そのまま） ============ */
 const DATA = [
   {
     group:"自立語・活用する（用言）",
@@ -142,12 +421,10 @@ const DATA = [
 ];
 
 const wrap = document.getElementById("wrap");
-
 DATA.forEach(g=>{
   const sec=document.createElement("div"); sec.className="group";
   sec.innerHTML=`<p class="group-title"><b>${g.group}</b>　${g.note}</p>`;
   const cards=document.createElement("div"); cards.className="cards";
-
   g.items.forEach(it=>{
     const card=document.createElement("div"); card.className="card";
     const lis=it.ex.map(([w,r])=>
@@ -168,9 +445,8 @@ DATA.forEach(g=>{
   });
   sec.appendChild(cards); wrap.appendChild(sec);
 });
-
 function setAll(open){
-  document.querySelectorAll(".card").forEach(c=>{
+  document.querySelectorAll("#table .card").forEach(c=>{
     const ex=c.querySelector(".examples");
     c.classList.toggle("open",open);
     ex.style.maxHeight = open ? ex.scrollHeight+"px" : "0";
@@ -178,6 +454,128 @@ function setAll(open){
 }
 document.getElementById("openAll").onclick=()=>setAll(true);
 document.getElementById("closeAll").onclick=()=>setAll(false);
+
+/* ============ タブ切替 ============ */
+document.querySelectorAll("nav.tabs .tab").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll("nav.tabs .tab").forEach(b=>b.classList.remove("active"));
+    document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById(btn.dataset.tab).classList.add("active");
+    window.scrollTo({top:0,behavior:"smooth"});
+  });
+});
+
+/* ============ ウ段ストリップ ============ */
+const UDAN = [
+  ["う","買う"],["く","歩く"],["ぐ","泳ぐ"],["す","話す"],["つ","待つ"],
+  ["ぬ","死ぬ"],["ぶ","呼ぶ"],["む","読む"],["る","見る"]
+];
+document.getElementById("udan").innerHTML = UDAN.map(([k,v])=>
+  `<div class="u"><span class="kana">${k}</span><div class="vb">${v}</div></div>`).join("");
+
+/* ============ クイズ ============ */
+const QUIZ = [
+  {w:"歩く", r:"あるく", a:"動詞", why:"言い切りが「く」＝ウ段。だから動詞。"},
+  {w:"泳ぐ", r:"およぐ", a:"動詞", why:"言い切りが「ぐ」＝ウ段。だから動詞。"},
+  {w:"読む", r:"よむ", a:"動詞", why:"言い切りが「む」＝ウ段。だから動詞。"},
+  {w:"高い", r:"たかい", a:"形容詞", why:"言い切りが「い」。だから形容詞。"},
+  {w:"美しい", r:"うつくしい", a:"形容詞", why:"言い切りが「い」。だから形容詞。"},
+  {w:"楽しい", r:"たのしい", a:"形容詞", why:"言い切りが「い」。だから形容詞。"},
+  {w:"静かだ", r:"しずかだ", a:"形容動詞", why:"言い切りが「だ」。だから形容動詞。"},
+  {w:"元気だ", r:"げんきだ", a:"形容動詞", why:"言い切りが「だ」。だから形容動詞。"},
+  {w:"きれいだ", r:"", a:"形容動詞", why:"言い切りが「だ」。だから形容動詞。"},
+  {w:"学校", r:"がっこう", a:"名詞", why:"物の名前で活用しない。主語になれる体言＝名詞。"},
+  {w:"富士山", r:"ふじさん", a:"名詞", why:"物の名前で活用しない。体言＝名詞。"},
+];
+const CHOICES = ["動詞","形容詞","形容動詞","名詞"];
+let qOrder=[], qIdx=0, qScore=0, qDone=0, qLocked=false;
+
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+function loadQuestion(){
+  qLocked=false;
+  const q=QUIZ[qOrder[qIdx]];
+  document.getElementById("qWord").textContent=q.w;
+  document.getElementById("qRead").textContent=q.r||" ";
+  document.getElementById("qFb").textContent=""; document.getElementById("qFb").className="q-fb";
+  document.getElementById("qNext").disabled=true;
+  const box=document.getElementById("qChoices"); box.innerHTML="";
+  CHOICES.forEach(c=>{
+    const b=document.createElement("button"); b.textContent=c;
+    b.onclick=()=>answer(b,c,q);
+    box.appendChild(b);
+  });
+}
+function answer(btn,choice,q){
+  if(qLocked) return; qLocked=true;
+  qDone++;
+  const fb=document.getElementById("qFb");
+  const buttons=document.querySelectorAll("#qChoices button");
+  buttons.forEach(b=>{
+    if(b.textContent===q.a) b.classList.add("correct");
+    b.disabled=true;
+  });
+  if(choice===q.a){
+    qScore++; fb.textContent="◯ 正解！ "+q.why; fb.className="q-fb ok";
+  }else{
+    btn.classList.add("wrong");
+    fb.textContent="✕ 正解は「"+q.a+"」。"+q.why; fb.className="q-fb ng";
+  }
+  document.getElementById("qScore").textContent=`スコア ${qScore} / ${qDone}`;
+  const next=document.getElementById("qNext"); next.disabled=false;
+  next.textContent = (qIdx>=qOrder.length-1) ? "もう一度 ↻" : "次へ ▶";
+}
+document.getElementById("qNext").onclick=()=>{
+  if(qIdx>=qOrder.length-1){ startQuiz(); return; }
+  qIdx++; loadQuestion();
+};
+function startQuiz(){
+  qOrder=shuffle([...QUIZ.keys()]); qIdx=0; qScore=0; qDone=0;
+  document.getElementById("qScore").textContent="スコア 0 / 0";
+  loadQuestion();
+}
+startQuiz();
+
+/* ============ 修飾の関係 ============ */
+const RENTAI = [
+  ["この","本","名詞"],
+  ["大きな","声","名詞"],
+  ["いわゆる","天才","名詞"],
+  ["あらゆる","場所","名詞"],
+];
+const FUKUSHI = [
+  ["ゆっくり","歩く","動詞"],
+  ["とても","高い","形容詞"],
+  ["非常に","静かだ","形容動詞"],
+  ["しっかり","食べる","動詞"],
+];
+function buildFlow(id,rows,arrowLabel){
+  document.getElementById(id).innerHTML = rows.map(([m,b,tag])=>`
+    <div class="pair">
+      <span class="w-mod">${m}</span>
+      <span class="arrow">▶<span class="ar-label">修飾</span></span>
+      <span class="w-base">${b}</span>
+      <span class="pos-tag">${tag}</span>
+    </div>`).join("");
+}
+buildFlow("flowRentai", RENTAI);
+buildFlow("flowFukushi", FUKUSHI);
+document.querySelectorAll(".pair").forEach(p=>{
+  p.addEventListener("click",()=>p.classList.toggle("lit"));
+});
+
+/* ============ 暗記カード：タップで表示／隠す ============ */
+document.querySelectorAll(".flash").forEach(f=>{
+  f.addEventListener("click",()=>f.classList.toggle("show"));
+});
+document.querySelectorAll(".fc-controls button").forEach(b=>{
+  b.addEventListener("click",()=>{
+    const grp=document.getElementById(b.dataset.fcall);
+    const show=b.dataset.act==="show";
+    grp.querySelectorAll(".flash").forEach(f=>f.classList.toggle("show",show));
+  });
+});
 </script>
 </body>
 </html>
