@@ -1,4 +1,6 @@
 const STORAGE_KEY = "eiken-listening-trainer:v6";
+// 微調整(offset)を初期値(start/end)へ反映するたびに +1。保存済みoffsetを一度だけクリアして二重適用を防ぐ。
+const OFFSETS_VERSION = 2;
 const END_GUARD_SECONDS = 0.22;
 
 /* ---------- Deck 1: 元の質問 (single audio, flat list) ---------- */
@@ -29,8 +31,8 @@ const ORIGINAL_QUESTIONS = [
   { topic: "Japan model", text: "Many developing countries are currently experiencing rapid population growth, which is the exact opposite of Japan's situation. Do you think Japan's historical economic strategies can genuinely be applied to these nations today?" },
 ];
 
-/* ---------- Deck 2: 社会・政治 (grouped by speech topic) ---------- */
-const SOCIAL_DURATION = 200.96;
+/* ---------- Deck 2: 想定問題バンク (grouped by speech topic, 16問ずつタブ分割) ---------- */
+const SOCIAL_DURATION = 586.66;
 // category = 大分類, prompt = スピーチのお題, qno = お題内の設問番号, [start,end] = 音声区間
 const SOCIAL_QUESTIONS = [
   { category: "社会", prompt: "Agree or disagree: Japan should accept more immigrants", qno: 1, text: "You argued Japan should accept more immigrants. But how would the government handle the social tensions that often arise between locals and newcomers?", start: 3.5, end: 12.95 },
@@ -57,6 +59,54 @@ const SOCIAL_QUESTIONS = [
   { category: "政治・国際", prompt: "Should Japan play a greater role in international security?", qno: 2, text: "How would neighboring countries react to a more militarily active Japan?", start: 144.9, end: 148.88 },
   { category: "政治・国際", prompt: "Should Japan play a greater role in international security?", qno: 3, text: "Could increased security spending divert money from domestic needs like welfare?", start: 151.4, end: 155.35 },
   { category: "政治・国際", prompt: "Should Japan play a greater role in international security?", qno: 4, text: "Is Japan's public actually willing to support such a shift?", start: 157.85, end: 161.04 },
+  { category: "環境・科学技術", prompt: "Can renewable energy fully replace fossil fuels?", qno: 1, text: "You believe renewables can replace fossil fuels. But how do you deal with the problem of intermittent supply when the sun doesn't shine or the wind doesn't blow?", start: 205.71, end: 214.73 },
+  { category: "環境・科学技術", prompt: "Can renewable energy fully replace fossil fuels?", qno: 2, text: "Building renewable infrastructure requires huge upfront costs. Who should pay for that?", start: 216.51, end: 222.29 },
+  { category: "環境・科学技術", prompt: "Can renewable energy fully replace fossil fuels?", qno: 3, text: "Many countries still depend heavily on coal. Is a full transition realistic within our lifetime?", start: 223.96, end: 230.19 },
+  { category: "環境・科学技術", prompt: "Can renewable energy fully replace fossil fuels?", qno: 4, text: "What about the environmental cost of producing batteries and solar panels?", start: 231.86, end: 235.56 },
+  { category: "環境・科学技術", prompt: "Agree or disagree: Artificial intelligence will do more good than harm", qno: 1, text: "You're optimistic about AI. But what about the millions of jobs that automation could eliminate?", start: 243.81, end: 249.49 },
+  { category: "環境・科学技術", prompt: "Agree or disagree: Artificial intelligence will do more good than harm", qno: 2, text: "If AI systems make biased decisions, who should be held responsible?", start: 251.76, end: 256.01 },
+  { category: "環境・科学技術", prompt: "Agree or disagree: Artificial intelligence will do more good than harm", qno: 3, text: "Doesn't concentrating AI power in a few large companies threaten democracy?", start: 258.56, end: 263.58 },
+  { category: "環境・科学技術", prompt: "Agree or disagree: Artificial intelligence will do more good than harm", qno: 4, text: "How can we ensure AI is used ethically across different countries with different values?", start: 266.06, end: 271.26 },
+  { category: "環境・科学技術", prompt: "Is space exploration worth the cost?", qno: 1, text: "You said space exploration is worth it. But shouldn't that money go to solving problems on Earth first?", start: 276.39, end: 282.59 },
+  { category: "環境・科学技術", prompt: "Is space exploration worth the cost?", qno: 2, text: "What tangible benefit does the average citizen get from space programs?", start: 284.29, end: 288.22 },
+  { category: "環境・科学技術", prompt: "Is space exploration worth the cost?", qno: 3, text: "Isn't space exploration increasingly driven by private profit rather than public good?", start: 289.94, end: 295.12 },
+  { category: "環境・科学技術", prompt: "Is space exploration worth the cost?", qno: 4, text: "How do you justify the environmental impact of rocket launches?", start: 296.84, end: 300.54 },
+  { category: "経済・ビジネス", prompt: "Agree or disagree: Globalization has benefited most people", qno: 1, text: "You argued globalization benefits most people. But what about workers in developed countries who lost their jobs to overseas factories?", start: 307.45, end: 315.09 },
+  { category: "経済・ビジネス", prompt: "Agree or disagree: Globalization has benefited most people", qno: 2, text: "Doesn't globalization mainly benefit large corporations rather than ordinary citizens?", start: 316.55, end: 321.23 },
+  { category: "経済・ビジネス", prompt: "Agree or disagree: Globalization has benefited most people", qno: 3, text: "How do you respond to the claim that globalization erodes local cultures?", start: 323.23, end: 327.41 },
+  { category: "経済・ビジネス", prompt: "Agree or disagree: Globalization has benefited most people", qno: 4, text: "If globalization is so beneficial, why is there a growing backlash against it worldwide?", start: 328.8, end: 333.9 },
+  { category: "経済・ビジネス", prompt: "Should governments introduce a universal basic income?", qno: 1, text: "You support universal basic income. But where would the enormous funding come from?", start: 340.26, end: 345.37 },
+  { category: "経済・ビジネス", prompt: "Should governments introduce a universal basic income?", qno: 2, text: "Wouldn't giving everyone money discourage people from working?", start: 348.16, end: 351.56 },
+  { category: "経済・ビジネス", prompt: "Should governments introduce a universal basic income?", qno: 3, text: "Is it fair to give the same payment to both the wealthy and the poor?", start: 354.36, end: 358.14 },
+  { category: "経済・ビジネス", prompt: "Should governments introduce a universal basic income?", qno: 4, text: "Has any country actually proven that UBI works on a large scale?", start: 361.01, end: 365.01 },
+  { category: "経済・ビジネス", prompt: "Is lifetime employment still viable in Japan?", qno: 1, text: "You discussed lifetime employment. But doesn't it prevent companies from adapting quickly to change?", start: 370.82, end: 376.4 },
+  { category: "経済・ビジネス", prompt: "Is lifetime employment still viable in Japan?", qno: 2, text: "Young workers increasingly value flexibility. Is lifetime employment still attractive to them?", start: 377.92, end: 383.6 },
+  { category: "経済・ビジネス", prompt: "Is lifetime employment still viable in Japan?", qno: 3, text: "Could this system be holding back innovation in Japanese companies?", start: 385.27, end: 388.87 },
+  { category: "経済・ビジネス", prompt: "Is lifetime employment still viable in Japan?", qno: 4, text: "How can small businesses afford to guarantee lifetime jobs?", start: 390.37, end: 394.39 },
+  { category: "教育・文化", prompt: "Should university education be free for all?", qno: 1, text: "You said university should be free. But who would ultimately pay for it through taxes?", start: 399.5, end: 404.24 },
+  { category: "教育・文化", prompt: "Should university education be free for all?", qno: 2, text: "If everyone gets a degree, won't that simply reduce the value of a university education?", start: 405.7, end: 411.18 },
+  { category: "教育・文化", prompt: "Should university education be free for all?", qno: 3, text: "Wouldn't free university benefit mainly the middle class rather than the poorest?", start: 412.7, end: 417.19 },
+  { category: "教育・文化", prompt: "Should university education be free for all?", qno: 4, text: "Are there better uses for that money, such as vocational training?", start: 418.9, end: 422.8 },
+  { category: "教育・文化", prompt: "Agree or disagree: English should be an official language of Japan", qno: 1, text: "You argued for English as an official language. But wouldn't that threaten the status of the Japanese language?", start: 431.47, end: 437.52 },
+  { category: "教育・文化", prompt: "Agree or disagree: English should be an official language of Japan", qno: 2, text: "Is it realistic to expect the entire population to become proficient in English?", start: 440.12, end: 445.05 },
+  { category: "教育・文化", prompt: "Agree or disagree: English should be an official language of Japan", qno: 3, text: "Could this policy create a divide between English speakers and non-speakers?", start: 447.97, end: 452.9 },
+  { category: "教育・文化", prompt: "Agree or disagree: English should be an official language of Japan", qno: 4, text: "What concrete economic benefit would justify such a major change?", start: 455.67, end: 459.82 },
+  { category: "教育・文化", prompt: "Should schools place more emphasis on creativity than memorization?", qno: 1, text: "You favored creativity over memorization. But isn't a strong base of knowledge necessary before one can be creative?", start: 467.56, end: 475.13 },
+  { category: "教育・文化", prompt: "Should schools place more emphasis on creativity than memorization?", qno: 2, text: "How would you fairly assess creativity in exams?", start: 478.11, end: 481.37 },
+  { category: "教育・文化", prompt: "Should schools place more emphasis on creativity than memorization?", qno: 3, text: "Some subjects like medicine require memorization. Should they change too?", start: 484.21, end: 489.27 },
+  { category: "教育・文化", prompt: "Should schools place more emphasis on creativity than memorization?", qno: 4, text: "Could reducing memorization weaken students' fundamental academic skills?", start: 492.26, end: 496.86 },
+  { category: "医療・倫理", prompt: "Should euthanasia be legalized?", qno: 1, text: "You supported legalizing euthanasia. But how do you prevent vulnerable people from feeling pressured to end their lives?", start: 501.75, end: 508.79 },
+  { category: "医療・倫理", prompt: "Should euthanasia be legalized?", qno: 2, text: "Where exactly should we draw the line on who qualifies?", start: 510.8, end: 514.05 },
+  { category: "医療・倫理", prompt: "Should euthanasia be legalized?", qno: 3, text: "Doesn't this place an enormous ethical burden on doctors?", start: 516.05, end: 519.52 },
+  { category: "医療・倫理", prompt: "Should euthanasia be legalized?", qno: 4, text: "Could legalization weaken efforts to improve palliative care instead?", start: 521.5, end: 525.75 },
+  { category: "医療・倫理", prompt: "Should animal testing be banned?", qno: 1, text: "You argued for banning animal testing. But how would we ensure new medicines are safe without it?", start: 530.2, end: 536.72 },
+  { category: "医療・倫理", prompt: "Should animal testing be banned?", qno: 2, text: "Are the available alternatives truly reliable enough to replace it?", start: 538.2, end: 542.78 },
+  { category: "医療・倫理", prompt: "Should animal testing be banned?", qno: 3, text: "Wouldn't a ban simply push such testing to countries with weaker regulations?", start: 544.3, end: 549.55 },
+  { category: "医療・倫理", prompt: "Should animal testing be banned?", qno: 4, text: "How do you weigh animal welfare against potential human lives saved?", start: 550.8, end: 556.05 },
+  { category: "医療・倫理", prompt: "Is it ethical to use AI in medical decision-making?", qno: 1, text: "You discussed AI in medicine. But who is responsible if an AI makes a fatal misdiagnosis?", start: 562.05, end: 568.85 },
+  { category: "医療・倫理", prompt: "Is it ethical to use AI in medical decision-making?", qno: 2, text: "Can patients truly trust a decision they cannot understand?", start: 570.05, end: 574.3 },
+  { category: "医療・倫理", prompt: "Is it ethical to use AI in medical decision-making?", qno: 3, text: "Doesn't reliance on AI risk eroding doctors' own clinical judgment?", start: 575.45, end: 580.66 },
+  { category: "医療・倫理", prompt: "Is it ethical to use AI in medical decision-making?", qno: 4, text: "How do we protect sensitive patient data used to train these systems?", start: 581.65, end: 586.65 },
 ];
 
 function buildFixedSegments(starts, duration) {
@@ -68,10 +118,30 @@ function buildFixedSegments(starts, duration) {
   });
 }
 
+const SOCIAL_AUDIO = "assets/questions2.mp3?v=10";
+const CHUNK_SIZE = 16;
+
+// 想定問題バンク(72問)を16問ずつのタブに分割（最後のタブは半端でOK）
+const SOCIAL_DECKS = [];
+for (let start = 0; start < SOCIAL_QUESTIONS.length; start += CHUNK_SIZE) {
+  const slice = SOCIAL_QUESTIONS.slice(start, start + CHUNK_SIZE);
+  const number = SOCIAL_DECKS.length + 2; // 想定問題1は元セット。バンクは2番から
+  SOCIAL_DECKS.push({
+    id: "social" + (SOCIAL_DECKS.length + 1),
+    label: "想定問題" + number,
+    sub: slice.length + "問",
+    audio: SOCIAL_AUDIO,
+    duration: SOCIAL_DURATION,
+    grouped: true,
+    questions: slice,
+    segments: slice.map((q) => ({ start: q.start, end: q.end })),
+  });
+}
+
 const DECKS = [
   {
     id: "original",
-    label: "元の質問",
+    label: "想定問題1",
     sub: "19問",
     audio: "assets/questions.mp3",
     duration: ORIGINAL_DURATION,
@@ -79,16 +149,7 @@ const DECKS = [
     questions: ORIGINAL_QUESTIONS,
     segments: buildFixedSegments(ORIGINAL_SEGMENT_STARTS, ORIGINAL_DURATION),
   },
-  {
-    id: "social",
-    label: "社会・政治",
-    sub: "20問",
-    audio: "assets/questions2.mp3?v=7",
-    duration: SOCIAL_DURATION,
-    grouped: true,
-    questions: SOCIAL_QUESTIONS,
-    segments: SOCIAL_QUESTIONS.map((q) => ({ start: q.start, end: q.end })),
-  },
+  ...SOCIAL_DECKS,
 ];
 
 const dom = {
@@ -124,6 +185,7 @@ const dom = {
   endBackBtn: document.querySelector("#endBackBtn"),
   endForwardBtn: document.querySelector("#endForwardBtn"),
   rangeResetBtn: document.querySelector("#rangeResetBtn"),
+  rangeExportBtn: document.querySelector("#rangeExportBtn"),
   rangeReadout: document.querySelector("#rangeReadout"),
 };
 
@@ -152,6 +214,7 @@ window.eikenTrainer = {
     currentRange: getRange(prog().index),
     segments: state.segments,
   }),
+  exportRanges: () => collectAdjustments(),
 };
 
 init();
@@ -212,12 +275,20 @@ function bindEvents() {
   });
   dom.resetBtn.addEventListener("click", resetProgress);
   dom.doneBtn.addEventListener("click", () => {
-    toggleSet(prog().heard, prog().index);
+    const p = prog();
+    toggleSet(p.heard, p.index);
+    if (p.heard.has(p.index)) {
+      p.hard.delete(p.index);
+    }
     saveState();
     render();
   });
   dom.hardBtn.addEventListener("click", () => {
-    toggleSet(prog().hard, prog().index);
+    const p = prog();
+    toggleSet(p.hard, p.index);
+    if (p.hard.has(p.index)) {
+      p.heard.delete(p.index);
+    }
     saveState();
     render();
   });
@@ -246,6 +317,7 @@ function bindEvents() {
   dom.endBackBtn.addEventListener("click", () => nudgeRange("end", -0.3));
   dom.endForwardBtn.addEventListener("click", () => nudgeRange("end", 0.3));
   dom.rangeResetBtn.addEventListener("click", resetRange);
+  dom.rangeExportBtn.addEventListener("click", () => showExportOverlay(exportRangesText()));
   document.addEventListener("keydown", onKeydown);
 }
 
@@ -477,7 +549,9 @@ function clearSegmentTimer() {
 function finishSegment() {
   clearSegmentTimer();
   dom.audio.pause();
-  prog().heard.add(prog().index);
+  if (!prog().hard.has(prog().index)) {
+    prog().heard.add(prog().index);
+  }
   saveState();
 
   if (state.repeat) {
@@ -564,6 +638,95 @@ function resetRange() {
   render();
 }
 
+// 各デッキで微調整(offset)された問題を集計し、調整後の絶対start/endを返す
+function collectAdjustments() {
+  const out = [];
+  DECKS.forEach((d) => {
+    const prg = ensureProgress(d.id);
+    d.questions.forEach((q, index) => {
+      const off = prg.offsets[index];
+      if (!off || (!off.start && !off.end)) return;
+      const base = d.segments[index];
+      const dur = d.duration;
+      let start = clamp(base.start + (off.start || 0), 0, dur);
+      let end = clamp(base.end + (off.end || 0), 0, dur);
+      if (end <= start + 0.8) {
+        end = Math.min(dur, start + 0.8);
+      }
+      out.push({
+        set: d.label,
+        label: d.grouped ? "Q" + q.qno : "#" + (index + 1),
+        topic: d.grouped ? q.category + " / " + q.prompt : q.topic,
+        text: q.text,
+        start: Number(start.toFixed(2)),
+        end: Number(end.toFixed(2)),
+        baseStart: Number(base.start.toFixed(2)),
+        baseEnd: Number(base.end.toFixed(2)),
+      });
+    });
+  });
+  return out;
+}
+
+function exportRangesText() {
+  const adj = collectAdjustments();
+  if (!adj.length) {
+    return "（まだRangeの調整がありません。各問題で「開始/終了 ±0.3」を押して微調整してから、もう一度この書き出しを押してください。）";
+  }
+  const lines = adj.map(
+    (a) =>
+      `[${a.set}] ${a.label}  ${a.topic}\n  "${a.text}"\n  → start ${a.start} / end ${a.end}   (元: ${a.baseStart} / ${a.baseEnd})`
+  );
+  const json = JSON.stringify(adj.map((a) => ({ text: a.text, start: a.start, end: a.end })));
+  return `Range調整 ${adj.length}件\n\n${lines.join("\n\n")}\n\n--- 反映用データ(このJSONをそのまま渡してください) ---\n${json}`;
+}
+
+function showExportOverlay(text) {
+  let overlay = document.querySelector("#exportOverlay");
+  if (!overlay) {
+    overlay = document.createElement("div");
+    overlay.id = "exportOverlay";
+    overlay.className = "export-overlay";
+    overlay.innerHTML = `
+      <div class="export-box">
+        <h2>Range調整の書き出し</h2>
+        <p class="export-hint">下のテキストを全部コピーして、開発者(チャット)に貼り付けてください。初期値として反映すれば、GitHub経由で全員に共有されます。</p>
+        <textarea id="exportText" readonly></textarea>
+        <div class="export-actions">
+          <button class="primary-btn" id="exportCopyBtn" type="button">コピー</button>
+          <button class="wide-btn subtle" id="exportCloseBtn" type="button">閉じる</button>
+        </div>
+      </div>`;
+    document.body.append(overlay);
+    overlay.addEventListener("click", (event) => {
+      if (event.target === overlay) overlay.classList.remove("open");
+    });
+    overlay.querySelector("#exportCloseBtn").addEventListener("click", () => overlay.classList.remove("open"));
+    overlay.querySelector("#exportCopyBtn").addEventListener("click", () => {
+      const area = overlay.querySelector("#exportText");
+      area.select();
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(area.value).catch(() => {});
+      }
+      try {
+        document.execCommand("copy");
+      } catch (error) {
+        /* 手動コピーにフォールバック */
+      }
+      const button = overlay.querySelector("#exportCopyBtn");
+      button.textContent = "コピーしました";
+      window.setTimeout(() => {
+        button.textContent = "コピー";
+      }, 1500);
+    });
+  }
+  overlay.querySelector("#exportText").value = text;
+  overlay.classList.add("open");
+  const area = overlay.querySelector("#exportText");
+  area.focus();
+  area.select();
+}
+
 function getRange(index) {
   const fallback = { start: index * 8, end: index * 8 + 7 };
   const base = state.segments[index] || fallback;
@@ -604,13 +767,17 @@ function restoreState() {
     state.shuffle = Boolean(saved.shuffle);
     state.rate = Number(saved.rate) || 1;
     const savedProgress = saved.progress && typeof saved.progress === "object" ? saved.progress : {};
+    const keepOffsets = (Number(saved.offsetsVersion) || 1) >= OFFSETS_VERSION;
     DECKS.forEach((d) => {
       const sp = savedProgress[d.id] || {};
+      const heard = new Set(Array.isArray(sp.heard) ? sp.heard : []);
+      const hard = new Set(Array.isArray(sp.hard) ? sp.hard : []);
+      hard.forEach((i) => heard.delete(i)); // 「聞き取れた」と「苦手」は排他（苦手を優先）
       state.progress[d.id] = {
         index: clamp(Number(sp.index) || 0, 0, d.questions.length - 1),
-        heard: new Set(Array.isArray(sp.heard) ? sp.heard : []),
-        hard: new Set(Array.isArray(sp.hard) ? sp.hard : []),
-        offsets: sp.offsets && typeof sp.offsets === "object" ? sp.offsets : {},
+        heard,
+        hard,
+        offsets: keepOffsets && sp.offsets && typeof sp.offsets === "object" ? sp.offsets : {},
       };
     });
   } catch (error) {
@@ -636,6 +803,7 @@ function saveState() {
     autoNext: state.autoNext,
     shuffle: state.shuffle,
     rate: state.rate,
+    offsetsVersion: OFFSETS_VERSION,
     progress,
   };
   localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));

@@ -3,15 +3,15 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>英検1級 質問リスニング</title>
-    <link rel="stylesheet" href="styles.css?v=7">
-    <script src="app.js?v=7" defer></script>
+    <title>英検®1級 質問リスニング</title>
+    <link rel="stylesheet" href="styles.css?v=13">
+    <script src="app.js?v=13" defer></script>
   </head>
   <body>
     <div class="app-shell">
       <header class="topbar">
         <div>
-          <p class="eyebrow">EIKEN Grade 1</p>
+          <p class="eyebrow">EIKEN® Grade 1</p>
           <h1>質問リスニング</h1>
         </div>
         <div class="deck-select" id="deckSelect" role="group" aria-label="練習セット"></div>
@@ -34,6 +34,9 @@
             </div>
           </div>
           <div class="question-list" id="questionList"></div>
+          <p class="legal-note">
+            「英検」は公益財団法人 日本英語検定協会の登録商標です。このコンテンツは、公益財団法人 日本英語検定協会の承認や推奨、その他の検討を受けたものではありません。
+          </p>
         </aside>
 
         <section class="trainer" aria-label="listening trainer">
@@ -110,6 +113,7 @@
                 <button class="small-btn" id="endForwardBtn" type="button">終了 +0.3</button>
               </div>
               <button class="wide-btn subtle" id="rangeResetBtn" type="button">範囲を戻す</button>
+              <button class="wide-btn subtle" id="rangeExportBtn" type="button">調整を書き出す</button>
             </div>
 
             <div class="tool-block compact">

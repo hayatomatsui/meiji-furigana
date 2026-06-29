@@ -59,7 +59,8 @@ input:focus-visible {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 18px;
+  flex-wrap: wrap;
+  gap: 12px 18px;
   min-height: 82px;
   padding: 16px 24px;
   background: rgba(255, 255, 255, 0.9);
@@ -122,9 +123,19 @@ h2 {
 .question-nav {
   min-height: 0;
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto 1fr auto;
   border-right: 1px solid var(--border);
   background: #fbfcfc;
+}
+
+.legal-note {
+  margin: 0;
+  padding: 10px 14px;
+  border-top: 1px solid var(--border);
+  background: #fbfcfc;
+  color: var(--muted);
+  font-size: 10.5px;
+  line-height: 1.45;
 }
 
 .nav-summary {
@@ -507,10 +518,12 @@ h2 {
 /* ---- Deck selector (練習セット切替) ---- */
 .deck-select {
   display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 4px;
   padding: 4px;
   border: 1px solid var(--border);
-  border-radius: 999px;
+  border-radius: 18px;
   background: var(--surface-soft);
 }
 
@@ -520,7 +533,7 @@ h2 {
   align-items: center;
   gap: 1px;
   min-height: 40px;
-  padding: 5px 18px;
+  padding: 5px 13px;
   border: 0;
   border-radius: 999px;
   background: transparent;
@@ -587,6 +600,74 @@ h2 {
   content: "お題 / ";
   color: var(--muted);
   font-weight: 750;
+}
+
+/* ---- Range調整の書き出しモーダル ---- */
+.export-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(23, 33, 31, 0.5);
+}
+
+.export-overlay.open {
+  display: flex;
+}
+
+.export-box {
+  width: min(680px, 100%);
+  max-height: 82vh;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 22px;
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.export-box h2 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 17px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.export-hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.export-box textarea {
+  width: 100%;
+  min-height: 240px;
+  flex: 1;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-soft);
+  color: var(--ink);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  line-height: 1.4;
+  resize: vertical;
+}
+
+.export-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.export-actions .wide-btn {
+  width: auto;
+  margin: 0;
 }
 
 @media (max-width: 1040px) {
