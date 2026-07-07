@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>部分否定 vs 全体否定|高3・入試レベル</title>
+<style>
+  :root{
+    --partial:#d97706; --partial-bg:#fdf3e3; --partial-line:#f0c98a;
+    --total:#4f46e5;   --total-bg:#eef0fe;   --total-line:#b9c0f5;
+    --ink:#1f2937; --sub:#6b7280; --bg:#f4f5f9; --card:#ffffff;
+    --ok:#15803d; --ng:#b91c1c; --line:#e5e7eb;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic Medium","Yu Gothic",Meiryo,system-ui,sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.75; font-size:16px;
+  }
+  header{background:linear-gradient(135deg,#312e81,#4f46e5); color:#fff; padding:26px 20px 22px; text-align:center;}
+  header h1{font-size:1.45rem; letter-spacing:.02em;}
+  header p{opacity:.9; font-size:.9rem; margin-top:4px;}
+  nav.tabs{
+    position:sticky; top:0; z-index:10; display:flex; flex-wrap:wrap; justify-content:center; gap:6px;
+    background:#fff; padding:10px 8px; border-bottom:1px solid var(--line); box-shadow:0 2px 6px rgba(0,0,0,.05);
+  }
+  .tab{
+    border:1px solid var(--line); background:#fff; border-radius:999px; padding:7px 14px;
+    font-size:.88rem; cursor:pointer; color:var(--sub); font-family:inherit;
+  }
+  .tab.active{background:#4f46e5; border-color:#4f46e5; color:#fff; font-weight:600;}
+  main{max-width:880px; margin:0 auto; padding:24px 16px 60px;}
+  .panel{display:none;}
+  .panel.active{display:block; animation:fade .25s ease;}
+  @keyframes fade{from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;}}
+  h2{font-size:1.25rem; margin:6px 0 16px; padding-left:12px; border-left:5px solid #4f46e5;}
+  h3{font-size:1.05rem; margin:26px 0 10px; padding:6px 10px; background:#eceef8; border-radius:6px;}
+  section p{margin:8px 0;}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin:14px 0; box-shadow:0 1px 3px rgba(0,0,0,.04);}
+  .keybox{background:linear-gradient(135deg,#eef0fe,#fdf3e3); border:1px solid #c7cdf0; border-radius:12px; padding:16px 18px; margin:14px 0;}
+  .keybox ul{margin:8px 0 0 22px;}
+  .keybox li{margin:6px 0;}
+  .pill{display:inline-block; font-size:.72rem; font-weight:700; border-radius:999px; padding:2px 10px; vertical-align:middle; margin-left:6px; white-space:nowrap;}
+  .pill.partial{background:var(--partial-bg); color:var(--partial); border:1px solid var(--partial-line);}
+  .pill.total{background:var(--total-bg); color:var(--total); border:1px solid var(--total-line);}
+  .en{font-family:Georgia,"Times New Roman",serif; font-size:1.06rem; color:#111827;}
+  .ja{color:#374151; background:#f8f9fc; border-left:3px solid #c7cdf0; padding:6px 10px; margin-top:8px; border-radius:0 6px 6px 0; font-size:.95rem;}
+  .hidden{display:none;}
+  .tr-btn{
+    font-family:inherit; font-size:.8rem; margin-top:8px; cursor:pointer;
+    border:1px solid #c7cdf0; background:#fff; color:#4f46e5; border-radius:6px; padding:4px 12px;
+  }
+  .tr-btn:hover{background:#eef0fe;}
+  .bar{height:18px; background:#e5e7eb; border-radius:999px; overflow:hidden; margin:8px 0 4px;}
+  .fill{height:100%; border-radius:999px;}
+  .fill.partial{background:linear-gradient(90deg,#f6ad3c,var(--partial));}
+  .fill.total{background:var(--total);}
+  .cap{font-size:.86rem; color:var(--sub);}
+  .gauge-item{margin:16px 0;}
+  table{width:100%; border-collapse:collapse; margin:12px 0; background:#fff; font-size:.93rem;}
+  th,td{border:1px solid var(--line); padding:9px 10px; text-align:left; vertical-align:top;}
+  th{background:#eceef8; font-size:.86rem;}
+  td .en{font-size:.98rem;}
+  .warn{background:#fef2f2; border:1px solid #fecaca; border-radius:12px; padding:14px 16px; margin:14px 0;}
+  .warn .t{font-weight:700; color:var(--ng);}
+  .tip{background:#f0fdf4; border:1px solid #bbf7d0; border-radius:12px; padding:14px 16px; margin:14px 0;}
+  .tip .t{font-weight:700; color:var(--ok);}
+  .tip ol{margin:6px 0 0 22px;}
+  .tip ol li{margin:4px 0;}
+  .adv-head{display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-bottom:6px;}
+  .phrase{font-family:Georgia,serif; font-weight:700; font-size:1.05rem; color:#312e81;}
+  .mean{font-size:.92rem; color:#374151;}
+  .x{color:var(--ng); font-weight:700;}
+  .o{color:var(--ok); font-weight:700;}
+  footer{text-align:center; color:var(--sub); font-size:.8rem; padding:20px;}
+  /* ---- quiz ---- */
+  .qcard{background:#fff; border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin:16px 0; box-shadow:0 1px 3px rgba(0,0,0,.04);}
+  .qnum{font-size:.8rem; font-weight:700; color:#4f46e5; margin-bottom:4px;}
+  .choices{margin-top:10px; display:flex; flex-direction:column; gap:8px;}
+  .choice{
+    text-align:left; font-family:inherit; font-size:.95rem; line-height:1.6; cursor:pointer;
+    border:1px solid var(--line); background:#fafafa; border-radius:8px; padding:9px 12px;
+  }
+  .choice:hover{border-color:#a5b4fc; background:#f5f6ff;}
+  .choice:disabled{cursor:default;}
+  .choice.correct{border-color:#86efac; background:#f0fdf4; font-weight:600;}
+  .choice.wrong{border-color:#fecaca; background:#fef2f2;}
+  .why{margin-top:10px; font-size:.92rem; background:#f8f9fc; border-left:3px solid #4f46e5; padding:8px 12px; border-radius:0 6px 6px 0;}
+  .verdict{font-weight:700; margin-top:10px;}
+  .verdict.ok{color:var(--ok);} .verdict.ng{color:var(--ng);}
+  textarea{
+    width:100%; min-height:64px; margin-top:10px; padding:9px 11px; font-family:inherit; font-size:.95rem;
+    border:1px solid var(--line); border-radius:8px; resize:vertical;
+  }
+  .model{margin-top:10px;}
+  .model .ans{background:#f0fdf4; border:1px solid #bbf7d0; border-radius:8px; padding:9px 12px; font-weight:600;}
+  .assess{margin-top:10px; display:flex; gap:8px; align-items:center; flex-wrap:wrap;}
+  .assess span{font-size:.85rem; color:var(--sub);}
+  .as-btn{font-family:inherit; cursor:pointer; border:1px solid var(--line); background:#fff; border-radius:8px; padding:6px 14px; font-size:.9rem;}
+  .as-btn.sel{background:#312e81; color:#fff; border-color:#312e81;}
+  .as-btn:disabled{opacity:.55; cursor:default;}
+  .progress{position:sticky; top:56px; z-index:5; background:#fffbe8; border:1px solid #f0e2a0; border-radius:8px; padding:6px 12px; font-size:.85rem; margin:10px 0;}
+  #result{display:none; background:linear-gradient(135deg,#312e81,#4f46e5); color:#fff; border-radius:12px; padding:20px; margin:20px 0; text-align:center;}
+  #result .score{font-size:2rem; font-weight:800;}
+  .restart{margin-top:12px; font-family:inherit; cursor:pointer; border:none; border-radius:8px; padding:8px 18px; background:#fff; color:#312e81; font-weight:700;}
+  @media (max-width:560px){ .tab{padding:6px 10px; font-size:.8rem;} h2{font-size:1.12rem;} }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>部分否定 vs 全体否定 — 読み違えないための整理</h1>
+  <p>高3・入試レベル|解説を読んだら「⑥確認テスト」で腕試し</p>
+</header>
+
+<nav class="tabs">
+  <button type="button" class="tab active" data-t="sec0">① 核心</button>
+  <button type="button" class="tab" data-t="sec1">② 基本の対比</button>
+  <button type="button" class="tab" data-t="sec2">③ 程度の副詞</button>
+  <button type="button" class="tab" data-t="sec3">④ 準否定・強調</button>
+  <button type="button" class="tab" data-t="sec4">⑤ 発展</button>
+  <button type="button" class="tab" data-t="sec5">⑥ 確認テスト</button>
+</nav>
+
+<main>
+
+<!-- ========== ① 核心 ========== -->
+<section class="panel active" id="sec0">
+  <h2>① 核心 — not は「どこまで」を打ち消すか</h2>
+  <div class="keybox">
+    <p>否定文の読み分けは、<strong>否定語が何を打ち消しているか(作用域)</strong>で決まる。</p>
+    <ul>
+      <li><strong>部分否定</strong>:not が <strong>all / every / both / always / completely</strong> など<strong>「100%語」</strong>とセットになると、打ち消されるのは<strong>「100%であること」だけ</strong>。<br>→「100%ではない」=「そうでないものもある」<span class="pill partial">部分否定</span></li>
+      <li><strong>全体否定</strong>:no / none / never / neither / not … any は<strong>「0%」を宣言</strong>する。例外なく全部を打ち消す。<span class="pill total">全体否定</span></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="gauge-item">
+      <p class="en">Not all the students passed the exam. <span class="pill partial">部分否定</span></p>
+      <div class="bar"><div class="fill partial" style="width:60%"></div></div>
+      <p class="cap">「全員が合格したわけではない」— 合格者はいる(1〜99%)。100%だけを否定。</p>
+    </div>
+    <div class="gauge-item">
+      <p class="en">None of the students passed the exam. <span class="pill total">全体否定</span></p>
+      <div class="bar"><div class="fill total" style="width:0%"></div></div>
+      <p class="cap">「合格した者は一人もいない」— 0%。存在ごと消す。</p>
+    </div>
+  </div>
+
+  <div class="tip">
+    <p class="t">見分けの3ステップ</p>
+    <ol>
+      <li>否定語を探す(not / no / never / hardly など)。</li>
+      <li>その<strong>後ろ</strong>に「100%語」(all, every, both, always, necessarily, completely, altogether, quite …)があるか?</li>
+      <li>あれば<strong>部分否定</strong>→「すべて〜わけではない/〜とは限らない」。no・never・neither 系なら<strong>全体否定</strong>→「まったく/決して〜ない」。</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <p><strong>訳の「型」を固定せよ</strong></p>
+    <p><span class="pill partial">部分否定</span> →「すべて(いつも)〜<strong>というわけではない</strong>」「必ずしも〜<strong>とは限らない</strong>」</p>
+    <p><span class="pill total">全体否定</span> →「<strong>まったく</strong>〜ない」「<strong>一つも/誰も</strong>〜ない」「<strong>決して</strong>〜ない」</p>
+    <p class="cap">和訳するとき、この型に当てはめられるかを毎回チェックするだけで誤読が激減する。</p>
+  </div>
+</section>
+
+<!-- ========== ② 基本の対比 ========== -->
+<section class="panel" id="sec1">
+  <h2>② 基本の対比 — ペアで覚える</h2>
+
+  <table>
+    <tr><th>100%語</th><th>部分否定(not + 100%語)</th><th>対応する全体否定</th></tr>
+    <tr><td>all / every</td><td>not all … / not every …<br>「すべてが〜わけではない」</td><td>no … / none of …<br>「一つも〜ない」</td></tr>
+    <tr><td>both(2つ)</td><td>not … both<br>「両方とも〜わけではない(一方だけ)」</td><td>not … either / neither<br>「どちらも〜ない」</td></tr>
+    <tr><td>always</td><td>not always<br>「いつも〜とは限らない」</td><td>never<br>「決して〜ない」</td></tr>
+    <tr><td>everyone / everything</td><td>not everyone / not everything<br>「みんな(全部)が〜わけではない」</td><td>no one / nothing<br>「誰も(何も)〜ない」</td></tr>
+  </table>
+
+  <h3>例文ペアで体感する</h3>
+
+  <div class="card">
+    <p class="en">A. Not all the students handed in the report. <span class="pill partial">部分否定</span></p>
+    <button type="button" class="tr-btn" onclick="tgl(this)">訳を表示</button>
+    <p class="ja hidden">全員がレポートを提出したわけではない。(提出した生徒もいる)</p>
+    <p class="en" style="margin-top:14px">B. None of the students handed in the report. <span class="pill total">全体否定</span></p>
+    <button type="button" class="tr-btn" onclick="tgl(this)">訳を表示</button>
+    <p class="ja hidden">レポートを提出した生徒は一人もいなかった。</p>
+  </div>
+
+  <div class="card">
+    <p class="en">A. I don't know both of his parents. <span class="pill partial">部分否定</span></p>
+    <button type="button" class="tr-btn" onclick="tgl(this)">訳を表示</button>
+    <p class="ja hidden">彼の両親を二人とも知っているわけではない。(片方は知っている)</p>
+    <p class="en" style="margin-top:14px">B. I don't know either of his parents. (= I know neither of his parents.) <span class="pill total">全体否定</span></p>
+    <button type="button" class="tr-btn" onclick="tgl(this)">訳を表示</button>
+    <p class="ja hidden">彼の両親のどちらも知らない。</p>
+  </div>
+
+  <div class="card">
+    <p class="en">A. The rich are not always happier than the poor. <span class="pill partial">部分否定</span></p>
+    <button type="button" class="tr-btn" onclick="tgl(this)">訳を表示</button>
+    <p class="ja hidden">金持ちが貧しい人より常に幸せだとは限らない。</p>
+    <p class="en" style="margin-top:14px">B. He never breaks his promises. <span class="pill total">全体否定</span></p>
+    <button type="button" class="tr-btn" onclick="tgl(this)">訳を表示</button>
+    <p class="ja hidden">彼は決して約束を破らない。(破る頻度=0%)</p>
+  </div>
+
+  <div class="warn">
+    <p class="t">よくある誤訳</p>
+    <p class="en">Not all birds can fly.</p>
+    <p><span class="x">✗</span>「すべての鳥は飛べない」(=全体否定に読んでしまっている)</p>
+    <p><span class="o">◯</span>「すべての鳥が飛べる<strong>わけではない</strong>」</p>
+    <p class="cap">対処法:「〜わけではない」「〜とは限らない」を訳に入れられるか毎回試すこと。入れて自然なら部分否定。</p>
+  </div>
+</section>
+
+<!-- ========== ③ 程度の副詞 ========== -->
+<section class="panel" id="sec2">
+  <h2>③ 程度・様態の副詞 — 高3で差がつく部分否定</h2>
+  <p>all や every がなくても、<strong>「完全さ・必然性」を表す副詞</strong>が not と組めば部分否定になる。難関大の下線部訳で最も狙われるゾーン。</p>
+
+  <div class="card">
+    <div class="adv-head"><span class="phrase">not necessarily</span><span class="mean">「必ずしも〜とは限らない」</span><span class="pill partial">部分否定</span></div>
+    <p class="en">Expensive restaurants do not necessarily serve better food.</p>
+    <button type="button" class="tr-btn" onclick="tgl(this)">訳を表示</button>
+    <p class="ja hidden">高級なレストランの方が必ずしも良い料理を出すとは限らない。</p>
+  </div>
+
+  <div class="card">
+    <div class="adv-head"><span class="phrase">not completely / not entirely</span><span class="mean">「完全に〜というわけではない」</span><span class="pill partial">部分否定</span></div>
+    <p class="en">I'm not entirely convinced by his explanation.</p>
+    <button type="button" class="tr-btn" onclick="tgl(this)">訳を表示</button>
+    <p class="ja hidden">彼の説明に完全に納得しているわけではない。(部分的には納得している)</p>
+  </div>
+
+  <div class="card">
+    <div class="adv-head"><span class="phrase">not altogether</span><span class="mean">「まったく〜というわけでもない」</span><span class="pill partial">部分否定</span></div>
+    <p class="en">Your worry is not altogether groundless.</p>
+    <button type="button" class="tr-btn" onclick="tgl(this)">訳を表示</button>
+    <p class="ja hidden">君の心配はまったく根拠がないわけでもない。(一理ある)</p>
+  </div>
+
+  <div class="card">
+    <div class="adv-head"><span class="phrase">not quite</span><span class="mean">「完全には〜ない・いまひとつ」</span><span class="pill partial">部分否定</span></div>
+    <p class="en">I don't quite remember where I first met her.</p>
+    <button type="button" class="tr-btn" onclick="tgl(this)">訳を表示</button>
+    <p class="ja hidden">彼女と最初にどこで会ったのか、はっきりとは思い出せない。</p>
+  </div>
+
+  <div class="card">
+    <div class="adv-head"><span class="phrase">not exactly</span><span class="mean">「正確に〜というわけではない」</span><span class="pill partial">部分否定</span></div>
+    <p class="en">That's not exactly what I meant.</p>
+    <button type="button" class="tr-btn" onclick="tgl(this)">訳を表示</button>
+    <p class="ja hidden">それは私が言いたかったことと少し違う。(全否定ではなく「ズレ」の指摘)</p>
+  </div>
+
+  <div class="warn">
+    <p class="t">最重要の対比:completely と at all</p>
+    <p class="en">I don't <strong>completely</strong> agree with you. <span class="pill partial">部分否定</span></p>
+    <p class="ja" style="display:block">完全に同意しているわけではない。(一部は同意)</p>
+    <p class="en" style="margin-top:10px">I don't agree with you <strong>at all</strong>. <span class="pill total">全体否定</span></p>
+    <p class="ja" style="display:block">まったく同意しない。(同意ゼロ)</p>
+    <p class="cap" style="margin-top:8px">at all は「100%語」ではなく<strong>否定を強める副詞</strong>。「not … at all=まったく〜ない」。completely / entirely と混同すると意味が正反対になる。</p>
+  </div>
+</section>
+
+<!-- ========== ④ 準否定・強調 ========== -->
+<section class="panel" id="sec3">
+  <h2>④ 準否定語と「決して〜ない」系の強調</h2>
+
+  <h3>A. 準否定語 — not なしで「ほとんど〜ない」</h3>
+  <p>それ自体に否定の意味を含む語。<strong>0%に近いが完全な0ではない</strong>、弱めの全体否定として働く。</p>
+
+  <div class="card">
+    <div class="adv-head"><span class="phrase">hardly / scarcely</span><span class="mean">【程度】「ほとんど〜ない」</span></div>
+    <p class="en">I could hardly believe my eyes.</p>
+    <button type="button" class="tr-btn" onclick="tgl(this)">訳を表示</button>
+    <p class="ja hidden">自分の目がほとんど信じられなかった。</p>
+  </div>
+
+  <div class="card">
+    <div class="adv-head"><span class="phrase">rarely / seldom</span><span class="mean">【頻度】「めったに〜ない」</span></div>
+    <p class="en">She seldom shows her true feelings.</p>
+    <button type="button" class="tr-btn" onclick="tgl(this)">訳を表示</button>
+    <p class="ja hidden">彼女はめったに本心を表に出さない。(hardly ever ≒ rarely)</p>
+  </div>
+
+  <div class="card">
+    <div class="adv-head"><span class="phrase">few(+可算)/ little(+不可算)</span><span class="mean">【数・量】「ほとんど〜ない」</span></div>
+    <p class="en">Few people realized the danger. / There was little hope left.</p>
+    <button type="button" class="tr-btn" onclick="tgl(this)">訳を表示</button>
+    <p class="ja hidden">その危険に気づいた人はほとんどいなかった。/ 望みはほとんど残っていなかった。</p>
+    <p class="cap" style="margin-top:8px">注意:<strong>a few / a little</strong> は「少しは<strong>ある</strong>」で肯定寄り。a の有無で向きが逆転する。</p>
+  </div>
+
+  <h3>B. 全体否定の強調 — 「決して〜ない」系</h3>
+
+  <div class="card">
+    <div class="adv-head"><span class="phrase">not … at all / not … in the least</span><span class="mean">「まったく〜ない」</span><span class="pill total">全体否定</span></div>
+    <p class="en">She was not in the least surprised at the news.</p>
+    <button type="button" class="tr-btn" onclick="tgl(this)">訳を表示</button>
+    <p class="ja hidden">彼女はその知らせにまったく驚かなかった。</p>
+  </div>
+
+  <div class="card">
+    <div class="adv-head"><span class="phrase">by no means / in no way</span><span class="mean">「決して〜ない」</span><span class="pill total">全体否定</span></div>
+    <p class="en">The problem is by no means easy.</p>
+    <button type="button" class="tr-btn" onclick="tgl(this)">訳を表示</button>
+    <p class="ja hidden">その問題は決して簡単ではない。</p>
+  </div>
+
+  <div class="card">
+    <div class="adv-head"><span class="phrase">far from / anything but</span><span class="mean">「決して〜ない・〜どころではない」</span><span class="pill total">全体否定</span></div>
+    <p class="en">The result was far from satisfactory. / His room is anything but tidy.</p>
+    <button type="button" class="tr-btn" onclick="tgl(this)">訳を表示</button>
+    <p class="ja hidden">結果は満足にはほど遠かった。/ 彼の部屋は決してきれいとは言えない。</p>
+  </div>
+
+  <div class="card">
+    <div class="adv-head"><span class="phrase">the last … to do</span><span class="mean">「最も〜しそうにない」</span><span class="pill total">全体否定</span></div>
+    <p class="en">He is the last person to betray you.</p>
+    <button type="button" class="tr-btn" onclick="tgl(this)">訳を表示</button>
+    <p class="ja hidden">彼は決して君を裏切るような人ではない。(直訳:裏切る最後の人=一番裏切りそうにない)</p>
+  </div>
+
+  <div class="warn">
+    <p class="t">訳語の取り違えは減点直行</p>
+    <p><span class="x">✗</span> by no means / far from / anything but を「<strong>必ずしも</strong>〜ない」と訳す(これは部分否定の訳語)。正しくは「<strong>決して</strong>〜ない」。</p>
+    <p><span class="x">✗</span> 逆に not necessarily を「決して〜ない」と訳すのも誤り。「必ずしも〜とは限らない」。</p>
+    <p class="cap">「必ずしも」=部分否定専用、「決して/まったく」=全体否定専用、と訳語を住み分けておく。</p>
+  </div>
+</section>
+
+<!-- ========== ⑤ 発展 ========== -->
+<section class="panel" id="sec4">
+  <h2>⑤ 発展 — 曖昧文・作用域・二重否定</h2>
+
+  <h3>1. all … not 型の曖昧文</h3>
+  <div class="card">
+    <p class="en">All that glitters is not gold.(ことわざ)</p>
+    <button type="button" class="tr-btn" onclick="tgl(this)">訳を表示</button>
+    <p class="ja hidden">光るものすべてが金とは限らない。<span class="pill partial">部分否定</span></p>
+    <p style="margin-top:10px">形の上では all が not より<strong>前</strong>にあるが、伝統的に部分否定で読む。ただし現代英語では <strong>All … not / Every … not の語順は曖昧</strong>になりうるため、書き手は誤解を避けて <span class="en">Not all …</span> の語順を選ぶのが普通。</p>
+    <p class="en" style="margin-top:10px">Everyone doesn't know the fact.</p>
+    <p>→ 学校文法・入試では部分否定「みんながその事実を知っているわけではない」で読むのが定石。ただし全体否定(誰も知らない)に読む話者もいる曖昧文なので、<strong>必ず文脈で確認</strong>する。</p>
+  </div>
+
+  <h3>2. not … because — 否定はどこまで届くか</h3>
+  <div class="card">
+    <p class="en">She didn't marry him because he was rich.</p>
+    <p style="margin-top:8px"><span class="pill total">読みA</span> 否定は主節のみ:[She didn't marry him] + because he was rich.<br>→「彼が金持ちだった<strong>ので</strong>、彼女は結婚<strong>しなかった</strong>」</p>
+    <p style="margin-top:8px"><span class="pill partial">読みB</span> 否定が because 節まで届く:She didn't [marry him because he was rich].<br>→「金持ちだ<strong>から</strong>結婚した、<strong>のではない</strong>」(結婚はした。理由が別)</p>
+    <div class="tip" style="margin-top:12px">
+      <p class="t">見分けのヒント</p>
+      <ol>
+        <li>直後に <span class="en">but because …</span> などで「本当の理由」が続けば読みB。</li>
+        <li>because の前にコンマがあれば(…, because ~)読みAに傾く。</li>
+        <li>迷ったら「〜だから…したわけではない」(読みB)をまず検討。入試ではBを問う出題が多い。</li>
+      </ol>
+    </div>
+    <p class="en">I don't like him because he is handsome.</p>
+    <button type="button" class="tr-btn" onclick="tgl(this)">訳を表示</button>
+    <p class="ja hidden">ハンサムだから彼が好きなわけではない。(好きであることは前提)— 典型的な読みB</p>
+  </div>
+
+  <h3>3. 二重否定 — 否定×否定=控えめな肯定</h3>
+  <div class="card">
+    <div class="adv-head"><span class="phrase">not uncommon / not impossible</span><span class="mean">「珍しくない/不可能ではない」</span></div>
+    <p class="en">It is not uncommon for students to change their major.</p>
+    <button type="button" class="tr-btn" onclick="tgl(this)">訳を表示</button>
+    <p class="ja hidden">学生が専攻を変えるのは珍しいことではない。(=わりとよくある、の控えめ表現)</p>
+  </div>
+  <div class="card">
+    <div class="adv-head"><span class="phrase">never … without -ing</span><span class="mean">「〜すれば必ず…する」</span></div>
+    <p class="en">She never comes to our house without bringing some sweets.</p>
+    <button type="button" class="tr-btn" onclick="tgl(this)">訳を表示</button>
+    <p class="ja hidden">彼女はうちに来るとき、必ず何かお菓子を持ってきてくれる。(直訳:持って来ずに来ることは決してない)</p>
+  </div>
+  <div class="card">
+    <div class="adv-head"><span class="phrase">nothing but</span><span class="mean">「〜にすぎない(= only)」</span></div>
+    <p class="en">It was nothing but a joke.</p>
+    <button type="button" class="tr-btn" onclick="tgl(this)">訳を表示</button>
+    <p class="ja hidden">それはほんの冗談にすぎなかった。(anything but「決して〜ない」との混同に注意)</p>
+  </div>
+</section>
+
+<!-- ========== ⑥ 確認テスト ========== -->
+<section class="panel" id="sec5">
+  <h2>⑥ 確認テスト(選択7問+和訳5問)</h2>
+  <p>選択問題は即時採点。和訳問題は自分の訳を書いてから模範解答と照合し、自己採点(◯△✗)してください。</p>
+  <div class="progress" id="progress">解答済み 0 / 12</div>
+  <h3>第1部 正しい訳を選べ(各1点)</h3>
+  <div id="mcArea"></div>
+  <h3>第2部 和訳せよ(◯=1点・△=0.5点)</h3>
+  <div id="trArea"></div>
+  <div id="result">
+    <p>採点結果</p>
+    <p class="score" id="scoreLine"></p>
+    <p id="scoreMsg"></p>
+    <button type="button" class="restart" onclick="initQuiz()">もう一度挑戦する</button>
+  </div>
+</section>
+
+</main>
+
+<footer>部分否定 vs 全体否定|インタラクティブ教材</footer>
+
+<script>
+// ---------- タブ切り替え ----------
+document.querySelectorAll('.tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.t).classList.add('active');
+    window.scrollTo({top: 0});
+  });
+});
+
+// ---------- 訳の表示/非表示 ----------
+function tgl(btn){
+  const ja = btn.nextElementSibling;
+  ja.classList.toggle('hidden');
+  btn.textContent = ja.classList.contains('hidden') ? '訳を表示' : '訳を隠す';
+}
+
+// ---------- 確認テスト ----------
+const MC = [
+  {
+    q: `Not every student passed the exam.`,
+    c: [`すべての生徒が試験に合格したわけではない`, `試験に合格した生徒は一人もいなかった`, `すべての生徒が試験に落ちた`],
+    a: 0,
+    why: `not + every =「100%の否定」で部分否定。「合格しなかった生徒もいる(合格した生徒もいる)」が真意。「一人もいなかった」なら No student passed。`
+  },
+  {
+    q: `I didn't invite both of them.`,
+    c: [`彼らを二人とも招待しなかった`, `彼らの両方を招待したわけではない(招待したのは一方だけ)`, `彼らのどちらか一方すら招待しなかった`],
+    a: 1,
+    why: `not + both = 部分否定。「二人とも招待しなかった」なら I didn't invite either of them / I invited neither of them。`
+  },
+  {
+    q: `What is legal is not necessarily ethical.`,
+    c: [`合法なことは決して倫理的ではない`, `合法なことが倫理的であるはずがない`, `合法なことが必ずしも倫理的であるとは限らない`],
+    a: 2,
+    why: `not necessarily は部分否定の代表。「決して〜ない」と訳すと全体否定になり意味が変わる。`
+  },
+  {
+    q: `I don't trust him at all.`,
+    c: [`彼を完全に信頼しているわけではない`, `彼をそれほど信頼していない`, `彼をまったく信頼していない`],
+    a: 2,
+    why: `not … at all =「まったく〜ない」全体否定の強調。at all は 100%語ではなく否定を強める語。「完全に〜わけではない」は not completely(部分否定)の訳。`
+  },
+  {
+    q: `The task is by no means impossible.`,
+    c: [`その仕事は必ずしも不可能ではない`, `その仕事は決して不可能ではない(十分可能だ)`, `その仕事はどうやっても不可能だ`],
+    a: 1,
+    why: `by no means =「決して〜ない」の強い全体否定。「必ずしも」は not necessarily 用の訳語。impossible を強く打ち消すので「十分可能」という含み。`
+  },
+  {
+    q: `Few of his classmates knew what he was going through.`,
+    c: [`クラスメートの何人かは、彼が抱えている苦労を知っていた`, `クラスメートで、彼が抱えている苦労を知る者はほとんどいなかった`, `クラスメートは誰一人、彼が抱えている苦労を知らなかった`],
+    a: 1,
+    why: `few(aなし)= 準否定「ほとんど〜ない」。a few なら「少しはいた」。none ほど強くないので「誰一人〜ない」も不可。`
+  },
+  {
+    q: `My grandfather never went out without taking his old camera.`,
+    c: [`祖父は外出するとき、必ず古いカメラを持って行った`, `祖父は古いカメラを持って外出することは決してなかった`, `祖父はカメラを取りに行くために外出することは決してなかった`],
+    a: 0,
+    why: `never … without -ing = 二重否定。「〜せずに…することは決してない」→「…するときは必ず〜する」と肯定に転じて訳すのが定石。`
+  }
+];
+
+const TR = [
+  {
+    en: `Not all of the information you find online is reliable.`,
+    model: `ネット上で見つかる情報のすべてが信頼できるわけではない。`,
+    point: `not all → 部分否定。「すべての情報は信頼できない」(全体否定)と訳すと誤訳。「〜わけではない」の型に当てはめる。`
+  },
+  {
+    en: `Money does not always bring happiness, but it is not altogether useless either.`,
+    model: `お金がいつも幸福をもたらすとは限らないが、かといってまったく役に立たないというわけでもない。`,
+    point: `not always と not altogether の部分否定2連発。文末の either は否定文で「〜もまた(…ない)」。`
+  },
+  {
+    en: `Hardly anyone in the room noticed that the speaker had changed the subject.`,
+    model: `部屋にいた人で、話し手が話題を変えたことに気づいた者はほとんどいなかった。`,
+    point: `hardly anyone =「ほとんど誰も〜ない」。hardly は not を伴わず単独で否定を作る準否定語。had changed は「気づいた」時点より前を表す過去完了。`
+  },
+  {
+    en: `He is by no means satisfied with the result, though he admits it could have been worse.`,
+    model: `もっと悪い結果になっていた可能性もあると認めてはいるものの、彼はその結果に決して満足してはいない。`,
+    point: `by no means =「決して〜ない」(強い全体否定)。「必ずしも満足していない」と弱めると減点。could have been worse「もっと悪くなっていたかもしれない」。`
+  },
+  {
+    en: `I didn't choose this job because the pay was good; I chose it because I wanted to help people.`,
+    model: `給料が良いからこの仕事を選んだのではない。人の役に立ちたかったから選んだのだ。`,
+    point: `not … because の作用域問題。セミコロン以下で「本当の理由」が示されるので、否定は because 節まで届く読み(「〜だから…したのではない」)。「給料が良かったので選ばなかった」は誤読。`
+  }
+];
+
+const state = { answered: {}, score: {} };
+const TOTAL = MC.length + TR.length;
+
+function esc(s){ const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+function initQuiz(){
+  state.answered = {}; state.score = {};
+  // --- 選択問題 ---
+  const mcArea = document.getElementById('mcArea');
+  mcArea.innerHTML = '';
+  MC.forEach((item, i) => {
+    const card = document.createElement('div');
+    card.className = 'qcard';
+    card.innerHTML =
+      `<p class="qnum">Q${i+1}</p>` +
+      `<p class="en">${esc(item.q)}</p>` +
+      `<div class="choices">` +
+        item.c.map((ch, j) => `<button type="button" class="choice" data-q="${i}" data-j="${j}">${'アイウ'[j]}. ${esc(ch)}</button>`).join('') +
+      `</div>` +
+      `<p class="verdict hidden"></p>` +
+      `<div class="why hidden">${esc(item.why)}</div>`;
+    mcArea.appendChild(card);
+  });
+  mcArea.querySelectorAll('.choice').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const i = +btn.dataset.q, j = +btn.dataset.j;
+      const key = 'mc' + i;
+      if (state.answered[key]) return;
+      state.answered[key] = true;
+      const ok = (j === MC[i].a);
+      state.score[key] = ok ? 1 : 0;
+      const card = btn.closest('.qcard');
+      card.querySelectorAll('.choice').forEach(b => {
+        b.disabled = true;
+        if (+b.dataset.j === MC[i].a) b.classList.add('correct');
+      });
+      if (!ok) btn.classList.add('wrong');
+      const v = card.querySelector('.verdict');
+      v.textContent = ok ? '◯ 正解!' : '✗ 不正解…';
+      v.classList.add(ok ? 'ok' : 'ng');
+      v.classList.remove('hidden');
+      card.querySelector('.why').classList.remove('hidden');
+      updateProgress();
+    });
+  });
+  // --- 和訳問題 ---
+  const trArea = document.getElementById('trArea');
+  trArea.innerHTML = '';
+  TR.forEach((item, i) => {
+    const card = document.createElement('div');
+    card.className = 'qcard';
+    card.innerHTML =
+      `<p class="qnum">W${i+1}</p>` +
+      `<p class="en">${esc(item.en)}</p>` +
+      `<textarea placeholder="ここに自分の訳を書いてから、下のボタンで答え合わせ"></textarea>` +
+      `<button type="button" class="tr-btn reveal">模範解答を見る</button>` +
+      `<div class="model hidden">` +
+        `<p class="ans">${esc(item.model)}</p>` +
+        `<div class="why">${esc(item.point)}</div>` +
+        `<div class="assess"><span>自己採点:</span>` +
+          `<button type="button" class="as-btn" data-v="1">◯ できた</button>` +
+          `<button type="button" class="as-btn" data-v="0.5">△ 惜しい</button>` +
+          `<button type="button" class="as-btn" data-v="0">✗ 誤訳した</button>` +
+        `</div>` +
+      `</div>`;
+    trArea.appendChild(card);
+    card.querySelector('.reveal').addEventListener('click', e => {
+      card.querySelector('.model').classList.remove('hidden');
+      e.target.disabled = true;
+    });
+    card.querySelectorAll('.as-btn').forEach(b => {
+      b.addEventListener('click', () => {
+        const key = 'tr' + i;
+        if (state.answered[key]) return;
+        state.answered[key] = true;
+        state.score[key] = +b.dataset.v;
+        b.classList.add('sel');
+        card.querySelectorAll('.as-btn').forEach(x => x.disabled = true);
+        updateProgress();
+      });
+    });
+  });
+  document.getElementById('result').style.display = 'none';
+  updateProgress();
+}
+
+function updateProgress(){
+  const done = Object.keys(state.answered).length;
+  document.getElementById('progress').textContent = `解答済み ${done} / ${TOTAL}`;
+  if (done === TOTAL) showResult();
+}
+
+function showResult(){
+  let total = 0;
+  Object.values(state.score).forEach(v => total += v);
+  const pct = Math.round(total / TOTAL * 100);
+  document.getElementById('scoreLine').textContent = `${total} / ${TOTAL} 点(${pct}%)`;
+  let msg;
+  if (pct >= 85) msg = '素晴らしい!入試レベルの否定表現はほぼ完成。⑤発展の曖昧文だけ折に触れて見直そう。';
+  else if (pct >= 60) msg = '基礎はOK。間違えた問題の解説と、③④の「訳語の住み分け」(必ずしも/決して)をもう一度確認しよう。';
+  else msg = '①②に戻って「100%語」の考え方から復習しよう。訳の型(〜わけではない/まったく〜ない)を声に出して固定するのが近道。';
+  document.getElementById('scoreMsg').textContent = msg;
+  const r = document.getElementById('result');
+  r.style.display = 'block';
+  r.scrollIntoView({behavior: 'smooth', block: 'center'});
+}
+
+initQuiz();
+</script>
+</body>
+</html>
