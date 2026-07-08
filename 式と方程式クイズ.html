@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>「式」と「方程式」を見分けよう</title>
+<style>
+  :root {
+    --blue: #2563eb;
+    --blue-bg: #eff6ff;
+    --blue-border: #bfdbfe;
+    --red: #e11d48;
+    --red-bg: #fff1f2;
+    --red-border: #fecdd3;
+    --ink: #1f2937;
+    --sub: #6b7280;
+    --bg: #f4f6fb;
+    --card: #ffffff;
+    --yellow-bg: #fefce8;
+    --yellow-border: #fde68a;
+    --green: #16a34a;
+    --green-bg: #f0fdf4;
+    --radius: 16px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.8;
+  }
+  header {
+    background: linear-gradient(135deg, #1e3a8a, #2563eb 60%, #3b82f6);
+    color: #fff;
+    text-align: center;
+    padding: 44px 20px 40px;
+  }
+  header h1 { font-size: 1.7rem; letter-spacing: 0.04em; }
+  header p { margin-top: 10px; opacity: 0.9; font-size: 0.95rem; }
+  main { max-width: 860px; margin: 0 auto; padding: 28px 16px 60px; }
+
+  section {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    margin-bottom: 28px;
+    box-shadow: 0 2px 10px rgba(30, 58, 138, 0.07);
+  }
+  .sec-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.25rem;
+    margin-bottom: 18px;
+  }
+  .sec-num {
+    flex-shrink: 0;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--blue);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  .vs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 16px 0;
+  }
+  @media (max-width: 620px) { .vs-grid { grid-template-columns: 1fr; } }
+
+  .concept {
+    border-radius: 12px;
+    padding: 18px 16px;
+    border: 2px solid;
+  }
+  .concept.calc { background: var(--blue-bg); border-color: var(--blue-border); }
+  .concept.eq   { background: var(--red-bg);  border-color: var(--red-border); }
+  .tag {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #fff;
+    padding: 3px 12px;
+    border-radius: 999px;
+    margin-bottom: 10px;
+  }
+  .concept.calc .tag { background: var(--blue); }
+  .concept.eq   .tag { background: var(--red); }
+
+  .formula {
+    font-family: "STIX Two Math", "Cambria Math", Georgia, "Times New Roman", serif;
+    font-size: 1.45rem;
+    text-align: center;
+    background: #fff;
+    border-radius: 8px;
+    padding: 12px 8px;
+    margin: 8px 0 12px;
+    letter-spacing: 0.02em;
+  }
+  .formula i { font-style: italic; }
+  .concept ul { list-style: none; }
+  .concept li {
+    font-size: 0.92rem;
+    padding-left: 1.3em;
+    position: relative;
+    margin-bottom: 4px;
+  }
+  .concept li::before {
+    content: "・";
+    position: absolute;
+    left: 0;
+  }
+  .verb { font-weight: bold; }
+  .concept.calc .verb { color: var(--blue); }
+  .concept.eq   .verb { color: var(--red); }
+
+  .point {
+    background: var(--yellow-bg);
+    border: 2px solid var(--yellow-border);
+    border-radius: 12px;
+    padding: 14px 18px;
+    font-size: 0.95rem;
+    margin-top: 14px;
+  }
+  .point strong { color: #b45309; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0 6px;
+    font-size: 0.92rem;
+  }
+  th, td {
+    border: 1px solid #e5e7eb;
+    padding: 9px 10px;
+    text-align: left;
+    vertical-align: middle;
+  }
+  th { background: #eef2ff; font-size: 0.88rem; }
+  td.f {
+    font-family: "STIX Two Math", "Cambria Math", Georgia, serif;
+    white-space: nowrap;
+  }
+  .note { font-size: 0.85rem; color: var(--sub); margin-top: 8px; }
+
+  /* 問いかけ */
+  .toikake {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: #eef2ff;
+    border-left: 5px solid var(--blue);
+    border-radius: 8px;
+    padding: 13px 16px;
+    font-weight: bold;
+    margin: 16px 0;
+  }
+  .q-mark {
+    flex-shrink: 0;
+    background: var(--blue);
+    color: #fff;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    padding: 2px 9px;
+    margin-top: 4px;
+  }
+
+  /* 具体例の式ボックス */
+  .ex-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 14px 0 18px;
+  }
+  @media (max-width: 620px) { .ex-grid { grid-template-columns: 1fr; } }
+  .ex-grid .formula {
+    border: 2px dashed #cbd5e1;
+    background: #f8fafc;
+    margin: 0;
+    padding: 18px 8px 14px;
+  }
+  .f-label {
+    display: block;
+    font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+    font-size: 0.75rem;
+    color: var(--sub);
+    margin-top: 6px;
+  }
+
+  /* 答えを見る(開閉式) */
+  details { margin: 4px 0 6px; }
+  summary {
+    display: inline-block;
+    cursor: pointer;
+    list-style: none;
+    font-weight: bold;
+    color: var(--blue);
+    background: #fff;
+    border: 2px solid var(--blue);
+    border-radius: 999px;
+    padding: 9px 30px;
+    user-select: none;
+    transition: background 0.15s;
+  }
+  summary:hover { background: var(--blue-bg); }
+  summary::-webkit-details-marker { display: none; }
+  summary::before { content: "▶ "; font-size: 0.8em; }
+  details[open] summary::before { content: "▼ "; }
+  details[open] summary { margin-bottom: 8px; }
+
+  /* 連立方程式の中括弧表記 */
+  .system {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .system .brace {
+    font-size: 2.4em;
+    font-weight: 300;
+    line-height: 1;
+  }
+  .system .lines { text-align: left; line-height: 1.55; }
+
+  section h3 { font-size: 1.05rem; margin: 24px 0 4px; }
+
+  /* ---------- クイズ ---------- */
+  #quiz-sec { border: 3px solid var(--blue); }
+  .progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .progress-label { font-size: 0.9rem; color: var(--sub); white-space: nowrap; }
+  .progress-bar {
+    flex: 1;
+    height: 10px;
+    background: #e5e7eb;
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #3b82f6, #2563eb);
+    border-radius: 999px;
+    transition: width 0.4s ease;
+  }
+  .q-formula {
+    font-family: "STIX Two Math", "Cambria Math", Georgia, serif;
+    font-size: 1.6rem;
+    text-align: center;
+    background: #f8fafc;
+    border: 2px dashed #cbd5e1;
+    border-radius: 12px;
+    padding: 22px 10px;
+    margin-bottom: 18px;
+    line-height: 1.6;
+  }
+  .q-text { text-align: center; font-weight: bold; margin-bottom: 14px; }
+  .choices {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  @media (max-width: 620px) { .choices { grid-template-columns: 1fr; } }
+  .choice-btn {
+    font-family: inherit;
+    font-size: 1rem;
+    padding: 14px 10px;
+    border-radius: 10px;
+    border: 2px solid #cbd5e1;
+    background: #fff;
+    cursor: pointer;
+    transition: transform 0.08s, border-color 0.15s, background 0.15s;
+  }
+  .choice-btn:hover:not(:disabled) {
+    border-color: var(--blue);
+    background: var(--blue-bg);
+    transform: translateY(-2px);
+  }
+  .choice-btn:disabled { cursor: default; }
+  .choice-btn.correct {
+    border-color: var(--green);
+    background: var(--green-bg);
+    font-weight: bold;
+  }
+  .choice-btn.wrong {
+    border-color: var(--red);
+    background: var(--red-bg);
+  }
+  .feedback {
+    margin-top: 16px;
+    border-radius: 12px;
+    padding: 14px 18px;
+    font-size: 0.95rem;
+    display: none;
+  }
+  .feedback.ok  { display: block; background: var(--green-bg); border: 2px solid #bbf7d0; }
+  .feedback.ng  { display: block; background: var(--red-bg);  border: 2px solid var(--red-border); }
+  .feedback .head { font-weight: bold; font-size: 1.05rem; margin-bottom: 4px; }
+  .feedback.ok .head { color: var(--green); }
+  .feedback.ng .head { color: var(--red); }
+
+  .btn-row { text-align: center; margin-top: 18px; }
+  .main-btn {
+    font-family: inherit;
+    font-size: 1.05rem;
+    font-weight: bold;
+    color: #fff;
+    background: var(--blue);
+    border: none;
+    border-radius: 999px;
+    padding: 12px 44px;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(37, 99, 235, 0.35);
+    transition: transform 0.08s, background 0.15s;
+  }
+  .main-btn:hover { background: #1d4ed8; transform: translateY(-2px); }
+  .main-btn.ghost {
+    background: #fff;
+    color: var(--blue);
+    border: 2px solid var(--blue);
+    box-shadow: none;
+    margin-left: 10px;
+  }
+
+  /* 結果画面 */
+  #result { text-align: center; display: none; }
+  #result .score {
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--blue);
+    margin: 6px 0;
+  }
+  #result .msg { font-size: 1.1rem; margin-bottom: 18px; }
+
+  footer {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--sub);
+    padding: 0 16px 40px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>「式」と「方程式」を見分けよう</h1>
+  <p>混同しやすい数学用語を、ペアで比べてスッキリ整理!</p>
+</header>
+
+<main>
+
+  <!-- 1. 文字式と方程式 -->
+  <section>
+    <h2 class="sec-title"><span class="sec-num">1</span>文字式と方程式</h2>
+    <p>二次方程式と展開は混同しがちです。<br>・・・文字式と方程式を混同しがちなのと同じですね。</p>
+    <div class="toikake"><span class="q-mark">問</span>以下の式を見て、どちらが文字式でどちらが方程式なのか説明して下さい。</div>
+    <div class="ex-grid">
+      <div class="formula"><i>a</i> + 2<i>a</i> + 3 =</div>
+      <div class="formula">2<i>x</i> + 3 = 0</div>
+    </div>
+    <details>
+      <summary>答えを見る</summary>
+      <div class="vs-grid">
+        <div class="concept calc">
+          <span class="tag">文字式(の計算)</span>
+          <div class="formula"><i>a</i> + 2<i>a</i> + 3 =</div>
+          <ul>
+            <li>「=」の<b>後ろが空いている</b> → 「計算して簡単にしなさい」という意味</li>
+            <li>することは<span class="verb">「整理する」</span></li>
+            <li>答え: 3<i>a</i> + 3 (答えも<b>式</b>)</li>
+          </ul>
+        </div>
+        <div class="concept eq">
+          <span class="tag">方程式(一次方程式)</span>
+          <div class="formula">2<i>x</i> + 3 = 0</div>
+          <ul>
+            <li>「左辺 = 右辺」が<b>成り立つ <i>x</i> を探す</b></li>
+            <li>することは<span class="verb">「解く」</span></li>
+            <li>解: <i>x</i> = −3/2 (答えは<b>数</b>)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="point">💡 <strong>ポイント:</strong> 文字式の「=」は「計算するとこうなる」という記号。方程式の「=」は「両辺が等しい」という<b>条件</b>。<b>文字式は整理する、方程式は解く。</b></div>
+    </details>
+  </section>
+
+  <!-- 2. 展開と二次方程式 -->
+  <section>
+    <h2 class="sec-title"><span class="sec-num">2</span>展開と二次方程式</h2>
+    <div class="toikake"><span class="q-mark">問</span>展開と二次方程式も同じです。以下の式を見て、どちらが展開でどちらが方程式か説明して下さい。</div>
+    <div class="ex-grid">
+      <div class="formula">( <i>x</i> + 3 ) ( <i>x</i> + 4 ) =</div>
+      <div class="formula"><i>x</i>² + 4<i>x</i> + 3 = 0</div>
+    </div>
+    <details>
+      <summary>答えを見る</summary>
+      <div class="vs-grid">
+        <div class="concept calc">
+          <span class="tag">展開(文字式の計算)</span>
+          <div class="formula">( <i>x</i> + 3 ) ( <i>x</i> + 4 ) =</div>
+          <ul>
+            <li>かっこを外して<span class="verb">「整理する」</span>だけ</li>
+            <li>= <i>x</i>² + 7<i>x</i> + 12</li>
+            <li><i>x</i> の値を求めるわけではない</li>
+          </ul>
+        </div>
+        <div class="concept eq">
+          <span class="tag">二次方程式</span>
+          <div class="formula"><i>x</i>² + 4<i>x</i> + 3 = 0</div>
+          <ul>
+            <li>成り立つ <i>x</i> の値を<span class="verb">「解く」</span></li>
+            <li>因数分解して (<i>x</i> + 1)(<i>x</i> + 3) = 0</li>
+            <li>解: <i>x</i> = −1, −3</li>
+          </ul>
+        </div>
+      </div>
+      <div class="point">💡 <strong>ポイント:</strong> 展開・因数分解は<b>式の変形</b>(道具)。二次方程式は<b>解くもの</b>(問題)。道具と問題を区別しよう。</div>
+    </details>
+  </section>
+
+  <!-- 3. 二次方程式と連立方程式 -->
+  <section>
+    <h2 class="sec-title"><span class="sec-num">3</span>二次方程式と連立方程式</h2>
+    <div class="toikake"><span class="q-mark">問</span>二次方程式と連立方程式は混同しがちです。どう違うでしょうか。</div>
+    <div class="ex-grid">
+      <div class="formula">
+        <span class="system"><span class="brace">{</span><span class="lines"><i>x</i> + <i>y</i> = 5<br>2<i>x</i> − <i>y</i> = 1</span></span>
+        <span class="f-label">連立方程式</span>
+      </div>
+      <div class="formula">
+        <i>x</i>² + 4<i>x</i> + 3 = 0
+        <span class="f-label">二次方程式</span>
+      </div>
+    </div>
+    <div class="point">⭐ 文字が二つあっても二次方程式ではありません。（連立方程式は、<b>連立二元一次方程式</b>と言います）</div>
+
+    <p style="margin-top:22px;"><b>二次方程式は二乗を含む方程式のことです。</b></p>
+    <div class="ex-grid">
+      <div class="formula"><i>x</i>² + 4<i>x</i> + 3 = 0 <span class="f-label">二次方程式</span></div>
+      <div class="formula"><i>x</i>² = 16 <span class="f-label">二次方程式</span></div>
+    </div>
+
+    <p><b>同様に高校で習いますが、三次方程式は三乗を、４次方程式は四乗を含む方程式です。</b></p>
+    <div class="ex-grid">
+      <div class="formula"><i>x</i>³ − 8 = 0 <span class="f-label">三次方程式</span></div>
+      <div class="formula"><i>x</i>⁴ − 16 = 0 <span class="f-label">四次方程式</span></div>
+    </div>
+
+    <h3>まとめ</h3>
+    <table>
+      <tr><th>名前</th><th>意味</th><th>例</th></tr>
+      <tr><td>一次方程式</td><td>いちばん大きい次数が1</td><td class="f">2<i>x</i> + 3 = 0</td></tr>
+      <tr><td>二元一次方程式</td><td>文字が2種類(二元)で1次</td><td class="f"><i>x</i> + 2<i>y</i> = 7</td></tr>
+      <tr><td>連立方程式</td><td>式を2つ以上組み合わせる</td><td class="f"><span class="system"><span class="brace">{</span><span class="lines"><i>x</i> + <i>y</i> = 5<br>2<i>x</i> − <i>y</i> = 1</span></span></td></tr>
+      <tr><td>二次方程式</td><td>二乗を含む(最大2乗)</td><td class="f"><i>x</i>² + 4<i>x</i> + 3 = 0</td></tr>
+      <tr><td>三次方程式(高校)</td><td>三乗を含む(最大3乗)</td><td class="f"><i>x</i>³ − 8 = 0</td></tr>
+      <tr><td>四次方程式(高校)</td><td>四乗を含む(最大4乗)</td><td class="f"><i>x</i>⁴ − 16 = 0</td></tr>
+    </table>
+    <p class="note">※ 方程式の名前は「いちばん大きい次数」で決まります。</p>
+    <div class="point">⭐ <strong>まとめ:</strong> 「<b>〜次</b>」= 何乗まであるか / 「<b>〜元</b>」= 文字が何種類か / 「<b>連立</b>」= 式を組み合わせること。それぞれ別の意味!</div>
+  </section>
+
+  <!-- クイズ -->
+  <section id="quiz-sec">
+    <h2 class="sec-title"><span class="sec-num">Q</span>見分けクイズに挑戦!(全10問)</h2>
+
+    <div id="quiz-body">
+      <div class="progress-wrap">
+        <span class="progress-label" id="progress-label">問題 1 / 10</span>
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+      </div>
+      <div class="q-formula" id="q-formula"></div>
+      <p class="q-text">これは何でしょう?</p>
+      <div class="choices" id="choices"></div>
+      <div class="feedback" id="feedback">
+        <div class="head" id="feedback-head"></div>
+        <div id="feedback-body"></div>
+      </div>
+      <div class="btn-row">
+        <button class="main-btn" id="next-btn" style="display:none;">次の問題へ</button>
+      </div>
+    </div>
+
+    <div id="result">
+      <p style="font-size:1.2rem;">結果発表</p>
+      <div class="score"><span id="score-num"></span> / 10</div>
+      <p class="msg" id="score-msg"></p>
+      <button class="main-btn" id="retry-btn">もう一度挑戦する</button>
+      <button class="main-btn ghost" onclick="window.scrollTo({top:0,behavior:'smooth'})">解説を読み直す</button>
+    </div>
+  </section>
+
+</main>
+
+<footer>式は「整理する」・方程式は「解く」— この合言葉を忘れずに!</footer>
+
+<script>
+  var questions = [
+    {
+      formula: '<i>a</i> + 2<i>a</i> + 3 =',
+      choices: ['文字式の計算', '一次方程式', '二次方程式', '連立方程式'],
+      answer: 0,
+      explain: '「=」の後ろが空いている → 計算して整理する文字式。答えは 3a + 3。解くものではありません。'
+    },
+    {
+      formula: '2<i>x</i> + 3 = 0',
+      choices: ['文字式の計算', '一次方程式', '二次方程式', '二元一次方程式'],
+      answer: 1,
+      explain: '成り立つ x を求める方程式。次数が1なので一次方程式。解は x = −3/2。'
+    },
+    {
+      formula: '(<i>x</i> + 3)(<i>x</i> + 4) =',
+      choices: ['展開', '因数分解', '二次方程式', '連立方程式'],
+      answer: 0,
+      explain: 'かっこを外して整理する展開(文字式の計算)。= x² + 7x + 12。方程式ではありません。'
+    },
+    {
+      formula: '<i>x</i>² + 4<i>x</i> + 3 = 0',
+      choices: ['展開', '因数分解', '二次方程式', '二元一次方程式'],
+      answer: 2,
+      explain: '二乗を含み、成り立つ x を求めるので二次方程式。(x + 1)(x + 3) = 0 より x = −1, −3。'
+    },
+    {
+      formula: '<i>x</i> + <i>y</i> = 5<br>2<i>x</i> − <i>y</i> = 1',
+      choices: ['二次方程式', '二元一次方程式', '連立方程式', '文字式の計算'],
+      answer: 2,
+      explain: '式を2つ組み合わせて同時に解くので連立方程式(正確には連立二元一次方程式)。解は x = 2, y = 3。'
+    },
+    {
+      formula: '<i>x</i> + 2<i>y</i> = 7',
+      choices: ['二次方程式', '連立方程式', '二元一次方程式', '文字式の計算'],
+      answer: 2,
+      explain: 'ひっかけ問題! 文字が2つ(二元)でも、二乗がないので二次方程式ではありません。式が1本なので連立でもなく、二元一次方程式です。'
+    },
+    {
+      formula: '<i>x</i>² = 16',
+      choices: ['一次方程式', '二次方程式', '文字式の計算', '連立方程式'],
+      answer: 1,
+      explain: '二乗を含む方程式なので二次方程式。解は x = ±4。文字が1つでも「二次」になります。'
+    },
+    {
+      formula: '5<i>x</i> − 2<i>x</i> + 7 =',
+      choices: ['文字式の計算', '一次方程式', '展開', '二次方程式'],
+      answer: 0,
+      explain: '「=」の後ろが空いている → 整理する文字式の計算。答えは 3x + 7。'
+    },
+    {
+      formula: '<i>x</i>³ − 8 = 0',
+      choices: ['一次方程式', '二次方程式', '三次方程式', '四次方程式'],
+      answer: 2,
+      explain: '三乗(x³)を含む方程式なので三次方程式(高校で習います)。'
+    },
+    {
+      formula: '<i>x</i>⁴ − 16 = 0',
+      choices: ['一次方程式', '二次方程式', '三次方程式', '四次方程式'],
+      answer: 3,
+      explain: '四乗(x⁴)を含む方程式なので四次方程式。名前は「いちばん大きい次数」で決まります。'
+    }
+  ];
+
+  var current = 0;
+  var score = 0;
+
+  var qFormula = document.getElementById('q-formula');
+  var choicesEl = document.getElementById('choices');
+  var feedback = document.getElementById('feedback');
+  var feedbackHead = document.getElementById('feedback-head');
+  var feedbackBody = document.getElementById('feedback-body');
+  var nextBtn = document.getElementById('next-btn');
+  var progressLabel = document.getElementById('progress-label');
+  var progressFill = document.getElementById('progress-fill');
+  var quizBody = document.getElementById('quiz-body');
+  var resultEl = document.getElementById('result');
+
+  function showQuestion() {
+    var q = questions[current];
+    qFormula.innerHTML = q.formula;
+    progressLabel.textContent = '問題 ' + (current + 1) + ' / ' + questions.length;
+    progressFill.style.width = (current / questions.length * 100) + '%';
+    feedback.className = 'feedback';
+    nextBtn.style.display = 'none';
+    choicesEl.innerHTML = '';
+    q.choices.forEach(function (choice, i) {
+      var btn = document.createElement('button');
+      btn.className = 'choice-btn';
+      btn.textContent = choice;
+      btn.addEventListener('click', function () { selectAnswer(i, btn); });
+      choicesEl.appendChild(btn);
+    });
+  }
+
+  function selectAnswer(selected, btn) {
+    var q = questions[current];
+    var buttons = choicesEl.querySelectorAll('.choice-btn');
+    buttons.forEach(function (b) { b.disabled = true; });
+    buttons[q.answer].classList.add('correct');
+
+    if (selected === q.answer) {
+      score++;
+      feedback.className = 'feedback ok';
+      feedbackHead.textContent = '⭕ 正解!';
+    } else {
+      btn.classList.add('wrong');
+      feedback.className = 'feedback ng';
+      feedbackHead.textContent = '❌ ざんねん… 正解は「' + q.choices[q.answer] + '」';
+    }
+    feedbackBody.textContent = q.explain;
+    progressFill.style.width = ((current + 1) / questions.length * 100) + '%';
+    nextBtn.textContent = (current === questions.length - 1) ? '結果を見る' : '次の問題へ';
+    nextBtn.style.display = 'inline-block';
+  }
+
+  nextBtn.addEventListener('click', function () {
+    current++;
+    if (current < questions.length) {
+      showQuestion();
+    } else {
+      showResult();
+    }
+  });
+
+  function showResult() {
+    quizBody.style.display = 'none';
+    resultEl.style.display = 'block';
+    document.getElementById('score-num').textContent = score;
+    var msg;
+    if (score === 10)     msg = '🎉 満点! 用語マスターです!';
+    else if (score >= 8)  msg = 'すばらしい! あと少しで満点!';
+    else if (score >= 5)  msg = 'いい調子! 間違えた問題の解説を確認しよう。';
+    else                  msg = '上の解説をもう一度読んでから再挑戦してみよう!';
+    document.getElementById('score-msg').textContent = msg;
+  }
+
+  document.getElementById('retry-btn').addEventListener('click', function () {
+    current = 0;
+    score = 0;
+    resultEl.style.display = 'none';
+    quizBody.style.display = 'block';
+    showQuestion();
+  });
+
+  showQuestion();
+</script>
+</body>
+</html>
