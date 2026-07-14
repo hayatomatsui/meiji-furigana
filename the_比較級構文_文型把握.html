@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>the 比較級, the 比較級 ― 副詞か形容詞かで変わる文型把握</title>
+<style>
+  :root{
+    --adv:#2563eb;      /* 副詞 = 青 */
+    --adv-bg:#eaf1ff;
+    --adv-soft:#f4f8ff;
+    --adj:#c026d3;      /* 形容詞 = 紫 */
+    --adj-bg:#fbeaff;
+    --adj-soft:#fdf5ff;
+    --mix:#0d9488;      /* 混在 = ティール */
+    --mix-bg:#e6fbf7;
+    --mix-soft:#f2fdfb;
+    --ink:#1f2937;
+    --sub:#6b7280;
+    --line:#e5e7eb;
+    --paper:#ffffff;
+    --bg:#f5f6f8;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;padding:36px 18px 60px;background:var(--bg);
+    font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,system-ui,sans-serif;
+    color:var(--ink);line-height:1.8;
+  }
+  .wrap{max-width:900px;margin:0 auto;}
+
+  header.hero{
+    background:linear-gradient(135deg,#1e3a8a 0%,#6d28d9 100%);
+    color:#fff;border-radius:18px;padding:30px 32px;margin-bottom:26px;
+    box-shadow:0 6px 20px rgba(76,29,149,.25);
+  }
+  header.hero h1{font-size:1.55rem;margin:0 0 10px;line-height:1.4;}
+  header.hero p{margin:0;font-size:.95rem;opacity:.92;}
+  .legend{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;}
+  .chip{font-size:.78rem;font-weight:700;padding:4px 12px;border-radius:999px;background:rgba(255,255,255,.16);}
+  .chip .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:middle;}
+
+  .card{
+    background:var(--paper);border:1px solid var(--line);border-radius:16px;
+    padding:24px 26px;margin:0 0 24px;box-shadow:0 1px 3px rgba(0,0,0,.05);
+  }
+  h2{font-size:1.2rem;margin:0 0 16px;display:flex;align-items:center;gap:11px;}
+  .num{
+    display:inline-flex;width:30px;height:30px;border-radius:9px;
+    align-items:center;justify-content:center;font-size:.92rem;color:#fff;flex:none;font-weight:700;
+  }
+  .n-key{background:#111827;}
+  .n-adv{background:var(--adv);}
+  .n-adj{background:var(--adj);}
+  .n-mix{background:var(--mix);}
+
+  .tag{display:inline-block;font-size:.72rem;font-weight:700;padding:2px 10px;border-radius:999px;vertical-align:middle;margin-left:4px;}
+  .tag-adv{background:var(--adv-bg);color:var(--adv);}
+  .tag-adj{background:var(--adj-bg);color:var(--adj);}
+  .tag-mix{background:var(--mix-bg);color:var(--mix);}
+
+  .adv{color:var(--adv);font-weight:700;}
+  .adj{color:var(--adj);font-weight:700;}
+  .hl-adv{background:var(--adv-bg);color:var(--adv);font-weight:700;padding:1px 5px;border-radius:4px;}
+  .hl-adj{background:var(--adj-bg);color:var(--adj);font-weight:700;padding:1px 5px;border-radius:4px;}
+
+  /* KEY box */
+  .key-box{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:16px 20px;}
+  .key-box p{margin:0 0 10px;}
+  .key-box p:last-child{margin:0;}
+  .key-box b{color:#b45309;}
+
+  .struct{
+    font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.9rem;
+    background:#1f2937;color:#e5e7eb;padding:12px 16px;border-radius:9px;margin:6px 0 18px;overflow-x:auto;
+  }
+  .struct .a{color:#93c5fd;} .struct .j{color:#f0abfc;}
+
+  .ex{font-size:1.06rem;font-weight:600;background:#fafafa;border-left:4px solid #d1d5db;
+      padding:11px 15px;border-radius:0 8px 8px 0;margin:14px 0 8px;}
+  .restore{background:#f9fafb;border:1px dashed var(--line);border-radius:8px;padding:9px 14px;font-size:.98rem;margin:4px 0;}
+  .analysis{margin:6px 0 0;padding-left:1.2em;font-size:.93rem;color:#374151;}
+  .analysis li{margin-bottom:4px;}
+  .pt{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.84rem;color:var(--sub);}
+  .step-label{font-size:.8rem;color:var(--sub);font-weight:700;margin:10px 0 2px;}
+  .arrow{color:var(--sub);margin:0 6px;}
+
+  .callout{border-radius:10px;padding:13px 17px;margin-top:16px;font-size:.93rem;}
+  .callout-adv{background:var(--adv-soft);border-left:4px solid var(--adv);}
+  .callout-adj{background:var(--adj-soft);border-left:4px solid var(--adj);}
+  .callout b{color:inherit;}
+
+  /* source split */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:640px){.split{grid-template-columns:1fr;}}
+  .mini{border-radius:12px;padding:14px 16px;}
+  .mini-adv{background:var(--adv-bg);}
+  .mini-adj{background:var(--adj-bg);}
+  .mini h3{margin:0 0 6px;font-size:.98rem;}
+  .mini-adv h3{color:var(--adv);}
+  .mini-adj h3{color:var(--adj);}
+  .mini .note{font-size:.88rem;color:#4b5563;margin-top:6px;}
+
+  /* table */
+  table{width:100%;border-collapse:collapse;margin-top:8px;font-size:.92rem;}
+  th,td{border:1px solid var(--line);padding:10px 13px;text-align:left;vertical-align:top;}
+  th{background:#111827;color:#fff;font-size:.85rem;font-weight:700;}
+  tbody tr:nth-child(even){background:#f9fafb;}
+  th.c-adv{background:var(--adv);} th.c-adj{background:var(--adj);}
+
+  .note{font-size:.9rem;color:var(--sub);}
+
+  /* example bank */
+  .bank{border-radius:12px;padding:14px 18px 14px 20px;margin:12px 0;}
+  .bank-adv{background:var(--adv-soft);border:1px solid #cddffb;}
+  .bank-adj{background:var(--adj-soft);border:1px solid #f0cffa;}
+  .bank-mix{background:var(--mix-soft);border:1px solid #b9ede4;}
+  .bank h3{margin:0 0 8px;font-size:.98rem;}
+  .bank-adv h3{color:var(--adv);} .bank-adj h3{color:var(--adj);} .bank-mix h3{color:var(--mix);}
+  .bank ol{margin:0;padding-left:1.3em;}
+  .bank li{margin-bottom:5px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <h1>the 比較級, the 比較級<br>― 比較級が「副詞」か「形容詞」かで変わる文型把握</h1>
+    <p>「The 比較級 …, the 比較級 …」は前後2文を並べた構文。分解して元の文に戻すとき、比較級が<b>副詞</b>なら〈付け足し〉、<b>形容詞</b>なら〈元の位置に戻す=穴埋め〉という違いがあります。</p>
+    <div class="legend">
+      <span class="chip"><span class="dot" style="background:#93c5fd;"></span>副詞 = 付け足し</span>
+      <span class="chip"><span class="dot" style="background:#f0abfc;"></span>形容詞 = 穴埋め</span>
+      <span class="chip"><span class="dot" style="background:#5eead4;"></span>混在型</span>
+    </div>
+  </header>
+
+  <!-- KEY -->
+  <div class="card">
+    <h2><span class="num n-key">要</span>結論 ― 操作の違い</h2>
+    <div class="key-box">
+      <p><span class="tag tag-adv">副詞</span> <b>付け足し型</b>：元の文（SV／SVOなど）は完成しているので、比較級を副詞として<b>末尾などに添える</b>だけ。文型は動かない。</p>
+      <p><span class="tag tag-adj">形容詞</span> <b>穴埋め型</b>：比較級は文の一要素（多くは補語C、ときに名詞修飾）。<b>元の文のどこに入るか</b>を特定して戻す必要がある。</p>
+    </div>
+    <div class="callout callout-adj" style="margin-top:14px;">
+      <b>見分けのコツ：</b>直後の動詞が be / become / get / grow / seem など<b>不完全自動詞</b>なら比較級は補語＝<span class="adj">形容詞</span>（穴埋め）。ふつうの動作動詞を後ろから説明していれば<span class="adv">副詞</span>（付け足し）。
+    </div>
+  </div>
+
+  <!-- 1. ADVERB -->
+  <div class="card">
+    <h2><span class="num n-adv">1</span>比較級が<span class="adv">副詞</span>の場合 <span class="tag tag-adv">付け足し型</span></h2>
+    <p style="margin-top:0;">比較級が<b>動詞を修飾</b>する副詞として働く。「どのように／どの程度〜するか」を表し、主語＋動詞の骨格に<b>付け足す</b>イメージ。</p>
+    <div class="struct">The + <span class="a">比較級(副詞)</span> + S + V , the + <span class="a">比較級(副詞)</span> + S + V</div>
+
+    <div class="ex">The <span class="hl-adv">harder</span> you work, the <span class="hl-adv">more</span> you earn.</div>
+    <div class="step-label">元の2文に戻す</div>
+    <div class="restore">You work <span class="adv">hard</span>. <span class="arrow">／</span> You earn <span class="adv">much</span>.</div>
+    <ul class="analysis">
+      <li><b>harder</b> → work（動詞）を修飾する副詞</li>
+      <li><b>more</b> → earn（動詞）を修飾する副詞</li>
+      <li>骨格 <span class="pt">you(S) work(V)</span> は完成。副詞を添えるだけ</li>
+    </ul>
+
+    <div class="ex">The <span class="hl-adv">longer</span> you wait, the <span class="hl-adv">less</span> you enjoy it.</div>
+    <div class="restore">You wait <span class="adv">long</span>. <span class="arrow">／</span> You enjoy it <span class="adv">little</span>.</div>
+
+    <div class="ex">The <span class="hl-adv">faster</span> you run, the <span class="hl-adv">sooner</span> you finish.</div>
+    <div class="restore">You run <span class="adv">fast</span>. <span class="arrow">／</span> You finish <span class="adv">soon</span>.</div>
+
+    <div class="callout callout-adv">
+      <b>把握のポイント：</b>比較級は「修飾語」なので S・V・O・C の関係を崩さない。「基本文型＋程度の副詞」と捉えればよい。
+    </div>
+  </div>
+
+  <!-- 2. ADJECTIVE -->
+  <div class="card">
+    <h2><span class="num n-adj">2</span>比較級が<span class="adj">形容詞</span>の場合 <span class="tag tag-adj">穴埋め型</span></h2>
+    <p style="margin-top:0;">比較級が<b>補語C</b>、または<b>名詞を修飾</b>する。be動詞が省略されることも多く、「元の文のどこに入っていたか」を復元して考える必要がある。</p>
+    <div class="struct">The + <span class="j">比較級(形容詞)</span> + (the) 名詞 (+ is) , the + <span class="j">比較級(形容詞)</span> + (the) 名詞 (+ is)</div>
+
+    <div class="ex">The <span class="hl-adj">older</span> he gets, the <span class="hl-adj">wiser</span> he becomes.</div>
+    <div class="step-label">元の2文に戻す</div>
+    <div class="restore">He gets <span class="adj">old</span>. <span class="arrow">／</span> He becomes <span class="adj">wise</span>.</div>
+    <ul class="analysis">
+      <li><span class="pt">He(S) gets(V) old(C)</span> … <b>SVC</b>。old / wise は get / become の<b>補語C</b></li>
+      <li>元の文には C の「穴」があり、そこに戻さないと成立しない</li>
+    </ul>
+
+    <div class="ex">The <span class="hl-adj">bigger</span> the house, the <span class="hl-adj">higher</span> the price.</div>
+    <div class="restore">The house <span class="adj">is big</span>. <span class="arrow">／</span> The price <span class="adj">is high</span>. <span class="note">（be動詞が省略）</span></div>
+
+    <div class="ex">The <span class="hl-adj">older</span> the wine, the <span class="hl-adj">better</span> the taste.</div>
+    <div class="restore">The wine <span class="adj">is old</span>. <span class="arrow">／</span> The taste <span class="adj">is good</span>.</div>
+
+    <div class="step-label" style="margin-top:16px;">要注意 ― 名詞を修飾する形容詞</div>
+    <div class="ex">The <span class="hl-adj">fewer</span> mistakes you make, the <span class="hl-adj">more</span> confident you become.</div>
+    <div class="restore">You make <span class="adj">few</span> mistakes. <span class="arrow">／</span> You become <span class="adj">confident</span>.</div>
+    <p class="note" style="margin-top:6px;"><span class="adj">fewer</span> は名詞 mistakes を修飾し、<b>目的語Oの内側</b>（few + mistakes）に戻る。前に出た比較級だけ見て「文末に足す」と処理すると誤るタイプ。</p>
+
+    <div class="callout callout-adj">
+      <b>把握のポイント：</b>「The bigger the house <u>is</u>, …」のように<b>省略された be を補って完全な形に戻す</b>と、補語（C）や名詞修飾のどこに入るかが明確になる。
+    </div>
+  </div>
+
+  <!-- 3. MIXED -->
+  <div class="card">
+    <h2><span class="num n-mix">3</span>副詞と形容詞が<span style="color:var(--mix)">混在</span>するパターン <span class="tag tag-mix">実戦型</span></h2>
+    <p style="margin-top:0;">実際には片方だけが副詞／形容詞というケースも多い。<b>元の例文もこのタイプ</b>。</p>
+
+    <div class="ex">The <span class="hl-adv">more</span> you practice, the <span class="hl-adj">better</span> your English becomes.</div>
+    <ul class="analysis">
+      <li><span class="hl-adv">more</span> → practice を修飾する<b>副詞</b>（付け足し）</li>
+      <li><span class="hl-adj">better</span> → becomes の<b>補語C</b>（形容詞・穴埋め）</li>
+    </ul>
+
+    <div class="ex">The <span class="hl-adv">harder</span> you study, the <span class="hl-adj">higher</span> your score will be.</div>
+    <ul class="analysis">
+      <li><span class="hl-adv">harder</span> → study を修飾する副詞</li>
+      <li><span class="hl-adj">higher</span> → will be の補語（score is high）</li>
+    </ul>
+  </div>
+
+  <!-- SOURCE SENTENCE -->
+  <div class="card" style="border:2px solid var(--mix);">
+    <h2><span class="num n-mix">元</span>元の英文 ― 副詞と形容詞が1文に同居</h2>
+    <div class="ex" style="border-left-color:var(--mix);background:var(--mix-soft);">
+      The <span class="hl-adv">longer</span> the leaf goes through this reaction process,<br>
+      the <span class="hl-adj">stronger</span> its taste and smell become.
+    </div>
+
+    <div class="split" style="margin-top:12px;">
+      <div class="mini mini-adv">
+        <h3>前半：<span class="adv">longer</span>（副詞）</h3>
+        <p style="margin:0 0 6px;">戻すと：<br>The leaf goes through this reaction process <span class="adv">(long)</span>.</p>
+        <p style="margin:0;" class="pt">The leaf(S) goes through(V) this ... process(O)</p>
+        <p class="note"><span class="adv">long(er)</span> は「動作が続く時間の長さ」を表し動詞句を修飾する<b>副詞</b>。文は完成済みで<b>付け足し</b>。</p>
+      </div>
+      <div class="mini mini-adj">
+        <h3>後半：<span class="adj">stronger</span>（形容詞）</h3>
+        <p style="margin:0 0 6px;">戻すと：<br>Its taste and smell become <span class="adj">strong</span>.</p>
+        <p style="margin:0;" class="pt">Its taste and smell(S) become(V) strong(C)</p>
+        <p class="note"><span class="adj">strong(er)</span> は become の<b>補語C</b>。SVC の C の穴に戻す<b>穴埋め型</b>。</p>
+      </div>
+    </div>
+    <p class="note" style="margin-top:14px;">この1文は <span class="adv">「副詞＝付け足し」</span> と <span class="adj">「形容詞＝穴埋め」</span> の両方を同時に含む、恰好の教材例です。後半は「become の後ろに何が入るか」を意識すると文型がはっきりします。</p>
+  </div>
+
+  <!-- SUMMARY TABLE -->
+  <div class="card">
+    <h2><span class="num n-key">表</span>まとめ比較表</h2>
+    <table>
+      <thead>
+        <tr><th style="width:20%">観点</th><th class="c-adv" style="width:40%">副詞の場合</th><th class="c-adj" style="width:40%">形容詞の場合</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><b>主な働き</b></td><td>動詞を修飾（程度・様態）</td><td>補語Cになる／名詞を修飾</td></tr>
+        <tr><td><b>文型への影響</b></td><td>付け足し。骨格はそのまま</td><td>Cや名詞修飾の位置を意識して戻す</td></tr>
+        <tr><td><b>復元操作</b></td><td>末尾などに<b>添える</b>だけ</td><td>本来の<b>位置に戻す（穴埋め）</b></td></tr>
+        <tr><td><b>be動詞</b></td><td>通常そのまま残る</td><td>よく省略される（補って考える）</td></tr>
+        <tr><td><b>例</b></td><td>The faster you run, the sooner you finish.</td><td>The older the wine, the better the taste.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- EXAMPLE BANK -->
+  <div class="card">
+    <h2><span class="num n-key">例</span>解説用おすすめ例文セット</h2>
+
+    <div class="bank bank-adv">
+      <h3>■ 副詞パターン（付け足し）</h3>
+      <ol>
+        <li>The <span class="adv">harder</span> you work, the <span class="adv">more</span> you earn.</li>
+        <li>The <span class="adv">longer</span> you wait, the <span class="adv">less</span> you enjoy it.</li>
+        <li>The <span class="adv">more carefully</span> you read, the <span class="adv">better</span> you understand.</li>
+        <li>The <span class="adv">faster</span> you run, the <span class="adv">sooner</span> you finish.</li>
+      </ol>
+    </div>
+
+    <div class="bank bank-adj">
+      <h3>■ 形容詞パターン（補語・名詞修飾）</h3>
+      <ol>
+        <li>The <span class="adj">bigger</span> the house, the <span class="adj">higher</span> the price.</li>
+        <li>The <span class="adj">stronger</span> the coffee, the <span class="adj">better</span> the taste.</li>
+        <li>The <span class="adj">older</span> the wine, the <span class="adj">more expensive</span> it is.</li>
+        <li>The <span class="adj">more difficult</span> the problem, the <span class="adj">greater</span> the reward.</li>
+      </ol>
+    </div>
+
+    <div class="bank bank-mix">
+      <h3>■ 混在パターン（元の文に近い）</h3>
+      <ol>
+        <li>The <span class="hl-adv">longer</span> the leaf goes through this reaction process, the <span class="hl-adj">stronger</span> its taste and smell become.</li>
+        <li>The <span class="hl-adv">more</span> you practice, the <span class="hl-adj">better</span> your English becomes.</li>
+        <li>The <span class="hl-adv">harder</span> you study, the <span class="hl-adj">higher</span> your score will be.</li>
+        <li>The <span class="hl-adj">colder</span> the weather gets, the <span class="hl-adv">more</span> people stay at home.</li>
+      </ol>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
