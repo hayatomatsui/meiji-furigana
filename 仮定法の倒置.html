@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>仮定法の倒置（if省略）まとめ</title>
+<style>
+  :root{
+    --bg1:#eef2ff; --bg2:#fdf2f8;
+    --ink:#1f2937; --muted:#6b7280; --line:#e5e7eb;
+    --were1:#0ea5e9; --were2:#0369a1; --wereBg:#e0f2fe;
+    --had1:#8b5cf6; --had2:#6d28d9; --hadBg:#ede9fe;
+    --should1:#f59e0b; --should2:#c2410c; --shouldBg:#fef3c7;
+    --quiz1:#10b981; --quiz2:#047857; --quizBg:#d1fae5;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; padding:0;
+    font-family:-apple-system,"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic",Meiryo,sans-serif;
+    color:var(--ink);
+    background:linear-gradient(160deg,var(--bg1),var(--bg2));
+    line-height:1.75;
+    -webkit-text-size-adjust:100%;
+  }
+  .wrap{max-width:760px; margin:0 auto; padding:22px 16px 60px;}
+
+  header.hero{
+    text-align:center; padding:30px 18px 26px; border-radius:22px; color:#fff;
+    background:linear-gradient(135deg,#6366f1,#0ea5e9 55%,#06b6d4);
+    box-shadow:0 12px 30px rgba(79,70,229,.28);
+  }
+  header.hero h1{margin:0 0 8px; font-size:1.55rem; letter-spacing:.02em;}
+  header.hero p{margin:0; font-size:.98rem; opacity:.95;}
+  header.hero .en{font-size:.86rem; opacity:.85; margin-top:6px; font-style:italic;}
+
+  .rule{
+    background:#fff; border-radius:18px; padding:18px 20px; margin:22px 0;
+    box-shadow:0 6px 18px rgba(15,23,42,.06); border:1px solid var(--line);
+  }
+  .rule h2{margin:0 0 12px; font-size:1.08rem; display:flex; align-items:center; gap:8px;}
+  .steps{display:flex; flex-direction:column; gap:10px; margin:0;}
+  .step{display:flex; align-items:flex-start; gap:12px;}
+  .num{
+    flex:none; width:28px; height:28px; border-radius:50%; color:#fff; font-weight:700;
+    display:flex; align-items:center; justify-content:center; font-size:.92rem;
+    background:linear-gradient(135deg,#6366f1,#0ea5e9);
+  }
+  .rule .pill{
+    display:inline-block; margin-top:12px; font-size:.86rem; color:var(--muted);
+    background:#f3f4f6; border-radius:999px; padding:6px 12px;
+  }
+
+  section.pat{
+    background:#fff; border-radius:18px; margin:18px 0; overflow:hidden;
+    box-shadow:0 6px 18px rgba(15,23,42,.06); border:1px solid var(--line);
+  }
+  .pat-head{padding:16px 20px; color:#fff; display:flex; align-items:center; gap:12px;}
+  .pat-head .tag{
+    background:rgba(255,255,255,.25); border-radius:8px; padding:3px 10px;
+    font-weight:700; font-size:.8rem; letter-spacing:.05em;
+  }
+  .pat-head h2{margin:0; font-size:1.12rem;}
+  .pat-head .jp{margin-left:auto; font-size:.82rem; opacity:.9; text-align:right;}
+  .were .pat-head{background:linear-gradient(135deg,var(--were1),var(--were2));}
+  .had  .pat-head{background:linear-gradient(135deg,var(--had1),var(--had2));}
+  .should .pat-head{background:linear-gradient(135deg,var(--should1),var(--should2));}
+
+  .pat-body{padding:16px 18px 20px;}
+  .formula{
+    font-size:.98rem; text-align:center; padding:12px; border-radius:12px; margin:0 0 16px;
+    font-weight:600;
+  }
+  .were .formula{background:var(--wereBg); color:var(--were2);}
+  .had .formula{background:var(--hadBg); color:var(--had2);}
+  .should .formula{background:var(--shouldBg); color:var(--should2);}
+  .formula .x{opacity:.55; margin:0 8px; font-weight:700;}
+
+  .ex{
+    border:1px solid var(--line); border-radius:14px; padding:14px 16px; margin:10px 0;
+    cursor:pointer; transition:.18s; background:#fff; position:relative; user-select:none;
+  }
+  .ex:hover{border-color:#c7d2fe;}
+  .ex:active{transform:scale(.99);}
+  .ex .q{font-size:1.02rem;}
+  .ex .q .if{color:var(--muted);}
+  .ex .a{
+    max-height:0; opacity:0; overflow:hidden; transition:.28s ease;
+    font-size:1.05rem; font-weight:600;
+  }
+  .ex.open .a{max-height:140px; opacity:1; margin-top:10px;}
+  .ex .arrow{color:var(--muted); font-weight:700; margin-right:6px;}
+  .ex .jp{display:block; font-size:.84rem; color:var(--muted); font-weight:400; margin-top:4px;}
+  .hint{font-size:.78rem; color:#9ca3af; margin-top:8px; display:flex; align-items:center; gap:5px;}
+  .ex.open .hint{display:none;}
+
+  .hl{
+    border-radius:6px; padding:1px 7px; font-weight:700; color:#fff;
+    box-shadow:0 2px 6px rgba(0,0,0,.12);
+  }
+  .were .hl{background:var(--were1);}
+  .had .hl{background:var(--had1);}
+  .should .hl{background:var(--should1);}
+  .quiz .hl{background:var(--quiz1);}
+
+  .note{
+    background:#fffbeb; border:1px solid #fde68a; border-radius:14px;
+    padding:12px 16px; margin-top:6px; font-size:.9rem; color:#92400e;
+  }
+  .note b{color:#b45309;}
+
+  .tips{
+    background:#fff; border-radius:18px; padding:18px 20px; margin:22px 0;
+    box-shadow:0 6px 18px rgba(15,23,42,.06); border:1px solid var(--line);
+  }
+  .tips h2{margin:0 0 10px; font-size:1.05rem;}
+  .tips p{margin:8px 0; font-size:.94rem;}
+  .tips code{background:#f3f4f6; border-radius:6px; padding:2px 7px; font-size:.9em;}
+
+  .quiz-wrap{
+    background:#fff; border-radius:18px; margin:22px 0; overflow:hidden;
+    box-shadow:0 6px 18px rgba(15,23,42,.06); border:1px solid var(--line);
+  }
+  .quiz-head{
+    padding:16px 20px; color:#fff; display:flex; align-items:center; gap:10px;
+    background:linear-gradient(135deg,var(--quiz1),var(--quiz2));
+  }
+  .quiz-head h2{margin:0; font-size:1.12rem;}
+  .quiz-head .count{margin-left:auto; font-size:.82rem; opacity:.92;}
+  .quiz-body{padding:14px 18px 18px;}
+  .controls{display:flex; gap:8px; margin-bottom:12px;}
+  .controls button{
+    flex:1; border:none; border-radius:10px; padding:9px; font-size:.86rem; font-weight:600;
+    cursor:pointer; color:var(--quiz2); background:var(--quizBg); transition:.15s;
+  }
+  .controls button:active{transform:scale(.98);}
+
+  .q-card{border:1px solid var(--line); border-radius:14px; padding:14px 16px; margin:10px 0;}
+  .q-top{display:flex; gap:10px; align-items:flex-start;}
+  .q-no{
+    flex:none; width:26px; height:26px; border-radius:8px; color:#fff; font-weight:700;
+    display:flex; align-items:center; justify-content:center; font-size:.82rem;
+    background:linear-gradient(135deg,var(--quiz1),var(--quiz2));
+  }
+  .q-text{font-size:1.0rem;}
+  .q-text .jp{display:block; font-size:.82rem; color:var(--muted); margin-top:3px;}
+  .reveal-btn{
+    margin-top:12px; width:100%; border:1.5px dashed var(--quiz1); background:#f0fdf4;
+    color:var(--quiz2); border-radius:10px; padding:10px; font-size:.9rem; font-weight:600;
+    cursor:pointer; transition:.15s;
+  }
+  .reveal-btn:active{transform:scale(.99);}
+  .answer{
+    max-height:0; opacity:0; overflow:hidden; transition:.3s ease; margin-top:0;
+  }
+  .q-card.open .answer{max-height:260px; opacity:1; margin-top:12px;}
+  .q-card.open .reveal-btn{display:none;}
+  .answer .a-line{font-size:1.06rem; font-weight:600;}
+  .answer .a-note{
+    font-size:.86rem; color:var(--quiz2); background:var(--quizBg);
+    border-radius:10px; padding:8px 12px; margin-top:8px;
+  }
+
+  footer{text-align:center; color:var(--muted); font-size:.82rem; margin-top:30px;}
+  footer .quote{font-style:italic; color:#4f46e5; margin-bottom:6px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <h1>仮定法の倒置（if の省略）</h1>
+    <p>if を消して「疑問文と同じ語順」にするだけ。倒置できるのは <b>Were / Had / Should</b> の3つ。</p>
+    <div class="en">Were you to master this, reading would feel much easier.</div>
+  </header>
+
+  <div class="rule">
+    <h2>🔧 作り方はたった2ステップ</h2>
+    <div class="steps">
+      <div class="step"><span class="num">1</span><div>接続詞の <b>if を消す</b></div></div>
+      <div class="step"><span class="num">2</span><div><b>were / had / should</b> を主語の前に出す（＝疑問文の語順にする）</div></div>
+    </div>
+    <span class="pill">💡 文末に「?」がなく、文脈が「条件」なら倒置構文のサイン</span>
+  </div>
+
+  <!-- PATTERN 1: WERE -->
+  <section class="pat were">
+    <div class="pat-head">
+      <span class="tag">WERE</span>
+      <h2>仮定法過去</h2>
+      <span class="jp">今のありえない話<br>「もし〜なら」</span>
+    </div>
+    <div class="pat-body">
+      <div class="formula">If S <b>were</b> ～ <span class="x">→</span> <b>Were</b> S ～</div>
+
+      <div class="ex" onclick="toggleEx(this)">
+        <div class="q"><span class="if">If</span> I <b>were</b> free, I would help you.</div>
+        <div class="a"><span class="arrow">↓</span><span class="hl">Were I</span> free, I would help you.
+          <span class="jp">もし暇なら、手伝うのに</span></div>
+        <div class="hint">👆 タップで倒置形を表示</div>
+      </div>
+
+      <div class="ex" onclick="toggleEx(this)">
+        <div class="q"><span class="if">If</span> he <b>were</b> here, he could fix it.</div>
+        <div class="a"><span class="arrow">↓</span><span class="hl">Were he</span> here, he could fix it.
+          <span class="jp">もし彼がここにいれば、直せるのに</span></div>
+        <div class="hint">👆 タップで倒置形を表示</div>
+      </div>
+
+      <div class="note">💠 決まり文句：<b>Were it not for ～</b>「もし〜がなければ」（＝If it were not for ～）もこの形。</div>
+    </div>
+  </section>
+
+  <!-- PATTERN 2: HAD -->
+  <section class="pat had">
+    <div class="pat-head">
+      <span class="tag">HAD</span>
+      <h2>仮定法過去完了</h2>
+      <span class="jp">過去の後悔<br>「もし〜だったら」</span>
+    </div>
+    <div class="pat-body">
+      <div class="formula">If S <b>had</b> + 過去分詞 <span class="x">→</span> <b>Had</b> S + 過去分詞</div>
+
+      <div class="ex" onclick="toggleEx(this)">
+        <div class="q"><span class="if">If</span> I <b>had known</b>, I would have come.</div>
+        <div class="a"><span class="arrow">↓</span><span class="hl">Had I known</span>, I would have come.
+          <span class="jp">知っていたら、来ていたのに</span></div>
+        <div class="hint">👆 タップで倒置形を表示</div>
+      </div>
+
+      <div class="ex" onclick="toggleEx(this)">
+        <div class="q"><span class="if">If</span> you <b>had asked</b>, I would have said yes.</div>
+        <div class="a"><span class="arrow">↓</span><span class="hl">Had you asked</span>, I would have said yes.
+          <span class="jp">頼んでくれていたら、いいと言ったのに</span></div>
+        <div class="hint">👆 タップで倒置形を表示</div>
+      </div>
+
+      <div class="ex" onclick="toggleEx(this)">
+        <div class="q"><span class="if">If</span> I <b>had not</b> slept, I would be tired.</div>
+        <div class="a"><span class="arrow">↓</span><span class="hl">Had I not</span> slept, I would be tired.
+          <span class="jp">寝ていなかったら、疲れているだろう</span></div>
+        <div class="hint">👆 タップで倒置形を表示</div>
+      </div>
+
+      <div class="note">⚠️ 否定文は要注意：倒置するのは <b>had だけ</b>。<b>not は主語の後ろ</b>に残す（Had I <b>not</b> ...）。</div>
+    </div>
+  </section>
+
+  <!-- PATTERN 3: SHOULD -->
+  <section class="pat should">
+    <div class="pat-head">
+      <span class="tag">SHOULD</span>
+      <h2>万が一の仮定</h2>
+      <span class="jp">低い可能性の未来<br>「万一〜なら」</span>
+    </div>
+    <div class="pat-body">
+      <div class="formula">If S <b>should</b> + 原形 <span class="x">→</span> <b>Should</b> S + 原形</div>
+
+      <div class="ex" onclick="toggleEx(this)">
+        <div class="q"><span class="if">If</span> you <b>should</b> need help, call me.</div>
+        <div class="a"><span class="arrow">↓</span><span class="hl">Should you</span> need help, call me.
+          <span class="jp">万一助けが必要なら、電話して</span></div>
+        <div class="hint">👆 タップで倒置形を表示</div>
+      </div>
+
+      <div class="ex" onclick="toggleEx(this)">
+        <div class="q"><span class="if">If</span> it <b>should</b> rain, we will stay home.</div>
+        <div class="a"><span class="arrow">↓</span><span class="hl">Should it</span> rain, we will stay home.
+          <span class="jp">万一雨が降ったら、家にいます</span></div>
+        <div class="hint">👆 タップで倒置形を表示</div>
+      </div>
+
+      <div class="note">📧 ビジネスメールの定番：<b>Should you have any questions, ...</b>「ご不明な点がございましたら…」</div>
+    </div>
+  </section>
+
+  <!-- TIPS -->
+  <div class="tips">
+    <h2>✅ 覚えておくと安心なこと</h2>
+    <p>一般動詞（know, go, play など）の仮定法過去は<b>倒置しません</b>。<code>If I knew...</code> を <code>Did I know...</code> とはしない、ということ。</p>
+    <p>倒置できるのは原則 <b>were / had / should</b> があるときだけ。だから文頭に <b>Were / Had / Should</b> が来て文末に「?」がなければ、「if が省略された仮定法だ」と判断できます。</p>
+    <p>響きは<b>フォーマル・文語的</b>。スピーチや論文、ドラマチックな強調で映えます。友達との雑談なら <code>If I were you...</code> で十分です。</p>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="quiz-wrap quiz">
+    <div class="quiz-head">
+      <h2>✏️ 練習問題</h2>
+      <span class="count">全6問・タップで解答</span>
+    </div>
+    <div class="quiz-body">
+      <p style="font-size:.9rem;color:#6b7280;margin:2px 0 12px;">if を省略して、倒置の形に書き換えてみましょう。</p>
+      <div class="controls">
+        <button onclick="revealAll(true)">すべての解答を開く</button>
+        <button onclick="revealAll(false)">すべて閉じる</button>
+      </div>
+
+      <div class="q-card">
+        <div class="q-top"><span class="q-no">1</span>
+          <div class="q-text">If I were a bird, I could fly to you.
+            <span class="jp">もし鳥なら、あなたのもとへ飛んでいけるのに</span></div>
+        </div>
+        <button class="reveal-btn" onclick="toggleQ(this)">答えを見る 👀</button>
+        <div class="answer">
+          <div class="a-line"><span class="hl">Were I</span> a bird, I could fly to you.</div>
+          <div class="a-note">be動詞 were を主語の前へ。仮定法過去の基本形です。</div>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-top"><span class="q-no">2</span>
+          <div class="q-text">If he had studied, he would have passed.
+            <span class="jp">勉強していたら、合格していたのに</span></div>
+        </div>
+        <button class="reveal-btn" onclick="toggleQ(this)">答えを見る 👀</button>
+        <div class="answer">
+          <div class="a-line"><span class="hl">Had he</span> studied, he would have passed.</div>
+          <div class="a-note">仮定法過去完了。助動詞 had を文頭へ、過去分詞 studied はそのまま。</div>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-top"><span class="q-no">3</span>
+          <div class="q-text">If you should have any questions, please email us.
+            <span class="jp">万一ご質問があれば、メールしてください</span></div>
+        </div>
+        <button class="reveal-btn" onclick="toggleQ(this)">答えを見る 👀</button>
+        <div class="answer">
+          <div class="a-line"><span class="hl">Should you</span> have any questions, please email us.</div>
+          <div class="a-note">万一の should の倒置。動詞 have は原形のまま残します。</div>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-top"><span class="q-no">4</span>
+          <div class="q-text">If I had not missed the bus, I would be there now.
+            <span class="jp">バスに乗り遅れていなければ、今そこにいるのに</span></div>
+        </div>
+        <button class="reveal-btn" onclick="toggleQ(this)">答えを見る 👀</button>
+        <div class="answer">
+          <div class="a-line"><span class="hl">Had I not</span> missed the bus, I would be there now.</div>
+          <div class="a-note">否定文の注意点。倒置するのは had だけで、not は主語 I の後ろに残します。</div>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-top"><span class="q-no">5</span>
+          <div class="q-text">If she were my sister, I would be happy.
+            <span class="jp">彼女が妹（姉）だったら、うれしいのに</span></div>
+        </div>
+        <button class="reveal-btn" onclick="toggleQ(this)">答えを見る 👀</button>
+        <div class="answer">
+          <div class="a-line"><span class="hl">Were she</span> my sister, I would be happy.</div>
+          <div class="a-note">主語が she でも作り方は同じ。Were を前に出すだけ。</div>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-top"><span class="q-no">6</span>
+          <div class="q-text">If it were not for music, my life would be dull.
+            <span class="jp">音楽がなければ、私の人生は退屈だろう</span></div>
+        </div>
+        <button class="reveal-btn" onclick="toggleQ(this)">答えを見る 👀</button>
+        <div class="answer">
+          <div class="a-line"><span class="hl">Were it not for</span> music, my life would be dull.</div>
+          <div class="a-note">「〜がなければ」の決まり文句。丸ごと覚えると便利です。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="quote">“Were I in your shoes, I'd keep going.”</div>
+    Were / Had / Should が文頭に来たら、if 省略の仮定法のサイン 🚀
+  </footer>
+
+</div>
+
+<script>
+  function toggleEx(el){ el.classList.toggle('open'); }
+  function toggleQ(btn){ btn.closest('.q-card').classList.toggle('open'); }
+  function revealAll(open){
+    document.querySelectorAll('.q-card').forEach(function(c){
+      if(open){ c.classList.add('open'); } else { c.classList.remove('open'); }
+    });
+  }
+</script>
+</body>
+</html>
