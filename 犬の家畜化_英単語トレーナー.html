@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🐕 犬の家畜化 英単語トレーナー</title>
+<style>
+  :root{
+    --idiom:#2563eb; --idiom-bg:#dbeafe;
+    --poly:#d97706;  --poly-bg:#fef3c7;
+    --must:#059669;  --must-bg:#d1fae5;
+    --skip:#6b7280;  --skip-bg:#f1f2f4;
+    --ink:#1f2430; --sub:#5b6472; --line:#e6e8ee; --card:#ffffff;
+    --bg:#f6f7fb; --accent:#7c4dff;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,system-ui,-apple-system,sans-serif;
+    line-height:1.7;
+  }
+  header{
+    background:linear-gradient(135deg,#6d5efc,#9b6bff); color:#fff;
+    padding:22px 18px 18px; text-align:center;
+  }
+  header h1{margin:0 0 4px; font-size:1.35rem}
+  header .sub{margin:0; opacity:.9; font-size:.8rem; font-style:italic}
+  .stats{margin-top:12px; display:flex; gap:8px; justify-content:center; flex-wrap:wrap}
+  .stat{background:rgba(255,255,255,.18); border-radius:10px; padding:6px 12px; font-size:.82rem}
+  .stat b{font-size:1.05rem}
+  nav.tabs{
+    display:flex; gap:4px; padding:8px; background:#fff;
+    position:sticky; top:0; z-index:20; box-shadow:0 2px 8px rgba(0,0,0,.05);
+    overflow-x:auto;
+  }
+  nav.tabs button{
+    flex:1 0 auto; border:0; background:transparent; color:var(--sub);
+    padding:10px 12px; border-radius:10px; font-size:.9rem; font-weight:600;
+    cursor:pointer; white-space:nowrap;
+  }
+  nav.tabs button.active{background:var(--accent); color:#fff}
+  main{max-width:760px; margin:0 auto; padding:18px 16px 90px}
+  section[hidden]{display:none}
+  .legend{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px; font-size:.78rem}
+  .legend span{display:inline-flex; align-items:center; gap:5px}
+  .dot{width:11px; height:11px; border-radius:50%; display:inline-block}
+
+  /* passage */
+  .passage{background:var(--card); border-radius:16px; padding:20px; box-shadow:0 3px 14px rgba(20,20,50,.06); font-size:1.02rem}
+  .passage p{margin:0 0 14px}
+  .passage p:last-child{margin-bottom:0}
+  .w{cursor:pointer; border-bottom:2px solid; border-radius:2px; padding:0 1px; transition:background .15s}
+  .w:hover{background:#00000008}
+  .w-idiom{border-color:var(--idiom)}
+  .w-poly{border-color:var(--poly)}
+  .w-must{border-color:var(--must)}
+  .w-skip{border-color:var(--skip); opacity:.8}
+  .hint{text-align:center; color:var(--sub); font-size:.8rem; margin:10px 0 0}
+
+  /* popup */
+  #popup{
+    position:fixed; left:50%; bottom:14px; transform:translateX(-50%) translateY(140%);
+    width:min(92%,560px); background:#fff; border-radius:16px;
+    box-shadow:0 12px 40px rgba(20,20,50,.22); padding:16px 18px; z-index:40;
+    transition:transform .25s ease;
+  }
+  #popup.show{transform:translateX(-50%) translateY(0)}
+  #popup .close{position:absolute; top:8px; right:12px; border:0; background:none; font-size:1.3rem; cursor:pointer; color:var(--sub)}
+  .badge{display:inline-block; font-size:.7rem; font-weight:700; padding:2px 9px; border-radius:999px}
+  .b-idiom{background:var(--idiom-bg); color:var(--idiom)}
+  .b-poly{background:var(--poly-bg); color:var(--poly)}
+  .b-must{background:var(--must-bg); color:var(--must)}
+  .b-skip{background:var(--skip-bg); color:var(--skip)}
+  .b-confuse{background:#fde2e2; color:#dc2626}
+  .lvlpill{display:inline-block; font-size:.68rem; font-weight:700; padding:2px 8px; border-radius:999px; background:#b91c1c; color:#fff; margin-left:6px; vertical-align:middle}
+  #popup .term{font-size:1.3rem; font-weight:800; margin:6px 0 2px}
+  #popup .jp{font-size:1.05rem; margin:0 0 6px}
+  #popup .note{font-size:.85rem; color:var(--sub); margin:0}
+  #popup .ex{font-size:.82rem; color:var(--sub); margin:8px 0 0; font-style:italic; border-left:3px solid var(--line); padding-left:8px}
+
+  /* chips */
+  .chips{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; justify-content:center}
+  .chip{border:1.5px solid var(--line); background:#fff; border-radius:999px; padding:6px 14px; font-size:.82rem; font-weight:600; cursor:pointer; color:var(--sub)}
+  .chip.on{background:var(--accent); border-color:var(--accent); color:#fff}
+
+  /* flashcard */
+  .fc-wrap{perspective:1200px; margin:0 auto; max-width:440px}
+  .fc{
+    position:relative; width:100%; min-height:230px; cursor:pointer;
+    transform-style:preserve-3d; transition:transform .5s;
+  }
+  .fc.flip{transform:rotateY(180deg)}
+  .fc .face{
+    position:absolute; inset:0; backface-visibility:hidden;
+    background:var(--card); border-radius:18px; box-shadow:0 6px 22px rgba(20,20,50,.10);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:24px; text-align:center;
+  }
+  .fc .back{transform:rotateY(180deg)}
+  .fc .term{font-size:1.7rem; font-weight:800}
+  .fc .tag{position:absolute; top:12px; left:12px}
+  .fc .mastered-mark{position:absolute; top:12px; right:14px; font-size:1.1rem}
+  .fc .jp{font-size:1.35rem; font-weight:700; margin-bottom:8px}
+  .fc .note{font-size:.85rem; color:var(--sub)}
+  .fc .ex{font-size:.82rem; color:var(--sub); font-style:italic; margin-top:12px}
+  .fc-controls{display:flex; gap:8px; justify-content:center; margin-top:16px; flex-wrap:wrap}
+  .btn{border:0; border-radius:12px; padding:11px 16px; font-size:.9rem; font-weight:700; cursor:pointer; background:#eceaf7; color:var(--accent)}
+  .btn.primary{background:var(--accent); color:#fff}
+  .btn.ok{background:var(--must-bg); color:var(--must)}
+  .btn.no{background:#fde8e8; color:#dc2626}
+  .btn:disabled{opacity:.4; cursor:default}
+  .progress{height:9px; background:var(--line); border-radius:99px; overflow:hidden; margin:16px auto 4px; max-width:440px}
+  .progress i{display:block; height:100%; background:linear-gradient(90deg,#6d5efc,#9b6bff); width:0; transition:width .3s}
+  .counter{text-align:center; color:var(--sub); font-size:.82rem}
+
+  /* quiz */
+  .quiz-box{background:var(--card); border-radius:18px; box-shadow:0 6px 22px rgba(20,20,50,.10); padding:22px; text-align:center}
+  .q-prompt{font-size:1.25rem; font-weight:700; margin:6px 0 4px}
+  .q-sub{font-size:.85rem; color:var(--sub); font-style:italic; margin-bottom:16px}
+  .options{display:grid; gap:10px}
+  .opt{border:1.5px solid var(--line); background:#fff; border-radius:12px; padding:13px; font-size:1rem; font-weight:600; cursor:pointer; text-align:center}
+  .opt:hover{border-color:var(--accent)}
+  .opt.correct{background:var(--must-bg); border-color:var(--must); color:var(--must)}
+  .opt.wrong{background:#fde8e8; border-color:#dc2626; color:#dc2626}
+  .opt:disabled{cursor:default}
+  .q-meta{display:flex; justify-content:space-between; font-size:.82rem; color:var(--sub); margin-bottom:8px}
+  .result{text-align:center}
+  .result .score{font-size:2.4rem; font-weight:800; color:var(--accent)}
+
+  /* list */
+  .grp{margin-bottom:22px}
+  .grp h3{display:flex; align-items:center; gap:8px; font-size:1.05rem; margin:0 0 10px}
+  table{width:100%; border-collapse:collapse; background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 3px 12px rgba(20,20,50,.05)}
+  th,td{text-align:left; padding:9px 11px; font-size:.86rem; border-bottom:1px solid var(--line); vertical-align:top}
+  th{background:#faf9ff; font-size:.76rem; color:var(--sub)}
+  td.t{font-weight:700; white-space:nowrap}
+  td.n{color:var(--sub); font-size:.8rem}
+  tr:last-child td{border-bottom:0}
+</style>
+</head>
+<body>
+<header>
+  <h1>🐕 犬の家畜化 英単語トレーナー</h1>
+  <p class="sub">犬とオオカミの家畜化に関する長文の重要語</p>
+  <div class="stats" id="globalStats"></div>
+</header>
+
+<nav class="tabs">
+  <button data-tab="cards" class="active">🗂️ フラッシュカード</button>
+  <button data-tab="quiz">✍️ クイズ</button>
+  <button data-tab="list">📋 一覧</button>
+</nav>
+
+<main>
+  <!-- CARDS -->
+  <section id="tab-cards">
+    <div class="chips" id="cardChips">
+      <button class="chip on" data-cat="all">すべて</button>
+      <button class="chip" data-cat="idiom">熟語</button>
+      <button class="chip" data-cat="poly">多義語</button>
+      <button class="chip" data-cat="must">難単語</button>
+      <button class="chip" data-cat="confuse">混同</button>
+    </div>
+    <div class="fc-wrap">
+      <div class="fc" id="fcard">
+        <div class="face front">
+          <span class="tag" id="fcTag"></span>
+          <span class="mastered-mark" id="fcMark"></span>
+          <div class="term" id="fcTerm">—</div>
+          <div class="note" style="margin-top:10px;color:var(--sub);font-size:.8rem">タップで意味を表示</div>
+        </div>
+        <div class="face back">
+          <span class="tag" id="fcTag2"></span>
+          <span class="lvlpill" id="fcLvl" style="display:none;position:absolute;top:12px;right:14px"></span>
+          <div class="jp" id="fcJp"></div>
+          <div class="note" id="fcNote"></div>
+          <div class="ex" id="fcEx"></div>
+        </div>
+      </div>
+    </div>
+    <div class="progress"><i id="fcBar"></i></div>
+    <div class="counter" id="fcCounter"></div>
+    <div class="fc-controls">
+      <button class="btn" id="fcPrev">← 前</button>
+      <button class="btn no" id="fcNo">まだ</button>
+      <button class="btn ok" id="fcYes">覚えた ✓</button>
+      <button class="btn" id="fcNext">次 →</button>
+    </div>
+    <div class="fc-controls">
+      <button class="btn" id="fcShuffle">🔀 シャッフル</button>
+      <button class="btn" id="fcReset">進捗リセット</button>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="tab-quiz" hidden>
+    <div class="quiz-box" id="quizBox">
+      <div id="quizStart">
+        <p class="q-prompt">4択クイズ</p>
+        <p class="q-sub">日本語の意味に合う英語を選びます（全10問）</p>
+        <button class="btn primary" id="startQuiz">スタート</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIST -->
+  <section id="tab-list" hidden>
+    <div id="listArea"></div>
+  </section>
+</main>
+
+<script>
+/* ---------- DATA ---------- */
+var DATA = {
+  other_way:{term:"the other way around", jp:"逆に、あべこべに", note:"", ex:"It's the other way around.", cat:"idiom"},
+  garbage:{term:"garbage dump", jp:"ゴミ捨て場", note:"基本語の組合せ。暗記不要", ex:"a huge garbage dump", cat:"skip"},
+  edge_of:{term:"on the edge of", jp:"〜の端・縁に", note:"", ex:"on the edge of town", cat:"idiom"},
+  settlement:{term:"settlement", jp:"居住地、集落", note:"多義:解決、和解", ex:"an early settlement", cat:"poly"},
+  bold:{term:"bold", jp:"大胆な、恐れ知らずの", note:"", ex:"a bold decision", cat:"must"},
+  aggressive:{term:"aggressive", jp:"攻撃的な", note:"", ex:"an aggressive dog", cat:"must"},
+  tolerate:{term:"tolerate", jp:"受け入れる、大目に見る", note:"多義:我慢する", ex:"tolerate the noise", cat:"poly"},
+  domestication:{term:"domestication", jp:"家畜化、飼いならし", note:"動詞 domesticate", ex:"the domestication of animals", cat:"must"},
+  coat:{term:"coat", jp:"(動物の)毛、毛皮", note:"多義:上着", ex:"a dog's shiny coat", cat:"poly"},
+  wag:{term:"wag / wagging", jp:"(尾を)振る、振っている", note:"英語では頻出だが英検・入試の出題は少なめ。意味は知っておくと良いが暗記の優先度は低い（読んで分かればOK）", ex:"wag its tail", cat:"skip"},
+  distinct:{term:"distinct (from)", jp:"明確に異なる、別個の", note:"distinct from = 〜と区別される", ex:"distinct from the others", cat:"must"},
+  relative:{term:"relative(s)", jp:"近縁種", note:"多義:親戚 /(形)相対的な", ex:"a close relative", cat:"poly"},
+  protodog:{term:"protodog", jp:"犬の祖先(造語)", note:"proto(原始の)+dog。暗記不要", ex:"an early protodog", cat:"skip"},
+  evolve:{term:"evolve", jp:"進化する、発達させる", note:"", ex:"evolve over time", cat:"must"},
+  read:{term:"read", jp:"(身振りを)読み取る、解釈する", note:"多義:本を読む", ex:"read a person's gesture", cat:"poly"},
+  gesture:{term:"gesture", jp:"身振り、合図", note:"", ex:"a friendly gesture", cat:"must"},
+  blank2:{term:"多義語まめ知識", jp:"more ▢ relatives → aggressive / wild など", note:"friendly と対比して「より攻撃的な/野生の近縁種」", ex:"", cat:"skip"},
+  granted:{term:"take ... for granted", jp:"〜を当然のことと思う", note:"", ex:"take it for granted", cat:"idiom"},
+  point:{term:"point to", jp:"〜を指さす、指し示す", note:"", ex:"point to the map", cat:"idiom"},
+  bound_off:{term:"bound off", jp:"勢いよく駆け出す", note:"bound=跳ねる(多義)/ 〜行きの / be bound to", ex:"bound off happily", cat:"idiom"},
+  remarkable:{term:"remarkable", jp:"驚くべき、注目に値する", note:"", ex:"a remarkable ability", cat:"must"},
+  bonobo:{term:"bonobo", jp:"ボノボ(類人猿)", note:"生物名。暗記不要", ex:"a bonobo", cat:"skip"},
+  readily:{term:"readily", jp:"たやすく、すぐに", note:"ready の副詞。「読みやすく」ではない", ex:"readily available", cat:"poly"},
+  infant:{term:"infant", jp:"幼児、乳児", note:"", ex:"a newborn infant", cat:"must"},
+  pay_attention:{term:"pay attention to", jp:"〜に注意を払う", note:"", ex:"pay attention to detail", cat:"idiom"},
+  account_for:{term:"account for", jp:"〜を説明する / 占める", note:"account 多義:口座、勘定、説明", ex:"account for the difference", cat:"idiom"},
+  extraordinary:{term:"extraordinary", jp:"並外れた、驚くべき", note:"", ex:"an extraordinary talent", cat:"must"},
+  attuned:{term:"be attuned to", jp:"〜に敏感である、同調している", note:"英検1級レベル", lvl:"英検1級", ex:"attuned to their needs", cat:"idiom"},
+  subtle:{term:"subtle", jp:"かすかな、微妙な、繊細な", note:"発音注意 /ˈsʌtl/ b は無音", ex:"a subtle change", cat:"poly"},
+  worth:{term:"be worth ~ing", jp:"〜する価値がある", note:"be worth knowing = 知る価値がある", ex:"worth knowing", cat:"idiom"},
+  advantage_over:{term:"an advantage over", jp:"〜に対する優位・有利", note:"", ex:"an advantage over rivals", cat:"idiom"},
+  nicaragua:{term:"固有名詞", jp:"人名・地名など", note:"固有名詞は暗記不要（例: 国名・地名）", ex:"", cat:"skip"},
+  depend_on:{term:"depend on", jp:"〜に頼る、依存する", note:"", ex:"depend on others", cat:"idiom"},
+  detect:{term:"detect", jp:"探知する、見つける", note:"", ex:"detect a signal", cat:"must"},
+  prey:{term:"prey", jp:"(名)獲物、餌食／(動)prey on 〜を捕食する", note:"/preɪ/ 同音 pray(祈る)、つづり類似 play に注意（→混同注意タブ）", cat:"must", ex:"hunt for prey"},
+  pray:{term:"pray", jp:"(動)祈る、懇願する", note:"/preɪ/ prey と同音。pray for 〜を祈る", ex:"pray for peace", cat:"confuse"},
+  play:{term:"play", jp:"(動)遊ぶ/(競技を)する/演奏する/(役を)演じる ・(名)劇", note:"/pleɪ/ 母音が違う。それ自体も多義語", ex:"play a key role", cat:"confuse"},
+  moose:{term:"moose", jp:"ヘラジカ", note:"生物名。暗記不要", ex:"a moose", cat:"skip"},
+  bring_home:{term:"bring home", jp:"(獲物などを)持ち帰る", note:"", ex:"bring home the prize", cat:"idiom"},
+  accompanied:{term:"be accompanied by", jp:"〜を伴って、〜に付き添われて", note:"", ex:"accompanied by a guide", cat:"idiom"},
+  congo:{term:"固有名詞(地名)", jp:"地名など", note:"固有名詞は暗記不要", ex:"", cat:"skip"},
+  starve:{term:"starve", jp:"飢える、餓死する", note:"", ex:"starve without food", cat:"must"},
+  serve_as:{term:"serve as", jp:"〜の役割を果たす", note:"serve 多義:給仕する、仕える", ex:"serve as a warning", cat:"idiom"},
+  hostile:{term:"hostile", jp:"敵対的な、敵意のある", note:"", ex:"a hostile crowd", cat:"must"},
+  predator:{term:"predator", jp:"捕食者、天敵", note:"", ex:"a natural predator", cat:"must"},
+  far_from:{term:"far from", jp:"〜どころか、決して〜でない", note:"", ex:"far from perfect", cat:"idiom"},
+  benign:{term:"benign", jp:"温厚な、優しい", note:"英検1級レベル。多義:(医)良性の", lvl:"英検1級", ex:"a benign smile", cat:"poly"},
+  adopt:{term:"adopt", jp:"(犬・子を)引き取る、養子にする", note:"多義:採用する", ex:"adopt a puppy", cat:"poly"},
+  population:{term:"population", jp:"(生物の)個体群、集団", note:"多義:人口", ex:"a large population", cat:"poly"},
+  affected:{term:"be affected by", jp:"〜に影響される", note:"", ex:"affected by the news", cat:"idiom"},
+  catalyst:{term:"catalyst", jp:"触媒 → (比喩)促進要因・きっかけ", note:"", ex:"a catalyst for change", cat:"must"},
+  civilization:{term:"civilization", jp:"文明", note:"", ex:"modern civilization", cat:"must"},
+  otherwise:{term:"otherwise", jp:"さもなければ / その他の点では / 別のやり方で", note:"代表的な多義語", ex:"He is tired; otherwise he is fine.", cat:"poly"}
+};
+var CATNAME = {idiom:"熟語", poly:"多義語", must:"難単語", confuse:"混同注意", skip:"覚えなくてOK"};
+
+/* ---------- helpers ---------- */
+function el(id){return document.getElementById(id);}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function load(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch(e){return d;}}
+function save(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+
+var ALL = [];
+for(var key in DATA){ if(DATA.hasOwnProperty(key)){ var o={}; o.k=key; for(var p in DATA[key]) o[p]=DATA[key][p]; ALL.push(o);} }
+var STUDY = ALL.filter(function(x){return x.cat!=="skip";});
+var mastered = load("dogvocab_mastered", {});
+
+/* ---------- tabs ---------- */
+var tabBtns = document.querySelectorAll('nav.tabs button');
+for(var i=0;i<tabBtns.length;i++){
+  tabBtns[i].onclick = (function(b){return function(){
+    for(var j=0;j<tabBtns.length;j++) tabBtns[j].classList.remove('active');
+    b.classList.add('active');
+    var t=b.getAttribute('data-tab');
+    ['cards','quiz','list'].forEach(function(s){ el('tab-'+s).hidden = (s!==t); });
+    if(t==='cards') renderCard();
+    if(t==='list') renderList();
+  };})(tabBtns[i]);
+}
+
+/* ---------- global stats ---------- */
+function renderStats(){
+  var m=0; STUDY.forEach(function(x){ if(mastered[x.k]) m++; });
+  el('globalStats').innerHTML =
+    '<div class="stat"><b>'+STUDY.length+'</b> 重要語</div>'+
+    '<div class="stat"><b>'+ALL.filter(function(x){return x.cat==="idiom";}).length+'</b> 熟語</div>'+
+    '<div class="stat"><b>'+ALL.filter(function(x){return x.cat==="poly";}).length+'</b> 多義語</div>'+
+    '<div class="stat">覚えた <b>'+m+'/'+STUDY.length+'</b></div>';
+}
+
+/* ---------- flashcards ---------- */
+var deck=[], idx=0, flipped=false, filter='all';
+function buildDeck(){
+  deck = STUDY.filter(function(x){ return filter==='all'||x.cat===filter; });
+  idx=0; flipped=false;
+}
+function renderCard(){
+  if(!deck.length) buildDeck();
+  if(!deck.length){ el('fcTerm').textContent='—'; return; }
+  if(idx>=deck.length) idx=0;
+  var c=deck[idx];
+  el('fcard').classList.remove('flip'); flipped=false;
+  el('fcTag').className='tag badge b-'+c.cat; el('fcTag').textContent=CATNAME[c.cat];
+  el('fcTag2').className='tag badge b-'+c.cat; el('fcTag2').textContent=CATNAME[c.cat];
+  el('fcMark').textContent = mastered[c.k]?'✓':'';
+  if(c.lvl){ el('fcLvl').textContent=c.lvl; el('fcLvl').style.display='inline-block'; } else { el('fcLvl').style.display='none'; }
+  el('fcTerm').textContent=c.term;
+  el('fcJp').textContent=c.jp;
+  el('fcNote').textContent=c.note||'';
+  el('fcEx').textContent = c.ex?('例: '+c.ex):'';
+  var m=0; deck.forEach(function(x){ if(mastered[x.k]) m++; });
+  el('fcBar').style.width = Math.round(m/deck.length*100)+'%';
+  el('fcCounter').textContent = (idx+1)+' / '+deck.length+' 枚　（このカテゴリ 覚えた '+m+'）';
+}
+el('fcard').onclick=function(){ flipped=!flipped; el('fcard').classList.toggle('flip',flipped); };
+el('fcNext').onclick=function(){ idx=(idx+1)%deck.length; renderCard(); };
+el('fcPrev').onclick=function(){ idx=(idx-1+deck.length)%deck.length; renderCard(); };
+el('fcYes').onclick=function(){ mastered[deck[idx].k]=true; save("dogvocab_mastered",mastered); renderStats(); idx=(idx+1)%deck.length; renderCard(); };
+el('fcNo').onclick=function(){ mastered[deck[idx].k]=false; save("dogvocab_mastered",mastered); renderStats(); idx=(idx+1)%deck.length; renderCard(); };
+el('fcShuffle').onclick=function(){ deck=shuffle(deck); idx=0; renderCard(); };
+el('fcReset').onclick=function(){ if(confirm('覚えた記録をリセットしますか？')){ mastered={}; save("dogvocab_mastered",mastered); renderStats(); renderCard(); } };
+var chips=document.querySelectorAll('#cardChips .chip');
+for(var ci=0;ci<chips.length;ci++){
+  chips[ci].onclick=(function(b){return function(){
+    for(var j=0;j<chips.length;j++) chips[j].classList.remove('on');
+    b.classList.add('on'); filter=b.getAttribute('data-cat'); buildDeck(); renderCard();
+  };})(chips[ci]);
+}
+document.addEventListener('keydown',function(e){
+  if(el('tab-cards').hidden) return;
+  if(e.code==='Space'){ e.preventDefault(); el('fcard').click(); }
+  if(e.code==='ArrowRight') el('fcNext').click();
+  if(e.code==='ArrowLeft') el('fcPrev').click();
+});
+
+/* ---------- quiz ---------- */
+var qList=[], qIdx=0, qScore=0, qWrong=[];
+el('startQuiz').onclick=startQuiz;
+function startQuiz(){
+  qList=shuffle(STUDY).slice(0,10); qIdx=0; qScore=0; qWrong=[];
+  renderQuestion();
+}
+function renderQuestion(){
+  if(qIdx>=qList.length){ return endQuiz(); }
+  var c=qList[qIdx];
+  var pool=STUDY.filter(function(x){return x.k!==c.k;});
+  var opts=shuffle(pool).slice(0,3).map(function(x){return x.term;});
+  opts.push(c.term); opts=shuffle(opts);
+  var html='<div class="q-meta"><span>第 '+(qIdx+1)+' / '+qList.length+' 問</span><span>正解 '+qScore+'</span></div>';
+  html+='<span class="badge b-'+c.cat+'">'+CATNAME[c.cat]+'</span>';
+  html+='<p class="q-prompt">'+c.jp+'</p>';
+  html+='<p class="q-sub">'+(c.note?c.note:'意味に合う英語は？')+'</p>';
+  html+='<div class="options">';
+  opts.forEach(function(o){ html+='<button class="opt" data-t="'+o.replace(/"/g,'&quot;')+'">'+o+'</button>'; });
+  html+='</div>';
+  el('quizBox').innerHTML=html;
+  var obs=el('quizBox').querySelectorAll('.opt');
+  for(var i=0;i<obs.length;i++){
+    obs[i].onclick=(function(btn){return function(){ answer(btn, c); };})(obs[i]);
+  }
+}
+function answer(btn, c){
+  var obs=el('quizBox').querySelectorAll('.opt');
+  for(var i=0;i<obs.length;i++){
+    obs[i].disabled=true;
+    if(obs[i].getAttribute('data-t')===c.term) obs[i].classList.add('correct');
+  }
+  if(btn.getAttribute('data-t')===c.term){ qScore++; }
+  else{ btn.classList.add('wrong'); qWrong.push(c); }
+  var nx=document.createElement('button');
+  nx.className='btn primary'; nx.style.marginTop='16px';
+  nx.textContent = (qIdx===qList.length-1)?'結果を見る':'次の問題 →';
+  nx.onclick=function(){ qIdx++; renderQuestion(); };
+  el('quizBox').appendChild(nx);
+}
+function endQuiz(){
+  var pct=Math.round(qScore/qList.length*100);
+  var msg = pct===100?'完璧！ 🎉':pct>=70?'いい調子！ 👍':'復習しよう 💪';
+  var html='<div class="result"><p class="q-sub">'+msg+'</p><div class="score">'+qScore+' / '+qList.length+'</div>';
+  if(qWrong.length){
+    html+='<p style="text-align:left;font-weight:700;margin:16px 0 6px">間違えた語:</p>';
+    html+='<div style="text-align:left">';
+    qWrong.forEach(function(x){ html+='<div style="padding:6px 0;border-bottom:1px solid var(--line)"><b>'+x.term+'</b> — '+x.jp+'</div>'; });
+    html+='</div>';
+  }
+  html+='<button class="btn primary" style="margin-top:18px" onclick="startQuiz()">もう一度</button></div>';
+  el('quizBox').innerHTML=html;
+}
+window.startQuiz=startQuiz;
+
+/* ---------- list ---------- */
+function renderList(){
+  var order=[['idiom','🔵 覚えるべき熟語'],['poly','🟠 多義語（文脈注意）'],['must','🟢 覚えるべき難単語'],['confuse','🔴 混同注意（同音・つづり類似）'],['skip','⚪ 覚えなくてOK']];
+  var out='';
+  order.forEach(function(pair){
+    var cat=pair[0], title=pair[1], rows;
+    if(cat==='confuse'){
+      rows=['prey','pray','play'].map(function(k){var o={};o.k=k;for(var p in DATA[k])o[p]=DATA[k][p];return o;});
+    } else {
+      rows=ALL.filter(function(x){return x.cat===cat;});
+    }
+    out+='<div class="grp"><h3>'+title+' <span style="font-weight:400;color:var(--sub);font-size:.8rem">('+rows.length+')</span></h3>';
+    out+='<table><tr><th>語句</th><th>意味</th><th>メモ</th></tr>';
+    rows.forEach(function(x){
+      var lvl = x.lvl?(' <span class="lvlpill">'+x.lvl+'</span>'):'';
+      out+='<tr><td class="t">'+x.term+lvl+'</td><td>'+x.jp+'</td><td class="n">'+(x.note||'')+'</td></tr>';
+    });
+    out+='</table></div>';
+  });
+  el('listArea').innerHTML=out;
+}
+
+/* ---------- init ---------- */
+renderStats();
+buildDeck();
+renderCard();
+</script>
+</body>
+</html>
