@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>otherwise ― インタラクティブ英語プリント</title>
+<style>
+  :root{
+    --ink:#22303c; --sub:#5b6b78; --line:#e2e8f0; --bg:#f5f7fa; --card:#ffffff;
+    --c1:#2563eb; --c1bg:#eaf1fe; --c2:#7c3aed; --c2bg:#f1ebfc;
+    --c3:#0d9488; --c3bg:#e4f6f3; --adv:#b45309; --advbg:#fbf1e3;
+    --core:#0f2a43; --tip:#f1f4f7; --good:#059669; --goodbg:#e7f6ef;
+    --bad:#dc2626; --badbg:#fdecec;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic UI","Yu Gothic",
+      Meiryo,"Noto Sans JP",system-ui,-apple-system,"Segoe UI",sans-serif;
+    line-height:1.7; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:860px; margin:0 auto; padding:26px 18px 70px;}
+  /* header */
+  header{margin-bottom:20px;}
+  .word{font-size:2.5rem; font-weight:800; letter-spacing:.5px; display:flex; align-items:center; gap:14px; flex-wrap:wrap;}
+  .ipa{font-size:1.1rem; color:var(--sub); font-weight:500;}
+  .spk{
+    border:none; cursor:pointer; background:var(--c1); color:#fff; width:38px; height:38px;
+    border-radius:50%; font-size:1rem; display:inline-flex; align-items:center; justify-content:center;
+    box-shadow:0 2px 6px rgba(37,99,235,.35); transition:transform .1s, background .15s;
+  }
+  .spk:hover{transform:scale(1.08)} .spk:active{transform:scale(.94)}
+  .meta{color:var(--sub); font-size:.95rem; margin-top:8px;}
+  .meta b{color:var(--ink)}
+  /* toolbar */
+  .toolbar{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin:16px 0 6px;}
+  .toggle{
+    display:inline-flex; align-items:center; gap:8px; cursor:pointer; user-select:none;
+    background:var(--card); border:1px solid var(--line); border-radius:999px; padding:7px 14px;
+    font-size:.9rem; color:var(--ink); transition:background .15s,border-color .15s;
+  }
+  .toggle:hover{border-color:#c3ccd6}
+  .toggle input{accent-color:var(--c1); width:16px; height:16px}
+  .hint{font-size:.82rem; color:var(--sub);}
+  /* core box */
+  .core{background:var(--c1bg); border-radius:14px; padding:16px 18px; margin:16px 0 26px; color:var(--core);}
+  .core h2{margin:0 0 6px; font-size:1.05rem;}
+  .core p{margin:0; font-size:.96rem;}
+  /* meaning cards */
+  .card{background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden;
+    margin-bottom:22px; box-shadow:0 1px 2px rgba(20,40,60,.04);}
+  .bar{color:#fff; padding:12px 18px; font-weight:700; font-size:1.12rem; display:flex; gap:10px; align-items:baseline; flex-wrap:wrap;}
+  .bar .eq{font-size:.92rem; font-weight:600; opacity:.92}
+  .c1 .bar{background:var(--c1)} .c2 .bar{background:var(--c2)} .c3 .bar{background:var(--c3)}
+  .body{padding:14px 18px 18px;}
+  .ex{padding:10px 0; border-bottom:1px dashed var(--line);}
+  .ex:last-of-type{border-bottom:none}
+  .en{display:flex; gap:9px; align-items:flex-start; font-weight:700; font-size:1.02rem;}
+  .tri{font-weight:800; flex:none; margin-top:1px;}
+  .c1 .tri{color:var(--c1)} .c2 .tri{color:var(--c2)} .c3 .tri{color:var(--c3)} .adv .tri{color:var(--adv)}
+  .mini{border:none; background:transparent; cursor:pointer; color:var(--sub); font-size:.95rem; padding:0 2px; margin-left:auto; flex:none;}
+  .mini:hover{color:var(--c1)}
+  .jp{color:var(--sub); font-size:.95rem; margin:4px 0 0 25px; transition:background .15s, color .15s;}
+  /* hide-translation mode */
+  body.hide-jp .jp{background:#e9edf2; color:transparent; border-radius:6px; cursor:pointer; user-select:none;}
+  body.hide-jp .jp::after{content:"訳を表示"; color:#9aa6b2; font-size:.8rem;}
+  body.hide-jp .jp.reveal{background:transparent; color:var(--sub); cursor:default;}
+  body.hide-jp .jp.reveal::after{content:""}
+  .tip{background:var(--tip); border-radius:10px; padding:10px 14px; margin-top:12px; font-size:.9rem;}
+  .tip b{color:var(--ink)}
+  .adv{background:var(--advbg); border:1px solid #f0dcc0;}
+  .adv .head{color:var(--adv); font-weight:700; padding:12px 18px 0; font-size:1.02rem;}
+  /* quiz */
+  .section-title{font-size:1.4rem; font-weight:800; margin:36px 0 4px; display:flex; align-items:center; gap:10px;}
+  .scorepill{font-size:.85rem; font-weight:700; background:var(--c1bg); color:var(--c1); padding:3px 12px; border-radius:999px;}
+  .q{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin:14px 0;}
+  .qtext{font-size:1.02rem; margin-bottom:10px;}
+  .qnum{color:var(--sub); font-weight:700; margin-right:6px;}
+  .blank{border-bottom:2px solid var(--c1); padding:0 22px; margin:0 3px;}
+  .opts{display:flex; gap:8px; flex-wrap:wrap;}
+  .opt{cursor:pointer; border:1.5px solid var(--line); background:#fff; border-radius:9px;
+    padding:8px 16px; font-size:1rem; font-weight:700; color:var(--ink); transition:all .12s;}
+  .opt:hover:not(:disabled){border-color:var(--c1); background:var(--c1bg)}
+  .opt:disabled{cursor:default}
+  .opt.correct{background:var(--goodbg); border-color:var(--good); color:var(--good)}
+  .opt.wrong{background:var(--badbg); border-color:var(--bad); color:var(--bad)}
+  .fb{margin-top:9px; font-size:.9rem; padding:8px 12px; border-radius:8px; display:none;}
+  .fb.show{display:block}
+  .fb.ok{background:var(--goodbg); color:#046c4e}
+  .fb.ng{background:var(--badbg); color:#a41c1c}
+  /* part B */
+  .qb{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin:14px 0;}
+  .revealbtn{cursor:pointer; border:1.5px solid var(--c3); color:var(--c3); background:#fff; font-weight:700;
+    border-radius:9px; padding:6px 14px; font-size:.9rem; margin-top:8px; transition:all .12s;}
+  .revealbtn:hover{background:var(--c3bg)}
+  .answer{display:none; margin-top:10px; padding:10px 14px; background:var(--c3bg); border-radius:9px;}
+  .answer.show{display:block}
+  .answer .en2{font-weight:700; display:flex; gap:9px; align-items:center;}
+  .resetbar{margin-top:22px; text-align:center;}
+  .reset{cursor:pointer; background:#fff; border:1px solid var(--line); border-radius:999px; padding:8px 20px;
+    color:var(--sub); font-size:.9rem;}
+  .reset:hover{border-color:#c3ccd6; color:var(--ink)}
+  .done{text-align:center; font-weight:800; color:var(--good); margin-top:12px; font-size:1.1rem; display:none;}
+  footer{margin-top:40px; padding-top:14px; border-top:1px solid var(--line); color:var(--sub); font-size:.8rem; text-align:center;}
+  @media(max-width:520px){ .word{font-size:2rem} .wrap{padding:20px 13px 60px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="word">otherwise
+      <span class="ipa">/ˈʌðərwaɪz/</span>
+      <button class="spk" title="発音を聞く" onclick="speak('otherwise')">🔊</button>
+    </div>
+    <div class="meta">副詞（比較変化なし）　・　発音：アザーワイズ（第1音節「<b>ア</b>」にアクセント）　・　語源：other（別の）＋ wise（やり方・方向）</div>
+  </header>
+
+  <div class="toolbar">
+    <label class="toggle"><input type="checkbox" id="hideJp" onchange="toggleJp(this)">日本語訳を隠して自分でテスト</label>
+    <span class="hint">🔊 = クリックで英語の音声。訳を隠したときは訳の帯をクリックで表示。</span>
+  </div>
+
+  <div class="core">
+    <h2>核心イメージ ― 今の話とは「別ルート」</h2>
+    <p>この1点を押さえれば、下の3つの意味は全部つながります。「そうでない場合は / そうではなく / それ以外は」――すべて<b>「別方向」</b>の発想です。</p>
+  </div>
+
+  <!-- Meaning 1 -->
+  <div class="card c1">
+    <div class="bar">① さもなければ / そうしないと <span class="eq">（= or else）〔接続詞的〕</span></div>
+    <div class="body" data-ex></div>
+    <div class="body" style="padding-top:0">
+      <div class="tip"><b>コツ</b>　otherwise ＝ <b>or (else)</b> と置き換えられる。前の文が実現しないときの「よくない結果」を導く。カンマやセミコロンの後に来ることが多い。</div>
+    </div>
+  </div>
+
+  <!-- Meaning 2 -->
+  <div class="card c2">
+    <div class="bar">② 違ったふうに / 別の方法で <span class="eq">（= differently）〔ややフォーマル〕</span></div>
+    <div class="body" data-ex></div>
+    <div class="body" style="padding-top:0">
+      <div class="tip"><b>コツ</b>　「動詞（think / say / suggest / know）＋otherwise」＝「そうではないと〜」。決まり文句：<b>unless otherwise noted</b>「特記なき限り」、<b>otherwise known as</b>「別名」。</div>
+    </div>
+  </div>
+
+  <!-- Meaning 3 -->
+  <div class="card c3">
+    <div class="bar">③ その他の点では <span class="eq">（= in other respects）</span></div>
+    <div class="body" data-ex></div>
+    <div class="body" style="padding-top:0">
+      <div class="tip"><b>コツ</b>　欠点を1つ挙げてから「それ以外は〜」。<b>but ..., but otherwise ...</b> の形で使うことが多い。「一点を除けば、あとは」。</div>
+    </div>
+  </div>
+
+  <!-- Advanced -->
+  <div class="card adv">
+    <div class="head">発展 ― would / might ＋ otherwise ＝「そうでなければ〜だったはず」</div>
+    <div class="body" data-ex></div>
+  </div>
+
+  <!-- Quiz A -->
+  <div class="section-title">練習① 空所に otherwise <span class="scorepill" id="scoreA">0 / 5</span></div>
+  <p class="hint" style="margin:2px 0 4px">意味が ①②③ のどれになるか、ボタンで選ぼう。</p>
+  <div id="quizA"></div>
+
+  <!-- Quiz B -->
+  <div class="section-title">練習② otherwise を使って英作文</div>
+  <p class="hint" style="margin:2px 0 4px">日本語を英語にしてから「解答を見る」で答え合わせ。</p>
+  <div id="quizB"></div>
+
+  <div class="resetbar"><button class="reset" onclick="resetAll()">↺ 最初からやり直す</button></div>
+  <div class="done" id="doneMsg">全問正解！よくできました 🎉</div>
+
+  <footer>英語語彙プリント ― otherwise ／ インタラクティブ版</footer>
+</div>
+
+<script>
+"use strict";
+// ---------- speech ----------
+function speak(t){
+  try{
+    if(!("speechSynthesis" in window)) return;
+    var u=new SpeechSynthesisUtterance(t);
+    u.lang="en-US"; u.rate=0.94; u.pitch=1;
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(u);
+  }catch(e){}
+}
+// ---------- data ----------
+var MEANINGS=[
+  [ ["Hurry up, otherwise we'll miss the train.","急いで、そうしないと電車に乗り遅れるよ。"],
+    ["You need to pack these fragile items properly; otherwise, they'll break.","割れ物はきちんと梱包して。さもないと壊れるよ。"],
+    ["She ran to the station. Otherwise, she would have missed the train.","彼女は駅まで走った。そうでなければ乗り遅れていただろう。〔仮定法〕"] ],
+  [ ["The survey suggests otherwise.","その調査は違うことを示している（＝そうではないと）。"],
+    ["You can't dance, so don't pretend otherwise.","踊れないのに、できるふりをしてはいけない。"],
+    ["All prices are in yen unless otherwise noted.","特に断りのない限り、価格はすべて円表示です。"] ],
+  [ ["Your essay is a little long, but otherwise it is perfect.","君の作文は少し長いが、それ以外は完璧だ。"] ],
+  [ ["Foods that would otherwise perish can be stored.","そのままなら傷んでしまう食品も保存できる。"],
+    ["The teacher explained things I might not have understood otherwise.","そうでなければ理解できなかったことを、先生が説明してくれた。"] ]
+];
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/'/g,"&#39;").replace(/"/g,"&quot;");}
+// render examples into each [data-ex] block, in order
+(function(){
+  var blocks=document.querySelectorAll("[data-ex]");
+  MEANINGS.forEach(function(list,i){
+    var b=blocks[i]; if(!b) return;
+    list.forEach(function(pair){
+      var en=pair[0], jp=pair[1];
+      var row=document.createElement("div"); row.className="ex";
+      row.innerHTML='<div class="en"><span class="tri">▸</span><span>'+esc(en)+
+        '</span><button class="mini" title="音声">🔊</button></div>'+
+        '<div class="jp">'+esc(jp)+'</div>';
+      row.querySelector(".mini").addEventListener("click",function(){speak(en);});
+      var jpEl=row.querySelector(".jp");
+      jpEl.addEventListener("click",function(){ if(document.body.classList.contains("hide-jp")) jpEl.classList.add("reveal"); });
+      b.appendChild(row);
+    });
+  });
+})();
+function toggleJp(cb){
+  document.body.classList.toggle("hide-jp", cb.checked);
+  if(!cb.checked){ document.querySelectorAll(".jp.reveal").forEach(function(e){e.classList.remove("reveal");}); }
+}
+// ---------- Quiz A ----------
+var QA=[
+  {en:["Write in pen. ","","otherwise",", your answer won't be accepted."], ans:1, why:"「さもなければ受理されない」＝よくない結果 → ①"},
+  {en:["He says he's happy, but his eyes tell me ","","otherwise","."], ans:2, why:"「目は違うことを語る」＝そうではない → ②"},
+  {en:["The room was tiny, but ","","otherwise"," the hotel was great."], ans:3, why:"「狭かったが、その他の点では良かった」→ ③"},
+  {en:["Save your work now, ","","otherwise"," you'll lose it."], ans:1, why:"「今保存を。さもないと失う」→ ①"},
+  {en:["All meetings are on Monday unless ","","otherwise"," stated."], ans:2, why:"unless otherwise stated「特記なき限り」＝決まり文句 → ②"}
+];
+var answered=new Array(QA.length).fill(false);
+function buildA(){
+  var box=document.getElementById("quizA"); box.innerHTML="";
+  QA.forEach(function(q,idx){
+    var full=q.en[0]+q.en[2]+q.en[3];
+    var d=document.createElement("div"); d.className="q";
+    var sentence='<span class="qnum">'+(idx+1)+'.</span>'+esc(q.en[0])+'<span class="blank">&nbsp;</span>'+esc(q.en[3])+
+      ' <button class="mini" title="音声" data-full="1">🔊</button>';
+    d.innerHTML='<div class="qtext">'+sentence+'</div>'+
+      '<div class="opts">'+[1,2,3].map(function(n){return '<button class="opt" data-n="'+n+'">'+["","①","②","③"][n]+'</button>';}).join("")+'</div>'+
+      '<div class="fb"></div>';
+    d.querySelector('[data-full]').addEventListener("click",function(){speak(full);});
+    var fb=d.querySelector(".fb");
+    d.querySelectorAll(".opt").forEach(function(btn){
+      btn.addEventListener("click",function(){
+        if(answered[idx]) return;
+        answered[idx]=true;
+        var n=parseInt(btn.getAttribute("data-n"),10);
+        var opts=d.querySelectorAll(".opt");
+        opts.forEach(function(o){o.disabled=true;});
+        if(n===q.ans){
+          btn.classList.add("correct");
+          fb.className="fb show ok"; fb.innerHTML="正解！　"+esc(q.why);
+        }else{
+          btn.classList.add("wrong");
+          opts[q.ans-1].classList.add("correct");
+          fb.className="fb show ng"; fb.innerHTML="おしい！　正解は "+["","①","②","③"][q.ans]+"　―　"+esc(q.why);
+        }
+        updateScore();
+      });
+    });
+    box.appendChild(d);
+  });
+}
+function updateScore(){
+  var correct=0, done=0;
+  document.querySelectorAll("#quizA .q").forEach(function(q,i){
+    if(answered[i]){ done++; if(q.querySelector(".opt.correct") && !q.querySelector(".opt.wrong")) correct++; }
+  });
+  document.getElementById("scoreA").textContent=correct+" / "+QA.length;
+  document.getElementById("doneMsg").style.display=(done===QA.length && correct===QA.length)?"block":"none";
+}
+// ---------- Quiz B ----------
+var QB=[
+  {jp:"急ぎなさい、さもないとバスに乗り遅れるよ。", en:"Hurry up, otherwise you'll miss the bus."},
+  {jp:"その値段は高いが、それ以外はこの店が気に入っている。", en:"The price is high, but otherwise I like this shop."}
+];
+function buildB(){
+  var box=document.getElementById("quizB"); box.innerHTML="";
+  QB.forEach(function(q,idx){
+    var d=document.createElement("div"); d.className="qb";
+    d.innerHTML='<div class="qtext"><span class="qnum">'+(idx+6)+'.</span>'+esc(q.jp)+'</div>'+
+      '<button class="revealbtn">解答を見る</button>'+
+      '<div class="answer"><div class="en2"><span class="tri" style="color:var(--c3)">▸</span><span>'+esc(q.en)+
+        '</span><button class="mini" title="音声">🔊</button></div></div>';
+    var ans=d.querySelector(".answer"); var btn=d.querySelector(".revealbtn");
+    btn.addEventListener("click",function(){
+      var open=ans.classList.toggle("show");
+      btn.textContent=open?"解答を隠す":"解答を見る";
+    });
+    d.querySelector(".answer .mini").addEventListener("click",function(){speak(q.en);});
+    box.appendChild(d);
+  });
+}
+function resetAll(){
+  answered=new Array(QA.length).fill(false);
+  buildA(); buildB();
+  document.getElementById("scoreA").textContent="0 / "+QA.length;
+  document.getElementById("doneMsg").style.display="none";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+buildA(); buildB();
+</script>
+</body>
+</html>
