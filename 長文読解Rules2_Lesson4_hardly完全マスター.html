@@ -34,6 +34,8 @@
 
   .card{background:var(--card);border-radius:16px;padding:22px;margin-bottom:18px;
     box-shadow:0 1px 3px rgba(20,30,60,.07)}
+  .card.key{border:2px solid var(--purple);box-shadow:0 2px 10px rgba(124,58,237,.12)}
+  .card.key h2 .n{background:var(--purple)}
   .card h2{font-size:18px;margin:0 0 4px;display:flex;align-items:center;gap:9px}
   .card h2 .n{background:var(--blue);color:#fff;width:26px;height:26px;border-radius:8px;
     display:grid;place-items:center;font-size:14px;flex:none}
@@ -53,11 +55,26 @@
   .box.amber{background:var(--amber-l);border-left:4px solid var(--amber)}
   .box.green{background:var(--green-l);border-left:4px solid var(--green)}
   .box.red{background:var(--red-l);border-left:4px solid var(--red)}
+  .box.purple{background:var(--purple-l);border-left:4px solid var(--purple)}
   .box b{color:inherit}
 
   .hl{background:linear-gradient(transparent 58%,#ffe58a 58%);font-weight:700}
   .hlb{background:linear-gradient(transparent 58%,#bfe0ff 58%);font-weight:700}
   code,.en-i{font-family:Georgia,serif;font-style:italic}
+
+  /* hard 3用法パネル */
+  .three{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:14px 0}
+  .u{border-radius:14px;padding:14px 16px;border:2px solid var(--line);background:#fff}
+  .u .tag{display:inline-block;font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:999px;letter-spacing:.04em}
+  .u .wd{font-family:Georgia,serif;font-size:20px;font-weight:700;margin:8px 0 2px}
+  .u .mn{font-size:14px;font-weight:700}
+  .u .sm{font-size:12.5px;color:var(--sub);margin-top:6px;line-height:1.6}
+  .u.adju{border-color:#93b8ff;background:#eaf2ff}
+  .u.adju .tag{background:#2563eb;color:#fff}
+  .u.advu{border-color:#c4b0ff;background:#f6f2ff}
+  .u.advu .tag{background:#7c3aed;color:#fff}
+  .u.lyu{border-color:#f0b45c;background:#fff7e6}
+  .u.lyu .tag{background:var(--amber);color:#fff}
 
   /* flip cards */
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-top:6px}
@@ -123,11 +140,52 @@
 <!-- ========== 解説 ========== -->
 <section id="a" class="on">
 
+  <div class="card key">
+    <h2><span class="n">★</span>まず結論：hard には<span class="hl">形容詞の用法と副詞の用法がある</span></h2>
+    <p class="lead">hard は1語で「形容詞」にも「副詞」にもなる。さらに -ly をつけた hardly は、まったく別の意味（否定語）になる。この<b>3つを区別する</b>のがこの単元の核心。</p>
+
+    <div class="three">
+      <div class="u adju">
+        <span class="tag">① 形容詞の用法</span>
+        <div class="wd">hard</div>
+        <div class="mn">かたい／難しい・つらい</div>
+        <div class="sm"><b>名詞を修飾</b>、または be動詞の後（補語）。<br>
+          <span class="en-i">a <b>hard</b> question</span>（難しい質問）<br>
+          <span class="en-i">The work is <b>hard</b>.</span>（その仕事はつらい）</div>
+      </div>
+      <div class="u advu">
+        <span class="tag">② 副詞の用法</span>
+        <div class="wd">hard</div>
+        <div class="mn">熱心に・一生懸命に</div>
+        <div class="sm"><b>動詞を修飾</b>。形は形容詞とまったく同じ（-ly はつけない）。<br>
+          <span class="en-i">study <b>hard</b></span>（熱心に勉強する）<br>
+          <span class="en-i">It rained <b>hard</b>.</span>（激しく雨が降った）</div>
+      </div>
+      <div class="u lyu">
+        <span class="tag">③ -ly がつくと別語</span>
+        <div class="wd">hardly</div>
+        <div class="mn">ほとんど〜ない（否定）</div>
+        <div class="sm">hard の副詞形<b>ではない</b>。意味が変わった別の副詞。<br>
+          <span class="en-i">He <b>hardly</b> works.</span>（彼はほとんど働かない）</div>
+      </div>
+    </div>
+
+    <div class="box purple">
+      <b>ここを必ず押さえる</b><br>
+      1️⃣ <b>hard には形容詞の用法と副詞の用法がある</b>（同じ形のまま品詞が変わる）。<br>
+      2️⃣ <b>-ly がつくことで意味が変わる副詞がある</b>。hard →「熱心に」／ hardly →「ほとんど〜ない」。<br>
+      ⚠️ つまり <span class="en-i">hardly</span> は <span class="en-i">hard</span> の副詞形ではない。<b>hard 自身がすでに副詞</b>。
+    </div>
+
+    <div class="ex"><div class="e">He works <b>hard</b>.　／　He <b>hardly</b> works.</div>
+      <div class="j">彼は熱心に働く。／ 彼はほとんど働かない。　※ -ly の有無で意味が正反対！</div></div>
+  </div>
+
   <div class="card">
     <h2><span class="n">1</span>形容詞と副詞で「形が同じ」語がある</h2>
-    <p class="lead">ふつう副詞は「形容詞 + -ly」で作る（quick → quickly）。でも下の語は<span class="hl">形を変えずにそのまま副詞になる</span>。</p>
+    <p class="lead">ふつう副詞は「形容詞 + -ly」で作る（quick → quickly）。でも下の語は<span class="hl">形を変えずにそのまま副詞になる</span>＝1語が形容詞の用法と副詞の用法の両方をもつ。</p>
     <table>
-      <tr><th>語</th><th>形容詞として</th><th>副詞として</th></tr>
+      <tr><th>語</th><th>形容詞としての用法</th><th>副詞としての用法</th></tr>
       <tr><td class="en">late</td><td class="adj">遅い</td><td class="adv">遅く</td></tr>
       <tr><td class="en">fast</td><td class="adj">速い</td><td class="adv">速く</td></tr>
       <tr><td class="en">hard</td><td class="adj">かたい, 困難な</td><td class="adv">熱心に, 一生懸命</td></tr>
@@ -139,19 +197,24 @@
       <span class="en-i">a <b>hard</b> question</span>（かたい＝難しい問題／形容詞）　vs　<span class="en-i">study <b>hard</b></span>（熱心に勉強する／副詞）
     </div>
     <div class="box amber">
-      ⚠️ <b>fastly / earlily という語は存在しない。</b>「速く」は必ず <span class="en-i">fast</span>。
+      ⚠️ <b>fastly / earlily という語は存在しない。</b>「速く」は必ず <span class="en-i">fast</span>。<br>
+      同様に「熱心に」を <span class="en-i">hardly</span> とするのは誤り。副詞の hard をそのまま使う。
     </div>
   </div>
 
   <div class="card">
     <h2><span class="n">2</span>hard, late, high は -ly がつくと<span class="hl">意味が変わる</span></h2>
-    <p class="lead">ここが最大のポイント。「元の意味＋ -ly」ではないので丸暗記が必要。</p>
+    <p class="lead">ここが最大のポイント。<b>-ly がつくことで意味が変わってしまう副詞</b>があり、「元の意味＋ -ly」ではないので丸暗記が必要。</p>
     <table>
-      <tr><th>語</th><th>意味</th><th>-ly 形</th><th>まったく違う意味</th></tr>
+      <tr><th>語（形容詞/副詞 同形）</th><th>副詞としての意味</th><th>-ly 形</th><th>まったく違う意味</th></tr>
       <tr class="warn-row"><td class="en">hard</td><td>熱心に</td><td class="en">hardly</td><td><b>ほとんど〜ない</b>（否定語）</td></tr>
       <tr class="warn-row"><td class="en">late</td><td>遅く</td><td class="en">lately</td><td><b>近頃, 最近</b></td></tr>
       <tr class="warn-row"><td class="en">high</td><td>高く</td><td class="en">highly</td><td><b>おおいに, 非常に</b>（程度）</td></tr>
     </table>
+    <div class="box amber">
+      <b>重要</b>：hardly / lately / highly は、それぞれ hard / late / high の<b>副詞形ではない</b>。<br>
+      hard・late・high は<b>そのままの形で副詞として使える</b>ので、-ly 形は「別の意味をもつ別の副詞」と考える。
+    </div>
     <div class="ex"><div class="e">He works <b>hard</b>. / He <b>hardly</b> works.</div>
       <div class="j">彼は熱心に働く。／ 彼はほとんど働かない。　※意味が正反対！</div></div>
     <div class="ex"><div class="e">He came <b>late</b>. / I haven't seen him <b>lately</b>.</div>
@@ -201,13 +264,13 @@
 <!-- ========== -ly の罠 ========== -->
 <section id="b">
   <div class="card">
-    <h2><span class="n">＋</span>-ly で意味が変わる語 まとめ</h2>
-    <p class="lead">教科書の3語に加えて、入試で狙われる語もセットで覚えておくと強い。</p>
+    <h2><span class="n">＋</span>-ly がつくと意味が変わる語 まとめ</h2>
+    <p class="lead">下の語はいずれも「原形＋ -ly」で<b>意味が変わってしまう副詞</b>。教科書の3語に加えて、入試で狙われる語もセットで覚えておくと強い。</p>
     <table>
       <tr><th>原形</th><th>意味</th><th>-ly 形</th><th>意味</th></tr>
-      <tr><td class="en">hard</td><td>熱心に／難しい</td><td class="en">hardly</td><td>ほとんど〜ない</td></tr>
-      <tr><td class="en">late</td><td>遅く／遅い</td><td class="en">lately</td><td>近頃, 最近</td></tr>
-      <tr><td class="en">high</td><td>高く／高い</td><td class="en">highly</td><td>おおいに, 非常に</td></tr>
+      <tr><td class="en">hard</td><td>熱心に（副詞）／難しい（形容詞）</td><td class="en">hardly</td><td>ほとんど〜ない</td></tr>
+      <tr><td class="en">late</td><td>遅く（副詞）／遅い（形容詞）</td><td class="en">lately</td><td>近頃, 最近</td></tr>
+      <tr><td class="en">high</td><td>高く（副詞）／高い（形容詞）</td><td class="en">highly</td><td>おおいに, 非常に</td></tr>
       <tr><td class="en">near</td><td>近くに</td><td class="en">nearly</td><td>ほとんど, もう少しで</td></tr>
       <tr><td class="en">most</td><td>最も</td><td class="en">mostly</td><td>たいてい, 主に</td></tr>
       <tr><td class="en">short</td><td>短く</td><td class="en">shortly</td><td>まもなく</td></tr>
@@ -220,7 +283,8 @@
     </div>
     <div class="box blue">
       <b>形容詞なのに -ly で終わる語（副詞ではない！）</b><br>
-      <span class="en-i">friendly</span>（親しみやすい）, <span class="en-i">lovely</span>（美しい）, <span class="en-i">lonely</span>（孤独な）, <span class="en-i">likely</span>（ありそうな）, <span class="en-i">costly</span>（高価な）— すべて<b>形容詞</b>。
+      <span class="en-i">friendly</span>（親しみやすい）, <span class="en-i">lovely</span>（美しい）, <span class="en-i">lonely</span>（孤独な）, <span class="en-i">likely</span>（ありそうな）, <span class="en-i">costly</span>（高価な）— すべて<b>形容詞</b>。<br>
+      → <b>-ly ＝ 副詞とは限らない</b>点にも注意。
     </div>
   </div>
 
@@ -237,7 +301,7 @@
 <section id="c">
   <div class="card">
     <h2><span class="n">🃏</span>暗記カード</h2>
-    <p class="lead">カードをタップすると意味が出ます。青＝同形の語 / 紫＝-ly で意味が変わる語。</p>
+    <p class="lead">カードをタップすると意味が出ます。青＝形容詞・副詞が同形の語 / 紫＝-ly で意味が変わる語。</p>
     <div class="grid" id="cards"></div>
     <button class="btn ghost" id="flipAll">すべて裏返す</button>
   </div>
@@ -246,7 +310,7 @@
 <!-- ========== クイズ ========== -->
 <section id="d">
   <div class="card" id="quizCard">
-    <div class="qbar"><span id="qn">問 1 / 12</span><span id="sc">正解 0</span></div>
+    <div class="qbar"><span id="qn">問 1 / 14</span><span id="sc">正解 0</span></div>
     <div class="prog"><i id="pb"></i></div>
     <p class="qtext" id="qt"></p>
     <p class="qjp" id="qj"></p>
@@ -272,18 +336,20 @@ document.querySelectorAll('nav.tabs button').forEach(b=>{
 
 /* flip cards */
 const CARDS=[
+ {w:'hard',t:'形容詞の用法',m:'かたい・難しい',s:'名詞を修飾 / a hard question'},
+ {w:'hard',t:'副詞の用法',m:'熱心に・一生懸命',s:'動詞を修飾 / study hard'},
  {w:'late',t:'形容詞/副詞',m:'遅い / 遅く'},
  {w:'fast',t:'形容詞/副詞',m:'速い / 速く',s:'fastly は存在しない'},
- {w:'hard',t:'形容詞/副詞',m:'かたい・困難な / 熱心に'},
  {w:'early',t:'形容詞/副詞',m:'早い / 早く'},
  {w:'high',t:'形容詞/副詞',m:'高い / 高く'},
- {w:'hardly',t:'-ly で激変',m:'ほとんど〜ない',s:'否定語。not と同じ位置',ly:1},
+ {w:'hardly',t:'-ly で激変',m:'ほとんど〜ない',s:'否定語。hard の副詞形ではない',ly:1},
  {w:'lately',t:'-ly で激変',m:'近頃, 最近',s:'現在完了と相性◎',ly:1},
  {w:'highly',t:'-ly で激変',m:'おおいに, 非常に',s:'程度を表す',ly:1},
  {w:'nearly',t:'発展',m:'ほとんど（肯定）',s:'hardly と逆！',ly:1},
  {w:'mostly',t:'発展',m:'たいてい, 主に',ly:1},
  {w:'scarcely',t:'発展',m:'ほとんど〜ない',s:'hardly とほぼ同義',ly:1},
- {w:'seldom',t:'発展',m:'めったに〜ない',s:'頻度の否定',ly:1}
+ {w:'seldom',t:'発展',m:'めったに〜ない',s:'頻度の否定',ly:1},
+ {w:'friendly',t:'-ly だが形容詞',m:'親しみやすい',s:'-ly＝副詞とは限らない',ly:1}
 ];
 document.getElementById('cards').innerHTML=CARDS.map(c=>
  `<div class="flip ${c.ly?'ly':''}" onclick="this.classList.toggle('f')"><div class="in">
@@ -301,10 +367,14 @@ document.getElementById('flipAll').onclick=function(){
 
 /* quiz */
 const Q=[
+ {q:'下線部の <u>hard</u> の品詞は？　<span class="en-i">This is a <b>hard</b> question.</span>',j:'これは難しい質問だ。',
+  o:['形容詞','副詞','名詞','動詞'],a:0,e:'名詞 question を修飾しているので形容詞。意味は「かたい・難しい」。hard には形容詞の用法と副詞の用法の両方があります。'},
+ {q:'下線部の <u>hard</u> の品詞は？　<span class="en-i">She studies <b>hard</b>.</span>',j:'彼女は熱心に勉強する。',
+  o:['形容詞','副詞','名詞','接続詞'],a:1,e:'動詞 studies を修飾しているので副詞。hard は -ly をつけずにそのまま副詞になります。'},
  {q:'He <u>___</u> works, so he has no money.',j:'彼はほとんど働かないので、お金がない。',
   o:['hard','hardly','hardy','harder'],a:1,e:'hardly＝「ほとんど〜ない」。hard だと「熱心に働く」となり後半と矛盾します。'},
  {q:'She studies very <u>___</u> every day.',j:'彼女は毎日とても熱心に勉強する。',
-  o:['hardly','hardy','hard','hardness'],a:2,e:'「熱心に」は副詞 hard。hard は形を変えずに副詞になります。'},
+  o:['hardly','hardy','hard','hardness'],a:2,e:'「熱心に」は副詞 hard。hard は形を変えずに副詞になります（hardly は別の意味）。'},
  {q:'I haven\'t seen him <u>___</u>.',j:'最近、彼に会っていない。',
   o:['late','lately','later','latest'],a:1,e:'lately＝「近頃・最近」。現在完了とよく一緒に使われます。'},
  {q:'The plane flew <u>___</u> above the clouds.',j:'飛行機は雲の上を高く飛んだ。',
@@ -313,6 +383,9 @@ const Q=[
   o:['high','highly','height','highness'],a:1,e:'程度の「おおいに・非常に」は highly。'},
  {q:'Can you run <u>___</u>?',j:'速く走れますか？',
   o:['fastly','fast','fasten','fastly の副詞形'],a:1,e:'fastly という語は存在しません。「速く」は fast のまま。'},
+ {q:'hardly は hard の副詞形である。○か×か？',j:'',
+  o:['○ 正しい','× 誤り。hard 自身が副詞で、hardly は別の意味の副詞'],a:1,
+  e:'hard には形容詞の用法と副詞の用法があり、副詞「熱心に」は hard のまま。hardly は -ly がついて意味が変わった別の副詞（ほとんど〜ない）です。'},
  {q:'正しい語順はどれ？（ほとんど信じられない）',j:'I ___ believe it.',
   o:['I can hardly believe it.','I hardly can believe it.','I can believe hardly it.','I hardly believe can it.'],a:0,
   e:'hardly は否定語なので not と同じ位置＝助動詞 can の直後。'},
@@ -322,8 +395,6 @@ const Q=[
  {q:'<u>hardly</u> と <u>nearly</u> の違いとして正しいものは？',j:'',
   o:['hardly＝ほとんど〜ない / nearly＝ほとんど（肯定）','どちらも「ほとんど〜ない」','hardly＝もう少しで / nearly＝全く〜ない','意味は同じで語感だけ違う'],a:0,
   e:'hardly はほぼゼロ（否定）、nearly はほぼ100%（肯定）。正反対です。'},
- {q:'This is a <u>___</u> question. I can\'t answer it.',j:'これは難しい質問だ。答えられない。',
-  o:['hardly','hard','hardness','hardy'],a:1,e:'名詞 question を修飾＝形容詞。hard は「かたい・困難な」。'},
  {q:'<u>the</u> things around us で the がつく理由は？',j:'',
   o:['things が複数形だから','around us という修飾語で意味が限定され特定できるから','前置詞の後だから','around が副詞だから'],a:1,
   e:'後ろの修飾語で限定されて「どれか特定できる」ため。the name of my cat の the と同じ用法。'},
