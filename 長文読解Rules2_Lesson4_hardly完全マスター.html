@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>hardly の意味は？ — 形容詞・副詞が同形の語 完全マスター</title>
+<style>
+  :root{
+    --bg:#f4f6fb; --card:#fff; --ink:#1b2230; --sub:#5a6478;
+    --blue:#2563eb; --blue-l:#dbeafe; --purple:#7c3aed; --purple-l:#ede9fe;
+    --green:#059669; --green-l:#d1fae5; --red:#dc2626; --red-l:#fee2e2;
+    --amber:#d97706; --amber-l:#fef3c7; --line:#e2e6ef;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;
+    line-height:1.75;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:880px;margin:0 auto;padding:24px 18px 80px}
+  header{text-align:center;padding:28px 0 18px}
+  header .chip{display:inline-block;background:var(--purple-l);color:var(--purple);
+    font-size:12px;font-weight:700;padding:4px 12px;border-radius:999px;letter-spacing:.08em}
+  header h1{font-size:26px;margin:12px 0 6px;letter-spacing:-.01em}
+  header p{color:var(--sub);font-size:14px;margin:0}
+
+  nav.tabs{display:flex;gap:6px;background:#e8ecf5;padding:5px;border-radius:14px;margin:22px 0 26px;overflow-x:auto}
+  nav.tabs button{flex:1;min-width:110px;border:0;background:transparent;color:var(--sub);
+    font-size:14px;font-weight:700;padding:10px 8px;border-radius:10px;cursor:pointer;
+    font-family:inherit;transition:.15s;white-space:nowrap}
+  nav.tabs button.on{background:#fff;color:var(--blue);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+
+  section{display:none;animation:fade .25s ease}
+  section.on{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  .card{background:var(--card);border-radius:16px;padding:22px;margin-bottom:18px;
+    box-shadow:0 1px 3px rgba(20,30,60,.07)}
+  .card h2{font-size:18px;margin:0 0 4px;display:flex;align-items:center;gap:9px}
+  .card h2 .n{background:var(--blue);color:#fff;width:26px;height:26px;border-radius:8px;
+    display:grid;place-items:center;font-size:14px;flex:none}
+  .card h3{font-size:15px;margin:20px 0 8px;color:var(--blue)}
+  .lead{color:var(--sub);font-size:13.5px;margin:0 0 14px}
+
+  table{width:100%;border-collapse:collapse;font-size:14.5px;margin:8px 0}
+  th,td{border:1px solid var(--line);padding:9px 12px;text-align:left}
+  th{background:#f1f4fa;font-size:12.5px;color:var(--sub);font-weight:700}
+  td.en{font-weight:700;font-family:Georgia,serif;font-size:16px;width:22%}
+  td.adj{background:#eaf2ff}
+  td.adv{background:#f6f2ff}
+  .warn-row td{background:#fff7e6}
+
+  .box{border-radius:12px;padding:14px 16px;margin:14px 0;font-size:14px}
+  .box.blue{background:var(--blue-l);border-left:4px solid var(--blue)}
+  .box.amber{background:var(--amber-l);border-left:4px solid var(--amber)}
+  .box.green{background:var(--green-l);border-left:4px solid var(--green)}
+  .box.red{background:var(--red-l);border-left:4px solid var(--red)}
+  .box b{color:inherit}
+
+  .hl{background:linear-gradient(transparent 58%,#ffe58a 58%);font-weight:700}
+  .hlb{background:linear-gradient(transparent 58%,#bfe0ff 58%);font-weight:700}
+  code,.en-i{font-family:Georgia,serif;font-style:italic}
+
+  /* flip cards */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-top:6px}
+  .flip{perspective:900px;height:120px;cursor:pointer}
+  .flip .in{position:relative;width:100%;height:100%;
+    transition:transform .22s cubic-bezier(.4,0,.2,1);transform-style:preserve-3d}
+  .flip.f .in{transform:rotateY(180deg)}
+  .flip .s{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px;text-align:center}
+  .flip .front{background:#fff;border:2px solid var(--line)}
+  .flip .front .w{font-family:Georgia,serif;font-size:22px;font-weight:700}
+  .flip .front .t{font-size:11px;color:var(--sub);margin-top:6px}
+  .flip .back{background:var(--blue);color:#fff;transform:rotateY(180deg);font-size:14px;font-weight:700}
+  .flip .back small{display:block;font-weight:400;opacity:.85;font-size:11.5px;margin-top:6px;line-height:1.5}
+  .flip.ly .back{background:var(--purple)}
+
+  /* quiz */
+  .qbar{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--sub);margin-bottom:10px}
+  .prog{height:6px;background:#e8ecf5;border-radius:99px;overflow:hidden;margin-bottom:18px}
+  .prog i{display:block;height:100%;background:var(--blue);width:0;transition:.3s}
+  .qtext{font-size:17px;font-weight:700;margin:0 0 6px;line-height:1.7}
+  .qjp{font-size:13px;color:var(--sub);margin:0 0 16px}
+  .opts{display:flex;flex-direction:column;gap:9px}
+  .opt{border:2px solid var(--line);background:#fff;border-radius:12px;padding:12px 15px;
+    font-size:15px;text-align:left;cursor:pointer;font-family:inherit;transition:.12s}
+  .opt:hover:not(:disabled){border-color:var(--blue);background:#f7faff}
+  .opt:disabled{cursor:default}
+  .opt.ok{border-color:var(--green);background:var(--green-l)}
+  .opt.ng{border-color:var(--red);background:var(--red-l)}
+  .fb{margin-top:14px;padding:13px 15px;border-radius:12px;font-size:14px;display:none}
+  .fb.show{display:block}
+  .fb.ok{background:var(--green-l);border-left:4px solid var(--green)}
+  .fb.ng{background:var(--red-l);border-left:4px solid var(--red)}
+  .btn{background:var(--blue);color:#fff;border:0;border-radius:11px;padding:11px 24px;
+    font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:16px}
+  .btn.ghost{background:#e8ecf5;color:var(--ink)}
+  .result{text-align:center;padding:26px 10px}
+  .result .score{font-size:46px;font-weight:800;color:var(--blue)}
+
+  ul{padding-left:20px;margin:8px 0}
+  li{margin:5px 0;font-size:14.5px}
+  .ex{background:#f7f9fd;border-radius:10px;padding:11px 14px;margin:8px 0;font-size:14.5px}
+  .ex .e{font-family:Georgia,serif;font-weight:600}
+  .ex .j{color:var(--sub);font-size:13px;margin-top:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <span class="chip">第6章 ／ その他の重要項目 ／ 否定</span>
+  <h1>hardly の意味は？</h1>
+  <p>形容詞と副詞が同じ形の語 ＋ -ly で意味が変わる語</p>
+</header>
+
+<nav class="tabs">
+  <button class="on" data-t="a">📘 解説</button>
+  <button data-t="b">🔁 -ly の罠</button>
+  <button data-t="c">🃏 暗記カード</button>
+  <button data-t="d">✏️ クイズ</button>
+</nav>
+
+<!-- ========== 解説 ========== -->
+<section id="a" class="on">
+
+  <div class="card">
+    <h2><span class="n">1</span>形容詞と副詞で「形が同じ」語がある</h2>
+    <p class="lead">ふつう副詞は「形容詞 + -ly」で作る（quick → quickly）。でも下の語は<span class="hl">形を変えずにそのまま副詞になる</span>。</p>
+    <table>
+      <tr><th>語</th><th>形容詞として</th><th>副詞として</th></tr>
+      <tr><td class="en">late</td><td class="adj">遅い</td><td class="adv">遅く</td></tr>
+      <tr><td class="en">fast</td><td class="adj">速い</td><td class="adv">速く</td></tr>
+      <tr><td class="en">hard</td><td class="adj">かたい, 困難な</td><td class="adv">熱心に, 一生懸命</td></tr>
+      <tr><td class="en">early</td><td class="adj">早い</td><td class="adv">早く</td></tr>
+      <tr><td class="en">high</td><td class="adj">高い</td><td class="adv">高く</td></tr>
+    </table>
+    <div class="box blue">
+      <b>見分け方</b>：名詞を修飾していれば形容詞、動詞を修飾していれば副詞。<br>
+      <span class="en-i">a <b>hard</b> question</span>（かたい＝難しい問題／形容詞）　vs　<span class="en-i">study <b>hard</b></span>（熱心に勉強する／副詞）
+    </div>
+    <div class="box amber">
+      ⚠️ <b>fastly / earlily という語は存在しない。</b>「速く」は必ず <span class="en-i">fast</span>。
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="n">2</span>hard, late, high は -ly がつくと<span class="hl">意味が変わる</span></h2>
+    <p class="lead">ここが最大のポイント。「元の意味＋ -ly」ではないので丸暗記が必要。</p>
+    <table>
+      <tr><th>語</th><th>意味</th><th>-ly 形</th><th>まったく違う意味</th></tr>
+      <tr class="warn-row"><td class="en">hard</td><td>熱心に</td><td class="en">hardly</td><td><b>ほとんど〜ない</b>（否定語）</td></tr>
+      <tr class="warn-row"><td class="en">late</td><td>遅く</td><td class="en">lately</td><td><b>近頃, 最近</b></td></tr>
+      <tr class="warn-row"><td class="en">high</td><td>高く</td><td class="en">highly</td><td><b>おおいに, 非常に</b>（程度）</td></tr>
+    </table>
+    <div class="ex"><div class="e">He works <b>hard</b>. / He <b>hardly</b> works.</div>
+      <div class="j">彼は熱心に働く。／ 彼はほとんど働かない。　※意味が正反対！</div></div>
+    <div class="ex"><div class="e">He came <b>late</b>. / I haven't seen him <b>lately</b>.</div>
+      <div class="j">彼は遅れて来た。／ 最近彼に会っていない。</div></div>
+    <div class="ex"><div class="e">The bird flew <b>high</b>. / She is <b>highly</b> respected.</div>
+      <div class="j">鳥は高く飛んだ。／ 彼女はおおいに尊敬されている。</div></div>
+  </div>
+
+  <div class="card">
+    <h2><span class="n">3</span>hardly は否定語 → <span class="hlb">not と同じ位置</span>に置く</h2>
+    <p class="lead">hardly は「ほとんど〜ない」という <b>否定語</b>。だから文の中で not が入る場所に入る。</p>
+    <div class="box blue">
+      <b>not の位置ルール</b><br>
+      ・be動詞・助動詞があれば → <b>その直後</b><br>
+      ・一般動詞だけなら → <b>動詞の直前</b>
+    </div>
+    <div class="ex"><div class="e">We <b>hardly</b> notice the things around us.</div>
+      <div class="j">私達は、私達の周りのものをほとんど意識しない。<br>
+      （do not notice と同じ位置＝一般動詞 notice の直前）</div></div>
+    <div class="ex"><div class="e">I can <b>hardly</b> believe it.</div>
+      <div class="j">私はそれをほとんど信じられない。（助動詞 can の直後）</div></div>
+    <div class="ex"><div class="e">There is <b>hardly</b> any water left.</div>
+      <div class="j">水はほとんど残っていない。（be動詞 is の直後）</div></div>
+    <div class="box red">
+      ❌ <b>not と一緒に使わない。</b> <span class="en-i">I don't hardly know him.</span> は誤り（二重否定）。<br>
+      ✅ <span class="en-i">I hardly know him.</span>（彼をほとんど知らない）
+    </div>
+    <div class="box green">
+      <b>仲間の否定副詞</b>：<span class="en-i">scarcely</span>（＝hardly）／ <span class="en-i">rarely, seldom</span>（めったに〜ない・頻度）／ <span class="en-i">barely</span>（かろうじて〜する）
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="n">4</span>the things around us の読み方</h2>
+    <ul>
+      <li><span class="en-i">around</span> は<b>前置詞</b>で「〜の周りに」。<span class="en-i">around us</span>＝「私達の周りの」</li>
+      <li>よって <span class="en-i">the things around us</span> ＝「<b>私達の周りのもの</b>」</li>
+      <li><span class="en-i">the</span> がついている理由 → 後ろの修飾語（around us）によって意味が限定され、<b>どれのことか特定できる</b>と筆者が考えているから</li>
+      <li>これは <span class="en-i"><u>the</u> name of my cat</span> の the と同じ用法（後ろから限定される the）</li>
+    </ul>
+    <div class="box blue">
+      <b>部分訳</b>：私達は、私達の周りのものをほとんど意識しない。
+    </div>
+  </div>
+</section>
+
+<!-- ========== -ly の罠 ========== -->
+<section id="b">
+  <div class="card">
+    <h2><span class="n">＋</span>-ly で意味が変わる語 まとめ</h2>
+    <p class="lead">教科書の3語に加えて、入試で狙われる語もセットで覚えておくと強い。</p>
+    <table>
+      <tr><th>原形</th><th>意味</th><th>-ly 形</th><th>意味</th></tr>
+      <tr><td class="en">hard</td><td>熱心に／難しい</td><td class="en">hardly</td><td>ほとんど〜ない</td></tr>
+      <tr><td class="en">late</td><td>遅く／遅い</td><td class="en">lately</td><td>近頃, 最近</td></tr>
+      <tr><td class="en">high</td><td>高く／高い</td><td class="en">highly</td><td>おおいに, 非常に</td></tr>
+      <tr><td class="en">near</td><td>近くに</td><td class="en">nearly</td><td>ほとんど, もう少しで</td></tr>
+      <tr><td class="en">most</td><td>最も</td><td class="en">mostly</td><td>たいてい, 主に</td></tr>
+      <tr><td class="en">short</td><td>短く</td><td class="en">shortly</td><td>まもなく</td></tr>
+      <tr><td class="en">just</td><td>ちょうど</td><td class="en">justly</td><td>公正に</td></tr>
+    </table>
+    <div class="box amber">
+      <b>紛らわしい2つ</b><br>
+      <span class="en-i">hardly</span>「ほとんど〜<b>ない</b>」＝ほぼゼロ（否定）／ <span class="en-i">nearly</span>「<b>ほとんど</b>」＝ほぼ100%（肯定）<br>
+      <span class="en-i">I hardly finished.</span> ほとんど終わらなかった　⇔　<span class="en-i">I nearly finished.</span> もう少しで終わるところだった
+    </div>
+    <div class="box blue">
+      <b>形容詞なのに -ly で終わる語（副詞ではない！）</b><br>
+      <span class="en-i">friendly</span>（親しみやすい）, <span class="en-i">lovely</span>（美しい）, <span class="en-i">lonely</span>（孤独な）, <span class="en-i">likely</span>（ありそうな）, <span class="en-i">costly</span>（高価な）— すべて<b>形容詞</b>。
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="n">＋</span>hardly を使った定番表現</h2>
+    <div class="ex"><div class="e">hardly any + 名詞</div><div class="j">ほとんど〜ない　例) There is hardly any milk.（牛乳がほとんどない）</div></div>
+    <div class="ex"><div class="e">hardly ever</div><div class="j">めったに〜ない　例) He hardly ever smiles.（彼はめったに笑わない）</div></div>
+    <div class="ex"><div class="e">hardly ~ when / before ...</div><div class="j">〜するとすぐに…　例) I had hardly arrived when it began to rain.</div></div>
+    <div class="ex"><div class="e">can hardly ~</div><div class="j">ほとんど〜できない　例) I can hardly hear you.（ほとんど聞こえません）</div></div>
+  </div>
+</section>
+
+<!-- ========== カード ========== -->
+<section id="c">
+  <div class="card">
+    <h2><span class="n">🃏</span>暗記カード</h2>
+    <p class="lead">カードをタップすると意味が出ます。青＝同形の語 / 紫＝-ly で意味が変わる語。</p>
+    <div class="grid" id="cards"></div>
+    <button class="btn ghost" id="flipAll">すべて裏返す</button>
+  </div>
+</section>
+
+<!-- ========== クイズ ========== -->
+<section id="d">
+  <div class="card" id="quizCard">
+    <div class="qbar"><span id="qn">問 1 / 12</span><span id="sc">正解 0</span></div>
+    <div class="prog"><i id="pb"></i></div>
+    <p class="qtext" id="qt"></p>
+    <p class="qjp" id="qj"></p>
+    <div class="opts" id="op"></div>
+    <div class="fb" id="fb"></div>
+    <button class="btn" id="next" style="display:none">次の問題 →</button>
+  </div>
+</section>
+
+</div>
+
+<script>
+/* tabs */
+document.querySelectorAll('nav.tabs button').forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll('nav.tabs button').forEach(x=>x.classList.remove('on'));
+    document.querySelectorAll('section').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    document.getElementById(b.dataset.t).classList.add('on');
+    window.scrollTo({top:0,behavior:'smooth'});
+  };
+});
+
+/* flip cards */
+const CARDS=[
+ {w:'late',t:'形容詞/副詞',m:'遅い / 遅く'},
+ {w:'fast',t:'形容詞/副詞',m:'速い / 速く',s:'fastly は存在しない'},
+ {w:'hard',t:'形容詞/副詞',m:'かたい・困難な / 熱心に'},
+ {w:'early',t:'形容詞/副詞',m:'早い / 早く'},
+ {w:'high',t:'形容詞/副詞',m:'高い / 高く'},
+ {w:'hardly',t:'-ly で激変',m:'ほとんど〜ない',s:'否定語。not と同じ位置',ly:1},
+ {w:'lately',t:'-ly で激変',m:'近頃, 最近',s:'現在完了と相性◎',ly:1},
+ {w:'highly',t:'-ly で激変',m:'おおいに, 非常に',s:'程度を表す',ly:1},
+ {w:'nearly',t:'発展',m:'ほとんど（肯定）',s:'hardly と逆！',ly:1},
+ {w:'mostly',t:'発展',m:'たいてい, 主に',ly:1},
+ {w:'scarcely',t:'発展',m:'ほとんど〜ない',s:'hardly とほぼ同義',ly:1},
+ {w:'seldom',t:'発展',m:'めったに〜ない',s:'頻度の否定',ly:1}
+];
+document.getElementById('cards').innerHTML=CARDS.map(c=>
+ `<div class="flip ${c.ly?'ly':''}" onclick="this.classList.toggle('f')"><div class="in">
+   <div class="s front"><div class="w">${c.w}</div><div class="t">${c.t}</div></div>
+   <div class="s back">${c.m}${c.s?`<small>${c.s}</small>`:''}</div>
+ </div></div>`).join('');
+
+/* すべて裏返す / すべて表に戻す（トグル） */
+document.getElementById('flipAll').onclick=function(){
+  const all=document.querySelectorAll('.flip');
+  const toBack=[...all].some(f=>!f.classList.contains('f'));
+  all.forEach(f=>f.classList.toggle('f',toBack));
+  this.textContent=toBack?'すべて表に戻す':'すべて裏返す';
+};
+
+/* quiz */
+const Q=[
+ {q:'He <u>___</u> works, so he has no money.',j:'彼はほとんど働かないので、お金がない。',
+  o:['hard','hardly','hardy','harder'],a:1,e:'hardly＝「ほとんど〜ない」。hard だと「熱心に働く」となり後半と矛盾します。'},
+ {q:'She studies very <u>___</u> every day.',j:'彼女は毎日とても熱心に勉強する。',
+  o:['hardly','hardy','hard','hardness'],a:2,e:'「熱心に」は副詞 hard。hard は形を変えずに副詞になります。'},
+ {q:'I haven\'t seen him <u>___</u>.',j:'最近、彼に会っていない。',
+  o:['late','lately','later','latest'],a:1,e:'lately＝「近頃・最近」。現在完了とよく一緒に使われます。'},
+ {q:'The plane flew <u>___</u> above the clouds.',j:'飛行機は雲の上を高く飛んだ。',
+  o:['highly','height','high','higher'],a:2,e:'物理的に「高く」は high。highly は「おおいに（程度）」なので不可。'},
+ {q:'This book is <u>___</u> recommended by teachers.',j:'この本は先生方におおいに推薦されている。',
+  o:['high','highly','height','highness'],a:1,e:'程度の「おおいに・非常に」は highly。'},
+ {q:'Can you run <u>___</u>?',j:'速く走れますか？',
+  o:['fastly','fast','fasten','fastly の副詞形'],a:1,e:'fastly という語は存在しません。「速く」は fast のまま。'},
+ {q:'正しい語順はどれ？（ほとんど信じられない）',j:'I ___ believe it.',
+  o:['I can hardly believe it.','I hardly can believe it.','I can believe hardly it.','I hardly believe can it.'],a:0,
+  e:'hardly は否定語なので not と同じ位置＝助動詞 can の直後。'},
+ {q:'誤りを含む文はどれ？',j:'二重否定に注意。',
+  o:['I hardly know him.','There is hardly any water.','I don\'t hardly know him.','He hardly ever calls me.'],a:2,
+  e:'hardly 自体が否定語。not と併用すると二重否定になり誤りです。'},
+ {q:'<u>hardly</u> と <u>nearly</u> の違いとして正しいものは？',j:'',
+  o:['hardly＝ほとんど〜ない / nearly＝ほとんど（肯定）','どちらも「ほとんど〜ない」','hardly＝もう少しで / nearly＝全く〜ない','意味は同じで語感だけ違う'],a:0,
+  e:'hardly はほぼゼロ（否定）、nearly はほぼ100%（肯定）。正反対です。'},
+ {q:'This is a <u>___</u> question. I can\'t answer it.',j:'これは難しい質問だ。答えられない。',
+  o:['hardly','hard','hardness','hardy'],a:1,e:'名詞 question を修飾＝形容詞。hard は「かたい・困難な」。'},
+ {q:'<u>the</u> things around us で the がつく理由は？',j:'',
+  o:['things が複数形だから','around us という修飾語で意味が限定され特定できるから','前置詞の後だから','around が副詞だから'],a:1,
+  e:'後ろの修飾語で限定されて「どれか特定できる」ため。the name of my cat の the と同じ用法。'},
+ {q:'We hardly notice the things around us. の訳は？',j:'',
+  o:['私達は周りのものを熱心に意識する','私達は最近周りのものを意識する','私達は周りのものをほとんど意識しない','私達は周りのものをおおいに意識する'],a:2,
+  e:'hardly＝ほとんど〜ない / the things around us＝私達の周りのもの。'}
+];
+let i=0,sc=0;
+const $=id=>document.getElementById(id);
+function render(){
+  const q=Q[i];
+  $('qn').textContent=`問 ${i+1} / ${Q.length}`;
+  $('sc').textContent=`正解 ${sc}`;
+  $('pb').style.width=(i/Q.length*100)+'%';
+  $('qt').innerHTML=q.q;
+  $('qj').textContent=q.j||'';
+  $('fb').className='fb';
+  $('next').style.display='none';
+  $('op').innerHTML=q.o.map((t,k)=>`<button class="opt" data-k="${k}">${t}</button>`).join('');
+  $('op').querySelectorAll('.opt').forEach(b=>b.onclick=()=>pick(+b.dataset.k));
+}
+function pick(k){
+  const q=Q[i],ok=k===q.a;
+  if(ok)sc++;
+  $('op').querySelectorAll('.opt').forEach((b,n)=>{
+    b.disabled=true;
+    if(n===q.a)b.classList.add('ok');
+    else if(n===k)b.classList.add('ng');
+  });
+  $('fb').className='fb show '+(ok?'ok':'ng');
+  $('fb').innerHTML=`<b>${ok?'⭕️ 正解！':'❌ 不正解'}</b><br>${q.e}`;
+  $('sc').textContent=`正解 ${sc}`;
+  $('next').style.display='inline-block';
+  $('next').textContent=i===Q.length-1?'結果を見る →':'次の問題 →';
+}
+$('next').onclick=()=>{
+  if(i===Q.length-1){
+    const p=Math.round(sc/Q.length*100);
+    const msg=p===100?'完璧！ hardly マスターです 🎉':p>=70?'good! 間違えた所を解説で確認しよう':'もう一度解説を読んでから再挑戦しよう';
+    $('quizCard').innerHTML=`<div class="result"><div class="score">${sc} / ${Q.length}</div>
+      <p style="font-size:15px;color:var(--sub)">正答率 ${p}%<br>${msg}</p>
+      <button class="btn" onclick="location.reload()">もう一度挑戦する</button></div>`;
+  }else{i++;render();}
+};
+render();
+</script>
+</body>
+</html>
