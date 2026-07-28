@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>完全否定と部分否定</title>
+<style>
+:root{
+  --bg:#f7f8fa; --card:#fff; --ink:#1a2233; --sub:#5c6b84;
+  --line:#e3e8f0; --full:#e0443e; --part:#2b7fd4;
+  --fullbg:#fdecea; --partbg:#e8f2fc; --ok:#1a9c6c; --ng:#d94141;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,"Hiragino Sans","Yu Gothic",sans-serif;
+  line-height:1.75;padding:24px 16px 80px}
+.wrap{max-width:860px;margin:0 auto}
+h1{font-size:1.7rem;margin:0 0 4px;letter-spacing:-.01em}
+.lead{color:var(--sub);font-size:.95rem;margin:0 0 28px}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:22px 20px;margin-bottom:18px}
+h2{font-size:1.12rem;margin:0 0 14px;display:flex;align-items:center;gap:9px}
+h2 .n{background:var(--ink);color:#fff;width:24px;height:24px;border-radius:50%;
+  display:grid;place-items:center;font-size:.78rem;flex:none}
+h3{font-size:.95rem;margin:20px 0 8px;color:var(--sub)}
+
+/* compare */
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:620px){.cmp{grid-template-columns:1fr}}
+.box{border-radius:12px;padding:16px}
+.box.f{background:var(--fullbg);border:1px solid #f5c6c3}
+.box.p{background:var(--partbg);border:1px solid #c3ddf5}
+.box h4{margin:0 0 6px;font-size:1.05rem}
+.box.f h4{color:var(--full)} .box.p h4{color:var(--part)}
+.box p{margin:0 0 10px;font-size:.9rem;color:#42506b}
+.ex{background:rgba(255,255,255,.75);border-radius:8px;padding:10px 12px;font-size:.88rem}
+.ex .en{font-family:ui-monospace,monospace;font-size:.9rem}
+.ex .ja{color:var(--sub);font-size:.84rem}
+
+/* visual meter */
+.meter{display:flex;gap:6px;margin:10px 0 4px}
+.dot{width:26px;height:26px;border-radius:50%;border:2px solid #b9c4d6;background:#fff;
+  display:grid;place-items:center;font-size:.8rem;font-weight:700;color:#8a96ab}
+.dot.x{background:var(--full);border-color:var(--full);color:#fff}
+.dot.o{background:var(--ok);border-color:var(--ok);color:#fff}
+.cap{font-size:.78rem;color:var(--sub)}
+
+/* table */
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+th,td{border:1px solid var(--line);padding:9px 11px;text-align:left}
+th{background:#eef2f7;font-size:.85rem;color:var(--sub);font-weight:600}
+tbody tr{cursor:pointer;transition:background .15s}
+tbody tr:hover{background:#f4f8ff}
+tbody tr.open{background:#eef6ff}
+td.key{font-family:ui-monospace,monospace;font-weight:600;color:var(--part)}
+tr.detail td{background:#fbfcfe;font-size:.86rem;color:#42506b;padding:12px 14px}
+tr.detail{display:none}
+tr.detail.show{display:table-row}
+.hint{font-size:.8rem;color:var(--sub);margin:8px 0 0}
+
+/* toggle demo */
+.toggle{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tbtn{border:1px solid var(--line);background:#fff;border-radius:999px;
+  padding:7px 15px;font-size:.86rem;cursor:pointer;font-family:inherit;transition:.15s}
+.tbtn.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.stage{background:#f2f5fa;border-radius:12px;padding:18px;min-height:130px}
+.stage .sent{font-family:ui-monospace,monospace;font-size:1.05rem;margin-bottom:4px}
+.stage .sent b{background:#fff2a8;padding:0 3px;border-radius:3px}
+.stage .tr{color:var(--sub);font-size:.9rem;margin-bottom:12px}
+.badge{display:inline-block;font-size:.75rem;font-weight:700;padding:3px 10px;
+  border-radius:6px;margin-bottom:10px}
+.badge.f{background:var(--full);color:#fff}
+.badge.p{background:var(--part);color:#fff}
+
+/* quiz */
+.q{border-top:1px solid var(--line);padding:16px 0 4px}
+.q:first-of-type{border-top:none}
+.qt{font-family:ui-monospace,monospace;font-size:.98rem;margin-bottom:4px}
+.qs{font-size:.8rem;color:var(--sub);margin-bottom:10px}
+.opts{display:flex;gap:8px;flex-wrap:wrap}
+.opt{border:1px solid var(--line);background:#fff;border-radius:9px;padding:9px 14px;
+  font-size:.87rem;cursor:pointer;font-family:inherit;transition:.15s}
+.opt:hover{border-color:#9db4d4}
+.opt.right{background:#e6f7f0;border-color:var(--ok);color:#0d6e4a;font-weight:700}
+.opt.wrong{background:#fdeaea;border-color:var(--ng);color:#a52626;font-weight:700;
+  text-decoration:line-through;text-decoration-color:rgba(217,65,65,.5)}
+.opt .mk{font-weight:900;margin-right:5px;font-size:1rem}
+.opt.dim{opacity:.45}
+
+/* verdict banner */
+.vd{display:none;align-items:center;gap:10px;margin-top:12px;padding:11px 14px;
+  border-radius:10px;font-size:.92rem;font-weight:700;animation:pop .25s ease-out}
+.vd.show{display:flex}
+.vd .ic{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;
+  font-size:1rem;font-weight:900;color:#fff;flex:none}
+.vd.ok{background:#e6f7f0;border:1.5px solid var(--ok);color:#0d6e4a}
+.vd.ok .ic{background:var(--ok)}
+.vd.no{background:#fdeaea;border:1.5px solid var(--ng);color:#a52626}
+.vd.no .ic{background:var(--ng)}
+.vd .sm{font-weight:500;font-size:.84rem;opacity:.85}
+@keyframes pop{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+
+.fb{display:none;margin-top:8px;font-size:.87rem;background:#f2f5fa;
+  border-left:3px solid var(--part);padding:10px 12px;border-radius:0 8px 8px 0}
+.fb.show{display:block}
+.fb .lb{font-weight:700;color:var(--part);margin-right:6px}
+.score{margin-top:18px;font-size:.9rem;font-weight:600;color:var(--sub)}
+
+.tip{background:#fffbe8;border:1px solid #f0e0a8;border-radius:10px;
+  padding:12px 14px;font-size:.88rem;margin-top:14px}
+.tip b{color:#8a6d1a}
+
+.intro{font-size:.87rem;color:var(--sub);margin:-4px 0 16px}
+
+/* understanding bars */
+.bars{display:flex;flex-direction:column;gap:9px}
+.bar-row{display:grid;grid-template-columns:1fr 150px 76px;align-items:center;gap:12px}
+@media(max-width:620px){.bar-row{grid-template-columns:1fr 90px 70px;gap:8px}}
+.bl{font-family:ui-monospace,monospace;font-size:.86rem}
+.bar{height:14px;background:#e3e8f0;border-radius:7px;overflow:hidden}
+.bar span{display:block;height:100%;border-radius:7px;transition:width .4s}
+.bv{font-size:.78rem;font-weight:700;color:var(--sub);text-align:right}
+.nbtn{border:none;background:var(--ink);color:#fff;border-radius:999px;
+  padding:9px 18px;font-size:.86rem;font-weight:600;cursor:pointer;font-family:inherit}
+.nbtn:hover{opacity:.86}
+.next{display:none;align-items:center;gap:12px;flex-wrap:wrap;margin-top:16px;
+  padding:14px;background:#eef6ff;border:1px solid #c3ddf5;border-radius:10px;
+  font-size:.88rem;color:#2a5b8c;animation:pop .25s ease-out}
+.next.show{display:flex}
+html{scroll-behavior:smooth}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>完全否定と部分否定</h1>
+<p class="lead">まず解いて、間違えたところから学ぶ。答えるたびに解説が出ます。</p>
+
+<section>
+  <h2><span class="n">1</span>まず腕試し（6問）</h2>
+  <p class="intro">知識ゼロでもOK。勘で選んで、出てくる解説を読むのが一番早く身につきます。</p>
+  <div id="quiz"></div>
+  <div class="score" id="score">0 / 6 正解</div>
+  <div class="next" id="next">
+    <span>解き終わりました。下の解説で仕組みを固めましょう</span>
+    <button class="nbtn" id="goLearn">解説を見る ↓</button>
+  </div>
+</section>
+
+<section id="learn">
+  <h2><span class="n">2</span>全体像</h2>
+  <div class="cmp">
+    <div class="box f">
+      <h4>完全否定</h4>
+      <p>「1つも / 全然〜ない」= <b>ゼロ</b></p>
+      <div class="meter">
+        <div class="dot x">✕</div><div class="dot x">✕</div><div class="dot x">✕</div><div class="dot x">✕</div>
+      </div>
+      <p class="cap">全部ダメ</p>
+      <div class="ex">
+        <div class="en">None of them are kind.</div>
+        <div class="ja">彼らは<b>誰も</b>親切ではない。</div>
+      </div>
+    </div>
+    <div class="box p">
+      <h4>部分否定</h4>
+      <p>「全部が〜なわけではない」= <b>一部はそう</b></p>
+      <div class="meter">
+        <div class="dot o">○</div><div class="dot x">✕</div><div class="dot o">○</div><div class="dot x">✕</div>
+      </div>
+      <p class="cap">そうでないものも混じる</p>
+      <div class="ex">
+        <div class="en">Not all of them are kind.</div>
+        <div class="ja">彼らの<b>全員が</b>親切なわけではない。</div>
+      </div>
+    </div>
+  </div>
+  <div class="tip"><b>コツ:</b> 日本語訳に「〜なわけではない」が入れば部分否定。「1つも／全く」なら完全否定。</div>
+</section>
+
+<section>
+  <h2><span class="n">3</span>部分否定になる語（行をクリック）</h2>
+  <table>
+    <thead><tr><th style="width:34%">元の意味</th><th>否定語が付いたときの意味</th></tr></thead>
+    <tbody id="tbl"></tbody>
+  </table>
+  <p class="hint">※ 100% や「全部」を表す語が not のあとに来ると部分否定になる。</p>
+</section>
+
+<section>
+  <h2><span class="n">4</span>つまずきやすい2つ</h2>
+
+  <h3>① both — 「両方とも〜なわけではない」</h3>
+  <p class="intro">both が not に打ち消されるので、<b>片方はそう</b>という意味が残ります。</p>
+  <div class="cmp">
+    <div class="box p">
+      <h4 style="font-size:.95rem">He didn't answer both questions.</h4>
+      <div class="meter">
+        <div class="dot o">○</div><div class="dot x">✕</div>
+      </div>
+      <p class="cap">Q1には答えた／Q2には答えていない → <b>部分否定</b></p>
+    </div>
+    <div class="box f">
+      <h4 style="font-size:.95rem">He answered neither question.</h4>
+      <div class="meter">
+        <div class="dot x">✕</div><div class="dot x">✕</div>
+      </div>
+      <p class="cap">どちらも答えていない → <b>完全否定</b></p>
+    </div>
+  </div>
+  <div class="tip"><b>ゼロを言いたいとき:</b> neither / not ... either を使う。not both では絶対にゼロにならない。</div>
+
+  <h3>② fully / completely — 「完全に〜なわけではない」</h3>
+  <p class="intro">「100%」を表す語が打ち消されるだけなので、<b>途中まではそう</b>が残ります。バーで見ると一目瞭然。</p>
+  <div class="bars">
+    <div class="bar-row">
+      <div class="bl">I <u>fully</u> understand it.</div>
+      <div class="bar"><span style="width:100%;background:var(--ok)"></span></div>
+      <div class="bv">100%</div>
+    </div>
+    <div class="bar-row">
+      <div class="bl">I don't <u>fully</u> understand it.</div>
+      <div class="bar"><span style="width:60%;background:var(--part)"></span></div>
+      <div class="bv">部分否定</div>
+    </div>
+    <div class="bar-row">
+      <div class="bl">I don't understand it <u>at all</u>.</div>
+      <div class="bar"><span style="width:0%;background:var(--full)"></span></div>
+      <div class="bv">完全否定</div>
+    </div>
+  </div>
+  <div class="tip"><b>言いかえ:</b> not fully ＝ not completely ＝ not entirely ＝ not quite（どれも「完全にではない」）。<br><b>ゼロを言いたいとき:</b> not ... at all を使う。</div>
+</section>
+
+<section>
+  <h2><span class="n">5</span>言い換え比較</h2>
+  <div class="toggle" id="tg"></div>
+  <div class="stage" id="stage"></div>
+</section>
+
+<section>
+  <h2><span class="n">6</span>もう一度解いてみる</h2>
+  <p class="intro">解説を読んだあとに解き直すと定着します。</p>
+  <button class="nbtn" id="retry">テストをやり直す ↑</button>
+</section>
+
+</div>
+
+<script>
+const rows=[
+ ["all","すべて","not all ~","すべてが〜なわけではない",
+  "Not all birds can fly.<br>すべての鳥が飛べるわけではない。（飛べない鳥もいる）<br><span style='color:#5c6b84'>完全否定は No birds can fly. / None of the birds can fly.</span>"],
+ ["always","いつも","not always ~","いつも〜なわけではない",
+  "He is not always late.<br>彼はいつも遅刻するわけではない。（時々は間に合う）<br><span style='color:#5c6b84'>完全否定は He is never late.</span>"],
+ ["both","両方の","not both ~","両方とも〜なわけではない",
+  "I don't like both of them.<br>両方とも好きなわけではない。（片方は好き）<br><span style='color:#5c6b84'>完全否定は I like neither of them.</span>"],
+ ["completely","完全に","not completely ~","完全に〜なわけではない",
+  "I don't completely agree.<br>完全に賛成というわけではない。（部分的には賛成）<br><span style='color:#5c6b84'>同類: not fully / not entirely / not quite / not altogether　→ ゼロは not ... at all</span>"],
+ ["every","皆","not every ~","皆が〜なわけではない",
+  "Not every student passed.<br>全員が合格したわけではない。<br><span style='color:#5c6b84'>完全否定は No student passed.</span>"],
+ ["fully","完全に・十分に","not fully ~","完全に〜なわけではない",
+  "I don't fully understand it.<br>完全に理解しているわけではない。（ある程度は分かっている）<br><span style='color:#5c6b84'>completely とほぼ同義。ゼロにしたいなら I don't understand it at all.</span>"],
+ ["necessarily","必ず","not necessarily ~","必ずしも〜なわけではない",
+  "Expensive things are not necessarily good.<br>高いものが必ずしも良いとは限らない。<br><span style='color:#5c6b84'>会話の \"Not necessarily.\" =「そうとは限らないよ」</span>"]
+];
+const tb=document.getElementById('tbl');
+rows.forEach((r,i)=>{
+  const tr=document.createElement('tr');
+  tr.innerHTML=`<td><span class="key">${r[0]}</span> 「${r[1]}」</td><td><span class="key">${r[2]}</span> 「${r[3]}」</td>`;
+  const d=document.createElement('tr');
+  d.className='detail'; d.innerHTML=`<td colspan="2">${r[4]}</td>`;
+  tr.onclick=()=>{d.classList.toggle('show');tr.classList.toggle('open')};
+  tb.append(tr,d);
+});
+
+const pairs=[
+ {k:"all / every",f:["No students came.","学生は誰も来なかった。","No"],p:["Not all students came.","全員が来たわけではない。","Not all"]},
+ {k:"always",f:["She is never angry.","彼女は決して怒らない。","never"],p:["She is not always angry.","いつも怒っているわけではない。","not always"]},
+ {k:"both",f:["I know neither of them.","2人とも知らない。","neither"],p:["I don't know both of them.","2人とも知っているわけではない。","both"]},
+ {k:"完全に",f:["I don't understand it at all.","全く理解できない。","at all"],p:["I don't fully understand it.","完全に理解しているわけではない。","fully"]}
+];
+const tg=document.getElementById('tg'),stage=document.getElementById('stage');
+function hl(s,w){return s.replace(w,'<b>'+w+'</b>')}
+function draw(i){
+  [...tg.children].forEach((b,j)=>b.classList.toggle('on',i===j));
+  const p=pairs[i];
+  stage.innerHTML=`
+  <div class="cmp">
+    <div><span class="badge f">完全否定</span>
+      <div class="sent">${hl(p.f[0],p.f[2])}</div><div class="tr">${p.f[1]}</div></div>
+    <div><span class="badge p">部分否定</span>
+      <div class="sent">${hl(p.p[0],p.p[2])}</div><div class="tr">${p.p[1]}</div></div>
+  </div>`;
+}
+pairs.forEach((p,i)=>{const b=document.createElement('button');
+  b.className='tbtn';b.textContent=p.k;b.onclick=()=>draw(i);tg.append(b)});
+draw(0);
+
+const qs=[
+ {t:"Not all of my friends like sushi.",s:"どちらの否定？",a:1,
+  e:"<b>not + all</b> → 部分否定。「友達<u>全員が</u>寿司好きなわけではない」＝好きな友達もいる。<br><span style='color:#5c6b84'>ゼロにしたいなら None of my friends like sushi.</span>"},
+ {t:"The rich are not always happy.",s:"どちらの否定？",a:1,
+  e:"<b>not + always</b> → 部分否定。「金持ちが<u>いつも</u>幸せとは限らない」＝幸せな時もある。<br><span style='color:#5c6b84'>ゼロにしたいなら The rich are never happy.</span>"},
+ {t:"He didn't answer both questions.",s:"どちらの否定？",a:1,
+  e:"<b>not + both</b> → 部分否定。both（両方）を打ち消すので「<u>両方とも</u>答えたわけではない」＝<b>片方には答えた</b>。<br><span style='color:#5c6b84'>ゼロにしたいなら He answered neither question. / He didn't answer either question.（どちらも答えなかった）</span>"},
+ {t:"I don't fully understand it.",s:"どちらの否定？",a:1,
+  e:"<b>not + fully</b> → 部分否定。fully（完全に）＝100%を打ち消すので「<u>完全に</u>理解しているわけではない」＝<b>ある程度は分かっている</b>。<br><span style='color:#5c6b84'>fully / completely / entirely / quite はどれも100%を表す語。not が付くと「100%ではない」になる。</span>"},
+ {t:"I don't understand it at all.",s:"どちらの否定？（1つ前と比べて）",a:0,
+  e:"<b>not ... at all</b> は「全く〜ない」＝理解度ゼロ。完全否定。<br><span style='color:#5c6b84'>not <b>fully</b> understand（少しは分かる）と not understand <b>at all</b>（全然分からない）の差がポイント。</span>"},
+ {t:"Being smart doesn't necessarily mean being wise.",s:"どちらの否定？",a:1,
+  e:"<b>not necessarily</b> → 部分否定。「頭が良いことは<u>必ずしも</u>賢明を意味するわけではない」。"}
+];
+const labels=["完全否定","部分否定"];
+let answered=new Set(), correct=new Set();
+const qz=document.getElementById('quiz'), sc=document.getElementById('score');
+const nx=document.getElementById('next');
+
+function updateScore(){
+  const all = answered.size===qs.length;
+  sc.textContent=`${correct.size} / ${qs.length} 正解`
+    + (all
+        ? (correct.size===qs.length ? '　全問正解！' : '　解説で確認しよう')
+        : `　（回答 ${answered.size}/${qs.length}）`);
+  nx.classList.toggle('show', all);
+}
+
+function buildQuiz(){
+qs.forEach((q,i)=>{
+  const d=document.createElement('div');
+  d.className='q';
+  d.innerHTML=`<div class="qt">${q.t}</div><div class="qs">${q.s}</div>
+    <div class="opts"></div>
+    <div class="vd"><span class="ic"></span><span class="msg"></span></div>
+    <div class="fb"><span class="lb">解説</span>${q.e}</div>`;
+  const ob=d.querySelector('.opts'), fb=d.querySelector('.fb'), vd=d.querySelector('.vd');
+  labels.forEach((L,j)=>{
+    const b=document.createElement('button');
+    b.className='opt';
+    b.innerHTML=`<span class="mk"></span>${L}`;
+    b.addEventListener('click',()=>{
+      if(answered.has(i)) return;
+      answered.add(i);
+      const isOK = (j===q.a);
+      if(isOK) correct.add(i);
+
+      [...ob.children].forEach((x,k)=>{
+        const mk=x.querySelector('.mk');
+        if(k===q.a){ x.classList.add('right'); mk.textContent='○'; }
+        else if(k===j){ x.classList.add('wrong'); mk.textContent='✕'; }
+        else { x.classList.add('dim'); }
+      });
+
+      vd.classList.add('show', isOK?'ok':'no');
+      vd.querySelector('.ic').textContent = isOK?'○':'✕';
+      vd.querySelector('.msg').innerHTML = isOK
+        ? `正解！　<span class="sm">「${labels[q.a]}」で合っています</span>`
+        : `不正解　<span class="sm">あなたの答え「${labels[j]}」→ 正解は「${labels[q.a]}」</span>`;
+
+      fb.classList.add('show');
+      updateScore();
+    });
+    ob.append(b);
+  });
+  qz.append(d);
+});
+}
+
+buildQuiz();
+updateScore();
+
+document.getElementById('goLearn').addEventListener('click',()=>{
+  document.getElementById('learn').scrollIntoView({behavior:'smooth',block:'start'});
+});
+document.getElementById('retry').addEventListener('click',()=>{
+  answered=new Set(); correct=new Set();
+  qz.innerHTML='';
+  buildQuiz();
+  updateScore();
+  qz.scrollIntoView({behavior:'smooth',block:'center'});
+});
+</script>
+</body>
+</html>
