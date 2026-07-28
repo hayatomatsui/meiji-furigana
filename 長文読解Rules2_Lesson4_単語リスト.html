@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 4 単語リスト｜Savant Syndrome</title>
+<style>
+:root{
+  --g3:#4CAF50; --g3p:#8BC34A; --g2:#03A9F4; --g2p:#7E57C2; --g1:#E91E63; --gx:#F44336;
+  --bg:#f4f6fb; --card:#ffffff; --ink:#1b2233; --sub:#6b7590;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+  background:var(--bg); color:var(--ink); padding:18px; line-height:1.6;
+}
+.wrap{max-width:1100px;margin:0 auto}
+header{
+  background:linear-gradient(135deg,#ff6a3d,#ff2e63 55%,#a020f0);
+  color:#fff;border-radius:18px;padding:26px 24px;margin-bottom:20px;
+  box-shadow:0 8px 24px rgba(255,46,99,.25);
+}
+header h1{font-size:1.5rem;margin-bottom:6px}
+header p{opacity:.92;font-size:.9rem}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.stat{background:rgba(255,255,255,.2);border-radius:12px;padding:8px 14px;font-size:.85rem;backdrop-filter:blur(4px)}
+.stat b{font-size:1.15rem;display:block}
+
+h2{font-size:1.1rem;margin:26px 0 12px;padding-left:12px;border-left:5px solid #ff2e63}
+
+/* summary table */
+table{width:100%;border-collapse:collapse;background:var(--card);border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+th,td{padding:11px 14px;text-align:left;border-bottom:1px solid #eef1f6;font-size:.9rem}
+th{background:#2b3350;color:#fff;font-size:.82rem;letter-spacing:.04em}
+tr:last-child td{border-bottom:none}
+.bar{height:9px;border-radius:5px;display:inline-block;vertical-align:middle;margin-right:8px}
+
+/* controls */
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:14px 0 18px}
+button{
+  font-family:inherit;cursor:pointer;border:none;border-radius:999px;
+  padding:9px 16px;font-size:.85rem;font-weight:700;transition:.15s;
+  background:#fff;color:var(--sub);box-shadow:0 2px 6px rgba(0,0,0,.08)
+}
+button:hover{transform:translateY(-1px)}
+button.on{background:#2b3350;color:#fff}
+.spacer{flex:1}
+.util{background:#ffe9e2;color:#d84315}
+
+/* cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:12px}
+.card{
+  background:var(--card);border-radius:14px;padding:14px 16px;cursor:pointer;
+  box-shadow:0 2px 8px rgba(0,0,0,.07);border-left:6px solid #ccc;
+  transition:.18s;position:relative;user-select:none;
+}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.12)}
+.card.done{opacity:.45}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.word{font-size:1.12rem;font-weight:700;letter-spacing:.01em}
+.pos{font-size:.7rem;color:var(--sub);font-style:italic}
+.badge{font-size:.68rem;font-weight:800;color:#fff;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.meaning{
+  margin-top:9px;padding-top:9px;border-top:1px dashed #dde2ec;
+  font-size:.92rem;color:#333;
+}
+.hidden .meaning{
+  filter:blur(6px); opacity:.55;
+}
+.hint{font-size:.68rem;color:#b9c0d0;margin-top:6px}
+.line{font-size:.68rem;color:#b9c0d0}
+.check{position:absolute;top:8px;right:10px;font-size:.7rem;color:#4CAF50;display:none;font-weight:800}
+.card.done .check{display:block}
+footer{margin:30px 0 10px;text-align:center;color:var(--sub);font-size:.78rem}
+@media(max-width:600px){body{padding:12px}header h1{font-size:1.2rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Lesson 4 — Savant Syndrome 重要単語リスト</h1>
+  <p>カードをタップすると意味が表示されます。もう一度タップで隠れます。英検レベル別に色分けしています。</p>
+  <div class="stats">
+    <div class="stat"><b id="total">0</b>総単語数</div>
+    <div class="stat"><b id="shown">0</b>表示中</div>
+    <div class="stat"><b id="doneN">0</b>覚えた</div>
+  </div>
+</header>
+
+<h2>レベル別分布</h2>
+<table>
+  <thead><tr><th>英検レベル</th><th>語数</th><th>割合</th><th>目安</th></tr></thead>
+  <tbody id="sumbody"></tbody>
+</table>
+
+<h2>単語カード</h2>
+<div class="controls" id="filters"></div>
+<div class="controls">
+  <button class="util" onclick="allHide()">すべて隠す</button>
+  <button class="util" onclick="allShow()">すべて表示</button>
+  <button class="util" onclick="shuffle()">シャッフル</button>
+  <button class="util" onclick="resetDone()">「覚えた」をリセット</button>
+  <span class="spacer"></span>
+  <button class="util" onclick="toggleDoneFilter()" id="hideDoneBtn">覚えた語を隠す</button>
+</div>
+<div class="grid" id="grid"></div>
+
+<footer>ダブルタップ（長押しではなく右上の余白クリック）ではなく、カード右上の「✓」は覚えたマークです。カードを2本指ではなく、通常タップで意味の表示／非表示が切り替わります。</footer>
+</div>
+
+<script>
+const LV = {
+  "3級":{c:"var(--g3)",note:"中学卒業程度"},
+  "準2級":{c:"var(--g3p)",note:"高校中級程度"},
+  "2級":{c:"var(--g2)",note:"高校卒業程度"},
+  "準1級":{c:"var(--g2p)",note:"大学中級程度"},
+  "1級":{c:"var(--g1)",note:"大学上級程度"},
+  "級外":{c:"var(--gx)",note:"専門語・注釈必須"}
+};
+
+const WORDS = [
+ ["mystery","名","謎、神秘","準2級",1],
+ ["hoof / hooves","名","ひづめ（複数形 hooves）","準1級",1],
+ ["plant","動","（しっかり）置く、据える","2級",2],
+ ["settle","動","（争い・議論に）決着をつける","2級",3],
+ ["debate","名","論争、議論","準2級",4],
+ ["odd","形","奇妙な、風変わりな","2級",5],
+ ["behavior","名","ふるまい、行動","準2級",5],
+ ["blame A on B","熟","AをBのせいにする","2級",5],
+ ["sustain","動","（けが・損害を）負う、受ける","準1級",6],
+ ["injury","名","けが、負傷","2級",6],
+ ["stagecoach","名","駅馬車","級外",6],
+ ["passenger","名","乗客","準2級",6],
+ ["wound","動","傷つける、負傷させる","2級",7],
+ ["partially","副","部分的に、ある程度","準1級",7],
+ ["be responsible for","熟","〜の原因である、〜に責任がある","2級",8],
+ ["artistic","形","芸術的な","準2級",8],
+ ["brilliance","名","才気、卓越した才能","準1級",8],
+ ["acquired","形","後天的な、獲得された","準1級",8],
+ ["savant","名","サヴァン（並外れた能力を持つ人）","級外",8],
+ ["extraordinary","形","並外れた、驚くべき","準1級",9],
+ ["apparently","副","どうやら〜らしい、見たところ","2級",10],
+ ["bury","動","埋める、隠す（buried）","2級",10],
+ ["unlock","動","解き放つ、（能力を）開放する","2級",11],
+ ["as a result of","熟","〜の結果として","3級",13],
+ ["strike","動","打つ、ぶつける（struck）","2級",13],
+ ["master pianist","名","名ピアニスト、熟達したピアニスト","2級",16],
+ ["despite","前","〜にもかかわらず","2級",16],
+ ["lack","動","〜を欠いている","2級",16],
+ ["mental age","名","精神年齢","準1級",17],
+ ["due to","熟","〜が原因で、〜のために","2級",17],
+ ["sculpture","名","彫刻、彫刻作品","準1級",18],
+ ["incredible","形","信じられないほどすばらしい","2級",18],
+ ["figure out","熟","解明する、突き止める","2級",19],
+ ["cause","動","引き起こす","3級",19],
+ ["syndrome","名","症候群","準1級",20],
+ ["degenerative","形","退行性の、変性の","1級",20],
+ ["gain","動","獲得する、手に入れる","2級",21],
+ ["condition","名","（健康）状態、病状","準2級",21],
+ ["worsen","動","悪化する","準1級",21],
+ ["expert","名","専門家","準2級",23],
+ ["tissue","名","（生体の）組織","準1級",23],
+ ["repurpose","動","別の用途に転用する","級外",23],
+ ["intact","形","無傷の、損なわれていない","1級",24],
+ ["rewiring","名","（神経の）配線しなおし、再結線","級外",24],
+ ["release","名","解放、放出","2級",24],
+ ["potential","名","潜在能力、可能性","2級",25],
+ ["in other words","熟","言い換えれば","3級",25],
+ ["be capable of","熟","〜する能力がある","2級",27],
+ ["device","名","装置、機器","2級",28],
+ ["recreate","動","再現する、作り直す","準1級",29],
+ ["take part in","熟","〜に参加する","3級",30],
+ ["a series of","熟","一連の〜","2級",30],
+ ["electromagnetic","形","電磁気の","1級",31],
+ ["pulse","名","パルス、拍動","準1級",31],
+ ["unconvincing","形","説得力のない、本物らしくない","準1級",33],
+ ["magnetic stimulation","名","磁気刺激","準1級",34],
+ ["convincing","形","説得力のある、真に迫った","準1級",35],
+ ["expression","名","表情、表現","準2級",36],
+ ["prove","動","証明する","2級",37],
+ ["record","動","記録する","3級",37],
+ ["burst","名","爆発的な高まり、一時的な急増","準1級",39],
+ ["permanently","副","永続的に、恒久的に","準1級",40],
+ ["brilliant","形","非常に優秀な、才気あふれる","2級",40],
+ ["at the cost of","熟","〜を犠牲にして","2級",41],
+ ["verbal","形","言語の、言葉による","準1級",41],
+ ["enhance","動","高める、増進させる（設問3）","準1級",0],
+ ["incident","名","出来事、事件（設問3）","準1級",0],
+ ["reorganize","動","再編成する（設問3）","準1級",0],
+ ["illusion","名","錯覚、幻影（設問6）","準1級",0],
+ ["remarkable","形","注目すべき、驚くべき（設問2）","準1級",0],
+ ["surgery","名","外科手術（設問7）","2級",0],
+ ["lessen","動","減らす、弱める（設問7）","準1級",0],
+ ["excite","動","（脳などを）刺激する、活性化する（設問4）","2級",0],
+ ["statement","名","記述、陳述（設問）","2級",0],
+ ["support","動","（主張を）裏づける（設問7）","2級",0]
+];
+
+const ORDER=["3級","準2級","2級","準1級","1級","級外"];
+let data=[...WORDS], activeLv="all", hideDone=false;
+const done=new Set();
+
+// summary
+const counts={}; ORDER.forEach(l=>counts[l]=0);
+WORDS.forEach(w=>counts[w[3]]++);
+document.getElementById("sumbody").innerHTML=ORDER.map(l=>{
+  const n=counts[l], p=Math.round(n/WORDS.length*100);
+  return `<tr><td><span class="badge" style="background:${LV[l].c}">${l}</span></td>
+  <td><b>${n}</b> 語</td>
+  <td><span class="bar" style="width:${Math.max(p*2,6)}px;background:${LV[l].c}"></span>${p}%</td>
+  <td style="color:var(--sub)">${LV[l].note}</td></tr>`;
+}).join("");
+
+// filters
+document.getElementById("filters").innerHTML=
+ `<button class="on" data-lv="all">すべて (${WORDS.length})</button>`+
+ ORDER.map(l=>`<button data-lv="${l}" style="color:${LV[l].c}">${l} (${counts[l]})</button>`).join("");
+document.getElementById("filters").onclick=e=>{
+  if(e.target.tagName!=="BUTTON")return;
+  [...e.currentTarget.children].forEach(b=>b.classList.remove("on"));
+  e.target.classList.add("on"); activeLv=e.target.dataset.lv; render();
+};
+
+function render(){
+  const g=document.getElementById("grid");
+  const list=data.filter(w=>(activeLv==="all"||w[3]===activeLv)&&!(hideDone&&done.has(w[0])));
+  g.innerHTML=list.map(w=>{
+    const [word,pos,mean,lv,line]=w;
+    return `<div class="card hidden" data-w="${word}" style="border-left-color:${LV[lv].c}">
+      <span class="check">✓ 覚えた</span>
+      <div class="top"><span class="word">${word}</span>
+      <span class="badge" style="background:${LV[lv].c}">${lv}</span></div>
+      <div class="pos">${pos}${line?`　<span class="line">l.${line}</span>`:""}</div>
+      <div class="meaning">${mean}</div>
+      <div class="hint">タップで表示 ／ ダブルクリックで「覚えた」</div>
+    </div>`;
+  }).join("");
+  [...g.children].forEach(c=>{
+    if(done.has(c.dataset.w))c.classList.add("done");
+    c.onclick=()=>c.classList.toggle("hidden");
+    c.ondblclick=e=>{e.preventDefault();
+      const w=c.dataset.w; done.has(w)?done.delete(w):done.add(w);
+      c.classList.toggle("done"); upd();};
+  });
+  document.getElementById("shown").textContent=list.length;
+  upd();
+}
+function upd(){document.getElementById("doneN").textContent=done.size;}
+function allHide(){document.querySelectorAll(".card").forEach(c=>c.classList.add("hidden"));}
+function allShow(){document.querySelectorAll(".card").forEach(c=>c.classList.remove("hidden"));}
+function shuffle(){for(let i=data.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[data[i],data[j]]=[data[j],data[i]];}render();}
+function resetDone(){done.clear();render();}
+function toggleDoneFilter(){hideDone=!hideDone;
+  document.getElementById("hideDoneBtn").textContent=hideDone?"覚えた語も表示":"覚えた語を隠す";render();}
+
+document.getElementById("total").textContent=WORDS.length;
+render();
+</script>
+</body>
+</html>
