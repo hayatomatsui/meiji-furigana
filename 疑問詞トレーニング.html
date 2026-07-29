@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>疑問詞の語順トレーニング</title>
+<style>
+  :root{
+    --q:#e8710a;
+    --aux:#1a73e8;
+    --subj:#0f9d58;
+    --verb:#8430ce;
+    --etc:#5f6368;
+    --bg:#f4f7fb;
+    --ink:#20303f;
+    --line:#d5e0ec;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;padding:0 0 80px;background:var(--bg);color:var(--ink);
+    font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,system-ui,sans-serif;
+    line-height:1.8;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:0 16px;}
+  header{background:linear-gradient(135deg,#2f6fb5,#59a5dd);color:#fff;padding:30px 16px 26px;text-align:center;margin-bottom:22px;}
+  header h1{margin:0 0 6px;font-size:26px;}
+  header p{margin:0;font-size:14px;opacity:.93;}
+
+  .tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
+  .tab{flex:1 1 150px;padding:12px 8px;border:2px solid var(--line);background:#fff;
+    border-radius:10px;cursor:pointer;font:700 15px inherit;color:#43607d;transition:.15s;}
+  .tab:hover{background:#eaf2fa;}
+  .tab.active{background:#2f6fb5;color:#fff;border-color:#2f6fb5;}
+
+  .panel{display:none;}
+  .panel.active{display:block;}
+
+  .card{background:#fff;border-radius:12px;padding:20px 22px;margin-bottom:18px;
+    box-shadow:0 1px 3px rgba(20,50,80,.08);}
+  h2{font-size:20px;margin:0 0 14px;padding-left:12px;border-left:5px solid #2f6fb5;}
+  h3{font-size:16px;margin:26px 0 10px;color:#2f6fb5;}
+  h3:first-child{margin-top:0;}
+
+  .chip{display:inline-block;padding:5px 12px;border-radius:8px;color:#fff;
+    font-weight:700;font-size:15px;margin:3px 2px;}
+  .c-q{background:var(--q);} .c-aux{background:var(--aux);}
+  .c-subj{background:var(--subj);} .c-verb{background:var(--verb);}
+  .c-etc{background:var(--etc);}
+  .plus{display:inline-block;margin:0 5px;font-weight:800;color:#93a4b5;}
+
+  .note{background:#fff8e6;border:1px solid #f2d98a;border-radius:10px;padding:14px 18px;margin:14px 0;font-size:14.5px;}
+  .note b{color:#b5730a;}
+  .warn{background:#fdeeee;border-color:#f0b6b6;}
+  .warn b{color:#c0392b;}
+
+  .steps{counter-reset:s;list-style:none;padding:0;margin:0;}
+  .steps li{counter-increment:s;position:relative;padding:12px 0 12px 44px;border-bottom:1px dashed var(--line);}
+  .steps li:last-child{border-bottom:none;}
+  .steps li::before{content:counter(s);position:absolute;left:0;top:14px;width:28px;height:28px;
+    background:#2f6fb5;color:#fff;border-radius:50%;text-align:center;line-height:28px;font-weight:700;font-size:15px;}
+
+  .legend{font-size:13.5px;color:#54687c;margin-top:10px;}
+
+  /* --- 問題共通 --- */
+  .q-item{border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin-bottom:14px;background:#fff;}
+  .q-num{display:inline-block;background:#e8eef6;color:#2f6fb5;border-radius:6px;
+    padding:1px 10px;font-weight:700;font-size:13px;margin-bottom:6px;}
+  .q-ja{font-size:15px;color:#3d5266;margin:2px 0 10px;}
+  .q-en{font-size:20px;letter-spacing:.01em;margin-bottom:12px;font-weight:600;}
+  .blank{display:inline-block;min-width:110px;border-bottom:3px solid var(--q);
+    text-align:center;color:#c0c8d2;padding:0 6px;}
+  .blank.filled{color:var(--q);border-bottom-color:var(--q);}
+
+  .choices{display:flex;flex-wrap:wrap;gap:8px;}
+  .choice{padding:9px 16px;border:2px solid var(--line);background:#fff;border-radius:9px;
+    cursor:pointer;font:600 16px inherit;color:var(--ink);transition:.12s;}
+  .choice:hover:not(:disabled){background:#eaf2fa;border-color:#9ec2e6;}
+  .choice.correct{background:#e3f6ec;border-color:var(--subj);color:#0b7a45;}
+  .choice.wrong{background:#fdecec;border-color:#e07b7b;color:#b93b3b;}
+  .choice:disabled{cursor:default;opacity:.95;}
+
+  .fb{margin-top:10px;font-size:14.5px;padding:10px 14px;border-radius:8px;display:none;}
+  .fb.show{display:block;}
+  .fb.ok{background:#e3f6ec;color:#0b7a45;}
+  .fb.ng{background:#fdecec;color:#b93b3b;}
+
+  /* --- 並べ替え --- */
+  .slot{min-height:58px;border:2px dashed #b9cbdd;border-radius:10px;background:#fbfdff;
+    padding:8px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:10px;}
+  .slot.ok{border-color:var(--subj);border-style:solid;background:#f2fbf6;}
+  .slot.ng{border-color:#e07b7b;border-style:solid;background:#fef5f5;}
+  .slot .ph{color:#a8b8c8;font-size:14px;padding-left:6px;}
+  .pool{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;min-height:44px;}
+  .word{padding:8px 14px;border-radius:9px;border:2px solid #c8d6e4;background:#fff;
+    cursor:pointer;font:600 17px inherit;color:var(--ink);transition:.12s;user-select:none;}
+  .word:hover{background:#eaf2fa;transform:translateY(-1px);}
+  .word.placed{border-style:solid;}
+  .word.used{visibility:hidden;}
+  .word.role-q{background:var(--q);color:#fff;border-color:var(--q);}
+  .word.role-aux{background:var(--aux);color:#fff;border-color:var(--aux);}
+  .word.role-subj{background:var(--subj);color:#fff;border-color:var(--subj);}
+  .word.role-verb{background:var(--verb);color:#fff;border-color:var(--verb);}
+  .word.role-etc{background:var(--etc);color:#fff;border-color:var(--etc);}
+
+  .btnrow{display:flex;gap:8px;flex-wrap:wrap;}
+  button.act{padding:8px 18px;border-radius:8px;border:none;cursor:pointer;font:700 14px inherit;}
+  .b-check{background:#2f6fb5;color:#fff;}
+  .b-check:hover{background:#255a94;}
+  .b-reset{background:#e8eef6;color:#43607d;}
+  .b-reset:hover{background:#d8e3ef;}
+  .b-hint{background:#fff3d6;color:#96690a;}
+  .b-hint:hover{background:#ffe9b8;}
+
+  .hintbox{display:none;margin-top:10px;background:#fff8e6;border:1px solid #f2d98a;
+    border-radius:8px;padding:10px 14px;font-size:14.5px;}
+  .hintbox.show{display:block;}
+
+  .score{position:sticky;top:0;z-index:5;background:#fff;border:2px solid #2f6fb5;
+    border-radius:0 0 12px 12px;padding:8px 16px;font-weight:700;color:#2f6fb5;
+    text-align:center;font-size:15px;margin-bottom:14px;}
+
+  table.ref{width:100%;border-collapse:collapse;font-size:14.5px;}
+  table.ref th,table.ref td{border:1px solid var(--line);padding:8px 10px;text-align:left;}
+  table.ref th{background:#eaf2fa;color:#2f6fb5;}
+  table.ref td.en{font-weight:700;}
+  @media(max-width:600px){
+    .q-en{font-size:17px;}
+    .word{font-size:15px;padding:7px 11px;}
+    header h1{font-size:21px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>疑問詞の語順トレーニング</h1>
+  <p>「疑問詞」＋「いつもの疑問文」＝ 語順のルールは変わっていません！</p>
+</header>
+
+<div class="wrap">
+
+  <div class="tabs">
+    <button class="tab active" data-p="p0">① ルールを知る</button>
+    <button class="tab" data-p="p1">② 疑問詞を選ぶ</button>
+    <button class="tab" data-p="p2">③ 語順を組み立てる</button>
+    <button class="tab" data-p="p3">④ 早見表</button>
+  </div>
+
+  <!-- ========== ① ルール ========== -->
+  <div class="panel active" id="p0">
+    <div class="card">
+      <h2>いちばん大事なこと</h2>
+      <p>疑問詞の文は、<b>新しい語順を覚え直すものではありません</b>。<br>
+      今まで習った疑問文の<b>前に、疑問詞を置くだけ</b>です。</p>
+
+      <div style="text-align:center;margin:22px 0;font-size:18px;">
+        <span class="chip c-q">疑問詞</span><span class="plus">＋</span>
+        <span style="border:2px dashed #93a4b5;border-radius:10px;padding:6px 10px;display:inline-block;">
+          <span class="chip c-aux">Do / Is</span><span class="plus">+</span>
+          <span class="chip c-subj">主語</span><span class="plus">+</span>
+          <span class="chip c-verb">動詞</span><span class="plus">+</span>
+          <span class="chip c-etc">…?</span>
+        </span>
+      </div>
+      <p style="text-align:center;color:#54687c;font-size:14px;margin-top:-8px;">
+        点線の中は、Yes/Noで答える<b>ふつうの疑問文そのまま</b>。</p>
+    </div>
+
+    <div class="card">
+      <h2>作り方は2ステップ</h2>
+      <ol class="steps">
+        <li>
+          <b>まず、ふつうの疑問文を作る。</b><br>
+          You like blue. → <span class="chip c-aux">Do</span><span class="chip c-subj">you</span><span class="chip c-verb">like</span><span class="chip c-etc">blue?</span>
+        </li>
+        <li>
+          <b>聞きたい部分を疑問詞にして、文の先頭へ引っ越しさせる。</b><br>
+          blue が聞きたい → What にして先頭へ<br>
+          <span class="chip c-q">What</span><span class="chip c-aux">do</span><span class="chip c-subj">you</span><span class="chip c-verb">like?</span>
+          <div class="legend">※ 先頭に引っ越したので、うしろの blue は消える。<b>残りの語順は1ミリも動きません。</b></div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <h2>be動詞の文でも同じ</h2>
+      <p style="margin:0 0 8px;">This is a pen. → <span class="chip c-aux">Is</span><span class="chip c-subj">this</span><span class="chip c-etc">a pen?</span></p>
+      <p style="margin:0;">a pen を聞きたい → <span class="chip c-q">What</span><span class="chip c-aux">is</span><span class="chip c-subj">this?</span></p>
+      <div class="note">
+        <b>ポイント：</b>do / does / is / are のうしろは、いつも「<b>主語 → 動詞</b>」の順番。
+        疑問詞がついても、ここは絶対に入れかわりません。
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>疑問詞が2語以上になることもある（カタマリで動く）</h2>
+      <p>What / How などは、うしろの名詞とセットで<b>1つのカタマリ</b>になって先頭へ行きます。</p>
+      <p style="margin:6px 0;"><span class="chip c-q">What color</span><span class="chip c-aux">do</span><span class="chip c-subj">you</span><span class="chip c-verb">like?</span>（何色が好きですか）</p>
+      <p style="margin:6px 0;"><span class="chip c-q">Whose bag</span><span class="chip c-aux">is</span><span class="chip c-subj">this?</span>（これはだれのかばん？）</p>
+      <p style="margin:6px 0;"><span class="chip c-q">How many apples</span><span class="chip c-aux">do</span><span class="chip c-subj">you</span><span class="chip c-verb">have?</span>（りんごをいくつ持っていますか）</p>
+      <div class="note warn">
+        <b>要注意：</b>「Whose bag is this?」のように、疑問詞のカタマリが<b>そのまま主語</b>になることがあります。
+        このときは Do / Does は使わず、<b>疑問詞のカタマリ ＋ 動詞</b> の順になります。<br>
+        例：<span class="chip c-q">Which book</span><span class="chip c-verb">is</span><span class="chip c-etc">yours?</span>
+        ／ <span class="chip c-q">How many students</span><span class="chip c-verb">are</span><span class="chip c-etc">there?</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== ② 疑問詞を選ぶ ========== -->
+  <div class="panel" id="p1">
+    <div class="score" id="score1">正解 0 / 12</div>
+    <div class="card">
+      <h2>ウォームアップ：正しい疑問詞を選ぼう</h2>
+      <p style="font-size:14.5px;color:#54687c;margin:0;">日本語の意味に合う疑問詞を1つクリックしてください。</p>
+    </div>
+    <div id="quiz1"></div>
+  </div>
+
+  <!-- ========== ③ 並べ替え ========== -->
+  <div class="panel" id="p2">
+    <div class="score" id="score2">正解 0 / 18</div>
+    <div class="card">
+      <h2>メイン：単語を並べて疑問文を作ろう</h2>
+      <p style="font-size:14.5px;color:#54687c;margin:0 0 6px;">
+        下のカードを<b>クリックして順番に並べます</b>。並べたカードをもう一度クリックすると戻せます。</p>
+      <p style="font-size:14.5px;color:#54687c;margin:0;">
+        正解すると、カードが<b>役割ごとの色</b>になります。色の並びが毎回同じことを確かめてください。</p>
+      <div class="legend" style="margin-top:10px;">
+        <span class="chip c-q">疑問詞</span>
+        <span class="chip c-aux">do/does/be</span>
+        <span class="chip c-subj">主語</span>
+        <span class="chip c-verb">動詞</span>
+        <span class="chip c-etc">その他</span>
+      </div>
+    </div>
+    <div id="quiz2"></div>
+  </div>
+
+  <!-- ========== ④ 早見表 ========== -->
+  <div class="panel" id="p3">
+    <div class="card">
+      <h2>疑問詞 早見表</h2>
+      <table class="ref">
+        <tr><th>英語</th><th>発音</th><th>意味</th><th>例文</th></tr>
+        <tr><td class="en">what</td><td>ワット</td><td>何</td><td>What is this?</td></tr>
+        <tr><td class="en">who</td><td>フー</td><td>だれ</td><td>Who is that?</td></tr>
+        <tr><td class="en">when</td><td>ウェン</td><td>いつ</td><td>When do you get up?</td></tr>
+        <tr><td class="en">where</td><td>ウェア</td><td>どこ</td><td>Where do you live?</td></tr>
+        <tr><td class="en">why</td><td>ワイ</td><td>なぜ</td><td>Why are you sad?</td></tr>
+        <tr><td class="en">which</td><td>ウィッチ</td><td>どちら・どれ</td><td>Which do you like?</td></tr>
+        <tr><td class="en">whose</td><td>フーズ</td><td>だれの</td><td>Whose bag is this?</td></tr>
+        <tr><td class="en">how</td><td>ハウ</td><td>どうやって</td><td>How do you go to school?</td></tr>
+        <tr><td class="en">How many</td><td>ハウ メニー</td><td>いくつ（数）</td><td>How many apples do you have?</td></tr>
+        <tr><td class="en">How much</td><td>ハウ マッチ</td><td>いくら（量・値段）</td><td>How much is this?</td></tr>
+        <tr><td class="en">How old</td><td>ハウ オールド</td><td>何歳</td><td>How old are you?</td></tr>
+        <tr><td class="en">How tall</td><td>ハウ トール</td><td>どれくらい高い</td><td>How tall are you?</td></tr>
+        <tr><td class="en">How long</td><td>ハウ ロング</td><td>どれくらい長い</td><td>How long is this river?</td></tr>
+      </table>
+      <div class="note">
+        <b>How many と How much：</b>How many は<b>数えられるもの</b>（apples, students…）、
+        How much は<b>数えられないもの・値段</b>（money, water, これはいくら？）に使います。
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* ---------- タブ ---------- */
+document.querySelectorAll('.tab').forEach(function(t){
+  t.addEventListener('click',function(){
+    document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active');});
+    document.querySelectorAll('.panel').forEach(function(x){x.classList.remove('active');});
+    t.classList.add('active');
+    document.getElementById(t.dataset.p).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+
+/* ---------- クイズ1：疑問詞を選ぶ ---------- */
+var Q1 = [
+  {ja:'これは何ですか？',        pre:'',  post:'is this?',            ans:'What',  ch:['What','Who','When','Where']},
+  {ja:'あの人はだれですか？',    pre:'',  post:'is that?',            ans:'Who',   ch:['Who','Whose','What','Which']},
+  {ja:'いつ起きますか？',        pre:'',  post:'do you get up?',      ans:'When',  ch:['When','Where','Why','How']},
+  {ja:'どこに住んでいますか？',  pre:'',  post:'do you live?',        ans:'Where', ch:['Where','When','What','Who']},
+  {ja:'なぜ英語を勉強するのですか？', pre:'', post:'do you study English?', ans:'Why', ch:['Why','How','When','Which']},
+  {ja:'どうやって学校に行きますか？', pre:'', post:'do you go to school?', ans:'How', ch:['How','Why','Where','What']},
+  {ja:'これはだれのかばんですか？', pre:'', post:'bag is this?',       ans:'Whose', ch:['Whose','Who','Which','What']},
+  {ja:'どちらの本があなたのですか？', pre:'', post:'book is yours?',   ans:'Which', ch:['Which','What','Whose','Who']},
+  {ja:'何色が好きですか？',      pre:'',  post:'do you like?',        ans:'What color', ch:['What color','Which color','How color','Whose color']},
+  {ja:'りんごをいくつ持っていますか？', pre:'', post:'apples do you have?', ans:'How many', ch:['How many','How much','How long','How old']},
+  {ja:'これはいくらですか？',    pre:'',  post:'is this?',            ans:'How much', ch:['How much','How many','How old','How tall']},
+  {ja:'あなたは何歳ですか？',    pre:'',  post:'are you?',            ans:'How old',  ch:['How old','How tall','How long','How much']}
+];
+
+var s1 = 0;
+(function buildQ1(){
+  var box = document.getElementById('quiz1');
+  Q1.forEach(function(q,i){
+    var d = document.createElement('div');
+    d.className = 'q-item';
+    d.innerHTML =
+      '<div class="q-num">Q'+(i+1)+'</div>'+
+      '<div class="q-ja">'+q.ja+'</div>'+
+      '<div class="q-en"><span class="blank" id="bl'+i+'">?</span> '+q.post+'</div>'+
+      '<div class="choices" id="ch'+i+'"></div>'+
+      '<div class="fb" id="fb'+i+'"></div>';
+    box.appendChild(d);
+
+    var cbox = d.querySelector('#ch'+i);
+    q.ch.forEach(function(c){
+      var b = document.createElement('button');
+      b.className = 'choice';
+      b.textContent = c;
+      b.addEventListener('click',function(){
+        var bl = document.getElementById('bl'+i);
+        var fb = document.getElementById('fb'+i);
+        bl.textContent = c;
+        bl.classList.add('filled');
+        if(c === q.ans){
+          b.classList.add('correct');
+          cbox.querySelectorAll('button').forEach(function(x){x.disabled=true;});
+          fb.className = 'fb show ok';
+          fb.textContent = '正解！　'+q.ans+' '+q.post;
+          s1++;
+          document.getElementById('score1').textContent = '正解 '+s1+' / '+Q1.length;
+        }else{
+          b.classList.add('wrong');
+          b.disabled = true;
+          fb.className = 'fb show ng';
+          fb.textContent = 'ちがいます。日本語の「'+q.ja+'」をもう一度読んでみよう。';
+        }
+      });
+      cbox.appendChild(b);
+    });
+  });
+})();
+
+/* ---------- クイズ2：並べ替え ---------- */
+/* role: q=疑問詞 / aux=do,does,be / subj=主語 / verb=動詞 / etc=その他 */
+var Q2 = [
+  {lv:'レベル1　do / does を使う文',
+   ja:'あなたは何が好きですか。',
+   w:[['What','q'],['do','aux'],['you','subj'],['like?','verb']],
+   hint:'まず「Do you like ~?」を作る → 前に What を置く。'},
+  {ja:'あなたはいつ起きますか。',
+   w:[['When','q'],['do','aux'],['you','subj'],['get up?','verb']],
+   hint:'まず「Do you get up?」→ 前に When。'},
+  {ja:'あなたはどこに住んでいますか。',
+   w:[['Where','q'],['do','aux'],['you','subj'],['live?','verb']],
+   hint:'まず「Do you live?」→ 前に Where。'},
+  {ja:'あなたはなぜ英語を勉強するのですか。',
+   w:[['Why','q'],['do','aux'],['you','subj'],['study','verb'],['English?','etc']],
+   hint:'まず「Do you study English?」→ 前に Why。うしろはそのまま。'},
+  {ja:'あなたはどうやって学校に行きますか。',
+   w:[['How','q'],['do','aux'],['you','subj'],['go','verb'],['to school?','etc']],
+   hint:'まず「Do you go to school?」→ 前に How。'},
+  {ja:'彼はどこに住んでいますか。',
+   w:[['Where','q'],['does','aux'],['he','subj'],['live?','verb']],
+   hint:'主語が he なので do ではなく does。動詞に s はつけません。'},
+
+  {lv:'レベル2　be動詞（is / are）を使う文',
+   ja:'これは何ですか。',
+   w:[['What','q'],['is','aux'],['this?','subj']],
+   hint:'まず「Is this ~?」→ 前に What。'},
+  {ja:'あの人はだれですか。',
+   w:[['Who','q'],['is','aux'],['that?','subj']],
+   hint:'まず「Is that ~?」→ 前に Who。'},
+  {ja:'あなたの誕生日はいつですか。',
+   w:[['When','q'],['is','aux'],['your birthday?','subj']],
+   hint:'主語は your birthday。「Is your birthday ~?」→ 前に When。'},
+  {ja:'駅はどこですか。',
+   w:[['Where','q'],['is','aux'],['the station?','subj']],
+   hint:'主語は the station。'},
+  {ja:'あなたは何歳ですか。',
+   w:[['How old','q'],['are','aux'],['you?','subj']],
+   hint:'How old が2語でひとつのカタマリ。'},
+  {ja:'あなたはなぜ悲しいのですか。',
+   w:[['Why','q'],['are','aux'],['you','subj'],['sad?','etc']],
+   hint:'まず「Are you sad?」→ 前に Why。'},
+
+  {lv:'レベル3　疑問詞がカタマリになる文',
+   ja:'あなたは何色が好きですか。',
+   w:[['What color','q'],['do','aux'],['you','subj'],['like?','verb']],
+   hint:'What color でひとつのカタマリ。うしろは Do you like? のまま。'},
+  {ja:'あなたはりんごをいくつ持っていますか。',
+   w:[['How many apples','q'],['do','aux'],['you','subj'],['have?','verb']],
+   hint:'How many apples でひとつのカタマリ。うしろは do you have?。'},
+  {ja:'あなたはお金をいくら持っていますか。',
+   w:[['How much money','q'],['do','aux'],['you','subj'],['have?','verb']],
+   hint:'money は数えられないので How much。'},
+  {ja:'これはだれのかばんですか。',
+   w:[['Whose bag','q'],['is','aux'],['this?','subj']],
+   hint:'Whose bag でひとつのカタマリ。「Is this ~?」の形が土台。'},
+  {ja:'どちらの本があなたのですか。',
+   w:[['Which book','q'],['is','verb'],['yours?','etc']],
+   hint:'この文は Which book が「主語」。だから Do は使わず、すぐ is が続きます。'},
+  {ja:'生徒は何人いますか。',
+   w:[['How many students','q'],['are','verb'],['there?','etc']],
+   hint:'How many students が主語のはたらき。There are ~. がもとの形です。'}
+];
+
+var s2 = 0;
+var total2 = Q2.length;
+document.getElementById('score2').textContent = '正解 0 / '+total2;
+
+(function buildQ2(){
+  var box = document.getElementById('quiz2');
+  var n = 0;
+  Q2.forEach(function(q,i){
+    if(q.lv){
+      var h = document.createElement('div');
+      h.className = 'card';
+      h.style.padding = '12px 22px';
+      h.innerHTML = '<h3 style="margin:0;">'+q.lv+'</h3>';
+      box.appendChild(h);
+    }
+    n++;
+    var answer = q.w.map(function(x){return x[0];});
+    var order = q.w.map(function(x,k){return k;});
+    /* シャッフル（元の順にならないよう調整） */
+    var shuffled = order.slice();
+    var guard = 0;
+    do{
+      for(var a=shuffled.length-1;a>0;a--){
+        var b = Math.floor(Math.random()*(a+1));
+        var t = shuffled[a]; shuffled[a]=shuffled[b]; shuffled[b]=t;
+      }
+      guard++;
+    }while(shuffled.join()===order.join() && guard<20);
+
+    var d = document.createElement('div');
+    d.className = 'q-item';
+    d.innerHTML =
+      '<div class="q-num">Q'+n+'</div>'+
+      '<div class="q-ja">'+q.ja+'</div>'+
+      '<div class="slot" id="sl'+i+'"><span class="ph">ここに単語を並べよう</span></div>'+
+      '<div class="pool" id="pl'+i+'"></div>'+
+      '<div class="btnrow">'+
+        '<button class="act b-check" id="ck'+i+'">答え合わせ</button>'+
+        '<button class="act b-reset" id="rs'+i+'">やり直す</button>'+
+        '<button class="act b-hint" id="ht'+i+'">ヒント</button>'+
+      '</div>'+
+      '<div class="hintbox" id="hb'+i+'">'+q.hint+'</div>'+
+      '<div class="fb" id="f2'+i+'"></div>';
+    box.appendChild(d);
+
+    var slot = d.querySelector('#sl'+i);
+    var pool = d.querySelector('#pl'+i);
+    var placed = [];
+    var solved = false;
+
+    function renderSlot(){
+      slot.innerHTML = '';
+      if(placed.length === 0){
+        slot.innerHTML = '<span class="ph">ここに単語を並べよう</span>';
+        return;
+      }
+      placed.forEach(function(idx,pos){
+        var w = document.createElement('span');
+        w.className = 'word placed' + (solved ? ' role-'+q.w[idx][1] : '');
+        w.textContent = q.w[idx][0];
+        if(!solved){
+          w.addEventListener('click',function(){
+            placed.splice(pos,1);
+            clearFb();
+            renderSlot(); renderPool();
+          });
+        }
+        slot.appendChild(w);
+      });
+    }
+    function renderPool(){
+      pool.innerHTML = '';
+      shuffled.forEach(function(idx){
+        var w = document.createElement('span');
+        w.className = 'word';
+        w.textContent = q.w[idx][0];
+        if(placed.indexOf(idx) !== -1){ w.classList.add('used'); }
+        else{
+          w.addEventListener('click',function(){
+            placed.push(idx);
+            clearFb();
+            renderSlot(); renderPool();
+          });
+        }
+        pool.appendChild(w);
+      });
+    }
+    function clearFb(){
+      var f = document.getElementById('f2'+i);
+      f.className = 'fb';
+      slot.classList.remove('ok','ng');
+    }
+
+    d.querySelector('#ck'+i).addEventListener('click',function(){
+      if(solved) return;
+      var f = document.getElementById('f2'+i);
+      if(placed.length !== q.w.length){
+        f.className = 'fb show ng';
+        f.textContent = 'まだ使っていない単語があります。全部並べてから答え合わせをしよう。';
+        return;
+      }
+      var mine = placed.map(function(k){return q.w[k][0];}).join(' ');
+      var right = answer.join(' ');
+      if(mine === right){
+        solved = true;
+        s2++;
+        document.getElementById('score2').textContent = '正解 '+s2+' / '+total2;
+        slot.classList.remove('ng'); slot.classList.add('ok');
+        f.className = 'fb show ok';
+        f.innerHTML = '正解！　<b>'+right+'</b><br>色の並びを見てみよう。'+
+                      '<span style="color:#e8710a;font-weight:700;">オレンジ＝疑問詞</span> のうしろは、'+
+                      'いつもと同じ疑問文の形になっているね。';
+        renderSlot(); renderPool();
+      }else{
+        slot.classList.remove('ok'); slot.classList.add('ng');
+        f.className = 'fb show ng';
+        f.textContent = 'おしい！　「' + mine + '」　まず疑問詞を先頭に置いて、そのうしろを「ふつうの疑問文」の順に並べてみよう。';
+      }
+    });
+
+    d.querySelector('#rs'+i).addEventListener('click',function(){
+      if(solved) return;
+      placed = [];
+      clearFb();
+      renderSlot(); renderPool();
+    });
+
+    d.querySelector('#ht'+i).addEventListener('click',function(){
+      document.getElementById('hb'+i).classList.toggle('show');
+    });
+
+    renderSlot(); renderPool();
+  });
+})();
+</script>
+</body>
+</html>
