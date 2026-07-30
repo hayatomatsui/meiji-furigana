@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 5 単語・熟語 総合リスト｜Young People and Language Learning</title>
+<style>
+:root{
+  --g3:#4CAF50; --g3p:#8BC34A; --g2:#03A9F4; --g2p:#7E57C2; --g1:#E91E63; --gx:#F44336;
+  --tw:#ff6a3d; --ti:#1668c7;
+  --bg:#f4f6fb; --card:#fff; --ink:#1b2233; --sub:#6b7590;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+  background:var(--bg);color:var(--ink);padding:18px;line-height:1.65}
+.wrap{max-width:1180px;margin:0 auto}
+header{background:linear-gradient(135deg,#0f9b8e,#1668c7 45%,#5b2bd9);color:#fff;
+  border-radius:18px;padding:26px 24px;margin-bottom:18px;box-shadow:0 8px 26px rgba(22,104,199,.25)}
+header h1{font-size:1.45rem;margin-bottom:6px}
+header p{opacity:.93;font-size:.87rem}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:15px}
+.stat{background:rgba(255,255,255,.2);border-radius:12px;padding:8px 14px;font-size:.8rem}
+.stat b{font-size:1.15rem;display:block}
+h2{font-size:1.03rem;margin:24px 0 10px;padding-left:12px;border-left:5px solid #1668c7}
+
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 14px}
+.lbl{font-size:.72rem;color:var(--sub);font-weight:700;margin-right:2px}
+button{font-family:inherit;cursor:pointer;border:none;border-radius:999px;padding:8px 15px;
+  font-size:.82rem;font-weight:700;transition:.15s;background:#fff;color:var(--sub);
+  box-shadow:0 2px 6px rgba(0,0,0,.08)}
+button:hover{transform:translateY(-1px)}
+button.on{background:#1b2233;color:#fff}
+.util{background:#e0f2f7;color:#00695c}
+.sw{display:inline-flex;background:#fff;border-radius:999px;padding:4px;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.sw button{box-shadow:none;padding:8px 18px}
+.sw button.on{background:linear-gradient(135deg,#0f9b8e,#5b2bd9);color:#fff}
+.spacer{flex:1}
+
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;
+  box-shadow:0 2px 10px rgba(0,0,0,.07)}
+th,td{padding:10px 13px;text-align:left;border-bottom:1px solid #eef1f6;font-size:.87rem;vertical-align:top}
+th{background:#1b2233;color:#fff;font-size:.76rem;letter-spacing:.04em;position:sticky;top:0;z-index:2}
+tbody tr:nth-child(even){background:#fafbfe}
+tbody tr:hover{background:#eef6ff}
+tbody tr.done{opacity:.4}
+td.ph{font-weight:700}
+td.mn{cursor:pointer}
+tr.hid td.mn,tr.hid td.exc{filter:blur(5px);opacity:.5}
+td.exc{color:#5c6580;font-style:italic;font-size:.79rem}
+td.ln{color:#aab2c4;font-size:.75rem;white-space:nowrap}
+.mark{cursor:pointer;color:#c9cfdd;font-weight:800;user-select:none}
+tr.done .mark{color:#4CAF50}
+.bar{height:9px;border-radius:5px;display:inline-block;vertical-align:middle;margin-right:8px}
+.sumtbl td,.sumtbl th{font-size:.85rem}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:12px}
+.card{background:var(--card);border-radius:14px;padding:14px 16px;cursor:pointer;
+  box-shadow:0 2px 8px rgba(0,0,0,.07);border-left:6px solid #ccc;transition:.18s;
+  position:relative;user-select:none}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.12)}
+.card.done{opacity:.42}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.phrase{font-size:1.05rem;font-weight:700}
+.badge{font-size:.65rem;font-weight:800;color:#fff;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.tag{font-size:.63rem;font-weight:800;padding:2px 8px;border-radius:999px;color:#fff}
+.tag.w{background:var(--tw)} .tag.i{background:var(--ti)}
+.meaning{margin-top:9px;padding-top:9px;border-top:1px dashed #dde2ec;font-size:.92rem}
+.ex{margin-top:7px;font-size:.77rem;color:#5c6580;font-style:italic}
+.hidden .meaning,.hidden .ex{filter:blur(6px);opacity:.5}
+.hint{font-size:.66rem;color:#b9c0d0;margin-top:6px}
+.line{font-size:.67rem;color:#aab2c4;margin-top:3px}
+.check{position:absolute;top:8px;right:10px;font-size:.66rem;color:#4CAF50;display:none;font-weight:800}
+.card.done .check{display:block}
+.hide{display:none}
+@media(max-width:640px){body{padding:12px}th,td{padding:8px 9px;font-size:.79rem}td.exc,th.exc{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Lesson 5 — 単語・熟語 総合リスト（Young People and Language Learning）</h1>
+  <p>単語と熟語を1つにまとめました。「カード形式／表形式」「単語／熟語」を自由に切り替えて暗記できます。</p>
+  <div class="stats">
+    <div class="stat"><b id="total">0</b>総項目</div>
+    <div class="stat"><b id="nw">0</b>単語</div>
+    <div class="stat"><b id="ni">0</b>熟語・構文</div>
+    <div class="stat"><b id="shown">0</b>表示中</div>
+    <div class="stat"><b id="doneN">0</b>覚えた</div>
+  </div>
+</header>
+
+<h2>レベル別分布（単語 / 熟語 内訳つき）</h2>
+<table class="sumtbl"><thead><tr><th>英検レベル</th><th>合計</th><th>単語</th><th>熟語</th><th>割合</th><th>目安</th></tr></thead>
+<tbody id="sumbody"></tbody></table>
+
+<div class="controls" style="margin-top:22px">
+  <span class="sw"><button id="bCard" class="on" onclick="setView('card')">カード形式</button><button id="bTable" onclick="setView('table')">表形式</button></span>
+  <span class="spacer"></span>
+  <span class="sw"><button id="tAll" class="on" onclick="setType('all')">単語＋熟語</button><button id="tW" onclick="setType('単語')">単語のみ</button><button id="tI" onclick="setType('熟語')">熟語のみ</button></span>
+</div>
+
+<div class="controls"><span class="lbl">レベル</span><span id="filters" style="display:contents"></span></div>
+<div class="controls">
+  <button class="util" onclick="allHide()">すべて隠す</button>
+  <button class="util" onclick="allShow()">すべて表示</button>
+  <button class="util" onclick="shuffle()">シャッフル</button>
+  <button class="util" onclick="resetOrder()">本文順に戻す</button>
+  <button class="util" onclick="resetDone()">「覚えた」リセット</button>
+  <span class="spacer"></span>
+  <button class="util" id="hideDoneBtn" onclick="toggleDoneFilter()">覚えた項目を隠す</button>
+</div>
+
+<div id="cardView"><div class="grid" id="grid"></div></div>
+<div id="tableView" class="hide">
+  <table><thead><tr><th style="width:30px"></th><th style="width:46px">種類</th><th>語句</th><th>意味</th><th class="exc">本文での使われ方</th><th>レベル</th><th>行</th></tr></thead>
+  <tbody id="tbody"></tbody></table>
+</div>
+
+</div>
+
+<script>
+const LV={
+ "3級":{c:"var(--g3)",note:"中学卒業程度"},
+ "準2級":{c:"var(--g3p)",note:"高校中級程度"},
+ "2級":{c:"var(--g2)",note:"高校卒業程度"},
+ "準1級":{c:"var(--g2p)",note:"大学中級程度"},
+ "1級":{c:"var(--g1)",note:"大学上級程度"},
+ "級外":{c:"var(--gx)",note:"専門語・注釈必須"}
+};
+// [語句, 意味, 本文での使われ方, レベル, 行, 種類]
+const DATA=[
+ ["design","動 設計する、デザインする","a 13-year-old student ... who has designed a smartphone app","2級",1,"単語"],
+ ["connect A (with B)","動 結びつける、つなぐ","which connects children from around the world","準2級",2,"単語"],
+ ["from around the world","世界中から","connects children from around the world","3級",2,"熟語"],
+ ["so that S can V","SがVできるように（目的）","so that they can learn each other's mother tongue","3級",2,"熟語"],
+ ["each other's ~","お互いの~","learn each other's mother tongue","3級",3,"熟語"],
+ ["mother tongue","名 母語、母国語","learn each other's mother tongue","準1級",3,"単語"],
+ ["an example of ~","~の一例","Yip is an example of the generation that...","3級",3,"熟語"],
+ ["generation","名 世代","an example of the generation that has grown up...","2級",3,"単語"],
+ ["grow up","成長する、育つ","the generation that has grown up in a world where...","3級",4,"熟語"],
+ ["thanks to ~","~のおかげで","easier than before thanks to an increasingly ... population","3級",4,"熟語"],
+ ["increasingly","副 ますます、次第に","an increasingly culturally mixed global population","準1級",5,"単語"],
+ ["culturally mixed","文化的に混ざり合った","an increasingly culturally mixed global population","2級",5,"熟語"],
+ ["population","名 人口、住民","a ... global population","準2級",5,"単語"],
+ ["benefit from ~","~から恩恵を受ける","This group is also benefiting from the spread of...","2級",5,"熟語"],
+ ["the spread of ~","~の普及、広がり","benefiting from the spread of educational apps and games","2級",6,"熟語"],
+ ["educational","形 教育の、教育的な","the spread of educational apps and games","準2級",6,"単語"],
+ ["cultural diversity","名 文化的多様性","Cultural diversity is increasing globally.","準1級",7,"単語"],
+ ["diversity","名 多様性","Cultural diversity is increasing globally.","準1級",7,"単語"],
+ ["globally","副 世界的に、地球規模で","Cultural diversity is increasing globally.","2級",7,"単語"],
+ ["due to ~","~が原因で、~のせいで","especially due to increasing levels of international movement","2級",7,"熟語"],
+ ["levels of ~","~の水準、程度","increasing levels of international movement","2級",7,"熟語"],
+ ["international movement","名 国際的な人の移動","due to increasing levels of international movement","2級",8,"単語"],
+ ["other than ~","~以外の、~とは別の","258 million people live in a country other than their country of birth","2級",8,"熟語"],
+ ["country of birth","名 出生国、生まれた国","a country other than their country of birth","2級",9,"単語"],
+ ["an increase of ~%","~%の増加","an increase of 49% since 2000","2級",9,"熟語"],
+ ["background","名 背景、生い立ち","More people, from more mixed backgrounds","準2級",10,"単語"],
+ ["come into contact with ~","~と接触する、出会う","are coming into contact with each other in cities","準1級",10,"熟語"],
+ ["professor","名 教授","Angela Creese, a professor of educational linguistics","準2級",12,"単語"],
+ ["linguistics","名 言語学","a professor of educational linguistics","級外",12,"単語"],
+ ["have a positive approach to ~","~に前向きに取り組む","have a positive approach to social and linguistic differences","2級",13,"熟語"],
+ ["linguistic","形 言語の、言語学的な","social and linguistic differences","準1級",13,"単語"],
+ ["be likely to do","~しそうである、~する傾向がある","They are more likely to be creative","2級",14,"熟語"],
+ ["creative","形 創造的な","more likely to be creative and interested in other languages","準2級",14,"単語"],
+ ["be interested in ~","~に興味がある","interested in other languages","3級",14,"熟語"],
+ ["traditional","形 伝統的な、従来の","In traditional, single language environments","準2級",14,"単語"],
+ ["environment","名 環境","In traditional, single language environments","準2級",15,"単語"],
+ ["slightly","副 わずかに、少し","people were often slightly nervous about different languages","2級",15,"単語"],
+ ["be nervous about ~","~に不安を感じる、身構える","often slightly nervous about different languages","準2級",15,"熟語"],
+ ["a recent study","名 最近の研究","A recent study found that 77% of young people...","2級",17,"単語"],
+ ["find that ...","…だとわかる、判明する","A recent study found that 77% ... can speak more than one language","3級",17,"熟語"],
+ ["more than one ~","1つより多い~、複数の~","can speak more than one language","3級",18,"熟語"],
+ ["on the other hand","一方で、他方では","On the other hand, older European people are less likely to...","2級",18,"熟語"],
+ ["be less likely to do","~する可能性がより低い","older European people are (less) likely to speak a second ... language","2級",19,"熟語"],
+ ["promote","動 促進する、推進する","Many European companies are promoting foreign language training","2級",20,"単語"],
+ ["staff","名 職員、スタッフ","foreign language training for their staff","準2級",21,"単語"],
+ ["in addition","加えて、さらに","In addition, globalization has encouraged many more people to travel","2級",21,"熟語"],
+ ["globalization","名 グローバル化","globalization has encouraged many more people to travel","2級",21,"単語"],
+ ["encourage 人 to do","人に~するよう促す・仕向ける","globalization has encouraged many more people to travel","2級",21,"熟語"],
+ ["for both business and pleasure","仕事でも遊びでも","travel for both business and pleasure","2級",22,"熟語"],
+ ["process","名 過程、プロセス","another process that promotes language learning","2級",22,"単語"],
+ ["a record of ~","記録的な~、~という記録的数字","a record of 65 million people speak another language at home","2級",24,"熟語"],
+ ["at home","家庭で、自宅で","speak another language at home","3級",24,"熟語"],
+ ["double","動 2倍になる","a number that has doubled since 1990","2級",25,"単語"],
+ ["immigrant","名 移民（入ってくる人）","Many of these foreign language speakers are not immigrants","2級",26,"単語"],
+ ["growth","名 増加、成長","half of the growth in foreign language speakers","2級",26,"単語"],
+ ["among ~","~の間で、~のうちで","half of the growth ... was among those born in the US","2級",27,"熟語"],
+ ["those born in ~","~で生まれた人々","was among those born in the US","2級",27,"熟語"],
+ ["a similar trend","名 同様の傾向","A similar trend is happening in Canada","準1級",27,"単語"],
+ ["trend","名 傾向、流れ","A similar trend is happening in Canada","2級",27,"単語"],
+ ["rise by ~%","~%増加する","has risen by 14.5% since 2011","2級",29,"熟語"],
+ ["be filled with ~","~でいっぱいになる","classrooms ... could soon be filled with children","3級",31,"熟語"],
+ ["six or more ~","6つ以上の~","children who might speak six or more languages","3級",31,"熟語"],
+ ["appreciate","動 正しく認識する、価値を認める","Teachers ... should appreciate this diversity","2級",32,"単語"],
+ ["make use of ~","~を活用する、利用する","appreciate this diversity and make use of it in the classroom","2級",32,"熟語"],
+ ["It is common for A to do","Aが~するのはよくあることだ","it is common for teenagers to make new friends online","2級",34,"熟語"],
+ ["make friends","友達を作る","make new friends online through social media","3級",34,"熟語"],
+ ["through ~","~を通して、~によって","make new friends online through social media and online games","3級",34,"熟語"],
+ ["internet connection","名 インターネット接続","Any teenager with a smartphone and an internet connection","3級",35,"単語"],
+ ["have a video conversation","ビデオ通話をする","can have a video conversation with friends","3級",36,"熟語"],
+ ["on the other side of the world","地球の反対側で","friends who speak different languages on the other side of the world","3級",37,"熟語"],
+ ["in the past","昔は、かつては","In the past, making friends in another language was hard work.","3級",37,"熟語"],
+ ["hard work","大変な作業、骨の折れること","making friends in another language was hard work","3級",38,"熟語"],
+ ["had to do","~しなければならなかった","You had to go to the other country","3級",38,"熟語"],
+ ["spend some time","しばらく時間を過ごす","go to the other country, spend some time there","3級",38,"熟語"],
+ ["make + O + 形容詞","Oを~の状態にする","has made the whole process ... much easier","2級",39,"熟語"],
+ ["the whole process of ~","~の全過程","the whole process of meeting people in other countries","2級",40,"熟語"],
+ ["technological progress","名 技術の進歩（空所キの答え）","(Technological progress) has made the whole process ... easier","2級",39,"単語"],
+ ["be encouraged by ~","~によって促進される","Language learning has also been encouraged by the rise of...","2級",41,"熟語"],
+ ["the rise of ~","~の台頭、増加","encouraged by the rise of cheap or free apps","2級",41,"熟語"],
+ ["make learning fun","学習を楽しいものにする","apps that make learning fun","2級",42,"熟語"],
+ ["unlike ~","~と違って","for children who, unlike adults, are often not even aware","2級",42,"単語"],
+ ["be aware that ...","…だと気づいている","are often not even aware that they are learning something","2級",43,"熟語"],
+ ["not even ~","~さえしない","are often not even aware that...","3級",43,"熟語"],
+ ["be good at ~ing","~するのが得意である","Children are good at learning in informal situations","3級",44,"熟語"],
+ ["informal","形 形式ばらない、くだけた","learning in informal situations","2級",44,"単語"],
+ ["through doing ~","~することを通じて","Through doing something they like they can learn another language.","3級",45,"熟語"],
+ ["as S V","SがVするにつれて","As children become teenagers, they are more likely to...","2級",47,"熟語"],
+ ["self-conscious","形 自意識過剰な、人目を気にする","they are more likely to be self-conscious","準1級",47,"単語"],
+ ["fear ~ing","~するのを恐れる","fear making mistakes in front of others","2級",48,"熟語"],
+ ["make mistakes","間違える","fear making mistakes in front of others","3級",48,"熟語"],
+ ["in front of others","人前で","fear making mistakes in front of others","3級",48,"熟語"],
+ ["instant feedback","名 即座の反応・評価","a teenager can get instant feedback and can experiment","2級",49,"単語"],
+ ["experiment","動 実験する、試してみる","can get instant feedback and can experiment","2級",49,"単語"],
+ ["frightening","形 怖い、おびえさせる","An online environment ... is less frightening.","準2級",49,"単語"],
+ ["take risks","危険を冒す、思い切ってやってみる","more likely to guess and to take risks","2級",50,"熟語"],
+ ["audience","名 聴衆、観客、見ている人","in situations where there is no audience","2級",51,"単語"],
+ ["work best","最もうまく機能する","technology works best when it is seen as a support","3級",52,"熟語"],
+ ["be seen as ~","~とみなされる","when it is seen as a support to real-world communication","2級",52,"熟語"],
+ ["a support to ~","~を支えるもの、補助","a support to real-world communication","2級",52,"熟語"],
+ ["real-world","形 現実世界の","real-world communication","2級",52,"単語"],
+ ["get better","上達する、良くなる","If a language learner really wants to get better","3級",53,"熟語"],
+ ["there comes a point where ...","…する時点がやってくる","there comes a point where they need to start talking with...","準1級",53,"熟語"],
+ ["native speaker","名 母語話者、ネイティブ","start talking with native speakers","3級",54,"単語"],
+ ["in the future","将来は","In the future, however, it may be possible to...","3級",54,"熟語"],
+ ["It is possible to do","~することが可能である","it may be possible to practice conversation in a second language","2級",55,"熟語"],
+ ["powered by ~","~で動く、~を動力源とする","computers powered by artificial intelligence","2級",56,"熟語"],
+ ["artificial intelligence","名 人工知能（AI）","computers powered by artificial intelligence","2級",56,"単語"],
+ ["benefit","名 利益、恩恵","The benefits of speaking many languages are clear.","2級",57,"単語"],
+ ["keep + O + 形容詞","Oを~の状態に保つ","Developing language ability keeps our thinking young","2級",58,"熟語"],
+ ["improve","動 向上させる、改善する","improves concentration and problem-solving","2級",58,"単語"],
+ ["concentration","名 集中力","improves concentration and problem-solving","2級",58,"単語"],
+ ["problem-solving","名 問題解決（能力）","improves concentration and problem-solving","2級",58,"単語"],
+ ["allow 人 to do","人が~するのを可能にする","allows many to earn more money","2級",59,"熟語"],
+ ["earn money","お金を稼ぐ","allows many to earn more money","3級",59,"熟語"],
+ ["bring benefits to ~","~に利益をもたらす","may also bring benefits to society as a whole","2級",60,"熟語"],
+ ["as a whole","全体として","bring benefits to society as a whole","2級",60,"熟語"],
+ ["perhaps","副 おそらく、ひょっとすると","Adults perhaps think too often about the differences","3級",60,"単語"],
+ ["keep ~ apart","~を引き離しておく","the differences that keep us apart","2級",61,"熟語"],
+ ["refuse to do","~することを拒む","More immigrants are refusing to learn the local language.（問5②）","2級",0,"熟語"],
+ ["even though ...","…であるにもかかわらず","speaking foreign languages even though they are not immigrants（問5③）","2級",0,"熟語"],
+ ["local language","名 現地の言語","refusing to learn the local language（問5②）","2級",0,"単語"],
+ ["economic growth","名 経済成長","Economic growth（問7①）","2級",0,"単語"],
+ ["international trade","名 国際貿易","International trade（問7②）","2級",0,"単語"],
+ ["poverty","名 貧困","World poverty（問7④）","2級",0,"単語"],
+ ["method","名 方法、手法","The Best Method of Meeting Online（問10②）","2級",0,"単語"]
+];
+
+const ORDER=["3級","準2級","2級","準1級","1級","級外"];
+let data=[...DATA],activeLv="all",activeType="all",hideDone=false;
+const done=new Set();
+
+const cW=DATA.filter(d=>d[5]==="単語").length, cI=DATA.length-cW;
+document.getElementById("total").textContent=DATA.length;
+document.getElementById("nw").textContent=cW;
+document.getElementById("ni").textContent=cI;
+
+const cnt={},cntW={},cntI={};
+ORDER.forEach(l=>{cnt[l]=0;cntW[l]=0;cntI[l]=0;});
+DATA.forEach(d=>{cnt[d[3]]++;(d[5]==="単語"?cntW:cntI)[d[3]]++;});
+document.getElementById("sumbody").innerHTML=ORDER.map(l=>{
+ const n=cnt[l],p=Math.round(n/DATA.length*100);
+ return `<tr><td><span class="badge" style="background:${LV[l].c}">${l}</span></td>
+ <td><b>${n}</b></td><td style="color:var(--tw);font-weight:700">${cntW[l]}</td>
+ <td style="color:var(--ti);font-weight:700">${cntI[l]}</td>
+ <td><span class="bar" style="width:${Math.max(p*2.6,6)}px;background:${LV[l].c}"></span>${p}%</td>
+ <td style="color:var(--sub)">${LV[l].note}</td></tr>`;}).join("");
+
+document.getElementById("filters").innerHTML=
+ `<button class="on" data-lv="all">すべて</button>`+
+ ORDER.map(l=>cnt[l]?`<button data-lv="${l}" style="color:${LV[l].c}">${l} (${cnt[l]})</button>`:"").join("");
+document.getElementById("filters").onclick=e=>{
+ if(e.target.tagName!=="BUTTON")return;
+ [...e.currentTarget.children].forEach(b=>b.classList.remove("on"));
+ e.target.classList.add("on");activeLv=e.target.dataset.lv;render();};
+
+function list(){return data.filter(d=>
+ (activeLv==="all"||d[3]===activeLv)&&
+ (activeType==="all"||d[5]===activeType)&&
+ !(hideDone&&done.has(d[0])));}
+
+function render(){
+ const L=list();
+ document.getElementById("grid").innerHTML=L.map(d=>{
+  const[p,m,ex,lv,ln,ty]=d, t=ty==="単語"?"w":"i";
+  return `<div class="card hidden" data-w="${p}" style="border-left-color:${LV[lv].c}">
+   <span class="check">✓ 覚えた</span>
+   <div class="top"><span class="phrase">${p}</span>
+   <span style="display:flex;flex-direction:column;gap:4px;align-items:flex-end">
+   <span class="badge" style="background:${LV[lv].c}">${lv}</span>
+   <span class="tag ${t}">${ty}</span></span></div>
+   <div class="line">${ln?"l."+ln:"設問"}</div>
+   <div class="meaning">${m}</div>
+   <div class="ex">${ex}</div>
+   <div class="hint">タップで表示 ／ ダブルクリックで「覚えた」</div></div>`;}).join("");
+ [...document.getElementById("grid").children].forEach(c=>{
+  if(done.has(c.dataset.w))c.classList.add("done");
+  c.onclick=()=>c.classList.toggle("hidden");
+  c.ondblclick=e=>{e.preventDefault();const w=c.dataset.w;
+   done.has(w)?done.delete(w):done.add(w);render();};});
+
+ document.getElementById("tbody").innerHTML=L.map(d=>{
+  const[p,m,ex,lv,ln,ty]=d, t=ty==="単語"?"w":"i";
+  return `<tr class="hid ${done.has(p)?'done':''}" data-w="${p}">
+   <td><span class="mark">✓</span></td>
+   <td><span class="tag ${t}">${ty}</span></td>
+   <td class="ph">${p}</td><td class="mn">${m}</td>
+   <td class="exc">${ex}</td>
+   <td><span class="badge" style="background:${LV[lv].c}">${lv}</span></td>
+   <td class="ln">${ln?"l."+ln:"設問"}</td></tr>`;}).join("");
+ [...document.getElementById("tbody").children].forEach(tr=>{
+  tr.querySelector(".mn").onclick=()=>tr.classList.toggle("hid");
+  tr.querySelector(".exc").onclick=()=>tr.classList.toggle("hid");
+  tr.querySelector(".mark").onclick=()=>{const w=tr.dataset.w;
+   done.has(w)?done.delete(w):done.add(w);render();};});
+
+ document.getElementById("shown").textContent=L.length;
+ document.getElementById("doneN").textContent=done.size;
+}
+
+function setView(v){
+ document.getElementById("cardView").classList.toggle("hide",v!=="card");
+ document.getElementById("tableView").classList.toggle("hide",v!=="table");
+ document.getElementById("bCard").classList.toggle("on",v==="card");
+ document.getElementById("bTable").classList.toggle("on",v==="table");}
+function setType(t){activeType=t;
+ document.getElementById("tAll").classList.toggle("on",t==="all");
+ document.getElementById("tW").classList.toggle("on",t==="単語");
+ document.getElementById("tI").classList.toggle("on",t==="熟語");render();}
+function allHide(){document.querySelectorAll(".card").forEach(c=>c.classList.add("hidden"));
+ document.querySelectorAll("#tbody tr").forEach(t=>t.classList.add("hid"));}
+function allShow(){document.querySelectorAll(".card").forEach(c=>c.classList.remove("hidden"));
+ document.querySelectorAll("#tbody tr").forEach(t=>t.classList.remove("hid"));}
+function shuffle(){for(let i=data.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[data[i],data[j]]=[data[j],data[i]];}render();}
+function resetOrder(){data=[...DATA];render();}
+function resetDone(){done.clear();render();}
+function toggleDoneFilter(){hideDone=!hideDone;
+ document.getElementById("hideDoneBtn").textContent=hideDone?"覚えた項目も表示":"覚えた項目を隠す";render();}
+
+render();
+</script>
+</body>
+</html>
