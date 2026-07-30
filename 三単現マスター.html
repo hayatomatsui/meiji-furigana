@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>三単現 -s マスター | 解説＆練習問題</title>
+<style>
+  :root{
+    --bg:#f4f6fa;
+    --card:#ffffff;
+    --ink:#1c2330;
+    --sub:#5b6779;
+    --line:#e3e8f0;
+    --blue:#2f6df6;
+    --blue-l:#eaf1ff;
+    --green:#16a34a;
+    --green-l:#e8f8ee;
+    --red:#e0384f;
+    --red-l:#fdecee;
+    --amber:#d97706;
+    --amber-l:#fff5e6;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;
+    line-height:1.75;
+    -webkit-text-size-adjust:100%;
+  }
+  .wrap{max-width:900px;margin:0 auto;padding:24px 18px 80px;}
+  header.hero{
+    background:linear-gradient(135deg,#2f6df6,#6b4df6);
+    color:#fff;border-radius:20px;padding:28px 26px;margin-bottom:22px;
+  }
+  header.hero h1{margin:0 0 6px;font-size:26px;letter-spacing:.02em;}
+  header.hero p{margin:0;opacity:.92;font-size:14px;}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;margin-bottom:18px;
+  }
+  h2{font-size:20px;margin:0 0 14px;display:flex;align-items:center;gap:9px;}
+  h2 .num{
+    background:var(--blue);color:#fff;width:28px;height:28px;border-radius:8px;
+    display:inline-flex;align-items:center;justify-content:center;font-size:15px;flex:none;
+  }
+  h3{font-size:16px;margin:22px 0 8px;}
+  p{margin:8px 0;}
+  .lead{color:var(--sub);font-size:14px;}
+  code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;}
+  .en{font-family:Georgia,"Times New Roman",serif;}
+  /* 条件ボックス */
+  .cond{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0;}
+  .cond div{background:var(--blue-l);border:1px solid #cfdffd;border-radius:12px;padding:12px;text-align:center;}
+  .cond b{display:block;font-size:17px;color:var(--blue);}
+  .cond span{font-size:12px;color:var(--sub);}
+  @media(max-width:560px){.cond{grid-template-columns:1fr;}}
+  /* テーブル */
+  .tbl{width:100%;border-collapse:collapse;font-size:14px;margin:10px 0 4px;}
+  .tbl th{background:#f7f9fc;text-align:left;padding:10px;border-bottom:2px solid var(--line);font-size:13px;color:var(--sub);}
+  .tbl td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top;}
+  .tbl tr:last-child td{border-bottom:none;}
+  .tag{
+    display:inline-block;background:var(--blue);color:#fff;border-radius:6px;
+    width:24px;height:24px;text-align:center;line-height:24px;font-size:13px;
+  }
+  .arrow{color:var(--sub);}
+  .hl{background:#fff2a8;border-radius:3px;padding:0 2px;font-weight:700;}
+  .note{background:var(--amber-l);border-left:4px solid var(--amber);border-radius:0 10px 10px 0;padding:12px 14px;margin:14px 0;font-size:14px;}
+  .ok{background:var(--green-l);border-left:4px solid var(--green);border-radius:0 10px 10px 0;padding:12px 14px;margin:14px 0;font-size:14px;}
+  .memo{background:#f2effe;border-left:4px solid #6b4df6;border-radius:0 10px 10px 0;padding:14px;font-size:15px;font-weight:700;}
+  details{border:1px solid var(--line);border-radius:12px;padding:0 14px;margin:12px 0;background:#fbfcfe;}
+  details summary{cursor:pointer;padding:12px 0;font-weight:700;font-size:14px;}
+  /* タブ */
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+  .tab{
+    border:1px solid var(--line);background:#fff;color:var(--sub);
+    padding:9px 14px;border-radius:999px;font-size:13.5px;cursor:pointer;font-weight:700;
+    transition:.15s;font-family:inherit;
+  }
+  .tab:hover{border-color:var(--blue);color:var(--blue);}
+  .tab.on{background:var(--blue);border-color:var(--blue);color:#fff;}
+  /* クイズ */
+  .qhead{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--sub);margin-bottom:8px;}
+  .bar{height:7px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:18px;}
+  .bar i{display:block;height:100%;background:var(--blue);width:0;transition:width .3s;}
+  .qbox{text-align:center;padding:8px 0 4px;}
+  .qlabel{font-size:13px;color:var(--sub);}
+  .qword{font-size:38px;font-weight:800;letter-spacing:.02em;margin:6px 0 4px;font-family:Georgia,serif;}
+  .qsent{font-size:21px;line-height:1.9;margin:10px 0;font-family:Georgia,serif;}
+  .blank{
+    display:inline-block;min-width:120px;border-bottom:3px solid var(--blue);
+    color:var(--blue);font-weight:700;
+  }
+  .hintv{font-size:14px;color:var(--sub);}
+  .opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0 6px;}
+  .opts.five{grid-template-columns:1fr;}
+  @media(max-width:560px){.opts{grid-template-columns:1fr;}}
+  .opt{
+    padding:14px;border:2px solid var(--line);border-radius:12px;background:#fff;
+    font-size:16px;cursor:pointer;text-align:left;font-family:inherit;color:var(--ink);
+    transition:.12s;
+  }
+  .opt:hover:not(:disabled){border-color:var(--blue);background:var(--blue-l);}
+  .opt:disabled{cursor:default;}
+  .opt.good{border-color:var(--green);background:var(--green-l);font-weight:700;}
+  .opt.bad{border-color:var(--red);background:var(--red-l);}
+  .opt .en{font-family:Georgia,serif;font-size:17px;}
+  .inrow{display:flex;gap:10px;justify-content:center;margin:18px 0 6px;flex-wrap:wrap;}
+  input[type=text]{
+    font-size:22px;padding:11px 14px;border:2px solid var(--line);border-radius:12px;
+    width:260px;font-family:Georgia,serif;text-align:center;outline:none;
+  }
+  input[type=text]:focus{border-color:var(--blue);}
+  .btn{
+    background:var(--blue);color:#fff;border:none;border-radius:12px;padding:12px 22px;
+    font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;
+  }
+  .btn:hover{filter:brightness(1.07);}
+  .btn.ghost{background:#fff;color:var(--blue);border:2px solid var(--blue);}
+  .fb{border-radius:12px;padding:13px 15px;margin-top:14px;font-size:14.5px;display:none;}
+  .fb.show{display:block;}
+  .fb.y{background:var(--green-l);border:1px solid #bfe8cd;}
+  .fb.n{background:var(--red-l);border:1px solid #f7c8ce;}
+  .fb b{font-size:15px;}
+  .fb .why{color:var(--sub);margin-top:4px;font-size:13.5px;}
+  .center{text-align:center;}
+  .result{text-align:center;padding:20px 0;}
+  .score{font-size:52px;font-weight:800;color:var(--blue);line-height:1.2;}
+  .stars{font-size:26px;letter-spacing:4px;margin:6px 0;}
+  .revlist{text-align:left;font-size:14px;margin:16px auto 0;max-width:520px;}
+  .revlist div{padding:8px 10px;border-bottom:1px solid var(--line);}
+  .revlist .en{font-family:Georgia,serif;}
+  .x{color:var(--red);font-weight:700;}
+  .o{color:var(--green);font-weight:700;}
+  footer{text-align:center;color:var(--sub);font-size:12px;margin-top:26px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <h1>三単現 -s マスター</h1>
+    <p>ルールをおさらいして、4種類の練習問題で完全定着させよう。</p>
+  </header>
+
+  <!-- ============ 解説 ============ -->
+  <section class="card">
+    <h2><span class="num">1</span>三単現って何？</h2>
+    <p class="lead">「<b>三</b>人称・<b>単</b>数・<b>現</b>在形」の略。この3つが<b>すべてそろったとき</b>だけ、動詞に -s / -es がつきます。</p>
+    <div class="cond">
+      <div><b>三人称</b><span>I・you 以外<br>(he / she / it / Tom / my dog)</span></div>
+      <div><b>単数</b><span>1人・1つ<br>(× they, my friends)</span></div>
+      <div><b>現在形</b><span>今の習慣・状態<br>(× 過去形, × 未来)</span></div>
+    </div>
+    <table class="tbl">
+      <tr><td class="en">She <span class="hl">plays</span> tennis.</td><td>she＝三人称・単数・現在 → <b>s がつく</b></td></tr>
+      <tr><td class="en">They <span class="hl">play</span> tennis.</td><td>they＝<b>複数</b> → つかない</td></tr>
+      <tr><td class="en">I <span class="hl">play</span> tennis.</td><td>I＝<b>一人称</b> → つかない</td></tr>
+      <tr><td class="en">She <span class="hl">played</span> tennis.</td><td><b>過去形</b> → つかない</td></tr>
+    </table>
+    <div class="note"><b>ここが落とし穴</b>：主語が長いと見失いがち。<span class="en">My brother in Tokyo <b>lives</b> alone.</span>（主語の中心は <span class="en">My brother</span>＝単数）</div>
+  </section>
+
+  <section class="card">
+    <h2><span class="num">2</span>-s / -es のつけ方 5ルール</h2>
+    <table class="tbl">
+      <thead><tr><th>No.</th><th>語尾の形</th><th>変化のしかた</th><th>例</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tag">1</span></td><td>ふつうの動詞</td><td><b>s</b> をつける</td><td class="en">play <span class="arrow">→</span> plays<br>read <span class="arrow">→</span> reads</td></tr>
+        <tr><td><span class="tag">2</span></td><td><b>s, sh, ch, x, o</b> で終わる</td><td><b>es</b> をつける</td><td class="en">go <span class="arrow">→</span> goes<br>watch <span class="arrow">→</span> watches<br>fix <span class="arrow">→</span> fixes</td></tr>
+        <tr><td><span class="tag">3</span></td><td><b>子音 + y</b> で終わる</td><td><b>y を i に変えて es</b></td><td class="en">study <span class="arrow">→</span> studies<br>carry <span class="arrow">→</span> carries</td></tr>
+        <tr><td><span class="tag">4</span></td><td><b>母音 + y</b> で終わる</td><td>そのまま <b>s</b></td><td class="en">play <span class="arrow">→</span> plays<br>enjoy <span class="arrow">→</span> enjoys</td></tr>
+        <tr><td><span class="tag">5</span></td><td>不規則動詞</td><td>特別な形</td><td class="en">have <span class="arrow">→</span> has<br>be <span class="arrow">→</span> is<br>do <span class="arrow">→</span> does</td></tr>
+      </tbody>
+    </table>
+    <div class="ok"><b>ルール②の覚え方</b>：「<b>ス・シュ・チ・クス・オ</b>」＝口の形が詰まって s だけでは発音しにくい音。だから母音 e を挟んで <b>es</b>。</div>
+    <div class="note"><b>③と④の見分け方</b>：y の<b>1つ前の文字</b>だけ見る。<br>
+      <span class="en">stud<b>y</b></span> → 前は d（子音）→ <b>studies</b>／
+      <span class="en">pla<b>y</b></span> → 前は a（母音）→ <b>plays</b>
+    </div>
+    <details>
+      <summary>▸ 母音・子音って？</summary>
+      <p style="font-size:14px">母音は <b class="en">a, i, u, e, o</b> の5つ。それ以外の文字はすべて子音です。</p>
+    </details>
+  </section>
+
+  <section class="card">
+    <h2><span class="num">3</span>y の変化を横断整理</h2>
+    <table class="tbl">
+      <thead><tr><th>用法</th><th>変化ルール（子音+y）</th><th>例</th></tr></thead>
+      <tbody>
+        <tr><td>三単現 <b>-s</b></td><td>y → <b>i</b> ＋ es</td><td class="en">study → studies / carry → carries</td></tr>
+        <tr><td>過去形 <b>-ed</b></td><td>y → <b>i</b> ＋ ed</td><td class="en">study → studied / cry → cried</td></tr>
+        <tr><td>現在分詞 <b>-ing</b></td><td><b>y はそのまま</b> ＋ ing</td><td class="en">study → studying / carry → carrying</td></tr>
+      </tbody>
+    </table>
+    <div class="note"><b>-ing だけは y を i にしない！</b><br>
+      ○ <span class="en">study → studying</span>／× <span class="en"><s>studiing</s></span><br>
+      <span style="font-size:13px;color:var(--sub)">i が2つ並ぶのを英語は嫌うため。</span>
+    </div>
+    <div class="memo">「<b>i に変えるのは ed と es、ing のときはそのまま</b>」</div>
+  </section>
+
+  <!-- ============ 練習問題 ============ -->
+  <section class="card">
+    <h2><span class="num">4</span>練習問題</h2>
+    <div class="tabs" id="tabs">
+      <button class="tab on" data-m="rule">① ルール判定</button>
+      <button class="tab" data-m="type">② 変形を入力</button>
+      <button class="tab" data-m="mc">③ 4択スペリング</button>
+      <button class="tab" data-m="fill">④ 英文穴埋め</button>
+    </div>
+    <div id="game"></div>
+    <details>
+      <summary>▸ ルール早見表を見る（ヒント）</summary>
+      <p style="font-size:13.5px;margin-bottom:14px">
+        ① ふつう → s ／ ② s,sh,ch,x,o → es ／ ③ 子音+y → y を i にして es ／ ④ 母音+y → s ／ ⑤ 不規則（have→has, be→is, do→does）
+      </p>
+    </details>
+  </section>
+
+  <footer>三単現 -s マスター ／ 授業用教材</footer>
+</div>
+
+<script>
+/* ===================== データ ===================== */
+var RULE_NAME = {
+  1:"① ふつうの動詞 → そのまま s",
+  2:"② s, sh, ch, x, o で終わる → es",
+  3:"③ 子音 + y → y を i に変えて es",
+  4:"④ 母音 + y → そのまま s",
+  5:"⑤ 不規則変化（特別な形）"
+};
+var RULE_SHORT = {1:"① そのまま s",2:"② es をつける",3:"③ y→i +es",4:"④ 母音+y → s",5:"⑤ 不規則"};
+
+/* v:原形 a:三単現 r:ルール番号 why:理由 */
+var VERBS = [
+  {v:"read", a:"reads", r:1, why:"語尾は d。特別な音でないので s だけ。"},
+  {v:"run", a:"runs", r:1, why:"語尾は n。s だけ。"},
+  {v:"drink", a:"drinks", r:1, why:"語尾は k。s だけ。"},
+  {v:"walk", a:"walks", r:1, why:"語尾は k。s だけ。"},
+  {v:"like", a:"likes", r:1, why:"語尾は e。s だけ。"},
+  {v:"help", a:"helps", r:1, why:"語尾は p。s だけ。"},
+  {v:"live", a:"lives", r:1, why:"語尾は e。s だけ。"},
+  {v:"sing", a:"sings", r:1, why:"語尾は g。s だけ。"},
+  {v:"eat", a:"eats", r:1, why:"語尾は t。s だけ。"},
+  {v:"know", a:"knows", r:1, why:"語尾は w。s だけ。"},
+  {v:"work", a:"works", r:1, why:"語尾は k。s だけ。"},
+  {v:"speak", a:"speaks", r:1, why:"語尾は k。s だけ。"},
+  {v:"come", a:"comes", r:1, why:"語尾は e。s だけ。"},
+  {v:"write", a:"writes", r:1, why:"語尾は e。s だけ。"},
+  {v:"want", a:"wants", r:1, why:"語尾は t。s だけ。"},
+
+  {v:"go", a:"goes", r:2, why:"o で終わるので es。"},
+  {v:"watch", a:"watches", r:2, why:"ch で終わるので es。"},
+  {v:"wash", a:"washes", r:2, why:"sh で終わるので es。"},
+  {v:"fix", a:"fixes", r:2, why:"x で終わるので es。"},
+  {v:"teach", a:"teaches", r:2, why:"ch で終わるので es。"},
+  {v:"pass", a:"passes", r:2, why:"s で終わるので es。"},
+  {v:"catch", a:"catches", r:2, why:"ch で終わるので es。"},
+  {v:"mix", a:"mixes", r:2, why:"x で終わるので es。"},
+  {v:"brush", a:"brushes", r:2, why:"sh で終わるので es。"},
+  {v:"push", a:"pushes", r:2, why:"sh で終わるので es。"},
+  {v:"miss", a:"misses", r:2, why:"s で終わるので es。"},
+  {v:"finish", a:"finishes", r:2, why:"sh で終わるので es。"},
+  {v:"relax", a:"relaxes", r:2, why:"x で終わるので es。"},
+
+  {v:"study", a:"studies", r:3, why:"y の前が d（子音）→ y を i にして es。"},
+  {v:"carry", a:"carries", r:3, why:"y の前が r（子音）→ y を i にして es。"},
+  {v:"try", a:"tries", r:3, why:"y の前が r（子音）→ y を i にして es。"},
+  {v:"cry", a:"cries", r:3, why:"y の前が r（子音）→ y を i にして es。"},
+  {v:"fly", a:"flies", r:3, why:"y の前が l（子音）→ y を i にして es。"},
+  {v:"worry", a:"worries", r:3, why:"y の前が r（子音）→ y を i にして es。"},
+  {v:"hurry", a:"hurries", r:3, why:"y の前が r（子音）→ y を i にして es。"},
+  {v:"copy", a:"copies", r:3, why:"y の前が p（子音）→ y を i にして es。"},
+  {v:"cook", a:"cooks", r:1, why:"語尾は k。s だけ。"},
+
+  {v:"play", a:"plays", r:4, why:"y の前が a（母音）→ そのまま s。"},
+  {v:"enjoy", a:"enjoys", r:4, why:"y の前が o（母音）→ そのまま s。"},
+  {v:"stay", a:"stays", r:4, why:"y の前が a（母音）→ そのまま s。"},
+  {v:"obey", a:"obeys", r:4, why:"y の前が e（母音）→ そのまま s。"},
+  {v:"buy", a:"buys", r:4, why:"y の前が u（母音）→ そのまま s。"},
+  {v:"say", a:"says", r:4, why:"y の前が a（母音）→ そのまま s。"},
+  {v:"pay", a:"pays", r:4, why:"y の前が a（母音）→ そのまま s。"},
+
+  {v:"have", a:"has", r:5, why:"不規則。have → has（× haves）"},
+  {v:"be", a:"is", r:5, why:"不規則。be → is（he / she / it は is）"},
+  {v:"do", a:"does", r:5, why:"不規則。do → does（発音も /dʌz/ に変化）"}
+];
+
+/* 英文穴埋め：s は s:true が「-s をつける」問題 */
+var SENTS = [
+  {pre:"She ", v:"play", post:" tennis every Sunday.", a:"plays", why:"She は三人称単数 → 母音+y なので plays。"},
+  {pre:"My brother ", v:"study", post:" English very hard.", a:"studies", why:"My brother は単数 → 子音+y なので studies。"},
+  {pre:"Tom ", v:"go", post:" to school by bus.", a:"goes", why:"Tom は単数 → o で終わるので goes。"},
+  {pre:"He ", v:"have", post:" two dogs.", a:"has", why:"He は単数 → 不規則で has。"},
+  {pre:"Ken ", v:"watch", post:" TV after dinner.", a:"watches", why:"Ken は単数 → ch で終わるので watches。"},
+  {pre:"My mother ", v:"carry", post:" a big bag.", a:"carries", why:"単数 → 子音+y なので carries。"},
+  {pre:"That boy ", v:"run", post:" very fast.", a:"runs", why:"That boy は単数 → s だけ。"},
+  {pre:"My father ", v:"wash", post:" his car on Sundays.", a:"washes", why:"単数 → sh で終わるので washes。"},
+  {pre:"Yuki ", v:"try", post:" to speak English.", a:"tries", why:"単数 → 子音+y なので tries。"},
+  {pre:"She ", v:"do", post:" her homework at night.", a:"does", why:"単数 → 不規則で does。"},
+  {pre:"My sister ", v:"be", post:" a good singer.", a:"is", why:"単数 → be は is。"},
+  {pre:"Mr. Sato ", v:"teach", post:" us math.", a:"teaches", why:"単数 → ch で終わるので teaches。"},
+  {pre:"I ", v:"like", post:" dogs very much.", a:"like", why:"主語は I（一人称）→ s はつけない！", trap:true},
+  {pre:"They ", v:"go", post:" to the park every day.", a:"go", why:"They は複数 → s はつけない！", trap:true},
+  {pre:"You ", v:"study", post:" very hard.", a:"study", why:"You は二人称 → s はつけない！", trap:true},
+  {pre:"My friends ", v:"watch", post:" soccer games.", a:"watch", why:"My friends は複数 → s はつけない！", trap:true},
+  {pre:"Emi and Ken ", v:"play", post:" the piano.", a:"play", why:"A and B は複数 → s はつけない！", trap:true},
+  {pre:"It ", v:"rain", post:" a lot in June.", a:"rains", why:"It は三人称単数 → s だけ。"},
+  {pre:"My dog ", v:"eat", post:" a lot.", a:"eats", why:"My dog は単数 → s だけ。"},
+  {pre:"Everyone ", v:"know", post:" his name.", a:"knows", why:"everyone は単数扱い → s がつく。"}
+];
+
+/* ===================== ユーティリティ ===================== */
+function shuffle(arr){
+  var a = arr.slice();
+  for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i];a[i]=a[j];a[j]=t; }
+  return a;
+}
+function pick(arr,n){ return shuffle(arr).slice(0,n); }
+function norm(s){ return (s||"").toLowerCase().replace(/[^a-z]/g,""); }
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+/* 4択の誤答候補を作る */
+function genOptions(o){
+  var v=o.v, ans=o.a, set={}, list=[];
+  function add(x){ if(x && x!==ans && !set[x]){ set[x]=1; list.push(x); } }
+  if(o.r===5){
+    if(v==="have"){ add("haves"); add("have"); add("hases"); }
+    if(v==="be"){ add("bes"); add("are"); add("am"); }
+    if(v==="do"){ add("dos"); add("do"); add("doses"); }
+  }
+  add(v+"s");
+  add(v+"es");
+  if(/y$/.test(v)){ add(v.slice(0,-1)+"ies"); }
+  else { add(v+"ies"); }
+  add(v);
+  var wrong = list.slice(0,3);
+  return shuffle(wrong.concat([ans]));
+}
+
+/* ===================== ゲームエンジン ===================== */
+var TOTAL = 10;
+var mode="rule", qs=[], idx=0, score=0, wrongLog=[], answered=false;
+var game = document.getElementById("game");
+
+function start(m){
+  mode=m; idx=0; score=0; wrongLog=[]; answered=false;
+  if(m==="fill"){ qs = pick(SENTS, TOTAL); }
+  else if(m==="rule"){ qs = pick(VERBS.filter(function(x){return x.r!==5 || Math.random()<0.5;}), TOTAL); }
+  else { qs = pick(VERBS, TOTAL); }
+  render();
+}
+
+function header(){
+  var pct = Math.round(idx/qs.length*100);
+  return '<div class="qhead"><span>第 '+(idx+1)+' 問 / '+qs.length+' 問</span>'+
+         '<span>正解 <b style="color:var(--blue)">'+score+'</b> 問</span></div>'+
+         '<div class="bar"><i style="width:'+pct+'%"></i></div>';
+}
+
+function render(){
+  answered=false;
+  if(idx>=qs.length){ return renderResult(); }
+  var q=qs[idx], h=header();
+
+  if(mode==="rule"){
+    h += '<div class="qbox"><div class="qlabel">この動詞に -s をつけるとき、どのルール？</div>'+
+         '<div class="qword en">'+esc(q.v)+'</div></div>'+
+         '<div class="opts five">'+
+           [1,2,3,4,5].map(function(n){
+             return '<button class="opt" data-n="'+n+'">'+RULE_SHORT[n]+'</button>';
+           }).join('')+
+         '</div>';
+  }
+  else if(mode==="type"){
+    h += '<div class="qbox"><div class="qlabel">三単現の形に直して入力しよう</div>'+
+         '<div class="qword en">'+esc(q.v)+'</div>'+
+         '<div class="hintv">he / she / it ＋ ?</div></div>'+
+         '<div class="inrow"><input type="text" id="inp" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="答えを入力">'+
+         '<button class="btn" id="chk">答え合わせ</button></div>';
+  }
+  else if(mode==="mc"){
+    var opts = genOptions(q);
+    h += '<div class="qbox"><div class="qlabel">正しいスペリングを選ぼう</div>'+
+         '<div class="qword en">'+esc(q.v)+'</div></div>'+
+         '<div class="opts">'+
+           opts.map(function(o){ return '<button class="opt" data-a="'+esc(o)+'"><span class="en">'+esc(o)+'</span></button>'; }).join('')+
+         '</div>';
+  }
+  else {
+    h += '<div class="qbox"><div class="qlabel">（　）の動詞を正しい形にして入力しよう（変えない場合もあります）</div>'+
+         '<div class="qsent en">'+esc(q.pre)+'<span class="blank">?</span>'+esc(q.post)+'</div>'+
+         '<div class="hintv">（ '+esc(q.v)+' ）</div></div>'+
+         '<div class="inrow"><input type="text" id="inp" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="答えを入力">'+
+         '<button class="btn" id="chk">答え合わせ</button></div>';
+  }
+
+  h += '<div class="fb" id="fb"></div>';
+  game.innerHTML = h;
+  bind();
+}
+
+function bind(){
+  var q=qs[idx];
+  var opts = game.querySelectorAll(".opt");
+  for(var i=0;i<opts.length;i++){
+    opts[i].addEventListener("click", function(){
+      if(answered) return;
+      if(mode==="rule"){ judgeRule(parseInt(this.getAttribute("data-n"),10), this); }
+      else { judgeMC(this.getAttribute("data-a"), this); }
+    });
+  }
+  var chk=document.getElementById("chk");
+  if(chk){
+    var inp=document.getElementById("inp");
+    inp.focus();
+    chk.addEventListener("click", function(){ if(!answered) judgeText(); else next(); });
+    inp.addEventListener("keydown", function(e){
+      if(e.key==="Enter"){ if(!answered){ judgeText(); } else { next(); } }
+    });
+  }
+}
+
+function lockOpts(){
+  var opts=game.querySelectorAll(".opt");
+  for(var i=0;i<opts.length;i++){ opts[i].disabled=true; }
+}
+
+function judgeRule(n, el){
+  answered=true; lockOpts();
+  var q=qs[idx], ok=(n===q.r);
+  var opts=game.querySelectorAll(".opt");
+  for(var i=0;i<opts.length;i++){
+    var v=parseInt(opts[i].getAttribute("data-n"),10);
+    if(v===q.r) opts[i].className="opt good";
+  }
+  if(!ok) el.className="opt bad";
+  feedback(ok, q.v+" → "+q.a, RULE_NAME[q.r]+"｜"+q.why, ok?null:{q:q.v,my:RULE_SHORT[n],ans:q.a});
+}
+
+function judgeMC(a, el){
+  answered=true; lockOpts();
+  var q=qs[idx], ok=(a===q.a);
+  var opts=game.querySelectorAll(".opt");
+  for(var i=0;i<opts.length;i++){
+    if(opts[i].getAttribute("data-a")===q.a) opts[i].className="opt good";
+  }
+  if(!ok) el.className="opt bad";
+  feedback(ok, q.v+" → "+q.a, RULE_NAME[q.r]+"｜"+q.why, ok?null:{q:q.v,my:a,ans:q.a});
+}
+
+function judgeText(){
+  var q=qs[idx];
+  var raw=document.getElementById("inp").value;
+  if(!norm(raw)) return;
+  var ok = (norm(raw)===norm(q.a));
+  answered=true;
+  document.getElementById("inp").disabled=true;
+  document.getElementById("chk").textContent="次の問題へ";
+  var line, why;
+  if(mode==="type"){
+    line = q.v+" → "+q.a;
+    why = RULE_NAME[q.r]+"｜"+q.why;
+  }else{
+    line = q.pre+q.a+q.post;
+    why = q.why;
+  }
+  feedback(ok, line, why, ok?null:{q:(mode==="type"?q.v:q.pre+"( "+q.v+" )"+q.post), my:raw, ans:q.a});
+}
+
+function feedback(ok, line, why, log){
+  if(ok) score++;
+  if(log) wrongLog.push(log);
+  var fb=document.getElementById("fb");
+  fb.className="fb show "+(ok?"y":"n");
+  fb.innerHTML = '<b>'+(ok?"○ 正解！":"× 残念…")+'</b> <span class="en" style="font-size:16px">'+esc(line)+'</span>'+
+                 '<div class="why">'+esc(why)+'</div>'+
+                 (mode==="rule"||mode==="mc" ? '<div style="margin-top:12px"><button class="btn" id="nx">次の問題へ</button></div>' : '');
+  var nx=document.getElementById("nx");
+  if(nx) nx.addEventListener("click", next);
+}
+
+function next(){ idx++; render(); }
+
+function renderResult(){
+  var pct = Math.round(score/qs.length*100);
+  var stars = pct===100?"★★★★★":pct>=90?"★★★★☆":pct>=70?"★★★☆☆":pct>=50?"★★☆☆☆":"★☆☆☆☆";
+  var msg = pct===100?"完璧！三単現マスターです。":pct>=80?"よくできました！あと一歩で満点。":pct>=60?"半分以上正解。間違えたルールを復習しよう。":"もう一度ルール表を読んでから挑戦しよう。";
+  var h='<div class="result"><div class="qlabel">結果</div>'+
+        '<div class="score">'+score+' / '+qs.length+'</div>'+
+        '<div class="stars" style="color:#f5b301">'+stars+'</div>'+
+        '<p>'+msg+'</p>';
+  if(wrongLog.length){
+    h+='<div class="revlist"><b style="font-size:14px">まちがい直し</b>';
+    for(var i=0;i<wrongLog.length;i++){
+      var w=wrongLog[i];
+      h+='<div><span class="en">'+esc(w.q)+'</span>　<span class="x">'+esc(w.my)+'</span> → <span class="o en">'+esc(w.ans)+'</span></div>';
+    }
+    h+='</div>';
+  }
+  h+='<div style="margin-top:22px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">'+
+     '<button class="btn" id="again">もう一度（新しい問題）</button>'+
+     '<button class="btn ghost" id="top">問題形式を選ぶ</button></div></div>';
+  game.innerHTML=h;
+  document.getElementById("again").addEventListener("click", function(){ start(mode); });
+  document.getElementById("top").addEventListener("click", function(){
+    window.scrollTo({top:document.getElementById("tabs").offsetTop-20, behavior:"smooth"});
+  });
+}
+
+/* タブ */
+var tabs=document.getElementById("tabs").querySelectorAll(".tab");
+for(var i=0;i<tabs.length;i++){
+  tabs[i].addEventListener("click", function(){
+    for(var j=0;j<tabs.length;j++) tabs[j].className="tab";
+    this.className="tab on";
+    start(this.getAttribute("data-m"));
+  });
+}
+start("rule");
+</script>
+</body>
+</html>
