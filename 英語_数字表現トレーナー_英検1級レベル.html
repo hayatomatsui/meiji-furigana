@@ -1,0 +1,656 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>英語 数字表現トレーナー（実質・英検1級レベル）</title>
+<style>
+  :root{
+    --bg:#f6f7f9; --card:#fff; --ink:#1b2430; --sub:#5d6b7a; --line:#e2e6eb;
+    --accent:#1f6feb; --accent-w:#e8f0fe; --ok:#0f9d58; --ok-w:#e6f5ec;
+    --ng:#d93025; --ng-w:#fdeceb; --warn:#f5a524;
+    --lv1:#0f9d58; --lv2:#1f6feb; --lv3:#c2185b;
+    --fs:1rem;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic","Noto Sans JP",sans-serif;
+    line-height:1.7;font-size:var(--fs)}
+  .wrap{max-width:880px;margin:0 auto;padding:16px 16px 64px}
+  header.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+  h1{font-size:1.15rem;margin:0;letter-spacing:.02em}
+  h1 span{color:var(--sub);font-weight:400;font-size:.8rem;margin-left:8px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 18px;margin-bottom:14px;
+    box-shadow:0 1px 2px rgba(20,30,45,.04)}
+  .card h2{font-size:.95rem;margin:0 0 10px;letter-spacing:.02em}
+  .muted{color:var(--sub);font-size:.85rem}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .row+.row{margin-top:10px}
+  label.chk{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;
+    padding:6px 12px;cursor:pointer;background:#fff;font-size:.88rem;user-select:none}
+  label.chk input{accent-color:var(--accent);margin:0}
+  label.chk:has(input:checked){border-color:var(--accent);background:var(--accent-w);color:#12459b;font-weight:600}
+  button{font:inherit;cursor:pointer;border-radius:10px;border:1px solid var(--line);background:#fff;padding:9px 16px;color:var(--ink)}
+  button:hover{border-color:#c9d2dc}
+  button.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+  button.primary:hover{background:#1a5fd0}
+  button.ghost{background:transparent}
+  button:disabled{opacity:.45;cursor:default}
+  .seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+  .seg button{border:0;border-radius:0;padding:8px 14px;font-size:.88rem}
+  .seg button.on{background:var(--accent);color:#fff;font-weight:600}
+  select{font:inherit;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:#fff}
+  .badge{display:inline-block;font-size:.72rem;font-weight:700;padding:2px 9px;border-radius:999px;color:#fff;letter-spacing:.03em}
+  .lv1{background:var(--lv1)} .lv2{background:var(--lv2)} .lv3{background:var(--lv3)}
+  .tag{display:inline-block;font-size:.72rem;padding:2px 9px;border-radius:999px;background:#eef1f5;color:var(--sub);font-weight:600}
+  .bar{height:6px;background:#e6eaef;border-radius:999px;overflow:hidden;margin:2px 0 14px}
+  .bar>i{display:block;height:100%;background:var(--accent);transition:width .25s}
+  .qmeta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+  .qtext{font-size:1.22rem;font-weight:600;margin:2px 0 16px;line-height:1.6}
+  .qtext em{font-style:normal;background:#fff6d9;padding:0 3px;border-radius:3px}
+  .qsub{font-size:.85rem;color:var(--sub);margin:-10px 0 14px}
+  .opts{display:grid;gap:9px}
+  .opt{display:block;width:100%;text-align:left;padding:13px 15px;border:1px solid var(--line);border-radius:11px;background:#fff;font-size:1.02rem}
+  .opt:hover:not(:disabled){border-color:var(--accent);background:#f7fafe}
+  .opt b{display:inline-block;width:1.6em;color:var(--sub);font-weight:700}
+  .opt.correct{border-color:var(--ok);background:var(--ok-w)}
+  .opt.wrong{border-color:var(--ng);background:var(--ng-w)}
+  .opt:disabled{cursor:default;opacity:1}
+  .ansrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  input.ans{font:inherit;font-size:1.1rem;padding:11px 13px;border:1px solid var(--line);border-radius:11px;min-width:min(340px,100%);background:#fff}
+  input.ans:focus{outline:2px solid var(--accent-w);border-color:var(--accent)}
+  .verdict{margin-top:14px;padding:13px 15px;border-radius:11px;font-size:.95rem;border:1px solid}
+  .verdict.ok{background:var(--ok-w);border-color:#b7e0c6}
+  .verdict.ng{background:var(--ng-w);border-color:#f3c2be}
+  .verdict.show{background:#fff8e6;border-color:#f2dda1}
+  .verdict .head{font-weight:700;margin-bottom:4px}
+  .verdict .en{font-size:1.05rem;font-weight:700}
+  .foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:16px;flex-wrap:wrap}
+  table{width:100%;border-collapse:collapse;font-size:.9rem}
+  th,td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}
+  th{color:var(--sub);font-size:.78rem;font-weight:700;letter-spacing:.04em}
+  .big{--fs:1.28rem}
+  .hidden{display:none}
+  .stat{display:flex;gap:18px;flex-wrap:wrap;font-size:.9rem}
+  .stat b{font-size:1.5rem;display:block;line-height:1.2}
+  .kbd{font-size:.75rem;color:var(--sub);border:1px solid var(--line);border-radius:5px;padding:1px 5px;background:#fafbfc}
+  ul.notes{margin:6px 0 0;padding-left:1.2em;font-size:.88rem;color:var(--sub)}
+</style>
+
+<div class="wrap" id="app">
+  <header class="top">
+    <h1>英語 数字表現トレーナー<span>million / billion・倍数・分数・年代・増減</span></h1>
+    <div class="seg" id="uiMode">
+      <button data-ui="self" class="on">自習モード</button>
+      <button data-ui="class">授業モード</button>
+    </div>
+  </header>
+
+  <div class="card" style="border-color:#f2dda1;background:#fff8e6">
+    <div style="font-weight:700;margin-bottom:4px">⚠️ 難度について</div>
+    <div class="muted" style="color:#7a5a12">
+      当初は<strong>大学入試</strong>（共通テスト〜難関大）を想定して作成しましたが、
+      扱う語彙・表現の難度は実質的に<strong>英検1級レベル</strong>に達しています。
+      「難関大」タブの問題（percentage point・fourfold・some＝約・複合計算など）は
+      特に英検1級で問われる数量表現とほぼ同水準です。学習の目安にしてください。
+    </div>
+  </div>
+
+  <!-- ===== SETUP ===== -->
+  <section id="setup">
+    <div class="card">
+      <h2>1. 出題モード</h2>
+      <div class="row" id="modePick">
+        <label class="chk"><input type="checkbox" value="1" checked> ① 数字 ⇄ 英語</label>
+        <label class="chk"><input type="checkbox" value="2" checked> ② 表現マッチング</label>
+        <label class="chk"><input type="checkbox" value="3" checked> ③ 計算問題（思考力）</label>
+        <label class="chk"><input type="checkbox" value="4" checked> ④ 空所補充（書ける）</label>
+      </div>
+      <ul class="notes">
+        <li>① 位取り（万・億・兆 ⇄ thousand・million・billion・trillion）と読み方</li>
+        <li>② 倍数・分数・割合・年代・歳代・世紀・増減・概数を4択で高速反復</li>
+        <li>③ 英文を読んで数値を出す入試型。double / twice / half / X times / A in B</li>
+        <li>④ two-thirds の s、the 21st century の序数などを実際に書く</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>2. レベル</h2>
+      <div class="row" id="lvPick">
+        <label class="chk"><input type="checkbox" value="1" checked> <span class="badge lv1">共通テスト</span></label>
+        <label class="chk"><input type="checkbox" value="2" checked> <span class="badge lv2">標準・私大</span></label>
+        <label class="chk"><input type="checkbox" value="3" checked> <span class="badge lv3">難関大・英検1級</span></label>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>3. 出題数</h2>
+      <div class="row">
+        <select id="count">
+          <option value="10">10問</option>
+          <option value="20" selected>20問</option>
+          <option value="30">30問</option>
+          <option value="0">全問（該当するすべて）</option>
+        </select>
+        <label class="chk"><input type="checkbox" id="shuffle" checked> 順番をシャッフル</label>
+        <span class="muted" id="poolInfo"></span>
+      </div>
+      <div class="foot">
+        <div class="row">
+          <button class="primary" id="start">スタート</button>
+          <button id="startWeak">弱点だけ復習</button>
+          <button class="ghost" id="showList">まとめ表を見る</button>
+        </div>
+        <span class="muted" id="weakInfo"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== QUIZ ===== -->
+  <section id="quiz" class="hidden">
+    <div class="bar"><i id="prog" style="width:0%"></i></div>
+    <div class="row" style="justify-content:space-between;margin-bottom:10px">
+      <span class="muted" id="counter"></span>
+      <span class="muted" id="score"></span>
+    </div>
+    <div class="card">
+      <div class="qmeta" id="qmeta"></div>
+      <div class="qtext" id="qtext"></div>
+      <div class="qsub hidden" id="qsub"></div>
+      <div id="answerArea"></div>
+      <div id="verdict"></div>
+      <div class="foot">
+        <button class="ghost" id="quitBtn">やめる</button>
+        <div class="row">
+          <button id="revealBtn" class="hidden">答えを表示</button>
+          <button class="primary hidden" id="nextBtn">次へ →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== RESULT ===== -->
+  <section id="result" class="hidden">
+    <div class="card">
+      <h2>結果</h2>
+      <div class="stat" id="resStat"></div>
+      <div class="foot">
+        <div class="row">
+          <button class="primary" id="againBtn">もう一度</button>
+          <button id="weakBtn">間違えた問題だけ復習</button>
+          <button class="ghost" id="homeBtn">設定に戻る</button>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>間違えた問題</h2>
+      <div id="resList"></div>
+    </div>
+  </section>
+
+  <!-- ===== LIST ===== -->
+  <section id="list" class="hidden">
+    <div class="card">
+      <div class="row" style="justify-content:space-between">
+        <h2 style="margin:0">まとめ表（暗記用）</h2>
+        <button id="listBack">戻る</button>
+      </div>
+      <div class="muted">授業でそのまま提示できる一覧です。ブラウザの印刷でプリントにもできます。</div>
+    </div>
+    <div id="listBody"></div>
+  </section>
+</div>
+
+<script>
+/* ============================================================
+   DATA
+   m  : 1=数字⇄英語 / 2=表現マッチング / 3=計算 / 4=空所補充
+   lv : 1=共通テスト 2=標準・私大 3=難関大
+   opts+a : 4択      acc : 記述の許容解答（先頭が正解表示）
+   ============================================================ */
+const LV = {1:["共通テスト","lv1"],2:["標準・私大","lv2"],3:["難関大・英検1級","lv3"]};
+const MODE_NAME = {1:"数字⇄英語",2:"表現マッチング",3:"計算問題",4:"空所補充"};
+
+const DATA = [
+/* ---------- ① 数字 ⇄ 英語 ---------- */
+{m:1,lv:1,tag:"位取り",q:"「10万」を英語で",opts:["one hundred thousand","ten thousand","one million","ten million"],a:0,
+ exp:"英語は3桁区切り。100,000 = one hundred thousand。日本語の「万」に対応する英単語はないので、10万 → 100 thousand と読み替える。"},
+{m:1,lv:1,tag:"位取り",q:"「1億」を英語で",opts:["one hundred million","one billion","ten million","one hundred thousand"],a:0,
+ exp:"100,000,000 = one hundred million。1 billion は「10億」。「億=billion」と覚えると必ず間違える。"},
+{m:1,lv:1,tag:"位取り",q:"1 billion は日本語で",opts:["10億","1億","1兆","100万"],a:0,
+ exp:"1,000,000,000 = 10億。thousand=千 / million=100万 / billion=10億 / trillion=1兆 で対応を丸暗記する。"},
+{m:1,lv:1,tag:"位取り",q:"10 million は日本語で",opts:["1,000万","100万","1億","10万"],a:0,
+ exp:"million=100万。10×100万=1,000万。1億は 100 million。"},
+{m:1,lv:1,tag:"位取り",q:"25 million は日本語で",opts:["2,500万","250万","2億5,000万","25万"],a:0,
+ exp:"million=100万なので 25×100万=2,500万。"},
+{m:1,lv:2,tag:"位取り",q:"「1兆」を英語で",opts:["one trillion","one billion","one hundred billion","ten billion"],a:0,
+ exp:"1,000,000,000,000 = one trillion。thousand → million → billion → trillion と3桁ずつ上がる。"},
+{m:1,lv:2,tag:"位取り",q:"3.5 billion は日本語で",opts:["35億","3億5,000万","3,500万","3兆5,000億"],a:0,
+ exp:"billion=10億。3.5×10億=35億。"},
+{m:1,lv:2,tag:"位取り",q:"「700万」を英語で",opts:["seven million","seven hundred thousand","seventy million","seven hundred million"],a:0,
+ exp:"700万 = 7,000,000 = seven million。"},
+{m:1,lv:3,tag:"位取り",q:"「3,000億」を英語で",opts:["300 billion","3 billion","30 billion","3 trillion"],a:0,
+ exp:"3,000億 = 300,000,000,000。1,000億=100 billion が基準。"},
+{m:1,lv:3,tag:"位取り",q:"「4兆5,000億」を英語で",opts:["4.5 trillion","45 trillion","450 billion","4.5 billion"],a:0,
+ exp:"4兆5,000億 = 4,500,000,000,000 = 4.5 trillion（four and a half trillion）。"},
+{m:1,lv:3,tag:"位取り",q:"「1,200億円」を英語で",opts:["120 billion yen","12 billion yen","1.2 billion yen","1,200 billion yen"],a:0,
+ exp:"1,200億 = 120,000,000,000 = 120 billion。yen は複数形にしない（120 billion yen）。"},
+{m:1,lv:1,tag:"読み方",q:"250,000 を英語で",opts:["two hundred fifty thousand","twenty-five thousand","two million five hundred thousand","two hundred five thousand"],a:0,
+ exp:"25万 = 250,000。カンマの位置で thousand と判断する。"},
+{m:1,lv:1,tag:"読み方",q:"12,000 を英語で",opts:["twelve thousand","one thousand two hundred","twelve hundred","one hundred twenty thousand"],a:0,
+ exp:"1万2千 = 12,000 = twelve thousand。"},
+{m:1,lv:2,tag:"読み方",q:"1,234,567 の読み方",opts:["one million two hundred thirty-four thousand five hundred sixty-seven","one billion two hundred thirty-four million five hundred sixty-seven","twelve million three hundred forty-five thousand sixty-seven","one million two hundred thirty-four hundred sixty-seven"],a:0,
+ exp:"1|234|567 と3桁に区切り、カンマの位置に million / thousand を入れて読む。"},
+{m:1,lv:2,tag:"読み方",q:"1,500,000 を口語で簡単に言うと",opts:["one and a half million","one point five thousand","fifteen million","one half million"],a:0,
+ exp:"150万 = 1.5 million = one and a half million。ニュースで頻出。"},
+{m:1,lv:1,tag:"読み方",q:"1,500（値段など）の口語的な読み方",opts:["fifteen hundred","one hundred fifty","fifteen thousand","one thousand fifteen"],a:0,
+ exp:"4桁の数は「◯◯ hundred」と読むことが多い。1,500=fifteen hundred / 2,300=twenty-three hundred。"},
+{m:1,lv:2,tag:"小数",q:"0.75 の読み方",opts:["zero point seven five","zero point seventy-five","point seventy-five percent","zero comma seven five"],a:0,
+ exp:"小数点以下は1桁ずつ読む。0 は zero / oh / nought。"},
+{m:1,lv:2,tag:"小数",q:"2.5% の読み方",opts:["two point five percent","two point fifty percent","two and five percent","two point five percents"],a:0,
+ exp:"percent は複数形にしない。"},
+{m:1,lv:2,tag:"年号",q:"2015年 の読み方",opts:["twenty fifteen","two thousand fifteen hundred","twenty hundred fifteen","two hundred fifteen"],a:0,
+ exp:"2010年以降は twenty ten / twenty fifteen のように2桁ずつ読むのが一般的。2008年は two thousand (and) eight。"},
+{m:1,lv:3,tag:"年号",q:"1905年 の読み方",opts:["nineteen oh five","one thousand nine hundred five","nineteen five","nineteen hundred five"],a:0,
+ exp:"西暦は2桁ずつ読み、0 は oh。1905 = nineteen oh five。"},
+{m:1,lv:3,tag:"桁",q:"「年収が6桁（＝高額）」を表す英語",opts:["a six-figure salary","a six-number salary","a sixth-figure salary","a six-digit money"],a:0,
+ exp:"figure も digit も「桁」だが、金額の慣用表現は six-figure。「1桁の」は single-digit。"},
+{m:1,lv:3,tag:"桁",q:"「物価が2桁の上昇をみせた」の下線部",opts:["a double-digit rise","a two-digit rise","a twice-digit rise","a double-figure risen"],a:0,
+ exp:"double-digit「2桁の（＝10%以上の）」。単一の桁は single-digit。"},
+
+/* ---------- ② 表現マッチング ---------- */
+{m:2,lv:1,tag:"倍数",q:"「3倍」",opts:["three times","three doubles","third times","triple times"],a:0,
+ exp:"X times で「X倍」。three times as large as ~「~の3倍大きい」。"},
+{m:2,lv:1,tag:"倍数",q:"「2倍」を1語で",opts:["twice","second","double time","two fold times"],a:0,
+ exp:"「2倍」は twice（two times も可）。「~の2倍…」は twice as ~ as ...。"},
+{m:2,lv:1,tag:"倍数",q:"「半分」",opts:["half","halves","a half times","middle"],a:0,
+ exp:"half of ~「~の半分」。動詞 halve は「半減する／半分にする」。"},
+{m:2,lv:1,tag:"倍数",q:"動詞 double の意味",opts:["倍に増える／倍に増やす","半分になる","3倍になる","わずかに増える"],a:0,
+ exp:"The number doubled.「その数は2倍になった」。自動詞・他動詞の両方で使える。ニュース頻出。"},
+{m:2,lv:2,tag:"倍数",q:"「3倍になる」を1語の動詞で",opts:["triple","thrice","trible","treble times"],a:0,
+ exp:"double(2倍) / triple(3倍) / quadruple(4倍)。「半減する」は halve。"},
+{m:2,lv:2,tag:"倍数",q:"「4倍に増えた」を fold を使って",opts:["increased fourfold","increased four folds","increased by fourfold times","increased fourth fold"],a:0,
+ exp:"-fold で「~倍」。a fourfold increase / increase fourfold。"},
+{m:2,lv:3,tag:"倍数",q:"「2倍半（2.5倍）」",opts:["two and a half times","two half times","twice and half","two times a half"],a:0,
+ exp:"〈数〉and a half + times。「1年半」も a year and a half。"},
+{m:2,lv:1,tag:"分数",q:"「3分の1」",opts:["a third","a three","one three","first third"],a:0,
+ exp:"分子＝基数、分母＝序数。1/3 = a [one] third。"},
+{m:2,lv:1,tag:"分数",q:"「3分の2」",opts:["two-thirds","two-third","second three","two by three"],a:0,
+ exp:"分子が2以上のとき分母（序数）に複数の s。2/3 = two-thirds。"},
+{m:2,lv:2,tag:"分数",q:"「4分の3」",opts:["three-quarters","three-quarter","four-thirds","third fourth"],a:0,
+ exp:"3/4 = three-quarters [three-fourths]。1/4 は a quarter [a fourth]。"},
+{m:2,lv:3,tag:"分数",q:"Two-thirds of the students ___ from Asia.",opts:["are","is","has","being"],a:0,
+ exp:"〈分数+of+名詞〉の動詞は of 以下の名詞に一致。students は複数なので are。Two-thirds of the water is ... なら単数。"},
+{m:2,lv:1,tag:"割合",q:"「5個のうち1個」",opts:["one in [out of] five","one of five times","one per five","a fifth in"],a:0,
+ exp:"A in [out of] B「B個のうちA個」。One in five students「5人に1人の生徒」。"},
+{m:2,lv:2,tag:"割合",q:"「10人中9人」",opts:["nine out of ten","ten out of nine","nine in tenth","nine per ten people"],a:0,
+ exp:"〈部分 out of 全体〉の語順。数字の大小関係で判断できるが語順は必ず覚える。"},
+{m:2,lv:2,tag:"割合",q:"One in three people ___ this problem.",opts:["has","have","are having","is have"],a:0,
+ exp:"One in ~ は one が主語の中心なので原則単数扱い。"},
+{m:2,lv:1,tag:"年代",q:"「1990年代に」",opts:["in the 1990s","in 1990s","in the 1990","at the 1990s"],a:0,
+ exp:"the +〈数字〉+ s。the を落とさないこと。"},
+{m:2,lv:1,tag:"歳代",q:"「私の30歳代に」",opts:["in my thirties","in my thirty","at my thirties","in the thirty"],a:0,
+ exp:"in one's +〈数字〉s。年代は the、歳代は所有格。"},
+{m:2,lv:1,tag:"世紀",q:"「21世紀」",opts:["the 21st century","the 21 century","the twenty-one century","21st of century"],a:0,
+ exp:"the +〈序数〉+ century。the twenty-first century と読む。1900年代は the 20th century。"},
+{m:2,lv:2,tag:"年代",q:"「1990年代半ばに」",opts:["in the mid-1990s","in the middle 1990","at mid 1990s","in the mid of 1990s"],a:0,
+ exp:"early / mid- / late +〈年代〉。in the late 1980s「1980年代後半に」。"},
+{m:2,lv:3,tag:"歳代",q:"「20代後半の女性」",opts:["a woman in her late twenties","a woman in late twenty","a woman at her twenties late","a woman of her late twenty"],a:0,
+ exp:"in one's early / mid- / late twenties。"},
+{m:2,lv:3,tag:"範囲",q:"「気温が20度台だった」",opts:["The temperature was in the twenties.","The temperature was over the twenties.","The temperature was on the twenties.","The temperature was at the twenty."],a:0,
+ exp:"in the twenties で「20～29の範囲に」。年代・歳代とまったく同じ発想の表現。"},
+{m:2,lv:2,tag:"増減",q:"increase by 20% の意味",opts:["20%分だけ増える（増加分が20%）","20%まで増える","ちょうど20%になる","20分の1になる"],a:0,
+ exp:"by＝差分、to＝到達点。500 から by 20% なら 600。"},
+{m:2,lv:2,tag:"増減",q:"increase to 20% の意味",opts:["20%まで増える（結果が20%）","20%分増える","20倍になる","20%減る"],a:0,
+ exp:"to は到達点。The rate rose to 20%「その割合は20%まで上がった」。by との区別が最頻出。"},
+{m:2,lv:3,tag:"増減",q:"「（10%から15%へ）5ポイント上昇した」",opts:["rose by five percentage points","rose by five percent","rose to five percent","rose five percentages"],a:0,
+ exp:"percent（%そのものの変化率）と percentage point（%の差）は別物。10%→15%は5 percentage points 上昇＝50% 上昇。"},
+{m:2,lv:2,tag:"増減",q:"「前年比10%増」",opts:["up 10% from the previous year","up 10% than last year","more 10% of previous year","up to 10% last year"],a:0,
+ exp:"compared with the previous year / year on year も同義。"},
+{m:2,lv:3,tag:"増減",q:"「半減した」",opts:["halved","was halfed","became half times","downed by half"],a:0,
+ exp:"halve は動詞で「半分になる／半分にする」。The population halved. = ...was cut in half."},
+{m:2,lv:1,tag:"概数",q:"「数百の～」",opts:["hundreds of","hundred of","some hundred","several hundreds of"],a:0,
+ exp:"漠然とした数は〈複数形+of〉。数千=thousands of、数百万=millions of。"},
+{m:2,lv:2,tag:"概数",q:"「何万もの～」",opts:["tens of thousands of","ten thousands of","tens of thousand","many ten thousand of"],a:0,
+ exp:"tens of thousands of「何万もの」／hundreds of thousands of「何十万もの」。"},
+{m:2,lv:2,tag:"概数",q:"「数十の～」",opts:["dozens of","dozen of","a dozen of the","tens for"],a:0,
+ exp:"dozens of / scores of「数十の」。dozen=12、score=20。"},
+{m:2,lv:3,tag:"概数",q:"some 200 people の some の意味",opts:["約（＝about）","いくつかの","ある特定の","200以上の"],a:0,
+ exp:"数詞の直前の some は「約」。some 200 people = about 200 people。"},
+{m:2,lv:3,tag:"概数",q:"「10年より多く（10年を含まない）」",opts:["more than ten years","ten years or more","not less than ten years","no fewer than ten years"],a:0,
+ exp:"more than / over は「~より多い」でその数を含まない。「10以上（含む）」は ten or more / not less than ten。"},
+{m:2,lv:2,tag:"単位",q:"「100平方メートル」",opts:["100 square meters","100 squares meter","100 meters squared root","100 cubic meters"],a:0,
+ exp:"square＝平方、cubic＝立方。"},
+{m:2,lv:2,tag:"単位",q:"hundred の単数・複数で正しい説明は",opts:["数詞がつくと複数形にしない（two hundred people）","常に複数形 hundreds にする","of がなくても hundreds が普通","どちらでもよい"],a:0,
+ exp:"two hundred people（数詞つき→単数形）／hundreds of people（漠然とした数→複数形+of）。thousand, million も同じ。"},
+{m:2,lv:3,tag:"単位",q:"「10年間」を1語で",opts:["a decade","a decado","a dozen years","a millennium"],a:0,
+ exp:"decade=10年、century=100年、millennium=1000年。"},
+{m:2,lv:3,tag:"比較",q:"「Aの3倍の大きさ」",opts:["three times as large as A","three times larger by A","as three times large as A","large three times than A"],a:0,
+ exp:"three times as large as A ≒ three times the size of A。"},
+{m:2,lv:3,tag:"比較",q:"「Aの3分の1の大きさ」",opts:["one-third the size of A","one-third as size as A","a third size than A","third the size of A"],a:0,
+ exp:"〈倍数・分数〉+ the size [length / weight / height] of ~ の型。"},
+
+/* ---------- ③ 計算問題 ---------- */
+{m:3,lv:1,tag:"double",q:"The population of the town doubled from 15,000 to ___ in twenty years.",
+ acc:["30,000","30000","thirty thousand"],unit:"人",
+ exp:"double＝2倍になる。15,000×2=30,000。"},
+{m:3,lv:1,tag:"triple",q:"Sales tripled to 90 million dollars last year. How much were sales before?",
+ acc:["30 million","30000000","30,000,000","$30 million"],unit:"ドル",
+ exp:"triple＝3倍になる。to 90 million は「結果」なので 90÷3=30 million。to（到達点）の読み取りが山。"},
+{m:3,lv:1,tag:"分数",q:"Two-thirds of the 900 students said yes. How many students said yes?",
+ acc:["600"],unit:"人",exp:"900×2/3=600。"},
+{m:3,lv:1,tag:"A in B",q:"One in five of the 2,000 people surveyed had a car. How many had a car?",
+ acc:["400"],unit:"人",exp:"One in five＝5人に1人＝1/5。2,000÷5=400。"},
+{m:3,lv:1,tag:"half",q:"The number halved from 8 billion to ___.",
+ acc:["4 billion","4000000000","4,000,000,000"],unit:"",exp:"halve＝半分になる。8 billion÷2=4 billion（40億）。"},
+{m:3,lv:1,tag:"倍数",q:"What is 1.5 times 400?",acc:["600"],unit:"",exp:"400×1.5=600。one and a half times とも言う。"},
+{m:3,lv:2,tag:"by / to",q:"The price increased by 20% from 500 yen. What is the new price?",
+ acc:["600","600 yen"],unit:"円",exp:"by＝増加分。500×1.2=600。increased to 20% なら意味が全く変わる。"},
+{m:3,lv:2,tag:"points",q:"The rate fell from 40% to 30%. By how many percentage points did it fall?",
+ acc:["10","10 points","10 percentage points"],unit:"ポイント",
+ exp:"40−30=10 percentage points。なお「25%（の割合）減った」とも言える。"},
+{m:3,lv:2,tag:"倍数",q:"He has three times as many books as his sister, who has 15. How many books does he have?",
+ acc:["45"],unit:"冊",exp:"15×3=45。as many ... as の後ろが基準。"},
+{m:3,lv:2,tag:"分数",q:"The city has 1.5 million people, and a quarter of them are under 20. How many are under 20?",
+ acc:["375,000","375000"],unit:"人",exp:"1,500,000×1/4=375,000。a quarter=4分の1。"},
+{m:3,lv:2,tag:"fold",q:"In the 1990s the figure was 250,000. It has since increased fourfold. What is it now?",
+ acc:["1 million","1,000,000","1000000","one million"],unit:"",exp:"fourfold＝4倍。250,000×4=1,000,000（100万）。"},
+{m:3,lv:2,tag:"A out of B",q:"Three out of eight of the 1,600 workers work from home. How many work from home?",
+ acc:["600"],unit:"人",exp:"1,600×3/8=600。"},
+{m:3,lv:2,tag:"%",q:"The temperature rose from 18°C to 27°C. By what percent did it rise?",
+ acc:["50","50%","50 percent"],unit:"%",exp:"増加分9÷もとの18=0.5。by 50%。"},
+{m:3,lv:3,tag:"複合",q:"The number, which had doubled during the previous ten years, then fell by a quarter to 6 million. What was the number ten years before that fall?",
+ acc:["4 million","4,000,000","4000000","four million"],unit:"",
+ exp:"fell by a quarter to 6 million → 減る前は 6÷(3/4)=8 million。その 8 million が「10年で2倍になった後」の数値なので、10年前は 8÷2=4 million（400万）。by（差分）と to（到達点）を取り違えると解けない。"},
+{m:3,lv:3,tag:"複合",q:"In 2010 the total stood at 400,000. It grew fourfold by 2020 and then dropped by 25%. What is the total now?",
+ acc:["1.2 million","1,200,000","1200000"],unit:"",
+ exp:"400,000×4=1,600,000 → ×0.75=1,200,000（120万）。fourfold と by 25% の順に処理する。"},
+{m:3,lv:3,tag:"複合",q:"Half of the 3,600 respondents were in their thirties, and one third of those were women. How many women in their thirties were there?",
+ acc:["600"],unit:"人",exp:"3,600×1/2=1,800 → ×1/3=600。in their thirties「30歳代の」。"},
+{m:3,lv:3,tag:"複合",q:"The company's profit was 250 million yen last year. It has since halved and then doubled. What is the profit now?",
+ acc:["250 million","250,000,000","250000000"],unit:"円",
+ exp:"×1/2 ×2 = もとに戻る。250 million yen（2億5,000万円）。"},
+{m:3,lv:3,tag:"%",q:"Twenty percent of the 45 million users are in their twenties. How many users are in their twenties?",
+ acc:["9 million","9,000,000","9000000","nine million"],unit:"人",
+ exp:"45 million×0.2=9 million（900万人）。"},
+{m:3,lv:3,tag:"複合",q:"One in four of the 1,200 items was defective, and two-thirds of the defective items were repaired. How many items were repaired?",
+ acc:["200"],unit:"個",exp:"1,200÷4=300（不良品）→ 300×2/3=200。"},
+{m:3,lv:3,tag:"複合",q:"A figure that had tripled from its 1990s level of 700,000 has now fallen by one seventh. What is the figure now?",
+ acc:["1.8 million","1,800,000","1800000"],unit:"",
+ exp:"700,000×3=2,100,000 → 1/7 減 = ×6/7 = 1,800,000（180万）。"},
+
+/* ---------- ④ 空所補充 ---------- */
+{m:4,lv:1,tag:"分数",q:"3分の2",cue:"two-______",acc:["thirds"],exp:"分子が2以上→分母に複数の s。two-thirds。"},
+{m:4,lv:1,tag:"分数",q:"3分の1",cue:"a ______",acc:["third"],exp:"1/3 = a [one] third。分子1なので s はつかない。"},
+{m:4,lv:2,tag:"分数",q:"4分の3",cue:"three-______",acc:["quarters","fourths"],exp:"three-quarters [three-fourths]。"},
+{m:4,lv:1,tag:"世紀",q:"21世紀",cue:"the ______ century",acc:["21st","twenty-first","twentyfirst"],exp:"the +〈序数〉+ century。"},
+{m:4,lv:1,tag:"歳代",q:"私の30歳代に",cue:"in my ______",acc:["thirties"],exp:"in one's +〈数字〉s。所有格を使う。"},
+{m:4,lv:1,tag:"年代",q:"1990年代に",cue:"in ______ 1990s",acc:["the"],exp:"the を必ずつける。in the 1990s。"},
+{m:4,lv:1,tag:"A in B",q:"5個のうち1個",cue:"one ______ five",acc:["in","out of","outof"],exp:"A in [out of] B。"},
+{m:4,lv:1,tag:"double",q:"その数は2倍になった。",cue:"The number ______.",acc:["doubled"],exp:"double は自動詞でも使える。"},
+{m:4,lv:2,tag:"halve",q:"その数は半減した。",cue:"The number ______.",acc:["halved"],exp:"halve /hæv/「半分になる」。"},
+{m:4,lv:2,tag:"triple",q:"3倍になる（1語の動詞）",cue:"______",acc:["triple","treble"],exp:"double / triple / quadruple。"},
+{m:4,lv:1,tag:"位取り",q:"1億",cue:"one hundred ______",acc:["million"],exp:"1億 = 100 million。"},
+{m:4,lv:2,tag:"位取り",q:"10億",cue:"one ______",acc:["billion"],exp:"10億 = 1 billion。1兆 = 1 trillion。"},
+{m:4,lv:2,tag:"概数",q:"数千の人々",cue:"______ of people",acc:["thousands"],exp:"漠然とした数は〈複数形+of〉。"},
+{m:4,lv:2,tag:"by / to",q:"20%増加した",cue:"increased ______ 20%",acc:["by"],exp:"by＝増加分。"},
+{m:4,lv:2,tag:"by / to",q:"20%まで増加した",cue:"increased ______ 20%",acc:["to"],exp:"to＝到達点。"},
+{m:4,lv:2,tag:"倍数",q:"1年半",cue:"a year and a ______",acc:["half"],exp:"〈単位〉and a half。2.5倍は two and a half times。"},
+{m:4,lv:2,tag:"単位",q:"100平方メートル",cue:"100 ______ meters",acc:["square"],exp:"square＝平方、cubic＝立方。"},
+{m:4,lv:3,tag:"歳代",q:"20代後半に",cue:"in one's ______ twenties",acc:["late"],exp:"early / mid- / late。"},
+{m:4,lv:3,tag:"points",q:"5ポイント上昇した",cue:"rose by five percentage ______",acc:["points"],exp:"percent と percentage point の区別。"},
+{m:4,lv:3,tag:"fold",q:"4倍に増えた",cue:"increased ______",acc:["fourfold","four-fold"],exp:"-fold で「~倍」。a fourfold increase。"},
+{m:4,lv:3,tag:"概数",q:"約200人（1語で）",cue:"______ 200 people",acc:["about","approximately","around","roughly","some","nearly","almost"],exp:"数詞の前の some も「約」の意味になる。"},
+{m:4,lv:3,tag:"単位",q:"10年間（1語で）",cue:"a ______",acc:["decade"],exp:"decade=10年。"},
+{m:4,lv:3,tag:"比較",q:"Aの3分の1の大きさ",cue:"one-third ______ size of A",acc:["the"],exp:"〈倍数・分数〉+ the size of ~。"},
+{m:4,lv:3,tag:"年号",q:"1905年（読み）",cue:"nineteen ______ five",acc:["oh","o","zero"],exp:"西暦の0は oh と読む。"}
+];
+
+/* ============================================================
+   STATE
+   ============================================================ */
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+let ui = "self";              // self | class
+let queue = [], idx = 0, right = 0, wrongIds = [], answered = false;
+
+const store = {
+  get(){ try{ return JSON.parse(localStorage.getItem("numTrainerWeak")||"[]"); }catch(e){ return mem; } },
+  set(v){ mem = v; try{ localStorage.setItem("numTrainerWeak", JSON.stringify(v)); }catch(e){} }
+};
+let mem = [];
+const idOf = it => DATA.indexOf(it);
+
+/* ---------- helpers ---------- */
+function norm(s){
+  return String(s).toLowerCase().trim()
+    .replace(/[,、]/g,"")
+    .replace(/[$¥￥]/g,"")
+    .replace(/[.。!！?？]+$/,"")
+    .replace(/[-–—_]/g,"")
+    .replace(/\s+/g,"");
+}
+function shuffleArr(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function picked(sel){ return $$(sel+" input:checked").map(x=>Number(x.value)); }
+function pool(){
+  const ms = picked("#modePick"), lvs = picked("#lvPick");
+  return DATA.filter(d => ms.includes(d.m) && lvs.includes(d.lv));
+}
+function refreshInfo(){
+  $("#poolInfo").textContent = "該当 " + pool().length + " 問 / 全 " + DATA.length + " 問";
+  const w = store.get();
+  $("#weakInfo").textContent = w.length ? "弱点として記録：" + w.length + " 問" : "弱点の記録はまだありません";
+  $("#startWeak").disabled = w.length === 0;
+}
+
+/* ============================================================
+   FLOW
+   ============================================================ */
+function show(sec){
+  ["setup","quiz","result","list"].forEach(s => $("#"+s).classList.toggle("hidden", s !== sec));
+  window.scrollTo(0,0);
+}
+function begin(items){
+  if(!items.length){ alert("該当する問題がありません。モードとレベルを選び直してください。"); return; }
+  queue = items; idx = 0; right = 0; wrongIds = [];
+  show("quiz"); render();
+}
+function start(){
+  let p = pool();
+  if($("#shuffle").checked) p = shuffleArr(p.slice());
+  const n = Number($("#count").value);
+  begin(n ? p.slice(0,n) : p);
+}
+
+function render(){
+  answered = false;
+  const it = queue[idx];
+  $("#prog").style.width = (idx/queue.length*100) + "%";
+  $("#counter").textContent = "第 " + (idx+1) + " 問 / " + queue.length + "　【" + MODE_NAME[it.m] + "】";
+  $("#score").textContent = ui==="class" ? "" : "正解 " + right + " / " + idx;
+  $("#qmeta").innerHTML =
+    '<span class="badge '+LV[it.lv][1]+'">'+LV[it.lv][0]+'</span><span class="tag">'+it.tag+'</span>';
+  $("#verdict").innerHTML = "";
+  $("#nextBtn").classList.add("hidden");
+  $("#revealBtn").classList.add("hidden");
+
+  const isChoice = !!it.opts;
+  if(it.m===3){
+    $("#qtext").textContent = it.q;
+    $("#qsub").textContent = "英文を読んで数値を答えてください" + (it.unit ? "（単位：" + it.unit + "）" : "") + "。例: 30,000 / 4 million";
+    $("#qsub").classList.remove("hidden");
+  }else if(it.m===4){
+    $("#qtext").innerHTML = it.q + '　→　<em>' + it.cue.replace("______","______") + '</em>';
+    $("#qsub").textContent = "下線部に入る語を書いてください";
+    $("#qsub").classList.remove("hidden");
+  }else{
+    $("#qtext").textContent = it.q;
+    $("#qsub").classList.add("hidden");
+  }
+
+  const area = $("#answerArea"); area.innerHTML = "";
+  if(isChoice){
+    const box = document.createElement("div"); box.className = "opts";
+    const order = [0,1,2,3];
+    if($("#shuffle").checked) shuffleArr(order);
+    order.forEach((oi,i)=>{
+      const b = document.createElement("button");
+      b.className = "opt"; b.dataset.oi = oi;
+      b.innerHTML = "<b>"+"ABCD"[i]+"</b>" + it.opts[oi];
+      b.onclick = ()=> judgeChoice(oi, box);
+      box.appendChild(b);
+    });
+    area.appendChild(box);
+  }else{
+    const row = document.createElement("div"); row.className = "ansrow";
+    const inp = document.createElement("input");
+    inp.className = "ans"; inp.type = "text"; inp.autocapitalize="off"; inp.autocomplete="off"; inp.spellcheck=false;
+    inp.placeholder = "答えを入力して Enter";
+    inp.onkeydown = e => { if(e.key==="Enter"){ e.preventDefault(); e.stopPropagation(); if(!answered) judgeInput(inp); } };
+    const b = document.createElement("button"); b.className="primary"; b.textContent="判定";
+    b.onclick = ()=> judgeInput(inp);
+    row.append(inp,b); area.appendChild(row);
+    setTimeout(()=>inp.focus(),40);
+  }
+
+  if(ui==="class"){
+    $("#revealBtn").classList.remove("hidden");
+    $("#revealBtn").onclick = ()=> reveal();
+  }
+}
+
+function correctText(it){
+  return it.opts ? it.opts[it.a] : it.acc[0];
+}
+function finishQ(ok, headText, cls){
+  answered = true;
+  const it = queue[idx];
+  if(ok) right++; else if(idOf(it)>=0 && !wrongIds.includes(idOf(it))) wrongIds.push(idOf(it));
+  const v = $("#verdict");
+  v.className = "";
+  v.innerHTML = '<div class="verdict '+cls+'"><div class="head">'+headText+'</div>'
+    + '<div class="en">' + (it.cue ? it.cue.replace("______", "<u>"+correctText(it)+"</u>") : correctText(it)) + '</div>'
+    + '<div style="margin-top:8px">' + it.exp + '</div></div>';
+  $("#nextBtn").classList.remove("hidden");
+  $("#revealBtn").classList.add("hidden");
+  $("#score").textContent = ui==="class" ? "" : "正解 " + right + " / " + (idx+1);
+  $("#nextBtn").focus();
+}
+function judgeChoice(oi, box){
+  if(answered) return;
+  const it = queue[idx];
+  const ok = oi === it.a;
+  [...box.children].forEach(b=>{
+    b.disabled = true;
+    const o = Number(b.dataset.oi);
+    if(o === it.a) b.classList.add("correct");
+    else if(o === oi) b.classList.add("wrong");
+  });
+  finishQ(ok, ok ? "正解" : "不正解 — 正しい形はこちら", ok ? "ok" : "ng");
+}
+function judgeInput(inp){
+  if(answered) return;
+  const it = queue[idx];
+  const ok = it.acc.some(a => norm(a) === norm(inp.value));
+  inp.disabled = true;
+  inp.style.borderColor = ok ? "var(--ok)" : "var(--ng)";
+  let head = ok ? "正解" : "不正解 — 正解はこちら";
+  if(!ok && !inp.value.trim()) head = "未解答 — 正解はこちら";
+  finishQ(ok, head, ok ? "ok" : "ng");
+  if(it.m===4 && it.acc.length>1){
+    const alts = it.acc.slice(1).filter(x=>norm(x)!==norm(it.acc[0]));
+    if(alts.length) $("#verdict .verdict").insertAdjacentHTML("beforeend",
+      '<div class="muted" style="margin-top:6px">他に可：' + alts.join(" / ") + '</div>');
+  }
+}
+function reveal(){
+  if(answered) return;
+  const it = queue[idx];
+  if(it.opts){
+    [...$("#answerArea").querySelectorAll(".opt")].forEach(b=>{
+      b.disabled = true;
+      if(Number(b.dataset.oi) === it.a) b.classList.add("correct");
+    });
+  }else{
+    const i = $("#answerArea input"); if(i) i.disabled = true;
+  }
+  answered = true;
+  const v = $("#verdict");
+  v.innerHTML = '<div class="verdict show"><div class="head">正解</div><div class="en">'
+    + (it.cue ? it.cue.replace("______","<u>"+correctText(it)+"</u>") : correctText(it))
+    + '</div><div style="margin-top:8px">' + it.exp + '</div></div>';
+  $("#nextBtn").classList.remove("hidden");
+  $("#revealBtn").classList.add("hidden");
+}
+function next(){
+  idx++;
+  if(idx >= queue.length) finish(); else render();
+}
+function finish(){
+  const total = queue.length;
+  const w = new Set(store.get());
+  wrongIds.forEach(id => w.add(id));
+  // 正解した問題は弱点リストから外す
+  queue.forEach(it=>{ const id=idOf(it); if(!wrongIds.includes(id)) w.delete(id); });
+  store.set([...w]);
+  const pct = total ? Math.round(right/total*100) : 0;
+  $("#resStat").innerHTML =
+    '<div><b>'+right+' / '+total+'</b><span class="muted">正解数</span></div>'
+  + '<div><b>'+pct+'%</b><span class="muted">正答率</span></div>'
+  + '<div><b>'+wrongIds.length+'</b><span class="muted">要復習</span></div>';
+  $("#resList").innerHTML = wrongIds.length
+    ? '<table><thead><tr><th>レベル</th><th>分類</th><th>問題</th><th>正解</th></tr></thead><tbody>'
+      + wrongIds.map(id=>{ const it=DATA[id];
+          return '<tr><td><span class="badge '+LV[it.lv][1]+'">'+LV[it.lv][0]+'</span></td><td>'+it.tag+'</td><td>'
+            + it.q + (it.cue? "<br><span class='muted'>"+it.cue+"</span>" : "") + '</td><td><b>'+correctText(it)+'</b><div class="muted">'+it.exp+'</div></td></tr>';
+        }).join("") + '</tbody></table>'
+    : '<div class="muted">全問正解です。</div>';
+  $("#weakBtn").disabled = wrongIds.length===0;
+  show("result");
+  refreshInfo();
+}
+
+/* ---------- まとめ表 ---------- */
+function buildList(){
+  const groups = {};
+  DATA.forEach(it=>{ (groups[it.tag] = groups[it.tag]||[]).push(it); });
+  $("#listBody").innerHTML = Object.keys(groups).map(tag=>{
+    const rows = groups[tag].map(it=>{
+      const key = it.cue ? it.cue.replace("______","<u>"+it.acc[0]+"</u>") : correctText(it);
+      return '<tr><td><span class="badge '+LV[it.lv][1]+'">'+LV[it.lv][0]+'</span></td>'
+        + '<td>'+it.q+'</td><td><b>'+key+'</b></td><td class="muted">'+it.exp+'</td></tr>';
+    }).join("");
+    return '<div class="card"><h2>'+tag+'</h2><table><thead><tr><th>レベル</th><th>項目</th><th>英語</th><th>ポイント</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+  }).join("");
+}
+
+/* ---------- events ---------- */
+$$("#uiMode button").forEach(b=> b.onclick = ()=>{
+  $$("#uiMode button").forEach(x=>x.classList.remove("on"));
+  b.classList.add("on"); ui = b.dataset.ui;
+  document.body.classList.toggle("big", ui==="class");
+});
+$$("#modePick input, #lvPick input").forEach(i=> i.onchange = refreshInfo);
+$("#start").onclick = start;
+$("#startWeak").onclick = ()=>{
+  const ids = store.get();
+  begin(shuffleArr(ids.map(i=>DATA[i]).filter(Boolean)));
+};
+$("#nextBtn").onclick = next;
+$("#quitBtn").onclick = ()=> { if(confirm("中断して設定に戻りますか？")) { show("setup"); refreshInfo(); } };
+$("#againBtn").onclick = start;
+$("#weakBtn").onclick = ()=> begin(shuffleArr(wrongIds.map(i=>DATA[i])));
+$("#homeBtn").onclick = ()=> { show("setup"); refreshInfo(); };
+$("#showList").onclick = ()=> { buildList(); show("list"); };
+$("#listBack").onclick = ()=> show("setup");
+document.addEventListener("keydown", e=>{
+  if($("#quiz").classList.contains("hidden")) return;
+  const t = e.target.tagName;
+  if(t==="BUTTON" || t==="INPUT" || t==="SELECT") return;
+  if(answered && (e.key==="Enter"||e.key===" ")){ e.preventDefault(); next(); return; }
+  if(!answered && queue[idx] && queue[idx].opts){
+    const k = "abcd".indexOf(e.key.toLowerCase());
+    if(k>=0){ const b = $$("#answerArea .opt")[k]; if(b) b.click(); }
+    if(ui==="class" && e.key==="Enter"){ e.preventDefault(); reveal(); }
+  }
+});
+mem = store.get();
+refreshInfo();
+</script>
