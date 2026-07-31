@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>意味上の主語トレーニング — 不定詞と動名詞</title>
+<style>
+  :root{
+    --bg:#f6f4ef; --card:#fff; --ink:#22201d; --sub:#6b6459;
+    --line:#e2ddd2; --accent:#b5561f; --accent-soft:#fdf0e6;
+    --blue:#1f5f8b; --blue-soft:#e9f1f7;
+    --green:#2e7d4f; --green-soft:#e6f4ec;
+    --red:#b3352f; --red-soft:#fbeceb;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,system-ui,sans-serif;
+    line-height:1.8; padding:24px 16px 80px;
+  }
+  .wrap{max-width:860px;margin:0 auto}
+  header h1{font-size:1.6rem;margin:0 0 6px}
+  header p{margin:0;color:var(--sub);font-size:.92rem}
+  .tabs{display:flex;gap:6px;margin:22px 0 18px;flex-wrap:wrap}
+  .tab{
+    border:1px solid var(--line);background:var(--card);color:var(--sub);
+    padding:9px 16px;border-radius:999px;cursor:pointer;font-size:.9rem;
+    font-family:inherit;transition:.15s;
+  }
+  .tab:hover{border-color:var(--accent)}
+  .tab.active{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+  .panel{display:none;animation:fade .25s ease}
+  .panel.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:20px 22px;margin-bottom:16px;
+  }
+  .card h2{font-size:1.15rem;margin:0 0 12px;padding-bottom:8px;border-bottom:2px solid var(--accent-soft)}
+  .card h3{font-size:1rem;margin:20px 0 8px;color:var(--accent)}
+  .card p{margin:8px 0}
+  .en{font-family:Georgia,"Times New Roman",serif;font-size:1.05rem;line-height:1.7}
+  .hl{background:#fde9a9;border-radius:3px;padding:1px 4px;font-weight:700}
+  .hl2{background:#cfe6f5;border-radius:3px;padding:1px 4px;font-weight:700}
+  .ex{background:#faf8f4;border-left:3px solid var(--line);padding:12px 16px;margin:10px 0;border-radius:0 8px 8px 0}
+  .ex .ja{color:var(--sub);font-size:.9rem;margin-top:4px}
+  .note{background:var(--blue-soft);border-left:3px solid var(--blue);padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0;font-size:.92rem}
+  .warn{background:var(--accent-soft);border-left:3px solid var(--accent);padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0;font-size:.92rem}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:.92rem}
+  th,td{border:1px solid var(--line);padding:9px 12px;text-align:left}
+  th{background:#faf8f4;font-weight:600}
+  .reveal{
+    border:1px dashed var(--accent);background:var(--accent-soft);color:var(--accent);
+    border-radius:8px;padding:7px 14px;cursor:pointer;font-family:inherit;font-size:.86rem;margin-top:6px;
+  }
+  .reveal:hover{background:#fbe3d1}
+  .hidden{display:none}
+  .flip{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:10px;
+  }
+  .fcard{
+    background:#faf8f4;border:1px solid var(--line);border-radius:10px;padding:14px;
+    cursor:pointer;text-align:center;transition:.15s;user-select:none;
+  }
+  .fcard:hover{border-color:var(--accent);transform:translateY(-2px)}
+  .fcard .a{color:var(--accent);font-weight:700;margin-top:6px;font-size:.9rem}
+  /* mini drill */
+  .drill{background:#faf8f4;border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:10px 0}
+  .drill .qq{margin-bottom:6px}
+  .drill .ja-hint{color:var(--sub);font-size:.88rem;margin-bottom:10px}
+  .dopts{display:flex;flex-wrap:wrap;gap:8px}
+  .dopt{
+    font-family:Georgia,serif;font-size:1rem;background:#fff;border:1px solid var(--line);
+    border-radius:8px;padding:7px 18px;cursor:pointer;transition:.12s;
+  }
+  .dopt:hover:not(:disabled){border-color:var(--accent);background:var(--accent-soft)}
+  .dopt:disabled{cursor:default}
+  .dopt.correct{background:var(--green-soft);border-color:var(--green);font-weight:700}
+  .dopt.wrong{background:var(--red-soft);border-color:var(--red)}
+  .dfb{margin-top:10px;font-size:.9rem;padding:10px 12px;border-radius:8px;display:none}
+  .dfb.show{display:block}
+  .dfb.ok{background:var(--green-soft);border-left:3px solid var(--green)}
+  .dfb.ng{background:var(--red-soft);border-left:3px solid var(--red)}
+  /* quiz */
+  .qhead{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+  .qnum{font-size:.85rem;color:var(--sub);font-weight:600}
+  .bar{height:6px;background:var(--line);border-radius:999px;overflow:hidden;flex:1;min-width:120px}
+  .bar i{display:block;height:100%;background:var(--accent);width:0;transition:.3s}
+  .qtext{font-size:1.12rem;margin:6px 0 4px}
+  .opts{display:flex;flex-direction:column;gap:9px;margin-top:14px}
+  .opt{
+    text-align:left;border:1px solid var(--line);background:#fff;border-radius:10px;
+    padding:12px 16px;cursor:pointer;font-family:inherit;font-size:1rem;transition:.15s;
+  }
+  .opt:hover:not(:disabled){border-color:var(--accent);background:var(--accent-soft)}
+  .opt:disabled{cursor:default}
+  .opt.correct{background:var(--green-soft);border-color:var(--green);font-weight:700}
+  .opt.wrong{background:var(--red-soft);border-color:var(--red)}
+  .fb{margin-top:14px;padding:14px 16px;border-radius:10px;font-size:.93rem;display:none}
+  .fb.show{display:block}
+  .fb.ok{background:var(--green-soft);border-left:3px solid var(--green)}
+  .fb.ng{background:var(--red-soft);border-left:3px solid var(--red)}
+  .fb b{display:block;margin-bottom:4px}
+  .btn{
+    background:var(--accent);color:#fff;border:none;border-radius:9px;padding:11px 22px;
+    cursor:pointer;font-family:inherit;font-size:.95rem;font-weight:600;margin-top:14px;
+  }
+  .btn:hover{background:#9c4718}
+  .btn.ghost{background:#fff;color:var(--accent);border:1px solid var(--accent)}
+  /* token picker */
+  .tokens{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0;align-items:center}
+  .tok{
+    font-family:Georgia,serif;font-size:1.08rem;background:#fff;border:1px solid var(--line);
+    border-radius:7px;padding:6px 11px;cursor:pointer;transition:.12s;
+  }
+  .tok:hover:not(:disabled){border-color:var(--blue);background:var(--blue-soft)}
+  .tok:disabled{cursor:default}
+  .tok.correct{background:var(--green-soft);border-color:var(--green);font-weight:700}
+  .tok.wrong{background:var(--red-soft);border-color:var(--red)}
+  .tok.plain{border-color:transparent;background:transparent;cursor:default;padding:6px 2px}
+  .tok.special{font-family:inherit;font-size:.9rem;background:#faf8f4;border-style:dashed}
+  .target{color:var(--sub);font-size:.9rem}
+  .target b{color:var(--blue)}
+  .score{text-align:center;padding:24px}
+  .score .big{font-size:2.6rem;font-weight:700;color:var(--accent)}
+  footer{text-align:center;color:var(--sub);font-size:.8rem;margin-top:30px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>意味上の主語トレーニング</h1>
+  <p>不定詞と動名詞 ― 「誰がその動作をするのか」を見抜く</p>
+</header>
+
+<div class="tabs">
+  <button class="tab active" data-p="p0">① 意味上の主語とは</button>
+  <button class="tab" data-p="p1">② 不定詞</button>
+  <button class="tab" data-p="p2">③ 動名詞</button>
+  <button class="tab" data-p="p6">④ 第5文型・want O to do</button>
+  <button class="tab" data-p="p3">⑤ まとめ</button>
+  <button class="tab" data-p="p4">⑥ 4択クイズ</button>
+  <button class="tab" data-p="p5">⑦ 主語を探せ</button>
+</div>
+
+<!-- ===== 0 ===== -->
+<section class="panel active" id="p0">
+  <div class="card">
+    <h2>「意味上の主語」ってなに？</h2>
+    <p>不定詞（to do）や動名詞（doing）も、もとは<b>動詞</b>です。動詞である以上、必ず「<b>誰がその動作をするのか</b>」があります。それが<b>意味上の主語</b>です。</p>
+    <div class="ex">
+      <div class="en">I want <span class="hl2">to go</span> to Kyoto.</div>
+      <div class="ja">京都へ行くのは誰？ → <b>I</b>（文の主語と同じ）</div>
+    </div>
+    <div class="ex">
+      <div class="en">I want <span class="hl">him</span> <span class="hl2">to go</span> to Kyoto.</div>
+      <div class="ja">京都へ行くのは誰？ → <b>him</b>（文の主語 I とは別！）</div>
+    </div>
+    <div class="note">
+      <b>ポイント：</b>文の主語（I）と、to go の主語（him）は<b>別々</b>になれる。この「別の主語」をどう書くかが今回のテーマです。
+    </div>
+
+    <h3>3つのパターンを覚えるだけ</h3>
+    <table>
+      <tr><th>状況</th><th>どうする？</th></tr>
+      <tr><td>文の主語と同じ</td><td>書かない（言わなくても分かる）</td></tr>
+      <tr><td>一般の人々（誰でも）</td><td>書かない</td></tr>
+      <tr><td>それ以外の特定の人</td><td><b>はっきり書く</b> ← ここがポイント</td></tr>
+    </table>
+
+    <h3>確認クイズ：不定詞・動名詞の意味上の主語は誰？</h3>
+    <p style="font-size:.9rem;color:var(--sub)">カードをクリックして答えを見よう</p>
+    <div class="flip" id="flip0"></div>
+  </div>
+</section>
+
+<!-- ===== 1 不定詞 ===== -->
+<section class="panel" id="p1">
+  <div class="card">
+    <h2>不定詞の意味上の主語</h2>
+
+    <h3>基本：for + 人 + to do</h3>
+    <p>不定詞の意味上の主語は、不定詞の<b>直前</b>に <span class="hl">for + 目的格</span> を置きます。</p>
+    <div class="ex">
+      <div class="en">It is difficult <span class="hl">for me</span> <span class="hl2">to swim</span> fast.</div>
+      <div class="ja">私が速く泳ぐのは難しい。（泳ぐのは me）</div>
+    </div>
+    <div class="ex">
+      <div class="en">This book is too difficult <span class="hl">for children</span> <span class="hl2">to read</span>.</div>
+      <div class="ja">この本は子どもが読むには難しすぎる。</div>
+    </div>
+    <div class="ex">
+      <div class="en">I opened the door <span class="hl">for her</span> <span class="hl2">to come</span> in.</div>
+      <div class="ja">彼女が入れるようにドアを開けた。</div>
+    </div>
+    <div class="warn">
+      <b>語順に注意：</b>for ～ は必ず <b>to do の直前</b>。<br>
+      ○ It is easy <b>for him</b> to cook. ／ × It is easy to cook <b>for him</b>.（←「彼のために料理する」の意味になってしまう）
+    </div>
+
+    <h3>例外：of + 人 + to do</h3>
+    <p>「人の性質・人柄」を表す形容詞のときだけ <span class="hl">of</span> を使います。<br>
+    「It is 形容詞 of 人 to do」＝「～するとは、その人は形容詞だ」と言い換えられるのが目印。</p>
+    <div class="ex">
+      <div class="en">It is kind <span class="hl">of you</span> <span class="hl2">to help</span> me.</div>
+      <div class="ja">私を助けてくれるとは、あなたは親切ですね。<br>≒ You are kind to help me. ← 言い換えできる → <b>of</b></div>
+    </div>
+    <div class="ex">
+      <div class="en">It was careless <span class="hl">of him</span> <span class="hl2">to lose</span> the key.</div>
+      <div class="ja">鍵をなくすとは、彼は不注意だった。</div>
+    </div>
+
+    <table>
+      <tr><th>of を使う形容詞（人柄）</th><th>for を使う形容詞（事柄の性質）</th></tr>
+      <tr>
+        <td>kind, nice, good, careless, foolish, stupid, wise, clever, polite, rude, brave, cruel</td>
+        <td>easy, difficult, hard, important, necessary, possible, impossible, dangerous, natural</td>
+      </tr>
+    </table>
+    <div class="note">
+      <b>見分け方：</b>「<b>人 is 形容詞</b>」と言えるか試す。<br>
+      You are kind. ○ → <b>of you</b><br>
+      You are difficult. ×（人が難しいわけではない）→ <b>for you</b>
+    </div>
+
+    <h3>意味上の主語を書かない場合</h3>
+    <div class="ex">
+      <div class="en">I hope <span class="hl2">to see</span> you again.</div>
+      <div class="ja">会うのは I（文の主語と同じ）→ 書かない</div>
+    </div>
+    <div class="ex">
+      <div class="en">It is important <span class="hl2">to keep</span> your promise.</div>
+      <div class="ja">約束を守るのは一般の人々（誰でも）→ 書かない</div>
+    </div>
+
+    <h3>注意：for を使わないケース</h3>
+    <p><b>want / tell / ask / allow + 人 + to do</b> の形では、動詞の目的語がそのまま意味上の主語になります（for は不要）。</p>
+    <div class="ex">
+      <div class="en">My mother told <span class="hl">me</span> <span class="hl2">to clean</span> my room.</div>
+      <div class="ja">掃除するのは me。× told for me to clean</div>
+    </div>
+    <h3>ミニ練習：for か of か</h3>
+    <p style="font-size:.9rem;color:var(--sub)">答えを選ぶと解説が出ます。</p>
+    <div id="drill1"></div>
+  </div>
+</section>
+
+<!-- ===== 2 動名詞 ===== -->
+<section class="panel" id="p2">
+  <div class="card">
+    <h2>動名詞の意味上の主語</h2>
+
+    <h3>基本：所有格（または目的格）+ doing</h3>
+    <p>動名詞の意味上の主語は、動名詞の<b>直前</b>に <span class="hl">所有格</span>（my, his, her, Tom's …）を置きます。</p>
+    <div class="ex">
+      <div class="en">I am sure of <span class="hl">his</span> <span class="hl2">passing</span> the exam.</div>
+      <div class="ja">彼が試験に合格すると確信している。（合格するのは he）</div>
+    </div>
+    <div class="ex">
+      <div class="en">Do you mind <span class="hl">my</span> <span class="hl2">opening</span> the window?</div>
+      <div class="ja">窓を開けてもいいですか。（開けるのは I）</div>
+    </div>
+    <div class="ex">
+      <div class="en">I don't like <span class="hl">Tom's</span> <span class="hl2">speaking</span> ill of others.</div>
+      <div class="ja">トムが他人の悪口を言うのが好きではない。</div>
+    </div>
+
+    <div class="note">
+      <b>所有格と目的格：</b>目的格（me, him, her）も使えます。<br>
+      文の<b>途中（動詞や前置詞の後）</b>では目的格がよく使われ、especially 会話的。<br>
+      <span class="en">Do you mind <b>me</b> opening the window?</span>（口語）<br>
+      <span class="en">Do you mind <b>my</b> opening the window?</span>（かたい・書き言葉）<br>
+      ただし<b>文頭（主語の位置）</b>では所有格を使うのが原則。<br>
+      <span class="en"><b>His</b> being late made us angry.</span>（○）
+    </div>
+
+    <div class="warn">
+      <b>人以外・複数語のときは、そのままの形でOK：</b><br>
+      <span class="en">I'm afraid of <b>the door</b> being locked.</span><br>
+      <span class="en">I remember <b>my sister and her friend</b> visiting us.</span>
+    </div>
+
+    <h3>意味上の主語を書かない場合</h3>
+    <div class="ex">
+      <div class="en">I'm proud of <span class="hl2">being</span> a member of this team.</div>
+      <div class="ja">メンバーなのは I（文の主語と同じ）→ 書かない</div>
+    </div>
+    <div class="ex">
+      <div class="en"><span class="hl2">Reading</span> books is fun.</div>
+      <div class="ja">読むのは一般の人々 → 書かない</div>
+    </div>
+
+    <h3>比べてみよう</h3>
+    <table>
+      <tr><th></th><th>不定詞</th><th>動名詞</th></tr>
+      <tr><td>形</td><td><b>for</b> + 目的格 + to do<br>（人柄の形容詞は <b>of</b>）</td><td><b>所有格</b>（または目的格）+ doing</td></tr>
+      <tr><td>位置</td><td>to do の直前</td><td>doing の直前</td></tr>
+      <tr><td>例</td><td class="en">for him to go</td><td class="en">his going</td></tr>
+    </table>
+
+    <h3>ミニ練習：かっこ内を正しい形に</h3>
+    <p style="font-size:.9rem;color:var(--sub)">答えを選ぶと解説が出ます。</p>
+    <div id="drill2"></div>
+  </div>
+</section>
+
+<!-- ===== 6 第5文型 ===== -->
+<section class="panel" id="p6">
+  <div class="card">
+    <h2>第5文型（SVOC）と want O to do</h2>
+
+    <h3>大原則：O が C の意味上の主語</h3>
+    <p>第5文型 <b>S + V + O + C</b> では、<b>O と C の間に「主語 ― 述語」の関係</b>があります。<br>
+    つまり <span class="hl">O = C の意味上の主語</span>。これがすべての土台です。</p>
+    <div class="ex">
+      <div class="en">I want <span class="hl">him</span> <span class="hl2">to go</span> there.</div>
+      <div class="ja">O = him、C = to go。<b>him が go の意味上の主語</b>。<br>≒ <i>He goes there.</i> という関係が中に隠れている。</div>
+    </div>
+    <div class="note">
+      <b>確かめ方：</b>O と C を取り出して「O が C する」と文にしてみる。<br>
+      I found <b>the book easy</b>. → <i>The book is easy.</i> ○<br>
+      I saw <b>him run</b>. → <i>He runs.</i> ○
+    </div>
+    <div class="warn">
+      <b>第4文型との区別：</b>SVOO は O と O が主語‐述語にならない。<br>
+      I gave <b>him a book</b>. → <i>He is a book.</i> ×　→ 第4文型（SVOO）<br>
+      I made <b>him a leader</b>. → <i>He is a leader.</i> ○　→ 第5文型（SVOC）
+    </div>
+
+    <h3>C の形は4種類</h3>
+    <table>
+      <tr><th>C の形</th><th>主な動詞</th><th>例</th></tr>
+      <tr><td><b>to do</b><br>（to不定詞）</td><td>want, would like, tell, ask, advise, allow, expect, order, force, enable</td><td class="en">I told <b>him to wait</b>.</td></tr>
+      <tr><td><b>do</b><br>（原形不定詞）</td><td>知覚動詞 see, hear, feel, watch, notice<br>使役動詞 make, let, have</td><td class="en">I saw <b>him cross</b> the street.</td></tr>
+      <tr><td><b>doing</b><br>（現在分詞）</td><td>see, hear, watch, keep, find, leave</td><td class="en">I saw <b>him crossing</b> the street.</td></tr>
+      <tr><td><b>done</b><br>（過去分詞）</td><td>have, get, make, see, find</td><td class="en">I had <b>my bike repaired</b>.</td></tr>
+    </table>
+    <p>どの形でも、<b>意味上の主語は必ず O</b>です。C の形が変わるだけ。</p>
+
+    <h3>能動か受動か ― doing と done の使い分け</h3>
+    <p>O が「する」側なら <b>doing / do</b>、O が「される」側なら <b>done</b>。</p>
+    <div class="ex">
+      <div class="en">I heard <span class="hl">someone</span> <span class="hl2">calling</span> my name.</div>
+      <div class="ja">someone が「呼ぶ」→ 能動 → calling</div>
+    </div>
+    <div class="ex">
+      <div class="en">I heard <span class="hl">my name</span> <span class="hl2">called</span>.</div>
+      <div class="ja">my name は「呼ばれる」側 → 受動 → called</div>
+    </div>
+    <div class="ex">
+      <div class="en">I had <span class="hl">my wallet</span> <span class="hl2">stolen</span>.</div>
+      <div class="ja">財布は「盗まれる」側 → stolen（財布が盗んだのではない）</div>
+    </div>
+
+    <h3>do と doing のニュアンス差</h3>
+    <table>
+      <tr><th>原形（do）</th><th>現在分詞（doing）</th></tr>
+      <tr>
+        <td class="en">I saw him cross the street.<br><span class="ja" style="font-family:inherit">渡りきるところを最初から最後まで見た</span></td>
+        <td class="en">I saw him crossing the street.<br><span class="ja" style="font-family:inherit">渡っている途中を見た</span></td>
+      </tr>
+    </table>
+
+    <h3>よくある間違い</h3>
+    <table>
+      <tr><th>×</th><th>○</th><th>理由</th></tr>
+      <tr><td class="en">I want that he goes.</td><td class="en">I want <b>him to go</b>.</td><td>want は that節を取らない</td></tr>
+      <tr><td class="en">I want <b>for him</b> to go.</td><td class="en">I want <b>him</b> to go.</td><td>SVOC では for 不要</td></tr>
+      <tr><td class="en">He made me <b>to cry</b>.</td><td class="en">He made me <b>cry</b>.</td><td>使役 make は原形不定詞</td></tr>
+      <tr><td class="en">I let him <b>to use</b> it.</td><td class="en">I let him <b>use</b> it.</td><td>let も原形不定詞</td></tr>
+      <tr><td class="en">I had my hair <b>cutting</b>.</td><td class="en">I had my hair <b>cut</b>.</td><td>髪は「切られる」側 → 過去分詞</td></tr>
+    </table>
+
+    <div class="note">
+      <b>受動態にすると原形が to 不定詞に戻る：</b><br>
+      <span class="en">I saw him <b>enter</b> the room.</span> → <span class="en">He was seen <b>to enter</b> the room.</span><br>
+      <span class="en">She made me <b>wait</b>.</span> → <span class="en">I was made <b>to wait</b>.</span>
+    </div>
+
+    <h3>ミニ練習：O と C の関係をつかむ</h3>
+    <p style="font-size:.9rem;color:var(--sub)">答えを選ぶと解説が出ます。</p>
+    <div id="drill3"></div>
+  </div>
+</section>
+
+<!-- ===== 3 まとめ ===== -->
+<section class="panel" id="p3">
+  <div class="card">
+    <h2>まとめフローチャート</h2>
+    <p>「意味上の主語を書くかどうか」の判断は、この順番で考えます。</p>
+    <div class="ex">
+      <p><b>STEP 1</b>　to do / doing の動作をするのは誰？</p>
+      <p><b>STEP 2</b>　それは文の主語と同じ？ → <b>YES：書かない</b></p>
+      <p><b>STEP 3</b>　一般の人々（誰でも）？ → <b>YES：書かない</b></p>
+      <p><b>STEP 4</b>　特定の別の人 → <b>書く</b></p>
+      <p style="margin-left:1.5em">・不定詞 → <b>for + 目的格</b>（人柄の形容詞なら <b>of + 目的格</b>）</p>
+      <p style="margin-left:1.5em">・動名詞 → <b>所有格</b>（口語では目的格も可）</p>
+      <p style="margin-left:1.5em">・第5文型（want / make / see など + O + C）→ <b>O がそのまま意味上の主語</b>（for も所有格も不要）</p>
+    </div>
+
+    <h3>3つの型の早見表</h3>
+    <table>
+      <tr><th>型</th><th>意味上の主語の形</th><th>例</th></tr>
+      <tr><td>不定詞</td><td>for / of + 目的格</td><td class="en">It is easy <b>for him</b> to swim.</td></tr>
+      <tr><td>動名詞</td><td>所有格（目的格）</td><td class="en">I'm sure of <b>his</b> passing.</td></tr>
+      <tr><td>第5文型（SVOC）</td><td>O をそのまま置く</td><td class="en">I want <b>him</b> to swim.</td></tr>
+    </table>
+
+    <h3>暗記カード</h3>
+    <p style="font-size:.9rem;color:var(--sub)">クリックで答えを表示</p>
+    <div class="flip" id="flip3"></div>
+
+    <h3>よくあるミス</h3>
+    <table>
+      <tr><th>×</th><th>○</th><th>理由</th></tr>
+      <tr><td class="en">It is easy to me to swim.</td><td class="en">It is easy <b>for</b> me to swim.</td><td>意味上の主語は for</td></tr>
+      <tr><td class="en">It is kind <b>for</b> you to help.</td><td class="en">It is kind <b>of</b> you to help.</td><td>kind は人柄の形容詞</td></tr>
+      <tr><td class="en">I'm sure of <b>he</b> passing.</td><td class="en">I'm sure of <b>his</b> passing.</td><td>動名詞の前は所有格/目的格</td></tr>
+      <tr><td class="en">He told <b>for me</b> to go.</td><td class="en">He told <b>me</b> to go.</td><td>tell+人+to do は for 不要</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ===== 4 quiz ===== -->
+<section class="panel" id="p4">
+  <div class="card" id="quizCard">
+    <div class="qhead">
+      <span class="qnum" id="qnum"></span>
+      <div class="bar"><i id="qbar"></i></div>
+      <span class="qnum" id="qscore"></span>
+    </div>
+    <div class="qtext en" id="qtext"></div>
+    <div class="target" id="qja"></div>
+    <div class="opts" id="qopts"></div>
+    <div class="fb" id="qfb"></div>
+    <button class="btn hidden" id="qnext">次の問題 →</button>
+  </div>
+</section>
+
+<!-- ===== 5 find ===== -->
+<section class="panel" id="p5">
+  <div class="card" id="findCard">
+    <div class="qhead">
+      <span class="qnum" id="fnum"></span>
+      <div class="bar"><i id="fbar"></i></div>
+      <span class="qnum" id="fscore"></span>
+    </div>
+    <div class="target" id="ftarget"></div>
+    <div class="tokens" id="ftokens"></div>
+    <div class="fb" id="ffb"></div>
+    <button class="btn hidden" id="fnext">次の問題 →</button>
+  </div>
+</section>
+
+<footer>意味上の主語トレーニング — 不定詞・動名詞（基礎）</footer>
+</div>
+
+<script>
+/* ---------- tabs ---------- */
+document.querySelectorAll('.tab').forEach(function(t){
+  t.addEventListener('click', function(){
+    document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});
+    document.querySelectorAll('.panel').forEach(function(x){x.classList.remove('active')});
+    t.classList.add('active');
+    document.getElementById(t.dataset.p).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+document.querySelectorAll('.reveal').forEach(function(b){
+  var orig = b.textContent;
+  b.addEventListener('click', function(){
+    var el = document.getElementById(b.dataset.t);
+    el.classList.toggle('hidden');
+    b.textContent = el.classList.contains('hidden') ? orig : '答えを隠す';
+  });
+});
+
+/* ---------- flip cards ---------- */
+function buildFlip(id, data){
+  var box = document.getElementById(id);
+  data.forEach(function(d){
+    var el = document.createElement('div');
+    el.className = 'fcard';
+    el.innerHTML = '<div class="en">'+d.q+'</div><div class="a hidden">'+d.a+'</div>';
+    el.addEventListener('click', function(){
+      el.querySelector('.a').classList.toggle('hidden');
+    });
+    box.appendChild(el);
+  });
+}
+buildFlip('flip0',[
+  {q:'She asked <b>him</b> to wait.', a:'待つのは him'},
+  {q:'<b>They</b> decided to leave.', a:'去るのは They（文の主語）'},
+  {q:"It's fun for <b>us</b> to sing.", a:'歌うのは us'},
+  {q:'I like <b>his</b> singing.', a:'歌うのは he'}
+]);
+buildFlip('flip3',[
+  {q:'不定詞の意味上の主語は？', a:'for + 目的格 + to do'},
+  {q:'of を使うのはどんなとき？', a:'kind, careless など人柄を表す形容詞'},
+  {q:'動名詞の意味上の主語は？', a:'所有格（口語では目的格）+ doing'},
+  {q:'書かなくてよいのは？', a:'文の主語と同じ／一般の人々'},
+  {q:'第5文型の意味上の主語は？', a:'O（目的語）がそのまま意味上の主語'},
+  {q:'He made me ___ (cry).', a:'cry（使役 make は原形不定詞）'},
+  {q:'I had my hair ___ (cut).', a:'cut（髪は切られる側 → 過去分詞）'},
+  {q:'It is kind ___ you to help.', a:'of'},
+  {q:"I'm sure of ___ (he) passing.", a:'his（または him）'}
+]);
+
+/* ---------- mini drills ---------- */
+function buildDrill(id, items){
+  var box = document.getElementById(id);
+  items.forEach(function(it){
+    var d = document.createElement('div');
+    d.className = 'drill';
+    d.innerHTML = '<div class="qq en">'+it.q+'</div><div class="ja-hint">'+it.ja+'</div>';
+    var opts = document.createElement('div');
+    opts.className = 'dopts';
+    var fb = document.createElement('div');
+    fb.className = 'dfb';
+    it.opts.forEach(function(o,i){
+      var b = document.createElement('button');
+      b.className = 'dopt'; b.textContent = o;
+      b.addEventListener('click', function(){
+        var kids = opts.children;
+        for(var k=0;k<kids.length;k++){
+          kids[k].disabled = true;
+          if(it.ans.indexOf(k)>=0) kids[k].classList.add('correct');
+          else if(k===i) kids[k].classList.add('wrong');
+        }
+        var ok = it.ans.indexOf(i)>=0;
+        var ansText = it.ans.map(function(a){return it.opts[a];}).join(' / ');
+        fb.className = 'dfb show ' + (ok?'ok':'ng');
+        fb.innerHTML = '<b>'+(ok?'正解！':'不正解 — 正解は「'+ansText+'」')+'</b><br>'+it.exp;
+      });
+      opts.appendChild(b);
+    });
+    d.appendChild(opts); d.appendChild(fb);
+    box.appendChild(d);
+  });
+}
+buildDrill('drill1',[
+  { q:'It was wise (　) you to say nothing.', ja:'黙っているとは、あなたは賢明でしたね。',
+    opts:['for','of'], ans:[1],
+    exp:'wise は人柄を表す形容詞。「You are wise.」と言い換えられるので <b>of</b>。' },
+  { q:'It is necessary (　) us to start now.', ja:'私たちは今出発する必要がある。',
+    opts:['for','of'], ans:[0],
+    exp:'necessary は事柄の性質を表す形容詞。「We are necessary.」とは言えないので <b>for</b>。' },
+  { q:'She asked (　) to wait outside.', ja:'彼女は私に外で待つように頼んだ。',
+    opts:['for me','me','my'], ans:[1],
+    exp:'ask + 人 + to do の形。目的語 me がそのまま意味上の主語になるので for は不要。' }
+]);
+buildDrill('drill2',[
+  { q:"I'm sure of (　) winning the game.", ja:'私は彼が試合に勝つと確信している。',
+    opts:['he','his','him','he is'], ans:[1,2],
+    exp:'動名詞 winning の意味上の主語。所有格 <b>his</b> が原則で、口語では目的格 <b>him</b> も使われます。主格 he は不可。' },
+  { q:'(　) being absent surprised everyone.', ja:'彼が欠席したことは皆を驚かせた。',
+    opts:['He','His','Him'], ans:[1],
+    exp:'文頭（主語の位置）の動名詞では所有格 <b>His</b> を使うのが原則です。' },
+  { q:'Do you mind (　) sitting here?', ja:'ここに座ってもいいですか。',
+    opts:['I','my','me','mine'], ans:[1,2],
+    exp:'sitting の意味上の主語。書き言葉では <b>my</b>、会話では <b>me</b> がよく使われます。' },
+  { q:"I'm proud of (　) a member of this team.", ja:'私はこのチームの一員であることを誇りに思う。',
+    opts:['being','my being','I being'], ans:[0],
+    exp:'メンバーなのは文の主語 I 自身。同じなので意味上の主語は<b>書きません</b>。' }
+]);
+
+buildDrill('drill3',[
+  { q:'My parents want me (　) abroad.', ja:'両親は私に留学してほしいと思っている。',
+    opts:['study','to study','studying','studied'], ans:[1],
+    exp:'want は <b>O + to do</b> 型。留学するのは O の me（文の主語 My parents ではない）。' },
+  { q:'His joke made us (　).', ja:'彼の冗談は私たちを笑わせた。',
+    opts:['laugh','to laugh','laughing','laughed'], ans:[0],
+    exp:'使役動詞 make は <b>O + 原形不定詞</b>。笑うのは us。× made us to laugh' },
+  { q:'I had my computer (　) yesterday.', ja:'昨日パソコンを修理してもらった。',
+    opts:['repair','to repair','repairing','repaired'], ans:[3],
+    exp:'O の my computer は「修理<b>される</b>」側なので過去分詞 repaired。パソコンが修理するわけではありません。' },
+  { q:'I saw a stranger (　) into the house.', ja:'知らない人がその家に入っていくのを見た。',
+    opts:['to go','goes','going','gone'], ans:[2],
+    exp:'知覚動詞 see は <b>O + 原形/doing</b>。a stranger が「入る」側＝能動なので going（原形 go も可）。to go は不可。' },
+  { q:'次のうち、第5文型（O が C の意味上の主語）なのはどれ？', ja:'O と C を取り出して「O は C だ」と言えるか試そう。',
+    opts:['I gave him a present.','I found the book interesting.','I sent her a letter.'], ans:[1],
+    exp:'「The book is interesting.」が成り立つので第5文型。他の2つは「He is a present.」「She is a letter.」とならないので第4文型（SVOO）。' },
+  { q:'She was made (　) the truth.', ja:'彼女は真実を話させられた。',
+    opts:['tell','to tell','telling','told'], ans:[1],
+    exp:'能動なら made her <b>tell</b>（原形）ですが、<b>受動態では to 不定詞に戻ります</b>。話すのは She。' }
+]);
+
+/* ---------- quiz data ---------- */
+var QUIZ = [
+  { q:'It is difficult (　) me to get up early.',
+    ja:'私が早起きするのは難しい。',
+    opts:['for','of','to','with'], ans:0,
+    exp:'difficult は「事柄の性質」を表す形容詞なので for。「I am difficult.」とは言えませんね。' },
+  { q:'It was very kind (　) you to carry my bag.',
+    ja:'かばんを運んでくれるとは、あなたはとても親切でした。',
+    opts:['for','of','by','from'], ans:1,
+    exp:'kind は人柄を表す形容詞。「You are kind.」と言い換えられるので of。' },
+  { q:'I am proud of (　) winning the first prize.',
+    ja:'私は彼が1等賞を取ったことを誇りに思う。',
+    opts:['he','his','he is','that he'], ans:1,
+    exp:'動名詞 winning の意味上の主語なので所有格 his（目的格 him も可）。主格 he は不可。' },
+  { q:'It was careless (　) her to leave the door open.',
+    ja:'ドアを開けっぱなしにするとは、彼女は不注意だった。',
+    opts:['for','of','in','at'], ans:1,
+    exp:'careless は人柄を表す形容詞 →「She was careless.」と言えるので of。' },
+  { q:'Would you mind (　) opening the window?',
+    ja:'窓を開けてもよろしいですか。',
+    opts:['I','my','I am','of me'], ans:1,
+    exp:'動名詞 opening の意味上の主語は所有格 my（口語では me も可）。' },
+  { q:'My father told (　) to study harder.',
+    ja:'父は私にもっと勉強するように言った。',
+    opts:['for me','me','my','of me'], ans:1,
+    exp:'tell + 人 + to do の形。目的語がそのまま意味上の主語になるので for は不要。' },
+  { q:'This box is too heavy (　) a child to lift.',
+    ja:'この箱は子どもが持ち上げるには重すぎる。',
+    opts:['of','to','for','with'], ans:2,
+    exp:'too ... to ~ の意味上の主語も for + 人。lift するのは a child。' },
+  { q:'(　) being late made everyone angry.',
+    ja:'彼が遅刻したことで皆が怒った。',
+    opts:['He','Him','His','He was'], ans:2,
+    exp:'文頭（主語の位置）の動名詞では所有格 His を使うのが原則。' },
+  { q:'It is important (　) every student to read books.',
+    ja:'すべての生徒が本を読むことは大切だ。',
+    opts:['of','for','to','on'], ans:1,
+    exp:'important は事柄の性質を表す形容詞なので for。「Every student is important.」とは意味が変わってしまいます。' },
+  { q:'次のうち、意味上の主語を書く必要が「ない」文はどれ？',
+    ja:'',
+    opts:['I want ( ) to go there. （行くのは私）',
+          'It is easy ( ) to swim. （泳ぐのは彼）',
+          'I am sure of ( ) passing. （合格するのは彼女）',
+          'It is kind ( ) to help me. （助けるのはあなた）'], ans:0,
+    exp:'不定詞・動名詞の意味上の主語が文の主語と同じときは書きません。I want to go there. でOK。' },
+  { q:'I would like you (　) this letter for me.',
+    ja:'この手紙を出してきてほしいのですが。',
+    opts:['post','to post','posting','posted'], ans:[1],
+    exp:'would like + O + to do の第5文型。投函するのは O の you。' },
+  { q:'The teacher let the students (　) home early.',
+    ja:'先生は生徒たちを早く帰らせた。',
+    opts:['go','to go','going','gone'], ans:[0],
+    exp:'使役動詞 let は O + 原形不定詞。帰るのは the students。' },
+  { q:'I heard my name (　) in the next room.',
+    ja:'隣の部屋で自分の名前が呼ばれるのが聞こえた。',
+    opts:['call','to call','calling','called'], ans:[3],
+    exp:'my name は「呼ばれる」側なので過去分詞 called。名前が誰かを呼ぶわけではありません。' },
+  { q:'Don\'t keep me (　) so long.',
+    ja:'そんなに長く私を待たせないで。',
+    opts:['wait','to wait','waiting','waited'], ans:[2],
+    exp:'keep + O + doing で「O を～させ続ける」。待つのは me＝能動なので waiting。' },
+  { q:'She was seen (　) the building at nine.',
+    ja:'彼女は9時にその建物に入るのを見られた。',
+    opts:['enter','to enter','entered','entering'], ans:[1],
+    exp:'能動なら saw her <b>enter</b>（原形）ですが、受動態では to 不定詞になります。' },
+  { q:'次のうち、第5文型（O が C の意味上の主語）の文はどれ？',
+    ja:'',
+    opts:['My uncle bought me a camera.',
+          'She showed us her album.',
+          'We call the dog Momo.',
+          'He told me a funny story.'], ans:[2],
+    exp:'「The dog is Momo.」が成り立つので第5文型（SVOC）。他は「私＝カメラ」などとならず、第4文型（SVOO）です。' }
+];
+
+/* ---------- find data ---------- */
+var FIND = [
+  { toks:['It','is','important','for','you','to','read','this','book','.'], target:'to read', ans:[4],
+    ja:'あなたがこの本を読むことは大切だ。', exp:'for + 目的格 が不定詞の意味上の主語。読むのは you。' },
+  { toks:['It','was','kind','of','him','to','help','us','.'], target:'to help', ans:[4],
+    ja:'私たちを助けてくれるとは、彼は親切だった。', exp:'kind は人柄の形容詞なので of him。助けるのは him。' },
+  { toks:['I','want','him','to','come','here','.'], target:'to come', ans:[2],
+    ja:'私は彼にここへ来てほしい。', exp:'want + 人 + to do。来るのは him で、文の主語 I ではありません。' },
+  { toks:['He','promised','to','come','early','.'], target:'to come', ans:[0],
+    ja:'彼は早く来ると約束した。', exp:'来るのは文の主語 He。同じなので意味上の主語は書きません。' },
+  { toks:['Do','you','mind','my','opening','the','window','?'], target:'opening', ans:[3],
+    ja:'窓を開けてもいいですか。', exp:'動名詞の直前の所有格 my が意味上の主語。開けるのは I。' },
+  { toks:['She','is','proud','of','her','son','being','a','doctor','.'], target:'being', ans:[4,5],
+    ja:'彼女は息子が医者であることを誇りに思っている。', exp:'her son が being の意味上の主語。文の主語 She ではありません。' },
+  { toks:['I','am','sure','of','his','passing','the','exam','.'], target:'passing', ans:[4],
+    ja:'私は彼が試験に合格すると確信している。', exp:'所有格 his が動名詞 passing の意味上の主語。' },
+  { toks:['It','is','difficult','to','master','English','.'], target:'to master', ans:[-1],
+    ja:'英語を習得するのは難しい。', exp:'習得するのは特定の誰かではなく一般の人々。だから意味上の主語は書かれていません。' },
+  { toks:['My','mother','made','me','clean','my','room','.'], target:'clean', ans:[3],
+    ja:'母は私に部屋を掃除させた。', exp:'第5文型 make + O + 原形。掃除するのは O の me で、文の主語 My mother ではありません。' },
+  { toks:['I','saw','a','boy','running','in','the','park','.'], target:'running', ans:[2,3],
+    ja:'私は少年が公園を走っているのを見た。', exp:'知覚動詞 see + O + doing。走っているのは O の a boy。' },
+  { toks:['She','told','her','students','to','read','the','book','.'], target:'to read', ans:[2,3],
+    ja:'彼女は生徒たちにその本を読むように言った。', exp:'tell + O + to do。読むのは her students。for は不要です。' },
+  { toks:['I','had','my','wallet','stolen','on','the','train','.'], target:'stolen', ans:[2,3],
+    ja:'電車で財布を盗まれた。', exp:'have + O + 過去分詞。stolen の意味上の主語は my wallet で、「盗まれる」側なので過去分詞になります。' },
+  { toks:['We','call','the','dog','Momo','.'], target:'Momo（＝C）', ans:[2,3],
+    ja:'私たちはその犬をモモと呼ぶ。', exp:'第5文型。「The dog is Momo.」の関係があり、C の意味上の主語は O の the dog です。' }
+];
+
+/* ---------- quiz engine ---------- */
+var qi=0, qs=0, qLocked=false;
+function renderQuiz(){
+  if(qi>=QUIZ.length){ showScore('quizCard', qs, QUIZ.length, resetQuiz); return; }
+  var q = QUIZ[qi];
+  qLocked = false;
+  document.getElementById('qnum').textContent = '問 '+(qi+1)+' / '+QUIZ.length;
+  document.getElementById('qscore').textContent = '正解 '+qs;
+  document.getElementById('qbar').style.width = (qi/QUIZ.length*100)+'%';
+  document.getElementById('qtext').innerHTML = q.q;
+  document.getElementById('qja').textContent = q.ja;
+  var box = document.getElementById('qopts'); box.innerHTML='';
+  q.opts.forEach(function(o,i){
+    var b=document.createElement('button');
+    b.className='opt'; b.innerHTML='<span class="en">'+o+'</span>';
+    b.addEventListener('click',function(){ answerQuiz(i); });
+    box.appendChild(b);
+  });
+  var fb=document.getElementById('qfb'); fb.className='fb'; fb.innerHTML='';
+  document.getElementById('qnext').classList.add('hidden');
+}
+function answerQuiz(i){
+  if(qLocked) return; qLocked=true;
+  var q=QUIZ[qi], btns=document.getElementById('qopts').children, ok=(i===q.ans);
+  for(var k=0;k<btns.length;k++){
+    btns[k].disabled=true;
+    if(k===q.ans) btns[k].classList.add('correct');
+    else if(k===i) btns[k].classList.add('wrong');
+  }
+  if(ok) qs++;
+  var fb=document.getElementById('qfb');
+  fb.className='fb show '+(ok?'ok':'ng');
+  fb.innerHTML='<b>'+(ok?'正解！':'不正解 — 正解は「'+q.opts[q.ans]+'」')+'</b>'+q.exp;
+  document.getElementById('qscore').textContent='正解 '+qs;
+  document.getElementById('qnext').classList.remove('hidden');
+  document.getElementById('qnext').textContent = (qi===QUIZ.length-1)?'結果を見る →':'次の問題 →';
+}
+document.getElementById('qnext').addEventListener('click',function(){ qi++; renderQuiz(); });
+function resetQuiz(){ qi=0; qs=0; document.getElementById('quizCard').innerHTML=QUIZ_HTML; bindQuiz(); renderQuiz(); }
+
+/* ---------- find engine ---------- */
+var fi=0, fs=0, fLocked=false;
+function renderFind(){
+  if(fi>=FIND.length){ showScore('findCard', fs, FIND.length, resetFind); return; }
+  var f=FIND[fi]; fLocked=false;
+  document.getElementById('fnum').textContent='問 '+(fi+1)+' / '+FIND.length;
+  document.getElementById('fscore').textContent='正解 '+fs;
+  document.getElementById('fbar').style.width=(fi/FIND.length*100)+'%';
+  document.getElementById('ftarget').innerHTML='<b>'+f.target+'</b> の動作をするのは誰？ 語をクリックしよう。';
+  var box=document.getElementById('ftokens'); box.innerHTML='';
+  f.toks.forEach(function(t,i){
+    var b=document.createElement('button');
+    if(/^[.,?!]$/.test(t)){ b.className='tok plain'; b.disabled=true; b.textContent=t; }
+    else { b.className='tok'; b.textContent=t; b.addEventListener('click',function(){ answerFind(i); }); }
+    box.appendChild(b);
+  });
+  var sp=document.createElement('button');
+  sp.className='tok special'; sp.textContent='一般の人々（書かれていない）';
+  sp.addEventListener('click',function(){ answerFind(-1); });
+  box.appendChild(sp);
+  var fb=document.getElementById('ffb'); fb.className='fb'; fb.innerHTML='';
+  document.getElementById('fnext').classList.add('hidden');
+}
+function answerFind(i){
+  if(fLocked) return; fLocked=true;
+  var f=FIND[fi], box=document.getElementById('ftokens'), btns=box.children;
+  var ok = f.ans.indexOf(i)>=0;
+  for(var k=0;k<btns.length;k++) btns[k].disabled=true;
+  f.ans.forEach(function(a){
+    if(a===-1) btns[btns.length-1].classList.add('correct');
+    else btns[a].classList.add('correct');
+  });
+  if(!ok){ (i===-1 ? btns[btns.length-1] : btns[i]).classList.add('wrong'); }
+  else fs++;
+  var ansText = f.ans[0]===-1 ? '一般の人々（明示されていない）' : f.ans.map(function(a){return f.toks[a];}).join(' ');
+  var fb=document.getElementById('ffb');
+  fb.className='fb show '+(ok?'ok':'ng');
+  fb.innerHTML='<b>'+(ok?'正解！':'不正解 — 正解は「'+ansText+'」')+'</b>'+f.ja+'<br>'+f.exp;
+  document.getElementById('fscore').textContent='正解 '+fs;
+  document.getElementById('fnext').classList.remove('hidden');
+  document.getElementById('fnext').textContent=(fi===FIND.length-1)?'結果を見る →':'次の問題 →';
+}
+document.getElementById('fnext').addEventListener('click',function(){ fi++; renderFind(); });
+function resetFind(){ fi=0; fs=0; document.getElementById('findCard').innerHTML=FIND_HTML; bindFind(); renderFind(); }
+
+/* ---------- score ---------- */
+function showScore(cardId, s, total, reset){
+  var pct = Math.round(s/total*100);
+  var msg = pct===100?'完璧！':pct>=80?'よくできました！':pct>=50?'あと少し！':'解説をもう一度読んでみよう。';
+  var card=document.getElementById(cardId);
+  card.innerHTML='<div class="score"><div>結果</div><div class="big">'+s+' / '+total+'</div><div>'+pct+'%　'+msg+'</div><button class="btn" id="rst-'+cardId+'">もう一度挑戦</button></div>';
+  document.getElementById('rst-'+cardId).addEventListener('click', reset);
+}
+
+/* ---------- store initial HTML for reset ---------- */
+var QUIZ_HTML = document.getElementById('quizCard').innerHTML;
+var FIND_HTML = document.getElementById('findCard').innerHTML;
+function bindQuiz(){ document.getElementById('qnext').addEventListener('click',function(){ qi++; renderQuiz(); }); }
+function bindFind(){ document.getElementById('fnext').addEventListener('click',function(){ fi++; renderFind(); }); }
+
+renderQuiz();
+renderFind();
+</script>
+</body>
+</html>
