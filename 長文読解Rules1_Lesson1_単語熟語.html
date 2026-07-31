@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 1 単語・熟語 総合リスト｜The Rise of Soccer in the US</title>
+<style>
+:root{
+  --g3:#4CAF50; --g3p:#8BC34A; --g2:#03A9F4; --g2p:#7E57C2; --g1:#E91E63; --gx:#F44336;
+  --tw:#ff6a3d; --ti:#1668c7;
+  --bg:#f4f6fb; --card:#fff; --ink:#1b2233; --sub:#6b7590;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+  background:var(--bg);color:var(--ink);padding:18px;line-height:1.65}
+.wrap{max-width:1180px;margin:0 auto}
+header{background:linear-gradient(135deg,#e8202f,#e8218c 45%,#7b2bd9);color:#fff;
+  border-radius:18px;padding:26px 24px;margin-bottom:18px;box-shadow:0 8px 26px rgba(200,30,80,.25)}
+header h1{font-size:1.45rem;margin-bottom:6px}
+header p{opacity:.93;font-size:.87rem}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:15px}
+.stat{background:rgba(255,255,255,.2);border-radius:12px;padding:8px 14px;font-size:.8rem}
+.stat b{font-size:1.15rem;display:block}
+h2{font-size:1.03rem;margin:24px 0 10px;padding-left:12px;border-left:5px solid #e8202f}
+
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 14px}
+.lbl{font-size:.72rem;color:var(--sub);font-weight:700;margin-right:2px}
+button{font-family:inherit;cursor:pointer;border:none;border-radius:999px;padding:8px 15px;
+  font-size:.82rem;font-weight:700;transition:.15s;background:#fff;color:var(--sub);
+  box-shadow:0 2px 6px rgba(0,0,0,.08)}
+button:hover{transform:translateY(-1px)}
+button.on{background:#1b2233;color:#fff}
+.util{background:#ffe4e6;color:#c2185b}
+.sw{display:inline-flex;background:#fff;border-radius:999px;padding:4px;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.sw button{box-shadow:none;padding:8px 18px}
+.sw button.on{background:linear-gradient(135deg,#e8202f,#7b2bd9);color:#fff}
+.spacer{flex:1}
+
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;
+  box-shadow:0 2px 10px rgba(0,0,0,.07)}
+th,td{padding:10px 13px;text-align:left;border-bottom:1px solid #eef1f6;font-size:.87rem;vertical-align:top}
+th{background:#1b2233;color:#fff;font-size:.76rem;letter-spacing:.04em;position:sticky;top:0;z-index:2}
+tbody tr:nth-child(even){background:#fafbfe}
+tbody tr:hover{background:#fff1f3}
+tbody tr.done{opacity:.4}
+td.ph{font-weight:700}
+td.mn{cursor:pointer}
+tr.hid td.mn,tr.hid td.exc{filter:blur(5px);opacity:.5}
+td.exc{color:#5c6580;font-style:italic;font-size:.79rem}
+td.ln{color:#aab2c4;font-size:.75rem;white-space:nowrap}
+.mark{cursor:pointer;color:#c9cfdd;font-weight:800;user-select:none}
+tr.done .mark{color:#4CAF50}
+.bar{height:9px;border-radius:5px;display:inline-block;vertical-align:middle;margin-right:8px}
+.sumtbl td,.sumtbl th{font-size:.85rem}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:12px}
+.card{background:var(--card);border-radius:14px;padding:14px 16px;cursor:pointer;
+  box-shadow:0 2px 8px rgba(0,0,0,.07);border-left:6px solid #ccc;transition:.18s;
+  position:relative;user-select:none}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.12)}
+.card.done{opacity:.42}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.phrase{font-size:1.05rem;font-weight:700}
+.badge{font-size:.65rem;font-weight:800;color:#fff;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.tag{font-size:.63rem;font-weight:800;padding:2px 8px;border-radius:999px;color:#fff}
+.tag.w{background:var(--tw)} .tag.i{background:var(--ti)}
+.meaning{margin-top:9px;padding-top:9px;border-top:1px dashed #dde2ec;font-size:.92rem}
+.ex{margin-top:7px;font-size:.77rem;color:#5c6580;font-style:italic}
+.hidden .meaning,.hidden .ex{filter:blur(6px);opacity:.5}
+.hint{font-size:.66rem;color:#b9c0d0;margin-top:6px}
+.line{font-size:.67rem;color:#aab2c4;margin-top:3px}
+.check{position:absolute;top:8px;right:10px;font-size:.66rem;color:#4CAF50;display:none;font-weight:800}
+.card.done .check{display:block}
+.hide{display:none}
+@media(max-width:640px){body{padding:12px}th,td{padding:8px 9px;font-size:.79rem}td.exc,th.exc{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Lesson 1 — 単語・熟語 総合リスト（The Rise of Soccer in the United States）</h1>
+  <p>単語と熟語を1つにまとめました。「カード形式／表形式」「単語／熟語」を自由に切り替えて暗記できます。</p>
+  <div class="stats">
+    <div class="stat"><b id="total">0</b>総項目</div>
+    <div class="stat"><b id="nw">0</b>単語</div>
+    <div class="stat"><b id="ni">0</b>熟語・構文</div>
+    <div class="stat"><b id="shown">0</b>表示中</div>
+    <div class="stat"><b id="doneN">0</b>覚えた</div>
+  </div>
+</header>
+
+<h2>レベル別分布（単語 / 熟語 内訳つき）</h2>
+<table class="sumtbl"><thead><tr><th>英検レベル</th><th>合計</th><th>単語</th><th>熟語</th><th>割合</th><th>目安</th></tr></thead>
+<tbody id="sumbody"></tbody></table>
+
+<div class="controls" style="margin-top:22px">
+  <span class="sw"><button id="bCard" class="on" onclick="setView('card')">カード形式</button><button id="bTable" onclick="setView('table')">表形式</button></span>
+  <span class="spacer"></span>
+  <span class="sw"><button id="tAll" class="on" onclick="setType('all')">単語＋熟語</button><button id="tW" onclick="setType('単語')">単語のみ</button><button id="tI" onclick="setType('熟語')">熟語のみ</button></span>
+</div>
+
+<div class="controls"><span class="lbl">レベル</span><span id="filters" style="display:contents"></span></div>
+<div class="controls">
+  <button class="util" onclick="allHide()">すべて隠す</button>
+  <button class="util" onclick="allShow()">すべて表示</button>
+  <button class="util" onclick="shuffle()">シャッフル</button>
+  <button class="util" onclick="resetOrder()">本文順に戻す</button>
+  <button class="util" onclick="resetDone()">「覚えた」リセット</button>
+  <span class="spacer"></span>
+  <button class="util" id="hideDoneBtn" onclick="toggleDoneFilter()">覚えた項目を隠す</button>
+</div>
+
+<div id="cardView"><div class="grid" id="grid"></div></div>
+<div id="tableView" class="hide">
+  <table><thead><tr><th style="width:30px"></th><th style="width:46px">種類</th><th>語句</th><th>意味</th><th class="exc">本文での使われ方</th><th>レベル</th><th>行</th></tr></thead>
+  <tbody id="tbody"></tbody></table>
+</div>
+
+</div>
+
+<script>
+const LV={
+ "3級":{c:"var(--g3)",note:"中学卒業程度"},
+ "準2級":{c:"var(--g3p)",note:"高校中級程度"},
+ "2級":{c:"var(--g2)",note:"高校卒業程度"},
+ "準1級":{c:"var(--g2p)",note:"大学中級程度"},
+ "1級":{c:"var(--g1)",note:"大学上級程度"},
+ "級外":{c:"var(--gx)",note:"専門語・注釈必須"}
+};
+// [語句, 意味, 本文での使われ方, レベル, 行, 種類]
+const DATA=[
+ ["There is no doubt that ...","…であることに疑いはない","There is no doubt that soccer is the most popular team sport","2級",1,"熟語"],
+ ["doubt","名 疑い、疑念","There is no doubt that...","2級",1,"単語"],
+ ["throughout ~","~の至るところで／~の間ずっと","Throughout Europe, Asia, South America and Africa","2級",2,"単語"],
+ ["billions of ~","何十億もの~","billions of people play soccer as youngsters","2級",2,"熟語"],
+ ["youngster","名 若者、子ども","billions of people play soccer as youngsters","準1級",3,"単語"],
+ ["enjoy ~ing","~するのを楽しむ","enjoy watching the sport throughout their lives","3級",3,"熟語"],
+ ["throughout one's life","生涯を通じて","enjoy watching the sport throughout their lives","2級",3,"熟語"],
+ ["held every four years","4年ごとに開催される（分詞の後置修飾）","The World Cup, held every four years, is...","2級",4,"熟語"],
+ ["anticipated","形 待ち望まれた、期待された","the most anticipated sporting event in the world","準1級",4,"単語"],
+ ["anticipate","動 予期する、心待ちにする","the most anticipated sporting event","準1級",4,"単語"],
+ ["sporting event","名 スポーツ行事、競技大会","the most anticipated sporting event","3級",4,"単語"],
+ ["exception","名 例外","the people of the USA have always been an exception","2級",6,"単語"],
+ ["get excited about ~","~に興奮する、熱中する","They have never gotten very excited about soccer","3級",6,"熟語"],
+ ["until recently","最近まで（は）","They have never gotten very excited about soccer — until recently.","2級",6,"熟語"],
+ ["interest in ~","~への関心","Interest in soccer there did grow in the early 1990s","3級",7,"熟語"],
+ ["did + 動詞原形","確かに~した（強調のdo）","Interest in soccer there did grow in the early 1990s","2級",7,"熟語"],
+ ["in the early 1990s","1990年代前半に","did grow in the early 1990s","2級",7,"熟語"],
+ ["professional","形 プロの、職業的な","a professional league called Major League Soccer","準2級",7,"単語"],
+ ["league","名 リーグ、連盟","a professional league called Major League Soccer","2級",8,"単語"],
+ ["called ~","~と呼ばれる（分詞の後置修飾）","a professional league called Major League Soccer","3級",8,"熟語"],
+ ["establish","動 設立する、確立する","Major League Soccer was established with teams throughout...","2級",8,"単語"],
+ ["in addition","加えて、さらに","In addition, the United States hosted the 1994 World Cup.","2級",9,"熟語"],
+ ["host","動 主催する、開催する","the United States hosted the 1994 World Cup","2級",9,"単語"],
+ ["prompt","動 促す、引き起こす","These events prompted an increase in soccer leagues","準1級",10,"単語"],
+ ["an increase in ~","~の増加","prompted an increase in soccer leagues for children","2級",10,"熟語"],
+ ["still","副 それでもなお、それでも","Still, Americans today follow baseball ... more avidly","2級",11,"単語"],
+ ["follow","動 （スポーツなどを）追いかける、応援する","Americans today follow baseball, American football, and basketball","2級",11,"単語"],
+ ["avidly","副 熱心に、夢中で","follow baseball ... more avidly than soccer","1級",12,"単語"],
+ ["If asked to do","もし~するよう求められたら（分詞構文・省略）","If asked to name the fourth most popular team sport","準1級",12,"熟語"],
+ ["name","動 名前を挙げる、指名する","If asked to name the fourth most popular team sport","2級",12,"単語"],
+ ["A rather than B","BよりむしろA","most would probably add ice hockey rather than soccer","2級",13,"熟語"],
+ ["after all","結局のところ、何と言っても","After all, all four of these popular sports were invented...","2級",13,"熟語"],
+ ["invent","動 発明する、考案する","these popular sports were invented and developed in North America","準2級",14,"単語"],
+ ["in recent years","近年では","But in recent years, the attitude of Americans ... has begun to improve","2級",15,"熟語"],
+ ["attitude toward ~","~に対する態度・姿勢","the attitude of Americans toward soccer","2級",15,"熟語"],
+ ["attitude","名 態度、考え方","the attitude of Americans toward soccer","2級",15,"単語"],
+ ["begin to do","~し始める","the attitude ... has begun to improve","3級",15,"熟語"],
+ ["improve","動 改善する、良くなる","the attitude ... has begun to improve","2級",16,"単語"],
+ ["both in and outside ~","~の内でも外でも","Many people both in and outside the United States believe...","2級",16,"熟語"],
+ ["be certain to do","きっと~する、確実に~する","soccer is certain to become one of America's top three popular sports","2級",17,"熟語"],
+ ["within the next ~ years","今後~年以内に","within the next twenty years","2級",17,"熟語"],
+ ["a number of ~","いくつもの~、多くの~","There are a number of reasons.","2級",18,"熟語"],
+ ["for one thing","一つには、その理由の一つは","For one thing, American teams have become stronger","2級",19,"熟語"],
+ ["international","形 国際的な","American teams have become stronger in international tournaments","準2級",19,"単語"],
+ ["tournament","名 トーナメント、選手権大会","stronger in international tournaments","2級",20,"単語"],
+ ["successful","形 成功した、好成績の","The U.S. women's team has been especially successful","準2級",20,"単語"],
+ ["defeat","動 打ち負かす、破る","defeating Japan to win the women's World Cup in 2015","2級",20,"単語"],
+ ["defeating ... to win ...","…を破って~を勝ち取る（分詞構文＋結果のto）","defeating Japan to win the women's World Cup","準1級",20,"熟語"],
+ ["final match","名 決勝戦","The final match was watched on TV by more Americans than...","3級",21,"単語"],
+ ["championship game","名 優勝決定戦、選手権試合","the championship games of professional basketball and ice hockey","2級",22,"単語"],
+ ["moreover","副 さらに、その上","Moreover, Major League Soccer has added several new teams","準1級",23,"単語"],
+ ["add","動 加える、追加する","has added several new teams in the last ten years","3級",23,"単語"],
+ ["in the last ten years","この10年で","added several new teams in the last ten years","3級",24,"熟語"],
+ ["so that S V","その結果SはVする（結果）","so that few regions of the United States now lack a professional team","2級",24,"熟語"],
+ ["few ~","ほとんど~ない","few regions of the United States now lack a professional soccer team","2級",24,"熟語"],
+ ["region","名 地域、地方","few regions of the United States","2級",24,"単語"],
+ ["lack","動 ~を欠いている、持っていない","few regions ... now lack a professional soccer team","2級",25,"単語"],
+ ["participant","名 参加者、競技者","The increase in participants is even more impressive.","準1級",26,"単語"],
+ ["even more ~","さらにいっそう~だ（比較級の強調）","The increase in participants is even more impressive.","2級",26,"熟語"],
+ ["impressive","形 印象的な、目を見張る","even more impressive","2級",26,"単語"],
+ ["It is estimated that ...","…と見積もられている、推定されている","In 1974, it was estimated that only 100,000 American children played...","準1級",26,"熟語"],
+ ["estimate","動 見積もる、推定する","it was estimated that...","2級",27,"単語"],
+ ["organized","形 組織化された、正式に編成された","played on organized soccer teams","2級",27,"単語"],
+ ["~ times greater","~倍大きい","the number is thirty times greater","2級",28,"熟語"],
+ ["with + O + ~ing","Oが~している状態で（付帯状況）","with over 3 million children playing soccer","準1級",28,"熟語"],
+ ["surge","名 急増、高まり","One reason for this surge might be immigration.","準1級",29,"単語"],
+ ["immigration","名 移民（の流入）","One reason for this surge might be immigration.","2級",29,"単語"],
+ ["move to ~","~へ移住する","many people have moved to the U.S. from...","3級",30,"熟語"],
+ ["such A as B","BのようなA","from such soccer-loving areas as Mexico and Central America","2級",30,"熟語"],
+ ["soccer-loving","形 サッカー好きの","such soccer-loving areas as Mexico","2級",30,"単語"],
+ ["be related to ~","~と関係がある","Another reason ... may be related to negative aspects of...","2級",32,"熟語"],
+ ["popularity","名 人気","the popularity of soccer among children","2級",32,"単語"],
+ ["among ~","~の間で","the popularity of soccer among children","2級",32,"熟語"],
+ ["negative aspect","名 マイナス面、否定的な側面","related to negative aspects of one of soccer's rivals","2級",33,"単語"],
+ ["aspect","名 側面、面","negative aspects of one of soccer's rivals","準1級",33,"単語"],
+ ["rival","名 競争相手、ライバル","one of soccer's rivals","2級",33,"単語"],
+ ["violent","形 乱暴な、激しい","American football has always been a violent sport.","2級",34,"単語"],
+ ["opposing","形 相手方の、対戦する","Opposing players make hard contact with one another","準1級",34,"単語"],
+ ["make contact with ~","~と接触する、ぶつかる","Opposing players make hard contact with one another","2級",34,"熟語"],
+ ["one another","お互い","make hard contact with one another on every play","2級",34,"熟語"],
+ ["as a result","その結果","As a result, veteran players face difficulties later in life","3級",35,"熟語"],
+ ["face difficulties","困難に直面する","veteran players face difficulties later in life","2級",35,"熟語"],
+ ["later in life","後年、人生の後半で","face difficulties later in life due to injuries","2級",35,"熟語"],
+ ["due to ~","~が原因で","difficulties later in life due to injuries","2級",35,"熟語"],
+ ["injury","名 けが、負傷","difficulties ... due to injuries","2級",35,"単語"],
+ ["coach","名 コーチ、指導者","some coaches of American football have said...","3級",36,"単語"],
+ ["let + 人 + 動詞原形","人に~させる（許可）","I will not let my children play football.","2級",37,"熟語"],
+ ["similarity","名 類似点、共通点","American football and soccer have several similarities","準1級",38,"単語"],
+ ["rectangular","形 長方形の","both are played on a rectangular field","準1級",39,"単語"],
+ ["outdoors","副 屋外で","on a rectangular field, outdoors, in all kinds of weather","準2級",39,"単語"],
+ ["in all kinds of weather","どんな天候でも","outdoors, in all kinds of weather","3級",39,"熟語"],
+ ["teammate","名 チームメイト、味方の選手","In both sports, teammates cooperate to move a ball","3級",39,"単語"],
+ ["cooperate","動 協力する","teammates cooperate to move a ball towards a goal","2級",40,"単語"],
+ ["towards ~","~に向かって","move a ball towards a goal","3級",40,"熟語"],
+ ["on the other hand","一方で、他方では","On the other hand, soccer is much safer.","2級",40,"熟語"],
+ ["much + 比較級","ずっと~だ（比較級の強調）","soccer is much safer","3級",40,"熟語"],
+ ["frequent","形 頻繁な、たびたびの","The contact between players is less frequent and less violent.","2級",41,"単語"],
+ ["whereas ...","…である一方で（対比）","soccer can be played by both boys and girls, whereas American football is...","準1級",42,"熟語"],
+ ["be considered to be ~","~だとみなされている","American football is considered to be a boys' sport","2級",42,"熟語"],
+ ["thus","副 したがって、このように","Thus, as American football loses popularity, ...","準1級",43,"単語"],
+ ["lose popularity","人気を失う","as American football loses popularity","2級",43,"熟語"],
+ ["It seems natural that ...","…なのは当然のように思える","it seems natural that soccer's popularity ... will continue to grow","2級",43,"熟語"],
+ ["natural","形 当然の、無理もない（≒likely）","it seems (a) natural that...（問4）","2級",43,"単語"],
+ ["continue to do","~し続ける","soccer's popularity ... will continue to grow","2級",44,"熟語"],
+ ["prefer A to B","BよりAを好む","what is one reason that Americans prefer baseball ... to soccer?（問1）","2級",0,"熟語"],
+ ["main idea","名 主旨、要点","What is the main idea of Paragraph 5?（問2）","2級",0,"単語"],
+ ["~ times as ... as","~倍…である","Soccer is now thirty times as popular as football（問2②）","2級",0,"熟語"],
+ ["have influence on ~","~に影響を与える","Immigrants have too much influence on American culture.（問2④）","2級",0,"熟語"],
+ ["likely","形 ありそうな、起こりそうな（問4の正解）","③ likely（問4）","2級",0,"単語"],
+ ["lively","形 活気のある、元気な","④ lively（問4）","2級",0,"単語"],
+ ["A vs. B","A対B（versus）","Soccer vs. American Football（問5③）","2級",0,"熟語"],
+ ["the rise of ~","~の台頭、興隆","The Rise of Soccer in the United States（問5④）","2級",0,"熟語"]
+];
+
+const ORDER=["3級","準2級","2級","準1級","1級","級外"];
+let data=[...DATA],activeLv="all",activeType="all",hideDone=false;
+const done=new Set();
+
+const cW=DATA.filter(d=>d[5]==="単語").length, cI=DATA.length-cW;
+document.getElementById("total").textContent=DATA.length;
+document.getElementById("nw").textContent=cW;
+document.getElementById("ni").textContent=cI;
+
+const cnt={},cntW={},cntI={};
+ORDER.forEach(l=>{cnt[l]=0;cntW[l]=0;cntI[l]=0;});
+DATA.forEach(d=>{cnt[d[3]]++;(d[5]==="単語"?cntW:cntI)[d[3]]++;});
+document.getElementById("sumbody").innerHTML=ORDER.map(l=>{
+ const n=cnt[l],p=Math.round(n/DATA.length*100);
+ return `<tr><td><span class="badge" style="background:${LV[l].c}">${l}</span></td>
+ <td><b>${n}</b></td><td style="color:var(--tw);font-weight:700">${cntW[l]}</td>
+ <td style="color:var(--ti);font-weight:700">${cntI[l]}</td>
+ <td><span class="bar" style="width:${Math.max(p*2.6,6)}px;background:${LV[l].c}"></span>${p}%</td>
+ <td style="color:var(--sub)">${LV[l].note}</td></tr>`;}).join("");
+
+document.getElementById("filters").innerHTML=
+ `<button class="on" data-lv="all">すべて</button>`+
+ ORDER.map(l=>cnt[l]?`<button data-lv="${l}" style="color:${LV[l].c}">${l} (${cnt[l]})</button>`:"").join("");
+document.getElementById("filters").onclick=e=>{
+ if(e.target.tagName!=="BUTTON")return;
+ [...e.currentTarget.children].forEach(b=>b.classList.remove("on"));
+ e.target.classList.add("on");activeLv=e.target.dataset.lv;render();};
+
+function list(){return data.filter(d=>
+ (activeLv==="all"||d[3]===activeLv)&&
+ (activeType==="all"||d[5]===activeType)&&
+ !(hideDone&&done.has(d[0])));}
+
+function render(){
+ const L=list();
+ document.getElementById("grid").innerHTML=L.map(d=>{
+  const[p,m,ex,lv,ln,ty]=d, t=ty==="単語"?"w":"i";
+  return `<div class="card hidden" data-w="${p}" style="border-left-color:${LV[lv].c}">
+   <span class="check">✓ 覚えた</span>
+   <div class="top"><span class="phrase">${p}</span>
+   <span style="display:flex;flex-direction:column;gap:4px;align-items:flex-end">
+   <span class="badge" style="background:${LV[lv].c}">${lv}</span>
+   <span class="tag ${t}">${ty}</span></span></div>
+   <div class="line">${ln?"l."+ln:"設問"}</div>
+   <div class="meaning">${m}</div>
+   <div class="ex">${ex}</div>
+   <div class="hint">タップで表示 ／ ダブルクリックで「覚えた」</div></div>`;}).join("");
+ [...document.getElementById("grid").children].forEach(c=>{
+  if(done.has(c.dataset.w))c.classList.add("done");
+  c.onclick=()=>c.classList.toggle("hidden");
+  c.ondblclick=e=>{e.preventDefault();const w=c.dataset.w;
+   done.has(w)?done.delete(w):done.add(w);render();};});
+
+ document.getElementById("tbody").innerHTML=L.map(d=>{
+  const[p,m,ex,lv,ln,ty]=d, t=ty==="単語"?"w":"i";
+  return `<tr class="hid ${done.has(p)?'done':''}" data-w="${p}">
+   <td><span class="mark">✓</span></td>
+   <td><span class="tag ${t}">${ty}</span></td>
+   <td class="ph">${p}</td><td class="mn">${m}</td>
+   <td class="exc">${ex}</td>
+   <td><span class="badge" style="background:${LV[lv].c}">${lv}</span></td>
+   <td class="ln">${ln?"l."+ln:"設問"}</td></tr>`;}).join("");
+ [...document.getElementById("tbody").children].forEach(tr=>{
+  tr.querySelector(".mn").onclick=()=>tr.classList.toggle("hid");
+  tr.querySelector(".exc").onclick=()=>tr.classList.toggle("hid");
+  tr.querySelector(".mark").onclick=()=>{const w=tr.dataset.w;
+   done.has(w)?done.delete(w):done.add(w);render();};});
+
+ document.getElementById("shown").textContent=L.length;
+ document.getElementById("doneN").textContent=done.size;
+}
+
+function setView(v){
+ document.getElementById("cardView").classList.toggle("hide",v!=="card");
+ document.getElementById("tableView").classList.toggle("hide",v!=="table");
+ document.getElementById("bCard").classList.toggle("on",v==="card");
+ document.getElementById("bTable").classList.toggle("on",v==="table");}
+function setType(t){activeType=t;
+ document.getElementById("tAll").classList.toggle("on",t==="all");
+ document.getElementById("tW").classList.toggle("on",t==="単語");
+ document.getElementById("tI").classList.toggle("on",t==="熟語");render();}
+function allHide(){document.querySelectorAll(".card").forEach(c=>c.classList.add("hidden"));
+ document.querySelectorAll("#tbody tr").forEach(t=>t.classList.add("hid"));}
+function allShow(){document.querySelectorAll(".card").forEach(c=>c.classList.remove("hidden"));
+ document.querySelectorAll("#tbody tr").forEach(t=>t.classList.remove("hid"));}
+function shuffle(){for(let i=data.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[data[i],data[j]]=[data[j],data[i]];}render();}
+function resetOrder(){data=[...DATA];render();}
+function resetDone(){done.clear();render();}
+function toggleDoneFilter(){hideDone=!hideDone;
+ document.getElementById("hideDoneBtn").textContent=hideDone?"覚えた項目も表示":"覚えた項目を隠す";render();}
+
+render();
+</script>
+</body>
+</html>
