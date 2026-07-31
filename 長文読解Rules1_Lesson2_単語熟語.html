@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 2 単語・熟語 総合リスト｜Immigration in Canada</title>
+<style>
+:root{
+  --g3:#4CAF50; --g3p:#8BC34A; --g2:#03A9F4; --g2p:#7E57C2; --g1:#E91E63; --gx:#F44336;
+  --tw:#ff6a3d; --ti:#1668c7; --tc:#00897b;
+  --bg:#f4f6fb; --card:#fff; --ink:#1b2233; --sub:#6b7590;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+  background:var(--bg);color:var(--ink);padding:18px;line-height:1.65}
+.wrap{max-width:1180px;margin:0 auto}
+header{background:linear-gradient(135deg,#c62828,#d81b60 45%,#8e24aa);color:#fff;
+  border-radius:18px;padding:26px 24px;margin-bottom:18px;box-shadow:0 8px 26px rgba(200,30,80,.25)}
+header h1{font-size:1.42rem;margin-bottom:6px}
+header p{opacity:.93;font-size:.87rem}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:15px}
+.stat{background:rgba(255,255,255,.2);border-radius:12px;padding:8px 14px;font-size:.8rem}
+.stat b{font-size:1.15rem;display:block}
+h2{font-size:1.03rem;margin:24px 0 10px;padding-left:12px;border-left:5px solid #d81b60}
+
+.ansbox{background:#fff;border-radius:14px;padding:16px 18px;box-shadow:0 2px 10px rgba(0,0,0,.07);
+  margin-bottom:10px}
+.ansgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:10px}
+.acard{border:2px solid #eef1f6;border-radius:12px;padding:10px 12px;cursor:pointer;user-select:none;
+  transition:.15s;text-align:center}
+.acard:hover{border-color:#d81b60}
+.acard .n{font-size:.72rem;color:var(--sub);font-weight:700}
+.acard .a{font-size:1.05rem;font-weight:800;color:#d81b60;margin-top:3px}
+.acard.hid .a{filter:blur(7px)}
+
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 14px}
+.lbl{font-size:.72rem;color:var(--sub);font-weight:700;margin-right:2px}
+button{font-family:inherit;cursor:pointer;border:none;border-radius:999px;padding:8px 15px;
+  font-size:.82rem;font-weight:700;transition:.15s;background:#fff;color:var(--sub);
+  box-shadow:0 2px 6px rgba(0,0,0,.08)}
+button:hover{transform:translateY(-1px)}
+button.on{background:#1b2233;color:#fff}
+.util{background:#ffe4e6;color:#c2185b}
+.sw{display:inline-flex;background:#fff;border-radius:999px;padding:4px;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.sw button{box-shadow:none;padding:8px 16px}
+.sw button.on{background:linear-gradient(135deg,#c62828,#8e24aa);color:#fff}
+.spacer{flex:1}
+
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;
+  box-shadow:0 2px 10px rgba(0,0,0,.07)}
+th,td{padding:10px 13px;text-align:left;border-bottom:1px solid #eef1f6;font-size:.87rem;vertical-align:top}
+th{background:#1b2233;color:#fff;font-size:.76rem;letter-spacing:.04em;position:sticky;top:0;z-index:2}
+tbody tr:nth-child(even){background:#fafbfe}
+tbody tr:hover{background:#fff1f3}
+tbody tr.done{opacity:.4}
+td.ph{font-weight:700}
+td.mn{cursor:pointer}
+tr.hid td.mn,tr.hid td.exc{filter:blur(5px);opacity:.5}
+td.exc{color:#5c6580;font-style:italic;font-size:.79rem}
+td.ln{color:#aab2c4;font-size:.75rem;white-space:nowrap}
+.mark{cursor:pointer;color:#c9cfdd;font-weight:800;user-select:none}
+tr.done .mark{color:#4CAF50}
+.bar{height:9px;border-radius:5px;display:inline-block;vertical-align:middle;margin-right:8px}
+.sumtbl td,.sumtbl th{font-size:.85rem}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:12px}
+.card{background:var(--card);border-radius:14px;padding:14px 16px;cursor:pointer;
+  box-shadow:0 2px 8px rgba(0,0,0,.07);border-left:6px solid #ccc;transition:.18s;
+  position:relative;user-select:none}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.12)}
+.card.done{opacity:.42}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.phrase{font-size:1.05rem;font-weight:700}
+.badge{font-size:.65rem;font-weight:800;color:#fff;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.tag{font-size:.63rem;font-weight:800;padding:2px 8px;border-radius:999px;color:#fff}
+.tag.w{background:var(--tw)} .tag.i{background:var(--ti)} .tag.c{background:var(--tc)}
+.meaning{margin-top:9px;padding-top:9px;border-top:1px dashed #dde2ec;font-size:.92rem}
+.ex{margin-top:7px;font-size:.77rem;color:#5c6580;font-style:italic}
+.hidden .meaning,.hidden .ex{filter:blur(6px);opacity:.5}
+.hint{font-size:.66rem;color:#b9c0d0;margin-top:6px}
+.line{font-size:.67rem;color:#aab2c4;margin-top:3px}
+.check{position:absolute;top:8px;right:10px;font-size:.66rem;color:#4CAF50;display:none;font-weight:800}
+.card.done .check{display:block}
+.hide{display:none}
+@media(max-width:640px){body{padding:12px}th,td{padding:8px 9px;font-size:.79rem}td.exc,th.exc{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Lesson 2 — 単語・熟語 総合リスト（Immigration in Canada）</h1>
+  <p>単語・熟語・選択肢語を1つにまとめました。「カード形式／表形式」「種類別」を切り替えて暗記できます。</p>
+  <div class="stats">
+    <div class="stat"><b id="total">0</b>総項目</div>
+    <div class="stat"><b id="nw">0</b>単語</div>
+    <div class="stat"><b id="ni">0</b>熟語・構文</div>
+    <div class="stat"><b id="nc">0</b>選択肢語</div>
+    <div class="stat"><b id="doneN">0</b>覚えた</div>
+  </div>
+</header>
+
+<h2>空所の解答（タップで表示）</h2>
+<div class="ansbox">
+  <div style="font-size:.82rem;color:var(--sub)">カードをタップすると答えが見えます。先に自分で解いてから確認してください。</div>
+  <div class="ansgrid" id="ansgrid"></div>
+</div>
+
+<h2>レベル別分布</h2>
+<table class="sumtbl"><thead><tr><th>英検レベル</th><th>合計</th><th>単語</th><th>熟語</th><th>割合</th><th>目安</th></tr></thead>
+<tbody id="sumbody"></tbody></table>
+
+<div class="controls" style="margin-top:22px">
+  <span class="sw"><button id="bCard" class="on" onclick="setView('card')">カード形式</button><button id="bTable" onclick="setView('table')">表形式</button></span>
+  <span class="spacer"></span>
+  <span class="sw"><button id="tAll" class="on" onclick="setType('all')">すべて</button><button id="tW" onclick="setType('単語')">単語</button><button id="tI" onclick="setType('熟語')">熟語</button><button id="tC" onclick="setType('選択肢')">選択肢語</button></span>
+</div>
+
+<div class="controls"><span class="lbl">レベル</span><span id="filters" style="display:contents"></span></div>
+<div class="controls">
+  <button class="util" onclick="allHide()">すべて隠す</button>
+  <button class="util" onclick="allShow()">すべて表示</button>
+  <button class="util" onclick="shuffle()">シャッフル</button>
+  <button class="util" onclick="resetOrder()">本文順に戻す</button>
+  <button class="util" onclick="resetDone()">「覚えた」リセット</button>
+  <span class="spacer"></span>
+  <button class="util" id="hideDoneBtn" onclick="toggleDoneFilter()">覚えた項目を隠す</button>
+</div>
+
+<div id="cardView"><div class="grid" id="grid"></div></div>
+<div id="tableView" class="hide">
+  <table><thead><tr><th style="width:30px"></th><th style="width:56px">種類</th><th>語句</th><th>意味</th><th class="exc">本文での使われ方</th><th>レベル</th><th>行</th></tr></thead>
+  <tbody id="tbody"></tbody></table>
+</div>
+
+</div>
+
+<script>
+const ANS=[["1","カ profound"],["2","イ criticism"],["3","ア contribute"],
+           ["4","オ former"],["5","キ raise"],["6","エ events"]];
+document.getElementById("ansgrid").innerHTML=ANS.map(a=>
+ `<div class="acard hid"><div class="n">空所 ${a[0]}</div><div class="a">${a[1]}</div></div>`).join("");
+[...document.getElementById("ansgrid").children].forEach(c=>c.onclick=()=>c.classList.toggle("hid"));
+
+const LV={
+ "3級":{c:"var(--g3)",note:"中学卒業程度"},
+ "準2級":{c:"var(--g3p)",note:"高校中級程度"},
+ "2級":{c:"var(--g2)",note:"高校卒業程度"},
+ "準1級":{c:"var(--g2p)",note:"大学中級程度"},
+ "1級":{c:"var(--g1)",note:"大学上級程度"},
+ "級外":{c:"var(--gx)",note:"専門語・注釈必須"}
+};
+// [語句, 意味, 本文での使われ方, レベル, 行, 種類]
+const DATA=[
+ ["profound","形 深い、重大な、深遠な【選択肢カ／空所1の答え】","This policy has had a (profound) effect on the development","準1級",0,"選択肢"],
+ ["criticism","名 批判、非難【選択肢イ／空所2の答え】","there will always be a certain amount of (criticism)","2級",0,"選択肢"],
+ ["contribute","動 貢献する、寄与する【選択肢ア／空所3の答え】","immigrants (contribute) significantly to the growth","2級",0,"選択肢"],
+ ["former","形 かつての、以前の【選択肢オ／空所4の答え】","commercial connections with their (former) homelands","2級",0,"選択肢"],
+ ["raise","動 高める、引き上げる【選択肢キ／空所5の答え】","immigrants help (raise) awareness of what happens","2級",0,"選択肢"],
+ ["events","名 出来事、事件【選択肢エ／空所6の答え】","pay attention to (events) that take place outside of Canada","3級",0,"選択肢"],
+ ["damaging","形 有害な、損害を与える【選択肢ウ／ダミー】","ウ damaging（本文では未使用）","2級",0,"選択肢"],
+ ["states","名 州／動 述べる【選択肢ク／ダミー】","ク states（本文では未使用）","2級",0,"選択肢"],
+ ["since ~","前・接 ~以来（ずっと）","Since the end of the 19th century, Canada has been accepting immigrants","3級",1,"熟語"],
+ ["the end of the 19th century","19世紀末","Since the end of the 19th century","3級",1,"熟語"],
+ ["have been ~ing","ずっと~し続けている（現在完了進行形）","Canada has been accepting immigrants from around the world","2級",1,"熟語"],
+ ["accept","動 受け入れる","Canada has been accepting immigrants","準2級",1,"単語"],
+ ["immigrant","名 移民（入ってくる人）","accepting immigrants from around the world","2級",1,"単語"],
+ ["from around the world","世界中から","immigrants from around the world","3級",2,"熟語"],
+ ["policy","名 政策、方針","This policy has had a profound effect on...","2級",2,"単語"],
+ ["have an effect on ~","~に影響を与える","This policy has had a profound effect on the development","2級",2,"熟語"],
+ ["development","名 発展、発達","a profound effect on the development of Canadian society","準2級",3,"単語"],
+ ["society","名 社会","the development of Canadian society","準2級",3,"単語"],
+ ["While S V, ...","SはVだが一方…（対比・譲歩）","While there will always be a certain amount of criticism, today most Canadians agree...","2級",3,"熟語"],
+ ["a certain amount of ~","一定量の~、ある程度の~","there will always be a certain amount of criticism","2級",3,"熟語"],
+ ["agree that ...","…だと同意する、認める","most Canadians agree that the effects have been largely positive","3級",4,"熟語"],
+ ["largely","副 大部分は、主に","the effects have been largely positive","2級",4,"単語"],
+ ["positive","形 好ましい、肯定的な","the effects have been largely positive","準2級",5,"単語"],
+ ["Of primary importance is ...","最も重要なのは…である（補語の倒置）","Of primary importance is the fact that immigrants contribute...","準1級",5,"熟語"],
+ ["primary","形 主要な、第一の","Of primary importance is the fact that...","2級",5,"単語"],
+ ["importance","名 重要性","Of primary importance is the fact that...","準2級",5,"単語"],
+ ["the fact that ...","…という事実（同格のthat）","the fact that immigrants contribute significantly","2級",5,"熟語"],
+ ["contribute to ~","~に貢献する、寄与する","immigrants contribute significantly to the growth of the Canadian economy","2級",5,"熟語"],
+ ["significantly","副 著しく、大きく","contribute significantly to the growth","準1級",6,"単語"],
+ ["the growth of ~","~の成長、発展","the growth of the Canadian economy","2級",6,"熟語"],
+ ["economy","名 経済","the growth of the Canadian economy","準2級",6,"単語"],
+ ["open a business","事業を始める、店を開く","They open businesses, create new jobs, and build...","2級",6,"熟語"],
+ ["create new jobs","新しい雇用を生み出す","They open businesses, create new jobs","3級",7,"熟語"],
+ ["commercial","形 商業の、通商の","build strong commercial connections with their former homelands","2級",7,"単語"],
+ ["connections with ~","~とのつながり、関係","build strong commercial connections with their former homelands","2級",7,"熟語"],
+ ["homeland","名 母国、故郷","connections with their former homelands","準1級",8,"単語"],
+ ["additionally","副 加えて、さらに","Additionally, from a social perspective, immigrants help...","準1級",8,"単語"],
+ ["from a ~ perspective","~の観点から見ると","from a social perspective","準1級",8,"熟語"],
+ ["perspective","名 観点、見方","from a social perspective","準1級",8,"単語"],
+ ["help (to) do","~するのに役立つ、~するのを助ける","immigrants help raise awareness of what happens","3級",8,"熟語"],
+ ["raise awareness of ~","~への意識・関心を高める","help raise awareness of what happens in the world","準1級",8,"熟語"],
+ ["awareness","名 意識、認識、自覚","raise awareness of what happens in the world","準1級",9,"単語"],
+ ["what happens in ~","~で起きていること（関係詞のwhat）","awareness of what happens in the world","3級",9,"熟語"],
+ ["the media","名 メディア、報道機関","They make the media and the public pay attention to...","2級",9,"単語"],
+ ["the public","名 一般大衆、世間の人々","make the media and the public pay attention to events","2級",9,"単語"],
+ ["make + 人 + 動詞原形","人に~させる（使役）","They make the media and the public pay attention to...","2級",9,"熟語"],
+ ["pay attention to ~","~に注意を払う、関心を向ける","make the media and the public pay attention to events","2級",10,"熟語"],
+ ["take place","起こる、開催される","events that take place outside of Canada","2級",10,"熟語"],
+ ["outside of ~","~の外で","events that take place outside of Canada","3級",10,"熟語"],
+ ["presence","名 存在、いること","Their presence in the country makes the Canadian government...","2級",10,"単語"],
+ ["make + O + 形容詞","Oを~の状態にする","makes the Canadian government more conscious of...","2級",11,"熟語"],
+ ["be conscious of ~","~を意識している、自覚している","more conscious of its responsibility to help developing nations","準1級",11,"熟語"],
+ ["conscious","形 意識している、自覚のある","more conscious of its responsibility","準1級",11,"単語"],
+ ["responsibility to do","~する責任","its responsibility to help developing nations","2級",11,"熟語"],
+ ["developing nation","名 発展途上国","its responsibility to help developing nations","2級",12,"単語"],
+ ["for example","たとえば","help developing nations, for example","3級",12,"熟語"],
+ ["moreover","副 さらに、その上","Moreover, as the general public becomes more and more familiar with...","準1級",12,"単語"],
+ ["as S V","SがVするにつれて","as the general public becomes more and more familiar with...","2級",12,"熟語"],
+ ["the general public","名 一般大衆、世間一般","as the general public becomes more and more familiar","2級",12,"単語"],
+ ["more and more ~","ますます~","becomes more and more familiar with the traditions and values","3級",13,"熟語"],
+ ["be familiar with ~","~をよく知っている、なじみがある","familiar with the traditions and values of people from various cultures","2級",13,"熟語"],
+ ["tradition","名 伝統、しきたり","the traditions and values of people from various cultures","準2級",13,"単語"],
+ ["values","名 価値観","the traditions and values of people","2級",13,"単語"],
+ ["various","形 さまざまな","people from various cultures","準2級",13,"単語"],
+ ["a greater degree of ~","より高い程度の~","there is a greater degree of tolerance and understanding in society","2級",14,"熟語"],
+ ["degree","名 程度、度合い","a greater degree of tolerance","2級",14,"単語"],
+ ["tolerance","名 寛容さ、他者を受け入れる態度","a greater degree of tolerance and understanding in society","準1級",14,"単語"],
+ ["understanding","名 理解","tolerance and understanding in society","3級",14,"単語"]
+];
+
+const ORDER=["3級","準2級","2級","準1級","1級","級外"];
+let data=[...DATA],activeLv="all",activeType="all",hideDone=false;
+const done=new Set();
+
+document.getElementById("total").textContent=DATA.length;
+document.getElementById("nw").textContent=DATA.filter(d=>d[5]==="単語").length;
+document.getElementById("ni").textContent=DATA.filter(d=>d[5]==="熟語").length;
+document.getElementById("nc").textContent=DATA.filter(d=>d[5]==="選択肢").length;
+
+const cnt={},cntW={},cntI={};
+ORDER.forEach(l=>{cnt[l]=0;cntW[l]=0;cntI[l]=0;});
+DATA.forEach(d=>{cnt[d[3]]++;(d[5]==="熟語"?cntI:cntW)[d[3]]++;});
+document.getElementById("sumbody").innerHTML=ORDER.map(l=>{
+ const n=cnt[l],p=Math.round(n/DATA.length*100);
+ return `<tr><td><span class="badge" style="background:${LV[l].c}">${l}</span></td>
+ <td><b>${n}</b></td><td style="color:var(--tw);font-weight:700">${cntW[l]}</td>
+ <td style="color:var(--ti);font-weight:700">${cntI[l]}</td>
+ <td><span class="bar" style="width:${Math.max(p*2.6,6)}px;background:${LV[l].c}"></span>${p}%</td>
+ <td style="color:var(--sub)">${LV[l].note}</td></tr>`;}).join("");
+
+document.getElementById("filters").innerHTML=
+ `<button class="on" data-lv="all">すべて</button>`+
+ ORDER.map(l=>cnt[l]?`<button data-lv="${l}" style="color:${LV[l].c}">${l} (${cnt[l]})</button>`:"").join("");
+document.getElementById("filters").onclick=e=>{
+ if(e.target.tagName!=="BUTTON")return;
+ [...e.currentTarget.children].forEach(b=>b.classList.remove("on"));
+ e.target.classList.add("on");activeLv=e.target.dataset.lv;render();};
+
+function tagCls(ty){return ty==="単語"?"w":ty==="熟語"?"i":"c";}
+function list(){return data.filter(d=>
+ (activeLv==="all"||d[3]===activeLv)&&
+ (activeType==="all"||d[5]===activeType)&&
+ !(hideDone&&done.has(d[0])));}
+
+function render(){
+ const L=list();
+ document.getElementById("grid").innerHTML=L.map(d=>{
+  const[p,m,ex,lv,ln,ty]=d;
+  return `<div class="card hidden" data-w="${p}" style="border-left-color:${LV[lv].c}">
+   <span class="check">✓ 覚えた</span>
+   <div class="top"><span class="phrase">${p}</span>
+   <span style="display:flex;flex-direction:column;gap:4px;align-items:flex-end">
+   <span class="badge" style="background:${LV[lv].c}">${lv}</span>
+   <span class="tag ${tagCls(ty)}">${ty}</span></span></div>
+   <div class="line">${ln?"l."+ln:"選択肢"}</div>
+   <div class="meaning">${m}</div>
+   <div class="ex">${ex}</div>
+   <div class="hint">タップで表示 ／ ダブルクリックで「覚えた」</div></div>`;}).join("");
+ [...document.getElementById("grid").children].forEach(c=>{
+  if(done.has(c.dataset.w))c.classList.add("done");
+  c.onclick=()=>c.classList.toggle("hidden");
+  c.ondblclick=e=>{e.preventDefault();const w=c.dataset.w;
+   done.has(w)?done.delete(w):done.add(w);render();};});
+
+ document.getElementById("tbody").innerHTML=L.map(d=>{
+  const[p,m,ex,lv,ln,ty]=d;
+  return `<tr class="hid ${done.has(p)?'done':''}" data-w="${p}">
+   <td><span class="mark">✓</span></td>
+   <td><span class="tag ${tagCls(ty)}">${ty}</span></td>
+   <td class="ph">${p}</td><td class="mn">${m}</td>
+   <td class="exc">${ex}</td>
+   <td><span class="badge" style="background:${LV[lv].c}">${lv}</span></td>
+   <td class="ln">${ln?"l."+ln:"選択肢"}</td></tr>`;}).join("");
+ [...document.getElementById("tbody").children].forEach(tr=>{
+  tr.querySelector(".mn").onclick=()=>tr.classList.toggle("hid");
+  tr.querySelector(".exc").onclick=()=>tr.classList.toggle("hid");
+  tr.querySelector(".mark").onclick=()=>{const w=tr.dataset.w;
+   done.has(w)?done.delete(w):done.add(w);render();};});
+
+ document.getElementById("shown")&&(document.getElementById("shown").textContent=L.length);
+ document.getElementById("doneN").textContent=done.size;
+}
+
+function setView(v){
+ document.getElementById("cardView").classList.toggle("hide",v!=="card");
+ document.getElementById("tableView").classList.toggle("hide",v!=="table");
+ document.getElementById("bCard").classList.toggle("on",v==="card");
+ document.getElementById("bTable").classList.toggle("on",v==="table");}
+function setType(t){activeType=t;
+ document.getElementById("tAll").classList.toggle("on",t==="all");
+ document.getElementById("tW").classList.toggle("on",t==="単語");
+ document.getElementById("tI").classList.toggle("on",t==="熟語");
+ document.getElementById("tC").classList.toggle("on",t==="選択肢");render();}
+function allHide(){document.querySelectorAll(".card").forEach(c=>c.classList.add("hidden"));
+ document.querySelectorAll("#tbody tr").forEach(t=>t.classList.add("hid"));}
+function allShow(){document.querySelectorAll(".card").forEach(c=>c.classList.remove("hidden"));
+ document.querySelectorAll("#tbody tr").forEach(t=>t.classList.remove("hid"));}
+function shuffle(){for(let i=data.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[data[i],data[j]]=[data[j],data[i]];}render();}
+function resetOrder(){data=[...DATA];render();}
+function resetDone(){done.clear();render();}
+function toggleDoneFilter(){hideDone=!hideDone;
+ document.getElementById("hideDoneBtn").textContent=hideDone?"覚えた項目も表示":"覚えた項目を隠す";render();}
+
+render();
+</script>
+</body>
+</html>
