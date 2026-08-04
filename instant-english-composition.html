@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>瞬間英作文｜疑問文・否定・時制</title>
+  <style>
+    :root { --navy:#12233f; --blue:#2d6cdf; --sky:#eaf2ff; --ink:#19212d; --muted:#6b7686; --line:#dce3ec; --green:#16835c; --orange:#b85d12; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; color:var(--ink); font-family:ui-rounded, "Hiragino Sans", "Noto Sans JP", system-ui, sans-serif; background:linear-gradient(140deg,#eef5ff 0%,#f8fbff 42%,#fff8ed 100%); }
+    button, input, select { font:inherit; }
+    button { cursor:pointer; border:0; }
+    .app { width:min(920px, calc(100% - 32px)); margin:0 auto; padding:30px 0 46px; }
+    header { display:flex; justify-content:space-between; gap:24px; align-items:flex-start; margin-bottom:24px; }
+    .eyebrow { color:var(--blue); font-size:.78rem; font-weight:800; letter-spacing:.11em; margin:0 0 6px; }
+    h1 { margin:0; color:var(--navy); font-size:clamp(1.55rem,4vw,2.35rem); letter-spacing:.02em; }
+    .subtitle { color:var(--muted); margin:8px 0 0; font-size:.93rem; }
+    .score { min-width:112px; padding:12px 16px; text-align:center; border:1px solid #cbd9ee; border-radius:16px; background:#fff; box-shadow:0 8px 20px #42699c12; }
+    .score strong { display:block; color:var(--blue); font-size:1.45rem; line-height:1.1; }
+    .score span { font-size:.72rem; color:var(--muted); }
+    .controls, .card, .tips { background:#fff; border:1px solid #e0e7f0; box-shadow:0 14px 36px #21385e12; }
+    .controls { display:flex; flex-wrap:wrap; gap:12px; align-items:end; border-radius:18px; padding:16px; margin-bottom:18px; }
+    .field { display:grid; gap:5px; font-size:.76rem; color:var(--muted); font-weight:700; }
+    select { padding:9px 34px 9px 11px; border-radius:9px; border:1px solid #cdd8e5; background:#fff; color:var(--ink); }
+    .progress-wrap { flex:1; min-width:150px; align-self:center; padding:0 8px; }
+    .progress-label { display:flex; justify-content:space-between; color:var(--muted); font-size:.75rem; margin-bottom:6px; }
+    .progress { overflow:hidden; height:9px; border-radius:99px; background:#e9eef5; }
+    .progress > i { display:block; height:100%; width:0; background:linear-gradient(90deg,#49a4ff,#3766dc); transition:width .25s; }
+    .outline, .primary, .mark { padding:10px 14px; border-radius:10px; font-weight:800; font-size:.88rem; transition:.16s transform,.16s background; }
+    button:hover { transform:translateY(-1px); }
+    .outline { color:var(--blue); background:#f2f7ff; border:1px solid #c9dbfa; }
+    .primary { color:#fff; background:var(--blue); }
+    .card { border-radius:22px; overflow:hidden; }
+    .card-top { display:flex; align-items:center; gap:14px; padding:19px 22px; border-bottom:1px solid var(--line); }
+    .number { width:52px; height:35px; border-radius:9px; display:grid; place-items:center; background:var(--sky); color:var(--blue); font-weight:900; letter-spacing:.05em; }
+    .category { font-weight:800; font-size:.87rem; color:var(--muted); }
+    .question { min-height:225px; display:grid; align-content:center; padding:30px clamp(22px,6vw,66px); }
+    .question .prompt { font-size:clamp(1.55rem,4.4vw,2.65rem); font-weight:800; letter-spacing:.015em; line-height:1.55; }
+    .question .hint { margin:19px 0 0; color:var(--muted); font-size:.9rem; }
+    .answer-area { padding:0 clamp(22px,6vw,66px) 30px; }
+    .answer-area label { display:block; margin-bottom:8px; color:var(--navy); font-weight:800; font-size:.88rem; }
+    #answerInput { width:100%; padding:14px 15px; border:2px solid #cbd8e7; border-radius:12px; outline:none; font-size:1.08rem; transition:.15s border-color,.15s box-shadow; }
+    #answerInput:focus { border-color:var(--blue); box-shadow:0 0 0 4px #2d6cdf19; }
+    .action-row { display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-top:13px; }
+    .action-row > div, .judge { display:flex; gap:8px; flex-wrap:wrap; }
+    .answer-box { display:none; margin:4px clamp(22px,6vw,66px) 28px; padding:18px; border-radius:13px; background:#f2f7ff; border-left:5px solid var(--blue); }
+    .answer-box.show { display:block; animation:appear .2s ease-out; }
+    .answer-box small { display:block; color:var(--muted); font-weight:700; margin-bottom:5px; }
+    .answer-box strong { font-size:clamp(1.05rem,2.7vw,1.28rem); color:var(--navy); }
+    .answer-box p { margin:9px 0 0; color:#506075; font-size:.84rem; }
+    .mark { background:#eff2f6; color:#596778; }
+    .mark.good { color:#fff; background:var(--green); }
+    .mark.review { color:#fff; background:var(--orange); }
+    .tips { margin-top:18px; padding:16px 20px; border-radius:15px; color:#526174; font-size:.84rem; }
+    kbd { padding:2px 6px; border:1px solid #cbd5e1; border-bottom-width:2px; border-radius:5px; background:#fff; color:#354052; font-family:inherit; font-size:.75rem; }
+    .done { margin-top:18px; text-align:center; color:var(--green); font-weight:800; }
+    @keyframes appear { from { opacity:0; transform:translateY(-5px) } to { opacity:1; transform:none } }
+    @media (max-width:580px) { .app { width:min(100% - 22px, 920px); padding-top:18px; } header { gap:12px; } .score { min-width:90px; padding:10px; } .controls { align-items:center; } .progress-wrap { order:3; flex-basis:100%; padding:4px 0; } .card-top { padding:15px; } .question { min-height:190px; } .action-row { display:grid; grid-template-columns:1fr 1fr; } .action-row > div { display:contents; } .action-row button { width:100%; } .judge { grid-column:1 / -1; display:grid; grid-template-columns:1fr 1fr; } }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header>
+      <div><p class="eyebrow">SOKKAN EISAKUBUN</p><h1>瞬間英作文トレーナー</h1><p class="subtitle">日本語を見て、声に出して英語にしてみましょう。</p></div>
+      <div class="score"><strong id="scoreValue">0 / 20</strong><span>できた問題</span></div>
+    </header>
+
+    <section class="controls" aria-label="出題設定">
+      <label class="field">出題範囲<select id="rangeSelect"><option value="all">全20問</option><option value="1-10">001〜010</option><option value="11-20">011〜020</option></select></label>
+      <label class="field">出題順<select id="orderSelect"><option value="normal">順番どおり</option><option value="random">ランダム</option></select></label>
+      <div class="progress-wrap"><div class="progress-label"><span>進み具合</span><span id="progressText">1 / 20</span></div><div class="progress"><i id="progressBar"></i></div></div>
+      <button class="outline" id="resetButton" type="button">記録をリセット</button>
+    </section>
+
+    <section class="card" aria-live="polite">
+      <div class="card-top"><div class="number" id="number">001</div><div class="category" id="category">疑問文</div></div>
+      <div class="question"><div class="prompt" id="japanese"></div><p class="hint">まずは答えを見ずに、英語で言ってみましょう。</p></div>
+      <div class="answer-area"><label for="answerInput">あなたの英作文（任意）</label><input id="answerInput" autocomplete="off" placeholder="Type your answer in English..." /></div>
+      <div class="action-row"><div><button class="outline" id="prevButton" type="button">← 前へ</button><button class="outline" id="nextButton" type="button">次へ →</button></div><div class="judge"><button class="mark good" id="goodButton" type="button">✓ できた</button><button class="mark review" id="reviewButton" type="button">↻ 要復習</button><button class="primary" id="revealButton" type="button">答えを見る</button></div></div>
+      <div class="answer-box" id="answerBox"><small>お手本の英語</small><strong id="english"></strong><p id="note"></p></div>
+    </section>
+    <p class="tips"><kbd>Enter</kbd> 答えを表示　 <kbd>←</kbd> <kbd>→</kbd> 前後の問題へ　 <kbd>R</kbd> お手本を読み上げます。進捗はこのブラウザに保存されます。</p>
+    <p class="done" id="doneMessage" hidden>🎉 全問「できた」です！ 次はランダム順で挑戦してみましょう。</p>
+  </main>
+  <script>
+    const questions = [
+      ['001','あなたは朝食に何を食べますか。','What do you eat for breakfast?','疑問文'],
+      ['002','何が彼女を怒らせたのですか。','What made her angry?','疑問文'],
+      ['003','この新型の携帯電話についてどう思いますか。','What do you think about this new type of cell phone?','疑問詞'],
+      ['004','海外旅行をするのはどんな感じですか。','What is it like to travel abroad?','疑問文'],
+      ['005','この仕事をするのにどのくらいの時間が必要になるでしょうか。','How much time will be necessary to do this work?','疑問詞'],
+      ['006','初心者にはどちらの本がよりよいですか。','Which book is better for beginners?','疑問詞'],
+      ['007','いつ雨が止むとあなたは思いますか。','When do you think it will stop raining?','that節を含む疑問文'],
+      ['008','明日の天気はどうなると天気予報では言っていますか。','What does the weather forecast say the weather will be like tomorrow?','間接疑問文'],
+      ['009','この問題を解ける子どもはいません。','No children can solve this problem.','全部否定'],
+      ['010','私はそれに関しては何も知りません。',"I don't know anything about it.",'全部否定'],
+      ['011','新聞に載っていることすべてが真実とは限らない。','Not everything in the newspaper is true.','部分否定'],
+      ['012','私は彼の言うことすべてを信じているわけではない。',"I don't necessarily believe everything he says.",'部分否定'],
+      ['013','英語をうまく話せる日本人は少ない。','Few Japanese people can speak English well.','few / little'],
+      ['014','彼はほとんど両親に手紙を書かない。','He seldom writes to his parents.','頻度の副詞'],
+      ['015','私は４月10日から20日までロンドンに滞在します。','I will be in London from April 10 to 20.','未来表現'],
+      ['016','決勝戦は６時に始まります。','The final will begin at six.','未来表現'],
+      ['017','暇なときあなたは何をしていますか。','What do you do when you are free?','時を表す節'],
+      ['018','私は今度の夏、海外旅行をしようかと考えています。',"I'm thinking of traveling abroad this summer.",'進行形'],
+      ['019','公園を散歩しているときに友達の一人に会った。','I met a friend of mine while I was walking in the park.','過去進行形'],
+      ['020','日が暮れるときに私はまだゴールに向けて走っているでしょう。',"I'll still be running toward the goal when the sun sets.",'未来進行形']
+    ].map(([id,japanese,english,category]) => ({id,japanese,english,category}));
+    const $ = id => document.getElementById(id);
+    const state = { list:[], index:0, revealed:false, progress: JSON.parse(localStorage.getItem('sokkan-progress') || '{}') };
+    function available() { const range = $('rangeSelect').value; return questions.filter((_, i) => range === 'all' || (range === '1-10' ? i < 10 : i >= 10)); }
+    function buildList(keepId) { state.list = available(); if ($('orderSelect').value === 'random') state.list.sort(() => Math.random() - .5); const desired = state.list.findIndex(q => q.id === keepId); state.index = desired >= 0 ? desired : 0; render(); }
+    function render() { const q = state.list[state.index]; state.revealed = false; $('number').textContent=q.id; $('category').textContent=q.category; $('japanese').textContent=q.japanese; $('english').textContent=q.english; $('note').textContent='声に出して確認したら、「できた」または「要復習」を記録しましょう。'; $('answerInput').value=''; $('answerBox').classList.remove('show'); $('revealButton').textContent='答えを見る'; $('progressText').textContent=`${state.index + 1} / ${state.list.length}`; $('progressBar').style.width=`${((state.index+1)/state.list.length)*100}%`; $('prevButton').disabled=state.index===0; $('nextButton').disabled=state.index===state.list.length-1; updateScore(); }
+    function updateScore() { const good = questions.filter(q => state.progress[q.id] === 'good').length; $('scoreValue').textContent=`${good} / ${questions.length}`; $('doneMessage').hidden = good !== questions.length; }
+    function save(mark) { state.progress[state.list[state.index].id] = mark; localStorage.setItem('sokkan-progress', JSON.stringify(state.progress)); updateScore(); }
+    function reveal() { state.revealed=!state.revealed; $('answerBox').classList.toggle('show',state.revealed); $('revealButton').textContent=state.revealed?'答えを隠す':'答えを見る'; }
+    function move(delta) { if (state.index + delta >=0 && state.index + delta < state.list.length) { state.index += delta; render(); } }
+    function speak() { const text=state.list[state.index].english; if ('speechSynthesis' in window) { speechSynthesis.cancel(); const utterance=new SpeechSynthesisUtterance(text); utterance.lang='en-US'; utterance.rate=.88; speechSynthesis.speak(utterance); } }
+    $('rangeSelect').addEventListener('change',()=>buildList(state.list[state.index]?.id)); $('orderSelect').addEventListener('change',()=>buildList(state.list[state.index]?.id)); $('prevButton').onclick=()=>move(-1); $('nextButton').onclick=()=>move(1); $('revealButton').onclick=reveal; $('goodButton').onclick=()=>save('good'); $('reviewButton').onclick=()=>save('review');
+    $('resetButton').onclick=()=>{ if(confirm('学習記録をリセットしますか？')) { state.progress={}; localStorage.removeItem('sokkan-progress'); updateScore(); } };
+    document.addEventListener('keydown',e=>{ if (e.target === $('answerInput') && e.key !== 'Enter') return; if(e.key==='Enter'){e.preventDefault();reveal()} if(e.key==='ArrowLeft')move(-1); if(e.key==='ArrowRight')move(1); if(e.key.toLowerCase()==='r')speak(); });
+    buildList();
+  </script>
+</body>
+</html>
