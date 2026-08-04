@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 6 単語・熟語 総合リスト｜The Birth of Emoji</title>
+<style>
+:root{
+  --g3:#4CAF50; --g3p:#8BC34A; --g2:#03A9F4; --g2p:#7E57C2; --g1:#E91E63; --gx:#F44336;
+  --tw:#ff6a3d; --ti:#1668c7;
+  --bg:#f4f6fb; --card:#fff; --ink:#1b2233; --sub:#6b7590;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+  background:var(--bg);color:var(--ink);padding:18px;line-height:1.65}
+.wrap{max-width:1180px;margin:0 auto}
+header{background:linear-gradient(135deg,#f4511e,#e53935 40%,#8e24aa);color:#fff;
+  border-radius:18px;padding:26px 24px;margin-bottom:18px;box-shadow:0 8px 26px rgba(229,57,53,.25)}
+header h1{font-size:1.42rem;margin-bottom:6px}
+header p{opacity:.93;font-size:.87rem}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:15px}
+.stat{background:rgba(255,255,255,.2);border-radius:12px;padding:8px 14px;font-size:.8rem}
+.stat b{font-size:1.15rem;display:block}
+h2{font-size:1.03rem;margin:24px 0 10px;padding-left:12px;border-left:5px solid #e53935}
+
+.ansbox{background:#fff;border-radius:14px;padding:16px 18px;box-shadow:0 2px 10px rgba(0,0,0,.07)}
+.ansgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin-top:10px}
+.acard{border:2px solid #eef1f6;border-radius:12px;padding:10px 12px;cursor:pointer;user-select:none;
+  transition:.15s}
+.acard:hover{border-color:#e53935}
+.acard .n{font-size:.72rem;color:var(--sub);font-weight:700}
+.acard .a{font-size:.95rem;font-weight:800;color:#e53935;margin-top:3px}
+.acard .k{font-size:.72rem;color:var(--sub);margin-top:3px;font-weight:400}
+.acard.hid .a,.acard.hid .k{filter:blur(7px)}
+
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 14px}
+.lbl{font-size:.72rem;color:var(--sub);font-weight:700;margin-right:2px}
+button{font-family:inherit;cursor:pointer;border:none;border-radius:999px;padding:8px 15px;
+  font-size:.82rem;font-weight:700;transition:.15s;background:#fff;color:var(--sub);
+  box-shadow:0 2px 6px rgba(0,0,0,.08)}
+button:hover{transform:translateY(-1px)}
+button.on{background:#1b2233;color:#fff}
+.util{background:#ffe4dd;color:#bf360c}
+.sw{display:inline-flex;background:#fff;border-radius:999px;padding:4px;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.sw button{box-shadow:none;padding:8px 18px}
+.sw button.on{background:linear-gradient(135deg,#f4511e,#8e24aa);color:#fff}
+.spacer{flex:1}
+
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;
+  box-shadow:0 2px 10px rgba(0,0,0,.07)}
+th,td{padding:10px 13px;text-align:left;border-bottom:1px solid #eef1f6;font-size:.87rem;vertical-align:top}
+th{background:#1b2233;color:#fff;font-size:.76rem;letter-spacing:.04em;position:sticky;top:0;z-index:2}
+tbody tr:nth-child(even){background:#fafbfe}
+tbody tr:hover{background:#fff4f0}
+tbody tr.done{opacity:.4}
+td.ph{font-weight:700}
+td.mn{cursor:pointer}
+tr.hid td.mn,tr.hid td.exc{filter:blur(5px);opacity:.5}
+td.exc{color:#5c6580;font-style:italic;font-size:.79rem}
+td.ln{color:#aab2c4;font-size:.75rem;white-space:nowrap}
+.mark{cursor:pointer;color:#c9cfdd;font-weight:800;user-select:none}
+tr.done .mark{color:#4CAF50}
+.bar{height:9px;border-radius:5px;display:inline-block;vertical-align:middle;margin-right:8px}
+.sumtbl td,.sumtbl th{font-size:.85rem}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:12px}
+.card{background:var(--card);border-radius:14px;padding:14px 16px;cursor:pointer;
+  box-shadow:0 2px 8px rgba(0,0,0,.07);border-left:6px solid #ccc;transition:.18s;
+  position:relative;user-select:none}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.12)}
+.card.done{opacity:.42}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.phrase{font-size:1.05rem;font-weight:700}
+.badge{font-size:.65rem;font-weight:800;color:#fff;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.tag{font-size:.63rem;font-weight:800;padding:2px 8px;border-radius:999px;color:#fff}
+.tag.w{background:var(--tw)} .tag.i{background:var(--ti)}
+.meaning{margin-top:9px;padding-top:9px;border-top:1px dashed #dde2ec;font-size:.92rem}
+.ex{margin-top:7px;font-size:.77rem;color:#5c6580;font-style:italic}
+.hidden .meaning,.hidden .ex{filter:blur(6px);opacity:.5}
+.hint{font-size:.66rem;color:#b9c0d0;margin-top:6px}
+.line{font-size:.67rem;color:#aab2c4;margin-top:3px}
+.check{position:absolute;top:8px;right:10px;font-size:.66rem;color:#4CAF50;display:none;font-weight:800}
+.card.done .check{display:block}
+.hide{display:none}
+@media(max-width:640px){body{padding:12px}th,td{padding:8px 9px;font-size:.79rem}td.exc,th.exc{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Lesson 6 — 単語・熟語 総合リスト（The Birth of Emoji）</h1>
+  <p>単語と熟語を1つにまとめました。「カード形式／表形式」「単語／熟語」を自由に切り替えて暗記できます。</p>
+  <div class="stats">
+    <div class="stat"><b id="total">0</b>総項目</div>
+    <div class="stat"><b id="nw">0</b>単語</div>
+    <div class="stat"><b id="ni">0</b>熟語・構文</div>
+    <div class="stat"><b id="shown">0</b>表示中</div>
+    <div class="stat"><b id="doneN">0</b>覚えた</div>
+  </div>
+</header>
+
+<h2>空所・並べ替えのカギ（タップで表示）</h2>
+<div class="ansbox">
+  <div style="font-size:.82rem;color:var(--sub)">いずれも熟語知識で決まる設問です。先に自分で解いてから確認してください。</div>
+  <div class="ansgrid" id="ansgrid"></div>
+</div>
+
+<h2>レベル別分布（単語 / 熟語 内訳つき）</h2>
+<table class="sumtbl"><thead><tr><th>英検レベル</th><th>合計</th><th>単語</th><th>熟語</th><th>割合</th><th>目安</th></tr></thead>
+<tbody id="sumbody"></tbody></table>
+
+<div class="controls" style="margin-top:22px">
+  <span class="sw"><button id="bCard" class="on" onclick="setView('card')">カード形式</button><button id="bTable" onclick="setView('table')">表形式</button></span>
+  <span class="spacer"></span>
+  <span class="sw"><button id="tAll" class="on" onclick="setType('all')">単語＋熟語</button><button id="tW" onclick="setType('単語')">単語のみ</button><button id="tI" onclick="setType('熟語')">熟語のみ</button></span>
+</div>
+
+<div class="controls"><span class="lbl">レベル</span><span id="filters" style="display:contents"></span></div>
+<div class="controls">
+  <button class="util" onclick="allHide()">すべて隠す</button>
+  <button class="util" onclick="allShow()">すべて表示</button>
+  <button class="util" onclick="shuffle()">シャッフル</button>
+  <button class="util" onclick="resetOrder()">本文順に戻す</button>
+  <button class="util" onclick="resetDone()">「覚えた」リセット</button>
+  <span class="spacer"></span>
+  <button class="util" id="hideDoneBtn" onclick="toggleDoneFilter()">覚えた項目を隠す</button>
+</div>
+
+<div id="cardView"><div class="grid" id="grid"></div></div>
+<div id="tableView" class="hide">
+  <table><thead><tr><th style="width:30px"></th><th style="width:46px">種類</th><th>語句</th><th>意味</th><th class="exc">本文での使われ方</th><th>レベル</th><th>行</th></tr></thead>
+  <tbody id="tbody"></tbody></table>
+</div>
+
+</div>
+
+<script>
+const ANS=[
+ ["空所 A（問1）","④ happened to","happen to do＝たまたま~する。直後の「自分がやらなければ誰かがやっていた」と整合"],
+ ["空所 B（問2）","④ for","call for ~＝~を必要とする、~を求める"],
+ ["空所 C（問5）","③ care","not care＝気にしない。直後の「日本向けに作っていた」と整合"],
+ ["問7 並べ替え","⑤⑦③①⑥②④","doesn't feel involved much with emoji today, because they have evolved far beyond（2番目=⑦ involved／6番目=② evolved）"]
+];
+document.getElementById("ansgrid").innerHTML=ANS.map(a=>
+ `<div class="acard hid"><div class="n">${a[0]}</div><div class="a">${a[1]}</div><div class="k">${a[2]}</div></div>`).join("");
+[...document.getElementById("ansgrid").children].forEach(c=>c.onclick=()=>c.classList.toggle("hid"));
+
+const LV={
+ "3級":{c:"var(--g3)",note:"中学卒業程度"},
+ "準2級":{c:"var(--g3p)",note:"高校中級程度"},
+ "2級":{c:"var(--g2)",note:"高校卒業程度"},
+ "準1級":{c:"var(--g2p)",note:"大学中級程度"},
+ "1級":{c:"var(--g1)",note:"大学上級程度"},
+ "級外":{c:"var(--gx)",note:"専門語・注釈必須"}
+};
+// [語句, 意味, 本文での使われ方, レベル, 行, 種類]
+const DATA=[
+ ["tiny","形 とても小さな","Tiny smiling faces, hearts, a knife and fork...","準2級",1,"単語"],
+ ["clenched fist","名 握りこぶし【語注*1】","a clenched fist have become a global language","準1級",1,"単語"],
+ ["global language","名 世界共通語","have become a global language for mobile phone messages","2級",2,"単語"],
+ ["successor to ~","名 ~の後継者、後を継ぐもの","Successors to ancient hieroglyphics, in a sense","準1級",2,"単語"],
+ ["ancient","形 古代の","Successors to ancient hieroglyphics","2級",2,"単語"],
+ ["hieroglyphics","名 象形文字【語注*2】","Successors to ancient hieroglyphics","級外",3,"単語"],
+ ["in a sense","ある意味で","Successors to ancient hieroglyphics, in a sense","準1級",3,"熟語"],
+ ["display","動 展示する、表示する","pictures of those emoji are now displayed in the Museum of Modern Art","2級",3,"単語"],
+ ["despite ~","前 ~にもかかわらず","Despite their almost universal presence, they started in 1998","2級",5,"熟語"],
+ ["universal","形 世界共通の、普遍的な","Despite their almost universal presence","準1級",5,"単語"],
+ ["presence","名 存在、普及","Despite their almost universal presence","2級",5,"単語"],
+ ["a then 25-year-old ~","当時25歳の~","a then 25-year-old employee of a mobile phone company","準1級",6,"熟語"],
+ ["employee","名 従業員、社員","a then 25-year-old employee of a mobile phone company","2級",6,"単語"],
+ ["a set of ~","一組の~、ひとそろいの~","created the first set of 176 emoji in one month","2級",7,"熟語"],
+ ["rush to do","急いで~する","in one month as he rushed to make a deadline","2級",7,"熟語"],
+ ["make a deadline","締め切りに間に合わせる","as he rushed to make a deadline","準1級",8,"熟語"],
+ ["deadline","名 締め切り、期限","rushed to make a deadline","2級",8,"単語"],
+ ["happen to do","たまたま~する【空所Aの答え】","I (happened to) arrive at the idea.","2級",8,"熟語"],
+ ["arrive at an idea","考えに行き着く、思いつく","I happened to arrive at the idea.","2級",8,"熟語"],
+ ["If S had p.p., S would have p.p.","もし~していたら…していただろう（仮定法過去完了）","If I hadn't done it, someone else would have","準1級",8,"熟語"],
+ ["board member","名 役員、取締役","who now is a board member of another technology company","準1級",9,"単語"],
+ ["get started","始まる、動き出す","Digital messaging was just getting started","3級",10,"熟語"],
+ ["what was needed","必要とされていたもの（関係詞のwhat）","I was thinking about what was needed","2級",11,"熟語"],
+ ["challenge","名 難題、克服すべき課題","Here was Kurita's challenge","2級",12,"単語"],
+ ["at that time","当時は","NTT DoCoMo's mobile Internet service at that time","3級",12,"熟語"],
+ ["named ~","~という名の（分詞の後置修飾）","service at that time, named \"i-mode\"","2級",13,"熟語"],
+ ["limit A to B","AをBに制限する","limited messages to 250 characters","2級",13,"熟語"],
+ ["character","名 文字、記号","limited messages to 250 characters","2級",13,"単語"],
+ ["definitely","副 間違いなく、確実に","which definitely called for some kind of new tool","2級",13,"単語"],
+ ["call for ~","~を必要とする、~を求める【空所Bの答え】","definitely called (for) some kind of new tool","準1級",14,"熟語"],
+ ["some kind of ~","ある種の~","some kind of new tool to write quickly and easily","3級",14,"熟語"],
+ ["tend to do","~する傾向がある","Japanese tend to be outstanding when making the most of limitations","2級",14,"熟語"],
+ ["outstanding","形 傑出した、非常に優れた","Japanese tend to be outstanding","準1級",15,"単語"],
+ ["make the most of ~","~を最大限に活かす","outstanding when making the most of limitations","準1級",15,"熟語"],
+ ["limitation","名 制約、制限","making the most of limitations","2級",15,"単語"],
+ ["be filled with ~","~で満ちている、いっぱいである","It's a small nation filled with limitations","3級",15,"熟語"],
+ ["do well at ~ing","~するのが得意だ、うまくやる","We do well at carrying out tasks within a framework","2級",16,"熟語"],
+ ["carry out ~","~を実行する、遂行する","do well at carrying out tasks within a framework","2級",16,"熟語"],
+ ["within a framework","枠組みの中で","carrying out tasks within a framework","準1級",16,"熟語"],
+ ["framework","名 枠組み、骨組み","tasks within a framework","準1級",17,"単語"],
+ ["rather than ~","~ではなくむしろ","within a framework, rather than being given a free hand","2級",17,"熟語"],
+ ["give ~ a free hand","~に自由裁量を与える","rather than being given a free hand","準1級",17,"熟語"],
+ ["threatening","形 威圧的な、脅かすような","a message saying \"What are you doing now?\" could be threatening","準1級",19,"単語"],
+ ["annoying","形 いらだたせる、うっとうしい","could be threatening or annoying","2級",19,"単語"],
+ ["calm ~ down","~を落ち着かせる、和らげる","Adding a smiling face, however, could calm the tone down.","2級",19,"熟語"],
+ ["tone","名 口調、調子","could calm the tone down","2級",19,"単語"],
+ ["including ~","~を含めて","common images including public signs, weather symbols","2級",21,"熟語"],
+ ["public sign","名 公共の標識、案内表示","including public signs, weather symbols","3級",21,"単語"],
+ ["symbol","名 記号、象徴","public signs, weather symbols, and comic book style pictures","準2級",21,"単語"],
+ ["puzzled","形 困惑した、当惑した","happy, angry, sad, surprised, and puzzled","2級",23,"単語"],
+ ["one of one's favorites","お気に入りの一つ","A smiling happy face is still one of his favorites.","3級",23,"熟語"],
+ ["following ~","~の後に、~に続いて","Following i-mode's launch in 1999, the emoji became an immediate hit","2級",24,"熟語"],
+ ["launch","名 開始、発売、ローンチ","Following i-mode's launch in 1999","準1級",24,"単語"],
+ ["become an immediate hit","たちまち大ヒットする","the emoji became an immediate hit in Japan","2級",24,"熟語"],
+ ["immediate","形 即座の、直ちの","an immediate hit in Japan","2級",24,"単語"],
+ ["As we all know","誰もが知っているように","As we all know, some visual images cross cultural gaps.","3級",26,"熟語"],
+ ["visual image","名 視覚的イメージ、映像","some visual images cross cultural gaps","2級",26,"単語"],
+ ["cross cultural gaps","文化の壁を越える","some visual images cross cultural gaps","2級",26,"熟語"],
+ ["a drop of ~","一滴の~","A drop of sweat rolling down a cheek","2級",26,"熟語"],
+ ["sweat","名 汗","A drop of sweat rolling down a cheek","2級",26,"単語"],
+ ["roll down ~","~を伝って流れ落ちる","A drop of sweat rolling down a cheek","2級",27,"熟語"],
+ ["cheek","名 ほお","rolling down a cheek","準2級",27,"単語"],
+ ["represent","動 表す、象徴する","can represent anxiety in almost any culture","2級",27,"単語"],
+ ["anxiety","名 不安、心配","can represent anxiety in almost any culture","準1級",27,"単語"],
+ ["It is no surprise that ...","…なのは驚くにあたらない","it was no surprise that major Western enterprises ... made emoji a global phenomenon","2級",27,"熟語"],
+ ["enterprise","名 企業、事業体","major Western enterprises like Apple or Google","準1級",28,"単語"],
+ ["make + O + C","OをCにする","made emoji a global phenomenon","2級",28,"熟語"],
+ ["phenomenon","名 現象","made emoji a global phenomenon","準1級",29,"単語"],
+ ["because of ~","~のために、~が原因で","Perhaps because of the popularity of the iPhone","3級",29,"熟語"],
+ ["popularity","名 人気","because of the popularity of the iPhone","2級",29,"単語"],
+ ["extremely","副 極めて、非常に","Apple's emoji style became extremely influential","2級",30,"単語"],
+ ["influential","形 影響力の大きい","became extremely influential","準1級",30,"単語"],
+ ["to the point that ...","…するほどまでに","extremely influential, to the point that when most people ... think of emoji","準1級",30,"熟語"],
+ ["think of ~","~を思い浮かべる、~のことを考える","when most people on this planet think of emoji","3級",30,"熟語"],
+ ["bring ~ to mind","~を思い浮かべる、連想する","they bring to mind Apple's","準1級",31,"熟語"],
+ ["journalist","名 記者、ジャーナリスト","said Jason Snell, a technology journalist","準2級",32,"単語"],
+ ["care","動 気にする、気にかける【空所Cの答え】","Kurita doesn't (care).","3級",33,"単語"],
+ ["dozen-member","形 12人からなる","The dozen-member team that designed i-mode","2級",33,"単語"],
+ ["the rest of the world","世界の他の地域、それ以外の国々","making something for Japan, not for the rest of the world","2級",34,"熟語"],
+ ["long before ...","…するずっと前に","long before smartphones were invented","2級",34,"熟語"],
+ ["ahead of one's time","時代の先を行っている","Japanese are always too ahead of our time","準1級",35,"熟語"],
+ ["refer to ~","~に言及する、~を指す","he said, referring to the name of the remote Pacific islands","2級",36,"熟語"],
+ ["remote","形 遠く離れた、辺鄙な","the remote Pacific islands with uniquely evolved animals","準1級",37,"単語"],
+ ["uniquely","副 独特に、他に類なく","islands with uniquely evolved animals","準1級",37,"単語"],
+ ["evolve","動 進化する、発展する","uniquely evolved animals","準1級",37,"単語"],
+ ["describe","動 描写する、言い表す","used in Japan to describe its own insularity","2級",37,"単語"],
+ ["insularity","名 島国であること【語注*3】","to describe its own insularity","級外",38,"単語"],
+ ["after all","結局のところ、そもそも","After all, how can Japan hope to win from the start...?","2級",38,"熟語"],
+ ["hope to do","~することを望む","how can Japan hope to win from the start","3級",38,"熟語"],
+ ["from the start","最初から","how can Japan hope to win from the start as a global standard?","2級",38,"熟語"],
+ ["global standard","名 世界標準","win from the start as a global standard","2級",39,"単語"],
+ ["go ahead with ~","~を推し進める、~を進める","We always go ahead with our own ways in Japan","2級",39,"熟語"],
+ ["in one's own way","自分たちのやり方で","go ahead with our own ways in Japan","2級",39,"熟語"],
+ ["abroad","副 海外で、外国で","people abroad will see it as wonderfully Japanese","準2級",40,"単語"],
+ ["see A as B","AをBとみなす","people abroad will see it as wonderfully Japanese","2級",40,"熟語"],
+ ["as always","いつものように","Some people, as always, were opposed to using...","2級",41,"熟語"],
+ ["be opposed to ~ing","~することに反対である","were opposed to using the newly invented items at first","準1級",41,"熟語"],
+ ["newly invented","新しく発明された","the newly invented items at first","2級",41,"熟語"],
+ ["at first","最初は","were opposed to using the newly invented items at first","3級",41,"熟語"],
+ ["argue that ...","…だと主張する","They argued that emoji were mere pictures","2級",42,"熟語"],
+ ["mere","形 単なる、ほんの","emoji were mere pictures, too childish and too Japanese","準1級",42,"単語"],
+ ["childish","形 子どもっぽい、幼稚な","too childish and too Japanese","2級",42,"単語"],
+ ["expert","名 専門家","Tomoya Yamakawa, a technology expert in Japan","準2級",43,"単語"],
+ ["see A as B（再）","AをBとみなす","Companies that saw Japan as an important market have won.","2級",44,"熟語"],
+ ["market","名 市場","saw Japan as an important market","2級",44,"単語"],
+ ["What began as ~","~として始まったもの（関係詞のwhat）","What began as primitive digital drawings are now growing into...","準1級",44,"熟語"],
+ ["primitive","形 原始的な、初歩的な","What began as primitive digital drawings","準1級",44,"単語"],
+ ["grow into ~","成長して~になる","are now growing into an elaborate tool for communication","2級",45,"熟語"],
+ ["elaborate","形 精巧な、手の込んだ","an elaborate tool for communication","準1級",45,"単語"],
+ ["not only A but also B","AだけでなくBも","with not only pictures but also animation","2級",45,"熟語"],
+ ["such as ~","~のような","such as Apple's latest Animoji","3級",46,"熟語"],
+ ["latest","形 最新の","Apple's latest Animoji","2級",46,"単語"],
+ ["work on ~","~に取り組む","Working on a new project of his own now","2級",47,"熟語"],
+ ["of one's own","自分自身の","a new project of his own now","2級",47,"熟語"],
+ ["feel involved with ~","~に関わっていると感じる【問7のカギ】","Kurita doesn't feel involved much with emoji today","準1級",47,"熟語"],
+ ["far beyond ~","~をはるかに超えて","they have evolved far beyond his original set","準1級",48,"熟語"],
+ ["royalties","名 著作権使用料【語注*4】","he receives no royalties","級外",49,"単語"],
+ ["be little known","ほとんど知られていない","is little known in Japan outside technology circles","2級",49,"熟語"],
+ ["technology circles","名 技術業界、技術系の世界","little known in Japan outside technology circles","準1級",50,"単語"],
+ ["airline fare","名 航空運賃","he paid his airline fare to New York by himself","2級",50,"単語"],
+ ["by oneself","自分ひとりで、自費で","paid his airline fare to New York by himself","3級",50,"熟語"],
+ ["exhibit","名 展示、展示物","to see the Museum of Modern Art exhibit","準1級",51,"単語"],
+ ["name A as B","AをBとして挙げる・認定する","which named him as the inventor of emoji","2級",51,"熟語"],
+ ["inventor","名 発明者","named him as the inventor of emoji","準2級",52,"単語"],
+ ["be overcome with emotion","感極まる、感動で胸がいっぱいになる","He was overcome with emotion.","準1級",53,"熟語"],
+ ["be involved with ~","~に関わっている","something I'd been involved with","2級",54,"熟語"],
+ ["neither A nor B","AでもBでもない","Although I'm neither an artist nor a designer","2級",54,"熟語"],
+ ["see value in ~","~に価値を見出す","the museum saw value in the design","2級",55,"熟語"],
+ ["have the power to do","~する力がある","the design that had the power to change people's lifestyles","2級",55,"熟語"],
+ ["lifestyle","名 生活様式、ライフスタイル","the power to change people's lifestyles","2級",56,"単語"],
+ ["perform","動 (能力を)発揮する、実行する","perform much better if we have total control（問3①）","2級",0,"単語"],
+ ["total control","名 完全な支配・掌握","if we have total control of the situation（問3①）","2級",0,"単語"],
+ ["restriction","名 制限、制約","do our best when given restrictions（問3④）","準1級",0,"単語"],
+ ["interpret","動 解釈する、読み取る","Pictures can be interpreted the same way across cultures.（問4①）","準1級",0,"単語"],
+ ["across cultures","文化を越えて","interpreted the same way across cultures（問4①）","2級",0,"熟語"],
+ ["get over ~","~を乗り越える、克服する","To get over cultural differences（問4②）","2級",0,"熟語"],
+ ["can hardly do","ほとんど~できない","Visual images ... can hardly be understood in another（問4③）","2級",0,"熟語"],
+ ["turn into ~","~に変わる、~になる","they have now turned into sophisticated instruments（問6③）","2級",0,"熟語"],
+ ["sophisticated","形 洗練された、高度な","sophisticated instruments for communication（問6③）","準1級",0,"単語"],
+ ["instrument","名 道具、手段、器具","instruments for communication（問6③）","2級",0,"単語"],
+ ["elementary","形 初歩的な、基本の","Born as elementary digital drawings（問6④）","2級",0,"単語"],
+ ["advanced technique","名 高度な技法","pictures painted with advanced techniques（問6④）","2級",0,"単語"]
+];
+
+const ORDER=["3級","準2級","2級","準1級","1級","級外"];
+let data=[...DATA],activeLv="all",activeType="all",hideDone=false;
+const done=new Set();
+
+const cW=DATA.filter(d=>d[5]==="単語").length, cI=DATA.length-cW;
+document.getElementById("total").textContent=DATA.length;
+document.getElementById("nw").textContent=cW;
+document.getElementById("ni").textContent=cI;
+
+const cnt={},cntW={},cntI={};
+ORDER.forEach(l=>{cnt[l]=0;cntW[l]=0;cntI[l]=0;});
+DATA.forEach(d=>{cnt[d[3]]++;(d[5]==="単語"?cntW:cntI)[d[3]]++;});
+document.getElementById("sumbody").innerHTML=ORDER.map(l=>{
+ const n=cnt[l],p=Math.round(n/DATA.length*100);
+ return `<tr><td><span class="badge" style="background:${LV[l].c}">${l}</span></td>
+ <td><b>${n}</b></td><td style="color:var(--tw);font-weight:700">${cntW[l]}</td>
+ <td style="color:var(--ti);font-weight:700">${cntI[l]}</td>
+ <td><span class="bar" style="width:${Math.max(p*2.6,6)}px;background:${LV[l].c}"></span>${p}%</td>
+ <td style="color:var(--sub)">${LV[l].note}</td></tr>`;}).join("");
+
+document.getElementById("filters").innerHTML=
+ `<button class="on" data-lv="all">すべて</button>`+
+ ORDER.map(l=>cnt[l]?`<button data-lv="${l}" style="color:${LV[l].c}">${l} (${cnt[l]})</button>`:"").join("");
+document.getElementById("filters").onclick=e=>{
+ if(e.target.tagName!=="BUTTON")return;
+ [...e.currentTarget.children].forEach(b=>b.classList.remove("on"));
+ e.target.classList.add("on");activeLv=e.target.dataset.lv;render();};
+
+function list(){return data.filter(d=>
+ (activeLv==="all"||d[3]===activeLv)&&
+ (activeType==="all"||d[5]===activeType)&&
+ !(hideDone&&done.has(d[0])));}
+
+function render(){
+ const L=list();
+ document.getElementById("grid").innerHTML=L.map(d=>{
+  const[p,m,ex,lv,ln,ty]=d, t=ty==="単語"?"w":"i";
+  return `<div class="card hidden" data-w="${p}" style="border-left-color:${LV[lv].c}">
+   <span class="check">✓ 覚えた</span>
+   <div class="top"><span class="phrase">${p}</span>
+   <span style="display:flex;flex-direction:column;gap:4px;align-items:flex-end">
+   <span class="badge" style="background:${LV[lv].c}">${lv}</span>
+   <span class="tag ${t}">${ty}</span></span></div>
+   <div class="line">${ln?"l."+ln:"設問"}</div>
+   <div class="meaning">${m}</div>
+   <div class="ex">${ex}</div>
+   <div class="hint">タップで表示 ／ ダブルクリックで「覚えた」</div></div>`;}).join("");
+ [...document.getElementById("grid").children].forEach(c=>{
+  if(done.has(c.dataset.w))c.classList.add("done");
+  c.onclick=()=>c.classList.toggle("hidden");
+  c.ondblclick=e=>{e.preventDefault();const w=c.dataset.w;
+   done.has(w)?done.delete(w):done.add(w);render();};});
+
+ document.getElementById("tbody").innerHTML=L.map(d=>{
+  const[p,m,ex,lv,ln,ty]=d, t=ty==="単語"?"w":"i";
+  return `<tr class="hid ${done.has(p)?'done':''}" data-w="${p}">
+   <td><span class="mark">✓</span></td>
+   <td><span class="tag ${t}">${ty}</span></td>
+   <td class="ph">${p}</td><td class="mn">${m}</td>
+   <td class="exc">${ex}</td>
+   <td><span class="badge" style="background:${LV[lv].c}">${lv}</span></td>
+   <td class="ln">${ln?"l."+ln:"設問"}</td></tr>`;}).join("");
+ [...document.getElementById("tbody").children].forEach(tr=>{
+  tr.querySelector(".mn").onclick=()=>tr.classList.toggle("hid");
+  tr.querySelector(".exc").onclick=()=>tr.classList.toggle("hid");
+  tr.querySelector(".mark").onclick=()=>{const w=tr.dataset.w;
+   done.has(w)?done.delete(w):done.add(w);render();};});
+
+ document.getElementById("shown").textContent=L.length;
+ document.getElementById("doneN").textContent=done.size;
+}
+
+function setView(v){
+ document.getElementById("cardView").classList.toggle("hide",v!=="card");
+ document.getElementById("tableView").classList.toggle("hide",v!=="table");
+ document.getElementById("bCard").classList.toggle("on",v==="card");
+ document.getElementById("bTable").classList.toggle("on",v==="table");}
+function setType(t){activeType=t;
+ document.getElementById("tAll").classList.toggle("on",t==="all");
+ document.getElementById("tW").classList.toggle("on",t==="単語");
+ document.getElementById("tI").classList.toggle("on",t==="熟語");render();}
+function allHide(){document.querySelectorAll(".card").forEach(c=>c.classList.add("hidden"));
+ document.querySelectorAll("#tbody tr").forEach(t=>t.classList.add("hid"));}
+function allShow(){document.querySelectorAll(".card").forEach(c=>c.classList.remove("hidden"));
+ document.querySelectorAll("#tbody tr").forEach(t=>t.classList.remove("hid"));}
+function shuffle(){for(let i=data.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[data[i],data[j]]=[data[j],data[i]];}render();}
+function resetOrder(){data=[...DATA];render();}
+function resetDone(){done.clear();render();}
+function toggleDoneFilter(){hideDone=!hideDone;
+ document.getElementById("hideDoneBtn").textContent=hideDone?"覚えた項目も表示":"覚えた項目を隠す";render();}
+
+render();
+</script>
+</body>
+</html>
