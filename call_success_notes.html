@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>call の熟語 ／ success の派生語</title>
+<style>
+:root{
+  --bg:#f5f4f0; --card:#fff; --ink:#23252a; --sub:#6c7178;
+  --blue:#2b6cb0; --blue-l:#eaf2fa; --gold:#b7791f; --gold-l:#fdf6e7;
+  --green:#2f855a; --green-l:#e8f5ee; --red:#c53030; --red-l:#fdecec;
+  --hl:#bfe9f5; --line:#e2e0da;
+}
+*{box-sizing:border-box}
+body{margin:0;padding:28px 14px 60px;background:var(--bg);color:var(--ink);
+ font-family:"Hiragino Sans","Yu Gothic","Noto Sans JP",system-ui,sans-serif;line-height:1.7;}
+.wrap{max-width:880px;margin:0 auto}
+h1{font-size:1.5rem;margin:0 0 4px}
+.lead{color:var(--sub);font-size:.88rem;margin:0 0 22px}
+
+/* tabs */
+.tabs{display:flex;gap:6px;border-bottom:2px solid var(--line);margin-bottom:22px}
+.tab{flex:1;padding:12px 8px;border:none;background:none;cursor:pointer;font:inherit;
+ font-weight:700;color:var(--sub);border-bottom:3px solid transparent;margin-bottom:-2px;
+ transition:.15s;border-radius:8px 8px 0 0}
+.tab:hover{background:#ececE7;color:var(--ink)}
+.tab.on{color:var(--blue);border-bottom-color:var(--blue);background:var(--blue-l)}
+.tab small{display:block;font-weight:400;font-size:.72rem;opacity:.8}
+.panel{display:none;animation:fade .25s}
+.panel.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+h2{font-size:1.05rem;margin:32px 0 12px;padding-left:10px;border-left:4px solid var(--ink)}
+h2:first-child{margin-top:0}
+.hint{font-size:.82rem;color:var(--sub);margin:-6px 0 12px}
+
+/* flip cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.flip{perspective:1000px;height:170px;cursor:pointer}
+.inner{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;border-radius:12px;
+ border:1px solid var(--line);background:var(--card);padding:14px;display:flex;
+ flex-direction:column;justify-content:center;box-shadow:0 1px 3px rgba(0,0,0,.06);overflow:hidden}
+.front{align-items:center;text-align:center}
+.front .t{font-family:Georgia,serif;font-size:1.3rem;font-weight:700}
+.front .q{font-size:.75rem;color:var(--sub);margin-top:10px}
+.back{transform:rotateY(180deg);justify-content:flex-start;font-size:.82rem}
+.back .m{font-weight:700;background:linear-gradient(transparent 60%,var(--hl) 60%);display:inline;font-size:.92rem}
+.back .n{color:var(--sub);font-size:.75rem;margin:6px 0 8px;line-height:1.5}
+.back .e{font-family:Georgia,serif;font-size:.8rem;border-left:3px solid var(--blue);padding-left:8px;margin-top:auto}
+.back .e i{display:block;font-family:inherit;font-style:normal;color:var(--sub);font-size:.72rem}
+.star{position:absolute;top:8px;right:10px;font-size:.66rem;background:var(--gold-l);
+ color:var(--gold);border:1px solid #eddfc0;border-radius:99px;padding:1px 7px;font-weight:700}
+
+/* tables */
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);
+ border-radius:10px;overflow:hidden;font-size:.88rem}
+th,td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:#ecebe6;font-size:.8rem}
+tr:last-child td{border-bottom:none}
+td.w{font-family:Georgia,serif;font-weight:700;white-space:nowrap}
+.sm{color:var(--sub);font-size:.78rem}
+
+/* branch toggle */
+.branchbar{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.bbtn{padding:9px 16px;border-radius:99px;border:1px solid var(--line);background:var(--card);
+ cursor:pointer;font:inherit;font-size:.85rem;font-weight:700;color:var(--sub);transition:.15s}
+.bbtn:hover{border-color:var(--blue)}
+.bbtn.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.bbtn.on.g{background:var(--gold);border-color:var(--gold)}
+.branch{display:none}
+.branch.on{display:block;animation:fade .25s}
+.origin{background:var(--card);border:1px dashed var(--line);border-radius:12px;padding:14px 18px;
+ margin-bottom:14px;font-size:.85rem;color:var(--sub);text-align:center}
+.origin b{color:var(--ink);font-size:1rem;font-family:Georgia,serif}
+
+.box{background:var(--gold-l);border:1px solid #eddfc0;border-radius:12px;padding:14px 18px;margin:16px 0;font-size:.88rem}
+.box b{color:var(--gold)}
+.box ul{margin:8px 0 0;padding-left:20px}
+.box li{margin:5px 0}
+code{background:#eceae5;padding:1px 5px;border-radius:4px;font-size:.9em}
+
+/* meaning cards */
+.mcard{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.mh{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.num{background:var(--blue);color:#fff;width:26px;height:26px;border-radius:50%;
+ display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;flex:0 0 auto}
+.mm{font-weight:700;font-size:1.02rem;background:linear-gradient(transparent 62%,var(--hl) 62%)}
+.sig{background:var(--blue-l);border:1px solid #d6e4f2;border-radius:8px;padding:8px 12px;
+ font-size:.82rem;color:var(--blue);margin-bottom:12px}
+.sig b{color:var(--ink);font-family:Georgia,serif}
+.ex{background:#fafaf8;border-left:3px solid var(--blue);padding:9px 13px;margin:8px 0;border-radius:0 6px 6px 0}
+.ex .en{font-family:Georgia,serif;font-size:.95rem}
+.ex .tr{font-size:.82rem;color:var(--sub);margin-top:3px}
+.note{font-size:.83rem;color:var(--sub);margin:10px 0 0}
+
+/* quiz */
+.q{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:12px}
+.qh{font-size:.75rem;color:var(--sub);margin-bottom:6px}
+.qt{font-family:Georgia,serif;font-size:1rem;margin-bottom:12px}
+.qt b{background:var(--hl);padding:0 8px;border-radius:4px}
+.opts{display:flex;gap:8px;flex-wrap:wrap}
+.opt{padding:8px 15px;border-radius:8px;border:1px solid var(--line);background:#fafaf8;
+ cursor:pointer;font:inherit;font-size:.88rem;font-family:Georgia,serif;transition:.15s}
+.opt:hover:not(:disabled){border-color:var(--blue);background:var(--blue-l)}
+.opt:disabled{cursor:default;opacity:.55}
+.opt.ok{background:var(--green-l);border-color:var(--green);color:var(--green);font-weight:700;opacity:1}
+.opt.ng{background:var(--red-l);border-color:var(--red);color:var(--red);opacity:1}
+.fb{margin-top:10px;font-size:.83rem;padding:9px 12px;border-radius:8px;display:none}
+.fb.show{display:block}
+.fb.ok{background:var(--green-l);color:var(--green)}
+.fb.ng{background:var(--red-l);color:var(--red)}
+.score{position:sticky;top:10px;z-index:5;background:var(--ink);color:#fff;border-radius:99px;
+ padding:8px 18px;font-size:.85rem;font-weight:700;display:inline-block;margin-bottom:14px}
+.reset{margin-left:10px;background:none;border:1px solid #666;color:#fff;border-radius:99px;
+ padding:2px 10px;font:inherit;font-size:.75rem;cursor:pointer}
+.tools{display:flex;gap:8px;margin-bottom:12px}
+.tools button{padding:6px 14px;border-radius:99px;border:1px solid var(--line);background:var(--card);
+ cursor:pointer;font:inherit;font-size:.8rem;color:var(--sub)}
+.tools button:hover{border-color:var(--blue);color:var(--blue)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>call の熟語 ／ success の派生語</h1>
+<p class="lead">カードをタップで意味と例文。最後にクイズで確認。</p>
+
+<div class="tabs">
+  <button class="tab on" data-p="p1">call の熟語<small>call on / up / back / for / off</small></button>
+  <button class="tab" data-p="p2">success の派生語<small>succeed / successive / successor</small></button>
+  <button class="tab" data-p="p4">多義熟語 think of<small>1つの形に3つの意味</small></button>
+  <button class="tab" data-p="p5">多義語 care<small>care for / about / take care of</small></button>
+  <button class="tab" data-p="p3">確認クイズ<small>18問</small></button>
+</div>
+
+<!-- ============ TAB 1 ============ -->
+<div class="panel on" id="p1">
+  <h2>カードで覚える</h2>
+  <p class="hint">カードをクリックすると裏返ります。</p>
+  <div class="tools">
+    <button onclick="flipAll(true)">すべて表示</button>
+    <button onclick="flipAll(false)">すべて隠す</button>
+  </div>
+  <div class="grid" id="callCards"></div>
+
+  <h2>あわせて覚えたい call 系</h2>
+  <table>
+    <tr><th>熟語</th><th>意味</th><th>例文</th></tr>
+    <tr><td class="w">call at ～</td><td>（場所）に立ち寄る</td><td>The train <b>calls at</b> every station.<span class="sm"> 各駅に停車する</span></td></tr>
+    <tr><td class="w">call in ～</td><td>（専門家を）呼ぶ／回収する</td><td>We had to <b>call in</b> a doctor.</td></tr>
+    <tr><td class="w">call out</td><td>大声で呼ぶ／出動を要請する</td><td>He <b>called out</b> my name.</td></tr>
+    <tr><td class="w">call it a day</td><td>（仕事を）切り上げる</td><td>Let's <b>call it a day</b>.</td></tr>
+  </table>
+
+  <div class="box">
+    <b>紛らわしい2組</b>
+    <ul>
+      <li><b>call on 人</b>＝人を訪ねる ／ <b>call at 場所</b>＝場所に立ち寄る</li>
+      <li><b>call for ～</b>＝要求する・必要とする ／ <b>call off ～</b>＝中止する（for と off で内容が正反対。選択肢で狙われる）</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ============ TAB 2 ============ -->
+<div class="panel" id="p2">
+  <div class="origin">
+    ラテン語 <b>succedere</b>「あとに続く」<br>
+    <span style="font-size:.8rem">「後に続く」→ うまく運ぶ＝<b style="font-family:inherit;font-size:.85rem">成功</b>／「後に続く」→ 跡を継ぐ＝<b style="font-family:inherit;font-size:.85rem">継承・連続</b></span>
+  </div>
+
+  <div class="branchbar">
+    <button class="bbtn on" data-b="b1">❶ 成功の系統</button>
+    <button class="bbtn g" data-b="b2">❷ 継承・連続の系統</button>
+  </div>
+
+  <div class="branch on" id="b1">
+    <p class="hint"><code>succeed <b>in</b> ~ing</code>「～に成功する」の系統。</p>
+    <div class="grid" id="succ1"></div>
+  </div>
+
+  <div class="branch" id="b2">
+    <p class="hint"><code>succeed <b>to</b> 地位</code>／<code>succeed 人</code>「後を継ぐ」の系統。</p>
+    <div class="grid" id="succ2"></div>
+  </div>
+
+  <h2>一覧で比較</h2>
+  <table>
+    <tr><th>語</th><th>系統</th><th>意味</th><th>ひとこと</th></tr>
+    <tr><td class="w">success</td><td>❶</td><td>成功（名）</td><td class="sm">a great success</td></tr>
+    <tr><td class="w">successful</td><td>❶</td><td>成功した（形）</td><td class="sm">↔ unsuccessful</td></tr>
+    <tr><td class="w">successfully</td><td>❶</td><td>首尾よく（副）</td><td class="sm"></td></tr>
+    <tr><td class="w">succession</td><td>❷</td><td>継承／連続（名）</td><td class="sm">in succession＝連続して</td></tr>
+    <tr><td class="w">successive</td><td>❷</td><td><b>連続する</b>（形）</td><td class="sm">成功したの意味は無い</td></tr>
+    <tr><td class="w">successively</td><td>❷</td><td>次々に（副）</td><td class="sm"></td></tr>
+    <tr><td class="w">successor</td><td>❷</td><td>後継者（名）</td><td class="sm">↔ predecessor 前任者</td></tr>
+  </table>
+
+  <div class="box">
+    <b>入試の狙われポイント</b>
+    <ul>
+      <li><b>successful</b>（成功した）と <b>successive</b>（連続する）の取り違え ← 最頻出<br>
+        × three successful days ／ ○ three <b>successive</b> days（3日連続）</li>
+      <li>前置詞：成功は <b>in</b>、継承は <b>to</b>。<br>
+        succeed <b>in</b> business（商売で成功する）／ succeed <b>to</b> the business（家業を継ぐ）</li>
+      <li>「彼の後を継ぐ」は <b>succeed him</b>（他動詞、to 不要）</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ============ TAB 4 ============ -->
+<div class="panel" id="p4">
+  <div class="origin">
+    <b>think of ～</b> は 1 つの形に <b style="font-family:inherit">3 つ</b> の意味<br>
+    <span style="font-size:.8rem">「訳が通らない」と感じたら、まず別の意味を疑う。文脈の合図（シグナル）で見分ける。</span>
+  </div>
+
+  <div class="branchbar">
+    <button class="bbtn on" data-b="t1">① ～しようかなと思う</button>
+    <button class="bbtn" data-b="t2">② ～を思いつく</button>
+    <button class="bbtn" data-b="t3">③ ～を思い出す</button>
+  </div>
+
+  <div class="branch on" id="t1">
+    <div class="mcard">
+      <div class="mh"><span class="num">①</span><span class="mm">～をしようかなと思う／～のことを考える</span></div>
+      <div class="sig">見分けの合図　<b>be thinking of + doing</b>（進行形＋動名詞）／これからの予定・検討中の内容</div>
+      <div class="ex"><div class="en">My cousin is <b>thinking of</b> staying in America and studying English during this summer vacation.</div><div class="tr">いとこは今年の夏休みにアメリカに滞在して英語を勉強し<u>ようかと思って</u>いる。</div></div>
+      <div class="ex"><div class="en">I'm <b>thinking of</b> changing jobs next spring.</div><div class="tr">来春、転職しようかと考えている。</div></div>
+      <p class="note">＝ consider ~ing / be thinking about ~ing。まだ決めていない「検討中」のニュアンス。</p>
+    </div>
+  </div>
+
+  <div class="branch" id="t2">
+    <div class="mcard">
+      <div class="mh"><span class="num">②</span><span class="mm">～を思いつく（新しく頭に浮かべる）</span></div>
+      <div class="sig">見分けの合図　<b>can / can't / try to / need to</b> ＋ think of ／ 目的語が <b>idea, way, topic, name</b> など「まだ存在しない案」</div>
+      <div class="ex"><div class="en">I need to <b>think of</b> at least three more interesting topics for discussion.</div><div class="tr">話し合いのために、あと3つはおもしろいトピックを<u>思いつく</u>必要がある。</div></div>
+      <div class="ex"><div class="en">Can you <b>think of</b> a better way to do this?</div><div class="tr">もっとよいやり方を思いつきませんか。</div></div>
+      <p class="note">同義：<b>come up with ～</b>／<b>hit on[upon] ～</b></p>
+    </div>
+  </div>
+
+  <div class="branch" id="t3">
+    <div class="mcard">
+      <div class="mh"><span class="num">③</span><span class="mm">～を思い出す（記憶から取り出す）</span></div>
+      <div class="sig">見分けの合図　<b>can / can't</b> ＋ think of ／ 目的語が <b>過去に存在した事柄</b>（受けた助言、昔の出来事、人の名前）</div>
+      <div class="ex"><div class="en">Can you <b>think of</b> any important advice you received from your parents when you were young?</div><div class="tr">若いころ両親から受けた大切な助言を<u>思い出せ</u>ますか。</div></div>
+      <div class="ex"><div class="en">I can't <b>think of</b> his name right now.</div><div class="tr">今すぐには彼の名前が思い出せない。</div></div>
+      <p class="note">同義：<b>remember</b>／<b>recall</b></p>
+    </div>
+  </div>
+
+  <div class="box">
+    <b>②と③はどう見分ける？</b>
+    <ul>
+      <li>どちらも <code>can / can't think of</code> の形をとるので形では決まらない。<b>目的語がこれから作るもの（案・方法）なら②、すでにあった事実（助言・名前・経験）なら③</b>。</li>
+      <li>迷ったら「思いつく」「思い出す」を両方入れて、日本語として自然な方を選ぶ。</li>
+    </ul>
+  </div>
+
+  <h2>think of の周辺表現</h2>
+  <table>
+    <tr><th>表現</th><th>意味</th><th>例</th></tr>
+    <tr><td class="w">think of A as B</td><td>A を B とみなす</td><td>I <b>think of</b> him <b>as</b> a genius.<span class="sm"> 彼を天才だと思っている</span></td></tr>
+    <tr><td class="w">think about ～</td><td>～についてよく考える</td><td class="sm">think of は「頭に浮かぶ」、think about は「じっくり考える」。~ing を伴う「検討中」の意味では両方可。</td></tr>
+    <tr><td class="w">think much of ～</td><td>～を高く評価する</td><td class="sm">否定形 not think much of ～「～を軽視する」が頻出。</td></tr>
+    <tr><td class="w">think nothing of ~ing</td><td>～を何とも思わない</td><td>He <b>thinks nothing of</b> walking 20 km.</td></tr>
+    <tr><td class="w">think better of ～</td><td>思い直してやめる</td><td>She <b>thought better of</b> it and stayed home.</td></tr>
+  </table>
+
+  <h2>同じページの「形が似て意味が違う」ペア</h2>
+  <table>
+    <tr><th>ペア</th><th>違い</th></tr>
+    <tr><td class="w">consist <b>of</b> ／ consist <b>in</b></td><td><b>of</b>＝～から成り立っている（＝be composed of）／<b>in</b>＝～に存在する・～にある。<span class="sm">進行形・受動態にしない。</span></td></tr>
+    <tr><td class="w">complain <b>of</b> ／ complain <b>about</b></td><td><b>of</b>＝（苦痛・症状）を訴える／<b>about</b>＝～について不平を言う。<span class="sm">痛みは of が普通。</span></td></tr>
+    <tr><td class="w">die <b>of</b> ／ die <b>from</b></td><td><b>of</b>＝病気・飢え・老齢／<b>from</b>＝外傷・衰弱・不注意。<span class="sm">実際は区別なく使われることも多い。</span></td></tr>
+    <tr><td class="w">prepare for ／ be prepared for</td><td>前者＝～の準備をする（動作）／後者＝～への用意・覚悟ができている（状態、＝be ready for）。<span class="sm">prepare A for B＝Bに備えてAを準備する（他動詞）。</span></td></tr>
+  </table>
+
+  <h2>意味の判別ドリル</h2>
+  <p class="hint">think of がどの意味か、①②③から選んでください。</p>
+  <div id="drill"></div>
+</div>
+
+<!-- ============ TAB 5 ============ -->
+<div class="panel" id="p5">
+  <div class="origin">
+    care の核 ＝ <b>心が引っかかる</b><br>
+    <span style="font-size:.8rem">気になる → ①<b style="font-family:inherit;font-size:.85rem">気にかける</b>／気になって放っておけない → ②<b style="font-family:inherit;font-size:.85rem">世話をする</b>／心が引かれる → ③<b style="font-family:inherit;font-size:.85rem">好む</b></span>
+  </div>
+
+  <h2>最重要：care for ～ は 3 つの意味</h2>
+  <div class="branchbar">
+    <button class="bbtn on" data-b="c1">① 世話をする</button>
+    <button class="bbtn" data-b="c2">② 好む</button>
+    <button class="bbtn" data-b="c3">③ 気にかける</button>
+  </div>
+
+  <div class="branch on" id="c1">
+    <div class="mcard">
+      <div class="mh"><span class="num">①</span><span class="mm">～の世話をする・面倒をみる</span></div>
+      <div class="sig">見分けの合図　目的語が <b>人・動物・病人・植物</b>／＝ take care of, look after, attend to</div>
+      <div class="ex"><div class="en">She has <b>cared for</b> her sick mother for ten years.</div><div class="tr">彼女は10年間、病気の母の世話をしてきた。</div></div>
+      <div class="ex"><div class="en">Who will <b>care for</b> the dog while you're away?</div><div class="tr">留守の間、誰が犬の面倒をみるのですか。</div></div>
+      <p class="note">受動態も可：The patients are well <b>cared for</b>.（患者は手厚く世話されている）</p>
+    </div>
+  </div>
+
+  <div class="branch" id="c2">
+    <div class="mcard">
+      <div class="mh"><span class="num">②</span><span class="mm">～を好む・～が欲しい</span></div>
+      <div class="sig">見分けの合図　<b>否定文・疑問文</b>で使うのがふつう／目的語が <b>物・食べ物</b>／<b>Would you care for ～?</b> は「～はいかがですか」</div>
+      <div class="ex"><div class="en"><b>Would you care for</b> another cup of tea?</div><div class="tr">お茶をもう一杯いかがですか。</div></div>
+      <div class="ex"><div class="en">I don't much <b>care for</b> horror movies.</div><div class="tr">ホラー映画はあまり好きではない。</div></div>
+      <p class="note">＝ like。肯定平叙文で「好きだ」の意味に使うことは少ない（× I care for sushi.）。</p>
+    </div>
+  </div>
+
+  <div class="branch" id="c3">
+    <div class="mcard">
+      <div class="mh"><span class="num">③</span><span class="mm">～を気にかける・心配する</span></div>
+      <div class="sig">見分けの合図　目的語が <b>人</b> で「大切に思う」文脈／この意味では <b>care about</b> の方が一般的</div>
+      <div class="ex"><div class="en">He really <b>cares for</b> her.</div><div class="tr">彼は本当に彼女を大切に思っている。</div></div>
+      <div class="ex"><div class="en">Nobody <b>cares about</b> what I think.</div><div class="tr">私の考えなど誰も気にしない。</div></div>
+    </div>
+  </div>
+
+  <div class="box">
+    <b>care for と care about の使い分け</b>
+    <ul>
+      <li><b>care about ～</b>＝「～を重要だと思う・関心がある」。目的語は<b>事柄</b>（money, the environment, what people say）が中心。</li>
+      <li><b>care for ～</b>＝「世話をする」（人・動物）／「好む」（物、否定・疑問）。</li>
+      <li>× I don't care about coffee.（コーヒーは好きでない、の意味にはならない）→ ○ I don't <b>care for</b> coffee.</li>
+    </ul>
+  </div>
+
+  <h2>take care 系</h2>
+  <table>
+    <tr><th>表現</th><th>意味</th><th>例</th></tr>
+    <tr><td class="w">take care of ～</td><td>①～の世話をする<br>②～を処理する</td><td>I'll <b>take care of</b> the kids.<br><b>take care of</b> the problem<span class="sm"> 問題を片づける（＝deal with）</span></td></tr>
+    <tr><td class="w">take care</td><td>気をつける／じゃあね</td><td><b>Take care</b> not to catch a cold.</td></tr>
+    <tr><td class="w">take care to do</td><td>～するよう気をつける</td><td><b>Take care to</b> lock the door.</td></tr>
+    <tr><td class="w">with care</td><td>注意して（＝carefully）</td><td>Handle <b>with care</b>.<span class="sm"> 取扱注意</span></td></tr>
+  </table>
+
+  <h2>care 単独・慣用表現</h2>
+  <table>
+    <tr><th>表現</th><th>意味</th><th>例</th></tr>
+    <tr><td class="w">care to do</td><td>～したいと思う<span class="sm">（否定・疑問で）</span></td><td>Would you <b>care to</b> join us?<span class="sm"> ご一緒しませんか</span></td></tr>
+    <tr><td class="w">I don't care.</td><td>どうでもいい／構わない</td><td class="sm">冷たく響くこともある。</td></tr>
+    <tr><td class="w">couldn't care less</td><td>まったく気にしない</td><td>I <b>couldn't care less</b> about his opinion.</td></tr>
+    <tr><td class="w">Who cares?</td><td>誰が気にするものか</td><td class="sm">反語表現。</td></tr>
+    <tr><td class="w">in the care of ～</td><td>～に世話されて</td><td class="sm">＝ under the care of</td></tr>
+    <tr><td class="w">care of ～（c/o）</td><td>～方、気付</td><td class="sm">住所書きで使う。</td></tr>
+    <tr><td class="w">medical / health care</td><td>医療・保健</td><td class="sm">名詞 care＝世話・介護・注意</td></tr>
+  </table>
+
+  <h2>派生語</h2>
+  <table>
+    <tr><th>語</th><th>意味</th><th>ひとこと</th></tr>
+    <tr><td class="w">careful</td><td>注意深い</td><td class="sm">be careful of / about / to do</td></tr>
+    <tr><td class="w">careless</td><td>不注意な</td><td class="sm">a careless mistake</td></tr>
+    <tr><td class="w">carefree</td><td><b>のんきな・気楽な</b></td><td class="sm">careless（不注意）と混同注意。free＝心配が無い</td></tr>
+    <tr><td class="w">caring</td><td>思いやりのある</td><td class="sm">a caring father</td></tr>
+    <tr><td class="w">caretaker</td><td>管理人・世話人</td><td class="sm">caregiver＝介護者</td></tr>
+  </table>
+
+  <div class="box">
+    <b>入試の狙われポイント</b>
+    <ul>
+      <li><b>care for＝世話をする</b> は言い換え問題の定番（＝ take care of / look after / attend to / see to）。</li>
+      <li><b>Would you care for ～? / care to do</b>＝勧誘の丁寧表現。会話問題で頻出。</li>
+      <li><b>careless</b>（不注意な）と <b>carefree</b>（のんきな）の混同。</li>
+      <li>否定文の <b>don't care for</b>＝「好きではない」。「世話をしない」と誤読しやすい。</li>
+    </ul>
+  </div>
+
+  <h2>意味の判別ドリル</h2>
+  <p class="hint">下線部の care がどの意味か選んでください。</p>
+  <div id="drill2"></div>
+</div>
+
+<!-- ============ TAB 3 ============ -->
+<div class="panel" id="p3">
+  <div class="score" id="score">正解 0 / 0<button class="reset" onclick="resetQuiz()">リセット</button></div>
+  <div id="quiz"></div>
+</div>
+
+</div>
+
+<script>
+/* ---------- data ---------- */
+const CALL=[
+ {t:"call on ～",m:"～を訪ねる／～に求める",n:"目的語が<b>人</b>なら「訪問する」。call on 人 to do で「～するよう求める・指名する」。",
+  e:"The teacher <b>called on</b> me to answer.",tr:"先生は私を指名して答えさせた。"},
+ {t:"call up ～",m:"電話をかける／呼び起こす",n:"電話のほか、記憶やイメージを「呼び起こす」、「召集する」。",
+  e:"The smell <b>called up</b> old memories.",tr:"その匂いが昔の記憶を呼び起こした。"},
+ {t:"call back",m:"折り返し電話する／呼び戻す",n:"かけ直す。人を呼び戻す意味も。",
+  e:"Could you <b>call back</b> later?",tr:"後ほどかけ直していただけますか。"},
+ {t:"call for ～",m:"～を求める・必要とする",n:"＝demand / require。無生物主語 The situation calls for ～ が頻出。",star:"正解",
+  e:"This problem <b>calls for</b> care.",tr:"この問題は慎重さを必要とする。"},
+ {t:"call off ～",m:"～を中止する",n:"＝cancel。予定されていた行事・計画を取りやめる。",
+  e:"They <b>called off</b> the match.",tr:"彼らは試合を中止した。"}
+];
+const S1=[
+ {t:"succeed (in)",m:"成功する（動）",n:"succeed <b>in</b> ~ing の形。",e:"She <b>succeeded in</b> passing the exam.",tr:"彼女は試験に合格した。"},
+ {t:"success",m:"成功（名）",n:"「成功した人・物」も表す可算名詞用法あり。",e:"The concert was a great <b>success</b>.",tr:"コンサートは大成功だった。"},
+ {t:"successful",m:"成功した（形）",n:"↔ unsuccessful（失敗した）。",e:"He is a <b>successful</b> lawyer.",tr:"彼は成功した弁護士だ。"},
+ {t:"successfully",m:"首尾よく（副）",n:"",e:"The rocket <b>successfully</b> reached orbit.",tr:"ロケットは無事に軌道に到達した。"}
+];
+const S2=[
+ {t:"succeed (to)",m:"後を継ぐ（動）",n:"succeed <b>to</b> 地位／succeed <b>人</b>（他動詞、to 不要）。",e:"He <b>succeeded to</b> the throne.",tr:"彼は王位を継承した。"},
+ {t:"succession",m:"継承／連続（名）",n:"<b>in succession</b>＝連続して。",e:"a <b>succession</b> of failures",tr:"失敗の連続"},
+ {t:"successive",m:"連続する（形）",n:"「成功した」ではない。successful との混同に注意。",star:"最頻出",e:"It rained for five <b>successive</b> days.",tr:"5日連続で雨が降った。"},
+ {t:"successively",m:"次々に（副）",n:"",e:"Prices rose <b>successively</b>.",tr:"物価は次々と上がった。"},
+ {t:"successor",m:"後継者（名）",n:"↔ <b>predecessor</b>（前任者）。",e:"She named her <b>successor</b>.",tr:"彼女は後継者を指名した。"},
+ {t:"predecessor",m:"前任者（名）",n:"pre（前）+ decessor。successor とセットで。",e:"His <b>predecessor</b> served ten years.",tr:"前任者は10年務めた。"}
+];
+const QUIZ=[
+ {q:"He won the championship for three ___ years.",o:["successful","successive","succeeding"],a:1,x:"successive＝連続する。「3年連続」。successful は「成功した」で意味が通らない。"},
+ {q:"She finally ___ in persuading her boss.",o:["succeeded","success","successive"],a:0,x:"succeed in ~ing＝～することに成功する。"},
+ {q:"The board announced his ___ as CEO yesterday.",o:["success","successor","succession"],a:1,x:"successor＝後継者。人を表す語。"},
+ {q:"This job ___ for a great deal of patience.",o:["calls","calls off","calls on"],a:0,x:"call for ～＝～を必要とする・要求する。"},
+ {q:"The game was ___ because of the snow.",o:["called for","called off","called up"],a:1,x:"call off＝中止する（＝cancel）。"},
+ {q:"I'll ___ my grandmother this weekend.",o:["call on","call for","call off"],a:0,x:"call on 人＝人を訪ねる。場所なら call at。"},
+ {q:"Prince Charles ___ the throne in 2022.",o:["succeeded in","succeeded to","succeeded for"],a:1,x:"succeed to 地位＝～を継承する。成功の in と区別。"},
+ {q:"He ___ me and say he'd be late.",o:["called up","called at","called for"],a:0,x:"call up＝電話をかける。"},
+ {q:"The residents ___ an immediate investigation.",o:["called off","called for","called back"],a:1,x:"call for＝（公に）要求する＝demand。"},
+ {q:"They lost five games in ___.",o:["success","successive","succession"],a:2,x:"in succession＝連続して。名詞形が入る。"},
+ {q:"I'm thinking ___ studying abroad next year.",o:["of","to","for"],a:0,x:"think of ~ing＝～しようかと思う。to 不定詞は不可。"},
+ {q:"He couldn't ___ anything to say at the meeting.",o:["think of","think about","think over"],a:0,x:"think of＝（考えを）思いつく。＝come up with / hit on。"},
+ {q:"I think of him ___ a true professional.",o:["as","for","like"],a:0,x:"think of A as B＝AをBとみなす。"},
+ {q:"Our team ___ of twelve members.",o:["consists","is consisting","is consisted"],a:0,x:"consist of は進行形・受動態にしない状態動詞。"},
+ {q:"Would you ___ for another slice of cake?",o:["care","mind","like"],a:0,x:"Would you care for ～?＝～はいかがですか。like なら Would you like ～?。"},
+ {q:"She cares ___ nothing but her career.",o:["about","for","of"],a:0,x:"care about ＋事柄＝～を重要だと思う。"},
+ {q:"He ___ his disabled brother for many years.（世話をした）",o:["cared for","cared about","took care"],a:0,x:"care for 人＝世話をする。take care は of が必要。"},
+ {q:"My uncle leads a ___ life with no worries at all.",o:["carefree","careless","careful"],a:0,x:"carefree＝のんきな・気楽な。careless（不注意な）と混同しやすい。"}
+];
+
+/* ---------- render cards ---------- */
+function card(d){
+  return `<div class="flip"><div class="inner">
+    <div class="face front">${d.star?`<span class="star">${d.star}</span>`:""}
+      <div class="t">${d.t}</div><div class="q">タップして意味を見る</div></div>
+    <div class="face back"><div><span class="m">${d.m}</span></div>
+      ${d.n?`<div class="n">${d.n}</div>`:'<div class="n"></div>'}
+      <div class="e">${d.e}<i>${d.tr}</i></div></div>
+  </div></div>`;
+}
+function fill(id,arr){document.getElementById(id).innerHTML=arr.map(card).join("");}
+fill("callCards",CALL);fill("succ1",S1);fill("succ2",S2);
+document.addEventListener("click",e=>{const f=e.target.closest(".flip");if(f)f.classList.toggle("on");});
+function flipAll(on){document.querySelectorAll(".panel.on .flip").forEach(f=>f.classList.toggle("on",on));}
+
+/* ---------- tabs ---------- */
+document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{
+  document.querySelectorAll(".tab").forEach(x=>x.classList.remove("on"));
+  document.querySelectorAll(".panel").forEach(x=>x.classList.remove("on"));
+  t.classList.add("on");document.getElementById(t.dataset.p).classList.add("on");
+  window.scrollTo({top:0,behavior:"smooth"});
+});
+document.querySelectorAll(".bbtn").forEach(b=>b.onclick=()=>{
+  const p=b.closest(".panel");
+  p.querySelectorAll(".bbtn").forEach(x=>x.classList.remove("on"));
+  p.querySelectorAll(".branch").forEach(x=>x.classList.remove("on"));
+  b.classList.add("on");document.getElementById(b.dataset.b).classList.add("on");
+});
+
+/* ---------- think of 判別ドリル ---------- */
+const DRILL=[
+ {s:"I'm <b>thinking of</b> buying a new laptop.",a:0,x:"be thinking of + doing →「～しようかと思う」（検討中）。"},
+ {s:"Can you <b>think of</b> the name of the hotel we stayed at?",a:2,x:"過去に存在した固有名を記憶から取り出す →「思い出す」。"},
+ {s:"We must <b>think of</b> a way to cut costs.",a:1,x:"まだ存在しない「方法」を頭に浮かべる →「思いつく」（＝come up with）。"},
+ {s:"She <b>thought of</b> her late father when she heard the song.",a:2,x:"曲を聞いて父を想起 →「思い出す」。※「～のことを考える」と訳しても可。"},
+ {s:"They are <b>thinking of</b> moving to Osaka next year.",a:0,x:"進行形＋doing で将来の予定を検討 →「～しようかと思う」。"},
+ {s:"I couldn't <b>think of</b> anything to say.",a:1,x:"言うべきことを新たに生み出せなかった →「思いつく」。"}
+];
+const DRILL2=[
+ {s:"Would you <b>care for</b> some dessert?",a:1,x:"疑問文＋物 →「～はいかがですか（好む）」。勧誘の丁寧表現。"},
+ {s:"He <b>cared for</b> his grandmother until she passed away.",a:0,x:"目的語が人＋長期間 →「世話をする」（＝took care of / looked after）。"},
+ {s:"To be honest, I don't <b>care for</b> spicy food.",a:1,x:"否定文＋食べ物 →「好きではない」。「世話をしない」ではない。"},
+ {s:"The roses in this garden are beautifully <b>cared for</b>.",a:0,x:"受動態で植物が目的語 →「手入れされている」＝世話をする。"},
+ {s:"She <b>cares</b> deeply <b>about</b> environmental issues.",a:2,x:"care about ＋事柄 →「関心がある・重要だと思う」。"},
+ {s:"He <b>cares for</b> her more than anyone else does.",a:2,x:"目的語が人で「大切に思う」文脈 →「気にかける」。世話をする、とも訳せる曖昧な例。"}
+];
+function buildDrill(id,data,labels,pre){
+  document.getElementById(id).innerHTML=data.map((d,i)=>`
+   <div class="q" id="${pre}${i}">
+     <div class="qh">D${i+1}</div>
+     <div class="qt">${d.s}</div>
+     <div class="opts">${labels.map((L,j)=>`<button class="opt" onclick="dans('${pre}',${i},${j})">${L}</button>`).join("")}</div>
+     <div class="fb" id="f${pre}${i}"></div>
+   </div>`).join("");
+}
+const DSETS={d:DRILL,c:DRILL2};
+function dans(pre,i,j){
+  const box=document.getElementById(pre+i);if(box.dataset.done)return;box.dataset.done=1;
+  const d=DSETS[pre][i],btns=box.querySelectorAll(".opt"),fb=document.getElementById("f"+pre+i);
+  btns.forEach((b,k)=>{b.disabled=true;if(k===d.a)b.classList.add("ok");else if(k===j)b.classList.add("ng");});
+  const ok=j===d.a;
+  fb.className="fb show "+(ok?"ok":"ng");
+  fb.innerHTML=(ok?"◯ 正解 — ":"× 正解は <b>"+["①","②","③"][d.a]+"</b> — ")+d.x;
+}
+buildDrill("drill",DRILL,["① しようかと思う","② 思いつく","③ 思い出す"],"d");
+buildDrill("drill2",DRILL2,["① 世話をする","② 好む","③ 気にかける"],"c");
+
+/* ---------- quiz ---------- */
+let done=0,right=0;
+function buildQuiz(){
+  done=0;right=0;updateScore();
+  document.getElementById("quiz").innerHTML=QUIZ.map((q,i)=>`
+   <div class="q" id="q${i}">
+     <div class="qh">Q${i+1}</div>
+     <div class="qt">${q.q.replace("___","<b>&nbsp;?&nbsp;</b>")}</div>
+     <div class="opts">${q.o.map((o,j)=>`<button class="opt" onclick="ans(${i},${j})">${o}</button>`).join("")}</div>
+     <div class="fb" id="f${i}"></div>
+   </div>`).join("");
+}
+function ans(i,j){
+  const box=document.getElementById("q"+i);
+  if(box.dataset.done)return;
+  box.dataset.done=1;
+  const q=QUIZ[i],btns=box.querySelectorAll(".opt"),fb=document.getElementById("f"+i);
+  btns.forEach((b,k)=>{b.disabled=true;if(k===q.a)b.classList.add("ok");else if(k===j)b.classList.add("ng");});
+  const ok=j===q.a;
+  fb.className="fb show "+(ok?"ok":"ng");
+  fb.innerHTML=(ok?"◯ 正解 — ":"× 正解は <b>"+q.o[q.a]+"</b> — ")+q.x;
+  done++;if(ok)right++;updateScore();
+}
+function updateScore(){
+  document.getElementById("score").innerHTML=
+   `正解 ${right} / ${done}　<span style="opacity:.6;font-weight:400">全${QUIZ.length}問</span>`+
+   `<button class="reset" onclick="resetQuiz()">リセット</button>`;
+}
+function resetQuiz(){buildQuiz();}
+buildQuiz();
+</script>
+</body>
+</html>
