@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ways of Worldmaking §1.5 Trouble with Truth — セッション記録</title>
+<style>
+  :root{
+    --ink:#1c1c1a; --sub:#5c5a54; --line:#ddd8cc; --bg:#faf8f3;
+    --panel:#fff; --accent:#7a5c2e; --accent-bg:#f3ece0;
+    --caution:#8a4b2a; --caution-bg:#fbf0e8; --caution-line:#e0b89a;
+    --new:#2f5d4a; --new-bg:#eaf2ee;
+    --quote-bg:#f4f1e8;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; padding:0 20px 100px; background:var(--bg); color:var(--ink);
+    font-family:"Hiragino Mincho ProN","Yu Mincho",Georgia,"Times New Roman",serif;
+    line-height:1.85; font-size:16px;
+  }
+  .wrap{max-width:860px; margin:0 auto}
+  header{padding:56px 0 28px; border-bottom:3px double var(--line); margin-bottom:40px}
+  .kicker{font-size:12px; letter-spacing:.28em; color:var(--sub); text-transform:uppercase; margin-bottom:14px}
+  h1{font-size:30px; margin:0 0 8px; line-height:1.35; font-weight:600}
+  .sub{color:var(--sub); font-size:14px; margin-top:12px}
+  .meta{display:flex; flex-wrap:wrap; gap:10px; margin-top:18px}
+  .tag{font-family:system-ui,sans-serif; font-size:11px; letter-spacing:.06em;
+    background:var(--accent-bg); color:var(--accent); padding:4px 11px; border-radius:2px}
+  h2{font-size:20px; margin:56px 0 20px; padding-bottom:10px; border-bottom:1px solid var(--line); font-weight:600}
+  h2 .num{font-family:system-ui,sans-serif; font-size:12px; color:var(--accent); letter-spacing:.14em; display:block; margin-bottom:6px; font-weight:500}
+  h3{font-size:16.5px; margin:34px 0 12px; font-weight:600}
+  h4{font-size:14.5px; margin:22px 0 8px; font-weight:600; color:var(--sub)}
+  p{margin:0 0 14px}
+  ul,ol{margin:0 0 14px; padding-left:1.4em}
+  li{margin-bottom:7px}
+  .en{
+    font-family:Georgia,"Times New Roman",serif; font-size:15.5px; line-height:1.7;
+    background:var(--quote-bg); border-left:3px solid var(--accent);
+    padding:14px 18px; margin:0 0 12px; font-style:italic; color:#2a2822;
+  }
+  .ja{margin:0 0 16px; padding-left:18px; border-left:3px solid var(--line)}
+  .sent{background:var(--panel); border:1px solid var(--line); border-radius:3px; padding:22px 24px; margin-bottom:22px}
+  .sent-no{font-family:system-ui,sans-serif; font-size:11px; letter-spacing:.14em; color:var(--accent); margin-bottom:12px}
+  .caution{
+    background:var(--caution-bg); border:1px solid var(--caution-line);
+    border-left:4px solid var(--caution); border-radius:3px;
+    padding:16px 20px; margin:20px 0; font-size:14.5px;
+  }
+  .caution::before{
+    content:"CAUTION — マージ時の判断が必要";
+    display:block; font-family:system-ui,sans-serif; font-size:10.5px; letter-spacing:.14em;
+    color:var(--caution); margin-bottom:8px; font-weight:600;
+  }
+  .caution p:last-child{margin-bottom:0}
+  .new{
+    background:var(--new-bg); border-left:4px solid var(--new);
+    padding:16px 20px; margin:20px 0; border-radius:3px;
+  }
+  .new::before{
+    content:"松井さんの新規定式";
+    display:block; font-family:system-ui,sans-serif; font-size:10.5px; letter-spacing:.14em;
+    color:var(--new); margin-bottom:8px; font-weight:600;
+  }
+  .new p:last-child{margin-bottom:0}
+  .formula{font-size:17px; font-weight:600; margin:6px 0 10px}
+  table{width:100%; border-collapse:collapse; margin:18px 0; font-size:14.5px}
+  th,td{border:1px solid var(--line); padding:9px 12px; text-align:left; vertical-align:top}
+  th{background:var(--accent-bg); font-weight:600; color:var(--accent); font-size:13px}
+  tbody tr:nth-child(even){background:#fdfcf9}
+  code{font-family:"SF Mono",Menlo,monospace; font-size:.88em; background:#efece3; padding:1px 5px; border-radius:2px}
+  .callout{background:var(--panel); border:1px solid var(--line); border-radius:3px; padding:18px 22px; margin:18px 0}
+  .open{border-left:4px solid #6b6f8a; background:#f0f1f5; padding:16px 20px; border-radius:3px; margin:16px 0}
+  .open::before{
+    content:"未解決";
+    display:block; font-family:system-ui,sans-serif; font-size:10.5px; letter-spacing:.14em;
+    color:#4b4f6a; margin-bottom:8px; font-weight:600;
+  }
+  .open p:last-child{margin-bottom:0}
+  footer{margin-top:64px; padding-top:22px; border-top:1px solid var(--line); font-size:12.5px; color:var(--sub)}
+  .lead{font-size:15px; color:var(--sub); margin-bottom:24px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">Ways of Worldmaking / Reading Dashboard</div>
+  <h1>第I章 §1.5 Trouble with Truth<br>真理をめぐる厄介</h1>
+  <div class="sub">Nelson Goodman, <em>Ways of Worldmaking</em> (1978) — セッション記録・v5マージ候補</div>
+  <div class="meta">
+    <span class="tag">2026-08-06</span>
+    <span class="tag">読了 6文</span>
+    <span class="tag">対話スレッド 4本</span>
+    <span class="tag">CAUTION 4件</span>
+    <span class="tag">v4へマージ予定</span>
+  </div>
+</header>
+
+<p class="lead">
+本セッションから読み方を変更。<strong>1返信＝英文1文</strong>とし、①英文 → ②訳 → ③哲学内容の解説 の順で進める。本書の残り全体にこの方式を適用する。
+</p>
+
+<!-- ======================================================= -->
+<h2><span class="num">SECTION 01</span>読了した本文</h2>
+
+<div class="sent">
+  <div class="sent-no">S1</div>
+  <p class="en">With all this freedom to divide and combine, emphasize, order, delete, fill in and fill out, and even distort, what are the objectives and the constraints?</p>
+  <p class="ja">これほどの自由——分割し結合する自由、強調する自由、順序づける自由、削除し、欠落を埋め、外へ補い広げる自由、さらには歪めることさえ許される自由——があるとして、では<strong>目的</strong>は何であり、<strong>制約</strong>は何なのか。</p>
+  <ul>
+    <li>並ぶ動詞は §1.4 の五下位節の総目次。divide/combine＝(a) 合成と分解、emphasize＝(b) 重みづけ、order＝(c) 順序づけ、delete/fill in/fill out＝(d) 削除と補充、distort＝(e) 変形。</li>
+    <li><code>even distort</code> の <em>even</em> が緊張を作る。歪曲までを正当な手段と認めた直後に問いを立てる。</li>
+    <li>目的と制約を<strong>同時に</strong>問うことで、「有用性」「事実との一致」という安易な答えを両方封じている。</li>
+  </ul>
+</div>
+
+<div class="sent">
+  <div class="sent-no">S2</div>
+  <p class="en">What are the criteria for success in making a world?</p>
+  <p class="ja">世界を制作することの<strong>成功の基準</strong>とは、何なのか。</p>
+  <ul>
+    <li>前文の反復ではない。目的・制約は<strong>過程</strong>の話、基準は<strong>結果</strong>の査定。問いの水準が上がる。</li>
+    <li><code>success</code> の語選択が決定的。<code>correctness</code>/<code>validity</code> ではなく制作物を評価する語彙。橋・楽曲・証明は成功／失敗で語られ、真／偽では語られない。世界を<strong>言明の集合ではなく制作物（artifact）</strong>として見る枠組みへの移行が、語の選択に埋め込まれている。</li>
+    <li><code>criteria</code> は<strong>複数形</strong>。真理は単一基準だが成功は基準の束。後の fit / coherence / scope / simplicity / entrenchment は互いに還元不能で競合する。基準が複数あるからこそ、真理は基準の一つに格下げされうる。</li>
+  </ul>
+</div>
+
+<div class="sent">
+  <div class="sent-no">S3</div>
+  <p class="en">Insofar as a version is verbal and consists of statements, truth may be relevant.</p>
+  <p class="ja">ある版が<strong>言語的</strong>であり、かつ<strong>言明から成る</strong>限りにおいて、真理は関連しうる。</p>
+  <ul>
+    <li>肯定文の形をした制限の宣言。<code>Insofar as</code>（範囲限定）＋<code>may be</code>（可能性）＋<code>relevant</code>（決定的ではない）の三重のブレーキ。真理は候補の一つとして最小限の資格でリストに載るにすぎない。</li>
+    <li><code>verbal</code> と <code>consists of statements</code> は<strong>別の条件</strong>。①言語的でない版＝モンドリアン ②言語的だが言明から成らない版＝述語体系・分類法・語彙。②が重要——§1.4 の操作の多くは<strong>言明以前の水準</strong>で働く。</li>
+    <li>グッドマンは真理を否定していない。<strong>管轄を縮小している</strong>。裁判官の資格剥奪ではなく管轄区域の書き換え。区域外でこの裁判官は無力ではなく無関係。</li>
+  </ul>
+  <h4>§1.5 の解体作業は四段構え</h4>
+  <ol>
+    <li><strong>範囲の限定</strong>（S3）——言語的で言明から成る版に限る</li>
+    <li><strong>定義の否定</strong>（S4）——世界との一致では定義も検証もできない</li>
+    <li><strong>地位の降格</strong>——真理は厳格な主人ではなく従順な召使い</li>
+    <li><strong>代替の提示</strong>——真理より rightness が重要でありうる</li>
+  </ol>
+</div>
+
+<div class="sent">
+  <div class="sent-no">S4</div>
+  <p class="en">But truth cannot be defined or tested by agreement with 'the world'; for not only do truths differ for different worlds but the nature of agreement between a version and a world apart from it is notoriously nebulous.</p>
+  <p class="ja">しかし真理は、「<strong>世界</strong>」との一致によって定義することも検証することもできない。というのも、真理は世界が異なれば異なるというだけでなく、<strong>ある版と、その版から独立した世界との間の一致</strong>なるものの本性が、悪名高いほど曖昧だからである。</p>
+  <ul>
+    <li>標的は<strong>対応説（correspondence theory）</strong>。前文で与えた最小限の資格を <code>But</code> 一語で回収にかかる。</li>
+    <li><code>defined or tested</code> は別々の攻撃対象。define＝意味論（真理とは何か）／test＝認識論（どう確かめるか）。両方を同時に封じることで逃げ道を塞ぐ。</li>
+    <li>引用符付きの <code>'the world'</code> ——問題は world ではなく<strong>定冠詞 the</strong>。対応説は「一致すべきはどの世界か」に答えられない。</li>
+    <li><code>not only A but B</code> の二段構え。<strong>A：循環</strong>（どの世界かを決めるにはすでに真理の基準が要る）／<strong>B：関係の不明瞭</strong>（言語的対象と非言語的対象の間の「一致」を誰も明確化できていない）。</li>
+    <li><strong>最も鋭いのは <code>a world apart from it</code></strong>。照合には<em>版を経由しない世界へのアクセス</em>が要るが、観察も指差しも感覚与件もすでに版である。照合の一方の項に原理的に手が届かない。「given as taken」がここに効く。</li>
+    <li><code>notoriously</code> は論証を出さず<strong>哲学史の失敗記録を参照するだけ</strong>で済ませる一語。論証の経済としては見事だが、納得しない読者には効かない。</li>
+  </ul>
+</div>
+
+<div class="sent">
+  <div class="sent-no">S5 — 本節の要となる定式</div>
+  <p class="en">Rather—speaking loosely and without trying to answer either Pilate's question or Tarski's—a version is taken to be true when it offends no unyielding beliefs and none of its own precepts.</p>
+  <p class="ja">むしろ——大雑把な言い方で、ピラトの問いにもタルスキの問いにも答えようとせずに言えば——ある版が<strong>真とみなされる</strong>のは、それが<strong>譲らない信念</strong>のいずれにも、そして<strong>その版自身の規範</strong>のいずれにも抵触しないときである。</p>
+  <h4>二つの固有名＝真理論の二つの極</h4>
+  <ul>
+    <li><strong>ピラトの問い</strong>——ヨハネ18:38「真理とは何か（Quid est veritas?）」。ベーコン曰く「ピラトは戯れに問い、答えを待たなかった」。<strong>形而上学的大問題</strong>の代名詞。</li>
+    <li><strong>タルスキの問い</strong>——1933年の真理の意味論的定義、規約T。形式言語に真理述語を厳密に定義する<strong>技術的企図</strong>。</li>
+    <li>両方を同時に降りる＝真理論のスペクトル全体から手を引く身振り。</li>
+  </ul>
+  <h4>語の選択</h4>
+  <ul>
+    <li><code>speaking loosely</code> は謙遜ではなく<strong>方法的宣言</strong>。厳密であることが目的に照らして不要。求めているのは定義ではなく<strong>実践の記述</strong>。</li>
+    <li><code>is taken to be true</code>（<code>is true</code> ではない）——真理が<em>何であるか</em>ではなく、我々が<em>いつ真と扱うか</em>。対象の性質から共同体の受容の様態へ。代替の定義を出したのではなく、<strong>定義を断念して実践へ降りた</strong>。</li>
+    <li><code>offends</code>——<strong>否定形の基準</strong>。</li>
+  </ul>
+  <table>
+    <thead><tr><th></th><th>対応説</th><th>グッドマン</th></tr></thead>
+    <tbody>
+      <tr><td>形式</td><td>一致という達成</td><td>抵触の不在</td></tr>
+      <tr><td>立証責任</td><td>版の側が正しさを示す</td><td>版は挑戦を生き延びればよい</td></tr>
+      <tr><td>帰結</td><td>単一の正解</td><td>複数の版が同時に生き残りうる</td></tr>
+    </tbody>
+  </table>
+  <p>抵触しないだけでよいなら、互いに異なる複数の版が同時に条件を満たせる。<strong>世界の複数性が、真理条件の書き方そのものから帰結する</strong>ように設計されている。</p>
+  <h4>二つの制約は種類が違う</h4>
+  <ul>
+    <li><strong>unyielding beliefs</strong>——歴史的・可変・共同体的。外向きの<em>慣性</em>。</li>
+    <li><strong>its own precepts</strong>——<code>its own</code> が効く。普遍的規範ではなくその版が自ら採用した規範。内向きの<em>一貫性</em>。</li>
+    <li>制約は外からの一つの物差しではなく<strong>二方向</strong>から働く。どちらも世界ではない。</li>
+  </ul>
+</div>
+
+<div class="sent">
+  <div class="sent-no">S6</div>
+  <p class="en">Among beliefs unyielding at a given time may be long-lived reflections of laws of logic, short-lived reflections of recent observations, and other convictions and prejudices ingrained with varying degrees of firmness.</p>
+  <p class="ja"><strong>ある時点において</strong>譲られない信念のうちには、論理法則の<strong>長命な反映</strong>、最近の観察の<strong>短命な反映</strong>、そして様々な強度で<strong>染みついた</strong>その他の確信や偏見が、含まれうる。</p>
+  <ul>
+    <li><code>at a given time</code> で真理条件が歴史化される。同じ版が時代によって条件を満たしたり満たさなかったりするのは、照合先である信念の集合が動くから。</li>
+    <li><strong>リストは、並んでいること自体が主張</strong>。伝統的には論理法則（必然・アプリオリ）／観察（経験的）／偏見（除去すべきもの）は別の棚。グッドマンは一つのリストに入れ、<strong>定着の強度と持続時間だけ</strong>で並べた。</li>
+    <li><code>reflections of</code> を読み飛ばさない。信念集合に入るのは論理法則<em>そのもの</em>ではなくその<strong>反映</strong>。この一語で論理法則は超越的審級ではなく信念集合の一項目にされる。</li>
+    <li><code>ingrained</code>（木目に入り込む）——信念は<strong>理由によって保持される</strong>のではなく<strong>使用によって擦り込まれる</strong>。グッドマン自身の術語 <strong>entrenchment（定着）</strong>の信念一般への拡張。何を譲らないかを決めるのは正当化の強さではなく<strong>使用の履歴</strong>。</li>
+    <li><code>prejudices</code> を自分から書き込む誠実さ。偏見と確信を区別する外部の視点がない立場を採った以上、両者は同じリストに入らざるをえない。</li>
+  </ul>
+  <h4>素朴経験主義の反転</h4>
+  <table>
+    <thead><tr><th></th><th>素朴な経験主義</th><th>グッドマン</th></tr></thead>
+    <tbody>
+      <tr><td>観察</td><td>認識の基盤。最も確実</td><td><strong>短命</strong>。すぐ譲られる</td></tr>
+      <tr><td>論理法則</td><td>内容のない形式。空虚</td><td><strong>長命</strong>。最も譲られにくい</td></tr>
+    </tbody>
+  </table>
+  <p>新鮮さは<strong>力であると同時に脆さ</strong>。また <code>long-lived</code> はあくまで長命であって永遠ではない——グッドマンは <em>immutable</em> とも <em>necessary</em> とも書いていない。</p>
+</div>
+
+<h3>本文中で先取りして参照した箇所</h3>
+<p class="en">But the line between beliefs and precepts is neither sharp nor stable. Beliefs are framed in concepts informed by precepts.</p>
+<p class="ja">信念と規範の境界は、明確でも安定でもない。信念は、規範によって形作られた概念のうちに枠取られている。</p>
+<p class="en">Even the staunchest belief may in time admit alternatives; "The earth is at rest" passed from dogma to dependence upon precept.</p>
+<p class="ja">最も揺るぎない信念でさえ、やがて代替を許すようになる。「地球は静止している」は、教義から<strong>規範への依存</strong>へと移行した。</p>
+<p class="en">A nonrepresentational picture such as a Mondrian says nothing, denotes nothing, pictures nothing, and is neither true nor false, but shows much. […] their relevance and their revelations, their force and their fit—in sum their rightness.</p>
+<p class="ja">モンドリアンのような非再現的絵画は、何も述べず、何も指示せず、何も描かず、真でも偽でもない。しかし多くを示す。［…］その適切さと開示力、その効力と適合——要するにその<strong>正しさ</strong>。</p>
+
+<!-- ======================================================= -->
+<h2><span class="num">SECTION 02</span>対話スレッド A — ドイツのオープン経済と「抵触の不在」</h2>
+
+<p><strong>出発点：</strong>「外界をどう支配するかではなく、外界にどう適応するか」というメモ。ドイツのオープン経済の失敗は、オープン経済が誤りだったからではなく、<strong>内部の整合性を取れず外界に適応できなかった</strong>から。</p>
+
+<h3>なぜ「抵触の不在」が例から見えないのか</h3>
+<p><strong>それが否定的基準だから。</strong>満たされている間は姿を現さない。破れたときにだけ見える。モデルが機能していた数十年間、誰も「今この版は抵触していない」とは言わなかった——ただ回っていただけ。だから例から見えなかったのではなく、<strong>例は基準が可視化された瞬間そのもの</strong>を捉えている。</p>
+
+<h3>二種類の抵触</h3>
+<h4>(a) その版自身の規範どうしの抵触</h4>
+<p>財政規律（債務ブレーキ）／輸出黒字＝健全性／産業政策への不介入／貿易による変化（Wandel durch Handel）／脱原発／安価なエネルギー調達。これらは長らく両立したが、<strong>どれかを守ろうとすると別のどれかを破らざるをえない</strong>局面が来る。「現実とズレた」のではなく<strong>自分で立てたルールどうしが噛み合わなくなった</strong>——<code>offends its own precepts</code> の教科書的事例。</p>
+<h4>(b) 譲らない信念との抵触</h4>
+<p>「経済的相互依存は政治的自由化をもたらす」は、当初 <strong>short-lived reflection of recent observation</strong> だった。それが年月とともに <strong>ingrained conviction</strong> へ移動する。移動した時点で性質が変わり、観察から独立に保持されるようになる。<strong>堅固さが増したのは、根拠が薄れた後だった。</strong></p>
+
+<h3>処方箋が変わる</h3>
+<table>
+  <thead><tr><th></th><th>対応説的診断</th><th>グッドマン的診断</th></tr></thead>
+  <tbody>
+    <tr><td>何が失敗したか</td><td>現実の見誤り</td><td>内部整合の維持失敗</td></tr>
+    <tr><td>処方箋</td><td>正しく現実を見よ</td><td>どの規範を降ろすか決めよ</td></tr>
+    <tr><td>実行可能性</td><td>正しい現実への接近路が要る</td><td>手持ちの規範の棚卸しで足りる</td></tr>
+  </tbody>
+</table>
+
+<h3>ルール主導の秩序は構造的に自己抵触に弱い</h3>
+<p>自由主義経済＝ルール主導・コーディネーションの経済＝<strong>規範（precepts）の比重が極端に高い版</strong>。規範が多いほど衝突する組み合わせ数は組み合わせ的に増える。<strong>安定している間は最も強靭に見えて、内部抵触に対しては最も脆い。</strong>裁量の余地を減らすことは、抵触時の逃げ場を減らすことでもある。</p>
+
+<div class="caution">
+<p>グッドマンの基準は<strong>版の評価</strong>のためのものであり、政策の因果診断のためのものではない。「内部整合の失敗が原因だった」という主張には別途、経済史的な立証が要る。ここで得られたのは原因の証明ではなく<strong>記述の語彙</strong>——「現実とズレた」ではなく「自己抵触した」と言い直せること。この言い直しが有効なのは、後者が<em>改訂の手順を示唆する</em>から。v4 の「記述と正当化の境界」項に接続するか、独立項として立てるか要判断。</p>
+</div>
+
+<!-- ======================================================= -->
+<h2><span class="num">SECTION 03</span>対話スレッド B — サラスバシー × カント × JTB</h2>
+
+<h3>カントの定式の正確化</h3>
+<p>『道徳形而上学の基礎づけ』人間性の定式：「汝の人格および他のあらゆる人格のうちにある人間性を、常に<strong>同時に目的として</strong>扱い、<strong>決して単に手段としてのみ</strong>扱わないように行為せよ」。</p>
+<p><code>bloß als Mittel</code>（単に手段としてのみ）が要。<strong>カントは人を手段にすることを禁じていない。</strong>パン屋をパンの手段として使うことは許される。禁じられているのは、それ<em>だけ</em>として扱うこと——相手が自分の目的を持つ存在であることを勘定に入れないこと。</p>
+
+<div class="new">
+<p class="formula">「目的のために人を集めるのではなく、人が集まることで目的が生まれる」</p>
+<p>これはカントの主張ではなく松井さんの定式であり、カントより強い。カントは目的の並立を求めるだけだが、この定式は<strong>順序を反転</strong>させている。そしてこれは、サラスバシーの <strong>crazy quilt 原則</strong>をカントの語彙で言い直したものになっている。</p>
+</div>
+
+<h3>より深いカント連関は <code>its own precepts</code> の側にある</h3>
+<ul>
+  <li><strong>自律（Autonomie）</strong>＝自ら（auto）に法（nomos）を与えること。自分が立法者であり同時に服従者。グッドマンの <code>its own precepts</code> は<strong>その認識論版</strong>。「作られたものが拘束する」という事態はカント的自律の構造そのもの。</li>
+  <li><strong>目的の王国（Reich der Zwecke）</strong>——共通の法で結ばれた理性的存在者の体系的結合、各人が立法者かつ成員。人が集まり各人がコミットメントを持ち寄り、それをつなぐ「なすべきこと」が<strong>共同で立法される</strong>構造と一致。</li>
+</ul>
+
+<h3>三項の対応</h3>
+<table>
+  <thead><tr><th>松井さんの三項</th><th>グッドマン</th><th>サラスバシー</th></tr></thead>
+  <tbody>
+    <tr><td>どうしてもやりたいこと</td><td>unyielding beliefs（自分の側）</td><td>Who I am / What I know</td></tr>
+    <tr><td>集まってくる人のコミットメント</td><td>unyielding beliefs（共同体の側）</td><td>Whom I know / crazy quilt</td></tr>
+    <tr><td>つなぐエージェント的な「すべきこと」</td><td><strong>its own precepts</strong></td><td>創発する目標</td></tr>
+  </tbody>
+</table>
+<p>三番目の対応が要点。「エージェントのような」と呼ばれたものは、グッドマンの語彙では<strong>規範</strong>——規範は世界の記述ではなく、バラバラなものを一つの版として保持する装置だから。そして規範は譲らない信念から演繹できない。<strong>そこは決めるしかない。</strong>その決断の余地が <code>its own</code> の含意。</p>
+
+<h3>JTB との距離——一箇所だけ決定的に違う</h3>
+<p>JTB は三条件：信念（B）／正当化（J）／<strong>真（T）</strong>。このうち T だけが種類が違う——J と B は認識主体の側にあるが、T は主体の外にあり主体からは確認できない。ゲティア問題が起きるのもこの独立性による。</p>
+<p>グッドマンがやったのは<strong>この T を外すこと</strong>。「世界との一致では定義も検証もできない」とは、T を独立条件として立てることの断念。だから三項は <strong>JTB に似ているのではなく、JTB から T を抜いたものに似ている</strong>。グッドマンの主張は、T は最初から仕事をしていなかった——独立に確認できない条件は実践において何の役割も果たしていない、というもの。</p>
+
+<div class="caution">
+<p><strong>「揃っている＝真」は肯定形への回帰。</strong>「揃う」は達成の語であり、表の「対応説」側に戻ってしまう。effectuation の実際の作動は否定形に見える——誰も抜けていない／許容可能な損失を超えていない／自分が降りていない。<em>誰も「揃っていること」を積極的に検証していない。</em>ダッシュボードに載せる際、この定式を「抵触の不在」版に書き換えるか、両論併記にするか要判断。</p>
+</div>
+
+<div class="caution">
+<p><strong>閉集団リスク。</strong>「抵触の不在」は閉じた集団で最もよく満たされる——内部の信念が均質で、外部の観察が入らず、規範が誰にも疑われないとき。グッドマンは <code>prejudices</code> を認めつつ、それを排除する外部装置を持たない。effectuation にはこの点で仕掛けがある：<strong>人は抜けられる／損失は積み上がる／市場は反応しない</strong>——抵触が外から強制的に持ち込まれる。だとすれば三項の二番目（他者のコミットメント）は資源調達の項ではなく<strong>自己閉塞への防御の項</strong>として読むほうが強い。「人を集めるのは、独りでは決して起きない抵触を起こすため」。この読みを v4 の「他者は共有世界の共同構成者」項に統合するか、新規項として立てるか要判断。</p>
+</div>
+
+<!-- ======================================================= -->
+<h2><span class="num">SECTION 04</span>対話スレッド C — カントのアプリオリとの対応</h2>
+
+<p><strong>出発点：</strong><code>Beliefs are framed in concepts informed by precepts</code> はカントのアプリオリに対応するのではないか。</p>
+<p><strong>結論：機能は同じ、身分は正反対。</strong></p>
+
+<table>
+  <thead><tr><th></th><th>カントのアプリオリ</th><th>グッドマンの規範</th></tr></thead>
+  <tbody>
+    <tr><td>数</td><td><strong>単一</strong>（一組のカテゴリー）</td><td><strong>複数</strong>（版ごとに異なる）</td></tr>
+    <tr><td>身分</td><td><strong>必然的</strong>（全理性的存在者に妥当）</td><td><strong>偶然的</strong>（歴史的に定着しただけ）</td></tr>
+    <tr><td>可変性</td><td><strong>不変</strong>（超越論的演繹で確定）</td><td><strong>可変</strong>（境界すら不安定）</td></tr>
+    <tr><td>発見の仕方</td><td>超越論的反省</td><td>実践の履歴を見る</td></tr>
+  </tbody>
+</table>
+
+<p>カントのアプリオリ／アポステリオリの区別は<strong>明確かつ安定であること</strong>が絶対条件——第一批判の建築全体がその線の上に載る。グッドマンは <code>neither sharp nor stable</code> と名指しで否定した。<strong>カントが最も堅固でなければならないと考えた線について、明確でも安定でもないと言っている。</strong>洞察を継承し、保証を破棄した。</p>
+
+<h3>系譜</h3>
+<ul>
+  <li><strong>カッシーラー</strong>が中継点——象徴形式の哲学は一組のカテゴリーを神話・言語・芸術・科学へ分岐させた。<em>アプリオリの複数化</em>。グッドマンは第I章冒頭で自らをこの系譜に置く。</li>
+  <li>グッドマンの一歩は、<strong>複数化されたアプリオリすら可変にした</strong>こと。カッシーラーの象徴形式は安定した類型だが、グッドマンの規範は版ごとに採用され放棄されうる。</li>
+  <li><strong>クワイン「経験主義の二つのドグマ」（1951）</strong>——分析／総合の解体。<code>neither sharp nor stable</code> はその語彙で言えば「分析と総合の間に線は引けない」。S6 で論理法則の反映と観察の反映が同列に並ぶのは、まさに<strong>信念の網の中心と周辺</strong>の話。グッドマンはクワインの近しい共同研究者。</li>
+</ul>
+<p><strong>カントは境界を固定して認識を基礎づけ、クワインとグッドマンは境界を溶かして基礎づけを放棄した。</strong></p>
+
+<div class="new">
+<p class="formula">「アプリオリは家族だった」の再定式</p>
+<p>カントのアプリオリは<strong>構造上不可能</strong>だから後ろへ回れない。グッドマンの規範は<strong>それが手元にある唯一の世界だから</strong>回れない。そして手元にある最初の世界は選ばれたものではなく与えられたもの——だから家族。<br>
+<strong>カントのアプリオリは必然性で不動であり、グッドマンのアプリオリは偶然性で不動である。</strong></p>
+</div>
+
+<div class="caution">
+<p>この再定式（必然性で不動／偶然性で不動）は v4 に既収録の「アプリオリは家族だった」の記述を精緻化するもの。既存記述と衝突しないか、上書きするか併記するか要確認。</p>
+</div>
+
+<p><strong>決定打となる本文：</strong>「地球は静止している」が <em>dogma</em> から <em>dependence upon precept</em> へ移行した例。かつて疑いえない信念だったものが、今は「どの参照枠を採るか」という規範選択の問題になった。<strong>信念だったものが規範に依存する事柄へ移った</strong>——境界が動いた実例であり、カント的アプリオリが歴史の中で身分を変えうることの証拠。</p>
+
+<!-- ======================================================= -->
+<h2><span class="num">SECTION 05</span>対話スレッド D — プロトタイプは文法である</h2>
+
+<p><strong>出発点：</strong>規範は接着剤ではなく<strong>文法</strong>である（文法は既にある単語を並べる規則ではなく、それが単語であることを成立させている）。→ デザイン思考の「プロトタイプを作れ」は ANT のエージェントだが、<strong>プロトタイプとは文法である</strong>。</p>
+
+<h3>接着剤の比喩が前提してしまうもの</h3>
+<p>接着剤は<strong>貼り合わせる前のパーツが独立に存在している</strong>ことを含意する。しかしグッドマンは直後にこれを壊す——<code>Beliefs are framed in concepts informed by precepts</code>。規範は既にあるパーツを貼り合わせるのではなく、<strong>パーツがそのパーツであることを可能にしている</strong>。だから接着剤ではなく<strong>文法</strong>、あるいは<strong>結晶の格子</strong>。</p>
+
+<h3>仕様書 / プロトタイプ / 完成品</h3>
+<table>
+  <thead><tr><th></th><th>アクタント性</th><th>文法性</th><th>特徴</th></tr></thead>
+  <tbody>
+    <tr><td>仕様書</td><td>なし</td><td>あり</td><td>何を作りうるかを規定するが、誰も周りに集まらない</td></tr>
+    <tr><td><strong>プロトタイプ</strong></td><td><strong>あり</strong></td><td><strong>あり</strong></td><td>物として振る舞い、同時に何が語りうるかを規定する</td></tr>
+    <tr><td>完成品</td><td>あり</td><td>なし</td><td>もう何も枠取らない。承認か拒否かの対象</td></tr>
+  </tbody>
+</table>
+<p><strong>この二重性が、プロトタイプが仕様書より強力な理由。</strong>ANT の語彙ではプロトタイプは一ノードにすぎず、この差を説明できない。「グッドマンは ANT より一段深いところで作動する」の具体化。</p>
+
+<h3>完成度が上がると文法機能を失う</h3>
+<p>低忠実度＝発散的フィードバック／高忠実度＝評価的フィードバック。紙のスケッチには「こういうことも考えられませんか」、作り込まれたモックには「ここの色が」。<strong>忠実度が上がるにつれ、プロトタイプは文法からアクタントへ移動する。</strong>「粗いまま早く出せ」は速度の話ではなく、<strong>未完成であることが規範として働くための条件</strong>だという話。</p>
+
+<h3>グッドマンの正確な語彙は「見本（sample）」＝例示（exemplification）</h3>
+<p>布の見本は色と織りを例示するが<strong>大きさと形は例示しない</strong>。どの性質が例示されるかは<strong>見本そのものからは決まらず、慣行が決める</strong>。プロトタイプはこれ——製品を<em>指示</em>せず、性質の一部を<em>例示</em>する。「これは仮のUIです、ロジックだけ見てください」という但し書きは、情報の追加ではなく<strong>例示の範囲を指定する規範</strong>。</p>
+
+<h3>本文が、そのままプロトタイプ論になっている</h3>
+<p><strong>プロトタイプは真でも偽でもない。しかし多くを示す。</strong>「プロトタイプは仮説を検証する」という言い方はプロトタイプを言明扱いしている。プロトタイプは言明ではないので<strong>真理値を持たない</strong>——「このプロトタイプは真か」は範疇錯誤。問うべきは真偽ではなく <code>rightness</code>。その内訳の <code>revelations</code>（何を開示するか）が「作ってみて初めて分かった」の理論的位置づけになる。</p>
+
+<div class="caution">
+<p><strong>逆向きの注意：</strong>プロトタイプが文法であるなら、<strong>自分が枠取った範囲の外を見せない</strong>。「このアプリのUIはどうあるべきか」というプロトタイプは、「そもそもアプリなのか」を問えなくする。デザイン思考が時に「与えられた枠内の最適化」に終わるという批判は、この構造から来る。<em>文法は可能にすると同時に、可能でないものを不可視にする</em>——カントのアプリオリの制約性と同じ構造。<br>
+なお、この節の議論は §1.4(b) の例示の項に戻すべきか §1.5 に置くか要判断（例示は §1.4(b) で既出）。</p>
+</div>
+
+<div class="callout">
+<p><strong>付随して回収した点：</strong>サラスバシーの「何を知っているか」は<strong>信念と規範のどちらにも読める</strong>。知識を内容として読めば信念、<strong>knowledge corridor</strong>（何が機会として見えるかを規定する回廊）として読めば規範。サラスバシー自身は後者の含みで使う。この項が二つに跨っていること自体が <code>the line between beliefs and precepts is neither sharp nor stable</code> の実例になっている。</p>
+</div>
+
+<!-- ======================================================= -->
+<h2><span class="num">SECTION 06</span>未解決の問い・次回へ</h2>
+
+<div class="open">
+<p><strong>T を戻したくなる「足りなさ」の正体は何か。</strong>対話中、JTB から T を抜いた直後に「正当化された<em>真なる</em>もの」と T が復帰した。これは言い間違いというより、J と B だけでは何かが足りないという感覚の表れ。グッドマンは T を戻さず、代わりに <strong>rightness</strong> を置く。§1.5 後半で rightness が出てきたとき、<em>それがこの足りなさを埋めるものかどうか</em>を判定する。</p>
+</div>
+
+<div class="open">
+<p><strong>1.0 / 2.5 は再ソート（§1.4b）か、削除と補充（§1.4d）か</strong>——この問いは前セッションからの持ち越しだが、今回の <code>the line between beliefs and precepts is neither sharp nor stable</code> によって前提が揺らいだ。信念と規範の境界が不明確なら<strong>素材と組織の区別も不明確</strong>になり、<em>再ソートか置換かという二択自体が、境界を明確と仮定した問いだった</em>可能性がある。</p>
+</div>
+
+<h3>次に読む文</h3>
+<p class="en">Among precepts, for example, may be choices among alternative frames of reference, weightings, and derivational bases.</p>
+
+<h3>§1.5 の残りの見取り図</h3>
+<ol>
+  <li>規範の内実（参照枠・重みづけ・導出基底）</li>
+  <li>信念／規範の境界の不安定性 → ボイルの例</li>
+  <li>「地球は静止している」＝教義から規範依存へ</li>
+  <li><strong>真理は厳格な主人ではなく従順な召使い</strong>——科学者は system, simplicity, scope を求め、満たされたとき真理をそれに合わせて仕立てる（<em>tailors truth to fit</em>）。法則を発見すると同じだけ布告し、パターンを識別すると同じだけ設計する</li>
+  <li>真理は<em>語られたこと</em>にのみ及ぶ → 隠喩的真理、例示・表出、示すこと（Vachel Lindsay <em>The Congo</em> の太鼓の律動）</li>
+  <li>非言語的版には真理は無関係 → モンドリアン → <strong>rightness</strong> の導入</li>
+  <li>「真実を、真実のすべてを、真実のみを」は世界制作者にとって倒錯的で麻痺的な方針である</li>
+</ol>
+
+<div class="callout">
+<p><strong>予告されている着地点：</strong><em>some right versions are not true—being either false or neither true nor false—and even for true versions rightness may matter more.</em>（正しい版のいくつかは真ではない——偽であるか、真でも偽でもないかのどちらかである——そして真である版についてさえ、正しさのほうが重要でありうる。）</p>
+</div>
+
+<footer>
+Nelson Goodman, <em>Ways of Worldmaking</em> (Hackett, 1978), Ch. I "Words, Works, Worlds," §5 Trouble with Truth, pp. 17–19.<br>
+本ファイルはスタンドアロン記録。既存ダッシュボード v4 へマージし v5 とする想定。CAUTION ブロック 4 件はマージ時に編集判断が必要な箇所。
+</footer>
+
+</div>
+</body>
+</html>
