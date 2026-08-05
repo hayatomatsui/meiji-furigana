@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ways of Worldmaking — §1.4(a)–(c) Weighting / Ordering</title>
+<style>
+  :root{
+    --paper:#eceae4;
+    --paper-2:#f5f4f0;
+    --ink:#171a1f;
+    --ink-2:#4a5058;
+    --ink-3:#7c838d;
+    --ink-4:#a8aeb6;
+    --copper:#8a4b2a;
+    --copper-2:#b56a42;
+    --verdi:#2f6b63;
+    --ochre:#8a7526;
+    --rule:#d2cfc6;
+    --rule-2:#e2dfd8;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --paper:#131518;
+      --paper-2:#1a1d21;
+      --ink:#e9e7e1;
+      --ink-2:#aeb4bc;
+      --ink-3:#7d838b;
+      --ink-4:#565b62;
+      --copper:#c9855c;
+      --copper-2:#a86a45;
+      --verdi:#5e9d94;
+      --ochre:#b8a04f;
+      --rule:#2c3036;
+      --rule-2:#22262a;
+    }
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Songti SC",serif;
+    font-size:15.5px;
+    line-height:1.85;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:820px;margin:0 auto;padding:40px 26px 100px}
+
+  /* ---------- header ---------- */
+  .marker{
+    font-family:ui-monospace,"SF Mono",Menlo,monospace;
+    font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--ink-3);
+  }
+  h1{
+    font-family:"Helvetica Neue Condensed","Arial Narrow",Inter,system-ui,sans-serif;
+    font-weight:700;font-stretch:condensed;
+    font-size:clamp(30px,6.4vw,46px);
+    line-height:1.06;letter-spacing:-.015em;
+    margin:.34em 0 .1em;
+  }
+  h1 em{font-style:normal;color:var(--copper)}
+  .sub{color:var(--ink-2);font-size:14.5px;margin:0 0 4px}
+
+  /* ---------- signature: weighting bar ---------- */
+  .weigh{
+    margin:30px 0 8px;padding:20px 20px 16px;
+    background:var(--paper-2);
+    border:1px solid var(--rule);
+  }
+  .weigh-cap{
+    font-family:ui-monospace,Menlo,monospace;font-size:10px;
+    letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);
+    display:flex;justify-content:space-between;gap:12px;margin-bottom:14px;
+  }
+  .bar{display:flex;align-items:flex-end;gap:3px;height:74px}
+  .seg{
+    flex:1;position:relative;background:var(--rule-2);
+    border-top:2px solid var(--rule);cursor:default;
+    transition:background .18s ease;
+  }
+  .seg:hover{background:var(--rule)}
+  .seg[data-w="3"]{background:var(--copper);border-top-color:var(--copper)}
+  .seg[data-w="2"]{background:var(--verdi);border-top-color:var(--verdi);opacity:.82}
+  .seg[data-w="1"]{background:var(--ink-4);border-top-color:var(--ink-4);opacity:.5}
+  .seg[data-w="3"]:hover,.seg[data-w="2"]:hover,.seg[data-w="1"]:hover{opacity:1}
+  .seg span{
+    position:absolute;bottom:calc(100% + 6px);left:50%;
+    transform:translateX(-50%) rotate(-90deg);transform-origin:bottom left;
+    white-space:nowrap;font-family:ui-monospace,Menlo,monospace;
+    font-size:9.5px;letter-spacing:.06em;color:var(--ink-3);
+  }
+  .weigh-note{
+    margin-top:34px;padding-top:12px;border-top:1px solid var(--rule-2);
+    font-size:13px;color:var(--ink-2);
+  }
+  .weigh-note b{color:var(--copper);font-weight:400}
+
+  /* ---------- position ---------- */
+  .pos{
+    display:flex;flex-wrap:wrap;gap:0;margin:34px 0 6px;
+    border:1px solid var(--rule);
+  }
+  .pos div{
+    flex:1 1 150px;padding:13px 15px;
+    border-right:1px solid var(--rule);
+  }
+  .pos div:last-child{border-right:none}
+  .pos dt{
+    font-family:ui-monospace,Menlo,monospace;font-size:9.5px;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);
+    display:block;margin-bottom:3px;
+  }
+  .pos dd{margin:0;font-size:14px;color:var(--ink)}
+  .pos .now dd{color:var(--copper);font-weight:600}
+
+  /* ---------- sections ---------- */
+  section{margin-top:52px}
+  h2{
+    font-family:"Helvetica Neue Condensed","Arial Narrow",Inter,system-ui,sans-serif;
+    font-weight:700;font-size:13px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--ink);margin:0 0 2px;
+    display:flex;align-items:baseline;gap:10px;
+  }
+  h2 i{
+    font-style:normal;font-family:ui-monospace,Menlo,monospace;
+    font-size:10px;color:var(--copper);letter-spacing:.1em;
+  }
+  .h2sub{font-size:13px;color:var(--ink-3);margin:0 0 20px}
+
+  .item{
+    padding:16px 0;border-top:1px solid var(--rule-2);
+  }
+  .item:first-of-type{border-top:1px solid var(--rule)}
+  .tag{
+    font-family:ui-monospace,Menlo,monospace;font-size:9.5px;
+    letter-spacing:.14em;text-transform:uppercase;
+    color:var(--ink-3);margin-bottom:5px;display:block;
+  }
+  .tag.k{color:var(--copper)}
+  .tag.p{color:var(--ochre)}
+  .tag.s{color:var(--verdi)}
+  .item h3{
+    margin:0 0 6px;font-size:16.5px;font-weight:600;line-height:1.5;
+  }
+  .item p{margin:0;color:var(--ink-2);font-size:14.5px}
+  .item p + p{margin-top:8px}
+  .en{
+    font-family:Charter,Georgia,serif;font-style:italic;
+    color:var(--ink-3);font-size:13.5px;
+  }
+
+  /* pull quote */
+  .pull{
+    margin:26px 0;padding:22px 24px;
+    background:var(--paper-2);border-left:3px solid var(--copper);
+  }
+  .pull p{margin:0;font-size:17px;line-height:1.72}
+  .pull .src{
+    margin-top:9px;font-family:ui-monospace,Menlo,monospace;
+    font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);
+  }
+
+  /* quadrant */
+  .quad{
+    display:grid;grid-template-columns:auto 1fr 1fr;
+    border:1px solid var(--rule);margin-top:16px;font-size:13.5px;
+  }
+  .quad>*{padding:12px 14px;border-right:1px solid var(--rule-2);border-bottom:1px solid var(--rule-2)}
+  .quad>*:nth-child(3n){border-right:none}
+  .quad .hd{
+    font-family:ui-monospace,Menlo,monospace;font-size:9.5px;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);
+    background:var(--paper-2);
+  }
+  .quad .rw{
+    font-family:ui-monospace,Menlo,monospace;font-size:9.5px;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);
+    background:var(--paper-2);white-space:nowrap;
+  }
+
+  /* caution */
+  .caution{
+    margin-top:14px;padding:14px 16px;
+    border:1px dashed var(--rule);font-size:13.5px;color:var(--ink-2);
+  }
+  .caution b{color:var(--copper);font-weight:600}
+
+  footer{
+    margin-top:64px;padding-top:16px;border-top:1px solid var(--rule);
+    font-family:ui-monospace,Menlo,monospace;font-size:10px;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--ink-4);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  }
+  @media (max-width:560px){
+    .bar{height:58px}
+    .seg span{display:none}
+    .quad{grid-template-columns:1fr;}
+    .quad .rw{border-right:none}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="marker">Ways of Worldmaking · Chapter I · Session log</div>
+  <h1>Weighting と <em>Ordering</em></h1>
+  <p class="sub">同じ在庫でも、強調が違えば別の世界になる。</p>
+</header>
+
+<!-- SIGNATURE -->
+<div class="weigh">
+  <div class="weigh-cap"><span>本セッションの重みづけ</span><span>Stress ↓</span></div>
+  <div class="bar">
+    <div class="seg" data-w="3"><span>点の非一意性</span></div>
+    <div class="seg" data-w="3"><span>relevant kinds</span></div>
+    <div class="seg" data-w="3"><span>exemplification</span></div>
+    <div class="seg" data-w="2"><span>階層化する weighting</span></div>
+    <div class="seg" data-w="3"><span>ordering＝物語</span></div>
+    <div class="seg" data-w="2"><span>ANT との接続</span></div>
+    <div class="seg" data-w="2"><span>河合隼雄</span></div>
+    <div class="seg" data-w="3"><span>時間／空間の往復</span></div>
+    <div class="seg" data-w="1"><span>測定と順序</span></div>
+  </div>
+  <p class="weigh-note">この帯そのものが本節の主張である。<b>すべてを強調することは、何も強調しないこと</b>——だから濃淡が要る。</p>
+</div>
+
+<div class="pos">
+  <div><dt>読了</dt><dd>§1.4(a) Composition</dd></div>
+  <div class="now"><dt>現在地</dt><dd>§1.4(b) Weighting</dd></div>
+  <div><dt>次</dt><dd>§1.4(c) Ordering 本体</dd></div>
+</div>
+
+<!-- 拾った概念 -->
+<section>
+  <h2><i>01</i> 拾った概念</h2>
+  <p class="h2sub">テキストから直接取り出したもの</p>
+
+  <div class="item">
+    <span class="tag k">Composition</span>
+    <h3>定義可能性は同一性ではない</h3>
+    <p>点は「体積の入れ子」「線の対」「平面の三つ組」のいずれとしても等しくうまく定義できる。だがそれは、一つの世界の内部でそれらが同一物だという意味ではない。<span class="en">for all these are different from each other.</span></p>
+    <p>複数の構成経路がありうることと、それらが一つの自己に重ね合わせ可能であることは、別のことである。</p>
+  </div>
+
+  <div class="item">
+    <span class="tag k">Weighting</span>
+    <h3>在庫の差ではなく、振り分けの差</h3>
+    <p>Goodmanは自分の言い方をその場で訂正する。「一方に種が欠けている」ではなく、「両方とも同じクラスを持ち、関連する種／しない種への振り分けが違う」。世界間の差異が、<em>在庫の差</em>から<em>強調の差</em>へ移される。</p>
+  </div>
+
+  <div class="item">
+    <span class="tag k">Weighting</span>
+    <h3>ピエロのキリストとレンブラントのキリスト</h3>
+    <p>指しているもの（denotation）は同じでも、何を際立たせたかが違えば別の世界に属する。grue が時間的境界で種を裂いたのと同じ操作を、絵画が行っている。</p>
+  </div>
+
+  <div class="item">
+    <span class="tag k">Weighting</span>
+    <h3>exemplification は逆方向に走る</h3>
+    <p>指示は記号から外の対象へ向かう。例示は逆で、記号が自身の持つ特徴を掲げる。悲しみという語を一つも含まない詩が、その言語の質において悲しみを表現する。</p>
+    <p>これも劣らず記号的な指示機能であり、<em>世界制作の道具</em>である。</p>
+  </div>
+
+  <div class="item">
+    <span class="tag k">Weighting → Ordering</span>
+    <h3>重みづけは二値ではなく階層をなす</h3>
+    <p>relevant／irrelevant の二分だけではない。有用性や価値の格づけは、しばしば二分法ではなく階層を生む。そしてその階層は<em>順序づけの一種</em>である——ここで (c) へ橋が架かる。</p>
+  </div>
+</section>
+
+<!-- 対話で立ち上がった糸 -->
+<section>
+  <h2><i>02</i> 対話で立ち上がった糸</h2>
+  <p class="h2sub">読みから派生したもの</p>
+
+  <div class="item">
+    <span class="tag s">社会 · ANT</span>
+    <h3>アクターはその都度立ち上がる</h3>
+    <p>中根とダンボールで遊んだアクターと、タモちゃんと糸電話で遊んだアクターは別バージョン。ラトゥールのアクターも本質を持たず、関係のネットワークのなかで立ち上がる。</p>
+    <p>ただし切り口が一段ずれる。<em>ANTは「誰が参加しているか」を問い、Goodmanは「同じ参加者でもどの側面が relevant kind か」を問う。</em>Goodmanの weighting は、在庫が同じでも成立する。</p>
+  </div>
+
+  <div class="item">
+    <span class="tag p">個人</span>
+    <h3>誰かを語るとき、例示できるかが問題になる</h3>
+    <p>ダンボールと遊ぶ人は「私は遊ぶ人間だ」と denote していない。ただその質を掲げていた。人物評は denotation の在庫合戦になりがちだが、実際に相手を知っている人だけが持っているのは<em>例示の記憶</em>の方である。</p>
+  </div>
+
+  <div class="item">
+    <span class="tag p">個人 · versioning</span>
+    <h3>四象限：語ったものと、掲げていたもの</h3>
+    <p>versioning の記述は、二つの軸の交差で読める。</p>
+    <div class="quad">
+      <div class="hd"></div>
+      <div class="hd">A · 同一世界内の weighting 変化</div>
+      <div class="hd">B · 別世界間の translation</div>
+      <div class="rw">Denotation<br>語った自己記述</div>
+      <div>同じ経験の集合のまま、自分について語る言葉の重心が移った</div>
+      <div>自己記述の構成そのものが変わり、事後的に翻訳で繋いでいる</div>
+      <div class="rw">Exemplification<br>掲げていた質</div>
+      <div>振る舞いの在庫は同じで、前景に出る質が入れ替わった</div>
+      <div>掲げる質が別の組織を持ち、以前の版とは通約できない</div>
+    </div>
+  </div>
+
+  <div class="item">
+    <span class="tag s">社会 · 制度</span>
+    <h3>結婚は差異を社会的に登録する装置</h3>
+    <p>二人のあいだでだけ relevant だった種を、公的な世界のなかで relevant kind として承認させる手続き。個人の worldmaking が制度と接続する結節点。</p>
+    <div class="caution"><b>留保：</b>「新しい世界を産むことが正しいバージョンの証明になる」は、Goodmanからは支持されない。彼の rightness は fit・coherence・受容の履歴で測られ、<em>産出の事実が正しさを証明するという論理はない</em>。それを認めると「より多く作った版が正しい」となり、彼が拒否した単一の特権的基準の裏返しになる。二つの主張は分けた方が強い。</div>
+  </div>
+
+  <div class="item">
+    <span class="tag p">個人</span>
+    <h3>関係が変わることを、誰のバージョン変化として書くか</h3>
+    <p>「相手を変えることもバージョンの違い」は形式的には成立する。だが二つの負荷がかかる。</p>
+    <p>一つは<em>記述と正当化の混同</em>。「別バージョンである」は記述だが、「だからどちらも等しく正しい」へ滑りやすい。Goodmanは版が複数あることが<em>どの版でもよい</em>ことを意味しないと繰り返す。right versions と mere versions の区別が議論の生命線。</p>
+    <p>もう一つは<em>相手が背景に退くこと</em>。同一性の条件は自他が共同で構築する——その原則を適用すれば、変わったのは一人のバージョンではなく、<em>二人で作っていた世界が終わった</em>、という記述になる。</p>
+  </div>
+
+  <div class="item">
+    <span class="tag s">哲学 · 物語</span>
+    <h3>河合隼雄と Goodman のズレ</h3>
+    <p>物語は ordering そのものである。同じ出来事の集合でも、どれを発端とし、どれを転回点とするかで別の人生になる。Goodmanが「地図の空間的順序は旅の時間的順序へ翻訳される」と書いたその操作が、物語の作られ方である。</p>
+    <p>ただし役割が違う。<em>河合の物語論は臨床から出ている</em>——そうしないと人が生きられないから必要とされ、その人を救うかどうかで測られる。Goodmanの version にその基準はなく、慰めになるかどうかは正しさに入らない。</p>
+    <div class="caution"><b>注意：</b>「生きるとは自分のバージョンを作り出すこと」は、河合から<em>作ってよいという許可</em>を、Goodmanから<em>複数ありうるという多元性</em>を取る。だが河合の臨床的な歯止め（その物語で本当に生きられるか）も、Goodmanの認識論的な歯止め（fit しているか）も、両方こぼれ落ちる危険がある。</div>
+    <p>河合の方が先に行っている点：自分で自分の物語を作れないときがあると知っている。だから他者が要る。<em>物語は単独制作ではなく、聴かれることで成立する。</em></p>
+  </div>
+</section>
+
+<!-- 時間と空間 -->
+<section>
+  <h2><i>03</i> 時間と空間の往復</h2>
+  <p class="h2sub">本セッションで最も遠くまで届いた線</p>
+
+  <div class="pull">
+    <p>時間を空間化するものが近代的なもの、合理主義で、空間を時間化するのがロックである。</p>
+    <div class="src">橘川幸夫</div>
+  </div>
+
+  <div class="item">
+    <span class="tag s">社会 · 企業</span>
+    <h3>「時間を支配している」という記述は非対称である</h3>
+    <p>覇権を志向する企業は、空間を<em>能動的に</em>組織している。市場を分割し、領域を獲得し、拠点を配置する——ここには支配と呼べる作用がある。</p>
+    <p>しかし長寿企業の側に、同じ強さの能動性があるとは限らない。あるのは「生き延びた」という結果だけで、そこに時間を支配する意志や技術があったかは結果からは読み取れない。<em>空間の支配は行為だが、時間の存続は多くの場合、結果である。</em></p>
+    <p>この非対称を見落とすと生存者バイアスに落ちる。消えた日本企業は膨大にある。残った側だけを見て「時間を支配した」と記述することは、<em>結果を原因に読み替える</em>操作にほかならない。</p>
+  </div>
+
+  <div class="item">
+    <span class="tag k">立て直し</span>
+    <h3>支配の対象ではなく、relevant kind の差</h3>
+    <p>両者の違いは「空間か時間か」ではなく、何を relevant kind として数えているかの違いである。覇権型は市場シェア・領域・拡大速度を、長寿型は継承・取引先との関係・次代へ渡せるかを関連する種として組織する。在庫は同じ「会社」でも、前景に置くものが違えば別の世界が立ち上がる。</p>
+    <p>この立て方の利点は<em>優劣の判定を留保できる</em>こと。「すぐ消える／長く続く」を軸にすると長寿が自動的に勝ちになるが、存続の長さ自体が rightness の基準かは問い直される。<em>存続の事実は、正しさを証明しない</em>——「産むことが正しさの証明になる」への留保と同じ構造。</p>
+  </div>
+
+  <div class="item">
+    <span class="tag p">実践</span>
+    <h3>この読書そのものが往復である</h3>
+    <p>橘川の定式は対立として立てられている。だが実践のレベルでは、二つは<em>往復</em>として現れる。</p>
+    <p>Goodmanの本は空間的対象であり、目次も章立ても一望できる。それを数ヶ月かけて順に通過する<em>時間へ翻訳</em>している。ダッシュボードは、その通過の軌跡を<em>もう一度空間化した</em>もの。そして再び時間化して、次の節を読む。</p>
+    <p>翻訳は一方向ではない。時間化して読み、空間化して記録し、また時間化して進む——<em>この循環自体が worldmaking の運動である。</em>対立として立てられたものを、実践としては両方使っている。</p>
+    <p>企業論にも戻せる。覇権型と長寿型を「空間か時間か」で二分するのではなく、<em>両者がその往復をどう回しているか</em>で見る方が、記述として強い。</p>
+  </div>
+</section>
+
+<!-- anchor -->
+<section>
+  <h2><i>04</i> anchor の更新</h2>
+  <p class="h2sub">既存の一行に、本節が加えたもの</p>
+
+  <div class="pull">
+    <p>完全合理性は武器を作り、限定合理性は歌を作る。</p>
+    <div class="src">既存 anchor</div>
+  </div>
+
+  <div class="item">
+    <span class="tag p">更新</span>
+    <h3>限定合理性は二値ではなく、濃淡を持つ</h3>
+    <p>前節までの限定合理性は「捨てる／残す」の二値で語られていた。ここでGoodmanは、格づけが階層を生むことを認める。全捨象でも全保持でもなく、<em>どれをより前に、どれをより後ろに</em>という配分。</p>
+    <p>歌は、音を鳴らす／鳴らさないの二進法ではなく、強弱の階層で旋律になる。weighting が ordering へ滑り込むこの一歩は、比喩を字義通り裏書きする。</p>
+  </div>
+
+  <div class="item">
+    <span class="tag p">候補</span>
+    <h3>捨てることが、作ること</h3>
+    <p>全クラスを relevant kind として扱う世界は、アクセントを一つも持たない世界であり、世界として組織されていない。歌にならない。三本柱の同型性（Goodman／Nietzsche／Simon-Sarasvathy）に渡す<em>四本目の梁</em>としての候補。</p>
+  </div>
+</section>
+
+<footer>
+  <span>§1.4(a)–(c) · Weighting / Ordering</span>
+  <span>次回 → 色相環・音階・測定と順序</span>
+</footer>
+
+</div>
+</body>
+</html>
