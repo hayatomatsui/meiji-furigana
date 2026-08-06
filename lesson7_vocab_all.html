@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 7 単語・熟語 総合リスト｜New England and the American Revolution</title>
+<style>
+:root{
+  --g3:#4CAF50; --g3p:#8BC34A; --g2:#03A9F4; --g2p:#7E57C2; --g1:#E91E63; --gx:#F44336;
+  --tw:#ff6a3d; --ti:#1668c7;
+  --bg:#f4f6fb; --card:#fff; --ink:#1b2233; --sub:#6b7590;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+  background:var(--bg);color:var(--ink);padding:18px;line-height:1.65}
+.wrap{max-width:1180px;margin:0 auto}
+header{background:linear-gradient(135deg,#ff7043,#e64a19 40%,#6a1b9a);color:#fff;
+  border-radius:18px;padding:26px 24px;margin-bottom:18px;box-shadow:0 8px 26px rgba(230,74,25,.25)}
+header h1{font-size:1.4rem;margin-bottom:6px}
+header p{opacity:.93;font-size:.87rem}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:15px}
+.stat{background:rgba(255,255,255,.2);border-radius:12px;padding:8px 14px;font-size:.8rem}
+.stat b{font-size:1.15rem;display:block}
+h2{font-size:1.03rem;margin:24px 0 10px;padding-left:12px;border-left:5px solid #e64a19}
+
+.ansbox{background:#fff;border-radius:14px;padding:16px 18px;box-shadow:0 2px 10px rgba(0,0,0,.07)}
+.ansgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin-top:10px}
+.acard{border:2px solid #eef1f6;border-radius:12px;padding:10px 12px;cursor:pointer;user-select:none;transition:.15s}
+.acard:hover{border-color:#e64a19}
+.acard .n{font-size:.72rem;color:var(--sub);font-weight:700}
+.acard .a{font-size:.95rem;font-weight:800;color:#e64a19;margin-top:3px}
+.acard .k{font-size:.72rem;color:var(--sub);margin-top:3px;font-weight:400}
+.acard.hid .a,.acard.hid .k{filter:blur(7px)}
+
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 14px}
+.lbl{font-size:.72rem;color:var(--sub);font-weight:700;margin-right:2px}
+button{font-family:inherit;cursor:pointer;border:none;border-radius:999px;padding:8px 15px;
+  font-size:.82rem;font-weight:700;transition:.15s;background:#fff;color:var(--sub);
+  box-shadow:0 2px 6px rgba(0,0,0,.08)}
+button:hover{transform:translateY(-1px)}
+button.on{background:#1b2233;color:#fff}
+.util{background:#ffe4dd;color:#bf360c}
+.sw{display:inline-flex;background:#fff;border-radius:999px;padding:4px;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.sw button{box-shadow:none;padding:8px 18px}
+.sw button.on{background:linear-gradient(135deg,#e64a19,#6a1b9a);color:#fff}
+.spacer{flex:1}
+
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;
+  box-shadow:0 2px 10px rgba(0,0,0,.07)}
+th,td{padding:10px 13px;text-align:left;border-bottom:1px solid #eef1f6;font-size:.87rem;vertical-align:top}
+th{background:#1b2233;color:#fff;font-size:.76rem;letter-spacing:.04em;position:sticky;top:0;z-index:2}
+tbody tr:nth-child(even){background:#fafbfe}
+tbody tr:hover{background:#fff4f0}
+tbody tr.done{opacity:.4}
+td.ph{font-weight:700}
+td.mn{cursor:pointer}
+tr.hid td.mn,tr.hid td.exc{filter:blur(5px);opacity:.5}
+td.exc{color:#5c6580;font-style:italic;font-size:.79rem}
+td.ln{color:#aab2c4;font-size:.75rem;white-space:nowrap}
+.mark{cursor:pointer;color:#c9cfdd;font-weight:800;user-select:none}
+tr.done .mark{color:#4CAF50}
+.bar{height:9px;border-radius:5px;display:inline-block;vertical-align:middle;margin-right:8px}
+.sumtbl td,.sumtbl th{font-size:.85rem}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:12px}
+.card{background:var(--card);border-radius:14px;padding:14px 16px;cursor:pointer;
+  box-shadow:0 2px 8px rgba(0,0,0,.07);border-left:6px solid #ccc;transition:.18s;
+  position:relative;user-select:none}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.12)}
+.card.done{opacity:.42}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.phrase{font-size:1.05rem;font-weight:700}
+.badge{font-size:.65rem;font-weight:800;color:#fff;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.tag{font-size:.63rem;font-weight:800;padding:2px 8px;border-radius:999px;color:#fff}
+.tag.w{background:var(--tw)} .tag.i{background:var(--ti)}
+.meaning{margin-top:9px;padding-top:9px;border-top:1px dashed #dde2ec;font-size:.92rem}
+.ex{margin-top:7px;font-size:.77rem;color:#5c6580;font-style:italic}
+.hidden .meaning,.hidden .ex{filter:blur(6px);opacity:.5}
+.hint{font-size:.66rem;color:#b9c0d0;margin-top:6px}
+.line{font-size:.67rem;color:#aab2c4;margin-top:3px}
+.check{position:absolute;top:8px;right:10px;font-size:.66rem;color:#4CAF50;display:none;font-weight:800}
+.card.done .check{display:block}
+.hide{display:none}
+@media(max-width:640px){body{padding:12px}th,td{padding:8px 9px;font-size:.79rem}td.exc,th.exc{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Lesson 7 — 単語・熟語 総合リスト（New England and the American Revolution）</h1>
+  <p>単語と熟語を1つにまとめました。「カード形式／表形式」「単語／熟語」を自由に切り替えて暗記できます。</p>
+  <div class="stats">
+    <div class="stat"><b id="total">0</b>総項目</div>
+    <div class="stat"><b id="nw">0</b>単語</div>
+    <div class="stat"><b id="ni">0</b>熟語・構文</div>
+    <div class="stat"><b id="shown">0</b>表示中</div>
+    <div class="stat"><b id="doneN">0</b>覚えた</div>
+  </div>
+</header>
+
+<h2>空所のカギ（タップで表示）</h2>
+<div class="ansbox">
+  <div style="font-size:.82rem;color:var(--sub)">先に自分で解いてから確認してください。</div>
+  <div class="ansgrid" id="ansgrid"></div>
+</div>
+
+<h2>レベル別分布（単語 / 熟語 内訳つき）</h2>
+<table class="sumtbl"><thead><tr><th>英検レベル</th><th>合計</th><th>単語</th><th>熟語</th><th>割合</th><th>目安</th></tr></thead>
+<tbody id="sumbody"></tbody></table>
+
+<div class="controls" style="margin-top:22px">
+  <span class="sw"><button id="bCard" class="on" onclick="setView('card')">カード形式</button><button id="bTable" onclick="setView('table')">表形式</button></span>
+  <span class="spacer"></span>
+  <span class="sw"><button id="tAll" class="on" onclick="setType('all')">単語＋熟語</button><button id="tW" onclick="setType('単語')">単語のみ</button><button id="tI" onclick="setType('熟語')">熟語のみ</button></span>
+</div>
+
+<div class="controls"><span class="lbl">レベル</span><span id="filters" style="display:contents"></span></div>
+<div class="controls">
+  <button class="util" onclick="allHide()">すべて隠す</button>
+  <button class="util" onclick="allShow()">すべて表示</button>
+  <button class="util" onclick="shuffle()">シャッフル</button>
+  <button class="util" onclick="resetOrder()">本文順に戻す</button>
+  <button class="util" onclick="resetDone()">「覚えた」リセット</button>
+  <span class="spacer"></span>
+  <button class="util" id="hideDoneBtn" onclick="toggleDoneFilter()">覚えた項目を隠す</button>
+</div>
+
+<div id="cardView"><div class="grid" id="grid"></div></div>
+<div id="tableView" class="hide">
+  <table><thead><tr><th style="width:30px"></th><th style="width:46px">種類</th><th>語句</th><th>意味</th><th class="exc">本文での使われ方</th><th>レベル</th><th>行</th></tr></thead>
+  <tbody id="tbody"></tbody></table>
+</div>
+
+</div>
+
+<script>
+const ANS=[
+ ["空所 ア（問2）","③ which","前の内容（地図を作り本を書いたこと）全体を受ける、非制限用法の関係代名詞 which"],
+ ["空所 イ（問3）","② unwelcome","前文の tensions were running high と因果でつながる。「歓迎されない存在」の意"]
+];
+document.getElementById("ansgrid").innerHTML=ANS.map(a=>
+ `<div class="acard hid"><div class="n">${a[0]}</div><div class="a">${a[1]}</div><div class="k">${a[2]}</div></div>`).join("");
+[...document.getElementById("ansgrid").children].forEach(c=>c.onclick=()=>c.classList.toggle("hid"));
+
+const LV={
+ "3級":{c:"var(--g3)",note:"中学卒業程度"},
+ "準2級":{c:"var(--g3p)",note:"高校中級程度"},
+ "2級":{c:"var(--g2)",note:"高校卒業程度"},
+ "準1級":{c:"var(--g2p)",note:"大学中級程度"},
+ "1級":{c:"var(--g1)",note:"大学上級程度"},
+ "級外":{c:"var(--gx)",note:"専門語・注釈必須"}
+};
+// [語句, 意味, 本文での使われ方, レベル, 行, 種類]
+const DATA=[
+ ["region","名 地域、地方","The New England region, located in the northeast part of the US","2級",1,"単語"],
+ ["located in ~","~に位置する（分詞の後置修飾）","The New England region, located in the northeast part","2級",1,"熟語"],
+ ["one of the first ~","最初期の~の一つ","was one of the first areas where English-speaking people came over","3級",2,"熟語"],
+ ["English-speaking","形 英語を話す","English-speaking people came over","3級",2,"単語"],
+ ["come over","（海を越えて）やって来る、渡って来る","English-speaking people came over, sailing across the Atlantic Ocean","2級",2,"熟語"],
+ ["sail across ~","~を航海して渡る","sailing across the Atlantic Ocean","2級",3,"熟語"],
+ ["the Atlantic Ocean","名 大西洋","sailing across the Atlantic Ocean","準2級",3,"単語"],
+ ["for this reason","このため、こういう理由で","For this reason, the New England states were very important","3級",3,"熟語"],
+ ["cultural development","名 文化的発展","the early history and cultural development of the United States","2級",4,"単語"],
+ ["think of A as B","AをBだと考える・みなす","many people think of New England towns ... as \"typically American\"","2級",5,"熟語"],
+ ["shared green fields","名 共有の緑地（コモン）","with their white churches and shared green fields","2級",6,"単語"],
+ ["originally","副 元々は、当初は","(originally used for feeding cattle...)","2級",6,"単語"],
+ ["be used for ~ing","~するために使われる","originally used for feeding cattle","3級",6,"熟語"],
+ ["feed cattle","家畜に餌をやる、牛を飼育する","used for feeding cattle and as an open-air meeting place","2級",6,"熟語"],
+ ["cattle","名 牛、家畜","used for feeding cattle","2級",6,"単語"],
+ ["open-air","形 野外の、屋外の","as an open-air meeting place","準1級",7,"単語"],
+ ["typically","副 典型的に、いかにも~らしく","as \"typically American\"","2級",7,"単語"],
+ ["be named by ~","~によって名づけられる","New England was named by the English explorer John Smith","3級",8,"熟語"],
+ ["explorer","名 探検家","the English explorer John Smith","準2級",8,"単語"],
+ ["train 人 to do","人に~するよう訓練する・教え込む","who trained the first settlers to farm and work","2級",8,"熟語"],
+ ["settler","名 入植者、開拓者","trained the first settlers to farm and work","準1級",9,"単語"],
+ ["farm","動 農業をする、耕作する","to farm and work","3級",9,"単語"],
+ ["colony","名 植民地【語注*1】","when the Jamestown colony ... was established","2級",9,"単語"],
+ ["permanent","形 永続的な、恒久の","the first permanent English settlement","準1級",10,"単語"],
+ ["settlement","名 入植地、集落","the first permanent English settlement","準1級",10,"単語"],
+ ["establish","動 設立する、築く","the first permanent English settlement, was established","2級",10,"単語"],
+ ["travel along ~","~に沿って旅する","He travelled along the coast of Maine and Massachusetts","3級",10,"熟語"],
+ ["coast","名 海岸、沿岸","along the coast of Maine and Massachusetts","2級",10,"単語"],
+ ["look for ~","~を探す","in 1641 looking for gold, fish, and furs","3級",11,"熟語"],
+ ["fur","名 毛皮","looking for gold, fish, and furs","2級",11,"単語"],
+ ["coastal","形 沿岸の、海岸の","This coastal area with its mountains, valleys, rivers","準1級",11,"単語"],
+ ["valley","名 谷、渓谷","with its mountains, valleys, rivers, and rolling hills","準2級",12,"単語"],
+ ["rolling hills","名 なだらかに起伏する丘【語注*4】","rivers, and rolling hills","準1級",12,"単語"],
+ ["remind A of B","AにBを思い出させる","This coastal area ... reminded him of his native country","2級",12,"熟語"],
+ ["native country","名 母国、故国","reminded him of his native country","2級",13,"単語"],
+ ["call A B","AをBと呼ぶ","so he called it \"New England\"","3級",13,"熟語"],
+ ["in addition","加えて、さらに","In addition, he made a good map of the New England coast","2級",13,"熟語"],
+ ["return to ~","~に戻る、帰る","wrote about the area when he returned to England","3級",14,"熟語"],
+ ["非制限用法の which","前の内容全体を受ける関係代名詞【空所アの答え】","England, (which) encouraged and supported the British colonization","2級",15,"熟語"],
+ ["encourage","動 促進する、後押しする","which encouraged and supported the British colonization","2級",15,"単語"],
+ ["support","動 支援する、支える","encouraged and supported the British colonization","3級",15,"単語"],
+ ["colonization","名 植民地化【語注*5】","the British colonization of North America","級外",15,"単語"],
+ ["among ~","~の中で、~のうちで","Among the thirteen English colonies","2級",17,"熟語"],
+ ["the starting point of ~","~の出発点、発端","very important as the starting point of the American Revolution","2級",18,"熟語"],
+ ["revolution","名 革命","the starting point of the American Revolution","2級",18,"単語"],
+ ["in particular","特に、とりわけ","In particular, the town of Boston was the center of opposition","2級",18,"熟語"],
+ ["the center of ~","~の中心","the town of Boston was the center of opposition","3級",19,"熟語"],
+ ["opposition between A and B","AとBの対立","the center of opposition between the colonists and the British government","準1級",19,"熟語"],
+ ["opposition","名 対立、反対","the center of opposition","準1級",19,"単語"],
+ ["colonist","名 植民地住民【語注*6】","opposition between the colonists and the British government","級外",19,"単語"],
+ ["in the beginning of ~","~の初めに","In the beginning of 1770, there were 4,000 British soldiers","3級",20,"熟語"],
+ ["inhabitant","名 住民【語注*7】","4,000 British soldiers living there with 15,000 inhabitants","準1級",21,"単語"],
+ ["tension","名 緊張、緊迫状態","tensions between them were running high","2級",21,"単語"],
+ ["run high","（感情・緊張が）高まる","tensions between them were running high","準1級",21,"熟語"],
+ ["specifically","副 具体的には、とりわけ","Specifically, the presence of British troops in Boston was...","準1級",22,"単語"],
+ ["presence","名 存在、駐留","the presence of British troops in Boston","2級",22,"単語"],
+ ["troops","名 軍隊、部隊","the presence of British troops in Boston","準1級",22,"単語"],
+ ["increasingly","副 ますます、次第に","was increasingly unwelcome","準1級",22,"単語"],
+ ["unwelcome","形 歓迎されない、迷惑な【空所イの答え】","was increasingly (unwelcome) because of high taxes","準1級",23,"単語"],
+ ["because of ~","~のせいで、~が原因で","because of high taxes imposed by the British government","3級",23,"熟語"],
+ ["impose taxes on ~","~に税を課す","high taxes imposed by the British government","準1級",23,"熟語"],
+ ["impose","動 （税・罰などを）課す、押しつける","high taxes imposed by the British government","準1級",23,"単語"],
+ ["as a result of ~","~の結果として","As a result of this high tension, a riot occurred on King Street","3級",24,"熟語"],
+ ["riot","名 暴動、騒動","a riot occurred on King Street","準1級",24,"単語"],
+ ["occur","動 起こる、発生する","a riot occurred on King Street","2級",24,"単語"],
+ ["citizen","名 市民、住民","between Boston citizens and a troop of British soldiers","準2級",25,"単語"],
+ ["a troop of ~","一隊の~、一団の~","a troop of British soldiers","準1級",25,"熟語"],
+ ["be caused when ...","…したときに引き起こされる","The riot was caused when British officials ordered the removal","2級",25,"熟語"],
+ ["official","名 役人、当局者","when British officials ordered the removal","2級",25,"単語"],
+ ["order the removal of ~","~の退去を命じる","ordered the removal of all residents","準1級",26,"熟語"],
+ ["removal","名 退去、撤去【語注*8】","ordered the removal of all residents","準1級",26,"単語"],
+ ["resident","名 居住者、住民","the removal of all residents of the Boston Manufactory House","準1級",26,"単語"],
+ ["live in poverty","貧困の中で暮らす","a building for people living in poverty","2級",27,"熟語"],
+ ["poverty","名 貧困","people living in poverty","2級",27,"単語"],
+ ["those who ~","~する人々","those who were ill, and those who were homeless","2級",27,"熟語"],
+ ["homeless","形 住む家のない","those who were homeless","準2級",28,"単語"],
+ ["so that S could V","SがVできるように（目的）","so that the British soldiers could be stationed there","2級",28,"熟語"],
+ ["be stationed","駐留する、配置される","so that the British soldiers could be stationed there","準1級",28,"熟語"],
+ ["put up resistance","抵抗する、反抗する","the Manufactory House's homeless people put up resistance","準1級",29,"熟語"],
+ ["resistance","名 抵抗、反抗","put up resistance","2級",29,"単語"],
+ ["townspeople","名 町の人々、住民","angry townspeople surrounded a British soldier","準1級",30,"単語"],
+ ["surround","動 取り囲む","angry townspeople surrounded a British soldier","2級",30,"単語"],
+ ["shout insults","罵声を浴びせる","shouting insults and throwing stones and sticks at him","準1級",30,"熟語"],
+ ["insult","名 侮辱、侮辱的な言葉【語注*10】","shouting insults","準1級",30,"単語"],
+ ["throw A at B","AをBに投げつける","throwing stones and sticks at him","3級",31,"熟語"],
+ ["fire into the crowd","群衆に向けて発砲する","The soldiers then fired into the crowd","2級",31,"熟語"],
+ ["crowd","名 群衆、人だかり","fired into the crowd","準2級",31,"単語"],
+ ["on the spot","その場で、即座に","killing three people on the spot","2級",32,"熟語"],
+ ["wound","動 傷つける、負傷させる","wounding eight others, two of whom died later","2級",32,"単語"],
+ ["two of whom","そのうちの2人は（関係代名詞の非制限用法）","wounding eight others, two of whom died later","準1級",32,"熟語"],
+ ["awful","形 恐ろしい、ひどい","This awful event is known as the \"Boston Massacre.\"","2級",33,"単語"],
+ ["be known as ~","~として知られている","This awful event is known as the \"Boston Massacre.\"","3級",33,"熟語"],
+ ["massacre","名 虐殺【語注*11】","the \"Boston Massacre\"","1級",33,"単語"],
+ ["key event","名 重要な出来事","Another key event leading up to the American Revolution","2級",34,"単語"],
+ ["lead up to ~","~につながる、~の前段階となる","Another key event leading up to the American Revolution","準1級",34,"熟語"],
+ ["be deep in debt","深く借金を抱えている","Britain was deep in debt due to its involvement in a lot of wars","準1級",35,"熟語"],
+ ["debt","名 借金、負債","Britain was deep in debt","2級",35,"単語"],
+ ["due to ~","~が原因で","deep in debt due to its involvement in a lot of wars","2級",35,"熟語"],
+ ["involvement in ~","~への関与、関わり","due to its involvement in a lot of wars","準1級",36,"熟語"],
+ ["keep an army","軍を維持する、駐留させる","because it kept an army in America","2級",36,"熟語"],
+ ["Parliament","名 議会（英国）","the British Parliament imposed a series of taxes","準1級",37,"単語"],
+ ["a series of ~","一連の~","imposed a series of taxes on American colonists","2級",37,"熟語"],
+ ["help (to) do","~するのに役立つ","to help pay those debts","3級",37,"熟語"],
+ ["feel that ...","…だと感じる、思う","The British government felt that the taxes were fair","3級",38,"熟語"],
+ ["fair","形 公平な、妥当な","felt that the taxes were fair","準2級",38,"単語"],
+ ["since ...","接 …だから（理由）","since much of its debt was caused by fighting wars","2級",38,"熟語"],
+ ["on one's behalf","~のために、~に代わって","fighting wars on the colonists' behalf","準1級",39,"熟語"],
+ ["at that time","当時は","At that time, tea was a favorite drink","3級",40,"熟語"],
+ ["a favorite drink","名 好まれる飲み物","tea was a favorite drink among the British","3級",40,"単語"],
+ ["pass a law / an act","法律を可決する","the British Parliament passed the Tea Act","2級",41,"熟語"],
+ ["act","名 法令、条例","passed the Tea Act","2級",41,"単語"],
+ ["allow 人 to do","人が~するのを許す・可能にする","which allowed the British East India Company to sell tea","2級",42,"熟語"],
+ ["duty-free","形・副 免税の、関税なしで","to sell tea to the colonies duty-free","準1級",42,"単語"],
+ ["much cheaper than ~","~よりずっと安く","duty-free and much cheaper than other tea companies","3級",42,"熟語"],
+ ["be taxed","課税される","the tea was still taxed when it reached colonial ports","2級",43,"熟語"],
+ ["colonial","形 植民地の","when it reached colonial ports","準1級",44,"単語"],
+ ["port","名 港","reached colonial ports","準2級",44,"単語"],
+ ["be told that ...","…だと告げられる","the colonists were told that they could only buy tea from...","3級",44,"熟語"],
+ ["pay taxes on ~","~に対する税を払う","They had to pay high taxes on the tea","2級",45,"熟語"],
+ ["think it 形容詞 for A to do","Aが~するのは…だと思う（形式目的語）","they thought it unfair for the British government to impose the taxes","準1級",46,"熟語"],
+ ["unfair","形 不公平な、不当な","they thought it unfair for the British government to impose the taxes","2級",46,"単語"],
+ ["a meeting was held","会合が開かれた","a meeting was held at the Old South Meeting House","3級",47,"熟語"],
+ ["vote to do","~することを決議する・投票で決める","a large group of colonists voted to refuse to pay taxes","2級",48,"熟語"],
+ ["refuse to do","~することを拒む","voted to refuse to pay taxes on the tea","2級",48,"熟語"],
+ ["dress up as ~","~の格好をする、~に扮装する","the Sons of Liberty dressed up as Native American Indians","2級",49,"熟語"],
+ ["liberty","名 自由","a group of men called the Sons of Liberty","2級",49,"単語"],
+ ["board a ship","船に乗り込む","boarded three trade ships in Boston Harbor","2級",50,"熟語"],
+ ["trade ship","名 商船、貿易船","boarded three trade ships in Boston Harbor","2級",50,"単語"],
+ ["harbor","名 港、入り江","three trade ships in Boston Harbor","2級",50,"単語"],
+ ["throw A into B","AをBに投げ込む","threw 342 chests of tea into the water","3級",50,"熟語"],
+ ["chest","名 大箱、木箱","342 chests of tea","2級",51,"単語"],
+ ["the act of ~ing","~するという行為","The act of wearing American Indian dress","2級",51,"熟語"],
+ ["be meant to do","~することを意図している","was meant to express to the world that...","準1級",51,"熟語"],
+ ["express to ~ that ...","~に…だと表明する","meant to express to the world that the American colonists identified themselves as...","2級",52,"熟語"],
+ ["identify oneself as ~","自分を~だと認識する・名乗る","the American colonists identified themselves as \"Americans\"","準1級",52,"熟語"],
+ ["no longer ~","もはや~でない","no longer considered themselves British","2級",53,"熟語"],
+ ["consider oneself ~","自分を~だと考える","no longer considered themselves British","2級",53,"熟語"],
+ ["costume","名 衣装、扮装","their Native American costumes confused the British soldiers","2級",54,"単語"],
+ ["confuse","動 混乱させる、当惑させる","their costumes confused the British soldiers","2級",54,"単語"],
+ ["be arrested","逮捕される","only one of the members was arrested","2級",55,"熟語"],
+ ["incident","名 出来事、事件","The incident was the first major act of open resistance","準1級",55,"単語"],
+ ["open resistance","名 公然たる抵抗","the first major act of open resistance to British rule","準1級",55,"単語"],
+ ["rule over ~","~に対する支配","open resistance to British rule over the colonists","2級",56,"熟語"],
+ ["have an influence on ~","~に影響を与える","John Smith had a great influence on the expansion of colonies（問6①）","2級",0,"熟語"],
+ ["expansion","名 拡大、拡張","the expansion of colonies governed by the British government（問6①）","準1級",0,"単語"],
+ ["govern","動 統治する、支配する","colonies governed by the British government（問6①）","準1級",0,"単語"],
+ ["plan to do","~する計画である","because they planned to rebuild it（問6②）","3級",0,"熟語"],
+ ["rebuild","動 建て直す、再建する","they planned to rebuild it（問6②）","2級",0,"単語"],
+ ["insist that ...","…だと主張する","The British government insisted that its colonies should pay taxes（問6③）","準1級",0,"熟語"],
+ ["thanks to ~","~のおかげで","Thanks to the Tea Act, all tea companies could sell tea（問6④）","3級",0,"熟語"],
+ ["protest against ~","~に抗議する","boarded three trade ships to protest against the taxes（問6⑤）","2級",0,"熟語"]
+];
+
+const ORDER=["3級","準2級","2級","準1級","1級","級外"];
+let data=[...DATA],activeLv="all",activeType="all",hideDone=false;
+const done=new Set();
+
+const cW=DATA.filter(d=>d[5]==="単語").length, cI=DATA.length-cW;
+document.getElementById("total").textContent=DATA.length;
+document.getElementById("nw").textContent=cW;
+document.getElementById("ni").textContent=cI;
+
+const cnt={},cntW={},cntI={};
+ORDER.forEach(l=>{cnt[l]=0;cntW[l]=0;cntI[l]=0;});
+DATA.forEach(d=>{cnt[d[3]]++;(d[5]==="単語"?cntW:cntI)[d[3]]++;});
+document.getElementById("sumbody").innerHTML=ORDER.map(l=>{
+ const n=cnt[l],p=Math.round(n/DATA.length*100);
+ return `<tr><td><span class="badge" style="background:${LV[l].c}">${l}</span></td>
+ <td><b>${n}</b></td><td style="color:var(--tw);font-weight:700">${cntW[l]}</td>
+ <td style="color:var(--ti);font-weight:700">${cntI[l]}</td>
+ <td><span class="bar" style="width:${Math.max(p*2.6,6)}px;background:${LV[l].c}"></span>${p}%</td>
+ <td style="color:var(--sub)">${LV[l].note}</td></tr>`;}).join("");
+
+document.getElementById("filters").innerHTML=
+ `<button class="on" data-lv="all">すべて</button>`+
+ ORDER.map(l=>cnt[l]?`<button data-lv="${l}" style="color:${LV[l].c}">${l} (${cnt[l]})</button>`:"").join("");
+document.getElementById("filters").onclick=e=>{
+ if(e.target.tagName!=="BUTTON")return;
+ [...e.currentTarget.children].forEach(b=>b.classList.remove("on"));
+ e.target.classList.add("on");activeLv=e.target.dataset.lv;render();};
+
+function list(){return data.filter(d=>
+ (activeLv==="all"||d[3]===activeLv)&&
+ (activeType==="all"||d[5]===activeType)&&
+ !(hideDone&&done.has(d[0])));}
+
+function render(){
+ const L=list();
+ document.getElementById("grid").innerHTML=L.map(d=>{
+  const[p,m,ex,lv,ln,ty]=d, t=ty==="単語"?"w":"i";
+  return `<div class="card hidden" data-w="${p}" style="border-left-color:${LV[lv].c}">
+   <span class="check">✓ 覚えた</span>
+   <div class="top"><span class="phrase">${p}</span>
+   <span style="display:flex;flex-direction:column;gap:4px;align-items:flex-end">
+   <span class="badge" style="background:${LV[lv].c}">${lv}</span>
+   <span class="tag ${t}">${ty}</span></span></div>
+   <div class="line">${ln?"l."+ln:"設問"}</div>
+   <div class="meaning">${m}</div>
+   <div class="ex">${ex}</div>
+   <div class="hint">タップで表示 ／ ダブルクリックで「覚えた」</div></div>`;}).join("");
+ [...document.getElementById("grid").children].forEach(c=>{
+  if(done.has(c.dataset.w))c.classList.add("done");
+  c.onclick=()=>c.classList.toggle("hidden");
+  c.ondblclick=e=>{e.preventDefault();const w=c.dataset.w;
+   done.has(w)?done.delete(w):done.add(w);render();};});
+
+ document.getElementById("tbody").innerHTML=L.map(d=>{
+  const[p,m,ex,lv,ln,ty]=d, t=ty==="単語"?"w":"i";
+  return `<tr class="hid ${done.has(p)?'done':''}" data-w="${p}">
+   <td><span class="mark">✓</span></td>
+   <td><span class="tag ${t}">${ty}</span></td>
+   <td class="ph">${p}</td><td class="mn">${m}</td>
+   <td class="exc">${ex}</td>
+   <td><span class="badge" style="background:${LV[lv].c}">${lv}</span></td>
+   <td class="ln">${ln?"l."+ln:"設問"}</td></tr>`;}).join("");
+ [...document.getElementById("tbody").children].forEach(tr=>{
+  tr.querySelector(".mn").onclick=()=>tr.classList.toggle("hid");
+  tr.querySelector(".exc").onclick=()=>tr.classList.toggle("hid");
+  tr.querySelector(".mark").onclick=()=>{const w=tr.dataset.w;
+   done.has(w)?done.delete(w):done.add(w);render();};});
+
+ document.getElementById("shown").textContent=L.length;
+ document.getElementById("doneN").textContent=done.size;
+}
+
+function setView(v){
+ document.getElementById("cardView").classList.toggle("hide",v!=="card");
+ document.getElementById("tableView").classList.toggle("hide",v!=="table");
+ document.getElementById("bCard").classList.toggle("on",v==="card");
+ document.getElementById("bTable").classList.toggle("on",v==="table");}
+function setType(t){activeType=t;
+ document.getElementById("tAll").classList.toggle("on",t==="all");
+ document.getElementById("tW").classList.toggle("on",t==="単語");
+ document.getElementById("tI").classList.toggle("on",t==="熟語");render();}
+function allHide(){document.querySelectorAll(".card").forEach(c=>c.classList.add("hidden"));
+ document.querySelectorAll("#tbody tr").forEach(t=>t.classList.add("hid"));}
+function allShow(){document.querySelectorAll(".card").forEach(c=>c.classList.remove("hidden"));
+ document.querySelectorAll("#tbody tr").forEach(t=>t.classList.remove("hid"));}
+function shuffle(){for(let i=data.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[data[i],data[j]]=[data[j],data[i]];}render();}
+function resetOrder(){data=[...DATA];render();}
+function resetDone(){done.clear();render();}
+function toggleDoneFilter(){hideDone=!hideDone;
+ document.getElementById("hideDoneBtn").textContent=hideDone?"覚えた項目も表示":"覚えた項目を隠す";render();}
+
+render();
+</script>
+</body>
+</html>
