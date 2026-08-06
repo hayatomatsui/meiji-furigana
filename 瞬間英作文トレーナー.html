@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>瞬間英作文トレーナー — 基本文例132</title>
+<style>
+:root{
+  --bg:#f6f7f9; --card:#ffffff; --ink:#16181d; --sub:#6b7280; --line:#e5e7eb;
+  --accent:#2f6df6; --accent-soft:#eaf1ff;
+  --ok:#16a34a; --ok-soft:#e7f7ec; --mid:#d97706; --mid-soft:#fdf3e2; --ng:#dc2626; --ng-soft:#fdeaea;
+  --radius:16px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,"Segoe UI",sans-serif;
+  line-height:1.7; padding:0 0 60px;
+}
+.wrap{max-width:820px;margin:0 auto;padding:0 16px}
+
+/* Header */
+header{padding:22px 0 14px}
+h1{font-size:19px;margin:0;letter-spacing:.02em}
+h1 span{color:var(--sub);font-weight:400;font-size:13px;margin-left:8px}
+
+/* Progress bar */
+.bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;display:flex;margin-top:12px}
+.bar i{display:block;height:100%}
+.bar .b-ok{background:var(--ok)} .bar .b-mid{background:var(--mid)} .bar .b-ng{background:var(--ng)}
+.stats{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--sub);margin-top:8px}
+.stats b{color:var(--ink);font-weight:600}
+.dot{display:inline-block;width:8px;height:8px;border-radius:99px;margin-right:5px;vertical-align:1px}
+
+/* Controls */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px;margin-top:14px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.row + .row{margin-top:10px}
+label.lb{font-size:12px;color:var(--sub);min-width:64px}
+select,input[type=number]{
+  font:inherit;font-size:14px;padding:7px 9px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink);
+}
+select{max-width:100%}
+input[type=number]{width:74px}
+.seg{display:flex;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#fff}
+.seg button{
+  font:inherit;font-size:13px;padding:7px 12px;border:0;background:#fff;color:var(--sub);cursor:pointer;
+}
+.seg button + button{border-left:1px solid var(--line)}
+.seg button.on{background:var(--accent);color:#fff}
+.mini{font-size:12px;color:var(--sub);background:none;border:0;cursor:pointer;text-decoration:underline;padding:4px}
+
+/* Card */
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:24px 22px;margin-top:16px;box-shadow:0 1px 2px rgba(16,24,40,.04);
+}
+.meta{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:12px;color:var(--sub);margin-bottom:14px}
+.no{font-variant-numeric:tabular-nums;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.tag{background:var(--accent-soft);color:var(--accent);padding:3px 9px;border-radius:99px;font-size:11.5px;font-weight:600;text-align:right}
+.jp{font-size:22px;font-weight:600;line-height:1.75;letter-spacing:.01em}
+@media(max-width:520px){.jp{font-size:19px}}
+
+.answer{margin-top:18px;padding-top:18px;border-top:1px dashed var(--line)}
+.answer.hidden{display:none}
+.en{font-size:21px;font-weight:600;line-height:1.6;font-family:"Helvetica Neue",Arial,sans-serif}
+@media(max-width:520px){.en{font-size:18px}}
+.point{margin-top:10px;font-size:12.5px;color:var(--sub)}
+.point b{color:var(--ink);font-weight:600}
+
+.typebox{margin-top:16px}
+.typebox textarea{
+  width:100%;font:inherit;font-size:16px;font-family:"Helvetica Neue",Arial,sans-serif;
+  padding:11px 12px;border:1px solid var(--line);border-radius:11px;resize:vertical;min-height:64px;background:#fff;color:var(--ink);
+}
+.typebox textarea:focus{outline:2px solid var(--accent-soft);border-color:var(--accent)}
+.diff{margin-top:10px;font-size:15px;font-family:"Helvetica Neue",Arial,sans-serif;line-height:1.9}
+.diff .g{background:var(--ok-soft);color:#12692f;border-radius:4px;padding:1px 3px}
+.diff .b{background:var(--ng-soft);color:#a51b1b;border-radius:4px;padding:1px 3px;text-decoration:line-through}
+.diff .m{background:#eef0f3;color:var(--sub);border-radius:4px;padding:1px 3px}
+.score{font-size:12.5px;color:var(--sub);margin-top:6px}
+
+/* Buttons */
+.actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+.btn{
+  font:inherit;font-size:15px;font-weight:600;padding:12px 18px;border-radius:11px;border:1px solid var(--line);
+  background:#fff;color:var(--ink);cursor:pointer;flex:1;min-width:110px;transition:.12s;
+}
+.btn:hover{border-color:#c8ccd4}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary:hover{background:#255ad4}
+.btn.ghost{flex:0 0 auto;min-width:0;padding:12px 14px}
+.grade{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.grade button{
+  font:inherit;font-size:14px;font-weight:600;padding:12px 10px;border-radius:11px;border:1px solid var(--line);
+  cursor:pointer;flex:1;min-width:96px;background:#fff;transition:.12s;
+}
+.grade .g-ok{color:var(--ok)} .grade .g-ok:hover{background:var(--ok-soft);border-color:var(--ok)}
+.grade .g-mid{color:var(--mid)} .grade .g-mid:hover{background:var(--mid-soft);border-color:var(--mid)}
+.grade .g-ng{color:var(--ng)} .grade .g-ng:hover{background:var(--ng-soft);border-color:var(--ng)}
+.grade small{display:block;font-weight:400;font-size:11px;color:var(--sub);margin-top:1px}
+
+.hint{font-size:11.5px;color:var(--sub);margin-top:14px;text-align:center}
+kbd{background:#eef0f3;border-radius:4px;padding:1px 5px;font-family:inherit;font-size:11px}
+.empty{text-align:center;padding:40px 10px;color:var(--sub)}
+.status{font-size:12px;color:var(--sub);margin-top:6px}
+.badge{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px;margin-left:6px}
+.badge.ok{background:var(--ok-soft);color:var(--ok)}
+.badge.mid{background:var(--mid-soft);color:var(--mid)}
+.badge.ng{background:var(--ng-soft);color:var(--ng)}
+footer{text-align:center;font-size:11.5px;color:var(--sub);margin-top:26px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>瞬間英作文トレーナー<span>基本文例 132</span></h1>
+  <div class="bar" id="bar"></div>
+  <div class="stats" id="stats"></div>
+</header>
+
+<div class="panel">
+  <div class="row">
+    <label class="lb">範囲</label>
+    <select id="chapter"></select>
+    <input type="number" id="from" min="1" max="132" value="1">
+    <span style="color:var(--sub);font-size:13px">〜</span>
+    <input type="number" id="to" min="1" max="132" value="132">
+  </div>
+  <div class="row">
+    <label class="lb">出題</label>
+    <div class="seg" id="segOrder">
+      <button data-v="seq" class="on">順番</button>
+      <button data-v="shuffle">シャッフル</button>
+    </div>
+    <div class="seg" id="segFilter">
+      <button data-v="all" class="on">すべて</button>
+      <button data-v="weak">苦手のみ</button>
+      <button data-v="unlearned">未習得</button>
+    </div>
+  </div>
+  <div class="row">
+    <label class="lb">入力</label>
+    <div class="seg" id="segType">
+      <button data-v="off" class="on">口頭のみ</button>
+      <button data-v="on">タイピング採点</button>
+    </div>
+    <button class="mini" id="reset">進捗をリセット</button>
+  </div>
+  <div class="status" id="deckInfo"></div>
+</div>
+
+<div id="stage"></div>
+
+<footer>進捗はこのブラウザに自動保存されます</footer>
+</div>
+
+<script>
+const DATA = [
+{n:1,c:"疑問文",p:"特殊疑問文の作り方",j:"あなたは朝食に何を食べますか。",e:"What do you eat for breakfast?"},
+{n:2,c:"疑問文",p:"特殊疑問文の作り方",j:"何が彼女を怒らせたのですか。",e:"What made her angry?"},
+{n:3,c:"疑問文",p:"疑問代名詞と疑問副詞",j:"この新型の携帯電話についてどう思いますか。",e:"What do you think about this new type of cell phone?"},
+{n:4,c:"疑問文",p:"疑問代名詞と疑問副詞",j:"海外旅行をするのはどんな感じですか。",e:"What is it like to travel abroad?"},
+{n:5,c:"疑問文",p:"疑問形容詞(what・which)と疑問副詞(how)",j:"この仕事をするのにどのくらいの時間が必要になるでしょうか。",e:"How much time will be necessary to do this work?"},
+{n:6,c:"疑問文",p:"疑問形容詞(what・which)と疑問副詞(how)",j:"初心者にはどちらの本がよりよいですか。",e:"Which book is better for beginners?"},
+{n:7,c:"疑問文",p:"that節を含む文の特殊疑問文",j:"いつ雨が止むとあなたは思いますか。",e:"When do you think it will stop raining?"},
+{n:8,c:"疑問文",p:"that節を含む文の特殊疑問文",j:"明日の天気はどうなると天気予報では言っていますか。",e:"What does the weather forecast say the weather will be like tomorrow?"},
+{n:9,c:"否定",p:"全部否定",j:"この問題を解ける子どもはいません。",e:"No children can solve this problem."},
+{n:10,c:"否定",p:"全部否定",j:"私はそれに関しては何も知りません。",e:"I don't know anything about it."},
+{n:11,c:"否定",p:"部分否定",j:"新聞に載っていることすべてが真実とは限らない。",e:"Not everything in newspapers is true."},
+{n:12,c:"否定",p:"部分否定",j:"私は彼の言うことすべてを信じているわけではない。",e:"I don't believe everything (that) he says."},
+{n:13,c:"否定",p:"準否定",j:"英語をうまく話せる日本人は少ない。",e:"Few Japanese people speak English well."},
+{n:14,c:"否定",p:"準否定",j:"彼はほとんど両親に手紙を書かない。",e:"He seldom writes to his parents."},
+{n:15,c:"時制",p:"未来の表し方",j:"私は4月10日から20日までロンドンに滞在します。",e:"I am staying in London from April 10th to the 20th."},
+{n:16,c:"時制",p:"未来の表し方",j:"決勝戦は6時に始まります。",e:"The final begins at six."},
+{n:17,c:"時制",p:"現在形と現在進行形",j:"暇なときあなたは何をしていますか。",e:"What do you do in your spare time?"},
+{n:18,c:"時制",p:"現在形と現在進行形",j:"私は今度の夏，海外旅行をしようかと考えています。",e:"I am thinking about traveling abroad next summer."},
+{n:19,c:"時制",p:"過去進行形と未来進行形",j:"公園を散歩しているときに友達の一人に会った。",e:"While I was taking a walk in the park, I met a friend."},
+{n:20,c:"時制",p:"過去進行形と未来進行形",j:"日が暮れるときに私はまだゴールに向けて走っているでしょう。",e:"When the sun sets, I will (still) be running toward the goal."},
+{n:21,c:"時制",p:"過去形と現在完了形（結果）",j:"彼は留学することに決め，今そのための準備をしている。",e:"He has decided to study abroad, and now he is preparing for it."},
+{n:22,c:"時制",p:"過去形と現在完了形（結果）",j:"雨降って地固まる。",e:"The ground becomes firm after it has rained."},
+{n:23,c:"時制",p:"過去形か現在完了形（経験・継続）か",j:"私は6年間英語を勉強しているが，実際に話したことはない。",e:"I have been studying English for six years, but I have never actually spoken it."},
+{n:24,c:"時制",p:"過去形か現在完了形（経験・継続）か",j:"子どもの頃，私は3年間香港に住んでいた。",e:"I lived in Hong Kong for three years when I was a child."},
+{n:25,c:"時制",p:"過去完了形（大過去）",j:"その本は思ったよりおもしろかった。",e:"The book was more interesting than I (had) thought."},
+{n:26,c:"時制",p:"過去完了形（大過去）",j:"先日古い友人に会ったが，すっかり変わっているのに驚いた。",e:"The other day I met an old friend, but I was surprised that he had changed a lot."},
+{n:27,c:"時制",p:"過去完了形（経験・継続）と過去完了進行形",j:"その村には行ったことがあったので大地震で被害を受けたと聞いて驚いた。",e:"I was surprised to hear that the village was damaged by a big earthquake because I had been there."},
+{n:28,c:"時制",p:"過去完了形（経験・継続）と過去完了進行形",j:"彼はその町を旅立つまで1週間滞在していた。",e:"He had been staying in the city for a week when he left it."},
+{n:29,c:"時制",p:"時制の一致",j:"天気予報は雨が降ると言っていたが全然降らなかった。",e:"The weather forecast said it would rain, but it didn't at all."},
+{n:30,c:"時制",p:"時制の一致",j:"彼は何か食べるものがほしいと言った。",e:"He said that he wanted something to eat."},
+{n:31,c:"名詞節",p:"that節とそれ以外の名詞節",j:"いつ次の会議が開かれるかは，はっきりしていません。",e:"It is not clear when the next meeting will be held."},
+{n:32,c:"名詞節",p:"that節とそれ以外の名詞節",j:"彼がどのくらい英語を話せるのかはだれも知らない。",e:"Nobody knows how well he speaks English."},
+{n:33,c:"名詞節",p:"前置詞の目的語としての名詞節",j:"私たちは彼の日本史に関する造詣の深さに驚いた。",e:"We were surprised at how much he knew about Japanese history."},
+{n:34,c:"名詞節",p:"前置詞の目的語としての名詞節",j:"私は昨日の自分の振る舞いを恥じている。",e:"I am ashamed that I behaved badly yesterday."},
+{n:35,c:"名詞節",p:"名詞節をもっと活用しよう",j:"眠りの長さより深さのほうが大切だ。",e:"How deeply you sleep is more important than how long you sleep."},
+{n:36,c:"名詞節",p:"名詞節をもっと活用しよう",j:"読書のすばらしさに気づいている人は少ない。",e:"Few people realize how wonderful reading is."},
+{n:37,c:"話法",p:"平叙文と疑問文の間接話法",j:"彼女は私に「あなたのところに遊びに行くわ」と言った。",e:"She told me that she would come to see me."},
+{n:38,c:"話法",p:"平叙文と疑問文の間接話法",j:"彼は私に「君はどっちがほしい？」とたずねた。",e:"He asked me which I wanted."},
+{n:39,c:"話法",p:"間接話法と副詞（句）",j:"彼は「先週の日曜日に彼女に会ったよ」と言っていた。",e:"He said (that) he had seen her the previous Sunday."},
+{n:40,c:"話法",p:"間接話法と副詞（句）",j:"彼女は「明日，ひま？」と私にたずねた。",e:"She asked me if I would be free the next day."},
+{n:41,c:"話法",p:"命令文とlet's文の間接話法",j:"父は私に「もう少し真面目に勉強しなさい」と言った。",e:"My father told me to study a little harder."},
+{n:42,c:"話法",p:"命令文とlet's文の間接話法",j:"彼女は私に「明日，一緒に買い物に行こう」と言った。",e:"She suggested to me that we go shopping the next day."},
+{n:43,c:"関係詞",p:"関係詞が修飾する先行詞の形",j:"運動をする人は長生きする傾向がある。",e:"People who get exercise tend to live long."},
+{n:44,c:"関係詞",p:"関係詞が修飾する先行詞の形",j:"イタリアは私が一番好きな国です。",e:"Italy is the country which I like best."},
+{n:45,c:"関係詞",p:"「なんちゃって関係代名詞」に注意",j:"若いうちはいろいろなことが学べる本を読むべきだ。",e:"While you are young, you should read books from which you can learn a lot."},
+{n:46,c:"関係詞",p:"「なんちゃって関係代名詞」に注意",j:"スイカというのは切符を買わずに電車に乗れるシステムです。",e:"Suica is a system thanks to which you can take trains without buying a ticket."},
+{n:47,c:"関係詞",p:"数・時制の一致と複文構造",j:"私は彼女が好みそうだと思うCDをあげた。",e:"I gave her a CD which I thought she would like."},
+{n:48,c:"関係詞",p:"数・時制の一致と複文構造",j:"だれもが勝つと思っていた選手が負けたので私は驚いた。",e:"I was surprised that the player who everyone thought would win was beaten."},
+{n:49,c:"関係詞",p:"関係代名詞whatの使い方",j:"彼は自分が正しいと思うことをした。",e:"He did what he thought was right."},
+{n:50,c:"関係詞",p:"関係代名詞whatの使い方",j:"私がその国を旅行中に驚いたのは，何もかもが高いということだった。",e:"What I was surprised at while I was traveling in that country was that everything was expensive there."},
+{n:51,c:"関係詞",p:"非制限用法で使うwhichとwho",j:"どんな情報も手に入れられるインターネットは，われわれの生活を一変させた。",e:"The Internet has changed our lives because you can get any information on it."},
+{n:52,c:"関係詞",p:"非制限用法で使うwhichとwho",j:"6年間英語を習った日本人が英語をあまり話せないのは奇妙だ。",e:"It is strange that Japanese people cannot speak English very well, though they have studied it for six years."},
+{n:53,c:"関係詞",p:"関係副詞のwhereとwhen",j:"たいていの人は自分の生まれ育った場所が好きだ。",e:"Most people love the place where they were born and brought up."},
+{n:54,c:"関係詞",p:"関係副詞のwhereとwhen",j:"車に頼らざるを得ない田舎での生活はあまり健康的ではない。",e:"Life is not very healthy in the country, because you have to depend on your car."},
+{n:55,c:"関係詞",p:"関係副詞のwhyとhow",j:"駅への行き方を教えてくれませんか。",e:"Could you tell me how to get to the station?"},
+{n:56,c:"関係詞",p:"関係副詞のwhyとhow",j:"話し方で彼は大阪出身だとわかる。",e:"You can see that he comes from Osaka from the way he talks."},
+{n:57,c:"副詞・接続",p:"副詞の基本(1)",j:"今度の日曜日にガールフレンドと海に行く予定です。",e:"I am going to the beach with my girlfriend next Sunday."},
+{n:58,c:"副詞・接続",p:"副詞の基本(1)",j:"次の信号を右に曲がればすぐに駅が見えます。",e:"If you turn right at the next (traffic) light, you will see the station."},
+{n:59,c:"副詞・接続",p:"副詞の基本(2)",j:"携帯電話は今日の日本では必要不可欠だ。",e:"The cell phone is indispensable in Japan today."},
+{n:60,c:"副詞・接続",p:"副詞の基本(2)",j:"家に帰る途中，私はにわか雨にあった。",e:"I was caught in a shower on my way home."},
+{n:61,c:"副詞・接続",p:"副詞の位置と修飾の関係",j:"今年の夏は例年にないくらい暑かった。",e:"It was unusually hot this summer."},
+{n:62,c:"副詞・接続",p:"副詞の位置と修飾の関係",j:"環境にやさしい車が，今，話題になっている。",e:"Everyone is talking about environmentally-friendly cars these days."},
+{n:63,c:"副詞・接続",p:"程度を表す表現(1)",j:"彼女はその知らせに驚いたので，ほとんど気を失いそうになった。",e:"She was so surprised at the news that she almost fainted."},
+{n:64,c:"副詞・接続",p:"程度を表す表現(1)",j:"彼は寝る暇もないくらい宿題で忙しかった。",e:"He was so busy with his homework that he didn't have time to sleep."},
+{n:65,c:"副詞・接続",p:"程度を表す表現(2)",j:"彼は急いでいたのでドアのカギを閉めるのを忘れた。",e:"He was in such a hurry that he forgot to lock the door."},
+{n:66,c:"副詞・接続",p:"程度を表す表現(2)",j:"それは感動的な映画だったので，彼は涙を抑えられなかった。",e:"It was such a moving film that he couldn't help crying."},
+{n:67,c:"副詞・接続",p:"目的を表す表現",j:"おっしゃっていることがわかるように，もう少しゆっくり話していただけませんか。",e:"Could you speak a little more slowly so that I can understand what you are saying?"},
+{n:68,c:"副詞・接続",p:"目的を表す表現",j:"風邪をひかないように，彼は旅行にセーターを持って行った。",e:"He took a sweater on his trip so that he would not catch a cold."},
+{n:69,c:"副詞・接続",p:"逆接と譲歩を表す表現",j:"たとえ雨が強く降っていても，彼はかさを持たずに出かける。",e:"Even if it rains hard, he doesn't take his umbrella when he goes out."},
+{n:70,c:"副詞・接続",p:"逆接と譲歩を表す表現",j:"どんな仕事をするのでも，ベストを尽くすように心がけなければいけない。",e:"No matter what job you do, you should try to do your best."},
+{n:71,c:"副詞・接続",p:"原因・理由を表す表現",j:"台風のためにその町の多くの家屋が浸水した。",e:"Many houses in the town were flooded because of the typhoon."},
+{n:72,c:"副詞・接続",p:"原因・理由を表す表現",j:"彼はとても疲れていたので学校に行きたくなかった。",e:"He was very tired, so he didn't feel like going to school."},
+{n:73,c:"比較",p:"同等比較の基本",j:"私は君と同じくらい事態を憂いている。",e:"I am as worried about the situation as you are."},
+{n:74,c:"比較",p:"同等比較の基本",j:"私も彼と同じくらい大きな犬を飼っている。",e:"I have as big a dog as he does."},
+{n:75,c:"比較",p:"同等比較を使いこなす",j:"彼は食費と同じくらいのお金を洋服に使っている。",e:"He spends as much money on clothes as he does on food."},
+{n:76,c:"比較",p:"同等比較を使いこなす",j:"沖縄では冬も東京の春と同じくらい暖かい。",e:"It is as warm in Okinawa in winter as it is in Tokyo in spring."},
+{n:77,c:"比較",p:"比較級の基本",j:"彼は数学より物理が得意だ。",e:"He is better at physics than (he is) at math."},
+{n:78,c:"比較",p:"比較級の基本",j:"東京より香港のほうが土地の価格は高い。",e:"Land prices are higher in Hong Kong than (they are) in Tokyo."},
+{n:79,c:"比較",p:"同等比較や比較級をもっと活用しよう",j:"喫煙者は非喫煙者より肺ガンにかかる確率が高い。",e:"Smokers are more likely to get lung cancer than non-smokers are."},
+{n:80,c:"比較",p:"同等比較や比較級をもっと活用しよう",j:"その映画はうわさ以上におもしろい。",e:"The movie is more fun than people say it is."},
+{n:81,c:"比較",p:"同等比較を使った表現",j:"若いうちはできる限りたくさんの本を読むように心がけなさい。",e:"You should try to read as many books as possible while you are young."},
+{n:82,c:"比較",p:"同等比較を使った表現",j:"彼は私の倍の時間を英語の勉強に使っている。",e:"He spends twice as much time studying English as I do."},
+{n:83,c:"比較",p:"比較級を使った表現(1)",j:"最近，英語を学ぶためにアメリカに行く学生が増えている。",e:"These days more and more students are going to the U.S. to study English."},
+{n:84,c:"比較",p:"比較級を使った表現(1)",j:"最近の若者は家族と話す時間が減っている。",e:"Young people these days are spending less time talking with their families than before."},
+{n:85,c:"比較",p:"比較級を使った表現(2)",j:"多くの言葉を話せるほど，海外旅行は簡単になる。",e:"The more languages you can speak, the more easily you can travel abroad."},
+{n:86,c:"比較",p:"比較級を使った表現(2)",j:"たばこを吸えば吸うほど，ガンにかかる確率が高まる。",e:"The more you smoke, the more likely you are to get cancer."},
+{n:87,c:"比較",p:"最上級の言い換え表現(1)",j:"健康より貴重なものはない。",e:"Nothing is more precious than health (is)."},
+{n:88,c:"比較",p:"最上級の言い換え表現(1)",j:"私はほかのどの科目よりも英語が好きだ。",e:"I like English more than any other subject."},
+{n:89,c:"比較",p:"最上級の言い換え表現(2)",j:"日本ほど物価が高い国はない。",e:"Prices are higher in Japan than in any other country."},
+{n:90,c:"比較",p:"最上級の言い換え表現(2)",j:"日本では夏ほど雨が多い季節はない。",e:"In Japan it rains more in summer than in any other season."},
+{n:91,c:"仮定法",p:"直説法と仮定法",j:"もし健康を維持したいなら，君は運動をすべきだ。",e:"If you want to stay healthy, you should get exercise."},
+{n:92,c:"仮定法",p:"直説法と仮定法",j:"もし万が一日本で生まれていたら，彼は成功はできなかったろう。",e:"If he had been born in Japan, he would not have been successful."},
+{n:93,c:"仮定法",p:"ifを使わない仮定表現",j:"私だったらそんなばかげたものは買わなかったろう。",e:"I would not have bought such a stupid thing."},
+{n:94,c:"仮定法",p:"ifを使わない仮定表現",j:"彼は非常に空腹だったので冷蔵庫だって食べられそうだった。",e:"He was so hungry that he could have eaten even the refrigerator."},
+{n:95,c:"仮定法",p:"if節だけで伝える仮定表現",j:"高校の頃もう少し勉強していたらなあと思います。",e:"I wish I had studied a little harder when I was in high school."},
+{n:96,c:"仮定法",p:"if節だけで伝える仮定表現",j:"東京滞在をお楽しみいただければと思います。",e:"I hope you enjoy your stay in Tokyo."},
+{n:97,c:"仮定法",p:"仮定法を使ったそのほかの表現",j:"彼らはあたかも自分たちの息子であるかのように私の世話をしてくれた。",e:"They took care of me as if I were their own son."},
+{n:98,c:"仮定法",p:"仮定法を使ったそのほかの表現",j:"だれもが環境について真剣に考えるときが来ているのだ。",e:"It is high time everyone thought about the environment seriously."},
+{n:99,c:"受動態",p:"「なんちゃって受け身」に注意",j:"台風で多くの人が家を壊された。",e:"Many houses were destroyed by the typhoon."},
+{n:100,c:"受動態",p:"「なんちゃって受け身」に注意",j:"難民たちはできるだけ早く食料を供給されるべきだ。",e:"The refugees should be provided with food as soon as possible."},
+{n:101,c:"受動態",p:"いろいろな時制・いろいろな文型の受け身",j:"彼女は30分以上待たされたので，怒っていた。",e:"She was angry because she had been kept waiting for more than thirty minutes."},
+{n:102,c:"受動態",p:"いろいろな時制・いろいろな文型の受け身",j:"大きなビルが取り壊しの最中だったので，うるさかった。",e:"It was noisy because a big building was being pulled down."},
+{n:103,c:"不定詞・動名詞・分詞",p:"繰り上げ構文とto不定詞",j:"彼と彼女の間には誤解があるように見える。",e:"It seems that there is a misunderstanding between him and her."},
+{n:104,c:"不定詞・動名詞・分詞",p:"繰り上げ構文とto不定詞",j:"日本人はしばしば礼儀正しいと言われている。",e:"It is often said that Japanese people are polite."},
+{n:105,c:"不定詞・動名詞・分詞",p:"繰り上げ構文とto不定詞の6つの形",j:"この要塞は15世紀に建てられたと考えられている。",e:"It is thought that this fortress was built in the 15th century."},
+{n:106,c:"不定詞・動名詞・分詞",p:"繰り上げ構文とto不定詞の6つの形",j:"この国は急速に発展しているように見える。",e:"It seems that this country is developing rapidly."},
+{n:107,c:"不定詞・動名詞・分詞",p:"that節とto不定詞の使い分け",j:"子どもがこの川で泳ぐのは危険だ。",e:"It is dangerous for children to swim in this river."},
+{n:108,c:"不定詞・動名詞・分詞",p:"that節とto不定詞の使い分け",j:"彼女が試験に受かるのは確実だ。",e:"It is certain that she will pass the exam."},
+{n:109,c:"不定詞・動名詞・分詞",p:"to不定詞の意味上の主語と形容詞の関係(1)",j:"若者は大都会に住むのが便利だ。",e:"It is convenient for young people to live in big cities."},
+{n:110,c:"不定詞・動名詞・分詞",p:"to不定詞の意味上の主語と形容詞の関係(1)",j:"この携帯電話は老人でも使うのが簡単だ。",e:"This cell phone is easy even for old people to use."},
+{n:111,c:"不定詞・動名詞・分詞",p:"to不定詞の意味上の主語と形容詞の関係(2)",j:"彼女に本当のことを言わなかったなんて，君はばかだ。",e:"It was stupid of you not to tell her the truth."},
+{n:112,c:"不定詞・動名詞・分詞",p:"to不定詞の意味上の主語と形容詞の関係(2)",j:"あんなスピードで運転するなんて彼は無鉄砲だ。",e:"It was reckless of him to drive at such a speed."},
+{n:113,c:"不定詞・動名詞・分詞",p:"程度を表すto不定詞",j:"彼女はとても一緒に働けないくらいわがままだ。",e:"She is too selfish to work with."},
+{n:114,c:"不定詞・動名詞・分詞",p:"程度を表すto不定詞",j:"この地方は米が栽培できるくらい暖かい。",e:"This area is warm (enough) to grow rice in."},
+{n:115,c:"不定詞・動名詞・分詞",p:"動名詞の基本と注意点",j:"一生懸命勉強したにもかかわらず，彼の試験結果は期待したほどのものではなかった。",e:"He studied hard but the test results were not as good as he expected."},
+{n:116,c:"不定詞・動名詞・分詞",p:"動名詞の基本と注意点",j:"寝る前に歯を磨くこと。",e:"You must brush your teeth before going to bed."},
+{n:117,c:"不定詞・動名詞・分詞",p:"分詞の基本と注意点",j:"彼女の講義はとても印象的で，聴衆はみな静かに聞き入った。",e:"Her lecture was so impressive that the audience listened to her silently."},
+{n:118,c:"不定詞・動名詞・分詞",p:"分詞の基本と注意点",j:"長い間待たされるのはイライラする。",e:"It is irritating to be kept waiting for a long time."},
+{n:119,c:"不定詞・動名詞・分詞",p:"分詞構文の基本と注意点",j:"彼は音楽を聞きながら勉強をするのが好きだ。",e:"He likes studying while listening to music."},
+{n:120,c:"不定詞・動名詞・分詞",p:"分詞構文の基本と注意点",j:"彼はテレビをつけっぱなしにして眠ってしまった。",e:"He fell asleep while the TV was on."},
+{n:121,c:"名詞・代名詞",p:"someとanyの使い分け",j:"何かの本でジョギングよりウォーキングのほうが身体によいと読んだことがあります。",e:"I have read in some book that walking is better for the health than jogging is."},
+{n:122,c:"名詞・代名詞",p:"someとanyの使い分け",j:"水泳を始めたいのですが，何か私にアドバイスはありますか。",e:"I would like to take up swimming. Do you have any advice for me?"},
+{n:123,c:"名詞・代名詞",p:"数量の形容詞",j:"日本人のほとんどは英語を6年以上学んでいる。",e:"Most Japanese people study English for more than six years."},
+{n:124,c:"名詞・代名詞",p:"数量の形容詞",j:"しかし彼らの中でうまく話せる人はあまりいない。",e:"But few of them can speak it well."},
+{n:125,c:"名詞・代名詞",p:"名詞の形(1)",j:"嘘をつくのは悪いことだというのは子どもでも知っている。",e:"Even children know it is a bad thing to tell lies."},
+{n:126,c:"名詞・代名詞",p:"名詞の形(1)",j:"犬は飼い主が近くにいるときにしか吠えない。",e:"Dogs bark only when their owners are around."},
+{n:127,c:"名詞・代名詞",p:"名詞の形(2)",j:"外国語を学ぶときは文法を最初に学ぶべきだ。",e:"When you study a foreign language, you must learn the grammar first."},
+{n:128,c:"名詞・代名詞",p:"名詞の形(2)",j:"あの机の上の本を取ってもらえませんか。",e:"Could you pass me the book on the desk?"},
+{n:129,c:"名詞・代名詞",p:"不定代名詞の基本と注意点",j:"お金が一番大事だと考える人もいる。",e:"Some people think that money is more important than anything else."},
+{n:130,c:"名詞・代名詞",p:"不定代名詞の基本と注意点",j:"知らない人に紹介されたときは，相手の名前を覚えるようにしなければいけない。",e:"When you are introduced to someone, you have to remember their name."},
+{n:131,c:"名詞・代名詞",p:"人称代名詞の基本と注意点",j:"この山の頂上からはきれいな景色が楽しめます。",e:"You can enjoy a beautiful view from the top of this mountain."},
+{n:132,c:"名詞・代名詞",p:"人称代名詞の基本と注意点",j:"友達に電話するときには，その人の邪魔にならないよう気をつけなければならない。",e:"When you call a friend, you should be careful not to disturb them."}
+];
+
+/* ---------- storage ---------- */
+const KEY = "shunkan-eisakubun-v1";
+let mem = {};
+const store = {
+  load(){
+    try{ const r = localStorage.getItem(KEY); mem = r ? JSON.parse(r) : {}; }
+    catch(e){ mem = {}; }
+    return mem;
+  },
+  save(){ try{ localStorage.setItem(KEY, JSON.stringify(mem)); }catch(e){} }
+};
+store.load();
+
+/* ---------- state ---------- */
+const S = { order:"seq", filter:"all", typing:false, chapter:"", from:1, to:132, deck:[], i:0, shown:false };
+
+const CHAPTERS = [...new Set(DATA.map(d=>d.c))];
+
+/* ---------- elements ---------- */
+const $ = id => document.getElementById(id);
+const stage = $("stage"), barEl = $("bar"), statsEl = $("stats"), deckInfo = $("deckInfo");
+
+/* chapter select */
+const chSel = $("chapter");
+chSel.innerHTML = '<option value="">全チャプター</option>' +
+  CHAPTERS.map(c=>{
+    const ns = DATA.filter(d=>d.c===c).map(d=>d.n);
+    return `<option value="${c}">${c}（${ns[0]}–${ns[ns.length-1]}）</option>`;
+  }).join("");
+
+/* ---------- helpers ---------- */
+function grade(n){ return mem[n] || null; }               // "ok" | "mid" | "ng"
+function setGrade(n,g){ mem[n]=g; store.save(); }
+
+function buildDeck(){
+  let list = DATA.filter(d=>d.n>=S.from && d.n<=S.to);
+  if(S.chapter) list = list.filter(d=>d.c===S.chapter);
+  if(S.filter==="weak")      list = list.filter(d=>{const g=grade(d.n); return g==="ng"||g==="mid";});
+  if(S.filter==="unlearned") list = list.filter(d=>grade(d.n)!=="ok");
+  if(S.order==="shuffle"){
+    for(let i=list.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[list[i],list[j]]=[list[j],list[i]];}
+  }
+  S.deck = list; S.i = 0; S.shown = false;
+}
+
+function renderStats(){
+  let ok=0,mid=0,ng=0;
+  DATA.forEach(d=>{const g=grade(d.n); if(g==="ok")ok++; else if(g==="mid")mid++; else if(g==="ng")ng++;});
+  const t = DATA.length;
+  barEl.innerHTML =
+    `<i class="b-ok" style="width:${ok/t*100}%"></i>`+
+    `<i class="b-mid" style="width:${mid/t*100}%"></i>`+
+    `<i class="b-ng" style="width:${ng/t*100}%"></i>`;
+  statsEl.innerHTML =
+    `<span><span class="dot" style="background:var(--ok)"></span>覚えた <b>${ok}</b></span>`+
+    `<span><span class="dot" style="background:var(--mid)"></span>あやふや <b>${mid}</b></span>`+
+    `<span><span class="dot" style="background:var(--ng)"></span>できず <b>${ng}</b></span>`+
+    `<span><span class="dot" style="background:var(--line)"></span>未着手 <b>${t-ok-mid-ng}</b></span>`+
+    `<span style="margin-left:auto">習得率 <b>${Math.round(ok/t*100)}%</b></span>`;
+}
+
+/* word-level diff */
+const norm = s => s.toLowerCase().replace(/[.,!?;:"'’“”()]/g,"").replace(/\s+/g," ").trim();
+function tok(s){ return norm(s).split(" ").filter(Boolean); }
+function lcs(a,b){
+  const m=a.length,n=b.length, dp=Array.from({length:m+1},()=>new Array(n+1).fill(0));
+  for(let i=m-1;i>=0;i--)for(let j=n-1;j>=0;j--)
+    dp[i][j] = a[i]===b[j] ? dp[i+1][j+1]+1 : Math.max(dp[i+1][j],dp[i][j+1]);
+  const out=[]; let i=0,j=0;
+  while(i<m&&j<n){
+    if(a[i]===b[j]){out.push(["=",a[i]]);i++;j++;}
+    else if(dp[i+1][j]>=dp[i][j+1]){out.push(["-",a[i]]);i++;}
+    else {out.push(["+",b[j]]);j++;}
+  }
+  while(i<m)out.push(["-",a[i++]]);
+  while(j<n)out.push(["+",b[j++]]);
+  return out;
+}
+function renderDiff(userText, answer){
+  const u=tok(userText), a=tok(answer);
+  if(!u.length) return null;
+  const d=lcs(u,a);
+  let hit=0;
+  const html = d.map(([op,w])=>{
+    if(op==="="){hit++; return `<span class="g">${esc(w)}</span>`;}
+    if(op==="-") return `<span class="b">${esc(w)}</span>`;
+    return `<span class="m">${esc(w)}</span>`;
+  }).join(" ");
+  const pct = a.length ? Math.round(hit/a.length*100) : 0;
+  return {html, pct, perfect: norm(userText)===norm(answer)};
+}
+function esc(s){return s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));}
+
+/* TTS */
+function speak(text){
+  if(!("speechSynthesis" in window)) return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text.replace(/[()]/g,""));
+  u.lang="en-US"; u.rate=0.92;
+  speechSynthesis.speak(u);
+}
+
+/* ---------- render card ---------- */
+function render(){
+  renderStats();
+  deckInfo.textContent = S.deck.length
+    ? `出題 ${S.deck.length} 問 ／ ${S.i+1} 問目`
+    : "";
+
+  if(!S.deck.length){
+    stage.innerHTML = `<div class="card"><div class="empty">
+      条件に合う問題がありません。<br>範囲や絞り込みを変えてください。</div></div>`;
+    return;
+  }
+  if(S.i >= S.deck.length){
+    stage.innerHTML = `<div class="card"><div class="empty">
+      <div style="font-size:32px;margin-bottom:8px">🎉</div>
+      <div style="font-size:16px;color:var(--ink);font-weight:600">この範囲を1周しました</div>
+      <div style="margin-top:8px">${S.deck.length} 問おつかれさまでした。</div>
+      <div class="actions" style="max-width:340px;margin:20px auto 0">
+        <button class="btn primary" id="again">もう一度</button>
+        <button class="btn" id="weakOnly">苦手だけ復習</button>
+      </div></div></div>`;
+    $("again").onclick = ()=>{ buildDeck(); render(); };
+    $("weakOnly").onclick = ()=>{ setSeg("segFilter","weak"); S.filter="weak"; buildDeck(); render(); };
+    return;
+  }
+
+  const d = S.deck[S.i];
+  const g = grade(d.n);
+  const badge = g ? `<span class="badge ${g}">${g==="ok"?"覚えた":g==="mid"?"あやふや":"できず"}</span>` : "";
+
+  stage.innerHTML = `
+  <div class="card">
+    <div class="meta">
+      <div><span class="no">${String(d.n).padStart(3,"0")}</span>${badge}</div>
+      <div class="tag">${esc(d.c)}</div>
+    </div>
+    <div class="jp">${esc(d.j)}</div>
+
+    ${S.typing ? `<div class="typebox">
+      <textarea id="input" placeholder="英文を入力（Ctrl / ⌘ + Enter で採点）" spellcheck="false"></textarea>
+      <div id="diff"></div>
+    </div>` : ``}
+
+    <div class="answer ${S.shown?"":"hidden"}" id="ans">
+      <div class="en">${esc(d.e)}</div>
+      <div class="point"><b>文法ポイント</b> ／ ${esc(d.p)}</div>
+    </div>
+
+    <div class="actions">
+      ${S.shown
+        ? `<button class="btn ghost" id="speak" title="読み上げ">🔊</button>
+           <button class="btn" id="next">次へ →</button>`
+        : `<button class="btn primary" id="show">答えを見る</button>
+           <button class="btn ghost" id="skip">スキップ</button>`}
+    </div>
+
+    ${S.shown ? `<div class="grade">
+      <button class="g-ok"  data-g="ok">○ 覚えた<small>もう出さない</small></button>
+      <button class="g-mid" data-g="mid">△ あやふや<small>復習対象</small></button>
+      <button class="g-ng"  data-g="ng">✗ できず<small>復習対象</small></button>
+    </div>` : ``}
+
+    <div class="hint">
+      ${S.shown ? `<kbd>1</kbd> 覚えた ／ <kbd>2</kbd> あやふや ／ <kbd>3</kbd> できず ／ <kbd>→</kbd> 次へ`
+                : `<kbd>Space</kbd> で答えを表示`}
+    </div>
+  </div>`;
+
+  const showAns = ()=>{
+    S.shown = true;
+    if(S.typing){
+      const v = ($("input")||{}).value || "";
+      lastInput = v;
+    }
+    render();
+    if(S.typing && lastInput){
+      const r = renderDiff(lastInput, d.e);
+      const box = $("diff");
+      if(r && box) box.innerHTML =
+        `<div class="diff">${r.html}</div>
+         <div class="score">一致率 ${r.pct}%　${r.perfect?"— 完全一致 🎯":"（<span style='color:#12692f'>緑=正</span> / <span style='color:#a51b1b'>赤=不要</span> / <span style='color:#6b7280'>灰=抜け</span>）"}</div>`;
+      const ta = $("input"); if(ta) ta.value = lastInput;
+    }
+  };
+
+  if($("show")) $("show").onclick = showAns;
+  if($("skip")) $("skip").onclick = ()=>{ S.i++; S.shown=false; lastInput=""; render(); };
+  if($("next")) $("next").onclick = ()=>{ S.i++; S.shown=false; lastInput=""; render(); };
+  if($("speak")) $("speak").onclick = ()=> speak(d.e);
+  stage.querySelectorAll(".grade button").forEach(b=>{
+    b.onclick = ()=>{ setGrade(d.n, b.dataset.g); S.i++; S.shown=false; lastInput=""; render(); };
+  });
+  const ta = $("input");
+  if(ta){
+    if(!S.shown){ ta.value = lastInput; ta.focus(); }
+    ta.addEventListener("keydown", e=>{
+      if((e.metaKey||e.ctrlKey) && e.key==="Enter"){ e.preventDefault(); showAns(); }
+    });
+  }
+}
+let lastInput = "";
+
+/* ---------- controls ---------- */
+function setSeg(id,val){
+  document.querySelectorAll(`#${id} button`).forEach(b=>b.classList.toggle("on", b.dataset.v===val));
+}
+function wireSeg(id, fn){
+  document.querySelectorAll(`#${id} button`).forEach(b=>{
+    b.onclick = ()=>{ setSeg(id,b.dataset.v); fn(b.dataset.v); buildDeck(); lastInput=""; render(); };
+  });
+}
+wireSeg("segOrder",  v=> S.order=v);
+wireSeg("segFilter", v=> S.filter=v);
+wireSeg("segType",   v=> S.typing=(v==="on"));
+
+chSel.onchange = ()=>{
+  S.chapter = chSel.value;
+  if(S.chapter){
+    const ns = DATA.filter(d=>d.c===S.chapter).map(d=>d.n);
+    S.from = ns[0]; S.to = ns[ns.length-1];
+    $("from").value = S.from; $("to").value = S.to;
+  } else { S.from=1; S.to=132; $("from").value=1; $("to").value=132; }
+  buildDeck(); lastInput=""; render();
+};
+$("from").oninput = ()=>{ S.from = Math.max(1, Math.min(132, +$("from").value||1)); buildDeck(); render(); };
+$("to").oninput   = ()=>{ S.to   = Math.max(1, Math.min(132, +$("to").value||132)); buildDeck(); render(); };
+
+$("reset").onclick = ()=>{
+  if(confirm("すべての進捗を消去します。よろしいですか？")){
+    mem = {}; store.save(); buildDeck(); render();
+  }
+};
+
+/* keyboard */
+document.addEventListener("keydown", e=>{
+  if(e.target.tagName==="TEXTAREA"||e.target.tagName==="INPUT"||e.target.tagName==="SELECT") return;
+  if(!S.deck.length || S.i>=S.deck.length) return;
+  if(!S.shown && (e.code==="Space"||e.key==="Enter")){ e.preventDefault(); const b=$("show"); if(b)b.click(); return; }
+  if(S.shown){
+    if(e.key==="1"){ stage.querySelector('[data-g="ok"]').click(); }
+    else if(e.key==="2"){ stage.querySelector('[data-g="mid"]').click(); }
+    else if(e.key==="3"){ stage.querySelector('[data-g="ng"]').click(); }
+    else if(e.key==="ArrowRight"){ const b=$("next"); if(b)b.click(); }
+    else if(e.key.toLowerCase()==="s"){ const b=$("speak"); if(b)b.click(); }
+  }
+});
+
+buildDeck();
+render();
+</script>
+</body>
+</html>
