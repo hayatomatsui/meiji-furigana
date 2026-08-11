@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>出入国とお金のふしぎ｜海外旅行の「？」まるわかり</title>
+<style>
+:root{
+  --bg:#f4f6fb; --card:#fff; --ink:#1b2233; --sub:#6b7590;
+  --sun:#f9a825; --orange:#ef6c00; --red:#c62828;
+  --out:#ef6c00; --in:#1e88e5; --border:#8e24aa; --note:#43A047;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+  background:var(--bg);color:var(--ink);padding:18px;line-height:1.75;-webkit-text-size-adjust:100%}
+.wrap{max-width:1040px;margin:0 auto}
+
+header{background:linear-gradient(135deg,#f9a825,#ef6c00 45%,#c62828);color:#fff;
+  border-radius:20px;padding:28px 26px;margin-bottom:16px;box-shadow:0 10px 30px rgba(239,108,0,.28);position:relative;overflow:hidden}
+header::after{content:"🛂💴🌍";position:absolute;right:-4px;top:-6px;font-size:3.2rem;opacity:.16;letter-spacing:6px}
+header h1{font-size:1.5rem;margin-bottom:8px;position:relative}
+header p{opacity:.95;font-size:.9rem;max-width:780px;position:relative}
+
+.lead{background:#fff;border-radius:16px;padding:16px 20px;margin-bottom:18px;box-shadow:0 2px 12px rgba(0,0,0,.06);
+  border-left:6px solid var(--orange);font-size:.92rem}
+.lead b{color:var(--orange)}
+
+h2{font-size:1.15rem;margin:28px 0 12px;padding-left:12px;border-left:5px solid var(--orange);display:flex;align-items:center;gap:8px}
+.sec-note{font-size:.82rem;color:var(--sub);margin:-4px 0 12px 2px}
+
+/* 3シーン図 */
+.scenes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.scene{border-radius:16px;padding:18px 16px;color:#fff;position:relative;box-shadow:0 6px 16px rgba(0,0,0,.12)}
+.scene.out{background:linear-gradient(160deg,#fb8c00,#e65100)}
+.scene.inn{background:linear-gradient(160deg,#42a5f5,#1565c0)}
+.scene.bor{background:linear-gradient(160deg,#ab47bc,#6a1b9a)}
+.scene .em{font-size:2rem}
+.scene h3{font-size:1.02rem;margin:6px 0 2px}
+.scene .sub{font-size:.74rem;opacity:.9;margin-bottom:8px}
+.scene ul{list-style:none;font-size:.82rem}
+.scene li{padding:5px 0;border-top:1px solid rgba(255,255,255,.25)}
+.scene li b{display:block;font-size:.86rem}
+@media(max-width:720px){.scenes{grid-template-columns:1fr}}
+
+/* Q&A アコーディオン */
+.qa{display:grid;gap:10px}
+.q{background:#fff;border-radius:14px;box-shadow:0 2px 10px rgba(0,0,0,.06);overflow:hidden;border-left:5px solid var(--orange)}
+.q .head{padding:14px 16px;cursor:pointer;font-weight:800;font-size:.95rem;display:flex;gap:10px;align-items:flex-start;user-select:none}
+.q .head .qmark{color:var(--orange);font-weight:900;flex-shrink:0}
+.q .head .chev{margin-left:auto;color:#c0c7d6;transition:.2s;flex-shrink:0}
+.q.open .head .chev{transform:rotate(180deg)}
+.q .body{max-height:0;overflow:hidden;transition:max-height .3s ease;padding:0 16px}
+.q.open .body{max-height:600px;padding-bottom:16px}
+.q .body .a{background:#eef8f0;border:1px solid #cdeed4;border-radius:11px;padding:10px 12px;font-size:.9rem}
+.q .body .a b{color:#2e7d32}
+.q .body .more{font-size:.85rem;color:#42506b;margin-top:9px}
+.q .body .more b{color:var(--orange)}
+
+/* 世界の税金 */
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.tabs button{font-family:inherit;cursor:pointer;border:none;border-radius:999px;padding:8px 15px;font-size:.82rem;font-weight:800;
+  background:#fff;color:var(--sub);box-shadow:0 2px 6px rgba(0,0,0,.07);transition:.15s}
+.tabs button:hover{transform:translateY(-1px)}
+.tabs button.on{background:#1b2233;color:#fff}
+.wgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.wc{background:#fff;border-radius:14px;padding:14px 15px;box-shadow:0 2px 10px rgba(0,0,0,.06);border-top:4px solid #ccc;transition:.15s}
+.wc.hide{display:none}
+.wc .flag{font-size:1.6rem}
+.wc .cty{font-weight:800;font-size:.98rem;margin-top:2px}
+.wc .kind{font-size:.68rem;font-weight:800;color:#fff;padding:2px 8px;border-radius:999px;display:inline-block;margin-top:4px}
+.wc .amt{font-size:1.05rem;font-weight:800;color:var(--orange);margin-top:8px}
+.wc .desc{font-size:.8rem;color:#42506b;margin-top:5px}
+
+/* 税・手数料の違い表 */
+.tri{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.tri .box{background:#fff;border-radius:14px;padding:14px 16px;box-shadow:0 2px 10px rgba(0,0,0,.06);border-top:4px solid #ccc}
+.tri .t{font-weight:800;font-size:.95rem}
+.tri .box p{font-size:.82rem;color:#42506b;margin-top:6px}
+.tri .box .ex{font-size:.76rem;color:var(--sub);margin-top:6px;font-style:italic}
+@media(max-width:720px){.tri{grid-template-columns:1fr}}
+
+/* ボーナスカード */
+.bgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.bc{background:#fff;border-radius:14px;padding:15px 16px;box-shadow:0 2px 10px rgba(0,0,0,.06);border-left:5px solid var(--orange)}
+.bc .h{font-weight:800;font-size:.98rem;display:flex;gap:8px;align-items:center}
+.bc .p{font-size:.85rem;color:#3a465e;margin-top:7px}
+.bc .p b{color:var(--orange)}
+
+.disc{background:#fff7ef;border:1px dashed #ffcf9e;border-radius:14px;padding:14px 16px;margin-top:14px;font-size:.8rem;color:#8a5a20}
+footer{text-align:center;color:var(--sub);font-size:.75rem;margin:26px 0 6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>出入国とお金のふしぎ 💴🌍</h1>
+  <p>「国に<b style="color:#fff5e0">出るだけ・入るだけ</b>で税金がかかるの？」——はい、かかります。日本にいると気づきにくい、国境をまたぐときのお金の仕組みを、実例つきでスッキリ整理しました。後半では「他にも戸惑いやすい海外旅行の常識」もまとめています。</p>
+</header>
+
+<div class="lead">
+  旅行代金（飛行機代・ツアー代）を払えば自由に動ける——と思いがちですが、国境には<b>「通るための税金・手数料」</b>がいくつもあります。まずは大きく3つの場面で整理しましょう。
+</div>
+
+<h2>🗺️ どの場面で、何がかかる？</h2>
+<div class="scenes">
+  <div class="scene out">
+    <div class="em">🛫</div><h3>出るとき</h3><div class="sub">Departure / 出国</div>
+    <ul>
+      <li><b>出国税 Departure Tax</b>国を出発する人に課税</li>
+      <li><b>空港使用料</b>施設の維持費として</li>
+    </ul>
+  </div>
+  <div class="scene inn">
+    <div class="em">🛬</div><h3>入るとき</h3><div class="sub">Arrival / 入国</div>
+    <ul>
+      <li><b>入国税・観光税 Tourist Tax</b>環境保護や観光整備のため</li>
+      <li><b>ビザ発給手数料</b>入国許可の申請料</li>
+    </ul>
+  </div>
+  <div class="scene bor">
+    <div class="em">🚌</div><h3>陸路の国境</h3><div class="sub">Border / 国境越え</div>
+    <ul>
+      <li><b>国境税 Border Tax</b>ゲートで通行料・税を支払う</li>
+      <li><b>両側で発生</b>出る国・入る国の両方で払うことも</li>
+    </ul>
+  </div>
+</div>
+
+<h2>💬 素朴なギモンにお答えします（タップで開く）</h2>
+<div class="qa" id="qa"></div>
+
+<h2>🌏 世界の「出入国のお金」実例</h2>
+<div class="sec-note">※金額は目安。制度・税額はよく変わるので、旅行前に必ず公式サイトで最新情報を確認してください。</div>
+<div class="tabs" id="tabs">
+  <button data-k="all" class="on">すべて</button>
+  <button data-k="out">🛫 出国系</button>
+  <button data-k="in">🛬 入国・観光税</button>
+  <button data-k="fee">📝 渡航認証（税ではない）</button>
+</div>
+<div class="wgrid" id="wgrid"></div>
+
+<h2>🧩 「税金」「手数料」「使用料」はどう違う？</h2>
+<div class="tri">
+  <div class="box" style="border-top-color:var(--out)">
+    <div class="t">💴 税金 (Tax)</div>
+    <p>国や自治体が徴収する公的なお金。使い道は環境保護・インフラ整備など。</p>
+    <div class="ex">例：出国税、観光税、国境税</div>
+  </div>
+  <div class="box" style="border-top-color:var(--in)">
+    <div class="t">📝 手数料 (Fee)</div>
+    <p>特定の手続きに対する対価。申請すると発生する。</p>
+    <div class="ex">例：ビザ発給手数料、ESTA/ETA など渡航認証の申請料</div>
+  </div>
+  <div class="box" style="border-top-color:var(--border)">
+    <div class="t">🏢 使用料 (Charge)</div>
+    <p>施設やサービスを使うための料金。多くは航空券代に含まれる。</p>
+    <div class="ex">例：空港施設使用料、旅客保安サービス料</div>
+  </div>
+</div>
+
+<h2>✨ ついでに知っておくと面白い！海外旅行の「？」</h2>
+<div class="sec-note">先生が「わからなそう」と気にされていた、旅行の前提知識をいくつか。知ると本文もぐっと立体的に読めます。</div>
+<div class="bgrid" id="bonus"></div>
+
+<div class="disc">
+  ⚠️ <b>注意：</b>ここに書いた金額・制度は執筆時点の目安です。出国税や観光税、ビザの要否・料金は国の方針でしばしば変わります。実際に旅行する際は、必ず各国の政府・大使館・航空会社の<b>公式情報</b>で最新を確認してください。
+</div>
+
+<footer>出入国とお金のふしぎ ／ Lesson 8 背景知識シリーズ ｜ 授業用</footer>
+</div>
+
+<script>
+/* ===== Q&A ===== */
+const QA=[
+ ["出国税は、入国するときにもかかるの？",
+  "いいえ。出国税（Departure Tax）は、その名のとおり<b>国を出るときだけ</b>かかります。入国時にはかかりません。",
+  "ただし入国側では、出国税とは別に<b>観光税（Tourist Tax）</b>や<b>入国税</b>、<b>ビザ発給手数料</b>がかかることがあります。「出るときの税」と「入るときの税」は別物、と整理すると分かりやすいです。"],
+ ["国に出るだけ・入るだけで、本当に税金がかかるの？",
+  "はい、世界中にたくさんあります。<b>移動そのもの（国境をまたぐこと）に課税される</b>仕組みです。",
+  "日本も例外ではありません。2019年から<b>国際観光旅客税</b>として、日本を出国する人全員（日本人も含む）から1回<b>1,000円</b>を徴収しています。多くは航空券代に上乗せされているので、払っている自覚がないだけなんです。"],
+ ["なぜ、そんな税金を取るの？",
+  "集めたお金は、みんなが使う<b>設備やサービスの維持</b>に使われます。",
+  "具体的には、空港や国境ゲートの整備・運営、出入国審査システムの運用、そして最近は<b>観光地の整備や自然環境の保護</b>が目的の税が増えています（オーバーツーリズム＝観光客が増えすぎる問題への対策）。"],
+ ["飛行機だと払った記憶がないのはなぜ？",
+  "多くの国では、出国税や空港使用料が<b>航空券の代金に最初から組み込まれて</b>いるからです。",
+  "航空券の内訳を見ると「税・料金（Taxes & Fees）」という欄があり、そこに含まれています。一方、一部の国や地方の空港では、<b>現地で現金払い</b>を求められることも。オーバーランドツアーのように陸路で越える場合は、国境で直接払う場面が出てきます。"],
+ ["陸路で国境を越えると、どうなるの？",
+  "飛行機と違い、国境のゲートで<b>その場で支払い</b>が必要になることがよくあります。",
+  "出る国での手続き費用に加え、入る国で<b>ビザ発給手数料</b>や<b>国境税（Border Tax）</b>がかかることも。Lesson 8 のアフリカ縦断ツアー（overland tour）は10か国以上を陸路で通るので、こうした費用が「Excluded（ツアー料金に含まれない＝自己負担）」に並んでいるわけです。"]
+];
+document.getElementById("qa").innerHTML=QA.map(q=>
+ `<div class="q"><div class="head"><span class="qmark">Q.</span><span>${q[0]}</span><span class="chev">▼</span></div>
+  <div class="body"><div class="a"><b>A. </b>${q[1]}</div><div class="more">${q[2]}</div></div></div>`).join("");
+[...document.querySelectorAll(".q")].forEach(q=>q.querySelector(".head").onclick=()=>q.classList.toggle("open"));
+
+/* ===== 世界の税金 ===== */
+const KIND={out:["出国系","var(--out)"],in:["入国・観光税","var(--in)"],fee:["渡航認証","var(--border)"]};
+// [旗, 国, 種別, 金額目安, 説明]
+const WORLD=[
+ ["🇯🇵","日本","out","1,000円","国際観光旅客税。2019年開始。出国時、航空券などに上乗せ。日本人も対象。"],
+ ["🇳🇿","ニュージーランド","in","約9,000円 (NZ$100)","国際観光客の自然保護・観光税(IVL)。入国前の申請時に支払い。"],
+ ["🇮🇩","インドネシア(バリ島)","in","約1,500円 (15万ルピア)","2024年開始のバリ島観光税。文化・環境保全のため。"],
+ ["🇧🇹","ブータン","in","1日 約15,000円 ($100)","持続可能な開発料(SDF)。滞在日数ぶんかかる。高付加価値・低影響の観光方針。"],
+ ["🇮🇹","イタリア(ヴェネツィア)","in","約800円 (€5)","混雑日の日帰り客に入場料。オーバーツーリズム対策の試み。"],
+ ["🇺🇸","アメリカ","fee","約3,000円 ($21)","ESTA(電子渡航認証)。ビザ免除で入るための事前申請。税ではなく手数料。"],
+ ["🇪🇺","EU(シェンゲン圏)","fee","約1,100円 (€7)","ETIAS(導入予定の渡航認証)。短期観光の事前登録。手数料扱い。"],
+ ["🇬🇧","イギリス","fee","約2,000円 (£10前後)","ETA(電子渡航認証)。ビザ不要の旅行者向けの事前許可。"],
+ ["🌍","多くの都市","in","1泊 数百円〜","宿泊税(シティタックス)。ホテル代とは別にフロントで徴収されることが多い。"]
+];
+const wgrid=document.getElementById("wgrid");
+function wrender(k){
+ wgrid.innerHTML=WORLD.map(w=>{
+  const[flag,cty,kind,amt,desc]=w;
+  const hide=(k&&k!=="all"&&k!==kind)?"hide":"";
+  return `<div class="wc ${hide}" style="border-top-color:${KIND[kind][1]}">
+    <div class="flag">${flag}</div><div class="cty">${cty}</div>
+    <span class="kind" style="background:${KIND[kind][1]}">${KIND[kind][0]}</span>
+    <div class="amt">${amt}</div><div class="desc">${desc}</div></div>`;}).join("");
+}
+wrender("all");
+document.getElementById("tabs").onclick=e=>{
+ if(e.target.tagName!=="BUTTON")return;
+ [...e.currentTarget.children].forEach(b=>b.classList.remove("on"));
+ e.target.classList.add("on");wrender(e.target.dataset.k);
+};
+
+/* ===== ボーナス知識 ===== */
+const BONUS=[
+ ["🛂","ビザ と ESTA/ETA って何が違う？","<b>ビザ</b>は大使館などで取る本格的な入国許可。<b>ESTA/ETA/ETIAS</b>は、ビザなしで入れる国向けの<b>簡易な電子渡航認証</b>。ネットで数分＋数千円。近年これが世界的に増えています。"],
+ ["💉","なぜアフリカで予防接種？イエローカードとは","アフリカや南米の一部では<b>黄熱病(yellow fever)</b>の予防接種証明（通称<b>イエローカード</b>）がないと入国できない国があります。本文の Vaccinations が Excluded なのはこのため。"],
+ ["🏥","海外の医療費は「桁が違う」","アメリカ等では盲腸の手術で<b>数百万円</b>になることも。だから旅行・医療保険(insurance)がほぼ必須。「日本の健康保険は海外では使えない」のが基本です。"],
+ ["🛍️","免税店(duty free)と持ち込み制限","出国後の免税店は<b>酒・タバコの税が免除</b>。ただし国ごとに<b>持ち込める量に上限</b>があり、超えると入国時に税関(customs)で課税されます。"],
+ ["💵","チップは「サービス料の一部」","アメリカなどでは飲食・タクシー・ホテルで<b>チップ(tip)</b>が習慣。料金の15〜20%が目安で、払わないと失礼にあたることも。日本にはない文化です。"],
+ ["💱","現地通貨と両替","国が変わればお金も変わります。両替は<b>レート＋手数料</b>で目減りするのが普通。最近は現地ATMやカード決済が便利ですが、手数料の仕組みは要チェック。"]
+];
+document.getElementById("bonus").innerHTML=BONUS.map(b=>
+ `<div class="bc"><div class="h"><span style="font-size:1.3rem">${b[0]}</span>${b[1]}</div><div class="p">${b[2]}</div></div>`).join("");
+</script>
+</body>
+</html>
