@@ -110,6 +110,9 @@ h2 .en{font-family:var(--body);font-weight:700;font-size:13px;color:var(--ink2);
   transition:left .35s cubic-bezier(.4,0,.2,1),right .35s cubic-bezier(.4,0,.2,1),background .2s,border-color .2s;
 }
 .band.out{background:var(--out-soft);border-color:var(--out)}
+.band.eq{background:var(--mood-soft);border-color:var(--mood)}
+.tick.eqpoint .dot{background:var(--mood);border-color:var(--mood);width:19px;height:19px;top:4px}
+.tick.eqpoint .num{color:var(--mood);font-weight:700}
 .ticks{position:relative;display:flex;justify-content:space-between}
 .tick{flex:1;text-align:center;position:relative}
 .dot{
@@ -150,6 +153,26 @@ h2 .en{font-family:var(--body);font-weight:700;font-size:13px;color:var(--ink2);
 .mark.yes{color:var(--in)}
 .mark.no{color:var(--out)}
 .scroller{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+/* ---------- symbols ---------- */
+.symrow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+.symcell{border:2px solid var(--line);background:var(--panel);padding:16px 12px;text-align:center}
+.symcell.eq{border-color:var(--mood)}
+.symcell .expr{font-size:13.5px;font-weight:700;letter-spacing:-.01em}
+.symcell .sym{
+  font-family:var(--disp);font-size:clamp(34px,7vw,46px);font-weight:800;line-height:1;
+  display:block;margin:10px 0 12px;font-variant-numeric:tabular-nums
+}
+.symcell.eq .sym{color:var(--mood)}
+.symcell .mini{font-size:12.5px;color:var(--ink2);line-height:1.7;margin:0}
+.symcell .mini b{color:var(--ink);font-weight:700;font-family:var(--disp)}
+.rule{
+  display:flex;gap:14px;align-items:baseline;flex-wrap:wrap;
+  border-top:2px solid var(--line);margin-top:22px;padding-top:18px
+}
+.rule .k{font-family:var(--disp);font-size:22px;font-weight:800;white-space:nowrap}
+.rule .v{font-size:14.5px;color:var(--ink2);flex:1;min-width:16em;margin:0}
+@media (max-width:640px){.symrow{grid-template-columns:1fr 1fr}}
 
 /* ---------- no / not cards ---------- */
 .cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
@@ -243,6 +266,10 @@ footer{margin-top:80px;border-top:2px solid var(--line);padding-top:18px;font-si
       <div class="glabel">X以下（Xを含む）</div>
       <div class="chips" data-group="dn-in"></div>
     </div>
+    <div class="chipgroup">
+      <div class="glabel">no + 比較級 ＝ ちょうどX（気持ちが乗る）</div>
+      <div class="chips" data-group="eq"></div>
+    </div>
 
     <div class="xrow">
       <label for="xslider">X =</label>
@@ -265,6 +292,7 @@ footer{margin-top:80px;border-top:2px solid var(--line);padding-top:18px;font-si
     <div class="legend">
       <span><i class="sw fill"></i>この数は範囲に入る</span>
       <span><i class="sw"></i>この数は入らない</span>
+      <span><i class="sw fill" style="background:var(--mood);border-color:var(--mood)"></i>ちょうどこの数（no + 比較級）</span>
     </div>
 
     <div class="example">
@@ -300,53 +328,97 @@ footer{margin-top:80px;border-top:2px solid var(--line);padding-top:18px;font-si
 
 <!-- ===== 3. no と not ===== -->
 <section id="nonot" aria-labelledby="h-nonot">
-  <h2 id="h-nonot"><span class="en">NO vs NOT</span>no more than と not more than</h2>
-  <p class="note">ここが最大の山場です。<b>not</b> はただの否定、<b>no</b> は「差がゼロだ」と言い切る強い否定で、話し手の評価（多い／少ないという驚きや落胆）が乗ります。</p>
+  <h2 id="h-nonot"><span class="en">NO vs NOT</span>no は「＝」、not は「不等号」</h2>
+  <p class="note">4つを丸暗記する必要はありません。<b>no + 比較級 は「＝」、not + 比較級 は「≦ ／ ≧」</b>。この一本の線引きで全部片づきます。</p>
 
+  <div class="symrow">
+    <div class="symcell eq">
+      <div class="expr">no more than 20</div>
+      <span class="sym">＝ 20</span>
+      <p class="mini"><b>たった20</b><br>= only 20</p>
+    </div>
+    <div class="symcell eq">
+      <div class="expr">no less than 20</div>
+      <span class="sym">＝ 20</span>
+      <p class="mini"><b>20も</b><br>= as many as 20</p>
+    </div>
+    <div class="symcell">
+      <div class="expr">not more than 20</div>
+      <span class="sym">≦ 20</span>
+      <p class="mini"><b>多くても20</b><br>= at most 20</p>
+    </div>
+    <div class="symcell">
+      <div class="expr">not less than 20</div>
+      <span class="sym">≧ 20</span>
+      <p class="mini"><b>少なくとも20</b><br>= at least 20</p>
+    </div>
+  </div>
+
+  <div class="rule">
+    <span class="k">no ＝</span>
+    <p class="v">no は「差がゼロ」を宣言する否定。<i>no more than 20</i> は「20との差はない＝ぴったり20、それだけ」。数値は1点に定まり、代わりに<u>話し手の評価</u>（少ない／多い）が乗ります。<b>more</b> 側なら「たった」、<b>less</b> 側なら「〜も」。数直線では点、不等号では「＝」です。</p>
+  </div>
+  <div class="rule">
+    <span class="k">not ≦≧</span>
+    <p class="v">not はただの否定。<i>not more than 20</i> は「20より多くはない」＝20を上限とする範囲（≦20）。感情はゼロで、上限・下限を淡々と示すだけ。数直線では帯、不等号では「≦ / ≧」です。契約書や規約はこちらを使います。</p>
+  </div>
+
+  <h3 style="font-family:var(--body);font-weight:700;font-size:17px;margin:34px 0 0">4つを並べて確かめる</h3>
   <div class="cards">
     <div class="card">
       <h3>not more than X</h3>
-      <p class="equals">= at most X ／ X以下・多くてもX</p>
-      <p class="feel">中立：上限を示すだけ</p>
+      <p class="equals">= at most X ／ 多くてもX（X以下）</p>
+      <p class="feel">≦ X　中立に上限を示す</p>
       <p class="ex"><b>Not more than 20 people can attend.</b><br>参加できるのは多くても20人だ。</p>
     </div>
     <div class="card mood">
       <h3>no more than X</h3>
       <p class="equals">= only X ／ たったXしかない</p>
-      <p class="feel">主観：少ないと感じている</p>
+      <p class="feel">＝ X　少ないと感じている</p>
       <p class="ex"><b>He read no more than 20 pages.</b><br>彼はたった20ページしか読まなかった。</p>
     </div>
     <div class="card">
       <h3>not less than X</h3>
-      <p class="equals">= at least X ／ X以上・少なくともX</p>
-      <p class="feel">中立：下限を示すだけ</p>
+      <p class="equals">= at least X ／ 少なくともX（X以上）</p>
+      <p class="feel">≧ X　中立に下限を示す</p>
       <p class="ex"><b>The deposit is not less than 20 dollars.</b><br>保証金は少なくとも20ドルだ。</p>
     </div>
     <div class="card mood">
       <h3>no less than X</h3>
       <p class="equals">= as many as X ／ Xも</p>
-      <p class="feel">主観：多いと感じている</p>
+      <p class="feel">＝ X　多いと感じている</p>
       <p class="ex"><b>She read no less than 20 books.</b><br>彼女は20冊も読んだ。</p>
     </div>
   </div>
 
-  <div class="callout">
-    <b>仕組みで覚える。</b> no は「差がゼロ」。<i>no more than 20</i> は「20との差はゼロ＝きっかり20、それだけ」→「たった20」。<i>no less than 20</i> も数としては20ですが、「20を下回らない、まさに20だ」と強調するので「20も」になります。数値そのものは not 版とほぼ同じ範囲を指しても、<u>伝わる感情が逆</u>だ、という点が試験でも実務でも問われます。
-  </div>
-
   <div class="scroller">
   <table class="tbl">
-    <thead><tr><th>表現</th><th>意味</th><th>言い換え</th><th>気持ち</th></tr></thead>
+    <thead><tr><th>表現</th><th>記号</th><th>意味</th><th>言い換え</th><th>気持ち</th></tr></thead>
     <tbody>
-      <tr><td>no more than X</td><td class="jp">たったX</td><td>only X</td><td>少ない</td></tr>
-      <tr><td>no less than X</td><td class="jp">Xも</td><td>as many as X</td><td>多い</td></tr>
-      <tr><td>no fewer than X</td><td class="jp">Xも（可算）</td><td>as many as X</td><td>多い</td></tr>
-      <tr><td>not more than X</td><td class="jp">多くてもX（X以下）</td><td>at most X</td><td>中立</td></tr>
-      <tr><td>not less than X</td><td class="jp">少なくともX（X以上）</td><td>at least X</td><td>中立</td></tr>
-      <tr><td>nothing more than X</td><td class="jp">Xにすぎない</td><td>merely X</td><td>軽視</td></tr>
-      <tr><td>no other than X／none other than X</td><td class="jp">ほかならぬX</td><td>―</td><td>強調</td></tr>
+      <tr><td>no more than X</td><td class="mark" style="color:var(--mood)">＝ X</td><td class="jp">たったX</td><td>only X</td><td>少ない</td></tr>
+      <tr><td>no less than X</td><td class="mark" style="color:var(--mood)">＝ X</td><td class="jp">Xも</td><td>as many as X</td><td>多い</td></tr>
+      <tr><td>no fewer than X</td><td class="mark" style="color:var(--mood)">＝ X</td><td class="jp">Xも（可算）</td><td>as many as X</td><td>多い</td></tr>
+      <tr><td>not more than X</td><td class="mark">≦ X</td><td class="jp">多くてもX（X以下）</td><td>at most X</td><td>中立</td></tr>
+      <tr><td>not less than X</td><td class="mark">≧ X</td><td class="jp">少なくともX（X以上）</td><td>at least X</td><td>中立</td></tr>
+      <tr><td>nothing more than X</td><td class="mark" style="color:var(--mood)">＝ X</td><td class="jp">Xにすぎない</td><td>merely X</td><td>軽視</td></tr>
+      <tr><td>none other than X</td><td class="mark" style="color:var(--mood)">＝ X</td><td class="jp">ほかならぬX</td><td>―</td><td>強調</td></tr>
     </tbody>
   </table>
+  </div>
+
+  <div class="callout">
+    <b>書き分けの実務。</b> 上限・下限を正確に伝えたい文書（規約・仕様・問題文）では <b>not</b> 側、つまり at most / at least を使います。<b>no</b> 側は数を1点に固定したうえで話し手の評価を足す表現なので、報道・エッセイ・スピーチで効きます。英検1級の二次でも <i>no less than</i> は「驚き」を1語で運べる便利な札です。
+  </div>
+
+  <h3 style="font-family:var(--body);font-weight:700;font-size:17px;margin:34px 0 6px">同じ理屈が効く：クジラ構文</h3>
+  <p class="note" style="margin-bottom:12px">「no ＝ 差がゼロ」は数だけでなく、性質の比較にもそのまま働きます。<b>A is no more B than C is D</b> は「AがBでないのは、CがDでないのと同じ」。</p>
+  <div class="panel" style="margin-top:0">
+    <p style="margin:0 0 10px"><b>A whale is no more a fish than a horse is.</b><br>
+    クジラが魚でないのは、馬が魚でないのと同じだ。<br>
+    <span class="note" style="display:inline">「クジラが魚である度合い」と「馬が魚である度合い」の差はゼロ。馬は当然魚ではない → だからクジラも魚ではない、という否定の押し出し方です。</span></p>
+    <p style="margin:0"><b>A whale is no less a mammal than a horse is.</b><br>
+    クジラが哺乳類であるのは、馬が哺乳類であるのと同じだ。<br>
+    <span class="note" style="display:inline">no less なら肯定方向に押し出します。数の <i>no less than 20</i>「20も」と同じ働き。</span></p>
   </div>
 </section>
 
@@ -382,7 +454,7 @@ footer{margin-top:80px;border-top:2px solid var(--line);padding-top:18px;font-si
 
 <!-- ===== 5. クイズ ===== -->
 <section id="quiz" aria-labelledby="h-quiz">
-  <h2 id="h-quiz"><span class="en">CHECK</span>10問で確認する</h2>
+  <h2 id="h-quiz"><span class="en">CHECK</span>12問で確認する</h2>
   <p class="note">選ぶとその場で答えと理由が出ます。</p>
   <div class="panel quiz" id="quizbox"></div>
 </section>
@@ -434,9 +506,6 @@ const EXPR = [
   {g:"up-in",l:"X and over",jp:"X以上",dir:"up",inc:true,
    en:"The event is open to those aged {X} and over.",ja:"このイベントは{X}歳以上が対象だ。",
    hint:"年齢はこの形が安全。X and above / X or older も同じ。"},
-  {g:"up-in",l:"no less than X",jp:"Xも",dir:"up",inc:true,mood:"多いと感じている",
-   en:"She has read no less than {X} books this year.",ja:"彼女は今年{X}冊も本を読んだ。",
-   hint:"数としてはX以上ですが、「Xも」と多さに驚く気持ちが乗ります（＝as many as）。"},
 
   {g:"dn-ex",l:"less than X",jp:"X未満",dir:"dn",inc:false,
    en:"Less than {X} percent of them agreed.",ja:"賛成したのは{X}パーセント未満だった。",
@@ -463,9 +532,15 @@ const EXPR = [
   {g:"dn-in",l:"up to X",jp:"最大X",dir:"dn",inc:true,
    en:"Up to {X} people can join the workshop.",ja:"ワークショップには最大{X}名まで参加できる。",
    hint:"「Xまで」。Xを含みます。広告の up to 50% off も同じ。"},
-  {g:"dn-in",l:"no more than X",jp:"たったX",dir:"dn",inc:true,mood:"少ないと感じている",
+  {g:"eq",l:"no more than X",jp:"たったX",dir:"dn",inc:true,eq:true,mood:"少ないと感じている",
    en:"He has no more than {X} dollars in his wallet.",ja:"彼は財布にたった{X}ドルしか持っていない。",
-   hint:"実質「Xだけ」。only X と同じで、少なさへの落胆が乗ります。"}
+   hint:"記号なら ＝{X}。only {X} と同じで、数は1点に定まり、少なさへの落胆が乗ります。"},
+  {g:"eq",l:"no less than X",jp:"Xも",dir:"up",inc:true,eq:true,mood:"多いと感じている",
+   en:"She has read no less than {X} books this year.",ja:"彼女は今年{X}冊も本を読んだ。",
+   hint:"記号なら ＝{X}。as many as {X} と同じで、多さへの驚きが乗ります。"},
+  {g:"eq",l:"no fewer than X",jp:"Xも（可算）",dir:"up",inc:true,eq:true,mood:"多いと感じている",
+   en:"No fewer than {X} families were affected.",ja:"{X}世帯もの家族が被害を受けた。",
+   hint:"no less than の可算版。数えられる名詞にはこちら。"}
 ];
 
 const $=(s,r)=>(r||document).querySelector(s);
@@ -502,9 +577,9 @@ function render(){
   $('#ro-expr').textContent=e.l.replace('X',X);
   $('#ro-jp').textContent=e.jp.replace('X',X);
   const tag=$('#ro-tag');
-  if(e.mood){
+  if(e.eq){
     tag.className='tag mood';
-    tag.textContent=X+' を含む・'+e.mood;
+    tag.textContent='＝ '+X+'・'+e.mood;
   }else{
     tag.className='tag '+(e.inc?'in':'out');
     tag.textContent=e.inc?(X+' を含む'):(X+' を含まない');
@@ -515,12 +590,13 @@ function render(){
   host.innerHTML='';
   let xIndex=-1;
   vals.forEach((v,i)=>{
-    const on = e.dir==='up'
-      ? (e.inc ? v>=X : v>X)
-      : (e.inc ? v<=X : v<X);
+    const on = e.eq ? (v===X)
+             : e.dir==='up'
+               ? (e.inc ? v>=X : v>X)
+               : (e.inc ? v<=X : v<X);
     const d=document.createElement('div');
     d.className='tick'+(on?' on':'')+(on&&!e.inc?' outc':'')+(v===X?' isx edge':'')
-              +(v===X&&!e.inc?' hollow':'');
+              +(v===X&&!e.inc?' hollow':'')+(e.eq&&v===X?' eqpoint':'');
     d.innerHTML='<div class="dot"></div><span class="num">'+v+'</span>';
     host.appendChild(d);
     if(v===X) xIndex=i;
@@ -530,14 +606,17 @@ function render(){
   const band=$('#band');
   const step=100/TICKS;
   const center=(xIndex+0.5)*step;
-  if(e.dir==='up'){
+  if(e.eq){
+    band.style.left=(center-step*0.42)+'%';
+    band.style.right=(100-center-step*0.42)+'%';
+  }else if(e.dir==='up'){
     band.style.left=center+'%';
     band.style.right='0%';
   }else{
     band.style.left='0%';
     band.style.right=(100-center)+'%';
   }
-  band.className='band'+(e.inc?'':' out');
+  band.className='band'+(e.eq?' eq':(e.inc?'':' out'));
 
   // 例文
   const X1=X+1, X0=X-1;
@@ -562,12 +641,16 @@ const QUIZ=[
    e:'1は入らないので2以上。なお動詞は one に引かれて単数扱い（More than one student was absent.）。'},
   {q:'<code>Children under 12 enter free.</code> 12歳の子は無料？',o:['無料','有料'],a:1,
    e:'under 12 は「12歳未満」。12歳は含まれないので有料です。日本語の「12歳以下」とは1歳ずれます。'},
-  {q:'<code>no more than 20 pages</code> の意味は？',o:['たった20ページ','20ページ以下ならOK'],a:0,
-   e:'no more than は only と同じ。「20ページしか読まなかった」という少なさへの評価が入ります。'},
+  {q:'<code>no more than 20</code> を記号で書くと？',o:['＝ 20','≦ 20'],a:0,
+   e:'no は「差がゼロ」＝20ぴったり。only 20「たった20」。≦20 にしたいなら not more than / at most。'},
   {q:'<code>not more than 20 guests</code> の意味は？',o:['たった20人','多くても20人'],a:1,
-   e:'not more than は at most。中立に上限を示すだけで、20人ちょうどは可。'},
-  {q:'<code>no less than 20 books</code> の意味は？',o:['20冊も','少なくとも20冊'],a:0,
-   e:'no less than は as many as。「20冊も読んだ」と多さに驚いています。中立に言うなら not less than / at least。'},
+   e:'not は単なる否定なので ≦20。at most 20。20人ちょうどは可で、感情は乗りません。'},
+  {q:'<code>no less than 20 books</code> を記号で書くと？',o:['≧ 20','＝ 20'],a:1,
+   e:'no + 比較級はすべて「＝」。数は20に定まり、そのうえで「20冊も」と多さへの驚きが乗ります（as many as）。'},
+  {q:'<code>not less than 20</code> を記号で書くと？',o:['≧ 20','＝ 20'],a:0,
+   e:'not + 比較級は不等号。「20より少なくはない」＝ ≧20、at least 20。'},
+  {q:'<code>A whale is no more a fish than a horse is.</code>',o:['クジラは馬と同様に魚ではない','クジラは馬ほど魚らしくない'],a:0,
+   e:'ここでも no は「差がゼロ」。「クジラが魚である度合い」と「馬が魚である度合い」は等しい → 馬は当然魚ではない → クジラも魚ではない。'},
   {q:'「10個以上」を最も誤解なく書くなら？',o:['more than 10','10 or more'],a:1,
    e:'more than 10 は11以上。境界を含めたいときは or more / at least を使います。'},
   {q:'<code>up to 50 people</code> に 50人 は入る？',o:['入る','入らない'],a:0,
@@ -614,7 +697,7 @@ function updateScore(){
   const msg=$('#scmsg');
   if(answered<QUIZ.length){ msg.textContent='残り '+(QUIZ.length-answered)+' 問。'; return; }
   msg.textContent = correct===QUIZ.length ? '全問正解。境界の感覚が入っています。'
-                 : correct>=7 ? 'あと少し。間違えた項目を数直線で見直しましょう。'
+                 : correct>=QUIZ.length*0.7 ? 'あと少し。間違えた項目を数直線で見直しましょう。'
                  : '4分類の表に戻って、or の有無から確認するのが近道です。';
 }
 $('#again').addEventListener('click',()=>{ location.reload(); });
