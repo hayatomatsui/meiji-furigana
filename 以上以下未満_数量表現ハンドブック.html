@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>以上・以下・未満 ── 英語の数量表現ハンドブック</title>
+<meta name="description" content="more than / over / X or more / not less than / no more than … 英語の「〜以上・〜以下・〜未満」を数直線で確かめる対話型ハンドブック。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#E9EDEF;
+  --panel:#FCFDFD;
+  --ink:#13202A;
+  --ink2:#5A6B75;
+  --line:#13202A;
+  --grid:rgba(19,32,42,.06);
+  --in:#0B6E64;      /* 含む */
+  --in-soft:rgba(11,110,100,.13);
+  --out:#A32E56;     /* 含まない */
+  --out-soft:rgba(163,46,86,.11);
+  --mood:#B37400;    /* 話し手の気持ち */
+  --mood-soft:rgba(179,116,0,.13);
+  --disp:"Shippori Mincho B1",serif;
+  --body:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  font-family:var(--body);
+  color:var(--ink);
+  background:
+    repeating-linear-gradient(to right,var(--grid) 0 1px,transparent 1px 26px),
+    repeating-linear-gradient(to bottom,var(--grid) 0 1px,transparent 1px 26px),
+    var(--paper);
+  line-height:1.85;
+  font-size:16px;
+}
+.wrap{max-width:920px;margin:0 auto;padding:0 20px 96px}
+a{color:var(--in)}
+h1,h2,h3{font-family:var(--disp);font-weight:800;line-height:1.35;letter-spacing:.01em}
+.eyebrow{
+  font-size:12px;letter-spacing:.22em;font-weight:700;color:var(--ink2);
+  text-transform:uppercase;margin:0 0 10px
+}
+
+/* ---------- header ---------- */
+header{padding:56px 0 8px}
+h1{font-size:clamp(30px,6.4vw,50px);margin:0 0 14px}
+h1 .sep{color:var(--ink2);font-weight:600;padding:0 .12em}
+.lede{max-width:44em;margin:0;color:var(--ink2);font-size:15px}
+
+/* ---------- panels ---------- */
+.panel{
+  background:var(--panel);border:2px solid var(--line);
+  padding:22px;margin:22px 0;
+}
+section{margin-top:64px;scroll-margin-top:20px}
+h2{font-size:clamp(21px,3.6vw,28px);margin:0 0 6px}
+h2 .en{font-family:var(--body);font-weight:700;font-size:13px;color:var(--ink2);display:block;letter-spacing:.12em;margin-bottom:4px}
+.note{font-size:14px;color:var(--ink2);margin:6px 0 0}
+
+/* ---------- chips ---------- */
+.chipgroup{margin-bottom:14px}
+.chipgroup .glabel{
+  font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--ink2);
+  display:flex;align-items:center;gap:8px;margin-bottom:8px
+}
+.chipgroup .glabel::after{content:"";flex:1;height:1px;background:rgba(19,32,42,.15)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  font-family:var(--body);font-size:14px;font-weight:500;
+  background:#fff;border:1.5px solid rgba(19,32,42,.3);color:var(--ink);
+  padding:6px 13px;border-radius:999px;cursor:pointer;
+  transition:background .15s,border-color .15s,color .15s,transform .1s;
+}
+.chip:hover{border-color:var(--ink)}
+.chip:active{transform:translateY(1px)}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.chip.mood[aria-pressed="true"]{background:var(--mood);border-color:var(--mood)}
+:focus-visible{outline:3px solid var(--mood);outline-offset:2px}
+
+/* ---------- number line ---------- */
+.linebox{margin-top:6px}
+.readout{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 14px;margin-bottom:18px}
+.readout .expr{font-size:clamp(20px,4vw,28px);font-weight:700;letter-spacing:-.01em}
+.readout .jp{font-family:var(--disp);font-size:clamp(18px,3.4vw,24px);font-weight:800}
+.tag{
+  font-size:12px;font-weight:700;letter-spacing:.08em;padding:3px 10px;border-radius:999px;
+  border:1.5px solid currentColor;white-space:nowrap
+}
+.tag.in{color:var(--in);background:var(--in-soft)}
+.tag.out{color:var(--out);background:var(--out-soft)}
+.tag.mood{color:var(--mood);background:var(--mood-soft)}
+
+.xrow{display:flex;align-items:center;gap:12px;margin-bottom:26px;font-size:14px;color:var(--ink2)}
+.xrow input[type=range]{flex:1;max-width:280px;accent-color:var(--ink)}
+.xval{
+  font-weight:700;color:var(--ink);font-size:20px;min-width:2.6em;text-align:center;
+  border-bottom:2px solid var(--ink);font-variant-numeric:tabular-nums
+}
+
+.nline{position:relative;padding:34px 0 8px;overflow:hidden}
+.axis{position:absolute;left:0;right:0;top:52px;height:2px;background:var(--ink)}
+.band{
+  position:absolute;top:38px;height:30px;background:var(--in-soft);
+  border-top:2px solid var(--in);border-bottom:2px solid var(--in);
+  transition:left .35s cubic-bezier(.4,0,.2,1),right .35s cubic-bezier(.4,0,.2,1),background .2s,border-color .2s;
+}
+.band.out{background:var(--out-soft);border-color:var(--out)}
+.ticks{position:relative;display:flex;justify-content:space-between}
+.tick{flex:1;text-align:center;position:relative}
+.dot{
+  width:15px;height:15px;border-radius:50%;border:2.5px solid var(--ink);
+  background:var(--panel);margin:0 auto;position:relative;top:6px;
+  transition:background .2s,border-color .2s,transform .2s
+}
+.tick.on .dot{background:var(--in);border-color:var(--in)}
+.tick.on.outc .dot{background:var(--out);border-color:var(--out)}
+.tick.edge .dot{width:19px;height:19px;top:4px}
+.tick.edge.hollow .dot{background:var(--panel);border-width:3px}
+.tick .num{
+  display:block;margin-top:14px;font-size:15px;font-weight:500;color:var(--ink2);
+  font-variant-numeric:tabular-nums
+}
+.tick.on .num{color:var(--ink);font-weight:700}
+.tick.isx .num{position:relative}
+.tick.isx .num::after{
+  content:"X";position:absolute;left:50%;transform:translateX(-50%);top:20px;
+  font-size:11px;letter-spacing:.1em;font-weight:700;color:var(--ink2)
+}
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:26px;font-size:13px;color:var(--ink2)}
+.legend span{display:flex;align-items:center;gap:7px}
+.sw{width:14px;height:14px;border-radius:50%;border:2.5px solid var(--ink);display:inline-block}
+.sw.fill{background:var(--in);border-color:var(--in)}
+
+.example{border-top:2px solid var(--line);margin-top:24px;padding-top:18px}
+.example .en{font-size:17px;font-weight:500;margin:0 0 6px}
+.example .ja{font-family:var(--disp);font-weight:600;margin:0;color:var(--ink)}
+.example .hint{font-size:13.5px;color:var(--ink2);margin:10px 0 0}
+
+/* ---------- tables ---------- */
+.tbl{width:100%;border-collapse:collapse;font-size:15px;margin-top:12px}
+.tbl th,.tbl td{border:1.5px solid rgba(19,32,42,.25);padding:9px 11px;text-align:left;vertical-align:top}
+.tbl th{background:rgba(19,32,42,.06);font-weight:700;font-size:13px;letter-spacing:.05em;white-space:nowrap}
+.tbl td.jp{font-family:var(--disp);font-weight:600;white-space:nowrap}
+.tbl .mark{font-weight:700;white-space:nowrap}
+.mark.yes{color:var(--in)}
+.mark.no{color:var(--out)}
+.scroller{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+/* ---------- no / not cards ---------- */
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.card{border:2px solid var(--line);background:var(--panel);padding:16px 16px 18px}
+.card.mood{border-color:var(--mood)}
+.card h3{font-size:17px;margin:0 0 2px;font-family:var(--body);font-weight:700}
+.card .equals{font-size:13px;color:var(--ink2);margin:0 0 10px}
+.card .feel{font-family:var(--disp);font-size:19px;font-weight:800;margin:0 0 8px}
+.card.mood .feel{color:var(--mood)}
+.card p.ex{font-size:14px;margin:0;color:var(--ink2)}
+.card p.ex b{color:var(--ink);font-weight:500}
+
+/* ---------- quiz ---------- */
+.quiz .q{border-top:2px solid var(--line);padding:18px 0}
+.quiz .q:first-of-type{border-top:none;padding-top:4px}
+.qnum{font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--ink2)}
+.qtext{font-size:17px;font-weight:500;margin:4px 0 12px}
+.qtext code{font-family:var(--body);font-weight:700;background:rgba(19,32,42,.07);padding:1px 6px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{
+  font-family:var(--body);font-size:14.5px;background:#fff;border:1.5px solid rgba(19,32,42,.3);
+  padding:8px 14px;cursor:pointer;color:var(--ink);transition:border-color .15s,background .15s
+}
+.opt:hover:not(:disabled){border-color:var(--ink)}
+.opt:disabled{cursor:default;opacity:.55}
+.opt.correct{background:var(--in-soft);border-color:var(--in);color:var(--in);font-weight:700;opacity:1}
+.opt.wrong{background:var(--out-soft);border-color:var(--out);color:var(--out);opacity:1}
+.feedback{font-size:14px;margin:12px 0 0;padding-left:14px;border-left:3px solid var(--ink2);color:var(--ink2);display:none}
+.feedback.show{display:block}
+.score{
+  margin-top:20px;border-top:2px solid var(--line);padding-top:16px;
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap
+}
+.score .n{font-family:var(--disp);font-size:30px;font-weight:800}
+.btn{
+  font-family:var(--body);font-size:14px;font-weight:700;background:var(--ink);color:#fff;
+  border:2px solid var(--ink);padding:8px 18px;cursor:pointer
+}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn:hover{opacity:.85}
+
+/* ---------- sentence bank ---------- */
+.bank li{margin-bottom:14px}
+.bank .en{font-size:16px}
+.bank .ja{font-family:var(--disp);font-weight:600;color:var(--ink2);font-size:15px}
+.bank .ja.hidden{filter:blur(5px);user-select:none}
+ul.plain{list-style:none;padding:0;margin:14px 0 0}
+.callout{border-left:4px solid var(--mood);background:var(--mood-soft);padding:12px 16px;margin:16px 0;font-size:14.5px}
+.callout b{font-weight:700}
+footer{margin-top:80px;border-top:2px solid var(--line);padding-top:18px;font-size:13px;color:var(--ink2)}
+
+@media (max-width:640px){
+  .cards{grid-template-columns:1fr}
+  .tick .num{font-size:13px}
+  .panel{padding:16px}
+  body{font-size:15.5px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">英語の数量表現ハンドブック</p>
+  <h1>以上 <span class="sep">/</span> 以下 <span class="sep">/</span> 未満<br>その数を、含むのか。</h1>
+  <p class="lede">日本語の「以上・以下」は境界の数を含み、「〜より多い・未満」は含まない。英語も同じ区別をしますが、境界を表す語が more than / over / at least / no more than … と散らばっているのが厄介です。まず数直線で目に焼き付けてください。</p>
+</header>
+
+<!-- ===== 1. 数直線 ===== -->
+<section id="line" aria-labelledby="h-line">
+  <h2 id="h-line"><span class="en">NUMBER LINE</span>数直線で確かめる</h2>
+  <p class="note">表現を選ぶと、その範囲に入る整数が光ります。境界の●は「含む」、○は「含まない」。</p>
+
+  <div class="panel linebox">
+    <div class="chipgroup">
+      <div class="glabel">Xより多い（Xを含まない）</div>
+      <div class="chips" data-group="up-ex"></div>
+    </div>
+    <div class="chipgroup">
+      <div class="glabel">X以上（Xを含む）</div>
+      <div class="chips" data-group="up-in"></div>
+    </div>
+    <div class="chipgroup">
+      <div class="glabel">X未満（Xを含まない）</div>
+      <div class="chips" data-group="dn-ex"></div>
+    </div>
+    <div class="chipgroup">
+      <div class="glabel">X以下（Xを含む）</div>
+      <div class="chips" data-group="dn-in"></div>
+    </div>
+
+    <div class="xrow">
+      <label for="xslider">X =</label>
+      <span class="xval" id="xval">10</span>
+      <input type="range" id="xslider" min="2" max="20" value="10" step="1" aria-label="Xの値">
+    </div>
+
+    <div class="readout">
+      <span class="expr" id="ro-expr"></span>
+      <span class="jp" id="ro-jp"></span>
+      <span class="tag" id="ro-tag"></span>
+    </div>
+
+    <div class="nline" aria-hidden="true">
+      <div class="axis"></div>
+      <div class="band" id="band"></div>
+      <div class="ticks" id="ticks"></div>
+    </div>
+
+    <div class="legend">
+      <span><i class="sw fill"></i>この数は範囲に入る</span>
+      <span><i class="sw"></i>この数は入らない</span>
+    </div>
+
+    <div class="example">
+      <p class="en" id="ex-en"></p>
+      <p class="ja" id="ex-ja"></p>
+      <p class="hint" id="ex-hint"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 2. 4分類 ===== -->
+<section id="four" aria-labelledby="h-four">
+  <h2 id="h-four"><span class="en">THE FOUR ZONES</span>基本の4分類</h2>
+  <p class="note">迷ったら、この表に戻れば足ります。<b>or</b> が入ると境界を含む、と覚えるのが最短ルートです。</p>
+  <div class="scroller">
+  <table class="tbl">
+    <thead><tr><th>日本語</th><th>基本形</th><th>言い換え</th><th>Xを</th></tr></thead>
+    <tbody>
+      <tr><td class="jp">Xより多い</td><td>more than X</td><td>over X／above X／greater than X／exceed X（動詞）</td><td class="mark no">含まない</td></tr>
+      <tr><td class="jp">X以上</td><td>X or more</td><td>at least X／not less than X／X and over／X and above／X and up／no fewer than X（※主観あり）</td><td class="mark yes">含む</td></tr>
+      <tr><td class="jp">Xより少ない・X未満</td><td>less than X</td><td>fewer than X（可算）／under X／below X</td><td class="mark no">含まない</td></tr>
+      <tr><td class="jp">X以下</td><td>X or less</td><td>at most X／not more than X／up to X／X or fewer（可算）</td><td class="mark yes">含む</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="callout">
+    <b>over と above、under と below。</b> over / under は数量そのものに（over 100 people）、above / below は基準線・平均・水準に対して使うのが基本（above average、below sea level、below freezing）。数を数えるときは over / under を選んでおけば外しません。
+  </div>
+  <div class="callout">
+    <b>fewer か less か。</b> 数えられる名詞は fewer than（fewer than 10 students）、量・金額・時間・距離は less than（less than 10 dollars）。ただし実際の英語では金額・距離・時間は数えられても less than が普通で、"less than 10 students" も広く使われます。書くときは fewer、聞くときは寛容に。
+  </div>
+</section>
+
+<!-- ===== 3. no と not ===== -->
+<section id="nonot" aria-labelledby="h-nonot">
+  <h2 id="h-nonot"><span class="en">NO vs NOT</span>no more than と not more than</h2>
+  <p class="note">ここが最大の山場です。<b>not</b> はただの否定、<b>no</b> は「差がゼロだ」と言い切る強い否定で、話し手の評価（多い／少ないという驚きや落胆）が乗ります。</p>
+
+  <div class="cards">
+    <div class="card">
+      <h3>not more than X</h3>
+      <p class="equals">= at most X ／ X以下・多くてもX</p>
+      <p class="feel">中立：上限を示すだけ</p>
+      <p class="ex"><b>Not more than 20 people can attend.</b><br>参加できるのは多くても20人だ。</p>
+    </div>
+    <div class="card mood">
+      <h3>no more than X</h3>
+      <p class="equals">= only X ／ たったXしかない</p>
+      <p class="feel">主観：少ないと感じている</p>
+      <p class="ex"><b>He read no more than 20 pages.</b><br>彼はたった20ページしか読まなかった。</p>
+    </div>
+    <div class="card">
+      <h3>not less than X</h3>
+      <p class="equals">= at least X ／ X以上・少なくともX</p>
+      <p class="feel">中立：下限を示すだけ</p>
+      <p class="ex"><b>The deposit is not less than 20 dollars.</b><br>保証金は少なくとも20ドルだ。</p>
+    </div>
+    <div class="card mood">
+      <h3>no less than X</h3>
+      <p class="equals">= as many as X ／ Xも</p>
+      <p class="feel">主観：多いと感じている</p>
+      <p class="ex"><b>She read no less than 20 books.</b><br>彼女は20冊も読んだ。</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <b>仕組みで覚える。</b> no は「差がゼロ」。<i>no more than 20</i> は「20との差はゼロ＝きっかり20、それだけ」→「たった20」。<i>no less than 20</i> も数としては20ですが、「20を下回らない、まさに20だ」と強調するので「20も」になります。数値そのものは not 版とほぼ同じ範囲を指しても、<u>伝わる感情が逆</u>だ、という点が試験でも実務でも問われます。
+  </div>
+
+  <div class="scroller">
+  <table class="tbl">
+    <thead><tr><th>表現</th><th>意味</th><th>言い換え</th><th>気持ち</th></tr></thead>
+    <tbody>
+      <tr><td>no more than X</td><td class="jp">たったX</td><td>only X</td><td>少ない</td></tr>
+      <tr><td>no less than X</td><td class="jp">Xも</td><td>as many as X</td><td>多い</td></tr>
+      <tr><td>no fewer than X</td><td class="jp">Xも（可算）</td><td>as many as X</td><td>多い</td></tr>
+      <tr><td>not more than X</td><td class="jp">多くてもX（X以下）</td><td>at most X</td><td>中立</td></tr>
+      <tr><td>not less than X</td><td class="jp">少なくともX（X以上）</td><td>at least X</td><td>中立</td></tr>
+      <tr><td>nothing more than X</td><td class="jp">Xにすぎない</td><td>merely X</td><td>軽視</td></tr>
+      <tr><td>no other than X／none other than X</td><td class="jp">ほかならぬX</td><td>―</td><td>強調</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- ===== 4. more than one ===== -->
+<section id="traps" aria-labelledby="h-traps">
+  <h2 id="h-traps"><span class="en">TRAPS</span>つまずきやすいところ</h2>
+
+  <div class="panel">
+    <h3 style="margin-top:0">more than one は「2以上」</h3>
+    <p style="margin:0 0 8px">「1つより多い」なので1は入りません。ところが動詞は<b>単数扱い</b>になるのが英語の面白いところです。</p>
+    <p style="margin:0"><b>More than one student <u>was</u> absent.</b>（2人以上の生徒が欠席した）<br>
+    <span class="note" style="display:inline">one に引きずられて was。一方 <b>More than two students <u>were</u> absent.</b> は複数扱い。</span></p>
+  </div>
+
+  <div class="panel">
+    <h3 style="margin-top:0">年齢の under / over は要注意</h3>
+    <p style="margin:0 0 8px"><b>Children under 12 enter free.</b> は「12歳未満が無料」＝12歳は有料。日本語の「12歳以下は無料」とは1歳ずれます。</p>
+    <p style="margin:0">「18歳以上」は <b>aged 18 and over</b> / <b>18 or older</b> / <b>18 and above</b>。<br>
+    <span class="note" style="display:inline">ただし法律文では over 18 が「18歳の誕生日を迎えた者」の意味で使われることがあり、揺れがあります。年齢は and over / or older で書くのが安全。</span></p>
+  </div>
+
+  <div class="panel">
+    <h3 style="margin-top:0">between A and B は境界が曖昧</h3>
+    <p style="margin:0 0 8px">日常では両端を含む感覚で使われますが、厳密には曖昧です。契約書や仕様書では <b>between 5 and 10 (inclusive)</b> や <b>from 5 to 10 inclusive</b> と明示します。</p>
+    <p style="margin:0"><b>Monday through Friday</b>（米）は金曜を含む。<b>Monday to Friday</b> も通常は金曜を含みます。</p>
+  </div>
+
+  <div class="panel">
+    <h3 style="margin-top:0">日常の more than はゆるい</h3>
+    <p style="margin:0">辞書的には <b>more than 100</b> は101以上ですが、ニュースや会話では「100を超えるくらい、ざっと100以上」の感覚で使われます。<u>正確さが要るとき</u>（規約・試験・仕様）は <b>100 or more</b> / <b>at least 100</b> と書き分けるのが実務の作法です。</p>
+  </div>
+</section>
+
+<!-- ===== 5. クイズ ===== -->
+<section id="quiz" aria-labelledby="h-quiz">
+  <h2 id="h-quiz"><span class="en">CHECK</span>10問で確認する</h2>
+  <p class="note">選ぶとその場で答えと理由が出ます。</p>
+  <div class="panel quiz" id="quizbox"></div>
+</section>
+
+<!-- ===== 6. 例文集 ===== -->
+<section id="bank" aria-labelledby="h-bank">
+  <h2 id="h-bank"><span class="en">SENTENCE BANK</span>例文で口に出す</h2>
+  <p class="note">訳はぼかしてあります。英文を読んで意味を思い浮かべてから、ボタンで確かめてください。</p>
+  <div class="panel">
+    <button class="btn ghost" id="revealBtn">訳を表示する</button>
+    <ul class="plain bank" id="banklist"></ul>
+  </div>
+</section>
+
+<footer>
+  <p>以上・以下・未満 ── 英語の数量表現ハンドブック。単一HTMLファイル、外部スクリプトなし。GitHub Pages にそのまま置けます。</p>
+</footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ============ データ ============ */
+const EXPR = [
+  // dir: 'up' | 'dn' / inc: 境界を含むか
+  {g:"up-ex",l:"more than X",jp:"Xより多い",dir:"up",inc:false,
+   en:"More than {X} people were waiting outside.",ja:"{X}人より多くの人が外で待っていた。",
+   hint:"入るのは {X1} 以上。{X} ちょうどは入りません。"},
+  {g:"up-ex",l:"over X",jp:"Xより多い",dir:"up",inc:false,
+   en:"Over {X} countries signed the agreement.",ja:"{X}か国を超える国が協定に署名した。",
+   hint:"over は数量に直接つけて more than とほぼ同義。"},
+  {g:"up-ex",l:"above X",jp:"Xを上回る",dir:"up",inc:false,
+   en:"The temperature stayed above {X} degrees all day.",ja:"気温は一日中{X}度を上回っていた。",
+   hint:"above は「基準線より上」。平均・水準・海抜などと相性がいい。"},
+  {g:"up-ex",l:"exceed X",jp:"Xを超える",dir:"up",inc:false,
+   en:"The cost must not exceed {X} dollars.",ja:"費用は{X}ドルを超えてはならない。",
+   hint:"動詞。not exceed {X} なら {X} ちょうどはセーフ＝{X}以下。"},
+
+  {g:"up-in",l:"X or more",jp:"X以上",dir:"up",inc:true,
+   en:"Choose {X} or more items from the list.",ja:"リストから{X}個以上選んでください。",
+   hint:"or が入ると境界を含む。最も誤解のない書き方。"},
+  {g:"up-in",l:"at least X",jp:"少なくともX",dir:"up",inc:true,
+   en:"It takes at least {X} minutes to get there.",ja:"そこまで少なくとも{X}分はかかる。",
+   hint:"会話で最頻出の「X以上」。"},
+  {g:"up-in",l:"not less than X",jp:"X以上",dir:"up",inc:true,
+   en:"The fee shall be not less than {X} dollars.",ja:"料金は{X}ドル以上とする。",
+   hint:"at least の硬い言い方。契約書・規約向き。"},
+  {g:"up-in",l:"X and over",jp:"X以上",dir:"up",inc:true,
+   en:"The event is open to those aged {X} and over.",ja:"このイベントは{X}歳以上が対象だ。",
+   hint:"年齢はこの形が安全。X and above / X or older も同じ。"},
+  {g:"up-in",l:"no less than X",jp:"Xも",dir:"up",inc:true,mood:"多いと感じている",
+   en:"She has read no less than {X} books this year.",ja:"彼女は今年{X}冊も本を読んだ。",
+   hint:"数としてはX以上ですが、「Xも」と多さに驚く気持ちが乗ります（＝as many as）。"},
+
+  {g:"dn-ex",l:"less than X",jp:"X未満",dir:"dn",inc:false,
+   en:"Less than {X} percent of them agreed.",ja:"賛成したのは{X}パーセント未満だった。",
+   hint:"入るのは {X0} 以下。{X} ちょうどは入りません。"},
+  {g:"dn-ex",l:"fewer than X",jp:"X未満（可算）",dir:"dn",inc:false,
+   en:"Fewer than {X} students passed the exam.",ja:"試験に合格した生徒は{X}人未満だった。",
+   hint:"数えられる名詞は fewer。書き言葉ではこちらが正式。"},
+  {g:"dn-ex",l:"under X",jp:"X未満",dir:"dn",inc:false,
+   en:"Children under {X} can enter free of charge.",ja:"{X}歳未満の子どもは無料で入場できる。",
+   hint:"{X}歳ちょうどは有料。日本語の「{X}歳以下」と1歳ずれます。"},
+  {g:"dn-ex",l:"below X",jp:"Xを下回る",dir:"dn",inc:false,
+   en:"Sales fell below {X} million yen last quarter.",ja:"前四半期の売上は{X}百万円を下回った。",
+   hint:"below も「基準線より下」。below average / below zero。"},
+
+  {g:"dn-in",l:"X or less",jp:"X以下",dir:"dn",inc:true,
+   en:"Answer the question in {X} words or less.",ja:"{X}語以内で答えなさい。",
+   hint:"可算名詞なら X or fewer がより正式。"},
+  {g:"dn-in",l:"at most X",jp:"多くてもX",dir:"dn",inc:true,
+   en:"I can wait at most {X} minutes.",ja:"待てるのは多くても{X}分だ。",
+   hint:"at least の対。上限を示す。"},
+  {g:"dn-in",l:"not more than X",jp:"X以下",dir:"dn",inc:true,
+   en:"Not more than {X} guests are allowed per room.",ja:"1部屋につき{X}名以下しか泊まれない。",
+   hint:"at most の硬い言い方。中立に上限を示すだけ。"},
+  {g:"dn-in",l:"up to X",jp:"最大X",dir:"dn",inc:true,
+   en:"Up to {X} people can join the workshop.",ja:"ワークショップには最大{X}名まで参加できる。",
+   hint:"「Xまで」。Xを含みます。広告の up to 50% off も同じ。"},
+  {g:"dn-in",l:"no more than X",jp:"たったX",dir:"dn",inc:true,mood:"少ないと感じている",
+   en:"He has no more than {X} dollars in his wallet.",ja:"彼は財布にたった{X}ドルしか持っていない。",
+   hint:"実質「Xだけ」。only X と同じで、少なさへの落胆が乗ります。"}
+];
+
+const $=(s,r)=>(r||document).querySelector(s);
+const $$=(s,r)=>Array.from((r||document).querySelectorAll(s));
+
+/* ============ チップ生成 ============ */
+let current=EXPR[0], X=10;
+
+EXPR.forEach((e,i)=>{
+  const host=$('.chips[data-group="'+e.g+'"]');
+  const b=document.createElement('button');
+  b.className='chip'+(e.mood?' mood':'');
+  b.type='button';
+  b.textContent=e.l;
+  b.setAttribute('aria-pressed', i===0?'true':'false');
+  b.addEventListener('click',()=>{
+    current=e;
+    $$('.chip').forEach(c=>c.setAttribute('aria-pressed','false'));
+    b.setAttribute('aria-pressed','true');
+    render();
+  });
+  host.appendChild(b);
+});
+
+/* ============ 数直線描画 ============ */
+const TICKS=9; // X を中央に置いて前後4つ
+function render(){
+  const e=current;
+  const start=Math.max(0,X-4);
+  const vals=[];
+  for(let i=0;i<TICKS;i++) vals.push(start+i);
+
+  // 読み上げ部
+  $('#ro-expr').textContent=e.l.replace('X',X);
+  $('#ro-jp').textContent=e.jp.replace('X',X);
+  const tag=$('#ro-tag');
+  if(e.mood){
+    tag.className='tag mood';
+    tag.textContent=X+' を含む・'+e.mood;
+  }else{
+    tag.className='tag '+(e.inc?'in':'out');
+    tag.textContent=e.inc?(X+' を含む'):(X+' を含まない');
+  }
+
+  // 目盛り
+  const host=$('#ticks');
+  host.innerHTML='';
+  let xIndex=-1;
+  vals.forEach((v,i)=>{
+    const on = e.dir==='up'
+      ? (e.inc ? v>=X : v>X)
+      : (e.inc ? v<=X : v<X);
+    const d=document.createElement('div');
+    d.className='tick'+(on?' on':'')+(on&&!e.inc?' outc':'')+(v===X?' isx edge':'')
+              +(v===X&&!e.inc?' hollow':'');
+    d.innerHTML='<div class="dot"></div><span class="num">'+v+'</span>';
+    host.appendChild(d);
+    if(v===X) xIndex=i;
+  });
+
+  // 帯
+  const band=$('#band');
+  const step=100/TICKS;
+  const center=(xIndex+0.5)*step;
+  if(e.dir==='up'){
+    band.style.left=center+'%';
+    band.style.right='0%';
+  }else{
+    band.style.left='0%';
+    band.style.right=(100-center)+'%';
+  }
+  band.className='band'+(e.inc?'':' out');
+
+  // 例文
+  const X1=X+1, X0=X-1;
+  const fill=s=>s.replace(/\{X1\}/g,X1).replace(/\{X0\}/g,X0).replace(/\{X\}/g,X);
+  $('#ex-en').textContent=fill(e.en);
+  $('#ex-ja').textContent=fill(e.ja);
+  $('#ex-hint').textContent=fill(e.hint);
+}
+
+$('#xslider').addEventListener('input',ev=>{
+  X=parseInt(ev.target.value,10);
+  $('#xval').textContent=X;
+  render();
+});
+render();
+
+/* ============ クイズ ============ */
+const QUIZ=[
+  {q:'<code>more than 100</code> に 100 は入る？',o:['入る','入らない'],a:1,
+   e:'more than は「100より多い」。101以上です。日本語の「100以上」にしたいなら 100 or more / at least 100。'},
+  {q:'<code>more than one student</code> は何人以上？',o:['1人以上','2人以上'],a:1,
+   e:'1は入らないので2以上。なお動詞は one に引かれて単数扱い（More than one student was absent.）。'},
+  {q:'<code>Children under 12 enter free.</code> 12歳の子は無料？',o:['無料','有料'],a:1,
+   e:'under 12 は「12歳未満」。12歳は含まれないので有料です。日本語の「12歳以下」とは1歳ずれます。'},
+  {q:'<code>no more than 20 pages</code> の意味は？',o:['たった20ページ','20ページ以下ならOK'],a:0,
+   e:'no more than は only と同じ。「20ページしか読まなかった」という少なさへの評価が入ります。'},
+  {q:'<code>not more than 20 guests</code> の意味は？',o:['たった20人','多くても20人'],a:1,
+   e:'not more than は at most。中立に上限を示すだけで、20人ちょうどは可。'},
+  {q:'<code>no less than 20 books</code> の意味は？',o:['20冊も','少なくとも20冊'],a:0,
+   e:'no less than は as many as。「20冊も読んだ」と多さに驚いています。中立に言うなら not less than / at least。'},
+  {q:'「10個以上」を最も誤解なく書くなら？',o:['more than 10','10 or more'],a:1,
+   e:'more than 10 は11以上。境界を含めたいときは or more / at least を使います。'},
+  {q:'<code>up to 50 people</code> に 50人 は入る？',o:['入る','入らない'],a:0,
+   e:'up to は「〜まで」で境界を含みます。最大50名。'},
+  {q:'書き言葉として正しいのは？',o:['fewer than 10 students','less than 10 students'],a:0,
+   e:'数えられる名詞は fewer。ただし話し言葉では less than も広く使われます。金額・時間・距離は less than が普通。'},
+  {q:'<code>The cost must not exceed 500 dollars.</code> ちょうど500ドルは？',o:['セーフ','アウト'],a:0,
+   e:'exceed は「超える」。500を超えなければよいので、500ちょうどはセーフ＝500ドル以下。'}
+];
+
+let answered=0, correct=0;
+const box=$('#quizbox');
+QUIZ.forEach((item,i)=>{
+  const d=document.createElement('div');
+  d.className='q';
+  d.innerHTML='<div class="qnum">Q'+(i+1)+'</div><p class="qtext">'+item.q+'</p>'+
+              '<div class="opts"></div><p class="feedback"></p>';
+  const opts=$('.opts',d), fb=$('.feedback',d);
+  item.o.forEach((label,j)=>{
+    const b=document.createElement('button');
+    b.className='opt'; b.type='button'; b.textContent=label;
+    b.addEventListener('click',()=>{
+      $$('.opt',opts).forEach(x=>x.disabled=true);
+      const ok=(j===item.a);
+      b.classList.add(ok?'correct':'wrong');
+      if(!ok) $$('.opt',opts)[item.a].classList.add('correct');
+      fb.textContent=(ok?'正解。':'惜しい。')+item.e;
+      fb.classList.add('show');
+      answered++; if(ok) correct++;
+      updateScore();
+    });
+    opts.appendChild(b);
+  });
+  box.appendChild(d);
+});
+const sc=document.createElement('div');
+sc.className='score';
+sc.innerHTML='<span class="n" id="scoren">0 / '+QUIZ.length+'</span>'+
+             '<span class="note" id="scmsg" style="margin:0">上から順に答えてみてください。</span>'+
+             '<button class="btn" id="again" type="button">もう一度</button>';
+box.appendChild(sc);
+function updateScore(){
+  $('#scoren').textContent=correct+' / '+QUIZ.length;
+  const msg=$('#scmsg');
+  if(answered<QUIZ.length){ msg.textContent='残り '+(QUIZ.length-answered)+' 問。'; return; }
+  msg.textContent = correct===QUIZ.length ? '全問正解。境界の感覚が入っています。'
+                 : correct>=7 ? 'あと少し。間違えた項目を数直線で見直しましょう。'
+                 : '4分類の表に戻って、or の有無から確認するのが近道です。';
+}
+$('#again').addEventListener('click',()=>{ location.reload(); });
+
+/* ============ 例文集 ============ */
+const BANK=[
+ ['The library holds more than 50,000 books.','図書館は5万冊を超える蔵書を持つ。'],
+ ['You must be 18 or older to sign this contract.','この契約を結ぶには18歳以上でなければならない。'],
+ ['Applications will be accepted up to 5 p.m. on Friday.','応募は金曜午後5時まで受け付ける。'],
+ ['Not more than three people may share a room.','1部屋を使えるのは3名以下だ。'],
+ ['No more than a handful of students showed up.','ほんの一握りの生徒しか来なかった。'],
+ ['No fewer than forty families were affected by the flood.','40世帯もの家族が洪水の被害を受けた。'],
+ ['The project must be completed in not less than six months.','この計画は少なくとも6か月かけて完了させねばならない。'],
+ ['Fewer than ten applicants met the requirements.','要件を満たした応募者は10人未満だった。'],
+ ['Household income below the national average qualifies for support.','全国平均を下回る世帯収入なら支援の対象になる。'],
+ ['Temperatures are expected to exceed 35 degrees tomorrow.','明日は気温が35度を超える見込みだ。'],
+ ['Choose between three and five topics, inclusive.','3つから5つまでの範囲でテーマを選びなさい。'],
+ ['The office is open Monday through Friday.','事務所は月曜から金曜まで開いている（金曜も含む）。']
+];
+const list=$('#banklist');
+BANK.forEach(p=>{
+  const li=document.createElement('li');
+  li.innerHTML='<div class="en">'+p[0]+'</div><div class="ja hidden">'+p[1]+'</div>';
+  list.appendChild(li);
+});
+let shown=false;
+$('#revealBtn').addEventListener('click',()=>{
+  shown=!shown;
+  $$('.bank .ja').forEach(x=>x.classList.toggle('hidden',!shown));
+  $('#revealBtn').textContent=shown?'訳を隠す':'訳を表示する';
+});
+})();
+</script>
+</body>
+</html>
