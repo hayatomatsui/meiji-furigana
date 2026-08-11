@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 9 単語・熟語 総合リスト｜Who's Not Online?</title>
+<style>
+:root{
+  --g3:#4CAF50; --g3p:#8BC34A; --g2:#03A9F4; --g2p:#7E57C2; --g1:#E91E63; --gx:#F44336;
+  --tw:#ff6a3d; --ti:#1668c7;
+  --bg:#f4f6fb; --card:#fff; --ink:#1b2233; --sub:#6b7590;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+  background:var(--bg);color:var(--ink);padding:18px;line-height:1.65}
+.wrap{max-width:1180px;margin:0 auto}
+header{background:linear-gradient(135deg,#00acc1,#1e88e5 45%,#5e35b1);color:#fff;
+  border-radius:18px;padding:26px 24px;margin-bottom:18px;box-shadow:0 8px 26px rgba(30,136,229,.25)}
+header h1{font-size:1.4rem;margin-bottom:6px}
+header p{opacity:.94;font-size:.87rem}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:15px}
+.stat{background:rgba(255,255,255,.22);border-radius:12px;padding:8px 14px;font-size:.8rem}
+.stat b{font-size:1.15rem;display:block}
+h2{font-size:1.03rem;margin:24px 0 10px;padding-left:12px;border-left:5px solid #1e88e5}
+
+.ansbox{background:#fff;border-radius:14px;padding:16px 18px;box-shadow:0 2px 10px rgba(0,0,0,.07)}
+.ansgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin-top:10px}
+.acard{border:2px solid #eef1f6;border-radius:12px;padding:10px 12px;cursor:pointer;user-select:none;transition:.15s}
+.acard:hover{border-color:#1e88e5}
+.acard .n{font-size:.72rem;color:var(--sub);font-weight:700}
+.acard .a{font-size:.95rem;font-weight:800;color:#1565c0;margin-top:3px}
+.acard .k{font-size:.72rem;color:var(--sub);margin-top:3px;font-weight:400}
+.acard.hid .a,.acard.hid .k{filter:blur(7px)}
+
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 14px}
+.lbl{font-size:.72rem;color:var(--sub);font-weight:700;margin-right:2px}
+button{font-family:inherit;cursor:pointer;border:none;border-radius:999px;padding:8px 15px;
+  font-size:.82rem;font-weight:700;transition:.15s;background:#fff;color:var(--sub);
+  box-shadow:0 2px 6px rgba(0,0,0,.08)}
+button:hover{transform:translateY(-1px)}
+button.on{background:#1b2233;color:#fff}
+.util{background:#e1f5fe;color:#01579b}
+.sw{display:inline-flex;background:#fff;border-radius:999px;padding:4px;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.sw button{box-shadow:none;padding:8px 18px}
+.sw button.on{background:linear-gradient(135deg,#1e88e5,#5e35b1);color:#fff}
+.spacer{flex:1}
+
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;
+  box-shadow:0 2px 10px rgba(0,0,0,.07)}
+th,td{padding:10px 13px;text-align:left;border-bottom:1px solid #eef1f6;font-size:.87rem;vertical-align:top}
+th{background:#1b2233;color:#fff;font-size:.76rem;letter-spacing:.04em;position:sticky;top:0;z-index:2}
+tbody tr:nth-child(even){background:#fafbfe}
+tbody tr:hover{background:#eef7ff}
+tbody tr.done{opacity:.4}
+td.ph{font-weight:700}
+td.mn{cursor:pointer}
+tr.hid td.mn,tr.hid td.exc{filter:blur(5px);opacity:.5}
+td.exc{color:#5c6580;font-style:italic;font-size:.79rem}
+td.ln{color:#aab2c4;font-size:.75rem;white-space:nowrap}
+.mark{cursor:pointer;color:#c9cfdd;font-weight:800;user-select:none}
+tr.done .mark{color:#4CAF50}
+.bar{height:9px;border-radius:5px;display:inline-block;vertical-align:middle;margin-right:8px}
+.sumtbl td,.sumtbl th{font-size:.85rem}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:12px}
+.card{background:var(--card);border-radius:14px;padding:14px 16px;cursor:pointer;
+  box-shadow:0 2px 8px rgba(0,0,0,.07);border-left:6px solid #ccc;transition:.18s;
+  position:relative;user-select:none}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.12)}
+.card.done{opacity:.42}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.phrase{font-size:1.05rem;font-weight:700}
+.badge{font-size:.65rem;font-weight:800;color:#fff;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.tag{font-size:.63rem;font-weight:800;padding:2px 8px;border-radius:999px;color:#fff}
+.tag.w{background:var(--tw)} .tag.i{background:var(--ti)}
+.meaning{margin-top:9px;padding-top:9px;border-top:1px dashed #dde2ec;font-size:.92rem}
+.ex{margin-top:7px;font-size:.77rem;color:#5c6580;font-style:italic}
+.hidden .meaning,.hidden .ex{filter:blur(6px);opacity:.5}
+.hint{font-size:.66rem;color:#b9c0d0;margin-top:6px}
+.line{font-size:.67rem;color:#aab2c4;margin-top:3px}
+.check{position:absolute;top:8px;right:10px;font-size:.66rem;color:#4CAF50;display:none;font-weight:800}
+.card.done .check{display:block}
+.hide{display:none}
+@media(max-width:640px){body{padding:12px}th,td{padding:8px 9px;font-size:.79rem}td.exc,th.exc{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Lesson 9 — 単語・熟語 総合リスト（Who's Not Online?）</h1>
+  <p>単語と熟語を1つにまとめました。「カード形式／表形式」「単語／熟語」を自由に切り替えて暗記できます。</p>
+  <div class="stats">
+    <div class="stat"><b id="total">0</b>総項目</div>
+    <div class="stat"><b id="nw">0</b>単語</div>
+    <div class="stat"><b id="ni">0</b>熟語・構文</div>
+    <div class="stat"><b id="shown">0</b>表示中</div>
+    <div class="stat"><b id="doneN">0</b>覚えた</div>
+  </div>
+</header>
+
+<h2>解答のカギ（タップで表示）</h2>
+<div class="ansbox">
+  <div style="font-size:.82rem;color:var(--sub)">図表問題は「非利用率」と「利用率」の裏返しに注意。先に自分で解いてから確認してください。</div>
+  <div class="ansgrid" id="ansgrid"></div>
+</div>
+
+<h2>レベル別分布（単語 / 熟語 内訳つき）</h2>
+<table class="sumtbl"><thead><tr><th>英検レベル</th><th>合計</th><th>単語</th><th>熟語</th><th>割合</th><th>目安</th></tr></thead>
+<tbody id="sumbody"></tbody></table>
+
+<div class="controls" style="margin-top:22px">
+  <span class="sw"><button id="bCard" class="on" onclick="setView('card')">カード形式</button><button id="bTable" onclick="setView('table')">表形式</button></span>
+  <span class="spacer"></span>
+  <span class="sw"><button id="tAll" class="on" onclick="setType('all')">単語＋熟語</button><button id="tW" onclick="setType('単語')">単語のみ</button><button id="tI" onclick="setType('熟語')">熟語のみ</button></span>
+</div>
+
+<div class="controls"><span class="lbl">レベル</span><span id="filters" style="display:contents"></span></div>
+<div class="controls">
+  <button class="util" onclick="allHide()">すべて隠す</button>
+  <button class="util" onclick="allShow()">すべて表示</button>
+  <button class="util" onclick="shuffle()">シャッフル</button>
+  <button class="util" onclick="resetOrder()">本文順に戻す</button>
+  <button class="util" onclick="resetDone()">「覚えた」リセット</button>
+  <span class="spacer"></span>
+  <button class="util" id="hideDoneBtn" onclick="toggleDoneFilter()">覚えた項目を隠す</button>
+</div>
+
+<div id="cardView"><div class="grid" id="grid"></div></div>
+<div id="tableView" class="hide">
+  <table><thead><tr><th style="width:30px"></th><th style="width:46px">種類</th><th>語句</th><th>意味</th><th class="exc">本文での使われ方</th><th>レベル</th><th>行</th></tr></thead>
+  <tbody id="tbody"></tbody></table>
+</div>
+
+</div>
+
+<script>
+const ANS=[
+ ["問1","③ decreased a lot","2000年は48%、2018年は11%。①changed little は「過去3年間」の話で、比較対象が違う"],
+ ["問2","③ race","White 11 / Black 13 / Hispanic 12 で差はわずか2ポイント。age(2〜34)・education(3〜35)・community(8〜22)は差が大きい"],
+ ["問3","② The less urban ..., the higher ...","Urban 8 → Suburban 10 → Rural 22。都市的でないほど非利用率が高い。①③④はすべて逆向き"],
+ ["問4","④（これが誤り）","less than HS の非利用率は35%＝利用率はちょうど65%。\"Fewer than 65%\"（65%未満）は成立しない"],
+ ["問5","② Those with less than HS level of education","「利用率が最も低い」＝「非利用率が最も高い」。35% > 34%(65+) > 22%(rural) > 19%(<$30K)"]
+];
+document.getElementById("ansgrid").innerHTML=ANS.map(a=>
+ `<div class="acard hid"><div class="n">${a[0]}</div><div class="a">${a[1]}</div><div class="k">${a[2]}</div></div>`).join("");
+[...document.getElementById("ansgrid").children].forEach(c=>c.onclick=()=>c.classList.toggle("hid"));
+
+const LV={
+ "3級":{c:"var(--g3)",note:"中学卒業程度"},
+ "準2級":{c:"var(--g3p)",note:"高校中級程度"},
+ "2級":{c:"var(--g2)",note:"高校卒業程度"},
+ "準1級":{c:"var(--g2p)",note:"大学中級程度"},
+ "1級":{c:"var(--g1)",note:"大学上級程度"},
+ "級外":{c:"var(--gx)",note:"専門語・注釈必須"}
+};
+// [語句, 意味, 本文での使われ方, レベル, 行, 種類]
+const DATA=[
+ ["go online","インターネットに接続する","For many Americans, going online is an important way to connect with friends","2級",1,"熟語"],
+ ["a way to do","~するための手段・方法","going online is an important way to connect with friends and family","3級",1,"熟語"],
+ ["connect with ~","~とつながる、連絡を取る","an important way to connect with friends and family","準2級",1,"熟語"],
+ ["search for ~","~を探す、検索する","shop, get news and search for information","3級",2,"熟語"],
+ ["yet","接 しかし、それでも","Yet, 11% of U.S. adults do not use the internet","2級",2,"単語"],
+ ["adult","名 成人、大人","11% of U.S. adults do not use the internet","準2級",3,"単語"],
+ ["according to ~","~によれば","according to a 2018 Pew Research Center survey","3級",3,"熟語"],
+ ["survey","名 調査、アンケート","a 2018 Pew Research Center survey","2級",3,"単語"],
+ ["change little","ほとんど変わらない","The size of this group has changed little over the past three years","2級",4,"熟語"],
+ ["over the past ~ years","過去~年間で","has changed little over the past three years","2級",4,"熟語"],
+ ["despite ~","前 ~にもかかわらず","despite ongoing government and social service programs","2級",4,"熟語"],
+ ["ongoing","形 進行中の、継続中の","despite ongoing government and social service programs","準1級",5,"単語"],
+ ["social service","名 社会福祉事業、社会サービス","ongoing government and social service programs","2級",5,"単語"],
+ ["encourage ~","動 ~を促進する、後押しする","programs to encourage internet use","2級",5,"単語"],
+ ["figure","名 数字、数値","that 11% figure is much lower than in 2000","2級",6,"単語"],
+ ["much lower than ~","~よりずっと低い（比較級の強調）","that 11% figure is much lower than in 2000","3級",6,"熟語"],
+ [", when ...","そしてその時…（非制限用法の関係副詞）","in 2000, when the Center first began to study the social impact","2級",6,"熟語"],
+ ["begin to do","~し始める","when the Center first began to study the social impact of technology","3級",6,"熟語"],
+ ["social impact","名 社会的影響","the social impact of technology","2級",7,"単語"],
+ ["nearly half","半数近く","nearly half (48%) of American adults did not use the internet","3級",7,"熟語"],
+ ["find some reasons why ...","…である理由をいくつか明らかにする","A 2013 survey found some key reasons why some people do not use the internet","2級",9,"熟語"],
+ ["key reason","名 主要な理由","some key reasons why some people do not use the internet","2級",9,"単語"],
+ ["a third of ~","~の3分の1","A third of non-internet users (34%) did not go online","2級",10,"熟語"],
+ ["non-internet user","名 インターネットを使わない人","A third of non-internet users (34%)","2級",10,"単語"],
+ ["have no interest in ~","~に関心がない","because they had no interest in doing so","2級",11,"熟語"],
+ ["in doing so","そうすることに（＝go online すること）","they had no interest in doing so","2級",11,"熟語"],
+ ["be relevant to ~","~に関係がある、~にとって意味がある","did not think the internet was relevant to their lives","準1級",11,"熟語"],
+ ["relevant","形 関連のある、重要な","the internet was relevant to their lives","準1級",12,"単語"],
+ ["another 32%","さらに32%が、別の32%は","Another 32% of non-users said the internet was too difficult to learn","2級",12,"熟語"],
+ ["non-user","名 利用しない人","Another 32% of non-users said...","2級",12,"単語"],
+ ["too ~ to do","~すぎて…できない","the internet was too difficult to learn","3級",13,"熟語"],
+ ["barrier","名 障壁、妨げ","Cost was also a barrier for some adults who were offline","準1級",13,"単語"],
+ ["offline","形・副 オフラインの、ネットに接続していない","some adults who were offline","2級",13,"単語"],
+ ["mention","動 言及する、口にする","19% mentioned the high expense of internet services","2級",14,"単語"],
+ ["expense","名 費用、出費","the high expense of internet services or owning a computer","2級",14,"単語"],
+ ["own a computer","パソコンを所有する","the high expense of internet services or owning a computer","3級",14,"熟語"],
+ ["as shown in the chart","図表に示されているように","As shown in the chart, the 2018 survey found that...","準1級",15,"熟語"],
+ ["non-use","名 不使用、利用しないこと","internet non-use is related to a number of factors","準1級",15,"単語"],
+ ["be related to ~","~と関係がある","internet non-use is related to a number of factors","2級",15,"熟語"],
+ ["a number of ~","いくつもの~、多くの~","related to a number of factors","2級",16,"熟語"],
+ ["factor","名 要因、要素","related to a number of factors, including gender, race, age","2級",16,"単語"],
+ ["including ~","~を含めて","including gender, race, age, household income","2級",16,"熟語"],
+ ["gender","名 性別","including gender, race, age, household income","準1級",16,"単語"],
+ ["race","名 人種","gender, race, age, household income","2級",16,"単語"],
+ ["household income","名 世帯収入","age, household income, educational level and community type","準1級",16,"単語"],
+ ["household","名 世帯、所帯","household income","準1級",16,"単語"],
+ ["educational level","名 学歴、教育水準","educational level and community type","2級",17,"単語"],
+ ["community type","名 居住地域の種類（都市/郊外/農村）","educational level and community type","2級",17,"単語"],
+ ["adapted from ~","~より改変・引用","[Adapted from: \"11% of Americans don't use the internet...\"]","準1級",0,"熟語"],
+ ["chart","名 図表、グラフ","Read the following passage and look at the chart.","3級",0,"単語"],
+ ["% of U.S. adults who ...","…する米国成人の割合","% of U.S. adults who do not use the internet (2018)（図表見出し）","2級",0,"熟語"],
+ ["urban","形 都市の、都会の","Urban 8 ／ ② The less urban the type of community...","準1級",0,"単語"],
+ ["suburban","形 郊外の","Suburban 10（図表）","準1級",0,"単語"],
+ ["rural","形 田舎の、農村部の","Rural 22 ／ ① Those who live in rural communities（問5）","準1級",0,"単語"],
+ ["Hispanic","形・名 ヒスパニック（の）","Hispanic 12（図表）","準1級",0,"単語"],
+ ["HS（high school）","名 高校（略記）","Less than HS 35 ／ High school 16（図表）","3級",0,"単語"],
+ ["less than HS","高校未満（の学歴）","Less than HS level of education（図表・問4④・問5②）","2級",0,"熟語"],
+ ["some college","大学中退・在学（学位なし）","Some college 7（図表）","2級",0,"熟語"],
+ ["College+","大学卒業以上","College+ 3（図表）","2級",0,"熟語"],
+ ["$75K+","7万5千ドル以上","$75K+ 2（図表）","2級",0,"熟語"],
+ ["65+","65歳以上","65+ 34（図表）／ Those aged 65 years or older（問5④）","3級",0,"熟語"],
+ ["select the correct answer","正しい答えを選ぶ","Select the correct answer to each of the following questions（設問）","2級",0,"熟語"],
+ ["indicate one's response","解答を記入する・示す","indicate your response (①-④) on the answer sheet（設問）","2級",0,"熟語"],
+ ["answer sheet","名 解答用紙","indicate your response on the answer sheet（設問）","3級",0,"単語"],
+ ["compared with ~","~と比べて","Compared with 2000 the percentage ... in 2018 has...（問1）","2級",0,"熟語"],
+ ["gradually","副 徐々に、次第に","② gradually increased.（問1②）","2級",0,"単語"],
+ ["decrease","動 減少する","③ decreased a lot.（問1③）","2級",0,"単語"],
+ ["remain the same","変わらないままである","④ remained the same.（問1④）","2級",0,"熟語"],
+ ["there is little difference in ~","~にほとんど差がない","There is very little difference in the percentage of American adults...（問2）","2級",0,"熟語"],
+ ["concerning ~","前 ~に関して","concerning the different categories of ...（問2）","準1級",0,"熟語"],
+ ["category","名 区分、カテゴリー","the different categories of age / race（問2）","2級",0,"単語"],
+ ["based on ~","~に基づいて","Based on the chart, which statement below is true?（問3）","2級",0,"熟語"],
+ ["statement","名 記述、陳述","which statement below is true?（問3）","2級",0,"単語"],
+ ["The 比較級 ..., the 比較級 ~","…すればするほど~だ","The higher the level of education, the higher the percentage...（問3）","2級",0,"熟語"],
+ ["more than ~%","~%を超える","More than 95% of U.S. adults ... use the internet（問4①）","3級",0,"熟語"],
+ ["fewer than ~%","~%未満（可算名詞に対して）","Fewer than 88% of U.S. adults aged 50-64 use the internet（問4②）","2級",0,"熟語"],
+ ["aged ~","~歳の","U.S. adults aged 50-64（問4②）","2級",0,"熟語"],
+ ["with a household income of ~","世帯収入が~の","U.S. adults with a household income of $75,000 or more（問4①）","2級",0,"熟語"],
+ ["or more","~以上","a household income of $75,000 or more（問4①）","3級",0,"熟語"],
+ ["those who ~","~する人々","Those who live in rural communities（問5①）","2級",0,"熟語"]
+];
+
+const ORDER=["3級","準2級","2級","準1級","1級","級外"];
+let data=[...DATA],activeLv="all",activeType="all",hideDone=false;
+const done=new Set();
+
+const cW=DATA.filter(d=>d[5]==="単語").length, cI=DATA.length-cW;
+document.getElementById("total").textContent=DATA.length;
+document.getElementById("nw").textContent=cW;
+document.getElementById("ni").textContent=cI;
+
+const cnt={},cntW={},cntI={};
+ORDER.forEach(l=>{cnt[l]=0;cntW[l]=0;cntI[l]=0;});
+DATA.forEach(d=>{cnt[d[3]]++;(d[5]==="単語"?cntW:cntI)[d[3]]++;});
+document.getElementById("sumbody").innerHTML=ORDER.map(l=>{
+ const n=cnt[l],p=Math.round(n/DATA.length*100);
+ return `<tr><td><span class="badge" style="background:${LV[l].c}">${l}</span></td>
+ <td><b>${n}</b></td><td style="color:var(--tw);font-weight:700">${cntW[l]}</td>
+ <td style="color:var(--ti);font-weight:700">${cntI[l]}</td>
+ <td><span class="bar" style="width:${Math.max(p*2.6,6)}px;background:${LV[l].c}"></span>${p}%</td>
+ <td style="color:var(--sub)">${LV[l].note}</td></tr>`;}).join("");
+
+document.getElementById("filters").innerHTML=
+ `<button class="on" data-lv="all">すべて</button>`+
+ ORDER.map(l=>cnt[l]?`<button data-lv="${l}" style="color:${LV[l].c}">${l} (${cnt[l]})</button>`:"").join("");
+document.getElementById("filters").onclick=e=>{
+ if(e.target.tagName!=="BUTTON")return;
+ [...e.currentTarget.children].forEach(b=>b.classList.remove("on"));
+ e.target.classList.add("on");activeLv=e.target.dataset.lv;render();};
+
+function list(){return data.filter(d=>
+ (activeLv==="all"||d[3]===activeLv)&&
+ (activeType==="all"||d[5]===activeType)&&
+ !(hideDone&&done.has(d[0])));}
+
+function render(){
+ const L=list();
+ document.getElementById("grid").innerHTML=L.map(d=>{
+  const[p,m,ex,lv,ln,ty]=d, t=ty==="単語"?"w":"i";
+  return `<div class="card hidden" data-w="${p}" style="border-left-color:${LV[lv].c}">
+   <span class="check">✓ 覚えた</span>
+   <div class="top"><span class="phrase">${p}</span>
+   <span style="display:flex;flex-direction:column;gap:4px;align-items:flex-end">
+   <span class="badge" style="background:${LV[lv].c}">${lv}</span>
+   <span class="tag ${t}">${ty}</span></span></div>
+   <div class="line">${ln?"l."+ln:"図表・設問"}</div>
+   <div class="meaning">${m}</div>
+   <div class="ex">${ex}</div>
+   <div class="hint">タップで表示 ／ ダブルクリックで「覚えた」</div></div>`;}).join("");
+ [...document.getElementById("grid").children].forEach(c=>{
+  if(done.has(c.dataset.w))c.classList.add("done");
+  c.onclick=()=>c.classList.toggle("hidden");
+  c.ondblclick=e=>{e.preventDefault();const w=c.dataset.w;
+   done.has(w)?done.delete(w):done.add(w);render();};});
+
+ document.getElementById("tbody").innerHTML=L.map(d=>{
+  const[p,m,ex,lv,ln,ty]=d, t=ty==="単語"?"w":"i";
+  return `<tr class="hid ${done.has(p)?'done':''}" data-w="${p}">
+   <td><span class="mark">✓</span></td>
+   <td><span class="tag ${t}">${ty}</span></td>
+   <td class="ph">${p}</td><td class="mn">${m}</td>
+   <td class="exc">${ex}</td>
+   <td><span class="badge" style="background:${LV[lv].c}">${lv}</span></td>
+   <td class="ln">${ln?"l."+ln:"図表・設問"}</td></tr>`;}).join("");
+ [...document.getElementById("tbody").children].forEach(tr=>{
+  tr.querySelector(".mn").onclick=()=>tr.classList.toggle("hid");
+  tr.querySelector(".exc").onclick=()=>tr.classList.toggle("hid");
+  tr.querySelector(".mark").onclick=()=>{const w=tr.dataset.w;
+   done.has(w)?done.delete(w):done.add(w);render();};});
+
+ document.getElementById("shown").textContent=L.length;
+ document.getElementById("doneN").textContent=done.size;
+}
+
+function setView(v){
+ document.getElementById("cardView").classList.toggle("hide",v!=="card");
+ document.getElementById("tableView").classList.toggle("hide",v!=="table");
+ document.getElementById("bCard").classList.toggle("on",v==="card");
+ document.getElementById("bTable").classList.toggle("on",v==="table");}
+function setType(t){activeType=t;
+ document.getElementById("tAll").classList.toggle("on",t==="all");
+ document.getElementById("tW").classList.toggle("on",t==="単語");
+ document.getElementById("tI").classList.toggle("on",t==="熟語");render();}
+function allHide(){document.querySelectorAll(".card").forEach(c=>c.classList.add("hidden"));
+ document.querySelectorAll("#tbody tr").forEach(t=>t.classList.add("hid"));}
+function allShow(){document.querySelectorAll(".card").forEach(c=>c.classList.remove("hidden"));
+ document.querySelectorAll("#tbody tr").forEach(t=>t.classList.remove("hid"));}
+function shuffle(){for(let i=data.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[data[i],data[j]]=[data[j],data[i]];}render();}
+function resetOrder(){data=[...DATA];render();}
+function resetDone(){done.clear();render();}
+function toggleDoneFilter(){hideDone=!hideDone;
+ document.getElementById("hideDoneBtn").textContent=hideDone?"覚えた項目も表示":"覚えた項目を隠す";render();}
+
+render();
+</script>
+</body>
+</html>
