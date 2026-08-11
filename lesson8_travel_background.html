@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 8 背景知識｜海外旅行の常識まるわかり</title>
+<style>
+:root{
+  --bg:#f4f6fb; --card:#fff; --ink:#1b2233; --sub:#6b7590;
+  --sun:#f9a825; --orange:#ef6c00; --red:#c62828;
+  --c-doc:#7E57C2; --c-immi:#03A9F4; --c-tour:#ef6c00; --c-money:#43A047; --c-local:#EC407A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+  background:var(--bg);color:var(--ink);padding:18px;line-height:1.7;-webkit-text-size-adjust:100%}
+.wrap{max-width:1080px;margin:0 auto}
+
+header{background:linear-gradient(135deg,#f9a825,#ef6c00 45%,#c62828);color:#fff;
+  border-radius:20px;padding:28px 26px;margin-bottom:16px;box-shadow:0 10px 30px rgba(239,108,0,.28);position:relative;overflow:hidden}
+header::after{content:"🦁🌍✈️";position:absolute;right:-6px;top:-8px;font-size:3.4rem;opacity:.18;letter-spacing:6px}
+header h1{font-size:1.5rem;margin-bottom:8px;position:relative}
+header p{opacity:.95;font-size:.9rem;max-width:760px;position:relative}
+.route{margin-top:14px;font-size:.8rem;background:rgba(255,255,255,.2);display:inline-block;padding:7px 14px;border-radius:999px;position:relative}
+
+.lead{background:#fff;border-radius:16px;padding:18px 20px;margin-bottom:16px;box-shadow:0 2px 12px rgba(0,0,0,.06);
+  border-left:6px solid var(--orange)}
+.lead b{color:var(--orange)}
+
+h2{font-size:1.12rem;margin:26px 0 12px;padding-left:12px;border-left:5px solid var(--orange);display:flex;align-items:center;gap:8px}
+
+/* 出入国の流れ */
+.flow{background:#fff;border-radius:16px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.flowline{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch}
+.step{flex:1;min-width:120px;background:linear-gradient(160deg,#fff,#fff7ef);border:2px solid #ffe0c2;border-radius:14px;
+  padding:12px 12px;position:relative;cursor:pointer;transition:.18s}
+.step:hover{transform:translateY(-3px);box-shadow:0 8px 18px rgba(239,108,0,.16);border-color:var(--orange)}
+.step .em{font-size:1.7rem}
+.step .en{font-weight:800;color:var(--orange);font-size:.9rem;margin-top:4px}
+.step .jp{font-size:.76rem;color:var(--sub);font-weight:700}
+.step .detail{font-size:.76rem;color:#42506b;margin-top:8px;padding-top:8px;border-top:1px dashed #ffd9b0;display:none;line-height:1.55}
+.step.open .detail{display:block}
+.step .arrow{position:absolute;right:-11px;top:50%;transform:translateY(-50%);color:#ffbe86;font-weight:900;font-size:1.1rem;z-index:2}
+.step:last-child .arrow{display:none}
+.flowhint{font-size:.74rem;color:var(--sub);margin-top:10px}
+@media(max-width:720px){.step{min-width:calc(50% - 8px)}.step .arrow{display:none}}
+
+/* フィルタ */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 14px}
+.filters button{font-family:inherit;cursor:pointer;border:2px solid transparent;border-radius:999px;padding:8px 15px;
+  font-size:.82rem;font-weight:800;background:#fff;color:var(--sub);box-shadow:0 2px 6px rgba(0,0,0,.07);transition:.15s}
+.filters button:hover{transform:translateY(-1px)}
+.filters button.on{color:#fff}
+.filters button[data-cat="all"].on{background:#1b2233}
+.filters button[data-cat="doc"].on{background:var(--c-doc)}
+.filters button[data-cat="immi"].on{background:var(--c-immi)}
+.filters button[data-cat="tour"].on{background:var(--c-tour)}
+.filters button[data-cat="money"].on{background:var(--c-money)}
+.filters button[data-cat="local"].on{background:var(--c-local)}
+
+/* カード */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.card{background:var(--card);border-radius:16px;padding:16px 18px;box-shadow:0 2px 10px rgba(0,0,0,.07);
+  border-top:5px solid #ccc;transition:.2s;position:relative}
+.card.hide{display:none}
+.card .cat{position:absolute;top:14px;right:16px;font-size:.62rem;font-weight:800;color:#fff;padding:3px 9px;border-radius:999px}
+.card .en{font-size:1.12rem;font-weight:800}
+.card .en .pron{font-size:.72rem;color:var(--sub);font-weight:600;margin-left:6px}
+.card .jp{font-size:.92rem;color:#33405c;font-weight:700;margin-top:2px}
+.miss{margin-top:11px;background:#fff3f2;border:1px solid #ffd9d6;border-radius:11px;padding:9px 11px}
+.miss .tag{font-size:.66rem;font-weight:800;color:#d32f2f}
+.miss .txt{font-size:.83rem;color:#7a2a26;margin-top:2px}
+.real{margin-top:9px;background:#eef8f0;border:1px solid #cdeed4;border-radius:11px;padding:9px 11px}
+.real .tag{font-size:.66rem;font-weight:800;color:#2e7d32}
+.real .txt{font-size:.85rem;color:#25422b;margin-top:2px}
+.ctx{margin-top:9px;font-size:.75rem;color:var(--sub);font-style:italic;border-top:1px dashed #e3e8f2;padding-top:8px}
+.ctx b{color:var(--orange);font-style:normal}
+
+/* まとめ表 */
+.tips{background:#fff;border-radius:16px;padding:18px 20px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.tips ul{list-style:none;display:grid;gap:9px}
+.tips li{display:flex;gap:10px;font-size:.87rem;align-items:flex-start}
+.tips li span.b{font-size:1.05rem;flex-shrink:0}
+
+footer{text-align:center;color:var(--sub);font-size:.75rem;margin:26px 0 6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>海外旅行の常識 まるわかり 🌍</h1>
+  <p>Lesson 8「African Overland Tour（アフリカ縦断ツアー）」の広告文を読む前に知っておきたい、海外旅行の"当たり前"を整理しました。日本にいると出会わない言葉・仕組みばかり。<b style="color:#fff5e0">「勘違いあるある」</b>つきで確認しましょう。</p>
+  <div class="route">🛫 ナイロビ（ケニア）→ 🏕️ 56日間・陸路キャンプ → 🛬 ケープタウン（南アフリカ）</div>
+</header>
+
+<div class="lead">
+  この教材の広告文は「<b>ツアー料金に何が含まれ、何が含まれないか</b>」を読み取れるかが勝負。そのためには、そもそも海外旅行で<b>何が必要になるのか</b>（パスポート・ビザ・保険・予防接種…）を知っている必要があります。まずは全体像から。
+</div>
+
+<h2>🛂 空港での出入国、こんな流れ（タップで詳しく）</h2>
+<div class="flow">
+  <div class="flowline" id="flowline"></div>
+  <div class="flowhint">💡 各ステップをタップすると解説が出ます。「イミグレ＝入国審査」がイメージできれば本文はぐっと読みやすくなります。</div>
+</div>
+
+<h2>📚 覚えておきたい海外旅行キーワード</h2>
+<div class="filters" id="filters">
+  <button data-cat="all" class="on">すべて</button>
+  <button data-cat="doc">📄 書類・手続き</button>
+  <button data-cat="immi">🛂 空港・出入国</button>
+  <button data-cat="tour">🎫 ツアーの仕組み</button>
+  <button data-cat="money">💰 お金・料金</button>
+  <button data-cat="local">🏕️ 現地・宿泊</button>
+</div>
+<div class="grid" id="grid"></div>
+
+<h2>✅ これだけは押さえる 5つのポイント</h2>
+<div class="tips">
+  <ul>
+    <li><span class="b">1️⃣</span><div><b>「Included / Excluded」で読む</b> — 広告文の設問は、ほぼ全部「それは料金に<b>含まれる（Included）</b>か、<b>含まれない（Excluded）</b>か」を聞いています。表のどちらに書いてあるかを探すのが最短ルート。</div></li>
+    <li><span class="b">2️⃣</span><div><b>オプショナル＝任意・別料金</b> — <b>Optional</b> と書かれた活動（マサイ村訪問、ゴリラ・トレッキング等）は基本料金に<b>含まれない</b>追加メニュー。合計金額の計算問題で足してはいけません。</div></li>
+    <li><span class="b">3️⃣</span><div><b>イミグレは「移民」ではなく「入国審査」</b> — immigration は空港の入国審査カウンター。パスポートとビザを見せる場所です。</div></li>
+    <li><span class="b">4️⃣</span><div><b>自分で用意するもの</b> — パスポート・ビザ・保険・予防接種・寝袋・枕などは "Excluded"＝<b>自己手配</b>が定番。「ツアーが全部やってくれる」わけではない。</div></li>
+    <li><span class="b">5️⃣</span><div><b>itinerary（旅程）は "a guide ONLY"</b> — あくまで目安で、<b>変更されうる（subject to change）</b>。「予定どおり必ず実行される」と書いた選択肢は誤り、というパターンが頻出。</div></li>
+  </ul>
+</div>
+
+<footer>Lesson 8 背景知識シート ／ African Overland Tour ｜ 授業用</footer>
+</div>
+
+<script>
+/* ===== 出入国の流れ ===== */
+const FLOW=[
+ ["✈️","Check-in","搭乗手続き","航空会社のカウンター（または自動機）で荷物を預け、搭乗券（boarding pass）を受け取る。"],
+ ["🛂","Immigration","出国・入国審査","パスポートとビザを見せる。「移民」ではなく、その国に入る／出る許可のチェック。英語で immigration。"],
+ ["🧳","Customs","税関","持ち込み品の申告。酒・タバコ・食品などに制限。何もなければ緑のゲート（申告なし）へ。"],
+ ["💵","Departure Tax","出国税・空港税","国によっては空港で出国税を支払う。陸路の国境越えでは border tax（国境税）がかかることも。"],
+ ["🚌","Transfer","送迎・移動","空港から宿へ（a ride to the dormitory）。本文のツアーは airport→宿の送迎が Included。"]
+];
+document.getElementById("flowline").innerHTML=FLOW.map(f=>
+ `<div class="step"><span class="arrow">▶</span><div class="em">${f[0]}</div>
+  <div class="en">${f[1]}</div><div class="jp">${f[2]}</div>
+  <div class="detail">${f[3]}</div></div>`).join("");
+[...document.querySelectorAll(".step")].forEach(s=>s.onclick=()=>s.classList.toggle("open"));
+
+/* ===== キーワードカード ===== */
+const CATS={doc:["📄 書類・手続き","var(--c-doc)"],immi:["🛂 空港・出入国","var(--c-immi)"],
+ tour:["🎫 ツアーの仕組み","var(--c-tour)"],money:["💰 お金・料金","var(--c-money)"],local:["🏕️ 現地・宿泊","var(--c-local)"]};
+
+// [英語, 発音カナ, 日本語, 勘違いあるある, 実際は, 本文での使われ方, カテゴリ]
+const DATA=[
+ ["optional tour","オプショナル ツアー","任意参加の追加ツアー（別料金）",
+  "「オプショナル＝おまけで無料で付いてくる」と思いがち。",
+  "任意で選ぶ<b>有料の追加アクティビティ</b>。基本料金には含まれない。参加は自由。",
+  "Masai Village Visit (<b>Optional</b>) $2,190 — 基本料金に足さない","tour"],
+ ["immigration","イミグレーション","入国（出国）審査",
+  "「移民（immigrant）」の話かと思ってびっくり。",
+  "空港でパスポート・ビザを確認する<b>入国審査</b>の窓口・手続きのこと。",
+  "海外旅行で必ず通る関門（背景知識）","immi"],
+ ["customs","カスタムズ","税関",
+  "「カスタム＝注文・カスタマイズ」と混同しやすい。",
+  "持ち込み品を申告・検査する<b>税関</b>。免税範囲を超えると課税。",
+  "immigration とセットで押さえる（背景知識）","immi"],
+ ["visa","ビザ／査証","入国許可の証明",
+  "クレジットカードの VISA を連想してしまう。",
+  "その国に入るための<b>許可</b>。国・目的・滞在日数で要否が違う。事前取得が必要な国も。",
+  "Excluded: • Visas ＝ 自分で用意する","doc"],
+ ["passport","パスポート","旅券（国が発行する身分証）",
+  "「あれば十分」と思いがちだが…",
+  "本人確認＋国籍証明。ビザとは別物。<b>残存有効期間</b>が足りないと入国拒否も。",
+  "Excluded: • Passports ＝ 自己手配","doc"],
+ ["vaccination","ワクチネーション","予防接種",
+  "旅行に予防接種？と驚く人も。",
+  "アフリカ等では<b>黄熱病（yellow fever）</b>などの接種証明（イエローカード）が入国条件のことがある。",
+  "Excluded: • Vaccinations ＝ 自分で受ける","doc"],
+ ["travel & medical insurance","インシュアランス","旅行・医療保険",
+  "「海外でも日本の保険が効く」は誤解。",
+  "海外の医療費は<b>非常に高額</b>。ケガ・病気・盗難に備える保険は必須級。",
+  "Excluded: • Travel and medical insurance","doc"],
+ ["itinerary","アイティネラリー","旅程（日程表）",
+  "読み方も意味も難しい最重要語。",
+  "どこで何をするかの<b>スケジュール表</b>。travel plan と同じ意味。あくまで目安で変更あり。",
+  "Meals as indicated on the <b>itinerary</b> / a guide ONLY","tour"],
+ ["Included / Excluded","インクルーデッド／エクスクルーデッド","含まれる／含まれない",
+  "どっちがどっちか一瞬で迷う。",
+  "<b>Included＝料金に込み</b>、<b>Excluded＝別途自分で</b>。設問攻略の最重要区分。",
+  "Included: Meals… / Excluded: International flights…","tour"],
+ ["overland tour","オーバーランド ツアー","陸路で巡るツアー",
+  "「海外＝飛行機移動」の先入観。",
+  "飛行機ではなく<b>陸路（トラック等）で国々を移動</b>するスタイルの旅。",
+  "Nairobi to Cape Town <b>Overland</b> Camping (56 Days)","tour"],
+ ["per person","パー パーソン","1人あたり",
+  "料金が総額なのか1人分なのか迷う。",
+  "料金表示の基本単位。<b>1人あたり</b>の金額。2人なら×2。",
+  "Tour Price <b>per Person</b>","money"],
+ ["departure / border tax","デパーチャー タックス","出国税・国境税",
+  "税金は現地で払うものと思わない人が多い。",
+  "出国時に空港で払う<b>出国税</b>、陸路国境で払う<b>国境税</b>。旅先で発生する費用。",
+  "Excluded: Personal taxes (airport departure and border taxes)","money"],
+ ["accommodation","アコモデーション","宿泊施設",
+  "長くて読みにくい頻出語。",
+  "泊まる場所全般（ホテル・宿舎など）。<b>pre-night accommodation</b>＝前泊。",
+  "1 <b>pre-night accommodation</b> / • Accommodation (Included)","local"],
+ ["dormitory","ドーミトリー","宿舎・相部屋",
+  "「寮」だけの意味と思いがち。",
+  "旅行では<b>相部屋タイプの安価な宿</b>（ドミトリー）を指すことが多い。",
+  "a ride to the <b>dormitory</b> from the airport","local"],
+ ["camping / sleeping bag","キャンピング","キャンプ・寝袋",
+  "ツアー＝ホテル泊と思い込みがち。",
+  "このツアーは<b>Tour Style: Camping</b>。寝袋（sleeping bag）や枕は<b>自分で用意</b>（Excluded）。",
+  "Tour Style: Camping / Excluded: • Sleeping bags • Pillows","local"],
+ ["pre-departure meeting","プレ デパーチャー","出発前ミーティング",
+  "旅行前に集まる必要が?と不思議に。",
+  "出発前に<b>重要情報を共有</b>する説明会。参加すると安心でき、打ち解けるきっかけにも。",
+  "Attendance is very important because vital information is shared","local"]
+];
+
+const grid=document.getElementById("grid");
+function render(cat){
+ grid.innerHTML=DATA.map(d=>{
+  const[en,pr,jp,miss,real,ctx,c]=d;
+  const hide=(cat&&cat!=="all"&&cat!==c)?"hide":"";
+  return `<div class="card ${hide}" data-c="${c}" style="border-top-color:${CATS[c][1]}">
+    <span class="cat" style="background:${CATS[c][1]}">${CATS[c][0]}</span>
+    <div class="en">${en}<span class="pron">${pr}</span></div>
+    <div class="jp">${jp}</div>
+    <div class="miss"><div class="tag">😲 勘違いあるある</div><div class="txt">${miss}</div></div>
+    <div class="real"><div class="tag">✅ 実際は</div><div class="txt">${real}</div></div>
+    <div class="ctx"><b>本文：</b>${ctx}</div>
+  </div>`;}).join("");
+}
+render("all");
+
+document.getElementById("filters").onclick=e=>{
+ if(e.target.tagName!=="BUTTON")return;
+ [...e.currentTarget.children].forEach(b=>b.classList.remove("on"));
+ e.target.classList.add("on");
+ render(e.target.dataset.cat);
+};
+</script>
+</body>
+</html>
