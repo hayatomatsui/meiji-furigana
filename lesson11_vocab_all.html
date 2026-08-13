@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 11 単語・熟語 総合リスト｜Hunger and Child Development</title>
+<style>
+:root{
+  --g3:#4CAF50; --g3p:#8BC34A; --g2:#03A9F4; --g2p:#7E57C2; --g1:#E91E63; --gx:#F44336;
+  --tw:#ff6a3d; --ti:#1668c7;
+  --bg:#f4f6fb; --card:#fff; --ink:#1b2233; --sub:#6b7590;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+  background:var(--bg);color:var(--ink);padding:18px;line-height:1.65}
+.wrap{max-width:1180px;margin:0 auto}
+header{background:linear-gradient(135deg,#e53935,#d81b60 45%,#6a1b9a);color:#fff;
+  border-radius:18px;padding:26px 24px;margin-bottom:18px;box-shadow:0 8px 26px rgba(216,27,96,.25)}
+header h1{font-size:1.4rem;margin-bottom:6px}
+header p{opacity:.94;font-size:.87rem}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:15px}
+.stat{background:rgba(255,255,255,.22);border-radius:12px;padding:8px 14px;font-size:.8rem}
+.stat b{font-size:1.15rem;display:block}
+h2{font-size:1.03rem;margin:24px 0 10px;padding-left:12px;border-left:5px solid #d81b60}
+
+.ansbox{background:#fff;border-radius:14px;padding:16px 18px;box-shadow:0 2px 10px rgba(0,0,0,.07)}
+.ansgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin-top:10px}
+.acard{border:2px solid #eef1f6;border-radius:12px;padding:11px 13px;cursor:pointer;user-select:none;transition:.15s}
+.acard:hover{border-color:#d81b60}
+.acard .n{font-size:.74rem;color:var(--sub);font-weight:800}
+.acard .a{font-size:.95rem;font-weight:800;color:#c2185b;margin-top:3px}
+.acard .k{font-size:.73rem;color:var(--sub);margin-top:4px;font-weight:400}
+.acard.hid .a,.acard.hid .k{filter:blur(7px)}
+
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 14px}
+.lbl{font-size:.72rem;color:var(--sub);font-weight:700;margin-right:2px}
+button{font-family:inherit;cursor:pointer;border:none;border-radius:999px;padding:8px 15px;
+  font-size:.82rem;font-weight:700;transition:.15s;background:#fff;color:var(--sub);
+  box-shadow:0 2px 6px rgba(0,0,0,.08)}
+button:hover{transform:translateY(-1px)}
+button.on{background:#1b2233;color:#fff}
+.util{background:#fce4ec;color:#ad1457}
+.sw{display:inline-flex;background:#fff;border-radius:999px;padding:4px;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.sw button{box-shadow:none;padding:8px 18px}
+.sw button.on{background:linear-gradient(135deg,#d81b60,#6a1b9a);color:#fff}
+.spacer{flex:1}
+
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;
+  box-shadow:0 2px 10px rgba(0,0,0,.07)}
+th,td{padding:10px 13px;text-align:left;border-bottom:1px solid #eef1f6;font-size:.87rem;vertical-align:top}
+th{background:#1b2233;color:#fff;font-size:.76rem;letter-spacing:.04em;position:sticky;top:0;z-index:2}
+tbody tr:nth-child(even){background:#fafbfe}
+tbody tr:hover{background:#fff1f5}
+tbody tr.done{opacity:.4}
+td.ph{font-weight:700}
+td.mn{cursor:pointer}
+tr.hid td.mn,tr.hid td.exc{filter:blur(5px);opacity:.5}
+td.exc{color:#5c6580;font-style:italic;font-size:.79rem}
+td.ln{color:#aab2c4;font-size:.75rem;white-space:nowrap}
+.mark{cursor:pointer;color:#c9cfdd;font-weight:800;user-select:none}
+tr.done .mark{color:#4CAF50}
+.bar{height:9px;border-radius:5px;display:inline-block;vertical-align:middle;margin-right:8px}
+.sumtbl td,.sumtbl th{font-size:.85rem}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:12px}
+.card{background:var(--card);border-radius:14px;padding:14px 16px;cursor:pointer;
+  box-shadow:0 2px 8px rgba(0,0,0,.07);border-left:6px solid #ccc;transition:.18s;
+  position:relative;user-select:none}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.12)}
+.card.done{opacity:.42}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.phrase{font-size:1.05rem;font-weight:700}
+.badge{font-size:.65rem;font-weight:800;color:#fff;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.tag{font-size:.63rem;font-weight:800;padding:2px 8px;border-radius:999px;color:#fff}
+.tag.w{background:var(--tw)} .tag.i{background:var(--ti)}
+.meaning{margin-top:9px;padding-top:9px;border-top:1px dashed #dde2ec;font-size:.92rem}
+.ex{margin-top:7px;font-size:.77rem;color:#5c6580;font-style:italic}
+.hidden .meaning,.hidden .ex{filter:blur(6px);opacity:.5}
+.hint{font-size:.66rem;color:#b9c0d0;margin-top:6px}
+.line{font-size:.67rem;color:#aab2c4;margin-top:3px}
+.check{position:absolute;top:8px;right:10px;font-size:.66rem;color:#4CAF50;display:none;font-weight:800}
+.card.done .check{display:block}
+.hide{display:none}
+@media(max-width:640px){body{padding:12px}th,td{padding:8px 9px;font-size:.79rem}td.exc,th.exc{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Lesson 11 — 単語・熟語 総合リスト（Hunger and Child Development）</h1>
+  <p>単語と熟語を1つにまとめました。「カード形式／表形式」「単語／熟語」を自由に切り替えて暗記できます。</p>
+  <div class="stats">
+    <div class="stat"><b id="total">0</b>総項目</div>
+    <div class="stat"><b id="nw">0</b>単語</div>
+    <div class="stat"><b id="ni">0</b>熟語・構文</div>
+    <div class="stat"><b id="shown">0</b>表示中</div>
+    <div class="stat"><b id="doneN">0</b>覚えた</div>
+  </div>
+</header>
+
+<h2>解答のカギ（タップで表示）</h2>
+<div class="ansbox">
+  <div style="font-size:.82rem;color:var(--sub)">問1は同意語彙、問2は前後の論理でつなぐ問題です。先に自分で解いてから確認してください。</div>
+  <div class="ansgrid" id="ansgrid"></div>
+</div>
+
+<h2>レベル別分布（単語 / 熟語 内訳つき）</h2>
+<table class="sumtbl"><thead><tr><th>英検レベル</th><th>合計</th><th>単語</th><th>熟語</th><th>割合</th><th>目安</th></tr></thead>
+<tbody id="sumbody"></tbody></table>
+
+<div class="controls" style="margin-top:22px">
+  <span class="sw"><button id="bCard" class="on" onclick="setView('card')">カード形式</button><button id="bTable" onclick="setView('table')">表形式</button></span>
+  <span class="spacer"></span>
+  <span class="sw"><button id="tAll" class="on" onclick="setType('all')">単語＋熟語</button><button id="tW" onclick="setType('単語')">単語のみ</button><button id="tI" onclick="setType('熟語')">熟語のみ</button></span>
+</div>
+
+<div class="controls"><span class="lbl">レベル</span><span id="filters" style="display:contents"></span></div>
+<div class="controls">
+  <button class="util" onclick="allHide()">すべて隠す</button>
+  <button class="util" onclick="allShow()">すべて表示</button>
+  <button class="util" onclick="shuffle()">シャッフル</button>
+  <button class="util" onclick="resetOrder()">本文順に戻す</button>
+  <button class="util" onclick="resetDone()">「覚えた」リセット</button>
+  <span class="spacer"></span>
+  <button class="util" id="hideDoneBtn" onclick="toggleDoneFilter()">覚えた項目を隠す</button>
+</div>
+
+<div id="cardView"><div class="grid" id="grid"></div></div>
+<div id="tableView" class="hide">
+  <table><thead><tr><th style="width:30px"></th><th style="width:46px">種類</th><th>語句</th><th>意味</th><th class="exc">本文での使われ方</th><th>レベル</th><th>行</th></tr></thead>
+  <tbody id="tbody"></tbody></table>
+</div>
+
+</div>
+
+<script>
+const ANS=[
+ ["問1 (1) colleague","④ associate","どちらも「同僚・仕事仲間」。① college（大学）は綴りが似ているだけの引っかけ"],
+ ["問1 (2) conducted","② carried out","conduct a study ＝ carry out a study（調査を実施する）"],
+ ["問1 (3) assess","③ evaluate","「評価する・査定する」。① tax、② access は音の似た引っかけ"],
+ ["問1 (4) harsh","② unpleasant","「厳しい・とげとげしい」。③ gentle は正反対"],
+ ["問1 (5) consequences for","② impacts on","consequence ＝ 結果・影響。④ penalty（罰）ではない"],
+ ["問1 (6) effective","② influential","ここでは「効果を及ぼす・力がある」。② が最も近い"],
+ ["問2 ( a )","ア","but the overall effects were weaker than food shortages at earlier ages。直後に「保育園児は多少食べ物を得られる」と理由が続く"],
+ ["問2 ( b )","ウ","and easily annoyed, careless, and unhappy parents engage less with their children。直後の「子どもの目線に降りていない」につながる"],
+ ["問2 ( c )","イ","how hunger as a baby and in early childhood can result in slight but significant differences in learning abilities later in childhood"],
+ ["問3 (A) these children","2000年に低所得世帯に生まれ、米国教育省が2000〜2006年に実施した調査で追跡された約10,700人の子どもたち","直前の about 10,700 children born in low-income households in 2000 を具体的に書く"],
+ ["問4 (1)〜(6)","× × ○ ○ ○ ○","(1)「全員が成功した」は言い過ぎ。(2) readier は本文と正反対。(3)〜(6) はいずれも本文に根拠あり"],
+ ["問5","③","Kids who suffer hunger in their first years fall behind their classmates. 第2段落の主張そのもの"]
+];
+document.getElementById("ansgrid").innerHTML=ANS.map(a=>
+ `<div class="acard hid"><div class="n">${a[0]}</div><div class="a">${a[1]}</div><div class="k">${a[2]}</div></div>`).join("");
+[...document.getElementById("ansgrid").children].forEach(c=>c.onclick=()=>c.classList.toggle("hid"));
+
+const LV={
+ "3級":{c:"var(--g3)",note:"中学卒業程度"},
+ "準2級":{c:"var(--g3p)",note:"高校中級程度"},
+ "2級":{c:"var(--g2)",note:"高校卒業程度"},
+ "準1級":{c:"var(--g2p)",note:"大学中級程度"},
+ "1級":{c:"var(--g1)",note:"大学上級程度"},
+ "級外":{c:"var(--gx)",note:"専門語・注釈必須"}
+};
+// [語句, 意味, 本文での使われ方, レベル, 行, 種類]
+const DATA=[
+ ["grow up in ~","~で育つ","Growing up in a hungry household in the first couple of years of life","3級",1,"熟語"],
+ ["household","名 世帯、家庭","Growing up in a hungry household","準1級",1,"単語"],
+ ["a couple of ~","2、3の~、いくつかの~","in the first couple of years of life","2級",1,"熟語"],
+ ["hurt","動 悪影響を与える、損なう","can hurt how well a child performs in school years later","2級",1,"単語"],
+ ["how well S V","SがどれほどうまくVするか","can hurt how well a child performs in school","2級",2,"熟語"],
+ ["perform","動 （成績を）収める、やり遂げる","how well a child performs in school years later","2級",2,"単語"],
+ ["years later","何年も後に","how well a child performs in school years later","3級",2,"熟語"],
+ ["according to ~","~によれば","according to a new study","3級",2,"熟語"],
+ ["an estimated ~","推定~の、およそ~の","An estimated 13.1 million children live in homes without enough food","準1級",3,"熟語"],
+ ["the most recent figures","最新の数値","the most recent figures from the USDA","2級",4,"熟語"],
+ ["Department of Agriculture","名 農務省","the U.S. Department of Agriculture (USDA)","準1級",4,"単語"],
+ ["agriculture","名 農業","Department of Agriculture","2級",4,"単語"],
+ ["experience hunger","飢えを経験する","Many of those children experience hunger during their first few years","2級",5,"熟語"],
+ ["hunger","名 飢え、空腹","experience hunger during their first few years of life","2級",5,"単語"],
+ ["be stressed out about ~","~のことで強いストレスを感じる","their parents are hungry and stressed out about food","準1級",6,"熟語"],
+ ["development","名 発達、成長","the most important time for a child's development","準2級",7,"単語"],
+ ["published in ~","~に掲載された（分詞の後置修飾）","The new study, published in the latest issue of the journal","2級",8,"熟語"],
+ ["the latest issue","名 最新号","published in the latest issue of the journal Child Development","2級",8,"熟語"],
+ ["journal","名 学術誌、専門誌","the journal Child Development","準1級",8,"単語"],
+ ["suggest that ...","…だと示唆する、示す","suggests that such early experiences of hunger ... are likely to make...","2級",9,"熟語"],
+ ["be likely to do","~しそうである、~する傾向がある","are likely to make those children less ready for kindergarten","2級",9,"熟語"],
+ ["make + O + 形容詞","Oを~の状態にする","make those children less ready for kindergarten","2級",9,"熟語"],
+ ["be ready for ~","~の準備ができている","less ready for kindergarten than their classmates","3級",10,"熟語"],
+ ["kindergarten","名 幼稚園（米国では小学校入学前学年）","less ready for kindergarten","2級",10,"単語"],
+ ["food insecurity","名 食料不安（十分な食料が得られない状態）","kids who experienced food insecurity in their first five years","準1級",11,"単語"],
+ ["insecurity","名 不安定、不安","food insecurity","準1級",11,"単語"],
+ ["be more likely to do","~する可能性がより高い","are more likely to fall behind in social, emotional, and learning skills","2級",12,"熟語"],
+ ["fall behind","遅れをとる、後れる","more likely to fall behind in social, emotional, and learning skills","2級",12,"熟語"],
+ ["psychologist","名 心理学者","Anna Johnson, a psychologist and an author of the new study","準1級",14,"単語"],
+ ["author","名 著者、執筆者","a psychologist and an author of the new study","準2級",14,"単語"],
+ ["delayed in ~","~において遅れている","kids who start kindergarten delayed in their learning","準1級",15,"熟語"],
+ ["tend to do","~する傾向がある","tend to stay behind and never catch up","2級",15,"熟語"],
+ ["stay behind","遅れたままである","tend to stay behind and never catch up","2級",15,"熟語"],
+ ["catch up","追いつく","tend to stay behind and never catch up","3級",16,"熟語"],
+ ["colleague","名 同僚、仕事仲間【問1(1)】","Johnson and her colleague used data from an older study","準1級",16,"単語"],
+ ["conduct","動 （調査などを）実施する【問1(2)】","an older study ... conducted between 2000 and 2006","準1級",17,"単語"],
+ ["follow","動 （対象を）追跡調査する","which followed about 10,700 children born in low-income households","2級",17,"単語"],
+ ["low-income","形 低所得の","about 10,700 children born in low-income households in 2000","2級",18,"単語"],
+ ["ask 人 about ~","人に~について尋ねる","It asked the parents of these children about various aspects of their lives","3級",18,"熟語"],
+ ["various aspects of ~","~のさまざまな側面","about various aspects of their lives","準1級",19,"熟語"],
+ ["aspect","名 側面、面","various aspects of their lives","準1級",19,"単語"],
+ ["including ~","~を含めて","including the quantity and quality of food","2級",19,"熟語"],
+ ["quantity","名 量","the quantity and quality of food in their households","2級",20,"単語"],
+ ["researcher","名 研究者","Johnson says researchers asked parents a range of questions","2級",20,"単語"],
+ ["a range of ~","さまざまな~、一連の~","asked parents a range of questions","2級",21,"熟語"],
+ ["be part of ~","~の一部である","questions that are part of a standardized USDA measure","3級",21,"熟語"],
+ ["standardized","形 標準化された、規格化された","a standardized USDA measure for food security","準1級",21,"単語"],
+ ["measure","名 指標、尺度／測定基準","a standardized USDA measure for food security","2級",21,"単語"],
+ ["food security","名 食料の確保、食の安全保障","a standardized USDA measure for food security","準1級",22,"単語"],
+ ["run out","尽きる、なくなる","did you worry your food would run out before you could buy more?","2級",22,"熟語"],
+ ["afford to do","~する余裕がある","could you afford to eat balanced meals?","2級",23,"熟語"],
+ ["balanced meal","名 バランスのとれた食事","could you afford to eat balanced meals?","2級",23,"単語"],
+ ["collect data","データを収集する","The researchers collected the data at different time points","3級",25,"熟語"],
+ ["time point","名 時点","at different time points in the children's lives","2級",25,"単語"],
+ ["nursery school","名 保育園、幼児教育施設","when they were in nursery school","2級",27,"単語"],
+ ["test A on B","AをBについて検査する","the scientists tested the kids on their math and reading skills","2級",28,"熟語"],
+ ["work with ~","~と協力する","They also worked with the kids' teachers to assess...","3級",29,"熟語"],
+ ["assess","動 評価する、査定する【問1(3)】","worked with the kids' teachers to assess their ability","準1級",29,"単語"],
+ ["ability to do","~する能力","their ability to pay attention in class","2級",30,"熟語"],
+ ["pay attention","注意を払う、集中する","their ability to pay attention in class","2級",30,"熟語"],
+ ["tendency to do","~する傾向","their tendency to have a bad temper","準1級",30,"熟語"],
+ ["have a bad temper","かんしゃくを起こす、機嫌が悪い","their tendency to have a bad temper or be over-excited","準1級",30,"熟語"],
+ ["temper","名 気性、機嫌","have a bad temper","準1級",30,"単語"],
+ ["over-excited","形 興奮しすぎた、落ち着かない","have a bad temper or be over-excited","2級",31,"単語"],
+ ["desire to learn","名 学ぶ意欲","their desire to learn (all measures for emotional and social skills)","2級",31,"熟語"],
+ ["looking carefully at ~","~を注意深く見ると（分詞構文）","Looking carefully at this data, Johnson found that...","2級",33,"熟語"],
+ ["be related with / to ~","~と関係がある","high levels of hunger ... were strongly related with poor performance","2級",34,"熟語"],
+ ["poor performance","名 低い成績、不振","strongly related with poor performance in kindergarten","2級",34,"単語"],
+ ["moreover","副 さらに、その上","Moreover, the younger the children were ..., the stronger the effect","準1級",35,"単語"],
+ ["The 比較級 ..., the 比較級 ~","…すればするほど~だ","the younger the children were ..., the stronger the effect on their performance","2級",35,"熟語"],
+ ["struggle with ~","~に苦しむ、~と格闘する","when the family struggled with hunger","2級",36,"熟語"],
+ ["once S V","いったんSがVすると","the stronger the effect on their performance once they started school","2級",36,"熟語"],
+ ["in other words","言い換えれば、つまり","In other words, Johnson says, ...","3級",37,"熟語"],
+ ["similar","形 同様の、似たような","than similar low-income 9-month-olds","準2級",39,"単語"],
+ ["9-month-old","名 生後9か月児","similar low-income 9-month-olds who didn't experience food insecurity","2級",40,"単語"],
+ ["have a negative effect on ~","~に悪影響を及ぼす","Experiencing hunger at age 2 had a similarly strong negative effect on...","2級",42,"熟語"],
+ ["mental abilities","名 知的能力","children's social, emotional, and mental abilities in kindergarten","2級",43,"単語"],
+ ["seem to do","~するように思われる","Hunger experienced at preschool also seemed to affect reading scores","3級",44,"熟語"],
+ ["preschool","名 就学前教育施設、保育園","Hunger experienced at preschool","2級",44,"単語"],
+ ["affect","動 影響を与える","seemed to affect reading scores","2級",44,"単語"],
+ ["approach learning","学習に取り組む","how the children approached learning","2級",45,"熟語"],
+ ["overall","形 全体的な、総合的な","but the overall effects were weaker than food shortages at earlier ages（問2ア）","準1級",45,"単語"],
+ ["food shortage","名 食料不足","weaker than food shortages at earlier ages（問2ア）","2級",45,"単語"],
+ ["at least","少なくとも","nursery school children are at least getting some access to food","3級",46,"熟語"],
+ ["get access to ~","~を利用できる、~を手に入れられる","getting some access to food in their nursery school classrooms","準1級",46,"熟語"],
+ ["child care center","名 保育施設、託児所","their nursery school classrooms or their child care centers","2級",47,"単語"],
+ ["on the other hand","一方で","Little babies and very young children, on the other hand, don't have this option","2級",47,"熟語"],
+ ["option","名 選択肢","don't have this option","2級",48,"単語"],
+ ["not necessarily ~","必ずしも~ではない（部分否定）","these effects aren't necessarily because the children themselves went hungry","2級",49,"熟語"],
+ ["go hungry","ひもじい思いをする、飢える","because the children themselves went hungry","準1級",50,"熟語"],
+ ["indirect result","名 間接的な結果","They could also be an indirect result of parents being hungry","2級",50,"単語"],
+ ["indirect","形 間接的な","an indirect result of parents being hungry","2級",50,"単語"],
+ ["previous research","名 先行研究、これまでの研究","previous research shows that when parents are hungry...","準1級",52,"単語"],
+ ["previous","形 以前の、先行する","previous research shows that...","2級",52,"単語"],
+ ["be easily annoyed","すぐいらいらする","they tend to be easily annoyed, harsh, and less patient","2級",52,"熟語"],
+ ["annoyed","形 いらだった、不機嫌な","easily annoyed, harsh, and less patient with their children","2級",53,"単語"],
+ ["harsh","形 厳しい、とげとげしい【問1(4)】","easily annoyed, harsh, and less patient with their children","準1級",53,"単語"],
+ ["be patient with ~","~に対して忍耐強い","less patient with their children","2級",53,"熟語"],
+ ["careless","形 いい加減な、不注意な","They can also be careless or unhappy","3級",53,"単語"],
+ ["engage with ~","~と関わる、向き合う","easily annoyed, careless, and unhappy parents engage less with their children（問2ウ）","準1級",54,"熟語"],
+ ["get down to one's level","相手の目線に降りる","They're not getting down to their children's level","準1級",54,"熟語"],
+ ["hold ~ in one's lap","~を膝に抱く","holding the child in their lap and singing songs to them","2級",55,"熟語"],
+ ["lap","名 膝（座ったときの太ももの上）","holding the child in their lap","2級",56,"単語"],
+ ["support brain development","脳の発達を支える","important for supporting early brain development","2級",57,"熟語"],
+ ["findings","名 （研究の）結果、知見","The findings from the study weren't surprising","準1級",58,"単語"],
+ ["in the sense that ...","…という意味において","in the sense that they're consistent with previous research","準1級",58,"熟語"],
+ ["be consistent with ~","~と一致する、矛盾しない","they're consistent with previous research","準1級",59,"熟語"],
+ ["lead scientist","名 主任研究者","John Cook, the lead scientist at Boston Medical Center's Children's Health Watch","2級",59,"単語"],
+ ["a growing number of ~","ますます多くの~","A growing number of studies in brain science and social science show...","2級",60,"熟語"],
+ ["have consequences for ~","~に影響・結果をもたらす【問1(5)】","hunger experienced early in life can have serious consequences for a child's development","準1級",62,"熟語"],
+ ["consequence","名 結果、影響","serious consequences for a child's development","準1級",62,"単語"],
+ ["the strength of ~","~の強み、優れた点","Cook says the strength of the new study is in showing...","2級",62,"熟語"],
+ ["make clear ~","~を明らかにする","he says that it makes clear \"the effects that food insecurity can have...\"","2級",63,"熟語"],
+ ["readiness to learn","名 学ぶ準備が整っていること","the effects ... on a child's readiness to learn","準1級",64,"単語"],
+ ["vital","形 極めて重要な、不可欠な","which is a vital factor for them to achieve better results","準1級",64,"単語"],
+ ["factor","名 要因、要素","a vital factor for them to achieve better results in school","2級",65,"単語"],
+ ["achieve results","成果を上げる","to achieve better results in school","2級",65,"熟語"],
+ ["food assistance program","名 食料支援プログラム","the importance of government food assistance programs","2級",66,"単語"],
+ ["assistance","名 援助、支援","government food assistance programs","2級",66,"単語"],
+ ["effective","形 効果的な、有効な【問1(6)】","These programs are very effective in ensuring both the food security and the health","2級",67,"単語"],
+ ["be effective in ~ing","~するのに効果的である","very effective in ensuring both the food security and the health of school children","2級",67,"熟語"],
+ ["ensure","動 確実にする、保証する","effective in ensuring both the food security and the health","準1級",67,"単語"],
+ ["enable 人 to do","人が~できるようにする","enabling them to go to school ready to learn","準1級",68,"熟語"],
+ ["make sure (that) ...","確実に…するようにする","Making sure kids get enough to eat is good for society","3級",69,"熟語"],
+ ["in the long run","長い目で見れば、長期的には","is good for society in the long run","準1級",69,"熟語"],
+ ["set the direction for ~","~の方向性を決める","hunger experienced early in life can really set the direction for a child's ability","準1級",70,"熟語"],
+ ["compete in the job market","労働市場で競争する","ability to compete in the job market","2級",71,"熟語"],
+ ["job market","名 労働市場、就職市場","compete in the job market","2級",71,"単語"],
+ ["earn money","お金を稼ぐ","to earn enough money to survive as a member of society","3級",71,"熟語"],
+ ["survive","動 生き延びる、暮らしていく","to survive as a member of society","2級",72,"単語"],
+ ["as a member of society","社会の一員として","to survive as a member of society","2級",72,"熟語"],
+ ["associate","名 同僚、仲間【問1(1)の正解】","④ associate（問1(1)）","準1級",0,"単語"],
+ ["carry out ~","~を実行する、実施する【問1(2)の正解】","② carried out（問1(2)）","2級",0,"熟語"],
+ ["evaluate","動 評価する【問1(3)の正解】","③ evaluate（問1(3)）","2級",0,"単語"],
+ ["unpleasant","形 不快な、感じの悪い【問1(4)の正解】","② unpleasant（問1(4)）","2級",0,"単語"],
+ ["influential","形 影響力のある【問1(6)の正解】","② influential（問1(6)）","準1級",0,"単語"],
+ ["desperate","形 必死の、絶望的な","④ desperate（問1(4)④）","準1級",0,"単語"],
+ ["affectionate","形 愛情深い","① affectionate（問1(6)①）","準1級",0,"単語"],
+ ["penalty","名 罰、罰則","④ penalties for（問1(5)④）","2級",0,"単語"],
+ ["devote A to B","AをBに捧げる","④ devoted to（問1(2)④）","準1級",0,"熟語"],
+ ["cooperate with ~","~と協力する","③ cooperated with（問1(2)③）","2級",0,"熟語"],
+ ["result in ~","~という結果になる","can result in slight but significant differences（問2イ）","2級",0,"熟語"],
+ ["slight","形 わずかな、ささいな","slight but significant differences in learning abilities（問2イ）","準1級",0,"単語"],
+ ["nutritional balance","名 栄養バランス","questions about food insecurity, nutritional balance, and food shortages（問4(3)）","準1級",0,"単語"],
+ ["prove","動 証明する","Johnson's findings prove the importance of ...（問4(6)）","2級",0,"単語"],
+ ["succeed in ~","~で成功する","All of the children ... succeeded in kindergarten.（問4(1)）","2級",0,"熟語"],
+ ["suffer hunger","飢えに苦しむ","Kids who suffer hunger in their first years fall behind（問5③）","2級",0,"熟語"]
+];
+
+const ORDER=["3級","準2級","2級","準1級","1級","級外"];
+let data=[...DATA],activeLv="all",activeType="all",hideDone=false;
+const done=new Set();
+
+const cW=DATA.filter(d=>d[5]==="単語").length, cI=DATA.length-cW;
+document.getElementById("total").textContent=DATA.length;
+document.getElementById("nw").textContent=cW;
+document.getElementById("ni").textContent=cI;
+
+const cnt={},cntW={},cntI={};
+ORDER.forEach(l=>{cnt[l]=0;cntW[l]=0;cntI[l]=0;});
+DATA.forEach(d=>{cnt[d[3]]++;(d[5]==="単語"?cntW:cntI)[d[3]]++;});
+document.getElementById("sumbody").innerHTML=ORDER.map(l=>{
+ const n=cnt[l],p=Math.round(n/DATA.length*100);
+ return `<tr><td><span class="badge" style="background:${LV[l].c}">${l}</span></td>
+ <td><b>${n}</b></td><td style="color:var(--tw);font-weight:700">${cntW[l]}</td>
+ <td style="color:var(--ti);font-weight:700">${cntI[l]}</td>
+ <td><span class="bar" style="width:${Math.max(p*2.6,6)}px;background:${LV[l].c}"></span>${p}%</td>
+ <td style="color:var(--sub)">${LV[l].note}</td></tr>`;}).join("");
+
+document.getElementById("filters").innerHTML=
+ `<button class="on" data-lv="all">すべて</button>`+
+ ORDER.map(l=>cnt[l]?`<button data-lv="${l}" style="color:${LV[l].c}">${l} (${cnt[l]})</button>`:"").join("");
+document.getElementById("filters").onclick=e=>{
+ if(e.target.tagName!=="BUTTON")return;
+ [...e.currentTarget.children].forEach(b=>b.classList.remove("on"));
+ e.target.classList.add("on");activeLv=e.target.dataset.lv;render();};
+
+function list(){return data.filter(d=>
+ (activeLv==="all"||d[3]===activeLv)&&
+ (activeType==="all"||d[5]===activeType)&&
+ !(hideDone&&done.has(d[0])));}
+
+function render(){
+ const L=list();
+ document.getElementById("grid").innerHTML=L.map(d=>{
+  const[p,m,ex,lv,ln,ty]=d, t=ty==="単語"?"w":"i";
+  return `<div class="card hidden" data-w="${p}" style="border-left-color:${LV[lv].c}">
+   <span class="check">✓ 覚えた</span>
+   <div class="top"><span class="phrase">${p}</span>
+   <span style="display:flex;flex-direction:column;gap:4px;align-items:flex-end">
+   <span class="badge" style="background:${LV[lv].c}">${lv}</span>
+   <span class="tag ${t}">${ty}</span></span></div>
+   <div class="line">${ln?"l."+ln:"設問"}</div>
+   <div class="meaning">${m}</div>
+   <div class="ex">${ex}</div>
+   <div class="hint">タップで表示 ／ ダブルクリックで「覚えた」</div></div>`;}).join("");
+ [...document.getElementById("grid").children].forEach(c=>{
+  if(done.has(c.dataset.w))c.classList.add("done");
+  c.onclick=()=>c.classList.toggle("hidden");
+  c.ondblclick=e=>{e.preventDefault();const w=c.dataset.w;
+   done.has(w)?done.delete(w):done.add(w);render();};});
+
+ document.getElementById("tbody").innerHTML=L.map(d=>{
+  const[p,m,ex,lv,ln,ty]=d, t=ty==="単語"?"w":"i";
+  return `<tr class="hid ${done.has(p)?'done':''}" data-w="${p}">
+   <td><span class="mark">✓</span></td>
+   <td><span class="tag ${t}">${ty}</span></td>
+   <td class="ph">${p}</td><td class="mn">${m}</td>
+   <td class="exc">${ex}</td>
+   <td><span class="badge" style="background:${LV[lv].c}">${lv}</span></td>
+   <td class="ln">${ln?"l."+ln:"設問"}</td></tr>`;}).join("");
+ [...document.getElementById("tbody").children].forEach(tr=>{
+  tr.querySelector(".mn").onclick=()=>tr.classList.toggle("hid");
+  tr.querySelector(".exc").onclick=()=>tr.classList.toggle("hid");
+  tr.querySelector(".mark").onclick=()=>{const w=tr.dataset.w;
+   done.has(w)?done.delete(w):done.add(w);render();};});
+
+ document.getElementById("shown").textContent=L.length;
+ document.getElementById("doneN").textContent=done.size;
+}
+
+function setView(v){
+ document.getElementById("cardView").classList.toggle("hide",v!=="card");
+ document.getElementById("tableView").classList.toggle("hide",v!=="table");
+ document.getElementById("bCard").classList.toggle("on",v==="card");
+ document.getElementById("bTable").classList.toggle("on",v==="table");}
+function setType(t){activeType=t;
+ document.getElementById("tAll").classList.toggle("on",t==="all");
+ document.getElementById("tW").classList.toggle("on",t==="単語");
+ document.getElementById("tI").classList.toggle("on",t==="熟語");render();}
+function allHide(){document.querySelectorAll(".card").forEach(c=>c.classList.add("hidden"));
+ document.querySelectorAll("#tbody tr").forEach(t=>t.classList.add("hid"));}
+function allShow(){document.querySelectorAll(".card").forEach(c=>c.classList.remove("hidden"));
+ document.querySelectorAll("#tbody tr").forEach(t=>t.classList.remove("hid"));}
+function shuffle(){for(let i=data.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[data[i],data[j]]=[data[j],data[i]];}render();}
+function resetOrder(){data=[...DATA];render();}
+function resetDone(){done.clear();render();}
+function toggleDoneFilter(){hideDone=!hideDone;
+ document.getElementById("hideDoneBtn").textContent=hideDone?"覚えた項目も表示":"覚えた項目を隠す";render();}
+
+render();
+</script>
+</body>
+</html>
