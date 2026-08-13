@@ -3,165 +3,175 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>how の読み分け｜疑問副詞・間接疑問</title>
+<title>語順が決めるのは三択｜節か文かを見抜く</title>
 <style>
 :root{
-  --paper:#E8EDF1;
-  --card:#FCFDFE;
-  --ink:#16202E;
-  --ink-2:#55637A;
-  --ink-3:#8593A5;
-  --rule:#C9D3DC;
-  --shu:#BE3A2B;
-  --shu-tint:#FBEDEA;
-  --ai:#1E4470;
-  --ai-tint:#E9F0F7;
+  --paper:#E8EDF1;--card:#FCFDFE;--ink:#16202E;--ink-2:#55637A;--ink-3:#8593A5;
+  --rule:#C9D3DC;--shu:#BE3A2B;--shu-tint:#FBEDEA;--ai:#1E4470;--ai-tint:#E9F0F7;
+  --gold:#8A6A1F;--gold-tint:#F6F1E2;
   --font-mincho:"Hiragino Mincho ProN","Yu Mincho","YuMincho","MS PMincho",serif;
   --font-gothic:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic","Meiryo",system-ui,sans-serif;
   --font-en:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{
-  margin:0;background:var(--paper);color:var(--ink);
-  font-family:var(--font-gothic);font-size:15px;line-height:1.85;
-  font-feature-settings:"palt" 1;
-}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--font-gothic);font-size:15px;line-height:1.85;font-feature-settings:"palt" 1}
 
-/* header */
-.bar{position:sticky;top:0;z-index:50;background:rgba(232,237,241,.93);
+.bar{position:sticky;top:0;z-index:50;background:rgba(232,237,241,.94);
   backdrop-filter:saturate(1.3) blur(8px);border-bottom:1px solid var(--rule)}
-.bar-in{max-width:780px;margin:0 auto;padding:10px 20px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.bar-in{max-width:800px;margin:0 auto;padding:10px 20px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
 .bar-title{font-family:var(--font-mincho);font-size:17px;font-weight:600;letter-spacing:.06em;margin:0}
-.bar-title em{font-family:var(--font-en);font-style:normal;color:var(--shu)}
 .bar-sub{font-size:11.5px;color:var(--ink-3);letter-spacing:.08em}
-.bar-right{margin-left:auto;display:flex;align-items:center;gap:12px}
+.bar-right{margin-left:auto;display:flex;align-items:center;gap:9px}
 .tally{font-family:var(--font-en);font-size:14px;color:var(--ink-2);font-variant-numeric:tabular-nums}
 .tally b{font-size:20px;color:var(--shu);font-weight:600}
-.reset{font-family:var(--font-gothic);font-size:12px;background:none;border:1px solid var(--rule);
-  border-radius:2px;color:var(--ink-2);padding:4px 10px;cursor:pointer}
-.reset:hover{border-color:var(--ink-2);color:var(--ink)}
+.btn{font-family:var(--font-gothic);font-size:12px;background:none;border:1px solid var(--rule);
+  border-radius:2px;color:var(--ink-2);padding:4px 10px;cursor:pointer;white-space:nowrap}
+.btn:hover:not(:disabled){border-color:var(--ink-2);color:var(--ink)}
 
-.wrap{max-width:780px;margin:0 auto;padding:0 20px 90px}
+.wrap{max-width:800px;margin:0 auto;padding:0 20px 90px}
 .lede{font-family:var(--font-mincho);font-size:14.5px;line-height:2;color:var(--ink-2);
-  border-left:2px solid var(--shu);padding:2px 0 2px 16px;margin:34px 0 44px}
+  border-left:2px solid var(--shu);padding:2px 0 2px 16px;margin:34px 0 42px}
+.lede b{color:var(--ink)}
 
-section{margin:0 0 56px}
+section{margin:0 0 54px}
 .shead{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--ink);padding-bottom:7px;margin-bottom:9px}
 .sno{font-family:var(--font-en);font-size:13px;color:var(--shu);letter-spacing:.14em;flex:none}
 .stitle{font-family:var(--font-mincho);font-size:19px;font-weight:600;letter-spacing:.04em;line-height:1.4}
 .sdesc{font-size:13px;color:var(--ink-2);margin:0 0 20px;line-height:1.8}
+.sdesc b{color:var(--ink)}
 
-/* ===== 1. 語順スイッチ ===== */
-.switch{display:flex;gap:0;border:1px solid var(--rule);border-radius:2px;overflow:hidden;background:#fff;margin-bottom:20px}
-.switch button{
-  flex:1;font-family:var(--font-gothic);font-size:13.5px;padding:9px 6px;
-  background:none;border:none;border-right:1px solid var(--rule);
-  color:var(--ink-2);cursor:pointer;letter-spacing:.04em;transition:background .15s,color .15s;
-}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:2px;padding:16px 18px;margin-bottom:13px}
+.card.key{border-left:3px solid var(--shu)}
+.card.warn{border-left:3px solid var(--gold);background:var(--gold-tint)}
+.card-h{font-family:var(--font-mincho);font-size:15.5px;margin:0 0 9px;letter-spacing:.03em}
+.card p{margin:0 0 8px;font-size:13.5px;color:var(--ink-2);line-height:1.95}
+.card p:last-child{margin:0}
+.card b{color:var(--ink)}
+.en{font-family:var(--font-en);font-size:14.5px;color:var(--ink)}
+table{border-collapse:collapse;width:100%;margin:10px 0;font-size:13px}
+th,td{border-bottom:1px solid var(--rule);padding:7px 9px;text-align:left;vertical-align:top;line-height:1.7}
+th{color:var(--ink);font-weight:600;font-size:12px;letter-spacing:.05em;background:var(--ai-tint)}
+td .en{font-size:14px}
+td.no{color:var(--shu);font-weight:600}
+td.yes{color:var(--ai);font-weight:600}
+.ex{font-family:var(--font-en);font-size:15px;color:var(--ink);display:block;margin:5px 0 5px 4px}
+.ex b{color:var(--shu)}
+.ex i{font-family:var(--font-gothic);font-style:normal;font-size:11.5px;color:var(--ink-3);margin-left:9px}
+.ok::before{content:"○ ";color:var(--ai);font-family:var(--font-en)}
+.ng::before{content:"× ";color:var(--shu);font-family:var(--font-en)}
+
+/* ---- 語順スイッチ ---- */
+.switch{display:flex;border:1px solid var(--rule);border-radius:2px;overflow:hidden;background:#fff;margin-bottom:16px}
+.switch button{flex:1;font-family:var(--font-gothic);font-size:13px;padding:9px 4px;background:none;
+  border:none;border-right:1px solid var(--rule);color:var(--ink-2);cursor:pointer;letter-spacing:.03em;transition:background .15s,color .15s}
 .switch button:last-child{border-right:none}
 .switch button:hover{background:var(--ai-tint)}
 .switch button[aria-pressed="true"]{background:var(--ink);color:#fff}
 .switch button:focus-visible{outline:2px solid var(--shu);outline-offset:-2px}
-
-.stage{
-  background:var(--card);border:1px solid var(--rule);border-radius:2px;
-  padding:26px 18px;min-height:104px;
-  display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 8px;
-}
-.tk{
-  font-family:var(--font-en);font-size:21px;line-height:1.3;
-  padding:3px 7px;border-radius:2px;white-space:nowrap;
-}
+.stage{background:var(--card);border:1px solid var(--rule);border-radius:2px;padding:26px 16px;min-height:104px;
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 8px}
+.tk{font-family:var(--font-en);font-size:21px;line-height:1.3;padding:3px 7px;border-radius:2px;white-space:nowrap}
 .tk.enter{animation:pop .34s ease both}
 @keyframes pop{from{opacity:0;transform:translateY(-7px)}to{opacity:1;transform:none}}
-.tk.k-sub{background:var(--ai-tint);color:var(--ai);font-weight:600}
+.tk.k-wh{border-bottom:2px solid var(--ink);font-weight:600}
 .tk.k-aux{background:var(--shu-tint);color:var(--shu);font-weight:600}
-.tk.k-how{border-bottom:2px solid var(--ink);font-weight:600}
-.tk.host{font-size:16px;color:var(--ink-3);padding-right:2px}
+.tk.k-subj{background:var(--ai-tint);color:var(--ai);font-weight:600}
+.tk.k-wh.asSubj{background:var(--ai-tint);color:var(--ai)}
 .tk.punct{padding-left:0;margin-left:-6px}
-
-.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--ink-2);margin:11px 0 0;justify-content:center}
+.legend{display:flex;gap:15px;flex-wrap:wrap;font-size:12px;color:var(--ink-2);margin:11px 0 0;justify-content:center}
 .legend i{font-style:normal;padding:1px 6px;border-radius:2px;font-family:var(--font-en);margin-right:5px}
-.lg-sub i{background:var(--ai-tint);color:var(--ai)}
+.lg-subj i{background:var(--ai-tint);color:var(--ai)}
 .lg-aux i{background:var(--shu-tint);color:var(--shu)}
-.lg-how i{border-bottom:2px solid var(--ink)}
-
-.snote{
-  margin:15px 0 0;font-size:13.5px;line-height:1.95;color:var(--ink-2);
-  background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--shu);
-  border-radius:2px;padding:13px 16px;min-height:78px;
-}
+.lg-wh i{border-bottom:2px solid var(--ink)}
+.snote{margin:14px 0 0;font-size:13.5px;line-height:1.95;color:var(--ink-2);background:var(--card);
+  border:1px solid var(--rule);border-left:3px solid var(--shu);border-radius:2px;padding:13px 16px;min-height:80px}
 .snote b{color:var(--ink)}
 
-/* ===== drills ===== */
+/* ---- 三択ブロック ---- */
+.rrow{border-top:1px solid var(--rule);padding:18px 0;scroll-margin-top:70px;transition:background .3s}
+.rrow:first-of-type{border-top:none;padding-top:0}
+.rrow:last-of-type{padding-bottom:0}
+.rrow.spot{background:var(--gold-tint);box-shadow:0 0 0 10px var(--gold-tint)}
+.rtop{display:flex;align-items:baseline;gap:11px;flex-wrap:wrap;margin-bottom:11px}
+.rv{font-family:var(--font-gothic);font-size:11.5px;letter-spacing:.07em;border-radius:2px;padding:2px 10px;flex:none}
+.rv.v-s{border:1px solid var(--shu);color:var(--shu);background:var(--shu-tint)}
+.rv.v-c{border:1px solid var(--ai);color:var(--ai);background:var(--ai-tint)}
+.rv.v-b{border:1px solid var(--gold);color:var(--gold);background:var(--gold-tint)}
+.rpat{font-size:14px;color:var(--ink);font-weight:600;line-height:1.6}
+.rex{margin:0 0 10px;padding-left:14px;border-left:2px solid var(--rule)}
+.rex span{display:block;font-family:var(--font-en);font-size:15.5px;line-height:1.85;color:var(--ink)}
+.rex span b{color:var(--shu);font-weight:600}
+.rex span i{font-family:var(--font-gothic);font-style:normal;font-size:11.5px;color:var(--ink-3);margin-left:9px}
+.rex.tight span{line-height:1.7}
+.rwhy{margin:0 0 8px;font-size:13.5px;color:var(--ink-2);line-height:1.95}
+.rwhy:last-child{margin-bottom:0}
+.rwhy b{color:var(--ink)}
+.rsub{font-family:var(--font-gothic);font-size:11.5px;letter-spacing:.06em;color:var(--ink-3);
+  margin:14px 0 6px;padding-bottom:3px;border-bottom:1px solid var(--rule)}
+
+/* ---- 判定フロー ---- */
+.flow{background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--ai);border-radius:2px;padding:16px 18px}
+.flow-h{font-family:var(--font-mincho);font-size:15px;margin:0 0 4px;letter-spacing:.03em}
+.flow-lead{font-size:12.5px;color:var(--ink-3);margin:0 0 14px}
+.fq{margin-bottom:12px}
+.fq.off{display:none}
+.fq-t{font-size:13.5px;color:var(--ink);font-weight:600;margin:0 0 8px}
+.fq-t small{display:block;font-weight:400;font-size:12px;color:var(--ink-3);margin-top:2px}
+.fbtns{display:flex;gap:7px;flex-wrap:wrap}
+.fb{font-family:var(--font-gothic);font-size:13px;background:#fff;border:1px solid var(--rule);border-radius:2px;
+  padding:6px 16px;cursor:pointer;color:var(--ink);transition:border-color .15s,background .15s}
+.fb:hover{border-color:var(--ai);background:var(--ai-tint)}
+.fb[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.fout{display:none;margin-top:12px;padding-top:12px;border-top:1px dashed var(--rule);font-size:13.5px;line-height:1.95;color:var(--ink-2)}
+.fout.on{display:block;animation:fade .26s ease}
+.fout b{color:var(--ink)}
+.fout .en{font-size:14.5px}
+
+/* ---- drill items ---- */
 .item{background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--rule);
-  border-radius:2px;padding:15px 17px;margin-bottom:13px;position:relative;transition:border-color .18s}
+  border-radius:2px;padding:15px 17px;margin-bottom:12px;position:relative;transition:border-color .18s}
 .item.is-right{border-left-color:var(--ai)}
 .item.is-wrong{border-left-color:var(--shu)}
-.mark{position:absolute;top:8px;right:11px;font-size:25px;line-height:1;color:var(--shu);
-  font-family:var(--font-en);opacity:0;transform:scale(.7) rotate(-8deg);
-  transition:opacity .2s,transform .2s cubic-bezier(.3,1.5,.5,1);pointer-events:none}
+.mark{position:absolute;top:8px;right:11px;font-size:25px;line-height:1;color:var(--shu);font-family:var(--font-en);
+  opacity:0;transform:scale(.7) rotate(-8deg);transition:opacity .2s,transform .2s cubic-bezier(.3,1.5,.5,1);pointer-events:none}
 .item.is-right .mark,.item.is-wrong .mark{opacity:1;transform:scale(1) rotate(-8deg)}
-.ask{font-size:12.5px;color:var(--ink-3);letter-spacing:.03em;margin:0 0 7px;padding-right:34px}
-.ask code{font-family:var(--font-en);font-size:14px;color:var(--shu);background:var(--shu-tint);padding:0 4px;border-radius:2px}
+.qn{font-family:var(--font-en);font-size:11.5px;color:var(--ink-3);letter-spacing:.1em;display:block;margin-bottom:6px}
+.unit{font-family:var(--font-en);font-size:18px;line-height:1.7;color:var(--ink);margin:0;padding-right:36px}
+.unit .wh{color:var(--shu);font-weight:600}
 
-/* clickable words */
-.sent{font-family:var(--font-en);font-size:19px;line-height:1.9;display:flex;flex-wrap:wrap;gap:2px}
-.w{padding:1px 4px;border-radius:2px;cursor:pointer;border-bottom:1px dotted var(--ink-3);transition:background .12s}
-.w:hover{background:var(--ai-tint)}
-.w:focus-visible{outline:2px solid var(--ai);outline-offset:1px}
-.w.fixed{cursor:default;border-bottom:none}
-.w.fixed:hover{background:none}
-.item.done .w{cursor:default;border-bottom-color:transparent}
-.item.done .w:hover{background:none}
-.w.is-key{background:var(--ai-tint);color:var(--ai);font-weight:600;border-bottom:none}
-.w.is-bad{background:var(--shu-tint);text-decoration:line-through;text-decoration-color:var(--shu);text-decoration-thickness:1.5px}
-.w.vb{border-bottom:2px solid var(--shu)}
-
-/* option buttons */
-.opts{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}
-.opt{font-family:var(--font-gothic);font-size:13.5px;background:#fff;border:1px solid var(--rule);
-  border-radius:2px;padding:6px 15px;cursor:pointer;color:var(--ink);transition:border-color .15s,background .15s}
+.opts{display:flex;flex-wrap:wrap;gap:7px;margin-top:13px}
+.opt{font-family:var(--font-gothic);font-size:13px;background:#fff;border:1px solid var(--rule);
+  border-radius:2px;padding:6px 14px;cursor:pointer;color:var(--ink);transition:border-color .15s,background .15s;text-align:left}
 .opt:hover:not(:disabled){border-color:var(--ai);background:var(--ai-tint)}
 .opt:focus-visible{outline:2px solid var(--ai);outline-offset:2px}
 .opt:disabled{cursor:default}
 .opt.correct{border-color:var(--shu);background:var(--shu-tint);color:var(--shu);font-weight:600}
 .opt.picked-wrong{opacity:.7;text-decoration:line-through;text-decoration-color:var(--shu);text-decoration-thickness:1.5px}
 .opt.dim{opacity:.4}
-.opt.mb{font-family:var(--font-en);font-size:18px;padding:2px 20px;min-width:60px}
 
-/* explanation */
 .exp{display:none;margin-top:13px;padding-top:12px;border-top:1px dashed var(--rule);
   font-size:13.5px;line-height:1.95;color:var(--ink-2)}
-.item.done .exp{display:block;animation:fade .22s ease}
+.item.done .exp{display:block;animation:fade .26s ease}
 @keyframes fade{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
 .exp p{margin:0 0 8px}.exp p:last-child{margin:0}
 .exp b{color:var(--ink);font-weight:600}
-.exp .en{font-family:var(--font-en);font-size:14.5px;color:var(--ink)}
+.tag{display:inline-block;font-family:var(--font-gothic);font-size:11px;letter-spacing:.06em;
+  border:1px solid var(--shu);color:var(--shu);border-radius:2px;padding:0 6px;margin-right:7px;vertical-align:1px}
+.tag.b{border-color:var(--gold);color:var(--gold)}
+.tag.c{border-color:var(--ai);color:var(--ai)}
+.use{margin:9px 0 0;padding:10px 13px;background:var(--paper);border-radius:2px;font-size:13px;line-height:1.95}
+.use span.lb{display:inline-block;font-size:10.5px;letter-spacing:.08em;color:var(--ink-3);
+  border:1px solid var(--rule);background:#fff;border-radius:2px;padding:0 5px;margin-right:8px;vertical-align:2px}
+.use .en{display:inline;font-size:14px}
+.use div{margin-bottom:5px}
+.use div:last-child{margin-bottom:0}
+.shout{font-family:var(--font-mincho);font-size:16px;font-weight:600;color:var(--shu);
+  letter-spacing:.04em;margin:0 0 10px;line-height:1.7}
 
-/* summary */
-.card{background:var(--card);border:1px solid var(--rule);border-radius:2px;padding:16px 18px;margin-bottom:13px}
-.card-h{font-family:var(--font-mincho);font-size:15.5px;margin:0 0 9px;letter-spacing:.03em}
-.card-h em{font-family:var(--font-en);font-style:normal;color:var(--shu)}
-.card p{margin:0 0 8px;font-size:13.5px;color:var(--ink-2);line-height:1.95}
-.card p:last-child{margin:0}
-table{border-collapse:collapse;width:100%;margin:10px 0;font-size:13px}
-th,td{border-bottom:1px solid var(--rule);padding:7px 9px;text-align:left;vertical-align:top;line-height:1.7}
-th{color:var(--ink);font-weight:600;font-size:12px;letter-spacing:.05em;background:var(--ai-tint)}
-td .en{font-family:var(--font-en);font-size:14px}
-.steps{counter-reset:s;list-style:none;padding:0;margin:6px 0 0}
-.steps li{counter-increment:s;position:relative;padding:5px 0 5px 32px;font-size:13.5px;color:var(--ink-2);line-height:1.85}
-.steps li::before{content:counter(s);position:absolute;left:0;top:8px;width:20px;height:20px;
-  border:1px solid var(--shu);border-radius:50%;color:var(--shu);font-family:var(--font-en);font-size:11px;
-  display:flex;align-items:center;justify-content:center}
-footer{margin-top:50px;padding-top:16px;border-top:1px solid var(--rule);font-size:11.5px;color:var(--ink-3);line-height:1.9}
-
-@media(max-width:520px){
-  .tk{font-size:18px}.sent{font-size:17px}
-  .bar-sub{display:none}
-  .stage{padding:20px 12px}
-}
+footer{margin-top:46px;padding-top:16px;border-top:1px solid var(--rule);font-size:11.5px;color:var(--ink-3);line-height:1.9}
+@media(max-width:520px){.unit{font-size:16.5px}.rex span{font-size:14.5px}.tk{font-size:18px}.bar-sub{display:none}.opt{font-size:12.5px;padding:6px 11px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -169,213 +179,334 @@ footer{margin-top:50px;padding-top:16px;border-top:1px solid var(--rule);font-si
 
 <div class="bar">
   <div class="bar-in">
-    <h1 class="bar-title"><em>how</em> の読み分け</h1>
-    <span class="bar-sub">疑問副詞 / 間接疑問</span>
+    <h1 class="bar-title">語順が決めるのは三択</h1>
+    <span class="bar-sub">節か文かを見抜く</span>
     <div class="bar-right">
-      <span class="tally"><b id="score">0</b> / 14</span>
-      <button class="reset" id="reset" type="button">解き直す</button>
+      <span class="tally"><b id="score">0</b> / 7</span>
+      <button class="btn" id="reset" type="button">解き直す</button>
     </div>
   </div>
 </div>
 
 <div class="wrap">
 
-<p class="lede">how が主語に見えてしまうのはなぜか。まず語順スイッチで<b>何が動いて何が動かないか</b>を目で確かめ、そのあと三種類のドリルで判定手順を身体に入れます。</p>
+<p class="lede">wh- で始まるかたまりを見たとき、それが<b>独立した文</b>なのか<b>文の部品としての節</b>なのかを判定する必要があります。手がかりは<b>語順ひとつ</b>。ただし語順だけでは決まらない型もあり、そこが最大の落とし穴になります。</p>
 
-<!-- ===== 1 ===== -->
+<!-- ===== Ⅰ ===== -->
 <section>
-  <div class="shead"><span class="sno">Ⅰ</span><span class="stitle">語順スイッチ</span></div>
-  <p class="sdesc">同じ内容を三つの形に切り替えます。動くのは<b>主語 hunger と助動詞 can の前後関係だけ</b>。それ以外は一語も動きません。</p>
+  <div class="shead"><span class="sno">Ⅰ</span><span class="stitle">節を作るのは三つ</span></div>
+  <p class="sdesc">文の中に節が現れるのは、次の三つの場合<b>だけ</b>です。個々の判別に入る前に、この地図を持っておきます。</p>
 
-  <div class="switch" role="group" aria-label="文の形を切り替える">
-    <button type="button" data-mode="decl" aria-pressed="true">平叙文</button>
-    <button type="button" data-mode="quest" aria-pressed="false">疑問文</button>
-    <button type="button" data-mode="noun" aria-pressed="false">名詞節</button>
-  </div>
-
-  <div class="stage" id="stage" aria-live="polite"></div>
-
-  <div class="legend">
-    <span class="lg-sub"><i>hunger</i>主語</span>
-    <span class="lg-aux"><i>can</i>助動詞</span>
-    <span class="lg-how"><i>how</i>疑問副詞</span>
-  </div>
-
-  <p class="snote" id="snote"></p>
-</section>
-
-<!-- ===== 2 ===== -->
-<section>
-  <div class="shead"><span class="sno">Ⅱ</span><span class="stitle">主語の核はどれか</span></div>
-  <p class="sdesc">朱の下線を引いた動詞について、その<b>主語となる名詞の核</b>を一語クリック。how が主語になれるかどうかが、ここで決着します。</p>
-
-  <div class="item" data-drill="pick" data-key="hunger">
-    <span class="mark"></span>
-    <p class="ask">動詞 <code>affects</code> の主語の核は？</p>
-    <div class="sent" data-words="How|hunger|affects|learning|is|unclear|." data-verb="2"></div>
-    <div class="exp">
-      <p>核は <span class="en">hunger</span>。how を外した <span class="en">Hunger affects learning</span> が完全な文として成立します。<b>how は「どのようにして」という副詞情報を外から被せているだけ</b>で、名詞の席には座っていません。</p>
-      <p>ちなみに <span class="en">is unclear</span> の主語は <span class="en">How hunger affects learning</span> という<b>節まるごと</b>。節が名詞のかたまりとして主語になっているのであって、how 単独が主語なのではありません。</p>
-    </div>
-  </div>
-
-  <div class="item" data-drill="pick" data-key="children">
-    <span class="mark"></span>
-    <p class="ask">動詞 <code>experienced</code> の主語の核は？</p>
-    <div class="sent" data-words="How|many|children|experienced|hunger|is|unclear|." data-verb="3"></div>
-    <div class="exp">
-      <p>核は <span class="en">children</span>。主語は how ではなく <span class="en">how many children</span> という<b>名詞句全体</b>で、how は many を修飾しているだけです。</p>
-      <p><b>この型が誤読の温床。</b><span class="en">how + 名詞</span> という並びを見ると「how が主語だ」と処理してしまいがちですが、実際に主語なのは後ろの名詞。<span class="en">how hunger ...</span> と <span class="en">how many children ...</span> は表層が似ていて中身が違います。</p>
-    </div>
-  </div>
-
-  <div class="item" data-drill="pick" data-key="effect">
-    <span class="mark"></span>
-    <p class="ask">動詞 <code>was</code> の主語の核は？</p>
-    <div class="sent" data-words="How|strong|the|effect|was|surprised|everyone|." data-verb="4"></div>
-    <div class="exp">
-      <p>核は <span class="en">effect</span>。元の形は <span class="en">the effect was strong</span> で、補語の strong が how ごと文頭に引き抜かれています。</p>
-      <p><b>how の直後が形容詞なら、その塊で一単位</b>。<span class="en">how strong</span> をひとまとまりとして扱えば、主語が後ろに残っていることが見えます。</p>
-    </div>
-  </div>
-
-  <div class="item" data-drill="pick" data-key="program">
-    <span class="mark"></span>
-    <p class="ask">動詞 <code>works</code> の主語の核は？</p>
-    <div class="sent" data-words="The|study|shows|how|the|program|works|." data-verb="6"></div>
-    <div class="exp">
-      <p>核は <span class="en">program</span>。how 節は <span class="en">shows</span> の<b>目的語</b>で、文中では名詞のかたまりとして働いています。</p>
-      <p>how の後ろは <span class="en">the program works</span> と<b>SVが揃った完全文</b>。副詞は名詞の席を取らないので、穴が空きません。</p>
-    </div>
-  </div>
-
-  <div class="item" data-drill="pick" data-key="researchers">
-    <span class="mark"></span>
-    <p class="ask">動詞 <code>collect</code> の主語の核は？</p>
-    <div class="sent" data-words="How|did|the|researchers|collect|the|data|?" data-verb="4"></div>
-    <div class="exp">
-      <p>核は <span class="en">researchers</span>。疑問文で倒置が起きても、主語が how になることはありません。</p>
-      <p>倒置しているのは <span class="en">did</span> と <span class="en">the researchers</span> の前後関係だけ。<b>five 語の中で how だけが最初から動かない位置にいる</b>——それが副詞である証拠です。</p>
-    </div>
-  </div>
-</section>
-
-<!-- ===== 3 ===== -->
-<section>
-  <div class="shead"><span class="sno">Ⅲ</span><span class="stitle">疑問文か、名詞節か</span></div>
-  <p class="sdesc"><b>how が導くまとまり</b>がどちらかを判定します。決め手は助動詞（または do/be）が主語の前にあるか後ろにあるか、それだけ。</p>
-
-  <div class="item" data-drill="pick2" data-ans="q">
-    <span class="mark"></span>
-    <p class="ask">How can hunger affect learning?</p>
-    <div class="opts">
-      <button class="opt" data-v="q">疑問文</button>
-      <button class="opt" data-v="n">名詞節</button>
-    </div>
-    <div class="exp"><p><b>疑問文。</b><span class="en">can</span> が主語 <span class="en">hunger</span> の<b>前</b>にある＝倒置。それ自体が独立した文です。</p></div>
-  </div>
-
-  <div class="item" data-drill="pick2" data-ans="n">
-    <span class="mark"></span>
-    <p class="ask">I don't know how hunger affects learning.</p>
-    <div class="opts">
-      <button class="opt" data-v="q">疑問文</button>
-      <button class="opt" data-v="n">名詞節</button>
-    </div>
-    <div class="exp"><p><b>名詞節。</b>主語 <span class="en">hunger</span> が動詞 <span class="en">affects</span> の前に戻っており、倒置していません。<span class="en">know</span> の目的語として働く文の部品なので、文の形を崩さず SV 順を保ちます。</p></div>
-  </div>
-
-  <div class="item" data-drill="pick2" data-ans="n">
-    <span class="mark"></span>
-    <p class="ask">The strength of the study is in showing how it works.</p>
-    <div class="opts">
-      <button class="opt" data-v="q">疑問文</button>
-      <button class="opt" data-v="n">名詞節</button>
-    </div>
-    <div class="exp">
-      <p><b>名詞節。</b>前置詞 <span class="en">in</span> ＋動名詞 <span class="en">showing</span> の目的語が必要な位置なので、そこに入れるのは名詞のかたまりだけ。<b>意味を読む前に、位置だけで名詞節だと確定します。</b></p>
-      <p>Lesson 11 の問2(c) がまさにこの形でした。</p>
-    </div>
-  </div>
-
-  <div class="item" data-drill="pick2" data-ans="n">
-    <span class="mark"></span>
-    <p class="ask">Do you know how he solved it?</p>
-    <div class="opts">
-      <button class="opt" data-v="q">疑問文</button>
-      <button class="opt" data-v="n">名詞節</button>
-    </div>
-    <div class="exp">
-      <p><b>名詞節。</b>ここが引っかかりどころです。文<b>全体</b>は疑問文（<span class="en">Do you</span> と倒置している）ですが、how が導く <span class="en">how he solved it</span> の部分は倒置しておらず、<span class="en">know</span> の目的語＝名詞節。</p>
-      <p><b>外側の文の種類と、how 節の種類は別勘定。</b>これを混同すると <span class="en">Do you know how did he solve it?</span> という誤文を作ってしまいます。</p>
-    </div>
-  </div>
-</section>
-
-<!-- ===== 4 ===== -->
-<section>
-  <div class="shead"><span class="sno">Ⅳ</span><span class="stitle">the way と how は同居できるか</span></div>
-  <p class="sdesc">how が関係副詞かどうかを分ける実地テスト。英語として成立するものに ○、しないものに ×。</p>
-
-  <div class="item" data-drill="mb" data-ans="o">
-    <span class="mark"></span>
-    <p class="ask">This is <b>the way</b> he solved it.</p>
-    <div class="opts"><button class="opt mb" data-v="o">○</button><button class="opt mb" data-v="x">×</button></div>
-    <div class="exp"><p>成立。先行詞 <span class="en">the way</span> を関係副詞（省略）が受ける形です。</p></div>
-  </div>
-
-  <div class="item" data-drill="mb" data-ans="o">
-    <span class="mark"></span>
-    <p class="ask">This is <b>how</b> he solved it.</p>
-    <div class="opts"><button class="opt mb" data-v="o">○</button><button class="opt mb" data-v="x">×</button></div>
-    <div class="exp"><p>成立。先行詞を置かず how だけで受ける形。上と下、<b>どちらか一方を選ぶ</b>のが原則です。</p></div>
-  </div>
-
-  <div class="item" data-drill="mb" data-ans="x">
-    <span class="mark"></span>
-    <p class="ask">This is <b>the way how</b> he solved it.</p>
-    <div class="opts"><button class="opt mb" data-v="o">○</button><button class="opt mb" data-v="x">×</button></div>
-    <div class="exp">
-      <p>不成立。<b>先行詞 the way と how は共存できません。</b>ここが how の特殊なところで、when / where / why には <span class="en">the time when</span>, <span class="en">the place where</span> という共存形があるのに、how だけ許されない。</p>
-      <p>この <span class="en">This is how...</span> を「先行詞 the way が省略された関係副詞」と説明する参考書もあれば、「先行詞を含んだ形（関係代名詞 what に相当）」とする説明もあり、<b>学校文法の中でも扱いが割れています</b>。いずれにせよ「先行詞＋how」が作れない以上、how を関係副詞として扱う場面はほぼありません。</p>
-    </div>
-  </div>
-
-  <div class="item" data-drill="mb" data-ans="o">
-    <span class="mark"></span>
-    <p class="ask">This is <b>the way in which</b> he solved it.</p>
-    <div class="opts"><button class="opt mb" data-v="o">○</button><button class="opt mb" data-v="x">×</button></div>
-    <div class="exp"><p>成立。硬い書き言葉で使われる形です。how が使えない場面（先行詞を明示したいとき）はこちらに逃がします。共存できないのは <b>the way + how</b> の組み合わせに限った話だと分かります。</p></div>
-  </div>
-</section>
-
-<!-- ===== 5 ===== -->
-<section>
-  <div class="shead"><span class="sno">Ⅴ</span><span class="stitle">まとめ</span></div>
-  <p class="sdesc">ドリルで確かめたことを、判定に使える形に畳んでおきます。</p>
-
-  <div class="card">
-    <p class="card-h">なぜ <em>how</em> の後ろは完全文なのか</p>
+  <div class="card key">
     <table>
-      <tr><th>種類</th><th>語</th><th>後ろに続くもの</th></tr>
-      <tr><td>疑問<b>代名詞</b></td><td class="en">what / who / which</td><td><b>不完全文</b>（S か O が欠ける）</td></tr>
-      <tr><td>疑問<b>副詞</b></td><td class="en"><b>how</b> / when / where / why</td><td><b>完全文</b>（S も O も揃う）</td></tr>
+      <tr><th>目印</th><th>作る節</th><th>決め手</th></tr>
+      <tr><td>従位接続詞<br><span class="en">that / whether / because / although …</span></td><td>名詞節・副詞節</td><td>後ろは完全文</td></tr>
+      <tr><td>関係詞<br><span class="en">who / which / whose / where / why …</span></td><td>形容詞節</td><td class="yes">先行詞がある</td></tr>
+      <tr><td>疑問詞＝間接疑問<br><span class="en">what / which / how / why …</span></td><td>名詞節</td><td class="no">先行詞なし・倒置なし</td></tr>
     </table>
-    <p>代名詞は文中の名詞の位置を自分で占めるので穴が空く。副詞は名詞の位置を取らないので穴が空かない。<b>how が主語になれないのは、この一点から出てくる帰結</b>です。</p>
+
+    <p class="rsub">それぞれの例</p>
+    <div class="rex tight">
+      <span>I think <b>that he's right</b>. <i>従位接続詞・名詞節</i></span>
+      <span>We left <b>because it rained</b>. <i>従位接続詞・副詞節</i></span>
+      <span>the report <b>which they approved</b> <i>関係詞・形容詞節</i></span>
+      <span>the reason <b>why he resigned</b> <i>関係詞・形容詞節</i></span>
+      <span>I don't know <b>how he solved it</b>. <i>間接疑問・名詞節</i></span>
+      <span>Tell me <b>which option you prefer</b>. <i>間接疑問・名詞節</i></span>
+    </div>
+
+    <p class="rwhy"><b>which / why は関係詞にも間接疑問にもなります。</b>分けるのは<b>先行詞の有無</b>——上の <span class="en">the report</span> / <span class="en">the reason</span> があれば形容詞節、なければ名詞節です。</p>
+    <p class="rwhy"><b>そして how は、この三枠のうち間接疑問にしか入れません。</b><span class="en">the way how</span> が作れないので関係詞の枠が空き、副詞節の枠も <span class="en">however</span> に変形しないと使えない。だから <b>how が作る節は名詞節だけ</b>——これが後述する結論の位置づけです。</p>
   </div>
 
   <div class="card">
-    <p class="card-h">判定手順</p>
-    <ol class="steps">
-      <li>how の直後は名詞・形容詞・副詞か。Yes ならその塊で一単位（<span class="en">how many children</span> / <span class="en">how strong</span>）で、主語になりうる</li>
-      <li>No なら how は単独の副詞。後ろは完全文で、<b>主語は別にある</b></li>
-      <li>助動詞（do / be / can など）が主語の前か後ろか。前なら疑問文、後ろなら名詞節</li>
-    </ol>
+    <p class="card-h">三枠に畳むときの注意点</p>
+
+    <p class="rsub">① 等位接続詞は別枠</p>
+    <p><span class="en">and / but / or</span> は節を従属させず、<b>並べるだけ</b>です。従位接続詞とは働きが違います。大問2のア（<span class="en">but ...</span>）とウ（<span class="en">and ...</span>）がこれで、そもそも名詞のかたまりになれないので空所(c)に入れませんでした。</p>
+
+    <p class="rsub">② whether / if は両属</p>
+    <p>品詞は接続詞ですが、中身は間接疑問（yes-no 疑問文の埋め込み）です。<span class="en">I don't know <b>whether he came</b>.</span> は「彼が来たかどうか」を訊く形。<b>境界はもともと重なっています。</b></p>
+
+    <p class="rsub">③ 関係詞にも名詞節を作るものがある</p>
+    <span class="ex">関係代名詞 <b>what</b> — 先行詞を含むので名詞節　<span class="en">what he said</span></span>
+    <span class="ex">複合関係詞 <b>whatever</b>（名詞節）／ <b>however</b>（副詞節）</span>
+    <p>「関係詞＝形容詞節」と一対一にすると、この二つが例外になります。</p>
+
+    <p class="rsub">④ 目印が消える節がある</p>
+    <span class="ex">the book <b>( )</b> I read yesterday <i>関係詞の省略</i></span>
+    <span class="ex">I think <b>( )</b> he's right <i>that の省略</i></span>
+    <p>先頭に目印がないので、三枠のどれかを判定する以前に「ここに節がある」と気づけません。<b>語順と穴だけが手がかり</b>になります。実はこれが読解で最も事故る型です。</p>
   </div>
 
+  <div class="card warn">
+    <p class="card-h">判別は結局この二段階</p>
+    <p><b>1　先頭の語は何か</b> → 三枠のどれか、それとも疑問文・感嘆文か<br>
+    <b>2　後ろの語順と穴</b> → 倒置の有無で<b>文か節か</b>、穴の有無で<b>代名詞系か副詞系か</b></p>
+    <p>次のⅡが、この2の部分を扱います。そしてⅢで、<b>1だけでは決まらない例外</b>（疑問詞が主語のとき）を潰します。</p>
+  </div>
+</section>
+
+<!-- ===== Ⅱ ===== -->
+<section>
+  <div class="shead"><span class="sno">Ⅱ</span><span class="stitle">語順が決めるのは三択</span></div>
+  <p class="sdesc">ここからは、目印が疑問詞・関係詞のときの<b>語順による判別</b>です。まず、同じ内容が語順によってどう変わるかを見てください。<b>切り替えると語が実際に動きます。</b></p>
+
+  <div class="switch" role="group" aria-label="三択を切り替える">
+    <button type="button" data-mode="s" aria-pressed="true">1　文だけ</button>
+    <button type="button" data-mode="c" aria-pressed="false">2　節だけ</button>
+    <button type="button" data-mode="b" aria-pressed="false">3　どちらにも</button>
+  </div>
+  <div class="stage" id="stage" aria-live="polite"></div>
+  <div class="legend">
+    <span class="lg-wh"><i>how</i>疑問詞</span>
+    <span class="lg-aux"><i>did</i>助動詞</span>
+    <span class="lg-subj"><i>she</i>主語</span>
+  </div>
+  <p class="snote" id="snote"></p>
+
+  <div class="card key" style="margin-top:22px">
+
+    <!-- 1 -->
+    <div class="rrow" id="row-s">
+      <div class="rtop"><span class="rv v-s">1　文だけ</span><span class="rpat">助動詞が主語の前（倒置）</span></div>
+      <div class="rex">
+        <span>how <b>did she</b> find the answer? <i>どうやって答えを見つけたのか</i></span>
+        <span>which report <b>did they</b> approve? <i>どの報告書を承認したのか</i></span>
+        <span>what <b>did he</b> say at the meeting? <i>会議で何を言ったのか</i></span>
+        <span>why <b>was the shipment</b> delayed? <i>なぜ出荷が遅れたのか</i></span>
+        <span>how <b>can we</b> be sure the data is accurate? <i>どうすれば確信できるのか</i></span>
+      </div>
+      <p class="rwhy"><b>倒置は疑問文でしか起きません。</b>節にはこの語順が現れないので、見た時点で確定します。動詞の位置に <span class="en">do / does / did</span> や <span class="en">can / will / be</span> が割り込んでいたら、この型です。</p>
+    </div>
+
+    <!-- 2 -->
+    <div class="rrow" id="row-c">
+      <div class="rtop"><span class="rv v-c">2　節だけ</span><span class="rpat">倒置なし、かつ wh- が主語でない</span></div>
+      <div class="rex">
+        <span>how <b>she found</b> the answer</span>
+        <span>which report <b>they approved</b></span>
+        <span>what <b>he said</b> at the meeting</span>
+        <span>why <b>the shipment was</b> delayed</span>
+        <span>how <b>we can</b> be sure the data is accurate</span>
+      </div>
+      <p class="rwhy">上の五つから <span class="en">did</span> を抜き、主語を動詞の前に戻した形です。<b>語彙は同一で語順だけが違う</b>。疑問文にするには倒置が要るので、倒置がない以上は文になれません。</p>
+
+      <p class="rsub">実際に文の中で使うと</p>
+      <div class="rex tight">
+        <span>I know <b>how she found the answer</b>. <i>名詞節・目的語</i></span>
+        <span>That's <b>how she found it</b>. <i>名詞節・補語</i></span>
+        <span>I was surprised at <b>how quickly it changed</b>. <i>名詞節・前置詞の目的語</i></span>
+        <span><b>How she found the answer</b> is still unclear. <i>名詞節・主語</i></span>
+        <span>the report <b>which they approved</b> yesterday <i>形容詞節（関係代名詞）</i></span>
+        <span>the reason <b>why the shipment was delayed</b> <i>形容詞節（関係副詞）</i></span>
+      </div>
+      <p class="rwhy">節だと分かっても、<b>何節かは語によって決まります</b>。which / why は形容詞節も作りますが、<b>how が作る節は名詞節だけ</b>です。</p>
+      <table>
+        <tr><th>節の種類</th><th>how</th><th>why / when / where</th></tr>
+        <tr><td>名詞節</td><td class="yes">○</td><td class="yes">○</td></tr>
+        <tr><td>形容詞節（関係副詞）</td><td class="no">×</td><td class="yes">○</td></tr>
+        <tr><td>副詞節</td><td class="no">×</td><td>語による</td></tr>
+      </table>
+      <span class="ex ok">This is <b>the way</b> he solved it.</span>
+      <span class="ex ok">This is <b>how</b> he solved it.</span>
+      <span class="ex ng">This is <b>the way how</b> he solved it.</span>
+      <p class="rwhy">why には <span class="en">the reason why</span>、where には <span class="en">the place where</span> があるのに、how だけ「先行詞＋how」が作れません。だから<b>how を関係副詞として扱う場面はなく、節と分かった時点で名詞節に確定します</b>。副詞節も <span class="en">however</span> / <span class="en">no matter how</span> に変形して初めて可能になります。</p>
+    </div>
+
+    <!-- 3 -->
+    <div class="rrow" id="row-b">
+      <div class="rtop"><span class="rv v-b">3　どちらにも</span><span class="rpat">wh- が主語（またはその一部）／感嘆文になりうる</span></div>
+      <div class="rex">
+        <span><b>how many students</b> found the answer</span>
+        <span><b>which report</b> caused the problem</span>
+        <span><b>who</b> submitted the report</span>
+        <span><b>what</b> caused the delay</span>
+        <span><b>whose team</b> won the award</span>
+        <span><b>how quickly</b> the situation changed <i>← 感嘆文にもなる</i></span>
+      </div>
+      <p class="rwhy">主語は最初から文頭にいるので、動かす必要がない＝<b>倒置の余地がない</b>。だから疑問文にしても節にしても語順が変わりません。感嘆文も倒置しないので、同じことが起きます。</p>
+      <div class="use">
+        <div><span class="lb">文として</span><span class="en">How many students found the answer?</span></div>
+        <div><span class="lb">節として</span><span class="en">The teacher explained <b>how many students found the answer</b>.</span></div>
+      </div>
+      <div class="use" style="margin-top:7px">
+        <div><span class="lb">文として</span><span class="en">How quickly the situation changed!</span></div>
+        <div><span class="lb">節として</span><span class="en">I was surprised at <b>how quickly the situation changed</b>.</span></div>
+      </div>
+      <p class="rwhy" style="margin-top:9px">この型は<b>語順だけでは決まりません</b>。外側にそのかたまりを受け止める要素（動詞・前置詞・名詞）があれば節、なければ文。<b>受け皿を見に行く</b>のがここでの作業です。</p>
+    </div>
+
+  </div>
+
+  <!-- 判定フロー -->
+  <div class="flow">
+    <p class="flow-h">判定フロー</p>
+    <p class="flow-lead">手元の英文を当てはめてみてください。二問で決まります。</p>
+
+    <div class="fq" id="fq1">
+      <p class="fq-t">Q1　助動詞（do / does / did / can / will / be など）が主語の前に出ていますか。<small>例：<span class="en">how <b>did she</b> find ...</span> なら「出ている」</small></p>
+      <div class="fbtns">
+        <button class="fb" type="button" data-q="1" data-v="yes" aria-pressed="false">出ている</button>
+        <button class="fb" type="button" data-q="1" data-v="no" aria-pressed="false">出ていない</button>
+      </div>
+    </div>
+
+    <div class="fq off" id="fq2">
+      <p class="fq-t">Q2　wh- 語（またはそれを含む名詞句）が主語ですか。あるいは感嘆文になりえますか。<small>例：<span class="en">how many students</span> が主語なら「はい」／<span class="en">how quickly</span> のように形容詞・副詞が続くなら「はい」</small></p>
+      <div class="fbtns">
+        <button class="fb" type="button" data-q="2" data-v="yes" aria-pressed="false">はい</button>
+        <button class="fb" type="button" data-q="2" data-v="no" aria-pressed="false">いいえ</button>
+      </div>
+    </div>
+
+    <div class="fout" id="fout"></div>
+  </div>
+</section>
+
+<!-- ===== Ⅲ ===== -->
+<section>
+  <div class="shead"><span class="sno">Ⅲ</span><span class="stitle">疑問詞が主語のとき、倒置は起きない</span></div>
+  <p class="sdesc">三択の3の中身です。ふつうの疑問詞疑問文と並べると、違いがはっきりします。</p>
+
+  <div class="card key">
+    <p class="card-h">二つの語順を並べる</p>
+    <table>
+      <tr><th></th><th>ふつうの疑問詞疑問文</th><th>疑問詞主語の疑問文</th></tr>
+      <tr><td>疑問詞の役割</td><td>目的語・補語・副詞</td><td class="yes">主語</td></tr>
+      <tr><td>語順</td><td class="en">wh- ＋ 助動詞 ＋ S ＋ V</td><td class="en">wh-（＝S）＋ V</td></tr>
+      <tr><td>do / did</td><td>必要</td><td class="no">不要</td></tr>
+      <tr><td>倒置</td><td class="yes">あり</td><td class="no">なし</td></tr>
+    </table>
+
+    <p class="rsub">同じ4語で比べる</p>
+    <span class="ex">Who <b>did she</b> call? <i>彼女は誰に電話したのか（who＝目的語）</i></span>
+    <span class="ex">Who <b>called</b> her? <i>誰が彼女に電話したのか（who＝主語）</i></span>
+    <p>語を入れ替えただけで、<b>訊いている内容が正反対</b>になります。上は倒置あり、下は倒置なし。</p>
+
+    <p class="rsub">他の疑問詞でも同じ</p>
+    <table>
+      <tr><th>疑問詞＝目的語など（倒置あり）</th><th>疑問詞＝主語（倒置なし）</th></tr>
+      <tr><td class="en">What <b>did the storm</b> damage?</td><td class="en">What <b>damaged</b> the house?</td></tr>
+      <tr><td class="en">Which report <b>did they</b> approve?</td><td class="en">Which report <b>caused</b> the problem?</td></tr>
+      <tr><td class="en">How many students <b>did the teacher</b> praise?</td><td class="en">How many students <b>passed</b> the exam?</td></tr>
+      <tr><td class="en">Whose team <b>did you</b> support?</td><td class="en">Whose team <b>won</b> the award?</td></tr>
+    </table>
+    <p>右の列はすべて<b>正しい疑問文</b>です。疑問詞（を含む名詞句）がそのまま主語なので、もともと文頭にいる。前に動かす必要がないため、助動詞も要りません。</p>
+    <span class="ex ng">Who <b>did</b> call you? <i>強調用法を除いて誤り</i></span>
+    <span class="ex ok">Who <b>called</b> you?</span>
+  </div>
+
+  <div class="card warn">
+    <p class="shout">疑問詞主語の文は、京大生でも見逃す！</p>
+    <p>理由は単純です。<b><span class="en">do / did</span> がない</b>という一点だけで「倒置していない＝節だ」と処理してしまうから。ふつうの疑問詞疑問文ばかり練習してきた目には、助動詞のない疑問文が疑問文に見えません。</p>
+    <p>読解でこれをやると、<b>独立した文を節だと誤読して、そこから先の構造が全部ずれます</b>。長文で急に意味が取れなくなる原因の一つがこれです。</p>
+    <p>対策は一つ。<b>wh- の直後に名詞が来ていたら、まずそれが主語かどうかを確かめる。</b><span class="en">how many students</span> / <span class="en">which report</span> / <span class="en">whose team</span> のように wh- と名詞が一塊になっている形は、特に要注意です。</p>
+  </div>
+
+  <div class="card key">
+    <p class="card-h">だから、どちらにもなれる</p>
+    <p>疑問詞が主語のとき、<b>疑問文の語順と節の語順が完全に一致します</b>。単体で切り出されたら区別がつきません。</p>
+    <div class="use">
+      <div><span class="lb">文</span><span class="en">Who submitted the report?</span></div>
+      <div><span class="lb">名詞節</span><span class="en">I don't know <b>who submitted the report</b>.</span></div>
+      <div><span class="lb">形容詞節</span><span class="en">the employee <b>who submitted the report</b></span></div>
+    </div>
+    <p style="margin-top:10px">判定するには<b>外側を見るしかありません。</b>受け止める動詞・前置詞・名詞があれば節、なければ文——この確認が、三択の3に落ちたときの作業です。</p>
+  </div>
+</section>
+
+<!-- ===== Ⅳ ===== -->
+<section>
+  <div class="shead"><span class="sno">Ⅳ</span><span class="stitle">判定ドリル</span></div>
+  <p class="sdesc">かたまりだけを出します。大文字と句読点は伏せてあるので、手がかりは<b>語順だけ</b>。三択のどれかを選んでください。</p>
+
+  <div class="item" data-ans="s">
+    <span class="mark"></span><span class="qn">01</span>
+    <p class="unit"><span class="wh">how</span> did she manage to finish it on time</p>
+    <div class="opts"><button class="opt" data-v="s">1 文だけ</button><button class="opt" data-v="c">2 節だけ</button><button class="opt" data-v="b">3 どちらにも</button></div>
+    <div class="exp"><p><span class="tag">1 文だけ</span><span class="en">did</span> が主語 <span class="en">she</span> の前＝倒置。節にこの語順は現れません。</p></div>
+  </div>
+
+  <div class="item" data-ans="b">
+    <span class="mark"></span><span class="qn">02</span>
+    <p class="unit"><span class="wh">how</span> many participants dropped out</p>
+    <div class="opts"><button class="opt" data-v="s">1 文だけ</button><button class="opt" data-v="c">2 節だけ</button><button class="opt" data-v="b">3 どちらにも</button></div>
+    <div class="exp">
+      <p><span class="tag b">3 どちらにも</span><span class="en">how many participants</span> が<b>主語</b>。倒置の余地がありません。</p>
+      <div class="use">
+        <div><span class="lb">文</span><span class="en">How many participants dropped out?</span></div>
+        <div><span class="lb">節</span><span class="en">The report shows <b>how many participants dropped out</b>.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="item" data-ans="c">
+    <span class="mark"></span><span class="qn">03</span>
+    <p class="unit"><span class="wh">how</span> the machine should be operated</p>
+    <div class="opts"><button class="opt" data-v="s">1 文だけ</button><button class="opt" data-v="c">2 節だけ</button><button class="opt" data-v="b">3 どちらにも</button></div>
+    <div class="exp">
+      <p><span class="tag c">2 節だけ</span>倒置なし（<span class="en">the machine should</span>）。how は主語でもありません。文にするなら <span class="en">How should the machine be operated?</span> と語順が変わります。</p>
+      <p>how が作る節は名詞節だけなので、<b>これは名詞節</b>と即断できます。</p>
+    </div>
+  </div>
+
+  <div class="item" data-ans="b">
+    <span class="mark"></span><span class="qn">04</span>
+    <p class="unit"><span class="wh">what</span> caused the delay</p>
+    <div class="opts"><button class="opt" data-v="s">1 文だけ</button><button class="opt" data-v="c">2 節だけ</button><button class="opt" data-v="b">3 どちらにも</button></div>
+    <div class="exp">
+      <p><span class="tag b">3 どちらにも</span>what が<b>主語</b>。how 以外でも同じ現象が起きます。</p>
+      <div class="use">
+        <div><span class="lb">文</span><span class="en">What caused the delay?</span></div>
+        <div><span class="lb">節</span><span class="en">We still don't know <b>what caused the delay</b>.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="item" data-ans="s">
+    <span class="mark"></span><span class="qn">05</span>
+    <p class="unit"><span class="wh">what</span> did the researchers conclude</p>
+    <div class="opts"><button class="opt" data-v="s">1 文だけ</button><button class="opt" data-v="c">2 節だけ</button><button class="opt" data-v="b">3 どちらにも</button></div>
+    <div class="exp"><p><span class="tag">1 文だけ</span><span class="en">did</span> が主語の前＝倒置。04 と比べると、<b>what が主語か目的語かで運命が変わる</b>のが分かります。ここでは <span class="en">conclude</span> の目的語です。</p></div>
+  </div>
+
+  <div class="item" data-ans="b">
+    <span class="mark"></span><span class="qn">06</span>
+    <p class="unit"><span class="wh">how</span> strange the results were</p>
+    <div class="opts"><button class="opt" data-v="s">1 文だけ</button><button class="opt" data-v="c">2 節だけ</button><button class="opt" data-v="b">3 どちらにも</button></div>
+    <div class="exp">
+      <p><span class="tag b">3 どちらにも</span>曖昧さのもう一つの原因、<b>感嘆文</b>です。感嘆文も倒置しないので、節と語順が一致します。</p>
+      <div class="use">
+        <div><span class="lb">文</span><span class="en">How strange the results were!</span></div>
+        <div><span class="lb">節</span><span class="en">I noted <b>how strange the results were</b>.</span></div>
+      </div>
+      <p><span class="en">how + 形容詞/副詞</span> で始まっていたら、感嘆文の可能性を必ず勘定に入れてください。</p>
+    </div>
+  </div>
+
+  <div class="item" data-ans="c">
+    <span class="mark"></span><span class="qn">07</span>
+    <p class="unit"><span class="wh">how</span> hunger in early childhood can affect learning</p>
+    <div class="opts"><button class="opt" data-v="s">1 文だけ</button><button class="opt" data-v="c">2 節だけ</button><button class="opt" data-v="b">3 どちらにも</button></div>
+    <div class="exp">
+      <p><span class="tag c">2 節だけ</span>how の直後が名詞 <span class="en">hunger</span> なので 02 の型（三択の3）を疑いますが、<span class="en">how hunger</span> では「どれくらいの飢餓」が成立しないので却下。主語は <span class="en">hunger</span>、助動詞 <span class="en">can</span> はその後ろ＝倒置なし。よって節、しかも how なので名詞節です。</p>
+      <p><b>3を疑って外し、2に落とす</b>——この二段階が、この型を正しく読むための手順です。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 要点 ===== -->
+<section>
+  <div class="shead"><span class="sno">要点</span><span class="stitle">読み筋を一本にする</span></div>
   <div class="card">
-    <p class="card-h">呼び名</p>
-    <p><b>間接疑問（間接疑問文）</b>——学校文法で最も一般的。<b>疑問詞節 / 名詞節</b>——品詞・働きに着目した言い方。生徒には「間接疑問」で通じます。関係副詞ではありません。</p>
+    <table>
+      <tr><th>手順</th><th>見るもの</th><th>結果</th></tr>
+      <tr><td>1</td><td>助動詞が主語の前にあるか</td><td>あれば<b>1 文だけ</b>で終了</td></tr>
+      <tr><td>2</td><td>wh- が主語（の一部）か／感嘆文になりうるか</td><td>該当すれば<b>3 どちらにも</b>。外側の受け皿を見る</td></tr>
+      <tr><td>3</td><td>いずれも該当しない</td><td><b>2 節だけ</b>。how なら名詞節</td></tr>
+    </table>
+    <p><b>単語の品詞を語尾で判断するように、節の種類を先頭語と語順で判断する。</b>この二つは同じ作業です。TOEIC でも大学入試でも、問われているのは同じ力だと生徒に伝えてください。</p>
   </div>
 </section>
 
@@ -385,67 +516,35 @@ footer{margin-top:50px;padding-top:16px;border-top:1px solid var(--rule);font-si
 
 <script>
 (function(){
-  var TOTAL = 14;
-  var answered = Object.create(null);
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  function updateScore(){
-    var n=0; for(var k in answered){ if(answered[k]) n++; }
-    document.getElementById('score').textContent = n;
-  }
-  function itemKey(el){
-    if(!el.dataset.uid){ el.dataset.uid = 'i'+(itemKey.c=(itemKey.c||0)+1); }
-    return el.dataset.uid;
-  }
-  function settle(item, right){
-    item.classList.add('done', right?'is-right':'is-wrong');
-    item.querySelector('.mark').textContent = right?'○':'×';
-    answered[itemKey(item)] = right;
-    updateScore();
-  }
-
-  /* ---------- Ⅰ 語順スイッチ ---------- */
-  var T = {
-    host:{cls:'host'}, how:{cls:'k-how'}, can:{cls:'k-aux'},
-    hun:{cls:'k-sub'}, rest:{cls:''}, end:{cls:'punct'}
-  };
+  /* ---------- 語順スイッチ ---------- */
+  var CLS = {wh:'k-wh',aux:'k-aux',subj:'k-subj',verb:'',obj:'',end:'punct'};
   var STATES = {
-    decl:{
-      seq:[['hun','Hunger'],['can','can'],['rest','affect learning'],['end','.']],
-      note:'<b>土台。</b>主語 hunger が助動詞 can の前にある、ふつうの語順です。how はまだ存在しません。この文が完全な文として成立していることが、あとで効いてきます。'
-    },
-    quest:{
-      seq:[['how','How'],['can','can'],['hun','hunger'],['rest','affect learning'],['end','?']],
-      note:'<b>倒置。</b>can が hunger を追い越して前に出ました。how は文頭に足されただけで、主語の座を奪ってはいません。文全体が独立した疑問文です。'
-    },
-    noun:{
-      seq:[['host','The study shows'],['how','how'],['hun','hunger'],['can','can'],['rest','affect learning'],['end','.']],
-      note:'<b>倒置を戻す。</b>hunger が can の前に帰り、how だけが残りました。全体で shows の目的語＝名詞のかたまりとして働くので、文の形を崩さず SV 順を保ちます。<b>how を外せば一番上の平叙文に戻る</b>——これが how は主語でない、という何よりの証拠です。'
-    }
+    s:{seq:[['wh','how',''],['aux','did',''],['subj','she',''],['verb','find',''],['obj','the answer',''],['end','?','']],
+       note:'<b>1　文だけ。</b>助動詞 <span style="font-family:var(--font-en)">did</span> が主語 <span style="font-family:var(--font-en)">she</span> を追い越して前に出ています。この倒置は疑問文でしか起きないので、<b>見た瞬間に文だと確定</b>します。'},
+    c:{seq:[['wh','how',''],['subj','she',''],['verb','found',''],['obj','the answer','']],
+       note:'<b>2　節だけ。</b><span style="font-family:var(--font-en)">did</span> が消え、主語 <span style="font-family:var(--font-en)">she</span> が動詞の前に戻りました。動詞が過去形 <span style="font-family:var(--font-en)">found</span> になっている点も確認を。倒置がない以上、疑問文にはなれません。'},
+    b:{seq:[['wh','how many students','asSubj'],['verb','found',''],['obj','the answer','']],
+       note:'<b>3　どちらにも。</b>主語が疑問詞のかたまりに<b>吸収されました</b>（青がそのまま how の側へ移動）。主語は最初から文頭にいるので動かす必要がなく、倒置の余地がない。<b>疑問文にしても節にしても、この語順のまま</b>です。'}
   };
-  var stage = document.getElementById('stage');
-  var snote = document.getElementById('snote');
-
+  var stage = document.getElementById('stage'), snote = document.getElementById('snote');
   function render(mode){
-    var st = STATES[mode];
-    var old = {};
-    Array.prototype.forEach.call(stage.children, function(el){
-      old[el.dataset.k] = el.getBoundingClientRect();
-    });
-    stage.innerHTML = '';
-    st.seq.forEach(function(pair){
-      var s = document.createElement('span');
-      s.className = 'tk ' + T[pair[0]].cls;
-      s.dataset.k = pair[0];
-      s.textContent = pair[1];
+    var st = STATES[mode], old = {};
+    Array.prototype.forEach.call(stage.children, function(el){ old[el.dataset.k] = el.getBoundingClientRect(); });
+    stage.innerHTML='';
+    st.seq.forEach(function(p){
+      var s=document.createElement('span');
+      s.className='tk '+CLS[p[0]]+(p[2]?' '+p[2]:'');
+      s.dataset.k=p[0]; s.textContent=p[1];
       stage.appendChild(s);
     });
     if(!reduce){
+      var had = Object.keys(old).length;
       Array.prototype.forEach.call(stage.children, function(el){
         var o = old[el.dataset.k];
         if(o){
-          var n = el.getBoundingClientRect();
-          var dx = o.left-n.left, dy = o.top-n.top;
+          var n = el.getBoundingClientRect(), dx=o.left-n.left, dy=o.top-n.top;
           if(dx||dy){
             el.style.transition='none';
             el.style.transform='translate('+dx+'px,'+dy+'px)';
@@ -454,9 +553,7 @@ footer{margin-top:50px;padding-top:16px;border-top:1px solid var(--rule);font-si
               el.style.transform='';
             });
           }
-        } else if(Object.keys(old).length){
-          el.classList.add('enter');
-        }
+        } else if(had){ el.classList.add('enter'); }
       });
     }
     snote.innerHTML = st.note;
@@ -469,37 +566,55 @@ footer{margin-top:50px;padding-top:16px;border-top:1px solid var(--rule);font-si
       render(b.dataset.mode);
     });
   });
-  render('decl');
+  render('s');
 
-  /* ---------- Ⅱ 主語クリック ---------- */
-  Array.prototype.forEach.call(document.querySelectorAll('.sent'), function(sent){
-    var words = sent.dataset.words.split('|');
-    var vb = parseInt(sent.dataset.verb, 10);
-    words.forEach(function(w, i){
-      var isPunct = (w==='.'||w==='?');
-      var s = document.createElement(isPunct?'span':'button');
-      s.className = 'w' + (isPunct?' fixed':'') + (i===vb?' vb':'');
-      if(!isPunct){ s.type='button'; s.dataset.w = w.toLowerCase(); }
-      s.textContent = w;
-      sent.appendChild(s);
+  /* ---------- 判定フロー ---------- */
+  var fq2 = document.getElementById('fq2'), fout = document.getElementById('fout');
+  var RES = {
+    s:{cls:'v-s',label:'1　文だけ',row:'row-s',
+       msg:'倒置しています。<b>この語順は節には現れません</b>ので、独立した疑問文だと確定します。'},
+    c:{cls:'v-c',label:'2　節だけ',row:'row-c',
+       msg:'倒置がなく、wh- も主語ではない。疑問文にするには倒置が要るので、<b>文にはなれません</b>。how なら名詞節、why / when / where なら名詞節か形容詞節かを次に見ます。'},
+    b:{cls:'v-b',label:'3　どちらにも',row:'row-b',
+       msg:'語順だけでは決まりません。<b>外側に受け皿（動詞・前置詞・名詞）があるか</b>を見てください。あれば節、なければ文です。'}
+  };
+  function show(key){
+    var r = RES[key], row = document.getElementById(r.row);
+    fout.innerHTML = '<span class="rv '+r.cls+'" style="margin-right:9px">'+r.label+'</span>'+r.msg;
+    fout.classList.add('on');
+    Array.prototype.forEach.call(document.querySelectorAll('.rrow'), function(x){ x.classList.remove('spot'); });
+    row.classList.add('spot');
+    row.scrollIntoView({behavior: reduce?'auto':'smooth', block:'center'});
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('.fb'), function(b){
+    b.addEventListener('click', function(){
+      var q = b.dataset.q, v = b.dataset.v;
+      Array.prototype.forEach.call(document.querySelectorAll('.fb[data-q="'+q+'"]'), function(x){
+        x.setAttribute('aria-pressed', String(x===b));
+      });
+      if(q === '1'){
+        if(v === 'yes'){
+          fq2.classList.add('off');
+          Array.prototype.forEach.call(fq2.querySelectorAll('.fb'), function(x){ x.setAttribute('aria-pressed','false'); });
+          show('s');
+        } else {
+          fq2.classList.remove('off');
+          fout.classList.remove('on');
+          Array.prototype.forEach.call(document.querySelectorAll('.rrow'), function(x){ x.classList.remove('spot'); });
+        }
+      } else {
+        show(v === 'yes' ? 'b' : 'c');
+      }
     });
   });
 
+  /* ---------- ドリル ---------- */
+  var answered = Object.create(null);
+  var scoreEl = document.getElementById('score');
+  function uid(el){ if(!el.dataset.uid){ el.dataset.uid='i'+(uid.c=(uid.c||0)+1); } return el.dataset.uid; }
+  function refresh(){ var n=0; for(var k in answered){ if(answered[k]) n++; } scoreEl.textContent = n; }
+
   document.addEventListener('click', function(e){
-    var w = e.target.closest('.w');
-    if(w && !w.classList.contains('fixed')){
-      var item = w.closest('[data-drill="pick"]');
-      if(item && !item.classList.contains('done')){
-        var right = (w.dataset.w === item.dataset.key);
-        w.classList.add(right?'is-key':'is-bad');
-        if(!right){
-          var k = item.querySelector('.w[data-w="'+item.dataset.key+'"]');
-          if(k) k.classList.add('is-key');
-        }
-        settle(item, right);
-      }
-      return;
-    }
     var btn = e.target.closest('.opt');
     if(!btn) return;
     var it = btn.closest('.item');
@@ -511,27 +626,26 @@ footer{margin-top:50px;padding-top:16px;border-top:1px solid var(--rule);font-si
       else if(o === btn) o.classList.add('picked-wrong');
       else o.classList.add('dim');
     });
-    settle(it, right);
+    it.classList.add('done', right?'is-right':'is-wrong');
+    it.querySelector('.mark').textContent = right?'○':'×';
+    answered[uid(it)] = right;
+    refresh();
   });
 
-  /* ---------- reset ---------- */
   document.getElementById('reset').addEventListener('click', function(){
-    answered = Object.create(null);
-    updateScore();
     Array.prototype.forEach.call(document.querySelectorAll('.item'), function(item){
       item.classList.remove('done','is-right','is-wrong');
-      var m = item.querySelector('.mark'); if(m) m.textContent='';
-      Array.prototype.forEach.call(item.querySelectorAll('.w'), function(w){
-        w.classList.remove('is-key','is-bad');
-      });
+      var m=item.querySelector('.mark'); if(m) m.textContent='';
       Array.prototype.forEach.call(item.querySelectorAll('.opt'), function(o){
         o.disabled=false; o.classList.remove('correct','picked-wrong','dim');
       });
+      delete answered[uid(item)];
     });
+    refresh();
     window.scrollTo({top:0, behavior: reduce?'auto':'smooth'});
   });
 
-  updateScore();
+  refresh();
 })();
 </script>
 </body>
