@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>単語・熟語 総合リスト｜Bilingual Minds</title>
+<style>
+:root{
+  --g3:#4CAF50; --g3p:#8BC34A; --g2:#03A9F4; --g2p:#7E57C2; --g1:#E91E63; --gx:#F44336;
+  --tw:#ff6a3d; --ti:#1668c7;
+  --bg:#f4f6fb; --card:#fff; --ink:#1b2233; --sub:#6b7590;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+  background:var(--bg);color:var(--ink);padding:18px;line-height:1.65}
+.wrap{max-width:1180px;margin:0 auto}
+header{background:linear-gradient(135deg,#00897b,#3949ab 48%,#8e24aa);color:#fff;
+  border-radius:18px;padding:26px 24px;margin-bottom:18px;box-shadow:0 8px 26px rgba(57,73,171,.25)}
+header h1{font-size:1.4rem;margin-bottom:6px}
+header p{opacity:.94;font-size:.87rem}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:15px}
+.stat{background:rgba(255,255,255,.22);border-radius:12px;padding:8px 14px;font-size:.8rem}
+.stat b{font-size:1.15rem;display:block}
+h2{font-size:1.03rem;margin:24px 0 10px;padding-left:12px;border-left:5px solid #3949ab}
+
+.ansbox{background:#fff;border-radius:14px;padding:16px 18px;box-shadow:0 2px 10px rgba(0,0,0,.07)}
+.ansgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin-top:10px}
+.acard{border:2px solid #eef1f6;border-radius:12px;padding:11px 13px;cursor:pointer;user-select:none;transition:.15s}
+.acard:hover{border-color:#3949ab}
+.acard .n{font-size:.76rem;color:#3949ab;font-weight:800}
+.acard .a{font-size:.86rem;margin-top:4px;font-family:Georgia,serif;color:#333}
+.acard .k{font-size:.76rem;color:var(--sub);margin-top:5px}
+.acard.hid .k{filter:blur(6px)}
+
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 14px}
+.lbl{font-size:.72rem;color:var(--sub);font-weight:700;margin-right:2px}
+button{font-family:inherit;cursor:pointer;border:none;border-radius:999px;padding:8px 15px;
+  font-size:.82rem;font-weight:700;transition:.15s;background:#fff;color:var(--sub);
+  box-shadow:0 2px 6px rgba(0,0,0,.08)}
+button:hover{transform:translateY(-1px)}
+button.on{background:#1b2233;color:#fff}
+.util{background:#e8eaf6;color:#283593}
+.sw{display:inline-flex;background:#fff;border-radius:999px;padding:4px;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.sw button{box-shadow:none;padding:8px 18px}
+.sw button.on{background:linear-gradient(135deg,#3949ab,#8e24aa);color:#fff}
+.spacer{flex:1}
+
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;
+  box-shadow:0 2px 10px rgba(0,0,0,.07)}
+th,td{padding:10px 13px;text-align:left;border-bottom:1px solid #eef1f6;font-size:.87rem;vertical-align:top}
+th{background:#1b2233;color:#fff;font-size:.76rem;letter-spacing:.04em;position:sticky;top:0;z-index:2}
+tbody tr:nth-child(even){background:#fafbfe}
+tbody tr:hover{background:#eef0ff}
+tbody tr.done{opacity:.4}
+td.ph{font-weight:700}
+td.mn{cursor:pointer}
+tr.hid td.mn,tr.hid td.exc{filter:blur(5px);opacity:.5}
+td.exc{color:#5c6580;font-style:italic;font-size:.79rem}
+td.ln{color:#aab2c4;font-size:.75rem;white-space:nowrap}
+.mark{cursor:pointer;color:#c9cfdd;font-weight:800;user-select:none}
+tr.done .mark{color:#4CAF50}
+.bar{height:9px;border-radius:5px;display:inline-block;vertical-align:middle;margin-right:8px}
+.sumtbl td,.sumtbl th{font-size:.85rem}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:12px}
+.card{background:var(--card);border-radius:14px;padding:14px 16px;cursor:pointer;
+  box-shadow:0 2px 8px rgba(0,0,0,.07);border-left:6px solid #ccc;transition:.18s;
+  position:relative;user-select:none}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.12)}
+.card.done{opacity:.42}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.phrase{font-size:1.05rem;font-weight:700}
+.badge{font-size:.65rem;font-weight:800;color:#fff;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.tag{font-size:.63rem;font-weight:800;padding:2px 8px;border-radius:999px;color:#fff}
+.tag.w{background:var(--tw)} .tag.i{background:var(--ti)}
+.meaning{margin-top:9px;padding-top:9px;border-top:1px dashed #dde2ec;font-size:.92rem}
+.ex{margin-top:7px;font-size:.77rem;color:#5c6580;font-style:italic}
+.hidden .meaning,.hidden .ex{filter:blur(6px);opacity:.5}
+.hint{font-size:.66rem;color:#b9c0d0;margin-top:6px}
+.line{font-size:.67rem;color:#aab2c4;margin-top:3px}
+.check{position:absolute;top:8px;right:10px;font-size:.66rem;color:#4CAF50;display:none;font-weight:800}
+.card.done .check{display:block}
+.hide{display:none}
+@media(max-width:640px){body{padding:12px}th,td{padding:8px 9px;font-size:.79rem}td.exc,th.exc{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Bilingual Minds — 単語・熟語 総合リスト</h1>
+  <p>単語と熟語を1つにまとめました。「カード形式／表形式」「単語／熟語」を自由に切り替えて暗記できます。</p>
+  <div class="stats">
+    <div class="stat"><b id="total">0</b>総項目</div>
+    <div class="stat"><b id="nw">0</b>単語</div>
+    <div class="stat"><b id="ni">0</b>熟語・構文</div>
+    <div class="stat"><b id="shown">0</b>表示中</div>
+    <div class="stat"><b id="doneN">0</b>覚えた</div>
+  </div>
+</header>
+
+<h2>読解の難所（タップで解説を表示）</h2>
+<div class="ansbox">
+  <div style="font-size:.82rem;color:var(--sub)">語彙より構文で止まる文章です。先に自力で構造を取ってから確認してください。</div>
+  <div class="ansgrid" id="ansgrid"></div>
+</div>
+
+<h2>レベル別分布（単語 / 熟語 内訳つき）</h2>
+<table class="sumtbl"><thead><tr><th>英検レベル</th><th>合計</th><th>単語</th><th>熟語</th><th>割合</th><th>目安</th></tr></thead>
+<tbody id="sumbody"></tbody></table>
+
+<div class="controls" style="margin-top:22px">
+  <span class="sw"><button id="bCard" class="on" onclick="setView('card')">カード形式</button><button id="bTable" onclick="setView('table')">表形式</button></span>
+  <span class="spacer"></span>
+  <span class="sw"><button id="tAll" class="on" onclick="setType('all')">単語＋熟語</button><button id="tW" onclick="setType('単語')">単語のみ</button><button id="tI" onclick="setType('熟語')">熟語のみ</button></span>
+</div>
+
+<div class="controls"><span class="lbl">レベル</span><span id="filters" style="display:contents"></span></div>
+<div class="controls">
+  <button class="util" onclick="allHide()">すべて隠す</button>
+  <button class="util" onclick="allShow()">すべて表示</button>
+  <button class="util" onclick="shuffle()">シャッフル</button>
+  <button class="util" onclick="resetOrder()">本文順に戻す</button>
+  <button class="util" onclick="resetDone()">「覚えた」リセット</button>
+  <span class="spacer"></span>
+  <button class="util" id="hideDoneBtn" onclick="toggleDoneFilter()">覚えた項目を隠す</button>
+</div>
+
+<div id="cardView"><div class="grid" id="grid"></div></div>
+<div id="tableView" class="hide">
+  <table><thead><tr><th style="width:30px"></th><th style="width:46px">種類</th><th>語句</th><th>意味</th><th class="exc">本文での使われ方</th><th>レベル</th><th>行</th></tr></thead>
+  <tbody id="tbody"></tbody></table>
+</div>
+
+</div>
+
+<script>
+const ANS=[
+ ["l.2 倒置","Not only <b>do some countries</b> support ..., but also increased global mobility has enlarged ...",
+  "Not only が文頭 → 疑問文の語順に倒置（do some countries support）。後半 but also 以下は倒置しないので注意。「~だけでなく…も」の骨格を見失いやすい箇所です。"],
+ ["l.7 同格の名詞句","... spoke a non-English language at home, <b>a proportion that has increased by 140%</b> since 1980.",
+  "コンマ以下は直前の内容（20%という数字）を言い換える同格。動詞ではなく名詞句なので、「そしてその割合は…」と補って訳します。"],
+ ["l.12 主語と動詞の分離","<b>evidence</b> [indicating that ... cognitive functioning] <b>has accumulated</b>.",
+  "主語 evidence と動詞 has accumulated の間に分詞句が16語も挟まっています。functioning を動詞と誤読すると崩れます。"],
+ ["l.13 while の譲歩","it was assumed that <b>while</b> bilingualism might be an asset for adults ..., <b>it was a handicap</b> for children",
+  "while は「~する間」ではなく「~である一方」。asset（強み）と handicap（不利）の対比が段落の主張です。"],
+ ["l.22 expect ... but that ~","They expected to find <b>that</b> ... would be equivalent ... <b>but that</b> bilinguals would obtain lower scores",
+  "find に that節が2つぶら下がる構造。2つ目の that を見落とすと文が切れます。"],
+ ["l.24 逆接のオチ","<b>To their surprise, however,</b> bilingual children outperformed their monolingual peers on <b>virtually all</b> of the tests",
+  "予想（劣るはず）→ 結果（上回った）の反転。virtually＝「事実上、ほぼ」で「仮想的に」ではありません。"]
+];
+document.getElementById("ansgrid").innerHTML=ANS.map(a=>
+ `<div class="acard hid"><div class="n">${a[0]}</div><div class="a">${a[1]}</div><div class="k">${a[2]}</div></div>`).join("");
+[...document.getElementById("ansgrid").children].forEach(c=>c.onclick=()=>c.classList.toggle("hid"));
+
+const LV={
+ "3級":{c:"var(--g3)",note:"中学卒業程度"},
+ "準2級":{c:"var(--g3p)",note:"高校中級程度"},
+ "2級":{c:"var(--g2)",note:"高校卒業程度"},
+ "準1級":{c:"var(--g2p)",note:"大学中級程度"},
+ "1級":{c:"var(--g1)",note:"大学上級程度"},
+ "級外":{c:"var(--gx)",note:"専門語・注釈必須"}
+};
+// [語句, 意味, 本文での使われ方, レベル, 行, 種類]
+const DATA=[
+ ["as S V","SがVするにつれて","As the world becomes more interconnected, it is increasingly apparent that...","2級",1,"熟語"],
+ ["interconnected","形 相互につながった【語注*1】","As the world becomes more interconnected","級外",1,"単語"],
+ ["increasingly","副 ますます、次第に","it is increasingly apparent that bilingualism is the rule","準1級",1,"単語"],
+ ["apparent","形 明らかな、明白な","it is increasingly apparent that...","準1級",1,"単語"],
+ ["It is apparent that ...","…であることは明らかだ（形式主語）","it is increasingly apparent that bilingualism is the rule and not the exception","準1級",1,"熟語"],
+ ["bilingualism","名 二言語使用【語注*2】","bilingualism is the rule and not the exception","級外",2,"単語"],
+ ["the rule and not the exception","例外ではなく通例である","bilingualism is the rule and not the exception","準1級",2,"熟語"],
+ ["exception","名 例外","the rule and not the exception","2級",2,"単語"],
+ ["Not only + 倒置 ..., but also ...","~だけでなく…も（Not only 文頭で倒置）","Not only do some countries support ..., but also increased global mobility has enlarged...","準1級",2,"熟語"],
+ ["bilingual","形 二言語を話す／名 バイリンガル","some countries support bilingual populations","準1級",3,"単語"],
+ ["because of ~","~のために、~が原因で","because of cultural and linguistic diversity within its citizenry","3級",3,"熟語"],
+ ["linguistic","形 言語の、言語学的な","cultural and linguistic diversity","準1級",3,"単語"],
+ ["diversity","名 多様性【語注*3】","cultural and linguistic diversity within its citizenry","準1級",3,"単語"],
+ ["within ~","前 ~の内部に、~の中で","diversity within its citizenry","2級",3,"熟語"],
+ ["citizenry","名 市民全体、国民","within its citizenry","1級",4,"単語"],
+ ["global mobility","名 世界規模の人の移動","increased global mobility has enlarged the number of people","準1級",4,"単語"],
+ ["mobility","名 移動（性）、流動性","increased global mobility","準1級",4,"単語"],
+ ["enlarge","動 拡大する、増やす","has enlarged the number of people who have become bilingual","準1級",4,"単語"],
+ ["the number of ~","~の数","has enlarged the number of people","2級",4,"熟語"],
+ ["at all levels of society","社会のあらゆる層で","people who have become bilingual at all levels of society","2級",5,"熟語"],
+ ["for example","たとえば","For example, a recent survey of language use in the United States reported...","3級",5,"熟語"],
+ ["a recent survey","名 最近の調査","a recent survey of language use in the United States","2級",6,"単語"],
+ ["report that ...","…だと報告する","reported that approximately 20% of the population spoke a non-English language","2級",6,"熟語"],
+ ["approximately","副 およそ、約","approximately 20% of the population","準1級",6,"単語"],
+ ["population","名 人口、住民","approximately 20% of the population","準2級",7,"単語"],
+ ["non-English language","名 英語以外の言語","spoke a non-English language at home","2級",7,"単語"],
+ ["proportion","名 割合、比率","a proportion that has increased by 140% since 1980","準1級",7,"単語"],
+ ["increase by ~%","~%増加する","a proportion that has increased by 140% since 1980","2級",8,"熟語"],
+ ["when considering ~","~を考慮すると（分詞構文）","These numbers are higher when considering world figures","準1級",8,"熟語"],
+ ["world figures","名 世界全体の数値","when considering world figures","2級",9,"単語"],
+ ["estimate (that) ...","…だと見積もる、推定する","David Crystal estimates bilingualism ... represents about 235 million people","2級",9,"熟語"],
+ ["include","動 含む","bilingualism that includes English and another language","準2級",9,"単語"],
+ ["represent","動 （数量を）占める、相当する","represents about 235 million people worldwide","2級",10,"単語"],
+ ["worldwide","副・形 世界中で（の）","about 235 million people worldwide","2級",10,"単語"],
+ ["two thirds of ~","~の3分の2","two thirds of the children in the world are raised in bilingual environments","2級",10,"熟語"],
+ ["be raised in ~","~で育てられる","two thirds of the children ... are raised in bilingual environments","2級",11,"熟語"],
+ ["environment","名 環境","raised in bilingual environments","準2級",11,"単語"],
+ ["evidence","名 証拠、根拠","Recently, evidence indicating that ... has accumulated","2級",12,"単語"],
+ ["evidence indicating that ...","…ということを示す証拠（分詞の後置修飾）","evidence indicating that this common experience has a systematic impact","準1級",12,"熟語"],
+ ["indicate","動 示す、指し示す","evidence indicating that...","2級",12,"単語"],
+ ["systematic","形 体系的な、系統だった","a systematic and significant impact on cognitive functioning","準1級",12,"単語"],
+ ["significant","形 重大な、著しい","a systematic and significant impact","2級",13,"単語"],
+ ["have an impact on ~","~に影響を与える","has a systematic and significant impact on cognitive functioning","2級",13,"熟語"],
+ ["cognitive","形 認知の【語注*4】","impact on cognitive functioning","1級",13,"単語"],
+ ["cognitive functioning","名 認知機能（の働き）","a significant impact on cognitive functioning","1級",13,"単語"],
+ ["accumulate","動 蓄積する、積み重なる【語注*5】","evidence ... has accumulated","準1級",13,"単語"],
+ ["for many years","長年にわたって","For many years it was assumed that...","3級",13,"熟語"],
+ ["It was assumed that ...","…だと考えられていた（形式主語＋受動）","For many years it was assumed that while bilingualism might be an asset...","準1級",14,"熟語"],
+ ["assume","動 想定する、当然だと思う","it was assumed that...","準1級",14,"単語"],
+ ["while S V","SはVである一方で（対比・譲歩）","while bilingualism might be an asset for adults ... it was a handicap for children","2級",14,"熟語"],
+ ["asset","名 強み、財産、有利な点","bilingualism might be an asset for adults","準1級",14,"単語"],
+ ["in terms of ~","~の観点から言えば","in terms of culture, travel, and trade, for example","準1級",15,"熟語"],
+ ["trade","名 貿易、商取引","in terms of culture, travel, and trade","2級",15,"単語"],
+ ["handicap","名 不利、ハンディ","it was a handicap for children in the educational system","準1級",15,"単語"],
+ ["educational system","名 教育制度","a handicap for children in the educational system","2級",16,"単語"],
+ ["The idea was that ...","その考えとは…というものだった","The idea was that learning in two languages imposed an additional burden","2級",16,"熟語"],
+ ["impose A on B","AをBに課す、押しつける","learning in two languages imposed an additional burden on schoolchildren","準1級",16,"熟語"],
+ ["impose","動 課す、負わせる","imposed an additional burden on schoolchildren","準1級",16,"単語"],
+ ["additional","形 追加の、余分な","an additional burden on schoolchildren","2級",17,"単語"],
+ ["burden","名 負担、重荷","an additional burden on schoolchildren","準1級",17,"単語"],
+ ["schoolchildren","名 学童、生徒","an additional burden on schoolchildren","3級",17,"単語"],
+ ["two sets of ~","2組の~、2種類の~","two vocabularies, two sets of grammar","2級",17,"熟語"],
+ ["vocabulary","名 語彙","who must learn two vocabularies","準2級",17,"単語"],
+ ["expectation","名 期待、（社会的な）お約束・慣習","two sets of cultural habits and expectations","2級",18,"単語"],
+ ["negative view","名 否定的な見方","This negative view of bilingualism was at least questioned","2級",19,"単語"],
+ ["at least","少なくとも","was at least questioned by the results of a study","3級",19,"熟語"],
+ ["question","動 疑問を投げかける、異議を唱える","This negative view ... was at least questioned by the results","2級",19,"単語"],
+ ["the results of a study","研究の結果","questioned by the results of a study by Peal and Lambert","3級",19,"熟語"],
+ ["a battery of ~","一連の~、一式の~【語注*6】","They gave a battery of intelligence tests","1級",20,"熟語"],
+ ["intelligence test","名 知能検査","a battery of intelligence tests","2級",20,"単語"],
+ ["French-speaking","形 フランス語を話す","French-speaking children in Montreal","3級",21,"単語"],
+ ["fluent","形 流暢な","who were also fluent English speakers","準1級",21,"単語"],
+ ["expect to find that ...","…だと判明するだろうと予想する","They expected to find that monolingual and bilingual children would be equivalent","2級",22,"熟語"],
+ ["monolingual","形 一言語のみを話す【語注*7】","monolingual and bilingual children","級外",22,"単語"],
+ ["equivalent","形 同等の、等しい","would be equivalent on measures of nonverbal intelligence","準1級",23,"単語"],
+ ["be equivalent on ~","~において同等である","children would be equivalent on measures of nonverbal intelligence","準1級",23,"熟語"],
+ ["measure","名 尺度、測定値","on measures of nonverbal intelligence","2級",23,"単語"],
+ ["nonverbal","形 非言語の【語注*8】","measures of nonverbal intelligence","1級",23,"単語"],
+ ["verbal","形 言語の、言葉による","obtain lower scores on verbal measures","準1級",24,"単語"],
+ ["obtain","動 得る、獲得する","bilinguals would obtain lower scores on verbal measures","準1級",24,"単語"],
+ ["obtain a score","得点を取る","would obtain lower scores on verbal measures","2級",24,"熟語"],
+ ["to one's surprise","驚いたことに","To their surprise, however, bilingual children outperformed...","2級",24,"熟語"],
+ ["outperform","動 ~より優れた成績を収める【語注*9】","bilingual children outperformed their monolingual peers","1級",25,"単語"],
+ ["peer","名 同年代の仲間、同等の者【語注*10】","outperformed their monolingual peers","準1級",25,"単語"],
+ ["virtually all of ~","~のほぼすべて","on virtually all of the tests","準1級",25,"熟語"],
+ ["virtually","副 事実上、ほとんど","virtually all of the tests","準1級",25,"単語"],
+ ["including ~","~を含めて","including tests of nonverbal intelligence","2級",26,"熟語"]
+];
+
+const ORDER=["3級","準2級","2級","準1級","1級","級外"];
+let data=[...DATA],activeLv="all",activeType="all",hideDone=false;
+const done=new Set();
+
+const cW=DATA.filter(d=>d[5]==="単語").length, cI=DATA.length-cW;
+document.getElementById("total").textContent=DATA.length;
+document.getElementById("nw").textContent=cW;
+document.getElementById("ni").textContent=cI;
+
+const cnt={},cntW={},cntI={};
+ORDER.forEach(l=>{cnt[l]=0;cntW[l]=0;cntI[l]=0;});
+DATA.forEach(d=>{cnt[d[3]]++;(d[5]==="単語"?cntW:cntI)[d[3]]++;});
+document.getElementById("sumbody").innerHTML=ORDER.map(l=>{
+ const n=cnt[l],p=Math.round(n/DATA.length*100);
+ return `<tr><td><span class="badge" style="background:${LV[l].c}">${l}</span></td>
+ <td><b>${n}</b></td><td style="color:var(--tw);font-weight:700">${cntW[l]}</td>
+ <td style="color:var(--ti);font-weight:700">${cntI[l]}</td>
+ <td><span class="bar" style="width:${Math.max(p*2.6,6)}px;background:${LV[l].c}"></span>${p}%</td>
+ <td style="color:var(--sub)">${LV[l].note}</td></tr>`;}).join("");
+
+document.getElementById("filters").innerHTML=
+ `<button class="on" data-lv="all">すべて</button>`+
+ ORDER.map(l=>cnt[l]?`<button data-lv="${l}" style="color:${LV[l].c}">${l} (${cnt[l]})</button>`:"").join("");
+document.getElementById("filters").onclick=e=>{
+ if(e.target.tagName!=="BUTTON")return;
+ [...e.currentTarget.children].forEach(b=>b.classList.remove("on"));
+ e.target.classList.add("on");activeLv=e.target.dataset.lv;render();};
+
+function list(){return data.filter(d=>
+ (activeLv==="all"||d[3]===activeLv)&&
+ (activeType==="all"||d[5]===activeType)&&
+ !(hideDone&&done.has(d[0])));}
+
+function render(){
+ const L=list();
+ document.getElementById("grid").innerHTML=L.map(d=>{
+  const[p,m,ex,lv,ln,ty]=d, t=ty==="単語"?"w":"i";
+  return `<div class="card hidden" data-w="${p}" style="border-left-color:${LV[lv].c}">
+   <span class="check">✓ 覚えた</span>
+   <div class="top"><span class="phrase">${p}</span>
+   <span style="display:flex;flex-direction:column;gap:4px;align-items:flex-end">
+   <span class="badge" style="background:${LV[lv].c}">${lv}</span>
+   <span class="tag ${t}">${ty}</span></span></div>
+   <div class="line">${ln?"l."+ln:"—"}</div>
+   <div class="meaning">${m}</div>
+   <div class="ex">${ex}</div>
+   <div class="hint">タップで表示 ／ ダブルクリックで「覚えた」</div></div>`;}).join("");
+ [...document.getElementById("grid").children].forEach(c=>{
+  if(done.has(c.dataset.w))c.classList.add("done");
+  c.onclick=()=>c.classList.toggle("hidden");
+  c.ondblclick=e=>{e.preventDefault();const w=c.dataset.w;
+   done.has(w)?done.delete(w):done.add(w);render();};});
+
+ document.getElementById("tbody").innerHTML=L.map(d=>{
+  const[p,m,ex,lv,ln,ty]=d, t=ty==="単語"?"w":"i";
+  return `<tr class="hid ${done.has(p)?'done':''}" data-w="${p}">
+   <td><span class="mark">✓</span></td>
+   <td><span class="tag ${t}">${ty}</span></td>
+   <td class="ph">${p}</td><td class="mn">${m}</td>
+   <td class="exc">${ex}</td>
+   <td><span class="badge" style="background:${LV[lv].c}">${lv}</span></td>
+   <td class="ln">${ln?"l."+ln:"—"}</td></tr>`;}).join("");
+ [...document.getElementById("tbody").children].forEach(tr=>{
+  tr.querySelector(".mn").onclick=()=>tr.classList.toggle("hid");
+  tr.querySelector(".exc").onclick=()=>tr.classList.toggle("hid");
+  tr.querySelector(".mark").onclick=()=>{const w=tr.dataset.w;
+   done.has(w)?done.delete(w):done.add(w);render();};});
+
+ document.getElementById("shown").textContent=L.length;
+ document.getElementById("doneN").textContent=done.size;
+}
+
+function setView(v){
+ document.getElementById("cardView").classList.toggle("hide",v!=="card");
+ document.getElementById("tableView").classList.toggle("hide",v!=="table");
+ document.getElementById("bCard").classList.toggle("on",v==="card");
+ document.getElementById("bTable").classList.toggle("on",v==="table");}
+function setType(t){activeType=t;
+ document.getElementById("tAll").classList.toggle("on",t==="all");
+ document.getElementById("tW").classList.toggle("on",t==="単語");
+ document.getElementById("tI").classList.toggle("on",t==="熟語");render();}
+function allHide(){document.querySelectorAll(".card").forEach(c=>c.classList.add("hidden"));
+ document.querySelectorAll("#tbody tr").forEach(t=>t.classList.add("hid"));}
+function allShow(){document.querySelectorAll(".card").forEach(c=>c.classList.remove("hidden"));
+ document.querySelectorAll("#tbody tr").forEach(t=>t.classList.remove("hid"));}
+function shuffle(){for(let i=data.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[data[i],data[j]]=[data[j],data[i]];}render();}
+function resetOrder(){data=[...DATA];render();}
+function resetDone(){done.clear();render();}
+function toggleDoneFilter(){hideDone=!hideDone;
+ document.getElementById("hideDoneBtn").textContent=hideDone?"覚えた項目も表示":"覚えた項目を隠す";render();}
+
+render();
+</script>
+</body>
+</html>
