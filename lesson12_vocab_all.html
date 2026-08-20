@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 12 単語・熟語 総合リスト｜The Boy Who Harnessed the Wind</title>
+<style>
+:root{
+  --g3:#4CAF50; --g3p:#8BC34A; --g2:#03A9F4; --g2p:#7E57C2; --g1:#E91E63; --gx:#F44336;
+  --tw:#ff6a3d; --ti:#1668c7;
+  --bg:#f4f6fb; --card:#fff; --ink:#1b2233; --sub:#6b7590;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+  background:var(--bg);color:var(--ink);padding:18px;line-height:1.65}
+.wrap{max-width:1180px;margin:0 auto}
+header{background:linear-gradient(135deg,#fb8c00,#e53935 45%,#5d4037);color:#fff;
+  border-radius:18px;padding:26px 24px;margin-bottom:18px;box-shadow:0 8px 26px rgba(229,57,53,.25)}
+header h1{font-size:1.4rem;margin-bottom:6px}
+header p{opacity:.94;font-size:.87rem}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:15px}
+.stat{background:rgba(255,255,255,.22);border-radius:12px;padding:8px 14px;font-size:.8rem}
+.stat b{font-size:1.15rem;display:block}
+h2{font-size:1.03rem;margin:24px 0 10px;padding-left:12px;border-left:5px solid #e53935}
+
+.ansbox{background:#fff;border-radius:14px;padding:16px 18px;box-shadow:0 2px 10px rgba(0,0,0,.07)}
+.ansgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:10px;margin-top:10px}
+.acard{border:2px solid #eef1f6;border-radius:12px;padding:11px 13px;cursor:pointer;user-select:none;transition:.15s}
+.acard:hover{border-color:#e53935}
+.acard .n{font-size:.74rem;color:var(--sub);font-weight:800}
+.acard .a{font-size:.92rem;font-weight:800;color:#c62828;margin-top:3px}
+.acard .k{font-size:.73rem;color:var(--sub);margin-top:4px;font-weight:400}
+.acard.hid .a,.acard.hid .k{filter:blur(7px)}
+
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 14px}
+.lbl{font-size:.72rem;color:var(--sub);font-weight:700;margin-right:2px}
+button{font-family:inherit;cursor:pointer;border:none;border-radius:999px;padding:8px 15px;
+  font-size:.82rem;font-weight:700;transition:.15s;background:#fff;color:var(--sub);
+  box-shadow:0 2px 6px rgba(0,0,0,.08)}
+button:hover{transform:translateY(-1px)}
+button.on{background:#1b2233;color:#fff}
+.util{background:#ffeee4;color:#bf360c}
+.sw{display:inline-flex;background:#fff;border-radius:999px;padding:4px;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.sw button{box-shadow:none;padding:8px 18px}
+.sw button.on{background:linear-gradient(135deg,#e53935,#5d4037);color:#fff}
+.spacer{flex:1}
+
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;
+  box-shadow:0 2px 10px rgba(0,0,0,.07)}
+th,td{padding:10px 13px;text-align:left;border-bottom:1px solid #eef1f6;font-size:.87rem;vertical-align:top}
+th{background:#1b2233;color:#fff;font-size:.76rem;letter-spacing:.04em;position:sticky;top:0;z-index:2}
+tbody tr:nth-child(even){background:#fafbfe}
+tbody tr:hover{background:#fff4ee}
+tbody tr.done{opacity:.4}
+td.ph{font-weight:700}
+td.mn{cursor:pointer}
+tr.hid td.mn,tr.hid td.exc{filter:blur(5px);opacity:.5}
+td.exc{color:#5c6580;font-style:italic;font-size:.79rem}
+td.ln{color:#aab2c4;font-size:.75rem;white-space:nowrap}
+.mark{cursor:pointer;color:#c9cfdd;font-weight:800;user-select:none}
+tr.done .mark{color:#4CAF50}
+.bar{height:9px;border-radius:5px;display:inline-block;vertical-align:middle;margin-right:8px}
+.sumtbl td,.sumtbl th{font-size:.85rem}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:12px}
+.card{background:var(--card);border-radius:14px;padding:14px 16px;cursor:pointer;
+  box-shadow:0 2px 8px rgba(0,0,0,.07);border-left:6px solid #ccc;transition:.18s;
+  position:relative;user-select:none}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.12)}
+.card.done{opacity:.42}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.phrase{font-size:1.05rem;font-weight:700}
+.badge{font-size:.65rem;font-weight:800;color:#fff;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.tag{font-size:.63rem;font-weight:800;padding:2px 8px;border-radius:999px;color:#fff}
+.tag.w{background:var(--tw)} .tag.i{background:var(--ti)}
+.meaning{margin-top:9px;padding-top:9px;border-top:1px dashed #dde2ec;font-size:.92rem}
+.ex{margin-top:7px;font-size:.77rem;color:#5c6580;font-style:italic}
+.hidden .meaning,.hidden .ex{filter:blur(6px);opacity:.5}
+.hint{font-size:.66rem;color:#b9c0d0;margin-top:6px}
+.line{font-size:.67rem;color:#aab2c4;margin-top:3px}
+.check{position:absolute;top:8px;right:10px;font-size:.66rem;color:#4CAF50;display:none;font-weight:800}
+.card.done .check{display:block}
+.hide{display:none}
+@media(max-width:640px){body{padding:12px}th,td{padding:8px 9px;font-size:.79rem}td.exc,th.exc{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Lesson 12 — 単語・熟語 総合リスト（The Boy Who Harnessed the Wind）</h1>
+  <p>単語と熟語を1つにまとめました。「カード形式／表形式」「単語／熟語」を自由に切り替えて暗記できます。</p>
+  <div class="stats">
+    <div class="stat"><b id="total">0</b>総項目</div>
+    <div class="stat"><b id="nw">0</b>単語</div>
+    <div class="stat"><b id="ni">0</b>熟語・構文</div>
+    <div class="stat"><b id="shown">0</b>表示中</div>
+    <div class="stat"><b id="doneN">0</b>覚えた</div>
+  </div>
+</header>
+
+<h2>解答のカギ（タップで表示）</h2>
+<div class="ansbox">
+  <div style="font-size:.82rem;color:var(--sub)">物語文なので、指示語が誰・何を指すかを追えるかが勝負です。先に自分で解いてから確認してください。</div>
+  <div class="ansgrid" id="ansgrid"></div>
+</div>
+
+<h2>レベル別分布（単語 / 熟語 内訳つき）</h2>
+<table class="sumtbl"><thead><tr><th>英検レベル</th><th>合計</th><th>単語</th><th>熟語</th><th>割合</th><th>目安</th></tr></thead>
+<tbody id="sumbody"></tbody></table>
+
+<div class="controls" style="margin-top:22px">
+  <span class="sw"><button id="bCard" class="on" onclick="setView('card')">カード形式</button><button id="bTable" onclick="setView('table')">表形式</button></span>
+  <span class="spacer"></span>
+  <span class="sw"><button id="tAll" class="on" onclick="setType('all')">単語＋熟語</button><button id="tW" onclick="setType('単語')">単語のみ</button><button id="tI" onclick="setType('熟語')">熟語のみ</button></span>
+</div>
+
+<div class="controls"><span class="lbl">レベル</span><span id="filters" style="display:contents"></span></div>
+<div class="controls">
+  <button class="util" onclick="allHide()">すべて隠す</button>
+  <button class="util" onclick="allShow()">すべて表示</button>
+  <button class="util" onclick="shuffle()">シャッフル</button>
+  <button class="util" onclick="resetOrder()">本文順に戻す</button>
+  <button class="util" onclick="resetDone()">「覚えた」リセット</button>
+  <span class="spacer"></span>
+  <button class="util" id="hideDoneBtn" onclick="toggleDoneFilter()">覚えた項目を隠す</button>
+</div>
+
+<div id="cardView"><div class="grid" id="grid"></div></div>
+<div id="tableView" class="hide">
+  <table><thead><tr><th style="width:30px"></th><th style="width:46px">種類</th><th>語句</th><th>意味</th><th class="exc">本文での使われ方</th><th>レベル</th><th>行</th></tr></thead>
+  <tbody id="tbody"></tbody></table>
+</div>
+
+</div>
+
+<script>
+const ANS=[
+ ["問1 和訳","父がどうにかして別の車を借りることができた時には、父の兄弟であるジョンおじさんはすでに亡くなっていた。",
+  "his brother の his は my father を指す。by the time＝「~する頃には」。managed to do＝「どうにか~した」"],
+ ["問2 空所(2)","⑤ up","It is up to 人 to do＝「~するかは人次第だ／人の責任だ」。「農場を成功させるのは自分とGeoffreyの役目になった」"],
+ ["問3 下線部(3)","（カスングのたばこ農園で）鶏やヤギを見張って守ること",
+  "That は直前の to guard the chickens and goats を受ける。what he did best＝「彼が最も得意としていたこと」"],
+ ["問4 反意語","fat","同段落末の In all my life, I'd never seen a fat dog. から抜き出す。skinny（やせこけた）⇔ fat（太った）"],
+ ["問5 理由","犬と仲良くしていると周りの人に思われたくなかったから。",
+  "直後の I didn't want people thinking I was friends with a dog. が根拠。当時の語り手は犬を友達扱いすることを恥ずかしく思っていた"],
+ ["問6 ①〜⑤","○ × × × ×",
+  "①John は父の business partner だった＝○。②全身白ではなく黒い斑点あり＝×。③ペットではなく番犬として飼う＝×。④娘たちは犬に無関心、pal は語り手＝×。⑤母は靴を投げつけた＝×"]
+];
+document.getElementById("ansgrid").innerHTML=ANS.map(a=>
+ `<div class="acard hid"><div class="n">${a[0]}</div><div class="a">${a[1]}</div><div class="k">${a[2]}</div></div>`).join("");
+[...document.getElementById("ansgrid").children].forEach(c=>c.onclick=()=>c.classList.toggle("hid"));
+
+const LV={
+ "3級":{c:"var(--g3)",note:"中学卒業程度"},
+ "準2級":{c:"var(--g3p)",note:"高校中級程度"},
+ "2級":{c:"var(--g2)",note:"高校卒業程度"},
+ "準1級":{c:"var(--g2p)",note:"大学中級程度"},
+ "1級":{c:"var(--g1)",note:"大学上級程度"},
+ "級外":{c:"var(--gx)",note:"専門語・注釈必須"}
+};
+// [語句, 意味, 本文での使われ方, レベル, 行, 種類]
+const DATA=[
+ ["tragic","形 悲劇的な、痛ましい","my family experienced a sudden and tragic loss","準1級",1,"単語"],
+ ["loss","名 失うこと、死別","a sudden and tragic loss","2級",2,"単語"],
+ ["work the fields","畑仕事をする","while working the fields, my uncle John became very sick","2級",3,"熟語"],
+ ["faint","動 気を失う、卒倒する","my uncle John became very sick and fainted","準1級",4,"単語"],
+ ["rush 人 to ~","人を急いで~へ運ぶ","My father rushed him to the small clinic in Wimbe","2級",4,"熟語"],
+ ["clinic","名 診療所","the small clinic in Wimbe","2級",4,"単語"],
+ ["diagnose A with B","AをBと診断する","the doctor diagnosed him with tuberculosis","準1級",5,"熟語"],
+ ["tuberculosis","名 結核","diagnosed him with tuberculosis, a deadly disease","1級",5,"単語"],
+ ["deadly","形 致命的な、命にかかわる","a deadly disease that seizes the lungs","準1級",5,"単語"],
+ ["seize","動 侵す、つかむ、襲う","a deadly disease that seizes the lungs","準1級",5,"単語"],
+ ["lung","名 肺","a disease that seizes the lungs","準1級",5,"単語"],
+ ["advise 人 to do","人に~するよう勧める","They advised him to go right away to Kasungu Hospital","2級",6,"熟語"],
+ ["right away","すぐに、ただちに","go right away to Kasungu Hospital","3級",6,"熟語"],
+ ["an hour's drive","車で1時間の距離","Kasungu Hospital — an hour's drive","2級",6,"熟語"],
+ ["by the time S V","SがVする頃には【問1】","by the time my father managed to borrow another car, his brother was dead","2級",7,"熟語"],
+ ["manage to do","どうにか~する、~をやってのける【問1】","by the time my father managed to borrow another car","2級",7,"熟語"],
+ ["It is the first time (that) S V","SがVするのは初めてだ","It was the first time I experienced someone dying","2級",9,"熟語"],
+ ["feel bad for ~","~を気の毒に思う","I especially felt bad for Geoffrey","2級",10,"熟語"],
+ ["be left without ~","~のいない状態で残される","Geoffrey, who was now left without a father","2級",10,"熟語"],
+ ["the following day","翌日","All the following day, people came by his house","2級",11,"熟語"],
+ ["come by ~","~に立ち寄る","people came by his house to comfort his mother","2級",11,"熟語"],
+ ["comfort","動 慰める、なぐさめる","came by his house to comfort his mother","2級",11,"単語"],
+ ["pay one's respects","弔意を表す、敬意を払う","to comfort his mother and to pay their respects","準1級",12,"熟語"],
+ ["every so often","時折、たまに","Every so often, I saw him walk out of his house","準1級",12,"熟語"],
+ ["see 人 do","人が~するのを見る（知覚動詞）","I saw him walk out of his house, crying and looking confused","3級",12,"熟語"],
+ ["confused","形 困惑した、混乱した","crying and looking confused","2級",13,"単語"],
+ ["All I could think to say was ...","私が言えることといえば…だけだった","All I could think to say was, \"I don't know.\"","準1級",15,"熟語"],
+ ["following ~","前 ~の後に","Following Uncle John's death, things became very difficult","2級",16,"熟語"],
+ ["Now that S V","今やSがVなので（理由）","Now that my father's brother and business partner was gone","2級",16,"熟語"],
+ ["be gone","いなくなる、失われる","Now that my father's brother and business partner was gone","3級",17,"熟語"],
+ ["business partner","名 事業の共同経営者","my father's brother and business partner","2級",17,"単語"],
+ ["manage the farm","農場を経営する","he had to manage the farm alone","2級",17,"熟語"],
+ ["It is up to 人 to do","~するかは人次第だ、人の責任だ【問2】","It was now (up) to me and Geoffrey to help keep the farm successful","準1級",18,"熟語"],
+ ["keep + O + 形容詞","Oを~の状態に保つ","help keep the farm successful","2級",18,"熟語"],
+ ["fear that ...","…ではないかと恐れる","We all feared that difficult times were on their way","2級",19,"熟語"],
+ ["be on one's way","近づいている、やって来る","difficult times were on their way","2級",19,"熟語"],
+ ["not long after ~","~の後まもなく","Not long after Uncle John's funeral, my uncle Socrates lost his job","2級",20,"熟語"],
+ ["funeral","名 葬式","Not long after Uncle John's funeral","2級",20,"単語"],
+ ["lose one's job","職を失う","my uncle Socrates lost his job at a big tobacco estate","3級",20,"熟語"],
+ ["tobacco estate","名 たばこ農園","a big tobacco estate in Kasungu","2級",21,"単語"],
+ ["estate","名 農園、大きな地所","at a big tobacco estate","準1級",21,"単語"],
+ [", which meant ...","そしてそれは…を意味した（非制限用法）","The family's home was also there, which meant they were forced to move","2級",21,"熟語"],
+ ["be forced to do","~せざるを得ない","they were forced to move back to our village","2級",22,"熟語"],
+ ["move back to ~","~へ戻る、引っ越して帰る","forced to move back to our village","3級",22,"熟語"],
+ ["could not care less about ~","~などまったくどうでもいい","I myself could not care less about a bunch of girls","準1級",23,"熟語"],
+ ["a bunch of ~","一群の~、たくさんの~","a bunch of girls","2級",23,"熟語"],
+ ["unload","動 （荷を）降ろす","as I helped my uncle unload the moving truck","準1級",24,"単語"],
+ ["moving truck","名 引っ越しトラック","unload the moving truck","2級",24,"単語"],
+ ["leap out onto ~","~へ飛び出す","something leaped out onto the ground","準1級",24,"熟語"],
+ ["leap","動 跳ぶ、飛び出す","something leaped out onto the ground","準1級",24,"単語"],
+ ["At my feet stood ~","私の足元に~が立っていた（場所句による倒置）","At my feet stood a big slobbering dog","準1級",26,"熟語"],
+ ["slobber","動 よだれを流す【語注*1】","a big slobbering dog","級外",26,"単語"],
+ ["Get back!","下がれ！ あっちへ行け！","\"Get back!\" Socrates shouted","3級",27,"熟語"],
+ ["shoo ~ away","（動物を）しっしっと追い払う","shooed the dog away","1級",27,"熟語"],
+ ["come right back","すぐに戻ってくる","But it came right back, its eyes looking straight up at me","3級",27,"熟語"],
+ ["its eyes looking up at ~","目は~を見上げたまま（独立分詞構文）","it came right back, its eyes looking straight up at me","準1級",28,"熟語"],
+ ["figure (that) ...","…だと思う、考える","I figured we'd bring him along to guard the chickens","2級",29,"熟語"],
+ ["bring ~ along","~を連れて行く、持って行く","we'd bring him along to guard the chickens and goats","2級",29,"熟語"],
+ ["guard","動 守る、見張る","bring him along to guard the chickens and goats","2級",29,"単語"],
+ ["what he did best","彼が最も得意としていたこと【問3】","That's what he did best at the estate","2級",30,"熟語"],
+ ["unusual","形 珍しい、風変わりな","Khamba was the most unusual thing I'd ever seen","準2級",31,"単語"],
+ ["the most ~ I'd ever seen","今まで見た中で最も~な","the most unusual thing I'd ever seen","2級",31,"熟語"],
+ ["spot","名 斑点、しみ","all white with large black spots across his head and body","2級",32,"単語"],
+ ["as if S had p.p.","まるで~したかのように（仮定法）","as if someone had chased him with a bucket of paint","準1級",32,"熟語"],
+ ["a bucket of ~","バケツ1杯の~","chased him with a bucket of paint","3級",33,"熟語"],
+ ["be peppered with ~","~が点々と散らばっている","his nose was peppered with bright pink dots","1級",33,"熟語"],
+ ["dot","名 点、斑点","peppered with bright pink dots","3級",34,"単語"],
+ ["unlike ~","前 ~とは違って","Unlike most other Malawian dogs, Khamba was also big","2級",35,"熟語"],
+ ["just as ~","同じくらい~で","big — but still just as skinny","2級",35,"熟語"],
+ ["skinny","形 やせこけた、がりがりの【問4】","but still just as skinny","準1級",36,"単語"],
+ ["be used to do","~するために使われる","dogs are used to protect homes and farms","3級",36,"熟語"],
+ ["as pets","ペットとして","No one buys them as pets like they do in America","3級",37,"熟語"],
+ ["certainly","副 確かに、間違いなく","they certainly don't lavish them with rubber toys","2級",37,"単語"],
+ ["lavish A with B","AにBを惜しみなく与える","don't lavish them with rubber toys and fancy food","1級",38,"熟語"],
+ ["fancy","形 高級な、しゃれた","rubber toys and fancy food","2級",38,"単語"],
+ ["live on ~","~を常食とする、~で生きる","dogs lived on mice and table scraps","2級",38,"熟語"],
+ ["table scraps","名 食べ残し、残飯","dogs lived on mice and table scraps","準1級",38,"単語"],
+ ["scrap","名 くず、残り物","table scraps","準1級",38,"単語"],
+ ["fat","形 太った【問4の答え】","In all my life, I'd never seen a fat dog","3級",39,"単語"],
+ ["a strand of ~","一筋の~、一本の~","a thick strand of drool hung from his tongue","準1級",40,"熟語"],
+ ["drool","名 よだれ【語注*2】","a thick strand of drool","級外",40,"単語"],
+ ["hang from ~","~から垂れ下がる","a thick strand of drool hung from his tongue","2級",40,"熟語"],
+ ["tongue","名 舌","hung from his tongue","準2級",41,"単語"],
+ ["smell funny","変なにおいがする","he smelled funny, like moldy fruit","2級",41,"熟語"],
+ ["moldy","形 かびの生えた","like moldy fruit","1級",41,"単語"],
+ ["as soon as S V","SがVするとすぐに","As soon as Socrates walked inside, he jumped on his hind legs","3級",41,"熟語"],
+ ["hind legs","名 後ろ足","he jumped on his hind legs","準1級",42,"単語"],
+ ["plant both paws on ~","両前足を~にどんと乗せる","planted both paws on my chest","準1級",42,"熟語"],
+ ["paw","名 （動物の）足、前足","planted both paws on my chest","準1級",42,"単語"],
+ ["chest","名 胸","planted both paws on my chest","2級",42,"単語"],
+ ["Get away!","あっちへ行け！【問5】","\"Eh, get away!\" I shouted","3級",43,"熟語"],
+ ["want 人 ~ing","人に~していてほしくない（否定文で）","I didn't want people thinking I was friends with a dog","2級",43,"熟語"],
+ ["be friends with ~","~と友達である","I was friends with a dog","3級",43,"熟語"],
+ ["or something","~か何か","Go chase some chickens or something!","2級",44,"熟語"],
+ ["not move a bit","少しも動かない","But Khamba didn't move a bit","2級",45,"熟語"],
+ ["swear (that) ...","絶対に…だと思う、断言する","I swore he even smiled at me","2級",45,"熟語"],
+ ["trip over ~","~につまずく","I tripped over something on my way to the toilet","2級",46,"熟語"],
+ ["on one's way to ~","~へ行く途中で","on my way to the toilet","3級",46,"熟語"],
+ ["lying square in ~","~のど真ん中に横たわって","Khamba, lying square in my doorway","準1級",47,"熟語"],
+ ["doorway","名 戸口、出入り口","lying square in my doorway","2級",47,"単語"],
+ ["ears raised","耳を立てて（独立分詞構文）","ears raised and waiting","準1級",47,"熟語"],
+ ["leave 人 alone","人を放っておく、ひとりにする","I thought I told you to leave me alone","2級",48,"熟語"],
+ ["courtyard","名 中庭","I met Socrates in the courtyard","準1級",50,"単語"],
+ ["point to ~","~を指さす","He pointed to the thing now attached to my shadow","2級",50,"熟語"],
+ ["be attached to ~","~にくっついている","the thing now attached to my shadow","2級",51,"熟語"],
+ ["shadow","名 影","attached to my shadow","準2級",51,"単語"],
+ ["bless A with B","AにBを授ける","the good Lord blessed me with seven children","準1級",52,"熟語"],
+ ["the good Lord","名 神様","the good Lord blessed me with seven children","準1級",52,"単語"],
+ ["take interest in ~","~に関心を持つ","girls who don't take much interest in dogs","2級",53,"熟語"],
+ ["be happy to have p.p.","~したことを喜んでいる","Khamba is happy to have found a pal","準1級",54,"熟語"],
+ ["pal","名 仲間、友達","happy to have found a pal","準1級",54,"単語"],
+ ["I'm no friend to ~","~の友達なんかじゃない","\"I'm no friend to a dog,\" I said","2級",55,"熟語"],
+ ["Tell that to ~","それを~に言ってやれ","Socrates laughed, \"Sure, sure. Tell that to him.\"","2級",56,"熟語"],
+ ["give up ~ing","~するのをあきらめる","I gave up trying to get rid of Khamba","3級",57,"熟語"],
+ ["get rid of ~","~を追い払う、取り除く","gave up trying to get rid of Khamba","2級",57,"熟語"],
+ ["in fact","それどころか、実際は","In fact, I started to enjoy his company","3級",57,"熟語"],
+ ["enjoy one's company","~と一緒にいるのを楽しむ","I started to enjoy his company","準1級",57,"熟語"],
+ ["company","名 一緒にいること、同席","enjoy his company","2級",58,"単語"],
+ ["as much as S hate to do","~するのはとても嫌だが","as much as I hated to admit it, he and I became friends","準1級",58,"熟語"],
+ ["admit","動 認める","as much as I hated to admit it","2級",58,"単語"],
+ ["sneak inside","こっそり中へ入る（snuck は過去形）","he snuck inside the kitchen","準1級",59,"熟語"],
+ ["curl up","丸くなる、体を丸めて寝る","curled up by the pots and pans","準1級",60,"熟語"],
+ ["pots and pans","名 鍋やフライパン、炊事道具","curled up by the pots and pans","2級",60,"熟語"],
+ ["just like S V","ちょうどSがVしたとおり","And just like Socrates said, he made a good watchdog","3級",60,"熟語"],
+ ["make a good ~","立派な~になる","he made a good watchdog over our chickens and goats","2級",60,"熟語"],
+ ["watchdog","名 番犬","he made a good watchdog","2級",61,"単語"],
+ ["protect A from B","AをBから守る","protecting them from the hyenas and wild dogs","3級",61,"熟語"],
+ ["hyena","名 ハイエナ","the hyenas and wild dogs that roamed the dark countryside","準1級",61,"単語"],
+ ["roam","動 うろつく、歩き回る","wild dogs that roamed the dark countryside","準1級",62,"単語"],
+ ["countryside","名 田舎、地方","roamed the dark countryside","準2級",62,"単語"],
+ ["even still","それでもなお","Even still, Khamba liked to play games with baby animals","2級",63,"熟語"],
+ ["compound","名 敷地、囲われた区画","He chased them around the compound","準1級",64,"単語"],
+ ["cause + O + to do","Oに~させる、~する原因となる","causing the little goats to bleat and the mama hens to flare their wings","2級",64,"熟語"],
+ ["bleat","動 （ヤギ・羊が）鳴く","causing the little goats to bleat","1級",64,"単語"],
+ ["flare one's wings","翼を広げる","the mama hens to flare their wings and hiss","1級",64,"熟語"],
+ ["hiss","動 シューッと威嚇音を出す","flare their wings and hiss","準1級",65,"単語"],
+ ["whenever S V","SがVするたびに","Whenever this happened, my mother would lean out of the kitchen","2級",65,"熟語"],
+ ["would do","（過去の習慣）よく~したものだ","my mother would lean out of the kitchen and pitch one of her shoes","2級",65,"熟語"],
+ ["lean out of ~","~から身を乗り出す","lean out of the kitchen","準1級",65,"熟語"],
+ ["pitch A at B","AをBに投げつける","pitch one of her shoes at his head","準1級",66,"熟語"],
+ ["scream","動 叫ぶ、金切り声を上げる","\"Stop that, you crazy dog!\" she'd scream","2級",67,"単語"],
+ ["narrator","名 語り手","Uncle John had managed the farm with the narrator's father（問6①）","準1級",0,"単語"],
+ ["pass away","亡くなる（die の婉曲表現）","before he passed away（問6①）","2級",0,"熟語"],
+ ["all over","全体に、一面に","Khamba was white all over（問6②）","2級",0,"熟語"],
+ ["A rather than B","BよりむしろA","kept dogs at home for pleasure rather than for work（問6③）","2級",0,"熟語"],
+ ["see A as B","AをBとみなす","Khamba saw his daughters as friends（問6④）","2級",0,"熟語"],
+ ["take care of ~","~の世話をする","when Khamba took care of baby animals（問6⑤）","3級",0,"熟語"],
+ ["harness","動 （自然の力を）利用する、活用する","The Boy Who Harnessed the Wind（出典タイトル）","準1級",0,"単語"]
+];
+
+const ORDER=["3級","準2級","2級","準1級","1級","級外"];
+let data=[...DATA],activeLv="all",activeType="all",hideDone=false;
+const done=new Set();
+
+const cW=DATA.filter(d=>d[5]==="単語").length, cI=DATA.length-cW;
+document.getElementById("total").textContent=DATA.length;
+document.getElementById("nw").textContent=cW;
+document.getElementById("ni").textContent=cI;
+
+const cnt={},cntW={},cntI={};
+ORDER.forEach(l=>{cnt[l]=0;cntW[l]=0;cntI[l]=0;});
+DATA.forEach(d=>{cnt[d[3]]++;(d[5]==="単語"?cntW:cntI)[d[3]]++;});
+document.getElementById("sumbody").innerHTML=ORDER.map(l=>{
+ const n=cnt[l],p=Math.round(n/DATA.length*100);
+ return `<tr><td><span class="badge" style="background:${LV[l].c}">${l}</span></td>
+ <td><b>${n}</b></td><td style="color:var(--tw);font-weight:700">${cntW[l]}</td>
+ <td style="color:var(--ti);font-weight:700">${cntI[l]}</td>
+ <td><span class="bar" style="width:${Math.max(p*2.6,6)}px;background:${LV[l].c}"></span>${p}%</td>
+ <td style="color:var(--sub)">${LV[l].note}</td></tr>`;}).join("");
+
+document.getElementById("filters").innerHTML=
+ `<button class="on" data-lv="all">すべて</button>`+
+ ORDER.map(l=>cnt[l]?`<button data-lv="${l}" style="color:${LV[l].c}">${l} (${cnt[l]})</button>`:"").join("");
+document.getElementById("filters").onclick=e=>{
+ if(e.target.tagName!=="BUTTON")return;
+ [...e.currentTarget.children].forEach(b=>b.classList.remove("on"));
+ e.target.classList.add("on");activeLv=e.target.dataset.lv;render();};
+
+function list(){return data.filter(d=>
+ (activeLv==="all"||d[3]===activeLv)&&
+ (activeType==="all"||d[5]===activeType)&&
+ !(hideDone&&done.has(d[0])));}
+
+function render(){
+ const L=list();
+ document.getElementById("grid").innerHTML=L.map(d=>{
+  const[p,m,ex,lv,ln,ty]=d, t=ty==="単語"?"w":"i";
+  return `<div class="card hidden" data-w="${p}" style="border-left-color:${LV[lv].c}">
+   <span class="check">✓ 覚えた</span>
+   <div class="top"><span class="phrase">${p}</span>
+   <span style="display:flex;flex-direction:column;gap:4px;align-items:flex-end">
+   <span class="badge" style="background:${LV[lv].c}">${lv}</span>
+   <span class="tag ${t}">${ty}</span></span></div>
+   <div class="line">${ln?"l."+ln:"設問"}</div>
+   <div class="meaning">${m}</div>
+   <div class="ex">${ex}</div>
+   <div class="hint">タップで表示 ／ ダブルクリックで「覚えた」</div></div>`;}).join("");
+ [...document.getElementById("grid").children].forEach(c=>{
+  if(done.has(c.dataset.w))c.classList.add("done");
+  c.onclick=()=>c.classList.toggle("hidden");
+  c.ondblclick=e=>{e.preventDefault();const w=c.dataset.w;
+   done.has(w)?done.delete(w):done.add(w);render();};});
+
+ document.getElementById("tbody").innerHTML=L.map(d=>{
+  const[p,m,ex,lv,ln,ty]=d, t=ty==="単語"?"w":"i";
+  return `<tr class="hid ${done.has(p)?'done':''}" data-w="${p}">
+   <td><span class="mark">✓</span></td>
+   <td><span class="tag ${t}">${ty}</span></td>
+   <td class="ph">${p}</td><td class="mn">${m}</td>
+   <td class="exc">${ex}</td>
+   <td><span class="badge" style="background:${LV[lv].c}">${lv}</span></td>
+   <td class="ln">${ln?"l."+ln:"設問"}</td></tr>`;}).join("");
+ [...document.getElementById("tbody").children].forEach(tr=>{
+  tr.querySelector(".mn").onclick=()=>tr.classList.toggle("hid");
+  tr.querySelector(".exc").onclick=()=>tr.classList.toggle("hid");
+  tr.querySelector(".mark").onclick=()=>{const w=tr.dataset.w;
+   done.has(w)?done.delete(w):done.add(w);render();};});
+
+ document.getElementById("shown").textContent=L.length;
+ document.getElementById("doneN").textContent=done.size;
+}
+
+function setView(v){
+ document.getElementById("cardView").classList.toggle("hide",v!=="card");
+ document.getElementById("tableView").classList.toggle("hide",v!=="table");
+ document.getElementById("bCard").classList.toggle("on",v==="card");
+ document.getElementById("bTable").classList.toggle("on",v==="table");}
+function setType(t){activeType=t;
+ document.getElementById("tAll").classList.toggle("on",t==="all");
+ document.getElementById("tW").classList.toggle("on",t==="単語");
+ document.getElementById("tI").classList.toggle("on",t==="熟語");render();}
+function allHide(){document.querySelectorAll(".card").forEach(c=>c.classList.add("hidden"));
+ document.querySelectorAll("#tbody tr").forEach(t=>t.classList.add("hid"));}
+function allShow(){document.querySelectorAll(".card").forEach(c=>c.classList.remove("hidden"));
+ document.querySelectorAll("#tbody tr").forEach(t=>t.classList.remove("hid"));}
+function shuffle(){for(let i=data.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[data[i],data[j]]=[data[j],data[i]];}render();}
+function resetOrder(){data=[...DATA];render();}
+function resetDone(){done.clear();render();}
+function toggleDoneFilter(){hideDone=!hideDone;
+ document.getElementById("hideDoneBtn").textContent=hideDone?"覚えた項目も表示":"覚えた項目を隠す";render();}
+
+render();
+</script>
+</body>
+</html>
