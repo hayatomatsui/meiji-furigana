@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>英文法ノート ｜ be up to・now・否定＋比較</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..700&family=Klee+One:wght@400;600&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1C2541;
+    --ink-soft:#4E5878;
+    --ink-faint:#8B93AC;
+    --paper:#F3F5FA;
+    --card:#FFFFFF;
+    --fuji:#6C55A6;
+    --fuji-deep:#463370;
+    --fuji-light:#E9E3F7;
+    --teal:#1F6F6B;
+    --suo:#A6394F;
+    --suo-light:#F6E4E7;
+    --rule:#D8DDEA;
+    --ja-head:"Klee One","Yu Kyokasho","UD デジタル 教科書体 NK-R",serif;
+    --ja-body:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",sans-serif;
+    --en:"Fraunces",Georgia,"Times New Roman",serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;scroll-padding-top:80px;}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:var(--ja-body);font-size:16px;line-height:1.85;
+    font-feature-settings:"palt" 1;
+  }
+  .wrap{max-width:940px;margin:0 auto;padding:0 20px;}
+  .wrap--main{padding-bottom:88px;}
+
+  /* ---------- masthead ---------- */
+  .masthead{padding:42px 0 24px;}
+  .masthead__title{
+    margin:0;font-family:var(--ja-head);font-weight:600;
+    font-size:1.02rem;letter-spacing:.2em;color:var(--fuji);
+  }
+  .masthead__sub{margin:6px 0 0;font-size:.85rem;color:var(--ink-faint);letter-spacing:.04em;}
+
+  /* ---------- topic header (inside a panel) ---------- */
+  .topic{padding:0 0 10px;}
+  .title{margin:0;line-height:1;display:flex;align-items:baseline;flex-wrap:wrap;gap:.18em;}
+  .title .be,.title .obj{
+    font-family:var(--en);font-size:clamp(1.5rem,5vw,2.4rem);
+    font-weight:300;font-style:italic;color:var(--ink-faint);
+  }
+  .title .core{
+    font-family:var(--en);font-size:clamp(3.2rem,13vw,6.2rem);
+    font-weight:600;letter-spacing:-.02em;color:var(--ink);
+    font-variation-settings:"SOFT" 20,"WONK" 1;
+  }
+  .title--sm .core{font-size:clamp(1.9rem,7vw,3.5rem);}
+  .core-meaning{
+    margin:22px 0 0;font-family:var(--ja-head);font-weight:600;
+    font-size:clamp(1.1rem,3.4vw,1.45rem);
+  }
+  .core-meaning mark{
+    background:linear-gradient(transparent 58%,var(--fuji-light) 58%);
+    color:inherit;padding:0 .12em;
+  }
+  .core-meaning--stop mark{background:linear-gradient(transparent 58%,var(--suo-light) 58%);}
+  .morph{
+    margin:26px 0 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+    font-size:.95rem;color:var(--ink-soft);
+  }
+  .chip{
+    display:inline-flex;align-items:baseline;gap:.5em;
+    border:1px solid var(--rule);background:var(--card);
+    border-radius:999px;padding:6px 16px;
+  }
+  .chip b{font-family:var(--en);font-weight:600;font-size:1.05rem;color:var(--fuji-deep);}
+  .morph .eq{color:var(--ink-faint);}
+  .lede{margin:26px 0 0;max-width:62ch;color:var(--ink-soft);}
+
+  /* ---------- signature rail ---------- */
+  .rail{display:flex;align-items:center;gap:12px;margin:0;font-size:.86rem;}
+  .rail__label{font-family:var(--ja-head);font-weight:600;white-space:nowrap;color:var(--ink-soft);}
+  .rail__label--to{color:var(--fuji-deep);}
+  .rail__track{position:relative;flex:1;min-width:48px;height:2px;background:var(--rule);}
+  .rail__track::after{
+    content:"";position:absolute;right:-1px;top:50%;transform:translateY(-50%);
+    border-left:8px solid var(--fuji);
+    border-top:5px solid transparent;border-bottom:5px solid transparent;
+  }
+  .rail__fill{
+    position:absolute;inset:0;background:var(--fuji);
+    transform:scaleX(0);transform-origin:left center;
+    transition:transform .8s cubic-bezier(.2,.7,.3,1);
+  }
+  .is-in .rail__fill{transform:scaleX(1);}
+  .rail__label--to::after{
+    content:"";display:inline-block;width:9px;height:9px;margin-left:8px;
+    border-radius:50%;background:var(--fuji);
+    box-shadow:0 0 0 4px var(--fuji-light);vertical-align:middle;
+  }
+  .rail--stop .rail__fill{background:var(--suo);}
+  .rail--stop .rail__track::after{
+    border:0;width:3px;height:18px;background:var(--suo);right:0;border-radius:1px;
+  }
+  .rail--stop .rail__label--to{color:var(--suo);}
+  .rail--stop .rail__label--to::after{background:var(--suo);box-shadow:0 0 0 4px var(--suo-light);}
+  .topic .rail{margin-top:34px;font-size:.95rem;}
+  .rail-legend{margin:10px 0 0;font-size:.78rem;color:var(--ink-faint);letter-spacing:.04em;}
+
+  /* ---------- tabs ---------- */
+  .tabs{
+    position:sticky;top:0;z-index:20;background:var(--paper);
+    border-bottom:1px solid var(--rule);
+    overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+  }
+  .tabs::-webkit-scrollbar{display:none;}
+  .tabs__inner{max-width:940px;margin:0 auto;padding:0 20px;}
+  .tabs__list{display:flex;gap:2px;min-width:max-content;}
+  .tab{
+    appearance:none;-webkit-appearance:none;background:none;border:0;cursor:pointer;
+    font-family:var(--ja-head);font-weight:600;font-size:.95rem;
+    color:var(--ink-faint);padding:15px 15px 12px;
+    border-bottom:3px solid transparent;white-space:nowrap;transition:color .18s ease;
+  }
+  .tab:hover{color:var(--fuji-deep);}
+  .tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--fuji);}
+  .tab:focus-visible{outline:2px solid var(--fuji);outline-offset:-5px;border-radius:2px;}
+  .panel{padding-top:40px;}
+  .panel[hidden]{display:none;}
+  .panel__lede{margin:0 0 22px;max-width:62ch;color:var(--ink-soft);font-size:.95rem;}
+
+  /* ---------- sections ---------- */
+  .sec-head{display:flex;align-items:center;gap:14px;margin:52px 0 24px;}
+  .sec-head h3{
+    margin:0;font-family:var(--ja-head);font-weight:600;
+    font-size:1.15rem;letter-spacing:.04em;white-space:nowrap;
+  }
+  .sec-head::after{content:"";flex:1;height:1px;background:var(--rule);}
+
+  /* ---------- sense cards ---------- */
+  .sense{
+    background:var(--card);border:1px solid var(--rule);border-radius:4px;
+    padding:26px 26px 24px;margin:0 0 18px;
+  }
+  .sense__head{
+    display:grid;grid-template-columns:auto 1fr;gap:4px 14px;
+    align-items:baseline;margin-bottom:18px;
+  }
+  .sense__num{
+    grid-row:span 2;font-family:var(--en);font-size:1.5rem;font-weight:600;
+    color:var(--fuji);line-height:1.2;
+  }
+  .sense__ja{margin:0;font-family:var(--ja-head);font-weight:600;font-size:1.2rem;line-height:1.5;}
+  .sense__form{
+    margin:0;font-family:var(--en);font-size:.92rem;color:var(--ink-faint);letter-spacing:.01em;
+  }
+  .sense__form em{font-style:normal;color:var(--teal);}
+  .sense .rail{padding:14px 0 18px;border-bottom:1px dashed var(--rule);margin-bottom:18px;}
+
+  .ex{list-style:none;margin:0;padding:0;display:grid;gap:16px;}
+  @media(min-width:860px){.ex{grid-template-columns:1fr 1fr;gap:16px 28px;}}
+  .ex li{margin:0;}
+  .ex__en{
+    margin:0;font-family:var(--en);font-size:1.06rem;line-height:1.55;
+    color:var(--teal);font-weight:400;
+  }
+  .ex__en b{font-weight:700;color:var(--fuji-deep);}
+  .ex__ja{margin:2px 0 0;font-size:.9rem;color:var(--ink-soft);}
+
+  .note{
+    margin:20px 0 0;padding:14px 16px;background:#F7F8FC;
+    border-left:3px solid var(--fuji);border-radius:0 3px 3px 0;
+    font-size:.9rem;line-height:1.8;
+  }
+  .note b{color:var(--fuji-deep);}
+  .note em{font-style:normal;font-family:var(--en);color:var(--teal);}
+  .note--warn{border-left-color:var(--suo);background:#FCF6F7;}
+  .note--warn b{color:var(--suo);}
+  .note__tag{
+    display:inline-block;font-family:var(--ja-head);font-weight:600;
+    font-size:.74rem;letter-spacing:.12em;color:var(--fuji);margin-right:.7em;
+  }
+  .note--warn .note__tag{color:var(--suo);}
+  .note>p{margin:0;}
+  .note>p+ul{margin-top:14px;}
+
+  /* ---------- decision list ---------- */
+  .decide{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule);}
+  .decide li{
+    display:grid;grid-template-columns:1fr auto;gap:6px 18px;align-items:center;
+    padding:13px 4px;border-bottom:1px solid var(--rule);
+  }
+  .decide__form{font-family:var(--en);font-size:.98rem;color:var(--ink);}
+  .decide__form span{font-family:var(--ja-body);font-size:.86rem;color:var(--ink-soft);}
+  .decide__to{
+    font-family:var(--ja-head);font-weight:600;font-size:.9rem;
+    color:var(--fuji-deep);white-space:nowrap;
+  }
+  .decide__to::before{content:"→ ";color:var(--ink-faint);}
+
+  /* ---------- neighbours ---------- */
+  .neigh{list-style:none;margin:0;padding:0;display:grid;gap:12px;}
+  @media(min-width:720px){.neigh{grid-template-columns:1fr 1fr;}}
+  .neigh li{
+    background:var(--card);border:1px solid var(--rule);border-radius:4px;padding:14px 16px;
+  }
+  .neigh__en{font-family:var(--en);font-weight:600;font-size:1rem;color:var(--fuji-deep);}
+  .neigh__ja{display:block;font-size:.88rem;color:var(--ink-soft);margin-top:2px;}
+
+  /* ---------- quantity table ---------- */
+  .qty{list-style:none;margin:0;padding:0;display:grid;gap:10px;}
+  @media(min-width:720px){.qty{grid-template-columns:1fr 1fr;gap:12px 20px;}}
+  .qty li{
+    background:var(--card);border:1px solid var(--rule);border-radius:4px;
+    padding:14px 16px;border-top:3px solid var(--fuji);
+  }
+  .qty li.is-not{border-top-color:var(--teal);}
+  .qty__en{margin:0;font-family:var(--en);font-weight:600;font-size:1.02rem;color:var(--ink);}
+  .qty__eq{margin:4px 0 0;font-family:var(--en);font-size:.92rem;color:var(--teal);}
+  .qty__ja{margin:2px 0 0;font-size:.88rem;color:var(--ink-soft);}
+
+  /* ---------- feature sentence ---------- */
+  .feature{
+    background:var(--card);border:1px solid var(--rule);border-radius:4px;
+    padding:26px;margin:0 0 18px;
+  }
+  .feature__en{
+    margin:0;font-family:var(--en);font-size:clamp(1.1rem,3.1vw,1.45rem);
+    line-height:1.65;color:var(--ink);
+  }
+  .hl{padding:.06em .2em;border-radius:3px;font-weight:600;}
+  .hl--a{background:var(--fuji-light);color:var(--fuji-deep);}
+  .hl--b{background:#DCEDEB;color:var(--teal);}
+  .feature__ja{margin:12px 0 0;font-size:.92rem;color:var(--ink-soft);}
+  .feature__ann{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:12px;font-size:.9rem;}
+  @media(min-width:720px){.feature__ann{grid-template-columns:1fr 1fr;gap:12px 26px;}}
+  .feature__ann li{margin:0;padding-top:12px;border-top:1px solid var(--rule);line-height:1.75;}
+  .tag{display:block;font-family:var(--en);font-weight:700;font-size:.98rem;margin-bottom:2px;}
+  .tag--a{color:var(--fuji-deep);}
+  .tag--b{color:var(--teal);}
+  .fineprint{margin:14px 0 0;font-size:.78rem;color:var(--ink-faint);line-height:1.7;}
+  .vs{margin:0;padding:0;list-style:none;display:grid;gap:8px;}
+  .vs li{margin:0;}
+  .vs .ex__en{font-size:1rem;}
+
+  /* ---------- quiz ---------- */
+  .quiz{list-style:none;margin:0;padding:0;counter-reset:q;display:grid;gap:12px;}
+  .quiz li{background:var(--card);border:1px solid var(--rule);border-radius:4px;padding:16px 18px;}
+  .quiz__q{margin:0;font-family:var(--en);font-size:1.05rem;color:var(--teal);}
+  .quiz__q::before{
+    counter-increment:q;content:"Q" counter(q) ".";
+    font-weight:700;color:var(--ink-faint);margin-right:.6em;font-size:.86rem;
+  }
+  .quiz__btn{
+    margin-top:10px;font-family:var(--ja-head);font-weight:600;font-size:.82rem;
+    background:var(--fuji-light);color:var(--fuji-deep);
+    border:0;border-radius:999px;padding:6px 18px;cursor:pointer;letter-spacing:.06em;
+  }
+  .quiz__btn:hover{background:#DED4F2;}
+  .quiz__btn:focus-visible{outline:2px solid var(--fuji);outline-offset:2px;}
+  .quiz__a{margin:12px 0 0;font-size:.92rem;padding-top:12px;border-top:1px dashed var(--rule);}
+  .quiz__a b{color:var(--fuji-deep);font-family:var(--ja-head);}
+
+  footer{
+    margin-top:64px;padding-top:20px;border-top:1px solid var(--rule);
+    font-size:.8rem;color:var(--ink-faint);
+  }
+
+  @media(prefers-reduced-motion:reduce){
+    .rail__fill{transition:none;transform:scaleX(1);}
+  }
+
+  @media print{
+    body{background:#fff;font-size:10.5pt;line-height:1.7;}
+    .wrap{max-width:none;padding:0;}
+    .masthead{padding:0 0 12px;}
+    .tabs{display:none;}
+    .panel[hidden]{display:block !important;}
+    .panel{padding-top:0;}
+    .panel+.panel{break-before:page;}
+    .panel::before{
+      content:attr(data-label);display:block;
+      font-family:var(--ja-head);font-weight:600;font-size:12pt;
+      padding-bottom:6px;margin-bottom:16px;border-bottom:2px solid var(--fuji);
+    }
+    .sense,.neigh li,.quiz li,.feature,.qty li{break-inside:avoid;box-shadow:none;}
+    .sec-head{margin:26px 0 14px;}
+    .rail__fill{transform:scaleX(1);}
+    .quiz__btn{display:none;}
+    .quiz__a[hidden]{display:block !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="masthead">
+    <h1 class="masthead__title">英文法ノート</h1>
+    <p class="masthead__sub">到達・視点・限界 ── 形から意味を決める</p>
+  </header>
+</div>
+
+<nav class="tabs" aria-label="セクション">
+  <div class="tabs__inner">
+    <div class="tabs__list" role="tablist" aria-label="英文法ノートの内容">
+      <button class="tab" type="button" role="tab" id="tab-senses" aria-controls="senses" aria-selected="true">be up to 5つの意味</button>
+      <button class="tab" type="button" role="tab" id="tab-decide" aria-controls="decide" aria-selected="false" tabindex="-1">見分け方と仲間</button>
+      <button class="tab" type="button" role="tab" id="tab-now" aria-controls="now" aria-selected="false" tabindex="-1">now の用法</button>
+      <button class="tab" type="button" role="tab" id="tab-neg" aria-controls="neg" aria-selected="false" tabindex="-1">否定＋比較</button>
+      <button class="tab" type="button" role="tab" id="tab-quiz" aria-controls="quiz" aria-selected="false" tabindex="-1">確認テスト</button>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap wrap--main">
+  <main>
+
+  <!-- ========== TAB 1 ========== -->
+  <section class="panel" id="senses" role="tabpanel" aria-labelledby="tab-senses" tabindex="0" data-label="be up to 〜 の5つの意味">
+    <div class="topic">
+      <h2 class="title">
+        <span class="be">be</span><span class="core">up to</span><span class="obj">~</span>
+      </h2>
+      <p class="core-meaning">核心イメージ：<mark>到達する</mark></p>
+      <div class="morph">
+        <span class="chip"><b>up</b>線をたどって進む</span>
+        <span class="eq">＋</span>
+        <span class="chip"><b>to</b>行き着く先</span>
+        <span class="eq">＝</span>
+        <span class="chip"><b>up to</b>そこまで届く</span>
+      </div>
+      <p class="lede">
+        意味が5つあるように見えますが、形はどれも同じです。<strong>「何か」が「どこか」まで届いている</strong>。
+        違うのは、届くものが数量なのか、質なのか、能力なのか、決定権なのか、意識なのか、それだけ。
+      </p>
+      <div class="rail">
+        <span class="rail__label rail__label--from">到達するもの</span>
+        <span class="rail__track"><span class="rail__fill"></span></span>
+        <span class="rail__label rail__label--to">到達点</span>
+      </div>
+      <p class="rail-legend">各項目のバーで「何が」「どこまで」届いているかを確認してください。</p>
+    </div>
+
+    <div class="sec-head"><h3>5つの意味</h3></div>
+
+    <article class="sense">
+      <div class="sense__head">
+        <span class="sense__num">1</span>
+        <h3 class="sense__ja">（最大で）〜まで</h3>
+        <p class="sense__form">up to + <em>数量・時点</em></p>
+      </div>
+      <div class="rail">
+        <span class="rail__label rail__label--from">数量</span>
+        <span class="rail__track"><span class="rail__fill"></span></span>
+        <span class="rail__label rail__label--to">上限</span>
+      </div>
+      <ul class="ex">
+        <li>
+          <p class="ex__en">Count <b>up to</b> ten before you answer.</p>
+          <p class="ex__ja">答える前に10まで数えなさい。</p>
+        </li>
+        <li>
+          <p class="ex__en">This elevator holds <b>up to</b> twelve people.</p>
+          <p class="ex__ja">このエレベーターは最大12人まで乗れる。</p>
+        </li>
+        <li>
+          <p class="ex__en">Children <b>up to</b> the age of six get in free.</p>
+          <p class="ex__ja">6歳までの子どもは無料で入れる。</p>
+        </li>
+        <li>
+          <p class="ex__en">The talks lasted <b>up to</b> midnight.</p>
+          <p class="ex__ja">会談は真夜中まで続いた。</p>
+        </li>
+      </ul>
+      <p class="note">
+        <span class="note__tag">ポイント</span>
+        up to をひとかたまりの<b>前置詞</b>として扱います。この意味では be は不要で、数量の直前に置くのが基本。
+        「〜以下」ではなく<b>その数を含んで、そこが上限</b>。同じ発想で <em>up to now</em>（今まで）、
+        <em>up to date</em>（現時点に追いついている＝最新の）も説明できます。
+      </p>
+    </article>
+
+    <article class="sense">
+      <div class="sense__head">
+        <span class="sense__num">2</span>
+        <h3 class="sense__ja">〜に並んで・匹敵して</h3>
+        <p class="sense__form">be up to + <em>standard / par / expectations</em></p>
+      </div>
+      <div class="rail">
+        <span class="rail__label rail__label--from">モノ・作品の質</span>
+        <span class="rail__track"><span class="rail__fill"></span></span>
+        <span class="rail__label rail__label--to">期待される水準</span>
+      </div>
+      <ul class="ex">
+        <li>
+          <p class="ex__en">His new album isn't <b>up to</b> his usual standard.</p>
+          <p class="ex__ja">彼の新作はいつもの水準に達していない。</p>
+        </li>
+        <li>
+          <p class="ex__en">Her presentation was well <b>up to</b> par.</p>
+          <p class="ex__ja">彼女のプレゼンは十分に水準に達していた。</p>
+        </li>
+        <li>
+          <p class="ex__en">The translation is <b>up to</b> professional quality.</p>
+          <p class="ex__ja">その翻訳はプロの品質に並んでいる。</p>
+        </li>
+        <li>
+          <p class="ex__en">The sequel wasn't <b>up to</b> the original.</p>
+          <p class="ex__ja">続編は前作に及ばなかった。</p>
+        </li>
+      </ul>
+      <p class="note">
+        <span class="note__tag">ポイント</span>
+        圧倒的に<b>否定文で使われます</b>（not up to ＝ 基準まで届いていない）。
+        standard / par / expectations / scratch とセットで覚えると速い。
+        <b>3との違いは主語</b>：ここでは主語がモノ・作品・サービスです。
+      </p>
+    </article>
+
+    <article class="sense">
+      <div class="sense__head">
+        <span class="sense__num">3</span>
+        <h3 class="sense__ja">（仕事を）することができて</h3>
+        <p class="sense__form">be / feel up to + <em>名詞・動名詞</em></p>
+      </div>
+      <div class="rail">
+        <span class="rail__label rail__label--from">人の力・気力</span>
+        <span class="rail__track"><span class="rail__fill"></span></span>
+        <span class="rail__label rail__label--to">仕事に必要なレベル</span>
+      </div>
+      <ul class="ex">
+        <li>
+          <p class="ex__en">Are you <b>up to</b> the job?</p>
+          <p class="ex__ja">その仕事、君にやれるか。</p>
+        </li>
+        <li>
+          <p class="ex__en">I don't feel <b>up to</b> going out tonight.</p>
+          <p class="ex__ja">今夜は出かける気力がない。</p>
+        </li>
+        <li>
+          <p class="ex__en">He's not <b>up to</b> running a whole department yet.</p>
+          <p class="ex__ja">部署全体を任せられるレベルにはまだない。</p>
+        </li>
+        <li>
+          <p class="ex__en">She proved <b>up to</b> the challenge.</p>
+          <p class="ex__ja">彼女はその難題をこなせることを証明した。</p>
+        </li>
+      </ul>
+      <p class="note note--warn">
+        <span class="note__tag">注意</span>
+        up to の to は<b>前置詞</b>。あとに続くのは名詞か動名詞（-ing）で、<b>to do は来ません</b>。
+        × I'm not up to <s>go</s> out. ／ ○ I'm not up to going out.
+      </p>
+    </article>
+
+    <article class="sense">
+      <div class="sense__head">
+        <span class="sense__num">4</span>
+        <h3 class="sense__ja">〜次第で、〜の責任で</h3>
+        <p class="sense__form">It is up to + <em>人</em></p>
+      </div>
+      <div class="rail">
+        <span class="rail__label rail__label--from">決定権</span>
+        <span class="rail__track"><span class="rail__fill"></span></span>
+        <span class="rail__label rail__label--to">その人</span>
+      </div>
+      <ul class="ex">
+        <li>
+          <p class="ex__en">"Where should we eat?" "It's <b>up to</b> you."</p>
+          <p class="ex__ja">「どこで食べる？」「君に任せるよ」</p>
+        </li>
+        <li>
+          <p class="ex__en">It's <b>up to</b> the government to fix this.</p>
+          <p class="ex__ja">これを直すのは政府の責任だ。</p>
+        </li>
+        <li>
+          <p class="ex__en">Whether we go or not is <b>up to</b> the weather.</p>
+          <p class="ex__ja">行くかどうかは天気次第だ。</p>
+        </li>
+        <li>
+          <p class="ex__en">It's <b>up to</b> each of us to decide.</p>
+          <p class="ex__ja">決めるのは私たち一人ひとりだ。</p>
+        </li>
+      </ul>
+      <p class="note">
+        <span class="note__tag">ポイント</span>
+        決定のボールが転がって、その人のところで止まる。だから<b>「〜次第」と「〜の責任」が同じ形</b>になります。
+        <b>It is up to 人 to do 〜</b> の to do は、up to の to ではなく<b>形式主語 it を受ける不定詞</b>。
+        構造が違うので、3の「to do は来ない」というルールとは矛盾しません。
+      </p>
+    </article>
+
+    <article class="sense">
+      <div class="sense__head">
+        <span class="sense__num">5</span>
+        <h3 class="sense__ja">たくらんで</h3>
+        <p class="sense__form">be up to + <em>something / no good / what</em></p>
+      </div>
+      <div class="rail">
+        <span class="rail__label rail__label--from">意識・行動</span>
+        <span class="rail__track"><span class="rail__fill"></span></span>
+        <span class="rail__label rail__label--to">今かかわっている何か</span>
+      </div>
+      <ul class="ex">
+        <li>
+          <p class="ex__en">What are you <b>up to</b>?</p>
+          <p class="ex__ja">何をたくらんでいるんだ。／何してるの。</p>
+        </li>
+        <li>
+          <p class="ex__en">He's <b>up to</b> no good.</p>
+          <p class="ex__ja">あいつはろくなことを考えていない。</p>
+        </li>
+        <li>
+          <p class="ex__en">The kids are quiet — they must be <b>up to</b> something.</p>
+          <p class="ex__ja">子どもたちが静かだ。何か企んでいるに違いない。</p>
+        </li>
+        <li>
+          <p class="ex__en">What have you been <b>up to</b> lately?</p>
+          <p class="ex__ja">最近どうしてた？（近況をたずねる）</p>
+        </li>
+      </ul>
+      <p class="note">
+        <span class="note__tag">ポイント</span>
+        「今まさに手を出している」という進行中の感じ。<b>必ずしも悪事とは限りません</b>。
+        久しぶりに会った相手への What have you been up to? は、ただの近況質問です。
+        no good / something / mischief が続くと、あやしい方向に決まります。
+      </p>
+    </article>
+  </section>
+
+  <!-- ========== TAB 2 ========== -->
+  <section class="panel" id="decide" role="tabpanel" aria-labelledby="tab-decide" tabindex="0" hidden data-label="見分け方と、同じ「到達」の仲間">
+    <p class="panel__lede">意味を5つ暗記するより、<strong>前後の形で判別する</strong>ほうが速く、確実です。</p>
+    <ul class="decide">
+      <li>
+        <span class="decide__form">up to + 12 / midnight / the age of six <span>（数量・時点）</span></span>
+        <span class="decide__to">1 最大で〜まで</span>
+      </li>
+      <li>
+        <span class="decide__form">モノが主語 + be not up to + standard / par <span>（基準の語）</span></span>
+        <span class="decide__to">2 匹敵して</span>
+      </li>
+      <li>
+        <span class="decide__form">人が主語 + be / feel up to + 名詞・-ing</span>
+        <span class="decide__to">3 やれる・その気力がある</span>
+      </li>
+      <li>
+        <span class="decide__form">It's up to + 人</span>
+        <span class="decide__to">4 〜次第・〜の責任</span>
+      </li>
+      <li>
+        <span class="decide__form">人が主語 + be up to + something / no good / what</span>
+        <span class="decide__to">5 たくらんで</span>
+      </li>
+    </ul>
+
+    <div class="sec-head"><h3>同じ「到達」の仲間</h3></div>
+    <ul class="neigh">
+      <li><span class="neigh__en">be up for ~</span><span class="neigh__ja">〜に乗り気だ。I'm up for it!（やろうぜ）。3の「能力が届く」とは違い、<b>やる気</b>の話。混同注意。</span></li>
+      <li><span class="neigh__en">live up to ~</span><span class="neigh__ja">（期待・評判）に応える。期待の水準まで生きて届く。</span></li>
+      <li><span class="neigh__en">come up to ~</span><span class="neigh__ja">〜に達する。2の動詞版で、水準や基準に届く。</span></li>
+      <li><span class="neigh__en">keep up with ~</span><span class="neigh__ja">〜に遅れずついていく。届いた状態を保ち続ける。</span></li>
+      <li><span class="neigh__en">add up to ~</span><span class="neigh__ja">合計〜になる。足していって、その数字に到達する。</span></li>
+      <li><span class="neigh__en">be up to date</span><span class="neigh__ja">現時点まで追いついている＝最新の。1と同じ発想。</span></li>
+    </ul>
+  </section>
+
+  <!-- ========== TAB 3 ========== -->
+  <section class="panel" id="now" role="tabpanel" aria-labelledby="tab-now" tabindex="0" hidden data-label="now は「時計の今」ではない">
+    <div class="topic">
+      <h2 class="title"><span class="core">now</span></h2>
+      <p class="core-meaning">核心イメージ：<mark>語りの視点が置かれた今</mark></p>
+      <p class="lede">
+        now は発話している瞬間とは限りません。<strong>語りの視点が置かれた時点</strong>を指すので、
+        過去形と一緒に使えます。<em>It was now up to me…</em> が成り立つのはこのためです。
+      </p>
+    </div>
+
+    <div class="sec-head"><h3>出発点になった一文</h3></div>
+
+    <div class="feature">
+      <p class="feature__en">It was <span class="hl hl--a">now</span> <span class="hl hl--b">up to me</span> to help with my father's business.</p>
+      <p class="feature__ja">そこまで来て、今や父の事業を助けるのは私の役目になっていた。</p>
+      <ul class="feature__ann">
+        <li><span class="tag tag--a">now</span>語りの視点が置かれた「その時点での今」。話し手が話している現在ではありません。</li>
+        <li><span class="tag tag--b">up to me</span>決定権と責任が、私のところまで到達した（意味4）。</li>
+      </ul>
+      <p class="note">
+        <span class="note__tag">なぜ両立するのか</span>
+        <b>時制は「話している時点」を基準に決まり、now は「語りの視点が置かれた時点」を指す。</b>
+        基準が別なので、was と now は矛盾しません。視点が過去に移っていれば、その過去が now です。
+        <em>up to now</em> / <em>by now</em> と同じで、now は<b>ここまで来た到達点</b>を指す言葉。
+        この一文は「到達」が二重に働いています。
+      </p>
+      <p class="fineprint">※ 父が一人なら my father's（fathers' は父親が複数のとき）。「事業を手伝う」は help with ~ が自然。</p>
+    </div>
+
+    <div class="sec-head"><h3>3つの用法</h3></div>
+
+    <article class="sense">
+      <div class="sense__head">
+        <span class="sense__num">A</span>
+        <h3 class="sense__ja">語りの現在（過去形と使う now）</h3>
+        <p class="sense__form">was / had + <em>now</em> ＋ 過去の文脈</p>
+      </div>
+      <ul class="ex">
+        <li>
+          <p class="ex__en">It was <b>now</b> too late to turn back.</p>
+          <p class="ex__ja">引き返すには、もう遅かった。</p>
+        </li>
+        <li>
+          <p class="ex__en">She was <b>now</b> twenty-three and living on her own.</p>
+          <p class="ex__ja">彼女はもう23歳で、一人で暮らしていた。</p>
+        </li>
+        <li>
+          <p class="ex__en">The rain had <b>now</b> stopped, and the streets were shining.</p>
+          <p class="ex__ja">雨はすでにやみ、通りは光っていた。</p>
+        </li>
+        <li>
+          <p class="ex__en">He <b>now</b> understood why she had left.</p>
+          <p class="ex__ja">彼は今や、なぜ彼女が去ったのかを理解した。</p>
+        </li>
+      </ul>
+      <p class="note">
+        <span class="note__tag">ポイント</span>
+        訳語は「今や・もはや・その時にはもう」。小説や自伝の地の文で頻出し、
+        英検1級や難関大の長文でも<b>「過去形＋now」は普通に出てきます</b>。
+      </p>
+      <div class="note note--warn">
+        <p>
+          <span class="note__tag">then との違い</span>
+          then は「その時」と指さすだけ。now は<b>それまでの流れの末に、ついにそこへ届いた</b>という変化を含みます。
+          だから物語で now が出てきたら、直前に必ず転機があります。
+        </p>
+        <ul class="vs">
+          <li><p class="ex__en">He was <b>then</b> a student.</p><p class="ex__ja">彼は当時、学生だった。（時点を指すだけ）</p></li>
+          <li><p class="ex__en">He was <b>now</b> a student.</p><p class="ex__ja">彼はもう学生になっていた。（経緯の末に到達した）</p></li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="sense">
+      <div class="sense__head">
+        <span class="sense__num">B</span>
+        <h3 class="sense__ja">話を切り替える now（さて・では・ほら）</h3>
+        <p class="sense__form">文頭の <em>Now,</em> ＋ 会話・講義</p>
+      </div>
+      <ul class="ex">
+        <li>
+          <p class="ex__en"><b>Now,</b> let's look at the next question.</p>
+          <p class="ex__ja">さて、次の問題を見てみましょう。</p>
+        </li>
+        <li>
+          <p class="ex__en"><b>Now,</b> that's an interesting point.</p>
+          <p class="ex__ja">おや、それは面白い指摘だ。</p>
+        </li>
+        <li>
+          <p class="ex__en"><b>Now then,</b> what seems to be the problem?</p>
+          <p class="ex__ja">さて、どうされましたか。</p>
+        </li>
+        <li>
+          <p class="ex__en">Come on <b>now</b>, don't cry.</p>
+          <p class="ex__ja">ほらほら、泣かないで。</p>
+        </li>
+      </ul>
+      <p class="note">
+        <span class="note__tag">ポイント</span>
+        時間の意味はほぼ<b>ゼロ</b>。注意を引く、話題を変える、なだめる合図です。
+        訳に「今」を入れると不自然になるので、「さて・では・ほら」と置き換えます。
+      </p>
+    </article>
+
+    <article class="sense">
+      <div class="sense__head">
+        <span class="sense__num">C</span>
+        <h3 class="sense__ja">now (that) S＋V ＝ 〜した今や（理由）</h3>
+        <p class="sense__form">now that + <em>節</em></p>
+      </div>
+      <ul class="ex">
+        <li>
+          <p class="ex__en"><b>Now that</b> you mention it, I do remember.</p>
+          <p class="ex__ja">言われてみれば、たしかに覚えている。</p>
+        </li>
+        <li>
+          <p class="ex__en"><b>Now that</b> the deadline has passed, we can relax.</p>
+          <p class="ex__ja">締切が過ぎた今、ひと息つける。</p>
+        </li>
+        <li>
+          <p class="ex__en"><b>Now</b> I'm older, I understand my parents.</p>
+          <p class="ex__ja">年をとった今、親のことがわかる。（口語では that を省略）</p>
+        </li>
+        <li>
+          <p class="ex__en"><b>Now that</b> he was gone, the house felt empty.</p>
+          <p class="ex__ja">彼がいなくなった今、家は空っぽに感じられた。（過去の文脈でも可）</p>
+        </li>
+      </ul>
+      <p class="note">
+        <span class="note__tag">ポイント</span>
+        because との違いは、<b>新しい状況に到達したこと自体が理由</b>になっている点。
+        「〜という状況になった以上」というニュアンスです。
+      </p>
+    </article>
+
+    <div class="sec-head"><h3>now の熟語</h3></div>
+    <ul class="neigh">
+      <li><span class="neigh__en">up to now / until now</span><span class="neigh__ja">今まで。現在完了と相性がよい。up to の意味1そのもの。</span></li>
+      <li><span class="neigh__en">by now</span><span class="neigh__ja">今ごろはもう。He should be home by now.（もう家に着いているはずだ）</span></li>
+      <li><span class="neigh__en">just now</span><span class="neigh__ja">たった今（過去形と）／今ちょうど。I saw him just now.</span></li>
+      <li><span class="neigh__en">from now on</span><span class="neigh__ja">今後はずっと。この先の全体を指す。</span></li>
+      <li><span class="neigh__en">for now</span><span class="neigh__ja">今のところは・さしあたり。あとで変わる含み。</span></li>
+      <li><span class="neigh__en">(every) now and then</span><span class="neigh__ja">ときどき。now and again も同じ。</span></li>
+      <li><span class="neigh__en">any day now</span><span class="neigh__ja">今日明日にも。差し迫っている。</span></li>
+      <li><span class="neigh__en">right now</span><span class="neigh__ja">今すぐ／たった今。now を強めた形。</span></li>
+    </ul>
+  </section>
+
+  <!-- ========== TAB 4 ========== -->
+  <section class="panel" id="neg" role="tabpanel" aria-labelledby="tab-neg" tabindex="0" hidden data-label="否定＋比較 ── 限界を表す">
+    <div class="topic">
+      <h2 class="title title--sm"><span class="core">couldn't care less</span></h2>
+      <p class="core-meaning core-meaning--stop">核心イメージ：<mark>目盛りの端に到達して、もう動けない</mark></p>
+      <div class="morph">
+        <span class="chip"><b>couldn't</b>これ以上〜できない</span>
+        <span class="eq">＋</span>
+        <span class="chip"><b>less</b>より少なく（比較級）</span>
+        <span class="eq">＝</span>
+        <span class="chip"><b>関心は最下点</b>もう下げようがない</span>
+      </div>
+      <p class="lede">
+        否定＋比較級は、否定が二つ重なった「二重否定」ではありません。
+        <strong>比較の目盛りを、これ以上その方向へ進めない</strong>と言っているだけ。
+        端まで到達しているので、結果として最上級の意味になります。
+      </p>
+      <div class="rail rail--stop">
+        <span class="rail__label rail__label--from">関心の度合い</span>
+        <span class="rail__track"><span class="rail__fill"></span></span>
+        <span class="rail__label rail__label--to">最下点（ゼロ）</span>
+      </div>
+      <p class="rail-legend">到達バーが付くのは「限界」型だけ。二重否定はしくみが別なので、バーはありません。</p>
+    </div>
+
+    <div class="sec-head"><h3>出発点になった一文</h3></div>
+
+    <div class="feature">
+      <p class="feature__en">I <span class="hl hl--a">could not</span> [ care <span class="hl hl--b">less</span> ] about his sisters.</p>
+      <p class="feature__ja">彼の姉妹のことなんて、これっぽっちも気にならない。</p>
+      <ul class="feature__ann">
+        <li><span class="tag tag--a">could not</span>否定しているのは <b>could（〜できる）</b>。「今より関心を減らすことはできない」。</li>
+        <li><span class="tag tag--b">less</span>否定語ではなく<b>比較級</b>（より少なく）。ここが二重否定との分かれ目。</li>
+      </ul>
+      <p class="note">
+        <span class="note__tag">なぜ「まったく気にしない」か</span>
+        これ以上 less になれない＝<b>関心はすでにゼロ</b>。not と less を別々に数えて打ち消し合わせるのではなく、
+        「これ以上 less になれない」と<b>ひとまとまりで</b>捉えるのがコツです。
+      </p>
+      <p class="fineprint">
+        ※ couldn't は過去ではなく仮定法（たとえ何をしても〜できないだろう）。文脈がなければ訳は「気にならない」。
+        米口語では could care less も同じ意味で使われますが、非標準とされ、試験では書かないほうが無難です。
+      </p>
+    </div>
+
+    <div class="sec-head"><h3>4つの型</h3></div>
+
+    <article class="sense">
+      <div class="sense__head">
+        <span class="sense__num">I</span>
+        <h3 class="sense__ja">否定＋比較級 ＝ 限界（実質は最上級）</h3>
+        <p class="sense__form">can't / couldn't + <em>比較級</em></p>
+      </div>
+      <div class="rail rail--stop">
+        <span class="rail__label rail__label--from">程度</span>
+        <span class="rail__track"><span class="rail__fill"></span></span>
+        <span class="rail__label rail__label--to">これ以上進めない端</span>
+      </div>
+      <ul class="ex">
+        <li>
+          <p class="ex__en">It <b>couldn't be better</b>.</p>
+          <p class="ex__ja">これ以上よくなりようがない。＝最高だ。</p>
+        </li>
+        <li>
+          <p class="ex__en">I <b>couldn't agree more</b>.</p>
+          <p class="ex__ja">これ以上同意できない。＝まったくそのとおり。</p>
+        </li>
+        <li>
+          <p class="ex__en">Nothing <b>could be more important</b> than this.</p>
+          <p class="ex__ja">これより重要なものはない。</p>
+        </li>
+        <li>
+          <p class="ex__en">You <b>can't be too careful</b> when you drive.</p>
+          <p class="ex__ja">運転では、いくら注意してもしすぎることはない。</p>
+        </li>
+        <li>
+          <p class="ex__en">She <b>couldn't have been kinder</b> to us.</p>
+          <p class="ex__ja">彼女はこれ以上ないほど親切にしてくれた。（完了形なので、これは過去のこと）</p>
+        </li>
+      </ul>
+      <p class="note">
+        <span class="note__tag">ポイント</span>
+        <b>否定されているのは「さらに進めるかどうか」</b>であって、内容そのものではありません。
+        だから否定文なのに、意味は強い肯定（最高だ・完全に同意だ）になります。
+        訳すときは「これ以上〜ない」と一度置いてから、日本語らしく言い換えるのが安全です。
+      </p>
+    </article>
+
+    <article class="sense">
+      <div class="sense__head">
+        <span class="sense__num">II</span>
+        <h3 class="sense__ja">二重否定 ＝ 控えめな肯定</h3>
+        <p class="sense__form">not + <em>否定的な意味の語</em> / cannot ... without</p>
+      </div>
+      <ul class="ex">
+        <li>
+          <p class="ex__en">I <b>don't dislike</b> him.</p>
+          <p class="ex__ja">彼が嫌いというわけではない。（I like him. ほど強くない）</p>
+        </li>
+        <li>
+          <p class="ex__en">It is <b>not unusual</b> for him to be late.</p>
+          <p class="ex__ja">彼が遅れるのは珍しくない。</p>
+        </li>
+        <li>
+          <p class="ex__en">You <b>cannot</b> succeed <b>without</b> effort.</p>
+          <p class="ex__ja">努力なしには成功できない。＝成功には努力が要る。</p>
+        </li>
+        <li>
+          <p class="ex__en">There is <b>no</b> rule <b>without</b> exceptions.</p>
+          <p class="ex__ja">例外のない規則はない。</p>
+        </li>
+        <li>
+          <p class="ex__en"><b>Never fail to</b> lock the door.</p>
+          <p class="ex__ja">必ず戸締まりをしなさい。</p>
+        </li>
+      </ul>
+      <p class="note">
+        <span class="note__tag">ポイント</span>
+        こちらは<b>否定が否定的な内容そのものを打ち消して</b>、肯定に戻る形。
+        ただし、ふつうの肯定文よりも<b>控えめ</b>な言い方になります（緩叙法）。
+        「嫌いではない」は「好きだ」と同じではありません。
+      </p>
+      <p class="note note--warn">
+        <span class="note__tag">見分けの一点</span>
+        <b>not が何を否定しているか</b>を見ます。<em>could</em>（できる）を否定していれば限界の型、
+        <em>dislike / unusual / without</em> のような否定的な語を否定していれば二重否定です。
+      </p>
+    </article>
+
+    <article class="sense">
+      <div class="sense__head">
+        <span class="sense__num">III</span>
+        <h3 class="sense__ja">数量の no / not ＋ 比較級</h3>
+        <p class="sense__form">no / not + <em>more / less</em> + than + 数詞</p>
+      </div>
+      <ul class="qty">
+        <li>
+          <p class="qty__en">no more than ten</p>
+          <p class="qty__eq">= only ten</p>
+          <p class="qty__ja">たった10、せいぜい10（少なさへの驚き）</p>
+        </li>
+        <li>
+          <p class="qty__en">no less than ten</p>
+          <p class="qty__eq">= as many as ten</p>
+          <p class="qty__ja">なんと10も（多さへの驚き）</p>
+        </li>
+        <li class="is-not">
+          <p class="qty__en">not more than ten</p>
+          <p class="qty__eq">= at most ten</p>
+          <p class="qty__ja">多くても10（客観的な上限）</p>
+        </li>
+        <li class="is-not">
+          <p class="qty__en">not less than ten</p>
+          <p class="qty__eq">= at least ten</p>
+          <p class="qty__ja">少なくとも10（客観的な下限）</p>
+        </li>
+      </ul>
+      <p class="note">
+        <span class="note__tag">ポイント</span>
+        違いは<b>no か not か</b>の一点です。<b>no は話し手の主観</b>（「たった」「なんと」という驚き）、
+        <b>not は客観的な上限・下限</b>。
+        日本語訳より、<em>only / as many as / at most / at least</em> の<b>英語の言い換えで覚える</b>のがいちばん速く、
+        英作文でもそのまま使えます。
+      </p>
+    </article>
+
+    <article class="sense">
+      <div class="sense__head">
+        <span class="sense__num">IV</span>
+        <h3 class="sense__ja">no more A than B（いわゆるクジラ構文）</h3>
+        <p class="sense__form">A is no more ~ than B is</p>
+      </div>
+      <ul class="ex">
+        <li>
+          <p class="ex__en">A whale is <b>no more</b> a fish <b>than</b> a horse is.</p>
+          <p class="ex__ja">クジラが魚でないのは、馬が魚でないのと同じだ。（両方とも否定）</p>
+        </li>
+        <li>
+          <p class="ex__en">He is <b>no less</b> diligent <b>than</b> his brother.</p>
+          <p class="ex__ja">彼は兄に劣らず勤勉だ。（両方とも肯定）</p>
+        </li>
+      </ul>
+      <p class="note">
+        <span class="note__tag">ポイント</span>
+        <b>誰が見ても明らかな B</b> を持ち出して、「その差はゼロだ」と言う形。
+        差がゼロなので、B が違えば A も違う（no more）、B が優れていれば A も同じだけ優れている（no less）。
+        ここでも no は「差はまったくない」という<b>強調</b>として働いています。
+      </p>
+    </article>
+
+    <div class="sec-head"><h3>形から判別する</h3></div>
+    <ul class="decide">
+      <li>
+        <span class="decide__form">can't / couldn't + 比較級（比較の相手なし）</span>
+        <span class="decide__to">I 限界＝最上級</span>
+      </li>
+      <li>
+        <span class="decide__form">not + dislike / unusual / without <span>（否定的な語）</span></span>
+        <span class="decide__to">II 控えめな肯定</span>
+      </li>
+      <li>
+        <span class="decide__form">no more / no less + than + 数詞</span>
+        <span class="decide__to">III 主観（たった／なんと）</span>
+      </li>
+      <li>
+        <span class="decide__form">not more / not less + than + 数詞</span>
+        <span class="decide__to">III 客観（上限／下限）</span>
+      </li>
+      <li>
+        <span class="decide__form">no more A than B is <span>（比較の相手が文）</span></span>
+        <span class="decide__to">IV クジラ構文</span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ========== TAB 5 ========== -->
+  <section class="panel" id="quiz" role="tabpanel" aria-labelledby="tab-quiz" tabindex="0" hidden data-label="確認テスト">
+    <p class="panel__lede">太字（下線部）が何を表しているか答えてください。up to は 1〜5、now は A〜C、否定＋比較は I〜IV です。</p>
+    <ul class="quiz">
+      <li>
+        <p class="quiz__q">The theater can seat up to 1,200 people.</p>
+        <button class="quiz__btn" type="button">答えを見る</button>
+        <p class="quiz__a"><b>1 最大で〜まで</b>／その劇場は最大1,200人まで座れる。 ── 直後が数量。</p>
+      </li>
+      <li>
+        <p class="quiz__q">I'm not really up to a long walk today.</p>
+        <button class="quiz__btn" type="button">答えを見る</button>
+        <p class="quiz__a"><b>3 やれる・気力がある</b>／今日は長い散歩をする元気がない。 ── 主語が人＋名詞。</p>
+      </li>
+      <li>
+        <p class="quiz__q">It's up to you to decide when we leave.</p>
+        <button class="quiz__btn" type="button">答えを見る</button>
+        <p class="quiz__a"><b>4 〜次第・責任</b>／いつ出発するか決めるのは君だ。 ── It's up to 人 to do の形。</p>
+      </li>
+      <li>
+        <p class="quiz__q">What are you two up to over there?</p>
+        <button class="quiz__btn" type="button">答えを見る</button>
+        <p class="quiz__a"><b>5 たくらんで</b>／そこで二人、何をやってるんだ。 ── 主語が人＋what。</p>
+      </li>
+      <li>
+        <p class="quiz__q">The food here isn't up to the standard it used to be.</p>
+        <button class="quiz__btn" type="button">答えを見る</button>
+        <p class="quiz__a"><b>2 匹敵して</b>／ここの料理は昔の水準に達していない。 ── 主語がモノ＋standard。</p>
+      </li>
+      <li>
+        <p class="quiz__q">It was now clear that no one else was coming.</p>
+        <button class="quiz__btn" type="button">答えを見る</button>
+        <p class="quiz__a"><b>A 語りの現在</b>／もう誰も来ないことは、その時点ではっきりしていた。 ── was と now は矛盾しない。</p>
+      </li>
+      <li>
+        <p class="quiz__q">Now that the rent has gone up, we're thinking of moving.</p>
+        <button class="quiz__btn" type="button">答えを見る</button>
+        <p class="quiz__a"><b>C now that</b>／家賃が上がった今、引っ越しを考えている。 ── 新しい状況になったことが理由。</p>
+      </li>
+      <li>
+        <p class="quiz__q">Now, where were we?</p>
+        <button class="quiz__btn" type="button">答えを見る</button>
+        <p class="quiz__a"><b>B 話の切り替え</b>／さて、どこまで話しましたっけ。 ── 時間の意味はない。</p>
+      </li>
+      <li>
+        <p class="quiz__q">I couldn't agree more with what you said.</p>
+        <button class="quiz__btn" type="button">答えを見る</button>
+        <p class="quiz__a"><b>I 限界</b>／あなたの言うことにまったく同感だ。 ── これ以上同意できない＝最大限の同意。</p>
+      </li>
+      <li>
+        <p class="quiz__q">There were no less than fifty people at the meeting.</p>
+        <button class="quiz__btn" type="button">答えを見る</button>
+        <p class="quiz__a"><b>III 主観の no</b>／会議にはなんと50人もいた（＝as many as fifty）。 ── 多さへの驚き。</p>
+      </li>
+      <li>
+        <p class="quiz__q">The room holds not more than twenty people.</p>
+        <button class="quiz__btn" type="button">答えを見る</button>
+        <p class="quiz__a"><b>III 客観の not</b>／その部屋は多くても20人まで（＝at most twenty）。 ── 事実としての上限。</p>
+      </li>
+      <li>
+        <p class="quiz__q">It is not unusual for her to work late.</p>
+        <button class="quiz__btn" type="button">答えを見る</button>
+        <p class="quiz__a"><b>II 二重否定</b>／彼女が遅くまで働くのは珍しくない。 ── 否定的な語 unusual を否定した控えめな肯定。</p>
+      </li>
+    </ul>
+  </section>
+
+  </main>
+
+  <footer>
+    英文法ノート ／ be up to 〜・now の用法・否定＋比較 ── 到達・視点・限界
+  </footer>
+</div>
+
+<script>
+(function(){
+  /* ---- tabs ---- */
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+  var panels = tabs.map(function(t){ return document.getElementById(t.getAttribute('aria-controls')); });
+  var bar = document.querySelector('.tabs');
+  var main = document.querySelector('main');
+
+  function select(i, moveFocus){
+    tabs.forEach(function(t, j){
+      var on = (i === j);
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      if(panels[j]) panels[j].hidden = !on;
+    });
+    if(moveFocus) tabs[i].focus();
+  }
+
+  function alignTop(){
+    if(!main || !bar) return;
+    var y = main.getBoundingClientRect().top + window.pageYOffset - bar.offsetHeight - 8;
+    if(window.pageYOffset > y) window.scrollTo(0, y);
+  }
+
+  tabs.forEach(function(t, i){
+    t.addEventListener('click', function(){
+      select(i);
+      alignTop();
+      if(history.replaceState) history.replaceState(null, '', '#' + t.getAttribute('aria-controls'));
+    });
+    t.addEventListener('keydown', function(e){
+      var n = null;
+      if(e.key === 'ArrowRight') n = (i + 1) % tabs.length;
+      else if(e.key === 'ArrowLeft') n = (i - 1 + tabs.length) % tabs.length;
+      else if(e.key === 'Home') n = 0;
+      else if(e.key === 'End') n = tabs.length - 1;
+      if(n !== null){ e.preventDefault(); select(n, true); }
+    });
+  });
+
+  var start = 0, hash = location.hash.replace('#', '');
+  panels.forEach(function(p, i){ if(p && p.id === hash) start = i; });
+  select(start);
+
+  /* ---- quiz ---- */
+  Array.prototype.forEach.call(document.querySelectorAll('.quiz li'), function(li){
+    var btn = li.querySelector('.quiz__btn');
+    var ans = li.querySelector('.quiz__a');
+    if(!btn || !ans) return;
+    ans.hidden = true;
+    btn.setAttribute('aria-expanded', 'false');
+    btn.addEventListener('click', function(){
+      var open = ans.hidden;
+      ans.hidden = !open;
+      btn.setAttribute('aria-expanded', String(open));
+      btn.textContent = open ? '答えを閉じる' : '答えを見る';
+    });
+  });
+
+  /* ---- rails ---- */
+  var rails = document.querySelectorAll('.rail');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce || !('IntersectionObserver' in window)){
+    Array.prototype.forEach.call(rails, function(r){ r.classList.add('is-in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target); }
+    });
+  }, { threshold: .4 });
+  Array.prototype.forEach.call(rails, function(r){ io.observe(r); });
+})();
+</script>
+</body>
+</html>
