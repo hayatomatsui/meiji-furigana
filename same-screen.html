@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>同じ画面を見る</title>
+<meta name="description" content="Unreal Engine を Codex に操作させた事例から、ゲームが人とAIの架け橋になる条件と、その橋を渡れる人が限られる理由を読む。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="同じ画面を見る">
+<meta property="og:description" content="Unreal Engine を Codex に操作させた事例から、ゲームが人とAIの架け橋になる条件と、その橋を渡れる人が限られる理由を読む。">
+<meta property="og:url" content="https://hayatomatsui.github.io/meiji-furigana/same-screen.html">
+<meta name="twitter:card" content="summary">
+<style>
+*{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{margin:0;}
+img,svg{max-width:100%;}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@400;600;900&family=Zen+Kaku+Gothic+New:wght@500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+:root{
+  --ground:#F3F2F6;
+  --surface:#FFFFFF;
+  --ink:#191922;
+  --ink-soft:#3A3948;
+  --muted:#6C6A7E;
+  --rule:#DCDAE4;
+  --rule-soft:#E7E5EC;
+  --ember:#C05C2E;
+  --ember-wash:rgba(192,92,46,.09);
+  --indigo:#5A66A0;
+  --debug:#C6304A;
+
+  --serif:"Zen Old Mincho",'Hiragino Mincho ProN','Yu Mincho',serif;
+  --gothic:"Zen Kaku Gothic New",'Hiragino Sans','Yu Gothic',sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,'SFMono-Regular',Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#15151E;
+    --surface:#1C1C27;
+    --ink:#E9E7F1;
+    --ink-soft:#CBC8DA;
+    --muted:#918FA6;
+    --rule:#2E2E3D;
+    --rule-soft:#25252F;
+    --ember:#E2874A;
+    --ember-wash:rgba(226,135,74,.11);
+    --indigo:#8A94D0;
+    --debug:#F0566E;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#15151E;
+  --surface:#1C1C27;
+  --ink:#E9E7F1;
+  --ink-soft:#CBC8DA;
+  --muted:#918FA6;
+  --rule:#2E2E3D;
+  --rule-soft:#25252F;
+  --ember:#E2874A;
+  --ember-wash:rgba(226,135,74,.11);
+  --indigo:#8A94D0;
+  --debug:#F0566E;
+}
+
+body{
+  background:var(--ground);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:17px;
+  line-height:1.95;
+  -webkit-font-smoothing:antialiased;
+  padding:0 24px 96px;
+}
+.wrap{max-width:34rem;margin:0 auto;}
+
+/* ---------- title block ---------- */
+.masthead{padding:88px 0 0;}
+.kicker{
+  font-family:var(--gothic);font-weight:700;font-size:11px;
+  letter-spacing:.22em;color:var(--muted);
+  display:flex;align-items:center;gap:12px;margin-bottom:34px;
+}
+.kicker::after{content:"";flex:1;height:1px;background:var(--rule);}
+h1{
+  font-family:var(--serif);font-weight:900;
+  font-size:clamp(38px,8.5vw,54px);
+  line-height:1.28;letter-spacing:.02em;
+  text-wrap:balance;margin:0;
+}
+.deck{
+  font-size:16px;line-height:2.0;color:var(--ink-soft);
+  margin:30px 0 0;
+}
+.deck b{font-weight:600;color:var(--ink);}
+.rule-ember{height:2px;background:var(--ember);width:56px;margin:40px 0 0;}
+
+/* ---------- sections ---------- */
+section{margin-top:66px;}
+.eyebrow{
+  font-family:var(--gothic);font-weight:700;font-size:11px;
+  letter-spacing:.24em;color:var(--indigo);
+  display:flex;align-items:center;gap:11px;margin:0 0 14px;
+}
+.eyebrow::before{content:"";width:18px;height:1px;background:var(--indigo);flex:none;}
+h2{
+  font-family:var(--serif);font-weight:600;
+  font-size:26px;line-height:1.55;letter-spacing:.01em;
+  margin:0 0 26px;text-wrap:balance;
+}
+p{margin:0 0 1.5em;}
+p:last-child{margin-bottom:0;}
+strong{font-weight:600;color:var(--ink);background:linear-gradient(transparent 62%,var(--ember-wash) 62%);}
+.tech{font-family:var(--mono);font-size:.88em;font-weight:500;letter-spacing:.01em;}
+
+/* ---------- pull statement ---------- */
+.beat{
+  font-size:21px;line-height:1.85;font-weight:600;
+  border-left:2px solid var(--ember);
+  padding:2px 0 2px 22px;
+  margin:34px 0 34px;
+  color:var(--ink);
+}
+
+/* ---------- attributed paraphrase ---------- */
+.cite{
+  background:var(--surface);
+  border:1px solid var(--rule);
+  border-left:2px solid var(--indigo);
+  padding:22px 24px;margin:30px 0;
+  font-size:16px;line-height:1.9;
+}
+.cite .who{
+  display:block;font-family:var(--gothic);font-weight:500;
+  font-size:11.5px;letter-spacing:.14em;color:var(--muted);
+  margin-top:12px;
+}
+
+/* ---------- diagram ---------- */
+figure{margin:40px 0;}
+.diagram{
+  background:var(--surface);border:1px solid var(--rule);
+  padding:22px 16px 14px;overflow-x:auto;
+}
+.diagram svg{display:block;width:100%;height:auto;min-width:360px;}
+.diagram .frustum{fill:none;stroke:var(--indigo);stroke-width:1;}
+.diagram .eye{fill:var(--indigo);}
+.diagram .screen{fill:var(--ember-wash);stroke:var(--ember);stroke-width:1.5;}
+.diagram .scan{fill:none;stroke:var(--ember);stroke-width:1;opacity:.33;}
+.diagram .dlabel text{font-family:var(--gothic);font-size:13px;font-weight:700;fill:var(--ink);text-anchor:middle;}
+.diagram .dsub text{font-family:var(--gothic);font-size:11.5px;font-weight:500;fill:var(--muted);text-anchor:middle;letter-spacing:.12em;}
+figcaption{
+  font-family:var(--gothic);font-weight:500;font-size:12px;
+  line-height:1.8;color:var(--muted);margin-top:12px;letter-spacing:.02em;
+}
+
+/* ---------- takeaway list ---------- */
+ol.takeaway{list-style:none;padding:0;margin:30px 0;counter-reset:t;}
+ol.takeaway li{
+  counter-increment:t;position:relative;
+  padding:0 0 0 46px;margin-bottom:22px;
+  font-size:16.5px;line-height:1.9;
+}
+ol.takeaway li::before{
+  content:counter(t,cjk-ideographic);
+  position:absolute;left:0;top:0;
+  font-family:var(--serif);font-weight:600;font-size:15px;
+  color:var(--ember);
+  width:30px;height:30px;line-height:29px;text-align:center;
+  border:1px solid var(--ember);border-radius:50%;
+}
+
+/* ---------- debug-line aside ---------- */
+.debug-note{
+  border-top:1px solid var(--rule-soft);
+  border-bottom:1px solid var(--rule-soft);
+  padding:20px 0 20px 20px;margin:30px 0;
+  position:relative;font-size:15.5px;line-height:1.9;color:var(--ink-soft);
+}
+.debug-note::before{
+  content:"";position:absolute;left:0;top:20px;bottom:20px;
+  width:2px;background:var(--debug);
+}
+
+/* ---------- colophon ---------- */
+.colophon{
+  margin-top:78px;padding-top:26px;border-top:1px solid var(--rule);
+  font-family:var(--gothic);font-size:12.5px;line-height:2.0;color:var(--muted);
+}
+.colophon .lbl{
+  font-weight:700;letter-spacing:.2em;font-size:10.5px;
+  color:var(--indigo);display:block;margin-bottom:8px;
+}
+.colophon a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--rule);}
+.colophon a:hover{color:var(--ember);border-bottom-color:var(--ember);}
+a:focus-visible,.colophon a:focus-visible{outline:2px solid var(--ember);outline-offset:3px;}
+
+@media (max-width:520px){
+  body{font-size:16px;padding:0 20px 72px;}
+  .masthead{padding-top:60px;}
+  section{margin-top:52px;}
+  .beat{font-size:19px;}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+</style>
+
+<div class="wrap">
+
+<header class="masthead">
+  <div class="kicker">2026.08.24 ／ 読解ノート</div>
+  <h1>同じ画面を見る</h1>
+  <p class="deck">Unreal Engine を AI に操作させたら、<b>5時間で戦闘シーンができた</b>。技術の話として読むと、いちばん重要なものを取り落とす。ゲームは、人とAIが「それ」と指させる最初の場所になりつつある。ただし、橋を渡れる人は限られている。</p>
+  <div class="rule-ember"></div>
+</header>
+
+<section>
+  <div class="eyebrow">観察</div>
+  <h2>5時間で起きたこと</h2>
+  <p>新清士氏が ASCII.jp で書いている。Epic Games のゲームエンジン <span class="tech">Unreal Engine 5.8</span> に、AI からアプリケーションを操作するための <span class="tech">MCP</span>（Model Context Protocol）が実験機能として入った。氏はそれを OpenAI の <span class="tech">Codex</span> から叩き、ロボットと戦車が戦うイベントシーンを作った。所要時間、約5時間。</p>
+  <p>内訳が面白い。1枚の画像から3Dモデルを起こし、Blender でパーツを分割して簡易アニメーションを付け、UE5 の <span class="tech">Sequencer</span> で動きを制御し、<span class="tech">Niagara</span> で炎と煙のエフェクトを作り、戦車にサーチライトを載せ、砲撃と爆発とレーザーを足していく。空全体を夕方にして、遠景にフォグをかける。</p>
+  <p>このうち、氏が自分の手で操作したのは<strong>オブジェクトの配置だけ</strong>だ。Blender も Niagara も、開いてすらいない。Niagara の中身はまったく理解していないと本人が書いている。</p>
+  <div class="debug-note">
+    途中、どうしても消えないデバッグ表示の赤い線が画面に残った。原因がわからず、AI に探らせた。Codex は UE5 のソースコードまで読み込み、1時間で Niagara の仕様に原因を特定している。氏は、人間が調べれば何日もかかる種類の問題だったと書いている。
+  </div>
+  <p>技術的にはこれで十分すごい。だが、この記事の価値はそこではないと思う。</p>
+</section>
+
+<section>
+  <div class="eyebrow">環境</div>
+  <h2>ゲームは「現実マイナス2」である</h2>
+  <p>前提をひとつ整理しておきたい。</p>
+  <p>「ゲームは現実に近いからAIが得意だ」とよく言われる。半分正しく、半分ずれている。正確には、ゲームは現実に近いのではない。<strong>現実から2つのものを引いたもの</strong>だ。</p>
+  <p>引かれているのは、<strong>観測コスト</strong>と<strong>不可逆性</strong>である。</p>
+  <p>現実世界では、いま何が起きているかを知ること自体に金と時間がかかる。ゲームエンジンの中では、全オブジェクトの位置も速度もマテリアルも光量も、すべて数値として露出している。観測コストはほぼゼロ。</p>
+  <p>現実世界では、失敗が残る。ゲームエンジンの中では消える。不可逆性がない。</p>
+  <p>そして、この2つを引いてもなお、<strong>空間と物理と因果の構造は現実と同型のまま残る</strong>。だからそこで得たものは現実へ転移しうる。ロボティクスの Sim2Real が成立するのは、この構造のおかげだ。</p>
+  <p>ここまでは、AIの側から見た話である。だが見落としてはいけないのは、引かれたその2つが、<strong>人間が何かを学べるための条件でもある</strong>ということだ。安全に失敗できない場所で徒弟は育たない。観測できないものから人は学べない。</p>
+  <div class="beat">ゲームは、人とAIが同じ条件下で動ける、いまのところほとんど唯一の環境である。</div>
+  <p>「架け橋として有望だ」という直感の根拠は、おそらくここにある。</p>
+</section>
+
+<section>
+  <div class="eyebrow">本題</div>
+  <h2>橋げたは言語ではなく、画面である</h2>
+  <p>ただし、本当に効いているのはもう一段先だ。</p>
+  <p>新氏の作業ループを見てほしい。Codex は手順を Python スクリプトとして書き出し、UE5 に渡して実行する。結果をスクリーンショットで撮る。その画像を見て、意図どおりかを自分で判定する。そして人間も、<strong>同じ画像を見て</strong>判断する。</p>
+  <p>ここで起きているのは、単なる自動化ではない。<strong>共同注意</strong>（joint attention）だ。</p>
+  <p>トマセロは、人間の認知が他の霊長類から分岐した起点を、この能力に置いた。同じものを見て、指さして、「それ」で通じ合う。言語はそのあとに来る。共同注意が先で、言語は後だ。</p>
+  <p>テキストだけの対話には、これがない。言語は<strong>指示</strong>を運べる。だが<strong>指示対象</strong>を共有できない。「もう少し暗く」と言ったとき、私の頭の中の暗さとAIの頭の中の暗さが一致しているかどうかを、確かめる手段がない。</p>
+  <p>ゲームエンジンは、そこに参照点を置く。画面がある。両者が同じ画面を見る。「そこ」と指させる。</p>
+
+  <figure>
+    <div class="diagram">
+      <svg viewBox="0 0 560 210" role="img" aria-label="左の「人」と右の「AI」から伸びた二つの視錐台が、中央のひとつの画面で重なる図">
+        <g class="frustum">
+          <path d="M46 105 L210 48 M46 105 L210 162"/>
+          <path d="M514 105 L350 48 M514 105 L350 162"/>
+        </g>
+        <circle class="eye" cx="46" cy="105" r="4"/>
+        <circle class="eye" cx="514" cy="105" r="4"/>
+        <rect class="screen" x="210" y="48" width="140" height="114"/>
+        <g class="scan">
+          <path d="M210 76 H350 M210 105 H350 M210 134 H350"/>
+        </g>
+        <g class="dlabel">
+          <text x="46" y="134">人</text>
+          <text x="514" y="134">AI</text>
+        </g>
+        <g class="dsub">
+          <text x="46" y="153">判断する</text>
+          <text x="514" y="153">操作する</text>
+          <text x="280" y="184">同じ画面</text>
+        </g>
+      </svg>
+    </div>
+    <figcaption>視錐台（frustum）はゲームエンジンの語彙そのものだ。カメラが世界を切り取る四角錐。二つの錐が同じ矩形で重なるとき、はじめて「それ」が通じる。</figcaption>
+  </figure>
+
+  <p>これが「架け橋」の実体だと思う。橋げたは言語ではない。<strong>画面のほう</strong>だ。</p>
+</section>
+
+<section>
+  <div class="eyebrow">条件</div>
+  <h2>渡れるのは、向こう岸を知っている人だけ</h2>
+  <p>しかし同じ記事に、これを打ち消しかねない一文がある。</p>
+  <div class="cite">
+    UE5 向けの MCP で何ができるかは、UE5 自体にどんな機能があるのかを理解していなければ、そもそも指示すること自体ができない——これは、いまから UE5 を使い始める人にとって課題になりそうだ。
+    <span class="who">新清士（要約）</span>
+  </div>
+  <p>具体的に考えるとわかりやすい。氏は Niagara を開いていない。中身も理解していない。だが<strong>「Niagara で炎を」と言うことはできた</strong>。Niagara というものが存在し、それがエフェクトを作る道具だと知っていたからだ。</p>
+  <p>知らない人は、その一文が言えない。</p>
+  <p>新氏は UE を使ったゲーム開発プロジェクトを3本経験している。VRゲームの開発を主導し、デジタルハリウッド大学院で教えている人物だ。だから指示できた。</p>
+  <div class="beat">橋は架かった。しかし渡れるのは、向こう岸に何があるかをすでに知っている人だけだ。</div>
+  <p>これは私がいま書いている本の中心的な論点と、正確に重なる。AIが奪ったのは仕事ではない。<strong>徒弟期間</strong>のほうだ。</p>
+  <p>かつて Niagara を覚える過程はこうだった。ドキュメントを読み、パラメータの意味がわからず1日つぶし、他人のサンプルを分解し、失敗を10回重ねて、ようやく炎が出る。その苦痛の全体が、「Niagara とは何であり、何ができ、どこが難しいか」という地図を、頭の中に描いていた。</p>
+  <p>いまは、その過程が5分に圧縮される。炎は出る。地図は描かれない。</p>
+  <p>ただし、ここは正確に言っておく必要がある。デバッグ線の一件が示すとおり、必要な地図の<strong>解像度は確実に下がった</strong>。Niagara の内部仕様まで知る必要はもうない。「赤い線が消えない」と言えれば足りる。</p>
+  <p>下がったが、ゼロにはならない。<strong>名前は知っていなければならない</strong>。地図の縮尺は粗くてよくなったが、地図そのものは依然として要る。そして地図を描いていたのは、圧縮されて消えたあの過程のほうだった。</p>
+  <p>これは能力の問題ではない。<strong>経路の問題</strong>である。</p>
+</section>
+
+<section>
+  <div class="eyebrow">副産物</div>
+  <h2>目的は、あとから生まれてくる</h2>
+  <p>もうひとつ、拾い損ねると惜しい記述がある。</p>
+  <p>記事の中で、同じ構文が二度あらわれる。炎と煙のエフェクトを足したくなる場面と、戦車に発砲させたくなる場面。どちらも<strong>「こうなると……したくなる」</strong>という形をしている。</p>
+  <p>目的が先にあって、それを実現したのではない。<strong>できることが増えたから、欲望があとから生まれている</strong>。</p>
+  <p>これはサラスバシーがエフェクチュエーションと呼んだものの、教科書的な実例だと言っていい。手持ちの手段から始める（means-driven）。やっているうちに目的そのものが変質する（transformation）。5時間という数字も、許容可能な損失（affordable loss）の実測値として読める。</p>
+  <p>そしてこれは、フーコーの権力論に直で接続する。<strong>権力は奪うものではなく、作り出すもの</strong>だという線だ。能力が増えると、その能力に対応した欲望が生成される。新氏は「戦車を発砲させたい」と最初から思っていたわけではない。<strong>発砲させられるとわかった瞬間に、思うようになった</strong>。</p>
+  <div class="beat">道具は、目的を叶えるためだけにあるのではない。目的そのものを生産する。</div>
+</section>
+
+<section>
+  <div class="eyebrow">残る問い</div>
+  <h2>橋は、まだ片側からしか架かっていない</h2>
+  <p>この記事から取り出せるものは、三つある。</p>
+  <ol class="takeaway">
+    <li>ゲームは、人とAIが同じ条件で動ける環境である。観測コストと不可逆性が引かれ、構造だけが現実と同型のまま残っているからだ。</li>
+    <li>ゲームエンジンは、人とAIのあいだに共同注意を成立させる。橋げたは言語ではなく、画面である。</li>
+    <li>しかしその橋を渡るには、向こう岸の地図が要る。地図を描いていたのは、AIが圧縮してしまった徒弟期間のほうだった。</li>
+  </ol>
+  <p>三番目が、いちばん厄介だと思う。</p>
+  <p>橋の技術的な部分は、放っておいても改善する。MCP はまだ実験機能で、UE5 のごく一部にしか手が届かない。これは1年で解ける種類の問題だ。</p>
+  <p>解けないのは、<strong>地図をどう描かせるか</strong>のほうである。苦労を経ずに地図を得る経路を、設計できるのか。それとも、地図を持つ最後の世代がいなくなった時点で、橋は誰にも渡れなくなるのか。</p>
+  <p>ゲームが人とAIの架け橋になるという直感は、正しいと思う。安全に失敗でき、すべてが観測でき、それでいて現実と同じ形をしている場所は、ほかにない。学びの条件と、AIの得意条件が、ここで一度だけ重なっている。</p>
+  <p>ただしその橋は、いまのところ<strong>片側からしか架かっていない</strong>。向こう岸に立てる人が、まだ橋を必要としない世代だけだからだ。</p>
+</section>
+
+<div class="colophon">
+  <span class="lbl">出典</span>
+  新清士「『うわ、すげえ！』Unreal Engine を Codex に操作させたら制作の常識が変わった」<br>
+  ASCII.jp 連載「メタバース・プレゼンス」第170回、2026年8月24日<br>
+  <a href="https://ascii.jp/elem/000/004/428/4428658/">ascii.jp/elem/000/004/428/4428658/</a>
+</div>
+
+</div>
+</body>
+</html>
