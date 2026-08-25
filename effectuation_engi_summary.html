@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>エフェクチュエーションを縁起論から再解釈する</title>
+  <style>
+    :root{
+      --bg:#f6f2ea;
+      --paper:#fffdf8;
+      --ink:#1f2a2e;
+      --muted:#657277;
+      --line:#d9d1c3;
+      --accent:#8b3a2b;
+      --accent2:#225c5a;
+      --soft:#efe7da;
+      --soft2:#e8f0ee;
+      --gold:#b4893b;
+      --shadow:0 10px 30px rgba(31,42,46,.08);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",YuGothic,
+      "Noto Sans JP","Segoe UI",sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 15% 0%, rgba(180,137,59,.10), transparent 28rem),
+        radial-gradient(circle at 92% 8%, rgba(34,92,90,.08), transparent 24rem),
+        var(--bg);
+      line-height:1.85;
+    }
+    a{color:inherit}
+    .wrap{width:min(1100px,92vw);margin:auto}
+    header{
+      padding:74px 0 42px;
+      border-bottom:1px solid var(--line);
+    }
+    .eyebrow{
+      color:var(--accent);
+      font-weight:800;
+      letter-spacing:.12em;
+      font-size:.82rem;
+      text-transform:uppercase;
+    }
+    h1{
+      font-size:clamp(2.15rem,5vw,4.7rem);
+      line-height:1.08;
+      letter-spacing:-.045em;
+      margin:.45rem 0 1.1rem;
+      max-width:980px;
+    }
+    .lead{
+      max-width:900px;
+      font-size:clamp(1.05rem,2vw,1.35rem);
+      color:#3f4a4e;
+    }
+    .thesis{
+      margin-top:28px;
+      padding:22px 24px;
+      background:linear-gradient(135deg,#fff8ec,#f2eee7);
+      border-left:5px solid var(--gold);
+      border-radius:14px;
+      box-shadow:var(--shadow);
+      font-size:1.08rem;
+    }
+    nav{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter:blur(12px);
+      background:rgba(246,242,234,.86);
+      border-bottom:1px solid rgba(217,209,195,.85);
+    }
+    nav .wrap{
+      display:flex; gap:18px; overflow:auto; padding:12px 0;
+      scrollbar-width:none;
+    }
+    nav a{
+      text-decoration:none; white-space:nowrap;
+      font-size:.9rem; font-weight:700; color:#465357;
+    }
+    nav a:hover{color:var(--accent)}
+    main{padding:34px 0 78px}
+    section{
+      margin:54px 0;
+      scroll-margin-top:70px;
+    }
+    h2{
+      font-size:clamp(1.5rem,3vw,2.3rem);
+      line-height:1.35;
+      margin:0 0 18px;
+      letter-spacing:-.02em;
+    }
+    h3{
+      font-size:1.2rem;
+      margin:28px 0 10px;
+    }
+    p{margin:0 0 1em}
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:18px;
+    }
+    .card{
+      background:var(--paper);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:22px;
+      box-shadow:var(--shadow);
+    }
+    .card h3{margin-top:0}
+    .badge{
+      display:inline-block;
+      padding:4px 10px;
+      border-radius:999px;
+      font-weight:800;
+      font-size:.78rem;
+      background:var(--soft);
+      color:var(--accent);
+      margin-bottom:10px;
+    }
+    .badge.green{
+      background:var(--soft2);
+      color:var(--accent2);
+    }
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      background:var(--paper);
+      border:1px solid var(--line);
+      border-radius:16px;
+      box-shadow:var(--shadow);
+    }
+    th,td{
+      padding:14px 15px;
+      vertical-align:top;
+      border-bottom:1px solid var(--line);
+    }
+    tr:last-child td{border-bottom:none}
+    th{
+      background:#eee5d7;
+      text-align:left;
+      font-size:.94rem;
+    }
+    th:nth-child(2){background:#e3efec}
+    td:first-child{width:50%}
+    .formula{
+      margin:20px 0;
+      padding:18px 20px;
+      border-radius:14px;
+      background:#20292c;
+      color:#fff;
+      font-size:clamp(1rem,2vw,1.25rem);
+      text-align:center;
+      letter-spacing:.01em;
+    }
+    .formula span{color:#f3cf87}
+    .arrow{
+      text-align:center;
+      color:var(--muted);
+      font-weight:800;
+      margin:.2rem 0;
+    }
+    .quote{
+      padding:18px 22px;
+      border-left:5px solid var(--accent2);
+      background:#edf4f2;
+      border-radius:0 14px 14px 0;
+      font-size:1.08rem;
+      margin:22px 0;
+    }
+    .steps{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:12px;
+      margin-top:18px;
+    }
+    .step{
+      padding:18px 14px;
+      text-align:center;
+      border-radius:14px;
+      background:var(--paper);
+      border:1px solid var(--line);
+    }
+    .step b{
+      display:block;
+      color:var(--accent2);
+      font-size:1.05rem;
+      margin-bottom:4px;
+    }
+    .warn{
+      background:#fff6ef;
+      border:1px solid #e4c6b2;
+      border-radius:16px;
+      padding:20px;
+    }
+    .key{
+      background:linear-gradient(135deg,#edf4f2,#fffdf8);
+      border:1px solid #cbdcd7;
+      border-radius:18px;
+      padding:24px;
+      box-shadow:var(--shadow);
+    }
+    .key strong{color:var(--accent2)}
+    .small{font-size:.92rem;color:var(--muted)}
+    .footer{
+      border-top:1px solid var(--line);
+      padding:28px 0 50px;
+      color:var(--muted);
+      font-size:.9rem;
+    }
+    @media(max-width:760px){
+      header{padding-top:48px}
+      .grid{grid-template-columns:1fr}
+      .steps{grid-template-columns:1fr 1fr}
+      th,td{padding:12px 10px;font-size:.91rem}
+    }
+    @media(max-width:470px){
+      .steps{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="eyebrow">Effectuation × Dependent Origination</div>
+      <h1>エフェクチュエーションを<br>「縁起」から再解釈する</h1>
+      <p class="lead">
+        「アンチ合理性」ではなく、合理的計算が成立するための前提を問い直す。
+        そのうえで、縁起の核心である <strong>無自性</strong> を手がかりに、
+        目的・資源・機会・起業家を「関係に先立つ固定的な実体」として扱わない戦略論を考える。
+      </p>
+      <div class="thesis">
+        <strong>中心命題：</strong>
+        因果的戦略が「所与の目的に向けて既知の変数を最適化する」論理だとすれば、
+        エフェクチュエーションは「関係を通じて目的・資源・可能性そのものを生成し続ける」論理として読める。
+      </div>
+    </div>
+  </header>
+
+  <nav>
+    <div class="wrap">
+      <a href="#rationality">1. 合理性の前提</a>
+      <a href="#sunyata">2. 無自性</a>
+      <a href="#sleep">3. 睡眠の比喩</a>
+      <a href="#contrast">4. 対比</a>
+      <a href="#rbv">5. RBV / VRIN</a>
+      <a href="#thesis">6. 理論化</a>
+      <a href="#cautions">7. 注意点</a>
+    </div>
+  </nav>
+
+  <main class="wrap">
+
+    <section id="rationality">
+      <h2>1. 「アンチ合理性」ではなく、合理性の前提を問う</h2>
+      <p>
+        エフェクチュエーションを「非合理」「反合理」と置くと、
+        「では合理的に考えるべきではないのか」という防御的な議論に入りやすい。
+        より鋭いのは、標準的な合理性が暗黙に置いている前提を特定することである。
+      </p>
+      <div class="grid">
+        <div class="card">
+          <span class="badge">Causation</span>
+          <h3>目的が入力である</h3>
+          <p>
+            目的関数が先にあり、そこから最適な手段を逆算する。
+            期待効用最大化、ポジショニング、一般的な計画論はこの形式を取りやすい。
+          </p>
+        </div>
+        <div class="card">
+          <span class="badge green">Effectuation</span>
+          <h3>目的も出力になりうる</h3>
+          <p>
+            ナイト的不確実性のもとでは、確率分布も結果集合も十分に書けない。
+            そのため問題は「最適化しない」ことではなく、
+            <strong>そもそも最適化の前提が成立していない</strong>ことにある。
+          </p>
+        </div>
+      </div>
+      <div class="formula">
+        <span>Goal → Means → Action → Result</span>
+        &nbsp;ではなく&nbsp;
+        <span>Means → Interaction → Commitment → New Means / New Goals</span>
+      </div>
+    </section>
+
+    <section id="sunyata">
+      <h2>2. 縁起が独自に貢献できる論点：無自性</h2>
+      <p>
+        「創発」「複雑系」「センスメイキング」だけでも、相互作用から新しい性質が生まれることは説明できる。
+        そこでなお縁起を使う理由を示すには、<strong>無自性</strong> が鍵になる。
+      </p>
+      <div class="quote">
+        関係する前から、対象が固定的な意味・価値・本質を持っているのではない。
+        <strong>関係の中で、あるものが「資源」「機会」「起業家」「目的」として立ち現れる。</strong>
+      </div>
+      <p>
+        この観点では、Bird-in-Hand は単なる「保有資源の棚卸し」ではなくなる。
+        技術、経験、人脈、属性は、それ自体で資源なのではなく、
+        他者との関係や状況の中で初めて「使える手段」として成立する。
+      </p>
+      <div class="formula">
+        資源がある → 関係に投入する
+        &nbsp;ではなく&nbsp;
+        <span>関係が、あるものを「資源として」成立させる</span>
+      </div>
+    </section>
+
+    <section id="sleep">
+      <h2>3. 睡眠研究が与える、縁起的な記憶観の比喩</h2>
+      <p>
+        睡眠は、単純に「強い記憶をさらに強くする装置」として働くのではない。
+        議論で参照された睡眠研究は、次のような働きを示す。
+      </p>
+      <div class="steps">
+        <div class="step"><b>選ぶ</b>弱い結びつきを優先する</div>
+        <div class="step"><b>つなぐ</b>未学習の関係を推論可能にする</div>
+        <div class="step"><b>意味づける</b>感情・報酬に応じて優先する</div>
+        <div class="step"><b>守る</b>新しい情報からの干渉に耐える</div>
+      </div>
+
+      <h3>A-B / B-C から A-C が立ち上がる</h3>
+      <p>
+        教えられた個々の記憶をただ保持するだけでなく、
+        要素間の関係が再編成されることで、直接教えられていない関係まで推論できるようになる。
+        ここに「投入した地点からだけ回収する」のではない、生成的な構造が見える。
+      </p>
+
+      <div class="key">
+        <strong>重要な読み替え：</strong><br>
+        記憶の「強さ」は、項目単体の属性というより、
+        他の記憶・感情・報酬・干渉・時間経過との関係の中で決まるものとして考えられる。
+        ただし、これは無自性そのものの実証ではなく、
+        <strong>無自性的な記憶観を考えるための示唆的なアナロジー</strong> として扱うのが安全である。
+      </div>
+    </section>
+
+    <section id="contrast">
+      <h2>4. 「プラスを強化／マイナスを管理」以外の対比</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>因果的・最適化的な発想</th>
+            <th>エフェクチュエーション／縁起的な発想</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>属性を強化する</td><td>関係を組み替える</td></tr>
+          <tr><td>目的を所与とする</td><td>目的も過程から生成される</td></tr>
+          <tr><td>既存の選択肢から最適解を選ぶ</td><td>新しい選択肢そのものを生成する</td></tr>
+          <tr><td>水準の高いものに投じる</td><td>可塑性・変化余地の大きいところに投じる</td></tr>
+          <tr><td>投じた場所から回収する</td><td>投じていない場所にも価値が立ち上がる</td></tr>
+          <tr><td>将来予測で選別する</td><td>履歴・現在の関係・痕跡から選別する</td></tr>
+          <tr><td>平常時の期待値を高める</td><td>異常時の頑健性・レジリエンスを高める</td></tr>
+          <tr><td>ノイズや偶然を減らす</td><td>偶然を新しい関係の材料にする</td></tr>
+          <tr><td>performance</td><td>resilience / generativity</td></tr>
+        </tbody>
+      </table>
+
+      <h3>「プラスを強化／マイナスを管理」は、帰結として残せる</h3>
+      <p>
+        Expected Return に対する Affordable Loss という対比は依然として有効である。
+        ただし、それを全体の中心命題にすると、エフェクチュエーションが「守りの戦略」に見えやすい。
+        Crazy Quilt や Lemonade Principle の生成性まで含めるなら、
+        より上位には「最大化」対「生成可能性の維持」という対比を置く方が強い。
+      </p>
+    </section>
+
+    <section id="rbv">
+      <h2>5. RBV / VRIN と無自性</h2>
+      <div class="grid">
+        <div class="card">
+          <span class="badge">RBV</span>
+          <h3>Resource-Based View</h3>
+          <p>
+            競争優位の源泉を、業界構造よりも企業内部の資源・能力に求める戦略論。
+            代表的には Jay Barney の議論が知られる。
+          </p>
+        </div>
+        <div class="card">
+          <span class="badge green">VRIN</span>
+          <h3>持続的優位の4条件</h3>
+          <p>
+            <strong>V</strong>aluable /
+            <strong>R</strong>are /
+            <strong>I</strong>nimitable /
+            <strong>N</strong>on-substitutable。
+            後には VRIO の整理も広く使われる。
+          </p>
+        </div>
+      </div>
+
+      <h3>縁起からの批判は「資源の価値が内在する」という語りを疑う</h3>
+      <p>
+        ただし、「RBV は資源に自性を認めている」と断定するのは強すぎる。
+        Valuable は市場や顧客との関係で決まるため、RBV 自体にも関係依存的な側面がある。
+        したがって批判対象は、RBV 全体ではなく、
+        <strong>資源を関係に先立って識別可能な比較的安定した単位として扱う傾向</strong>
+        ——いわば <em>resource-as-thing</em> ——とする方が精密である。
+      </p>
+
+      <div class="quote">
+        「資源の価値が関係によって変わる」だけでは弱い。<br>
+        より強い主張は、<strong>関係から独立した「資源としての意味」そのものが、はじめから確定しているわけではない</strong>ということである。
+      </div>
+    </section>
+
+    <section id="thesis">
+      <h2>6. 理論の核：「最大化」ではなく「生成可能性を失わない」</h2>
+      <p>
+        エフェクチュエーションの複数原理を一つに束ねるなら、
+        「未来の可能性を早々に閉じない」という見方が有力である。
+      </p>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Affordable Loss</h3>
+          <p>致命傷を避け、失敗しても次の一手を打てる状態を残す。</p>
+        </div>
+        <div class="card">
+          <h3>Crazy Quilt</h3>
+          <p>他者とのコミットメントを通じて、新しい手段と目的を生成する。</p>
+        </div>
+        <div class="card">
+          <h3>Lemonade</h3>
+          <p>予期せぬ出来事を排除せず、予定外の可能性へ変換する。</p>
+        </div>
+        <div class="card">
+          <h3>Bird-in-Hand</h3>
+          <p>「持っているもの」を固定資産ではなく、関係の中で意味を変えうる素材として扱う。</p>
+        </div>
+      </div>
+
+      <div class="formula">
+        causation = <span>optimization</span>
+        &nbsp;&nbsp;／&nbsp;&nbsp;
+        effectuation = <span>maintaining generativity</span>
+      </div>
+
+      <div class="key">
+        <strong>一歩先の命題：</strong><br>
+        「目的は入力ではなく出力である」だけではない。<br>
+        <strong>資源もまた、固定的な入力ではなく、関係の中から出力される。</strong><br><br>
+        さらに言えば、機会も起業家も、関係に先立つ完成された実体としてではなく、
+        相互作用のなかで輪郭を持つものとして考えられる。
+      </div>
+    </section>
+
+    <section id="cautions">
+      <h2>7. 学術的に重要な注意点</h2>
+      <div class="warn">
+        <h3>① 「因果論 vs 縁起論」と単純対立させない</h3>
+        <p>
+          縁起は dependent origination と訳され、因果性の一形態として論じられることも多い。
+          龍樹の論点も「因果はない」ではなく「自性はない」にある。
+          そのため、対立軸は
+          <strong>実体論 vs 関係論</strong>、
+          <strong>線形因果 vs 相互生起</strong>、
+          <strong>最適化 vs 生成可能性</strong>
+          とした方が安全である。
+        </p>
+
+        <h3>② 「東洋 vs 西洋」にしない</h3>
+        <p>
+          批判対象は「西洋思想」一般ではなく、
+          戦略論の一部が歴史的に採用してきた分析前提である。
+          そうすることで、縁起は装飾的な文化比較ではなく、理論的な分析装置になる。
+        </p>
+
+        <h3>③ 睡眠研究は証明ではなくアナロジーとして使う</h3>
+        <p>
+          睡眠研究が直接に「無自性」を証明しているわけではない。
+          しかし、個体属性だけでなく関係・配置・干渉・履歴が結果を左右するという点で、
+          縁起的なモデルを説明する非常に良い補助線になる。
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>まとめ</h2>
+      <div class="thesis">
+        <strong>因果的戦略</strong>は、既知の目的に向けて、
+        既知の要素の値を高め、成果を最大化する。<br><br>
+        <strong>縁起的に読み替えたエフェクチュエーション</strong>は、
+        目的・資源・機会を固定物として扱わず、
+        関係を組み替えながら、次の可能性が生まれる条件を維持する。<br><br>
+        したがって、その核心は「マイナスを管理する」ことだけではなく、
+        <strong>意味を確定しすぎず、未来を閉じず、関係から新しい現実が立ち上がる余地を残すこと</strong>
+        にある。
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      このHTMLは、エフェクチュエーション、縁起・無自性、RBV/VRIN、および睡眠と記憶の議論を統合して整理した研究メモです。
+    </div>
+  </footer>
+</body>
+</html>
