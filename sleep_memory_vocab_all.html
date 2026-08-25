@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>単語・熟語 総合リスト｜Sleep and Memory Consolidation</title>
+<style>
+:root{
+  --g3:#4CAF50; --g3p:#8BC34A; --g2:#03A9F4; --g2p:#7E57C2; --g1:#E91E63; --gx:#F44336;
+  --tw:#ff6a3d; --ti:#1668c7;
+  --bg:#f4f6fb; --card:#fff; --ink:#1b2233; --sub:#6b7590;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+  background:var(--bg);color:var(--ink);padding:18px;line-height:1.65}
+.wrap{max-width:1180px;margin:0 auto}
+header{background:linear-gradient(135deg,#3949ab,#5e35b1 45%,#00897b);color:#fff;
+  border-radius:18px;padding:26px 24px;margin-bottom:18px;box-shadow:0 8px 26px rgba(94,53,177,.25)}
+header h1{font-size:1.4rem;margin-bottom:6px}
+header p{opacity:.94;font-size:.87rem}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:15px}
+.stat{background:rgba(255,255,255,.22);border-radius:12px;padding:8px 14px;font-size:.8rem}
+.stat b{font-size:1.15rem;display:block}
+h2{font-size:1.03rem;margin:24px 0 10px;padding-left:12px;border-left:5px solid #5e35b1}
+
+.ansbox{background:#fff;border-radius:14px;padding:16px 18px;box-shadow:0 2px 10px rgba(0,0,0,.07)}
+.ansgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:10px;margin-top:10px}
+.acard{border:2px solid #eef1f6;border-radius:12px;padding:11px 13px;cursor:pointer;user-select:none;transition:.15s}
+.acard:hover{border-color:#5e35b1}
+.acard .n{font-size:.74rem;color:var(--sub);font-weight:800}
+.acard .a{font-size:.92rem;font-weight:800;color:#4527a0;margin-top:3px}
+.acard .k{font-size:.73rem;color:var(--sub);margin-top:4px;font-weight:400}
+.acard.hid .a,.acard.hid .k{filter:blur(7px)}
+
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 14px}
+.lbl{font-size:.72rem;color:var(--sub);font-weight:700;margin-right:2px}
+button{font-family:inherit;cursor:pointer;border:none;border-radius:999px;padding:8px 15px;
+  font-size:.82rem;font-weight:700;transition:.15s;background:#fff;color:var(--sub);
+  box-shadow:0 2px 6px rgba(0,0,0,.08)}
+button:hover{transform:translateY(-1px)}
+button.on{background:#1b2233;color:#fff}
+.util{background:#ede7f6;color:#4527a0}
+.sw{display:inline-flex;background:#fff;border-radius:999px;padding:4px;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.sw button{box-shadow:none;padding:8px 18px}
+.sw button.on{background:linear-gradient(135deg,#5e35b1,#00897b);color:#fff}
+.spacer{flex:1}
+
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;
+  box-shadow:0 2px 10px rgba(0,0,0,.07)}
+th,td{padding:10px 13px;text-align:left;border-bottom:1px solid #eef1f6;font-size:.87rem;vertical-align:top}
+th{background:#1b2233;color:#fff;font-size:.76rem;letter-spacing:.04em;position:sticky;top:0;z-index:2}
+tbody tr:nth-child(even){background:#fafbfe}
+tbody tr:hover{background:#f2eeff}
+tbody tr.done{opacity:.4}
+td.ph{font-weight:700}
+td.mn{cursor:pointer}
+tr.hid td.mn,tr.hid td.exc{filter:blur(5px);opacity:.5}
+td.exc{color:#5c6580;font-style:italic;font-size:.79rem}
+td.ln{color:#aab2c4;font-size:.75rem;white-space:nowrap}
+.mark{cursor:pointer;color:#c9cfdd;font-weight:800;user-select:none}
+tr.done .mark{color:#4CAF50}
+.bar{height:9px;border-radius:5px;display:inline-block;vertical-align:middle;margin-right:8px}
+.sumtbl td,.sumtbl th{font-size:.85rem}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:12px}
+.card{background:var(--card);border-radius:14px;padding:14px 16px;cursor:pointer;
+  box-shadow:0 2px 8px rgba(0,0,0,.07);border-left:6px solid #ccc;transition:.18s;
+  position:relative;user-select:none}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.12)}
+.card.done{opacity:.42}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.phrase{font-size:1.05rem;font-weight:700}
+.badge{font-size:.65rem;font-weight:800;color:#fff;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.tag{font-size:.63rem;font-weight:800;padding:2px 8px;border-radius:999px;color:#fff}
+.tag.w{background:var(--tw)} .tag.i{background:var(--ti)}
+.meaning{margin-top:9px;padding-top:9px;border-top:1px dashed #dde2ec;font-size:.92rem}
+.ex{margin-top:7px;font-size:.77rem;color:#5c6580;font-style:italic}
+.hidden .meaning,.hidden .ex{filter:blur(6px);opacity:.5}
+.hint{font-size:.66rem;color:#b9c0d0;margin-top:6px}
+.line{font-size:.67rem;color:#aab2c4;margin-top:3px}
+.check{position:absolute;top:8px;right:10px;font-size:.66rem;color:#4CAF50;display:none;font-weight:800}
+.card.done .check{display:block}
+.hide{display:none}
+@media(max-width:640px){body{padding:12px}th,td{padding:8px 9px;font-size:.79rem}td.exc,th.exc{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Sleep and Memory Consolidation — 単語・熟語 総合リスト</h1>
+  <p>単語と熟語を1つにまとめました。「カード形式／表形式」「単語／熟語」を自由に切り替えて暗記できます。</p>
+  <div class="stats">
+    <div class="stat"><b id="total">0</b>総項目</div>
+    <div class="stat"><b id="nw">0</b>単語</div>
+    <div class="stat"><b id="ni">0</b>熟語・構文</div>
+    <div class="stat"><b id="shown">0</b>表示中</div>
+    <div class="stat"><b id="doneN">0</b>覚えた</div>
+  </div>
+</header>
+
+<h2>解答のカギ（タップで表示）</h2>
+<div class="ansbox">
+  <div style="font-size:.82rem;color:var(--sub)">段落先頭の文を入れる問題は「直後の具体例が何の話か」で決まります。先に自分で解いてから確認してください。</div>
+  <div class="ansgrid" id="ansgrid"></div>
+</div>
+
+<h2>レベル別分布（単語 / 熟語 内訳つき）</h2>
+<table class="sumtbl"><thead><tr><th>英検レベル</th><th>合計</th><th>単語</th><th>熟語</th><th>割合</th><th>目安</th></tr></thead>
+<tbody id="sumbody"></tbody></table>
+
+<div class="controls" style="margin-top:22px">
+  <span class="sw"><button id="bCard" class="on" onclick="setView('card')">カード形式</button><button id="bTable" onclick="setView('table')">表形式</button></span>
+  <span class="spacer"></span>
+  <span class="sw"><button id="tAll" class="on" onclick="setType('all')">単語＋熟語</button><button id="tW" onclick="setType('単語')">単語のみ</button><button id="tI" onclick="setType('熟語')">熟語のみ</button></span>
+</div>
+
+<div class="controls"><span class="lbl">レベル</span><span id="filters" style="display:contents"></span></div>
+<div class="controls">
+  <button class="util" onclick="allHide()">すべて隠す</button>
+  <button class="util" onclick="allShow()">すべて表示</button>
+  <button class="util" onclick="shuffle()">シャッフル</button>
+  <button class="util" onclick="resetOrder()">本文順に戻す</button>
+  <button class="util" onclick="resetDone()">「覚えた」リセット</button>
+  <span class="spacer"></span>
+  <button class="util" id="hideDoneBtn" onclick="toggleDoneFilter()">覚えた項目を隠す</button>
+</div>
+
+<div id="cardView"><div class="grid" id="grid"></div></div>
+<div id="tableView" class="hide">
+  <table><thead><tr><th style="width:30px"></th><th style="width:46px">種類</th><th>語句</th><th>意味</th><th class="exc">本文での使われ方</th><th>レベル</th><th>箇所</th></tr></thead>
+  <tbody id="tbody"></tbody></table>
+</div>
+
+</div>
+
+<script>
+const ANS=[
+ ["設問1 an \"aha\" moment","We suddenly find a solution to a problem after sleeping on it.（12語）",
+  "直後の a solution seems to come to us after sleeping on a problem を We 主語で書き換える。15語以内・We始まりの条件に注意"],
+ ["設問2 並べ替え","2番目 the material／4番目 important／6番目 of",
+  "完成文：as if the reward flags the material as being important and worthy of future consolidation（flag A as being B＝AをBだと示す印をつける）"],
+ ["設問3 和訳","睡眠は単なる受動的な休息状態ではなく、私たちが何を記憶し、それをどう使うかを形作る能動的な過程なのである。",
+  "not just A but B の骨格。that shapes 以下は an active process を修飾。what we remember と how we use it が shapes の目的語"],
+ ["設問4 ①","(C) One important factor is how well the material was learned in the first place.",
+  "直後が「弱く学習された組み合わせほど睡眠の恩恵を受ける」＝学習の定着度の話"],
+ ["設問4 ②","(D) Sleep also plays a role in connecting the dots between pieces of information.",
+  "直後が「教えられていない関係を推論できた」＝情報同士を結びつける話。connect the dots＝点と点をつなぐ"],
+ ["設問4 ③","(A) Emotionally charged memories also receive special treatment during sleep.",
+  "直後が「感情を伴う画像は記憶されやすい」＝感情の話"],
+ ["設問4 ④","(F) When thinking about what information is consolidated ..., we should also consider how such information is changed by the process.",
+  "直後が「単純な記憶テストでは見えないが困難な条件で現れる」＝記憶の質がどう変わるかの話。(E)は干渉の向きが逆（本文は新→旧）なので誤り"],
+ ["設問5 （あ）","(D) fragile","rather than ... memories that are already well established と対比。「まだもろい記憶」を優先して補強する"],
+ ["設問5 （い）","(B) analogous","be analogous to ~＝~に類似している。both situations involve ... が根拠"],
+ ["設問5 （う）","(A) accessible","but makes them more stable and resilient と対比。「一般に取り出しやすくする」のではなく「安定させる」"],
+ ["設問6 述べられていない","(C)",
+  "本文は if there was a period of sleep between learning and recall（学習と想起の“間”の睡眠）。(C)の before viewing and learning（見る前に寝る）は誤り"]
+];
+document.getElementById("ansgrid").innerHTML=ANS.map(a=>
+ `<div class="acard hid"><div class="n">${a[0]}</div><div class="a">${a[1]}</div><div class="k">${a[2]}</div></div>`).join("");
+[...document.getElementById("ansgrid").children].forEach(c=>c.onclick=()=>c.classList.toggle("hid"));
+
+const LV={
+ "3級":{c:"var(--g3)",note:"中学卒業程度"},
+ "準2級":{c:"var(--g3p)",note:"高校中級程度"},
+ "2級":{c:"var(--g2)",note:"高校卒業程度"},
+ "準1級":{c:"var(--g2p)",note:"大学中級程度"},
+ "1級":{c:"var(--g1)",note:"大学上級程度"},
+ "級外":{c:"var(--gx)",note:"専門語・注釈必須"}
+};
+// [語句, 意味, 本文での使われ方, レベル, 箇所, 種類]
+const DATA=[
+ ["key function","名 主要な働き、重要な機能","One of sleep's key functions is to stabilize and integrate new memories","2級","第1段","単語"],
+ ["stabilize","動 安定させる","to stabilize and integrate new memories","準1級","第1段","単語"],
+ ["integrate A into B","AをBに統合する、組み込む","integrate new memories into our brain's long-term memory systems","準1級","第1段","熟語"],
+ ["long-term memory","名 長期記憶","our brain's long-term memory systems","2級","第1段","単語"],
+ ["a process known as ~","~として知られる過程","a process known as \"consolidation\"","2級","第1段","熟語"],
+ ["consolidation","名 （記憶の）固定化、定着","a process known as \"consolidation\"","1級","第1段","単語"],
+ ["consolidate","動 定着させる、強固にする","it is more likely to be consolidated","準1級","第3段","単語"],
+ ["widely accepted","広く受け入れられている","This idea is now widely accepted, though it wasn't always","2級","第1段","熟語"],
+ ["though it wasn't always","かつては必ずしもそうではなかったが","This idea is now widely accepted, though it wasn't always","2級","第1段","熟語"],
+ ["remain under investigation","研究途上のままである","The details remain very much under investigation","準1級","第1段","熟語"],
+ ["investigation","名 調査、研究","remain very much under investigation","2級","第1段","単語"],
+ ["very much","大いに、まさに","remain very much under investigation","3級","第1段","熟語"],
+ ["prioritize","動 優先する、優先順位をつける","what kinds of memories are prioritized","準1級","第1段","単語"],
+ ["unfold","動 展開する、進行する","how consolidation unfolds","準1級","第1段","単語"],
+ ["occur","動 起こる、生じる","exactly when different forms of consolidation occur","2級","第1段","単語"],
+ ["focus on ~","~に焦点を当てる","I'll be focusing on what kinds of information sleep strengthens","2級","第1段","熟語"],
+ ["strengthen","動 強化する、強める","what kinds of information sleep strengthens","2級","第1段","単語"],
+ ["participant","名 参加者、被験者","In studies where participants learn pairs of words","準1級","①段","単語"],
+ ["pairs of words","名 単語のペア、対になった語","participants learn pairs of words (e.g., apple–chair)","3級","①段","熟語"],
+ ["to varying degrees","さまざまな程度に","learn pairs of words to varying degrees","準1級","①段","熟語"],
+ ["vary","動 異なる、変化する","to varying degrees","2級","①段","単語"],
+ ["It is ~ that ...（強調構文）","…なのは~である","it has been the weakly learned associations ... that benefit most from sleep","2級","①段","熟語"],
+ ["association","名 連合、結びつき、関連づけ","the weakly learned associations","準1級","①段","単語"],
+ ["weakly learned","弱くしか覚えられていない","the weakly learned associations (say, recalled about 60% of the time)","2級","①段","熟語"],
+ ["say","副 たとえば、まあ~くらい","say, recalled about 60% of the time","2級","①段","単語"],
+ ["recall","動 思い出す／名 想起","recalled about 60% of the time","2級","①段","単語"],
+ ["benefit from ~","~から恩恵を受ける","that benefit most from sleep","2級","①段","熟語"],
+ ["in contrast","対照的に、それに対して","In contrast, strongly learned pairs show less improvement","2級","①段","熟語"],
+ ["improvement","名 向上、改善","strongly learned pairs show less improvement","2級","①段","単語"],
+ ["make intuitive sense","直感的に納得がいく","This makes intuitive sense","準1級","①段","熟語"],
+ ["intuitive","形 直感的な","This makes intuitive sense","準1級","①段","単語"],
+ ["processing capacity","名 処理能力","with limited time and processing capacity","2級","①段","単語"],
+ ["capacity","名 容量、能力","limited time and processing capacity","2級","①段","単語"],
+ ["reinforce","動 補強する、強化する","our brain prioritizes reinforcing memories","準1級","①段","単語"],
+ ["fragile","形 もろい、壊れやすい【設問5（あ）】","memories that are still (fragile)","準1級","①段","単語"],
+ ["rather than ~","~ではなくむしろ","rather than spending some of that precious sleep computational power","2級","①段","熟語"],
+ ["precious","形 貴重な、大切な","that precious sleep computational power","2級","①段","単語"],
+ ["computational power","名 計算能力、処理力","precious sleep computational power","準1級","①段","単語"],
+ ["well established","しっかり定着した、確立された","memories that are already well established","2級","①段","熟語"],
+ ["spatial relationship","名 空間的な位置関係","learn spatial relationships between fictional locations","準1級","②段","単語"],
+ ["spatial","形 空間の、空間的な","spatial relationships","準1級","②段","単語"],
+ ["fictional","形 架空の、作り物の","fictional locations","準1級","②段","単語"],
+ ["grocery store","名 食料品店","a grocery store is west of a coffee shop","2級","②段","単語"],
+ ["west of ~","~の西に","a grocery store is west of a coffee shop","3級","②段","熟語"],
+ ["construct a map","地図を作る","When asked to construct a map of the area from memory","2級","②段","熟語"],
+ ["from memory","記憶をもとに、そらで","construct a map of the area from memory","2級","②段","熟語"],
+ ["When asked to do","~するよう求められたとき（省略）","When asked to construct a map ...","準1級","②段","熟語"],
+ ["perform better","より良い成績を収める","those who had slept after learning performed significantly better","2級","②段","熟語"],
+ ["significantly","副 著しく、有意に","performed significantly better","準1級","②段","単語"],
+ ["investigate","動 調査する、詳しく調べる","Investigating this further revealed that ...","2級","②段","単語"],
+ ["reveal","動 明らかにする","Investigating this further revealed that ...","2級","②段","単語"],
+ ["not just A but B","AだけでなくBも","weren't just better at recalling ... but were better able to make inferences","2級","②段","熟語"],
+ ["be better able to do","より上手に~できる","were better able to make inferences about untaught ones","2級","②段","熟語"],
+ ["make inferences about ~","~について推論する","make inferences about untaught ones","準1級","②段","熟語"],
+ ["inference","名 推論、推測","make inferences about untaught ones","準1級","②段","単語"],
+ ["untaught","形 教えられていない","make inferences about untaught ones","準1級","②段","単語"],
+ ["for instance","たとえば","For instance, even if we hadn't explicitly said that ...","2級","②段","熟語"],
+ ["explicitly","副 明示的に、はっきりと","even if we hadn't explicitly said that ...","準1級","②段","単語"],
+ ["reflect","動 反映する、映し出す","their maps reflected this information","2級","②段","単語"],
+ ["form connections between ~","~の間につながりを作る","their brains were forming new connections between items","2級","②段","熟語"],
+ ["allow 人 to do","人が~できるようにする","allowing them to later recognize untaught relationships","2級","②段","熟語"],
+ ["recognize","動 認識する、見分ける","later recognize untaught relationships","2級","②段","単語"],
+ ["an \"aha\" moment","名 ひらめきの瞬間【設問1】","the experience of an \"aha\" moment one morning","準1級","②段","熟語"],
+ ["come to ~","（考えが）~に浮かぶ","a solution seems to come to us","2級","②段","熟語"],
+ ["sleep on a problem","問題を一晩寝かせて考える","after sleeping on a problem","準1級","②段","熟語"],
+ ["be analogous to ~","~に類似している【設問5（い）】","This may be (analogous) to our findings","1級","②段","熟語"],
+ ["analogous","形 類似した、似通った","This may be analogous to our findings","1級","②段","単語"],
+ ["findings","名 （研究の）結果、知見","analogous to our findings","準1級","②段","単語"],
+ ["involve","動 含む、伴う","both situations involve recognizing new relationships","2級","②段","単語"],
+ ["associate A with B","AをBと結びつける","associating different pieces of information in new ways","準1級","②段","熟語"],
+ ["pieces of information","名 情報の断片、個々の情報","associating different pieces of information","2級","②段","熟語"],
+ ["a series of ~","一連の~","When people view a series of images","2級","③段","熟語"],
+ ["emotional content","名 感情を伴う内容","those with emotional content are more likely to be later remembered","2級","③段","単語"],
+ ["be more likely to do","~する可能性がより高い","are more likely to be later remembered","2級","③段","熟語"],
+ ["particularly","副 特に、とりわけ","particularly if there was a period of sleep between learning and recall","2級","③段","単語"],
+ ["a period of sleep","名 睡眠をとる期間","a period of sleep between learning and recall","2級","③段","熟語"],
+ ["similarly","副 同様に","Similarly, if information is associated with a reward","2級","③段","単語"],
+ ["be associated with ~","~と結びついている","if information is associated with a reward during learning","準1級","③段","熟語"],
+ ["reward","名 報酬、ごほうび","associated with a reward during learning","2級","③段","単語"],
+ ["as if S V","まるでSがVするかのように","as if the reward flags the material as being important","2級","③段","熟語"],
+ ["flag A as being B","AをBだと示す印をつける【設問2】","the reward flags the material as being important and worthy","1級","③段","熟語"],
+ ["flag","動 目印をつける、注意を促す","the reward flags the material","準1級","③段","単語"],
+ ["be worthy of ~","~に値する【設問2】","important and worthy of future consolidation","準1級","③段","熟語"],
+ ["material","名 （学習）内容、教材","flags the material as being important","2級","③段","単語"],
+ ["in fact","実際、それどころか","In fact, in some cases, the effects of sleep aren't visible","3級","④段","熟語"],
+ ["in some cases","場合によっては","in some cases, the effects of sleep aren't visible","2級","④段","熟語"],
+ ["visible","形 目に見える、明らかな","the effects of sleep aren't visible in straightforward memory tests","2級","④段","単語"],
+ ["straightforward","形 単純な、わかりやすい","straightforward memory tests","準1級","④段","単語"],
+ ["become clear","明らかになる","but become clear under challenging conditions","3級","④段","熟語"],
+ ["under challenging conditions","困難な条件のもとで","become clear under challenging conditions","2級","④段","熟語"],
+ ["challenging","形 困難な、骨の折れる","under challenging conditions","2級","④段","単語"],
+ ["classic paradigm","名 古典的な実験手法","In one classic paradigm, participants first learn word pairs","1級","④段","単語"],
+ ["paradigm","名 （実験の）枠組み、手法、パラダイム","one classic paradigm","1級","④段","単語"],
+ ["stay awake","起きたままでいる","then sleep or stay awake","3級","④段","熟語"],
+ ["involving ~","~を伴う（分詞の後置修飾）","new pairs involving the same words (A–C)","2級","④段","熟語"],
+ ["initial","形 最初の、当初の","recall the initial A–B pairs","2級","④段","単語"],
+ ["tend to do","~する傾向がある","Those who didn't sleep tend to have their earlier A–B memories disrupted","2級","④段","熟語"],
+ ["have + O + 過去分詞","Oを~される","tend to have their earlier A–B memories disrupted","2級","④段","熟語"],
+ ["disrupt","動 混乱させる、妨げる","memories disrupted by the newer A–C ones","準1級","④段","単語"],
+ ["be resistant to ~","~に強い、~に対して抵抗力がある","are more resistant to the interference","準1級","④段","熟語"],
+ ["resistant","形 抵抗力のある、影響を受けにくい","more resistant to the interference","準1級","④段","単語"],
+ ["interference","名 干渉、妨害","more resistant to the interference","準1級","④段","単語"],
+ ["generally","副 一般的に、全般的に","sleep doesn't make memories more generally accessible","2級","④段","単語"],
+ ["accessible","形 取り出しやすい、利用しやすい【設問5（う）】","doesn't make memories more generally (accessible)","準1級","④段","単語"],
+ ["stable","形 安定した","makes them more stable and resilient","2級","④段","単語"],
+ ["resilient","形 回復力のある、打たれ強い","more stable and resilient in the face of competing information","1級","④段","単語"],
+ ["in the face of ~","~に直面しても、~をものともせず","resilient in the face of competing information","準1級","④段","熟語"],
+ ["competing information","名 競合する情報","in the face of competing information","2級","④段","単語"],
+ ["in sum","要するに、まとめると","In sum, sleep selectively strengthens weak associations","準1級","まとめ","熟語"],
+ ["selectively","副 選択的に","sleep selectively strengthens weak associations","準1級","まとめ","単語"],
+ ["infer","動 推論する、推測する","helps us infer new relationships between bits of knowledge","準1級","まとめ","単語"],
+ ["bits of knowledge","名 知識の断片","new relationships between bits of knowledge","2級","まとめ","熟語"],
+ ["protect A from B","AをBから守る","protects memories from interference","3級","まとめ","熟語"],
+ ["not just A but B（再）","単なるAではなくBだ【設問3】","Sleep is not just a passive resting state but is an active process","2級","まとめ","熟語"],
+ ["passive","形 受動的な、消極的な【設問3】","not just a passive resting state","準1級","まとめ","単語"],
+ ["resting state","名 休息状態","a passive resting state","2級","まとめ","単語"],
+ ["active process","名 能動的な過程","an active process that shapes what we remember","2級","まとめ","単語"],
+ ["shape","動 形作る、方向づける【設問3】","an active process that shapes what we remember and how we use it","2級","まとめ","単語"],
+ ["fast-moving","形 動きの速い、急速に進展する","a very active and fast-moving research field","2級","まとめ","単語"],
+ ["research field","名 研究分野","a very active and fast-moving research field","2級","まとめ","単語"],
+ ["play a role in ~","~において役割を果たす","Sleep also plays a role in connecting the dots（設問4(D)）","2級","設問","熟語"],
+ ["connect the dots","点と点をつなぐ、関連づける","connecting the dots between pieces of information（設問4(D)）","準1級","設問","熟語"],
+ ["emotionally charged","形 感情のこもった、感情を伴う","Emotionally charged memories also receive special treatment（設問4(A)）","準1級","設問","熟語"],
+ ["receive special treatment","特別な扱いを受ける","receive special treatment during sleep（設問4(A)）","2級","設問","熟語"],
+ ["acknowledge","動 認める、認知する","It is now acknowledged that sleep consolidates ...（設問4(B)）","準1級","設問","単語"],
+ ["in the first place","そもそも、最初に","how well the material was learned in the first place（設問4(C)）","2級","設問","熟語"],
+ ["lack of sleep","名 睡眠不足","lack of sleep causes old information to interfere（設問4(E)）","2級","設問","単語"],
+ ["interfere with ~","~を妨げる、~に干渉する","causes old information to interfere with the retention（設問4(E)）","準1級","設問","熟語"],
+ ["retention","名 保持、記憶保持","the retention of new information（設問4(E)）","1級","設問","単語"],
+ ["contrastive","形 対照的な、対比的な","(C) contrastive（設問5選択肢）","1級","設問","単語"],
+ ["fundamental","形 根本的な、基本的な","(E) fundamental（設問5選択肢）","2級","設問","単語"],
+ ["sentimental","形 感傷的な","(F) sentimental（設問5選択肢）","準1級","設問","単語"],
+ ["explicit","形 明示的な、はっきりした","make the effects of sleep explicit（設問6(A)）","準1級","設問","単語"],
+ ["constitute","動 構成する、~にあたる","The functions of sleep constitute a rapidly growing area（設問6(D)）","準1級","設問","単語"],
+ ["rapidly growing","急速に拡大している","a rapidly growing area of investigation（設問6(D)）","2級","設問","熟語"],
+ ["conduct research","研究を行う","more and more new research is being conducted（設問6(D)）","準1級","設問","熟語"]
+];
+
+const ORDER=["3級","準2級","2級","準1級","1級","級外"];
+let data=[...DATA],activeLv="all",activeType="all",hideDone=false;
+const done=new Set();
+
+const cW=DATA.filter(d=>d[5]==="単語").length, cI=DATA.length-cW;
+document.getElementById("total").textContent=DATA.length;
+document.getElementById("nw").textContent=cW;
+document.getElementById("ni").textContent=cI;
+
+const cnt={},cntW={},cntI={};
+ORDER.forEach(l=>{cnt[l]=0;cntW[l]=0;cntI[l]=0;});
+DATA.forEach(d=>{cnt[d[3]]++;(d[5]==="単語"?cntW:cntI)[d[3]]++;});
+document.getElementById("sumbody").innerHTML=ORDER.map(l=>{
+ const n=cnt[l],p=Math.round(n/DATA.length*100);
+ return `<tr><td><span class="badge" style="background:${LV[l].c}">${l}</span></td>
+ <td><b>${n}</b></td><td style="color:var(--tw);font-weight:700">${cntW[l]}</td>
+ <td style="color:var(--ti);font-weight:700">${cntI[l]}</td>
+ <td><span class="bar" style="width:${Math.max(p*2.6,6)}px;background:${LV[l].c}"></span>${p}%</td>
+ <td style="color:var(--sub)">${LV[l].note}</td></tr>`;}).join("");
+
+document.getElementById("filters").innerHTML=
+ `<button class="on" data-lv="all">すべて</button>`+
+ ORDER.map(l=>cnt[l]?`<button data-lv="${l}" style="color:${LV[l].c}">${l} (${cnt[l]})</button>`:"").join("");
+document.getElementById("filters").onclick=e=>{
+ if(e.target.tagName!=="BUTTON")return;
+ [...e.currentTarget.children].forEach(b=>b.classList.remove("on"));
+ e.target.classList.add("on");activeLv=e.target.dataset.lv;render();};
+
+function list(){return data.filter(d=>
+ (activeLv==="all"||d[3]===activeLv)&&
+ (activeType==="all"||d[5]===activeType)&&
+ !(hideDone&&done.has(d[0])));}
+
+function render(){
+ const L=list();
+ document.getElementById("grid").innerHTML=L.map(d=>{
+  const[p,m,ex,lv,ln,ty]=d, t=ty==="単語"?"w":"i";
+  return `<div class="card hidden" data-w="${p}" style="border-left-color:${LV[lv].c}">
+   <span class="check">✓ 覚えた</span>
+   <div class="top"><span class="phrase">${p}</span>
+   <span style="display:flex;flex-direction:column;gap:4px;align-items:flex-end">
+   <span class="badge" style="background:${LV[lv].c}">${lv}</span>
+   <span class="tag ${t}">${ty}</span></span></div>
+   <div class="line">${ln}</div>
+   <div class="meaning">${m}</div>
+   <div class="ex">${ex}</div>
+   <div class="hint">タップで表示 ／ ダブルクリックで「覚えた」</div></div>`;}).join("");
+ [...document.getElementById("grid").children].forEach(c=>{
+  if(done.has(c.dataset.w))c.classList.add("done");
+  c.onclick=()=>c.classList.toggle("hidden");
+  c.ondblclick=e=>{e.preventDefault();const w=c.dataset.w;
+   done.has(w)?done.delete(w):done.add(w);render();};});
+
+ document.getElementById("tbody").innerHTML=L.map(d=>{
+  const[p,m,ex,lv,ln,ty]=d, t=ty==="単語"?"w":"i";
+  return `<tr class="hid ${done.has(p)?'done':''}" data-w="${p}">
+   <td><span class="mark">✓</span></td>
+   <td><span class="tag ${t}">${ty}</span></td>
+   <td class="ph">${p}</td><td class="mn">${m}</td>
+   <td class="exc">${ex}</td>
+   <td><span class="badge" style="background:${LV[lv].c}">${lv}</span></td>
+   <td class="ln">${ln}</td></tr>`;}).join("");
+ [...document.getElementById("tbody").children].forEach(tr=>{
+  tr.querySelector(".mn").onclick=()=>tr.classList.toggle("hid");
+  tr.querySelector(".exc").onclick=()=>tr.classList.toggle("hid");
+  tr.querySelector(".mark").onclick=()=>{const w=tr.dataset.w;
+   done.has(w)?done.delete(w):done.add(w);render();};});
+
+ document.getElementById("shown").textContent=L.length;
+ document.getElementById("doneN").textContent=done.size;
+}
+
+function setView(v){
+ document.getElementById("cardView").classList.toggle("hide",v!=="card");
+ document.getElementById("tableView").classList.toggle("hide",v!=="table");
+ document.getElementById("bCard").classList.toggle("on",v==="card");
+ document.getElementById("bTable").classList.toggle("on",v==="table");}
+function setType(t){activeType=t;
+ document.getElementById("tAll").classList.toggle("on",t==="all");
+ document.getElementById("tW").classList.toggle("on",t==="単語");
+ document.getElementById("tI").classList.toggle("on",t==="熟語");render();}
+function allHide(){document.querySelectorAll(".card").forEach(c=>c.classList.add("hidden"));
+ document.querySelectorAll("#tbody tr").forEach(t=>t.classList.add("hid"));}
+function allShow(){document.querySelectorAll(".card").forEach(c=>c.classList.remove("hidden"));
+ document.querySelectorAll("#tbody tr").forEach(t=>t.classList.remove("hid"));}
+function shuffle(){for(let i=data.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[data[i],data[j]]=[data[j],data[i]];}render();}
+function resetOrder(){data=[...DATA];render();}
+function resetDone(){done.clear();render();}
+function toggleDoneFilter(){hideDone=!hideDone;
+ document.getElementById("hideDoneBtn").textContent=hideDone?"覚えた項目も表示":"覚えた項目を隠す";render();}
+
+render();
+</script>
+</body>
+</html>
