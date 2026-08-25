@@ -1,0 +1,373 @@
+<title>レシピと冷蔵庫</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&family=Zen+Maru+Gothic:wght@500;700&display=swap">
+<style>
+  :root {
+    --paper: #fbf8f2;
+    --card: #ffffff;
+    --ink: #3a3a38;
+    --soft: #8a8a84;
+    --line: #e5e0d6;
+    --ai: #3f6ea6;      /* あお：つなぐ側 */
+    --ai-wash: #e7eef7;
+    --shu: #c2593f;     /* あか：まっすぐ側 */
+    --shu-wash: #f9ebe5;
+    --sun: #e3a72f;     /* きいろ：ひらめき */
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #23241f;
+      --card: #2c2d28;
+      --ink: #ece9e0;
+      --soft: #a3a099;
+      --line: #44453e;
+      --ai: #8fb4dd;
+      --ai-wash: #2b3745;
+      --shu: #dd8a6e;
+      --shu-wash: #45322a;
+      --sun: #e8bc5a;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #23241f;
+    --card: #2c2d28;
+    --ink: #ece9e0;
+    --soft: #a3a099;
+    --line: #44453e;
+    --ai: #8fb4dd;
+    --ai-wash: #2b3745;
+    --shu: #dd8a6e;
+    --shu-wash: #45322a;
+    --sun: #e8bc5a;
+  }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", sans-serif;
+    font-weight: 500;
+    line-height: 2;
+    font-size: 17px;
+  }
+  .page { max-width: 40rem; margin: 0 auto; padding: 4rem 1.3rem 6rem; }
+
+  h1, h2 {
+    font-family: "Hachi Maru Pop", "Zen Maru Gothic", sans-serif;
+    font-weight: 400;
+    line-height: 1.7;
+    text-wrap: balance;
+    margin: 0;
+  }
+  h1 { font-size: 2rem; text-align: center; }
+  h2 { font-size: 1.45rem; margin-bottom: 1rem; }
+
+  header { text-align: center; margin-bottom: 4.5rem; }
+  .hero-sub {
+    color: var(--soft);
+    margin-top: 1rem;
+    font-size: 1rem;
+  }
+  .big-line {
+    font-family: "Hachi Maru Pop", sans-serif;
+    font-size: 1.3rem;
+    margin-top: 2rem;
+    line-height: 2.2;
+  }
+  .big-line .shu-w { color: var(--shu); }
+  .big-line .ai-w { color: var(--ai); }
+
+  section { margin-top: 5rem; }
+  p { margin: 0 0 1rem; }
+  .quiet { color: var(--soft); font-size: .92rem; }
+
+  figure { margin: 1.6rem 0; }
+  figure svg { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+  figcaption {
+    text-align: center;
+    color: var(--soft);
+    font-size: .9rem;
+    margin-top: .8rem;
+    line-height: 1.8;
+  }
+
+  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.6rem 0; }
+  @media (max-width: 560px) { .duo { grid-template-columns: 1fr; } }
+  .panel {
+    background: var(--card);
+    border: 2px solid var(--line);
+    border-radius: 18px;
+    padding: 1.2rem 1.1rem 1.4rem;
+  }
+  .panel.shu-p { border-color: var(--shu); }
+  .panel.ai-p { border-color: var(--ai); }
+  .panel .p-title {
+    font-family: "Hachi Maru Pop", sans-serif;
+    font-size: 1.05rem;
+    text-align: center;
+    margin-bottom: .8rem;
+  }
+  .panel.shu-p .p-title { color: var(--shu); }
+  .panel.ai-p .p-title { color: var(--ai); }
+  .panel p { font-size: .92rem; line-height: 1.9; margin: .8rem 0 0; }
+
+  .four { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.6rem 0; }
+  @media (max-width: 560px) { .four { grid-template-columns: 1fr; } }
+  .mini {
+    background: var(--card);
+    border: 2px solid var(--line);
+    border-radius: 18px;
+    padding: 1.1rem 1rem;
+    text-align: center;
+  }
+  .mini .m-title {
+    font-family: "Hachi Maru Pop", sans-serif;
+    font-size: 1.1rem;
+    color: var(--ai);
+    margin-bottom: .5rem;
+  }
+  .mini p { font-size: .88rem; line-height: 1.85; margin: .7rem 0 0; }
+
+  .takeaway {
+    margin-top: 5rem;
+    background: var(--ai-wash);
+    border-radius: 22px;
+    padding: 2.2rem 1.6rem;
+    text-align: center;
+  }
+  .takeaway .t-big {
+    font-family: "Hachi Maru Pop", sans-serif;
+    font-size: 1.5rem;
+    line-height: 2.2;
+  }
+  .takeaway p { margin-top: 1rem; font-size: .95rem; }
+
+  footer {
+    margin-top: 4rem;
+    text-align: center;
+    color: var(--soft);
+    font-size: .82rem;
+    line-height: 1.9;
+  }
+</style>
+
+<div class="page">
+
+<header>
+  <h1>レシピと冷蔵庫</h1>
+  <p class="hero-sub">むずかしい名前でいうと「エフェクチュエーション」と「縁起（えんぎ）」のはなし</p>
+  <div class="big-line">
+    <span class="shu-w">「つよくする」</span>やりかたと、<br>
+    <span class="ai-w">「つなぎなおす」</span>やりかたが あるんだよ。
+  </div>
+</header>
+
+<section>
+  <h2>りょうりには、2つの やりかたがある</h2>
+
+  <div class="duo">
+    <div class="panel shu-p">
+      <div class="p-title">レシピのやりかた</div>
+      <figure>
+        <svg viewBox="0 0 260 150" role="img" aria-label="作りたい料理を先に決めて、材料を買いに行き、まっすぐゴールに進む図">
+          <g stroke="currentColor" fill="none" stroke-width="2">
+            <rect x="14" y="30" width="70" height="90" rx="8"/>
+            <line x1="24" y1="52" x2="74" y2="52"/>
+            <line x1="24" y1="70" x2="74" y2="70"/>
+            <line x1="24" y1="88" x2="66" y2="88"/>
+          </g>
+          <text x="49" y="140" text-anchor="middle" font-size="12" fill="currentColor">レシピ</text>
+          <line x1="96" y1="75" x2="176" y2="75" stroke="var(--shu)" stroke-width="3"/>
+          <polygon points="176,75 164,68 164,82" fill="var(--shu)"/>
+          <text x="136" y="63" text-anchor="middle" font-size="11" fill="var(--shu)">まっすぐ！</text>
+          <circle cx="215" cy="70" r="26" stroke="currentColor" fill="none" stroke-width="2"/>
+          <path d="M 197 78 q 18 12 36 0" stroke="currentColor" fill="none" stroke-width="2"/>
+          <text x="215" y="130" text-anchor="middle" font-size="12" fill="currentColor">カレー！</text>
+        </svg>
+      </figure>
+      <p>さきに「カレーをつくる！」ときめる。たりない材料をぜんぶ買って、まっすぐすすむ。</p>
+    </div>
+    <div class="panel ai-p">
+      <div class="p-title">冷蔵庫のやりかた</div>
+      <figure>
+        <svg viewBox="0 0 260 150" role="img" aria-label="冷蔵庫にあるものを組み合わせて、なにができるか考えたら、思いつかなかった料理が生まれる図">
+          <g stroke="currentColor" fill="none" stroke-width="2">
+            <rect x="14" y="20" width="60" height="110" rx="8"/>
+            <line x1="14" y1="62" x2="74" y2="62"/>
+            <circle cx="34" cy="44" r="7"/>
+            <circle cx="56" cy="44" r="7"/>
+            <circle cx="44" cy="92" r="7"/>
+          </g>
+          <text x="44" y="145" text-anchor="middle" font-size="12" fill="currentColor">あるもの</text>
+          <path d="M 86 55 q 40 -25 80 5" stroke="var(--ai)" stroke-width="2.5" fill="none"/>
+          <path d="M 86 95 q 40 25 80 -5" stroke="var(--ai)" stroke-width="2.5" fill="none"/>
+          <polygon points="168,62 155,58 158,70" fill="var(--ai)"/>
+          <polygon points="168,88 158,80 155,92" fill="var(--ai)"/>
+          <text x="126" y="82" text-anchor="middle" font-size="11" fill="var(--ai)">くみあわせる</text>
+          <path d="M 213 45 l 5 13 14 1 -10 9 3 14 -12 -8 -12 8 3 -14 -10 -9 14 -1 z" fill="var(--sun)"/>
+          <text x="215" y="112" text-anchor="middle" font-size="12" fill="currentColor">おもいつかなかった</text>
+          <text x="215" y="128" text-anchor="middle" font-size="12" fill="currentColor">ごちそう！</text>
+        </svg>
+      </figure>
+      <p>まず冷蔵庫をあける。あるものをくみあわせたら、かんがえてもいなかった りょうりができる。</p>
+    </div>
+  </div>
+
+  <p>会社をつくるのが上手なひとたちは、じつは<strong>冷蔵庫のやりかた</strong>をしていた——というのが、この研究のはじまり。</p>
+</section>
+
+<section>
+  <h2>ねているあいだ、あたまの中に「庭師さん」がくる</h2>
+  <p>ねているあいだ、脳はただ休んでいるんじゃない。夜の庭師さんみたいに、4つのしごとをしている。</p>
+
+  <div class="four">
+    <div class="mini">
+      <div class="m-title">① よわい子に水をやる</div>
+      <figure>
+        <svg viewBox="0 0 200 110" role="img" aria-label="大きく育った草ではなく、小さな芽にじょうろで水をやる図">
+          <path d="M 40 95 q -12 -25 0 -45 M 40 95 q 12 -25 0 -50 M 40 95 q -20 -15 -26 -35 M 40 95 q 20 -15 26 -35" stroke="currentColor" fill="none" stroke-width="2.5"/>
+          <path d="M 140 95 v -14 M 140 81 q -8 -4 -10 -12 M 140 81 q 8 -4 10 -12" stroke="var(--ai)" fill="none" stroke-width="2.5"/>
+          <g stroke="var(--ai)" fill="none" stroke-width="2">
+            <rect x="150" y="28" width="26" height="18" rx="4"/>
+            <line x1="150" y1="34" x2="138" y2="44"/>
+          </g>
+          <g fill="var(--ai)">
+            <circle cx="136" cy="52" r="1.8"/><circle cx="141" cy="58" r="1.8"/><circle cx="134" cy="61" r="1.8"/>
+          </g>
+          <line x1="10" y1="97" x2="190" y2="97" stroke="currentColor" stroke-width="2"/>
+          <text x="40" y="30" text-anchor="middle" font-size="11" fill="currentColor">そだった草</text>
+        </svg>
+      </figure>
+      <p>もう おぼえたことより、<strong>わすれそうなこと</strong>をえらんで、つよくしてくれる。</p>
+    </div>
+
+    <div class="mini">
+      <div class="m-title">② はなれた木をつなぐ</div>
+      <figure>
+        <svg viewBox="0 0 200 110" role="img" aria-label="離れた二本の木のあいだにロープをかけてつなぐ図">
+          <g stroke="currentColor" fill="none" stroke-width="2.5">
+            <line x1="45" y1="95" x2="45" y2="45"/>
+            <circle cx="45" cy="36" r="16"/>
+            <line x1="155" y1="95" x2="155" y2="45"/>
+            <circle cx="155" cy="36" r="16"/>
+          </g>
+          <path d="M 60 42 q 40 22 80 0" stroke="var(--ai)" stroke-width="2.5" fill="none" stroke-dasharray="5 4"/>
+          <text x="100" y="72" text-anchor="middle" font-size="11" fill="var(--ai)">あたらしい つながり</text>
+          <line x1="10" y1="97" x2="190" y2="97" stroke="currentColor" stroke-width="2"/>
+        </svg>
+      </figure>
+      <p>おぼえたこと同士のあいだに、<strong>あたらしいつながり</strong>をつくってくれる。</p>
+    </div>
+
+    <div class="mini">
+      <div class="m-title">③ だいじな実にしるしをつける</div>
+      <figure>
+        <svg viewBox="0 0 200 110" role="img" aria-label="ならんだ実のうちひとつに星のしるしをつける図">
+          <g stroke="currentColor" fill="none" stroke-width="2.5">
+            <circle cx="50" cy="60" r="16"/>
+            <circle cx="100" cy="60" r="16"/>
+            <circle cx="150" cy="60" r="16"/>
+            <line x1="50" y1="44" x2="50" y2="34"/>
+            <line x1="100" y1="44" x2="100" y2="34"/>
+            <line x1="150" y1="44" x2="150" y2="34"/>
+          </g>
+          <path d="M 100 14 l 3.5 9 10 .7 -7.5 6.5 2.3 10 -8.3 -5.6 -8.3 5.6 2.3 -10 -7.5 -6.5 10 -.7 z" fill="var(--sun)"/>
+        </svg>
+      </figure>
+      <p>うれしかったこと・ドキドキしたことに<strong>しるし</strong>をつけて、さきにのこしてくれる。</p>
+    </div>
+
+    <div class="mini">
+      <div class="m-title">④ さくで まもる</div>
+      <figure>
+        <svg viewBox="0 0 200 110" role="img" aria-label="芽のまわりに柵を立てて、外からのじゃまから守る図">
+          <path d="M 100 88 v -16 M 100 72 q -9 -5 -11 -14 M 100 72 q 9 -5 11 -14" stroke="currentColor" fill="none" stroke-width="2.5"/>
+          <g stroke="var(--ai)" stroke-width="2.5" fill="none">
+            <line x1="62" y1="90" x2="62" y2="60"/>
+            <line x1="78" y1="90" x2="78" y2="60"/>
+            <line x1="122" y1="90" x2="122" y2="60"/>
+            <line x1="138" y1="90" x2="138" y2="60"/>
+            <line x1="54" y1="68" x2="146" y2="68"/>
+            <line x1="54" y1="82" x2="146" y2="82"/>
+          </g>
+          <text x="172" y="52" text-anchor="middle" font-size="14" fill="var(--shu)">じゃま!</text>
+          <line x1="168" y1="60" x2="150" y2="70" stroke="var(--shu)" stroke-width="2"/>
+          <line x1="10" y1="92" x2="190" y2="92" stroke="currentColor" stroke-width="2"/>
+        </svg>
+      </figure>
+      <p>あとから入ってくる ややこしい情報に<strong>こわされないように</strong>してくれる。</p>
+    </div>
+  </div>
+
+  <p>つまり、ねむりは ひとつひとつを ムキムキにきたえるんじゃなくて、<strong>庭ぜんたいの手いれ</strong>をしている。これって、冷蔵庫のやりかたと そっくり。</p>
+</section>
+
+<section>
+  <h2>ならっていないのに、わかっちゃう</h2>
+  <p>じっけんでは、こう おしえた。「スーパーは きっさてんの 左」「きっさてんは としょかんの 左」。それだけ。</p>
+  <figure>
+    <svg viewBox="0 0 340 150" role="img" aria-label="スーパー・喫茶店・図書館の並び。教わった二つの関係から、寝たあとに教わっていない関係がわかるようになる図">
+      <g stroke="currentColor" fill="none" stroke-width="2">
+      <rect x="20" y="55" width="60" height="45" rx="4"/>
+      <rect x="140" y="55" width="60" height="45" rx="4"/>
+      <rect x="260" y="55" width="60" height="45" rx="4"/>
+      <path d="M 20 55 l 30 -18 30 18" />
+      <path d="M 140 55 l 30 -18 30 18" />
+      <path d="M 260 55 l 30 -18 30 18" />
+      </g>
+      <text x="50" y="82" text-anchor="middle" font-size="11" fill="currentColor">スーパー</text>
+      <text x="170" y="82" text-anchor="middle" font-size="11" fill="currentColor">きっさてん</text>
+      <text x="290" y="82" text-anchor="middle" font-size="11" fill="currentColor">としょかん</text>
+      <line x1="84" y1="112" x2="136" y2="112" stroke="currentColor" stroke-width="2"/>
+      <text x="110" y="128" text-anchor="middle" font-size="10" fill="currentColor">ならった</text>
+      <line x1="204" y1="112" x2="256" y2="112" stroke="currentColor" stroke-width="2"/>
+      <text x="230" y="128" text-anchor="middle" font-size="10" fill="currentColor">ならった</text>
+      <path d="M 50 30 q 120 -35 240 0" stroke="var(--sun)" stroke-width="3" fill="none" stroke-dasharray="6 5"/>
+      <text x="170" y="14" text-anchor="middle" font-size="12" fill="var(--sun)">ねたら わかった！（ならってない）</text>
+    </svg>
+    <figcaption>2つしか ならっていないのに、ねたあとは「スーパーは としょかんの 左」も わかった。</figcaption>
+  </figure>
+  <p>これ、すごいこと。<strong>べんきょうしていない場所から、こたえが生まれた</strong>んだよ。つながりが ふえると、だれも おしえていないことが、勝手にわかるようになる。</p>
+  <p>会社づくりでも おなじことがおきる。人と人がつながると、<strong>だれも計画していなかったチャンス</strong>が、あいだから生まれてくる。</p>
+</section>
+
+<section>
+  <h2>1本の棒は、なにもの？</h2>
+  <figure>
+    <svg viewBox="0 0 340 190" role="img" aria-label="同じ一本の棒が、犬とならおもちゃ、たき火ならまき、ごっこ遊びなら魔法の杖になる図">
+      <line x1="140" y1="30" x2="200" y2="55" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+      <text x="170" y="18" text-anchor="middle" font-size="12" fill="currentColor">ただの棒</text>
+      <g stroke="var(--ai)" stroke-width="2" fill="none">
+        <line x1="120" y1="70" x2="62" y2="118"/>
+        <line x1="170" y1="78" x2="170" y2="118"/>
+        <line x1="220" y1="70" x2="278" y2="118"/>
+      </g>
+      <g stroke="currentColor" fill="none" stroke-width="2">
+        <circle cx="62" cy="145" r="24"/>
+        <circle cx="170" cy="145" r="24"/>
+        <circle cx="278" cy="145" r="24"/>
+      </g>
+      <text x="62" y="141" text-anchor="middle" font-size="16">🐶</text>
+      <text x="62" y="158" text-anchor="middle" font-size="9.5" fill="currentColor">おもちゃ</text>
+      <text x="170" y="141" text-anchor="middle" font-size="16">🔥</text>
+      <text x="170" y="158" text-anchor="middle" font-size="9.5" fill="currentColor">まき</text>
+      <text x="278" y="141" text-anchor="middle" font-size="16">🧙</text>
+      <text x="278" y="158" text-anchor="middle" font-size="9.5" fill="currentColor">まほうの杖</text>
+      <text x="170" y="185" text-anchor="middle" font-size="11" fill="var(--ai)">あいてが かわると、棒の「正体」が かわる</text>
+    </svg>
+  </figure>
+  <p>おなじ棒なのに、犬といっしょなら<strong>おもちゃ</strong>、たき火なら<strong>まき</strong>、ごっこあそびなら<strong>まほうの杖</strong>。</p>
+  <p>棒のなかに「正体」が入っているんじゃない。<strong>だれと・どう出会うかが、正体をきめる</strong>。これをむかしのインドのおぼうさんは「無自性（むじしょう）」とよんだ。じぶんの持ちものも、とくいなことも、おなじ。出会いしだいで、宝ものにもなる。</p>
+</section>
+
+<div class="takeaway">
+  <div class="t-big">つよいものを もっとつよくするより、<br>いいつながりを つくるほうが、<br>あたらしいものが 生まれる。</div>
+  <p>だから、しっぱいしても だいじょうぶなくらいの ちいさなかけ方で、<br>いろんな人と出会って、つながりを ふやしていこう。<br>なにが生まれるかは、あとからの おたのしみ。</p>
+</div>
+
+<footer>
+  おとな向けのくわしい話は、研究ノート「無自性の戦略論」にあります。<br>
+  もとになった話：サラスバシーのエフェクチュエーション ／ 睡眠と記憶の研究（名古屋大学入試英語より）
+</footer>
+
+</div>
