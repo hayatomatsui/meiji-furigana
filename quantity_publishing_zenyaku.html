@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>全訳・解説｜The Case for Quantity in Science Publishing</title>
+<style>
+:root{
+  --bg:#f4f6fb; --card:#fff; --ink:#1b2233; --sub:#6b7590;
+  --acc:#00695c; --acc2:#00897b; --acc3:#3949ab;
+  --blank:#c2185b; --uline:#e65100;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+  background:var(--bg);color:var(--ink);padding:18px;line-height:1.9}
+.wrap{max-width:900px;margin:0 auto}
+
+header{background:linear-gradient(135deg,#00695c,#00897b 45%,#3949ab);color:#fff;
+  border-radius:18px;padding:26px 24px;margin-bottom:16px;box-shadow:0 8px 26px rgba(0,105,92,.25)}
+header h1{font-size:1.35rem;margin-bottom:8px;line-height:1.5}
+header .sub{opacity:.94;font-size:.86rem;line-height:1.7}
+header .src{margin-top:14px;font-size:.74rem;opacity:.82;border-top:1px solid rgba(255,255,255,.3);
+  padding-top:10px;line-height:1.65}
+
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:14px 0 18px}
+.lbl{font-size:.72rem;color:var(--sub);font-weight:700}
+button{font-family:inherit;cursor:pointer;border:none;border-radius:999px;padding:8px 16px;
+  font-size:.82rem;font-weight:700;transition:.15s;background:#fff;color:var(--sub);
+  box-shadow:0 2px 6px rgba(0,0,0,.08)}
+button:hover{transform:translateY(-1px)}
+button.on{background:linear-gradient(135deg,#00897b,#3949ab);color:#fff}
+.spacer{flex:1}
+
+h2{font-size:1.05rem;margin:30px 0 12px;padding-left:12px;border-left:5px solid var(--acc2)}
+
+.para{background:var(--card);border-radius:14px;padding:16px 18px;margin-bottom:12px;
+  box-shadow:0 2px 10px rgba(0,0,0,.07)}
+.pnum{display:inline-block;font-size:.68rem;font-weight:800;color:#fff;background:var(--acc2);
+  border-radius:999px;padding:3px 11px;margin-bottom:8px;letter-spacing:.04em}
+.cue{font-size:.78rem;color:#8a93a8;font-style:italic;margin-bottom:9px;
+  padding-bottom:9px;border-bottom:1px dashed #dde2ec}
+.jp{font-size:1rem}
+.jp.hid{filter:blur(6px);opacity:.55}
+
+.bk{color:var(--blank);font-weight:800;background:#fce4ec;border-radius:5px;padding:1px 6px;
+  white-space:nowrap}
+.bk.hid{filter:blur(6px)}
+.ul{border-bottom:2.5px solid var(--uline);padding-bottom:1px}
+.tag{display:inline-block;font-size:.66rem;font-weight:800;color:#fff;background:var(--uline);
+  border-radius:4px;padding:1px 6px;margin-right:4px;vertical-align:.12em}
+.note{font-size:.78rem;color:var(--sub);background:#f0f3f9;border-radius:9px;
+  padding:9px 12px;margin-top:10px;line-height:1.7}
+
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;
+  box-shadow:0 2px 10px rgba(0,0,0,.07);margin-bottom:12px}
+th,td{padding:10px 13px;text-align:left;border-bottom:1px solid #eef1f6;font-size:.88rem;
+  vertical-align:top;line-height:1.7}
+th{background:#1b2233;color:#fff;font-size:.75rem;letter-spacing:.04em}
+tbody tr:nth-child(even){background:#fafbfe}
+td.k{font-weight:800;white-space:nowrap;color:var(--acc)}
+td.w{font-weight:700;white-space:nowrap}
+tr.ans{background:#e8f5f3 !important}
+tr.ans td.k{color:#c2185b}
+
+.qbox{background:#fff;border-radius:14px;padding:16px 18px;margin-bottom:12px;
+  box-shadow:0 2px 10px rgba(0,0,0,.07);border-left:6px solid var(--acc3)}
+.qbox .qn{font-size:.85rem;font-weight:800;color:var(--acc3);margin-bottom:7px}
+.qbox .qa{font-size:.95rem}
+.qbox .qa.hid{filter:blur(6px);opacity:.55}
+.cnt{font-size:.73rem;color:var(--sub);margin-top:6px}
+
+footer{text-align:center;font-size:.72rem;color:#9aa3b8;margin:32px 0 10px;line-height:1.9}
+@media(max-width:640px){body{padding:12px;line-height:1.85}header h1{font-size:1.13rem}
+  th,td{padding:8px 10px;font-size:.82rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>全訳・解説<br>The Case for Quantity in Science Publishing</h1>
+  <div class="sub">名古屋大学 英語 大問Ⅱ ／ 科学出版における「量」の擁護論</div>
+  <div class="src">
+    出典：Allison, David B., and Brian B. Boutwell. “The Case for Quantity in Science Publishing.”
+    <i>American Scientist</i>, vol.113, no.3, May 2025, pp.144–49.（出題にあたり原文の一部に変更あり）<br>
+    ※本ページは授業用の日本語訳・解説です。英文本文は問題冊子を参照してください（冒頭数語のみ手がかりとして表示）。
+  </div>
+</header>
+
+<div class="controls">
+  <span class="lbl">表示切替</span>
+  <button id="bJp" class="on">和訳を表示</button>
+  <button id="bBk" class="on">空所の答えを表示</button>
+  <button id="bAns" class="on">設問解答を表示</button>
+  <span class="spacer"></span>
+  <span class="lbl">クリックでも切替できます</span>
+</div>
+
+<h2>本文 全訳</h2>
+
+<div class="para">
+  <span class="pnum">第 1 段落</span>
+  <div class="cue">In an influential 2016 editorial in the journal <i>Nature</i>, …</div>
+  <div class="jp">
+    影響力の大きかった2016年の『ネイチャー』誌の論説で、アリゾナ州立大学のダニエル・サレウィッツは、
+    科学研究が過剰な出版によって蝕まれつつあると警告した。「現在の趨勢のままでは、科学は自らの
+    生産性上昇が生み出す雑音の中で溺れてしまいかねない」と彼は書き、そうした結末を避けるには
+    「一つには、出版をはるかに厳選することが必要になるだろう」と付け加えた。
+    <span class="ul"><span class="tag">下線部(1)</span>この主張はその後あまりにも頻繁に繰り返されてきたため、
+    事実上、受け入れられた自明の理となってしまっている。</span>
+  </div>
+</div>
+
+<div class="para">
+  <span class="pnum">第 2 段落</span>
+  <div class="cue">If we were forced to choose between quantity and quality …</div>
+  <div class="jp">
+    研究の（<span class="bk">①産出</span>）において量と質のどちらかを選べと迫られるなら、
+    質を選ぶのが当然のように見える。しかし我々は、科学出版の質を高めるには量を制限しなければならない、
+    という考え方を退ける。それどころか、量を抑え込むために作られた規則や手続きは、結局のところ
+    研究者コミュニティに害を与え、新しく創造的なアイデアが生まれるのを妨げかねないと考えている。
+  </div>
+</div>
+
+<div class="para">
+  <span class="pnum">第 3 段落</span>
+  <div class="cue">Most researchers already publish at a quite modest rate. …</div>
+  <div class="jp">
+    大半の研究者は、すでにかなり控えめなペースでしか論文を発表していない。個々の研究者の発表ペースを
+    体系的に調べた数少ない研究の一つは、この一世紀の間に意味のある増加は見られなかったと報告している。
+    その研究の著者ら——スタンフォード大学のダニエレ・ファネリと、モントリオール大学の
+    ヴァンサン・ラリヴィエール——は、「出版圧力によって科学文献が、細切れにされた・些末な・不完全な・
+    重複した・剽窃された・虚偽の結果で溢れかえっている、という広く行き渡った考えは、誤っているか、
+    少なくとも誇張されている可能性が高い」と結論づけた。比較的少数の極端に多作な発表者が、
+    状況について歪んだ（<span class="bk">②像</span>）を作り出しているのである。
+  </div>
+</div>
+
+<div class="para">
+  <span class="pnum">第 4 段落</span>
+  <div class="cue">Furthermore, the people who worry about overpublishing …</div>
+  <div class="jp">
+    さらに、過剰出版を心配する人々は、実際には存在しないゼロサムゲームを思い描いている。量は質を
+    （<span class="bk">③犠牲に</span>）して得られなければならないわけではないし、出版において量には
+    重要な利点がある。科学論文が増え、科学的なやりとりが増えることは、いくつもの重要な理由から、
+    研究という営み全体の質に寄与しうるのだ。
+  </div>
+</div>
+
+<div class="para">
+  <span class="pnum">第 5 段落</span>
+  <div class="cue">Our first argument is that increasing the quantity …</div>
+  <div class="jp">
+    我々の第一の論拠は、論文や出版物の量が増えれば（<span class="bk">④大数の法則</span>）が働く機会が
+    増え、それによって重要な発見が現れる可能性が高まる、というものである。ノーベル賞受賞者の
+    ライナス・ポーリングは、<span class="bk">［ a ］良いアイデアを得たければ、まず多くのアイデアを
+    持たなければならない</span>と述べた。大半のアイデアは頓挫する——その現実を有名な形で示しているのが
+    トマス・エジソンの例だ。電球開発における度重なる失敗について問われたとき、エジソンはこう答えた。
+    「私は失敗していない。うまくいかない方法を1万通り見つけただけだ。」
+  </div>
+</div>
+
+<div class="para">
+  <span class="pnum">第 6 段落</span>
+  <div class="cue">Rather than urging scientists to limit their quantity, …</div>
+  <div class="jp">
+    科学者に量を制限するよう促し、産出を減らせばどういうわけかより良い仕事につながるはずだと期待する
+    のではなく、我々は着実な生産性と、忍耐と、粘り強さを奨励すべきである。質の基準を保ち、疑わしい
+    研究慣行を戒めながら量を促進することは、重要であり、しかも完全に可能である。たとえば我々は、
+    科学者が生データを広く公開し、研究と分析の計画を事前登録することを支持する。目標は、そうした行為を
+    可能なかぎり摩擦の少ないものにして、生産性と産出を損なわないようにすることであるべきだ。
+  </div>
+</div>
+
+<div class="para">
+  <span class="pnum">第 7 段落</span>
+  <div class="cue">Another ( ⑤ ) of quantity is that greater numbers of studies …</div>
+  <div class="jp">
+    量のもう一つの（<span class="bk">⑤利点</span>）は、研究と出版の数が増えれば、成功した追試と失敗した
+    追試の双方を観察する機会が増えることである。偶然のばらつきによるものであれ、方法上の微妙な違いに
+    よるものであれ、統計的な操作によるものであれ、ある研究や研究室でうまくいったことが、別の場所・
+    別の時点でもうまくいくとは限らない。<span class="ul"><span class="tag">下線部(2)</span>再現性についての
+    懸念</span>は、研究者・一般市民・政府関係者のいずれの間でも急速に高まっている。オープンサイエンス・
+    センターのブライアン・ノセックは、追試の（<span class="bk">⑥不足</span>）がいかにして脆弱な証拠の
+    集積を覆い隠しうるかを示す、広範な調査を行ってきた。
+  </div>
+</div>
+
+<div class="para">
+  <span class="pnum">第 8 段落</span>
+  <div class="cue">Quantity in research can improve data collection as well. …</div>
+  <div class="jp">
+    研究における量は、データ収集をも改善しうる。個人（あるいは個々の研究室やチーム）が、ある一種類の
+    研究を大量に行うと、時間の経過とともにますます効率的かつ熟達していく。たとえば、
+    <span class="ul"><span class="tag">下線部(3)</span>高価な機器や施設を繰り返し使うことは、費用の削減と
+    質の向上につながりうる</span>。
+  </div>
+</div>
+
+<div class="para">
+  <span class="pnum">第 9 段落</span>
+  <div class="cue">Fostering environments that encourage greater research productivity …</div>
+  <div class="jp">
+    より高い研究生産性を促す環境を育てれば、出版はより多くなるはずである。同時に、生産性が高まると
+    いうことは、その成果を生み出すのに必要な研究室・研究施設・ソフトウェア・データベースの利用が
+    増えることを意味する。2017年のイギリスのチームによるレビューは、生物医学・健康研究において、
+    より多くの仕事を一つの施設に集中させることの（<span class="bk">⑦影響</span>）を検討した。著者らは、
+    大学や研究機関において規模の経済が正の方向に働くことについて、いくつかの直接的な証拠を報告している。
+    我々自身の経験も、そうした規模の経済を裏づけている——とりわけ、当初の導入に費用がかかる、あるいは
+    習得が難しい複雑な手順や機器の反復使用に大きく依存する研究においては。
+  </div>
+</div>
+
+<h2>設問4　空所［ a ］の選択肢 全訳</h2>
+<table>
+  <thead><tr><th style="width:52px">記号</th><th>日本語訳</th></tr></thead>
+  <tbody>
+    <tr><td class="k">(A)</td><td>創造的な突破口は、たいてい一つのアイデアに深く集中した結果として生まれる</td></tr>
+    <tr><td class="k">(B)</td><td>良いアイデアは洞察から生まれるのであって、大量のデータを生み出すことから生まれるのではない</td></tr>
+    <tr class="ans"><td class="k">(C) ◎</td><td>良いアイデアを得たいのであれば、まず多くのアイデアを持たなければならない</td></tr>
+    <tr><td class="k">(D)</td><td>実験の数がどれだけあろうと、反復が成功を保証するわけではない</td></tr>
+    <tr><td class="k">(E)</td><td>最も偉大な発明のいくつかは、突然のひらめきから生まれた</td></tr>
+  </tbody>
+</table>
+<div class="note">
+  <b>決め手：</b>直前が「量が増えれば<b>大数の法則</b>が働く機会が増える」、直後が「大半のアイデアは頓挫する」＋
+  エジソンの「1万通りの失敗」。<b>数を打つことが良い結果を生む</b>という論旨に沿うのは(C)のみ。
+  (A)(B)は「集中・洞察 &gt; 量」で論旨と逆、(D)は反復を否定して逆、(E)は「突然のひらめき」で量と無関係。
+</div>
+
+<h2>設問5　選択肢の語義と解答</h2>
+<table>
+  <thead><tr><th style="width:52px">記号</th><th style="width:110px">語</th><th>語義</th><th style="width:64px">解答</th></tr></thead>
+  <tbody>
+    <tr class="ans"><td class="k">(A)</td><td class="w">advantage</td><td>利点、強み　▸ <i>another advantage of ~</i>「～のもう一つの利点」</td><td class="k">⑤</td></tr>
+    <tr class="ans"><td class="k">(B)</td><td class="w">cost</td><td>犠牲、代償　▸ <i>at the cost of ~</i>「～を犠牲にして」</td><td class="k">③</td></tr>
+    <tr class="ans"><td class="k">(C)</td><td class="w">effects</td><td>影響、効果　▸ <i>explore the effects of ~</i>「～の影響を検討する」</td><td class="k">⑦</td></tr>
+    <tr><td class="k">(D)</td><td class="w">end</td><td>目的、終わり　▸ 未使用（冠詞 <i>an</i> を要するため⑥に入らない）</td><td class="k">—</td></tr>
+    <tr class="ans"><td class="k">(E)</td><td class="w">law</td><td>法則　▸ <i>the law of large numbers</i>「大数の法則」</td><td class="k">④</td></tr>
+    <tr><td class="k">(F)</td><td class="w">part</td><td>部分、役割　▸ 未使用</td><td class="k">—</td></tr>
+    <tr class="ans"><td class="k">(G)</td><td class="w">production</td><td>産出、生産　▸ <i>in the production of research</i>「研究の産出において」</td><td class="k">①</td></tr>
+    <tr class="ans"><td class="k">(H)</td><td class="w">scarcity</td><td>不足、希少さ　▸ <i>a scarcity of ~</i>「～の不足」</td><td class="k">⑥</td></tr>
+    <tr class="ans"><td class="k">(I)</td><td class="w">view</td><td>見方、像　▸ <i>a distorted view of ~</i>「～についての歪んだ像」</td><td class="k">②</td></tr>
+  </tbody>
+</table>
+<div class="note">
+  <b>解く順序のコツ：</b>①から順に埋めない。確信度の高い③(at the cost of)・④(the law of large numbers)・
+  ②(a distorted view)・⑤(Another advantage) を先に確定し、<b>残ったプールから⑥を消去法で決める</b>。<br>
+  <b>⑥の決め手は冠詞 <i>a</i>：</b><i>an</i> を要する advantage / end は不可、複数形の effects も不可。
+  残る中で「<i>conceal</i>（覆い隠す）」の主語になれるのは「欠如」を表す <b>scarcity</b> だけ。
+  <i>flimsy</i> の語義を知らなくても正解に到達できる設計になっている。
+</div>
+
+<h2>設問1〜3　解答</h2>
+
+<div class="qbox">
+  <div class="qn">設問1　下線部(1) の和訳</div>
+  <div class="qa">
+    この主張はその後あまりにも頻繁に繰り返されてきたため、事実上、受け入れられた自明の理となってしまっている。
+  </div>
+  <div class="cnt">▸ <i>so ~ that …</i> 構文／<i>has since been repeated</i>（現在完了＋since「それ以来」）／
+  <i>practically</i>「事実上・ほとんど」／<i>truism</i>「自明の理、わかりきったこと」</div>
+</div>
+
+<div class="qbox">
+  <div class="qn">設問2　下線部(2)「再現性についての懸念」とは（30〜40字）</div>
+  <div class="qa">
+    ある研究の結果が別の場所や時点では再現されないのではないかという懸念。<span class="cnt">（35字）</span>
+  </div>
+  <div class="cnt">▸ 直前の <i>what works in one study or lab is not guaranteed to work in other places and at other times</i>
+  を字数内にまとめる。「場所」と「時点」の両方を落とさないこと。</div>
+</div>
+
+<div class="qbox">
+  <div class="qn">設問3　下線部(3) の意味を表す本文中の4語</div>
+  <div class="qa">positive economies of scale</div>
+  <div class="cnt">▸ 「高価な機器・施設の反復使用 → コスト減・質の向上」＝<b>規模の経済</b>。
+  第9段落 <i>reported some direct evidence for positive economies of scale</i> から抜き出す。
+  <i>economies of scale</i> だけでは3語なので、<i>positive</i> を含めて4語。</div>
+</div>
+
+<footer>
+  名古屋大学 英語 大問Ⅱ／授業用 全訳・解説プリント<br>
+  Allison &amp; Boutwell, “The Case for Quantity in Science Publishing,” <i>American Scientist</i> 113(3), 2025.
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var bJp=document.getElementById('bJp'), bBk=document.getElementById('bBk'), bAns=document.getElementById('bAns');
+  function toggle(btn, sel, on){
+    btn.classList.toggle('on', on);
+    document.querySelectorAll(sel).forEach(function(e){ e.classList.toggle('hid', !on); });
+  }
+  var sJp=true, sBk=true, sAns=true;
+  bJp.onclick=function(){ sJp=!sJp; bJp.textContent = sJp?'和訳を表示':'和訳を隠す'; toggle(bJp,'.jp',sJp); };
+  bBk.onclick=function(){ sBk=!sBk; bBk.textContent = sBk?'空所の答えを表示':'空所の答えを隠す'; toggle(bBk,'.bk',sBk); };
+  bAns.onclick=function(){ sAns=!sAns; bAns.textContent = sAns?'設問解答を表示':'設問解答を隠す'; toggle(bAns,'.qa',sAns); };
+  document.querySelectorAll('.jp,.bk,.qa').forEach(function(e){
+    e.addEventListener('click', function(){ e.classList.toggle('hid'); });
+  });
+})();
+</script>
+</body>
+</html>
