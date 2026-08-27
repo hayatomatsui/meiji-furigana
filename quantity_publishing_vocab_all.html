@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>単語・熟語 総合リスト｜The Case for Quantity in Science Publishing</title>
+<style>
+:root{
+  --g3:#4CAF50; --g3p:#8BC34A; --g2:#03A9F4; --g2p:#7E57C2; --g1:#E91E63; --gx:#F44336;
+  --tw:#ff6a3d; --ti:#1668c7;
+  --bg:#f4f6fb; --card:#fff; --ink:#1b2233; --sub:#6b7590;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+  background:var(--bg);color:var(--ink);padding:18px;line-height:1.65}
+.wrap{max-width:1180px;margin:0 auto}
+header{background:linear-gradient(135deg,#00695c,#00897b 45%,#3949ab);color:#fff;
+  border-radius:18px;padding:26px 24px;margin-bottom:18px;box-shadow:0 8px 26px rgba(0,105,92,.25)}
+header h1{font-size:1.4rem;margin-bottom:6px}
+header p{opacity:.94;font-size:.87rem}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:15px}
+.stat{background:rgba(255,255,255,.22);border-radius:12px;padding:8px 14px;font-size:.8rem}
+.stat b{font-size:1.15rem;display:block}
+h2{font-size:1.03rem;margin:24px 0 10px;padding-left:12px;border-left:5px solid #00897b}
+
+.ansbox{background:#fff;border-radius:14px;padding:16px 18px;box-shadow:0 2px 10px rgba(0,0,0,.07)}
+.ansgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:10px;margin-top:10px}
+.acard{border:2px solid #eef1f6;border-radius:12px;padding:11px 13px;cursor:pointer;user-select:none;transition:.15s}
+.acard:hover{border-color:#00897b}
+.acard .n{font-size:.74rem;color:var(--sub);font-weight:800}
+.acard .a{font-size:.92rem;font-weight:800;color:#00695c;margin-top:3px}
+.acard .k{font-size:.73rem;color:var(--sub);margin-top:4px;font-weight:400}
+.acard.hid .a,.acard.hid .k{filter:blur(7px)}
+
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 14px}
+.lbl{font-size:.72rem;color:var(--sub);font-weight:700;margin-right:2px}
+button{font-family:inherit;cursor:pointer;border:none;border-radius:999px;padding:8px 15px;
+  font-size:.82rem;font-weight:700;transition:.15s;background:#fff;color:var(--sub);
+  box-shadow:0 2px 6px rgba(0,0,0,.08)}
+button:hover{transform:translateY(-1px)}
+button.on{background:#1b2233;color:#fff}
+.util{background:#e0f2f1;color:#00695c}
+.sw{display:inline-flex;background:#fff;border-radius:999px;padding:4px;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.sw button{box-shadow:none;padding:8px 18px}
+.sw button.on{background:linear-gradient(135deg,#00897b,#3949ab);color:#fff}
+.spacer{flex:1}
+
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;
+  box-shadow:0 2px 10px rgba(0,0,0,.07)}
+th,td{padding:10px 13px;text-align:left;border-bottom:1px solid #eef1f6;font-size:.87rem;vertical-align:top}
+th{background:#1b2233;color:#fff;font-size:.76rem;letter-spacing:.04em;position:sticky;top:0;z-index:2}
+tbody tr:nth-child(even){background:#fafbfe}
+tbody tr:hover{background:#e8f5f3}
+tbody tr.done{opacity:.4}
+td.ph{font-weight:700}
+td.mn{cursor:pointer}
+tr.hid td.mn,tr.hid td.exc{filter:blur(5px);opacity:.5}
+td.exc{color:#5c6580;font-style:italic;font-size:.79rem}
+td.ln{color:#aab2c4;font-size:.75rem;white-space:nowrap}
+.mark{cursor:pointer;color:#c9cfdd;font-weight:800;user-select:none}
+tr.done .mark{color:#4CAF50}
+.bar{height:9px;border-radius:5px;display:inline-block;vertical-align:middle;margin-right:8px}
+.sumtbl td,.sumtbl th{font-size:.85rem}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:12px}
+.card{background:var(--card);border-radius:14px;padding:14px 16px;cursor:pointer;
+  box-shadow:0 2px 8px rgba(0,0,0,.07);border-left:6px solid #ccc;transition:.18s;
+  position:relative;user-select:none}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.12)}
+.card.done{opacity:.42}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.phrase{font-size:1.05rem;font-weight:700}
+.badge{font-size:.65rem;font-weight:800;color:#fff;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.tag{font-size:.63rem;font-weight:800;padding:2px 8px;border-radius:999px;color:#fff}
+.tag.w{background:var(--tw)} .tag.i{background:var(--ti)}
+.meaning{margin-top:9px;padding-top:9px;border-top:1px dashed #dde2ec;font-size:.92rem}
+.ex{margin-top:7px;font-size:.77rem;color:#5c6580;font-style:italic}
+.hidden .meaning,.hidden .ex{filter:blur(6px);opacity:.5}
+.hint{font-size:.66rem;color:#b9c0d0;margin-top:6px}
+.line{font-size:.67rem;color:#aab2c4;margin-top:3px}
+.check{position:absolute;top:8px;right:10px;font-size:.66rem;color:#4CAF50;display:none;font-weight:800}
+.card.done .check{display:block}
+.hide{display:none}
+@media(max-width:640px){body{padding:12px}th,td{padding:8px 9px;font-size:.79rem}td.exc,th.exc{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>The Case for Quantity in Science Publishing — 単語・熟語 総合リスト</h1>
+  <p>「科学出版は量より質か？」（Allison &amp; Boutwell, <i>American Scientist</i>, 2025）。単語と熟語を1つにまとめました。「カード形式／表形式」「単語／熟語」を自由に切り替えて暗記できます。</p>
+  <div class="stats">
+    <div class="stat"><b id="total">0</b>総項目</div>
+    <div class="stat"><b id="nw">0</b>単語</div>
+    <div class="stat"><b id="ni">0</b>熟語・構文</div>
+    <div class="stat"><b id="shown">0</b>表示中</div>
+    <div class="stat"><b id="doneN">0</b>覚えた</div>
+  </div>
+</header>
+
+<h2>解答のカギ（タップで表示）</h2>
+<div class="ansbox">
+  <div style="font-size:.82rem;color:var(--sub)">筆者の立場は「量を抑えても質は上がらない。量にはむしろ利点がある」。各空欄は前後の具体例・対比から決まります。先に自分で解いてから確認してください。</div>
+  <div class="ansgrid" id="ansgrid"></div>
+</div>
+
+<h2>レベル別分布（単語 / 熟語 内訳つき）</h2>
+<table class="sumtbl"><thead><tr><th>英検レベル</th><th>合計</th><th>単語</th><th>熟語</th><th>割合</th><th>目安</th></tr></thead>
+<tbody id="sumbody"></tbody></table>
+
+<div class="controls" style="margin-top:22px">
+  <span class="sw"><button id="bCard" class="on" onclick="setView('card')">カード形式</button><button id="bTable" onclick="setView('table')">表形式</button></span>
+  <span class="spacer"></span>
+  <span class="sw"><button id="tAll" class="on" onclick="setType('all')">単語＋熟語</button><button id="tW" onclick="setType('単語')">単語のみ</button><button id="tI" onclick="setType('熟語')">熟語のみ</button></span>
+</div>
+
+<div class="controls"><span class="lbl">レベル</span><span id="filters" style="display:contents"></span></div>
+<div class="controls">
+  <button class="util" onclick="allHide()">すべて隠す</button>
+  <button class="util" onclick="allShow()">すべて表示</button>
+  <button class="util" onclick="shuffle()">シャッフル</button>
+  <button class="util" onclick="resetOrder()">本文順に戻す</button>
+  <button class="util" onclick="resetDone()">「覚えた」リセット</button>
+  <span class="spacer"></span>
+  <button class="util" id="hideDoneBtn" onclick="toggleDoneFilter()">覚えた項目を隠す</button>
+</div>
+
+<div id="cardView"><div class="grid" id="grid"></div></div>
+<div id="tableView" class="hide">
+  <table><thead><tr><th style="width:30px"></th><th style="width:46px">種類</th><th>語句</th><th>意味</th><th class="exc">本文での使われ方</th><th>レベル</th><th>箇所</th></tr></thead>
+  <tbody id="tbody"></tbody></table>
+</div>
+
+</div>
+
+<script>
+const ANS=[
+ ["設問1 和訳","この主張はそれ以来、あまりに頻繁に繰り返されてきたので、事実上、広く受け入れられた自明の理となっている。",
+  "so ~ that ... 構文。has since been repeated＝「それ以来ずっと繰り返されてきた」（since は副詞）。practically＝事実上／truism＝自明の理・言い古された真理"],
+ ["設問2 説明（30〜40字）","ある研究で得られた結果が、他の場所や別の時に再現されるとは限らないという懸念。（39字）",
+  "直前の what works in one study or lab is not guaranteed to work in other places and at other times をまとめる"],
+ ["設問3 4語で抜き出し","positive economies of scale",
+  "下線部(3)「高価な機器・施設の反復使用→コスト減・質の向上」＝規模の経済。最終段の direct evidence for positive economies of scale"],
+ ["設問4 空欄a","(C) if one wishes to have a good idea, one must first have many ideas",
+  "ポーリングの有名な言葉「良いアイデアを持つ最良の方法は、たくさんのアイデアを持つことだ」。直後の Most ideas will flounder（大半は失敗する）とエジソンの例が根拠。量を擁護する文脈なので(A)(B)(D)は逆方向"],
+ ["設問5 ①","(G) production","the production of research＝研究の生産。量と質のどちらを取るかという文脈"],
+ ["設問5 ②","(I) view","create a distorted view of the situation＝状況の歪んだ見方を作り出す。一部の超多作な発表者が全体像を歪めている"],
+ ["設問5 ③","(B) cost","come at the cost of ~＝~を犠牲にして。「量は質を犠牲にする必要はない」＝ゼロサムの否定"],
+ ["設問5 ④","(E) law","the law of large numbers＝大数の法則。数が増えるほど重要な発見が生まれる確率が上がる"],
+ ["設問5 ⑤","(A) advantage","Another advantage of quantity＝量のもう一つの利点。第5段の Our first argument に続く2つ目の論点"],
+ ["設問5 ⑥","(H) scarcity","a scarcity of replication＝追試の不足。追試が少ないと薄弱な証拠が隠れてしまう（conceal flimsy bodies of evidence）"],
+ ["設問5 ⑦","(C) effects","explored the effects of ~＝~の影響を検討した。直後に「規模の経済の直接的な証拠を報告した」。不使用は (D) end と (F) part"]
+];
+document.getElementById("ansgrid").innerHTML=ANS.map(a=>
+ `<div class="acard hid"><div class="n">${a[0]}</div><div class="a">${a[1]}</div><div class="k">${a[2]}</div></div>`).join("");
+[...document.getElementById("ansgrid").children].forEach(c=>c.onclick=()=>c.classList.toggle("hid"));
+
+const LV={
+ "3級":{c:"var(--g3)",note:"中学卒業程度"},
+ "準2級":{c:"var(--g3p)",note:"高校中級程度"},
+ "2級":{c:"var(--g2)",note:"高校卒業程度"},
+ "準1級":{c:"var(--g2p)",note:"大学中級程度"},
+ "1級":{c:"var(--g1)",note:"大学上級程度"},
+ "級外":{c:"var(--gx)",note:"専門語・注釈必須"}
+};
+// [語句, 意味, 本文での使われ方, レベル, 箇所, 種類]
+const DATA=[
+ ["influential","形 影響力のある","In an influential 2016 editorial in the journal Nature","準1級","第1段","単語"],
+ ["editorial","名 社説、論説記事","an influential 2016 editorial","準1級","第1段","単語"],
+ ["warn that ~","~だと警告する","Daniel Sarewitz ... warned that scientific research is being undermined","2級","第1段","熟語"],
+ ["undermine","動 むしばむ、徐々に弱体化させる","scientific research is being undermined by overpublishing","1級","第1段","単語"],
+ ["overpublishing","名 過剰出版、論文の出しすぎ","undermined by overpublishing","級外","第1段","単語"],
+ ["current","形 現在の、目下の","Current trajectories threaten science","2級","第1段","単語"],
+ ["trajectory","名 軌道、進路、成り行き","Current trajectories threaten science with drowning","1級","第1段","単語"],
+ ["threaten A with B","AをBの危険にさらす","threaten science with drowning in the noise","準1級","第1段","熟語"],
+ ["drown in ~","~に溺れる、~にのみ込まれる","drowning in the noise of its own rising productivity","2級","第1段","熟語"],
+ ["productivity","名 生産性","its own rising productivity","2級","第1段","単語"],
+ ["outcome","名 結果、結末","avoiding such an outcome","2級","第1段","単語"],
+ ["in part","部分的には、一つには","will, in part, require much more selective publication","2級","第1段","熟語"],
+ ["selective","形 選択的な、厳選する","much more selective publication","準1級","第1段","単語"],
+ ["publication","名 出版、論文発表","much more selective publication","2級","第1段","単語"],
+ ["has since been ~","それ以来ずっと~されてきた【設問1】","This argument has since been repeated so often","2級","第1段","熟語"],
+ ["so ~ that ...","非常に~なので…【設問1】","repeated so often that it has practically become an accepted truism","2級","第1段","熟語"],
+ ["practically","副 事実上、ほとんど【設問1】","it has practically become an accepted truism","2級","第1段","単語"],
+ ["truism","名 自明の理、言い古された真理【設問1】","an accepted truism","級外","第1段","単語"],
+ ["be forced to do","~せざるを得ない","If we were forced to choose between quantity and quality","2級","第2段","熟語"],
+ ["choose between A and B","AとBのどちらかを選ぶ","choose between quantity and quality","3級","第2段","熟語"],
+ ["quantity","名 量","between quantity and quality","2級","第2段","単語"],
+ ["obvious","形 明らかな、当然の","quality seems the obvious choice","2級","第2段","単語"],
+ ["reject the notion that ~","~という考えを退ける","we reject the notion that improving the quality ... requires limiting the quantity","準1級","第2段","熟語"],
+ ["notion","名 考え、概念","reject the notion","準1級","第2段","単語"],
+ ["on the contrary","それどころか、逆に","On the contrary, we believe that ...","2級","第2段","熟語"],
+ ["procedure","名 手続き、手順","rules and procedures designed to suppress quantity","2級","第2段","単語"],
+ ["be designed to do","~するように設計されている","rules and procedures designed to suppress quantity","2級","第2段","熟語"],
+ ["suppress","動 抑制する、抑え込む","designed to suppress quantity","準1級","第2段","単語"],
+ ["end up doing","結局~することになる","could end up harming the research community","2級","第2段","熟語"],
+ ["hinder","動 妨げる、邪魔する","hindering the emergence of new, creative ideas","準1級","第2段","単語"],
+ ["emergence","名 出現、登場","the emergence of new, creative ideas","準1級","第2段","単語"],
+ ["modest","形 控えめな、ささやかな","Most researchers already publish at a quite modest rate","準1級","第3段","単語"],
+ ["at a ~ rate","~なペースで","publish at a quite modest rate","2級","第3段","熟語"],
+ ["systematically","副 体系的に、系統立てて","One of the few studies to look systematically at the publication rate","準1級","第3段","単語"],
+ ["individual","形 個々の、一人ひとりの","the publication rate of individual researchers","2級","第3段","単語"],
+ ["meaningful","形 意味のある、有意な","found no meaningful increase over the past century","2級","第3段","単語"],
+ ["over the past century","過去100年にわたって","no meaningful increase over the past century","2級","第3段","熟語"],
+ ["widespread","形 広く行き渡った","the widespread belief that pressures to publish are ...","準1級","第3段","単語"],
+ ["pressure to publish","名 出版圧力（業績を出せというプレッシャー）","the widespread belief that pressures to publish are causing ...","2級","第3段","熟語"],
+ ["be flooded with ~","~であふれる、氾濫する","causing the scientific literature to be flooded with ...","準1級","第3段","熟語"],
+ ["literature","名 （研究）文献【多義語：文学】","the scientific literature","準1級","第3段","単語"],
+ ["salami-sliced","形 サラミ式に細切れにされた（1つの研究を小分けに発表した）","flooded with salami-sliced, trivial, incomplete ... results","級外","第3段","単語"],
+ ["trivial","形 些細な、取るに足らない","salami-sliced, trivial, incomplete ... results","準1級","第3段","単語"],
+ ["incomplete","形 不完全な","trivial, incomplete, duplicated ... results","2級","第3段","単語"],
+ ["duplicated","形 重複した","incomplete, duplicated, plagiarized and false results","準1級","第3段","単語"],
+ ["plagiarize","動 盗用する、剽窃する","duplicated, plagiarized and false results","1級","第3段","単語"],
+ ["exaggerate","動 誇張する","is likely to be incorrect or at least exaggerated","準1級","第3段","単語"],
+ ["conclude that ~","~と結論づける","The study's authors ... concluded that ...","2級","第3段","熟語"],
+ ["hyperproductive","形 極端に多作の","A relatively small number of hyperproductive publishers","級外","第3段","単語"],
+ ["relatively","副 比較的","A relatively small number","2級","第3段","単語"],
+ ["distorted","形 歪んだ、歪められた","create a distorted (view) of the situation","準1級","第3段","単語"],
+ ["a distorted view of ~","~の歪んだ見方【設問5②】","create a distorted (view) of the situation","準1級","第3段","熟語"],
+ ["furthermore","副 さらに、その上","Furthermore, the people who worry about overpublishing ...","2級","第4段","単語"],
+ ["zero-sum game","名 ゼロサムゲーム（一方の得が他方の損になる状況）","imagine a zero-sum game where none actually exists","級外","第4段","単語"],
+ ["come at the cost of ~","~を犠牲にして生じる【設問5③】","Quantity does not need to come at the (cost) of quality","準1級","第4段","熟語"],
+ ["upside","名 利点、プラス面","there are significant upsides to quantity in publishing","1級","第4段","単語"],
+ ["significant","形 重要な、かなりの","significant upsides","2級","第4段","単語"],
+ ["contribute to ~","~に貢献する、~の一因となる","can contribute to the quality of the research enterprise","2級","第4段","熟語"],
+ ["enterprise","名 事業、（大きな）取り組み","the research enterprise as a whole","準1級","第4段","単語"],
+ ["as a whole","全体として","the research enterprise as a whole","2級","第4段","熟語"],
+ ["lead to ~","~につながる","increasing the quantity ... leads to more opportunities","2級","第5段","熟語"],
+ ["the law of large numbers","名 大数の法則【設問5④】","opportunities for the (law) of large numbers to take effect","級外","第5段","熟語"],
+ ["take effect","効果を発揮する、作用する","the law of large numbers to take effect","準1級","第5段","熟語"],
+ ["thereby","副 それによって","thereby increasing the chances of an important finding emerging","準1級","第5段","単語"],
+ ["emerge","動 現れる、生まれる","the chances of an important finding emerging","準1級","第5段","単語"],
+ ["flounder","動 もがく、行き詰まる、失敗する","Most ideas will flounder","1級","第5段","単語"],
+ ["capture","動 とらえる、言い表す","a reality captured famously by the example of Thomas Edison","2級","第5段","単語"],
+ ["attempt","名 試み","his repeated failed attempts to develop the light bulb","2級","第5段","単語"],
+ ["respond","動 答える、応じる","Edison responded, \"I have not failed. ...\"","2級","第5段","単語"],
+ ["rather than doing","~するのではなく","Rather than urging scientists to limit their quantity","2級","第6段","熟語"],
+ ["urge 人 to do","人に~するよう促す、強く勧める","urging scientists to limit their quantity","準1級","第6段","熟語"],
+ ["somehow","副 どういうわけか、何らかの形で","reduced output will somehow lead to better work","2級","第6段","単語"],
+ ["steady","形 着実な、安定した","we should encourage steady productivity","2級","第6段","単語"],
+ ["perseverance","名 忍耐、粘り強さ","steady productivity, patience, and perseverance","1級","第6段","単語"],
+ ["promote","動 促進する","promote quantity while maintaining standards for quality","2級","第6段","単語"],
+ ["maintain standards","基準を維持する","maintaining standards for quality","2級","第6段","熟語"],
+ ["discourage","動 思いとどまらせる、抑止する","discouraging questionable research practices","2級","第6段","単語"],
+ ["questionable","形 疑わしい、問題のある","questionable research practices","準1級","第6段","単語"],
+ ["raw data","名 生データ、未加工データ","make their raw data openly available","準1級","第6段","単語"],
+ ["openly available","公開されて誰でも利用できる","make their raw data openly available","2級","第6段","熟語"],
+ ["pre-register","動 （研究計画を）事前登録する","pre-registering their plans for research and analysis","級外","第6段","単語"],
+ ["frictionless","形 摩擦のない、障害のない","make those actions as frictionless as possible","級外","第6段","単語"],
+ ["as ~ as possible","できるだけ~","as frictionless as possible","3級","第6段","熟語"],
+ ["Another advantage of ~","~のもう一つの利点【設問5⑤】","Another (advantage) of quantity is that ...","2級","第7段","熟語"],
+ ["replication","名 再現、追試（同じ実験の繰り返し検証）","opportunities to observe both successful and failed replications","1級","第7段","単語"],
+ ["whether from A, B, or C","AからであれBからであれCからであれ","Whether from random variations, subtle differences ..., or statistical manipulations","2級","第7段","熟語"],
+ ["random variation","名 偶然のばらつき","random variations","準1級","第7段","単語"],
+ ["subtle","形 微妙な、かすかな","subtle differences in methodologies","準1級","第7段","単語"],
+ ["methodology","名 方法論、研究手法","subtle differences in methodologies","1級","第7段","単語"],
+ ["statistical manipulation","名 統計操作","statistical manipulations","1級","第7段","単語"],
+ ["be guaranteed to do","~することが保証されている【設問2】","what works in one study or lab is not guaranteed to work in other places","2級","第7段","熟語"],
+ ["concern about ~","名 ~についての懸念【設問2】","Concerns about replicability have surged","2級","第7段","熟語"],
+ ["replicability","名 再現可能性【設問2】","Concerns about replicability","級外","第7段","単語"],
+ ["surge","動 急増する、急激に高まる","Concerns ... have surged among researchers","1級","第7段","単語"],
+ ["A and B alike","AもBも同様に","researchers, the public, and government officials alike","準1級","第7段","熟語"],
+ ["conduct","動 （調査などを）行う","has conducted extensive investigations","2級","第7段","単語"],
+ ["extensive","形 広範な、大規模な","extensive investigations","準1級","第7段","単語"],
+ ["a scarcity of ~","~の不足、欠乏【設問5⑥】","how a (scarcity) of replication can help conceal flimsy bodies of evidence","準1級","第7段","熟語"],
+ ["conceal","動 隠す、隠蔽する","conceal flimsy bodies of evidence","準1級","第7段","単語"],
+ ["flimsy","形 薄弱な、もろい、説得力のない","flimsy bodies of evidence","1級","第7段","単語"],
+ ["a body of evidence","名 一連の証拠、証拠の総体","flimsy bodies of evidence","準1級","第7段","熟語"],
+ ["a great deal of ~","大量の~","produce a great deal of one type of research","2級","第8段","熟語"],
+ ["increasingly","副 ますます","they become increasingly efficient and proficient","2級","第8段","単語"],
+ ["efficient","形 効率的な","increasingly efficient and proficient","2級","第8段","単語"],
+ ["proficient","形 熟達した、腕の立つ","efficient and proficient over time","1級","第8段","単語"],
+ ["over time","時とともに、時間の経過につれ","proficient over time","2級","第8段","熟語"],
+ ["equipment","名 機器、設備（不可算）【設問3】","repeated use of expensive equipment and facilities","2級","第8段","単語"],
+ ["facility","名 施設、設備【設問3】","expensive equipment and facilities","2級","第8段","単語"],
+ ["a reduction of ~","名 ~の削減【設問3】","can lead to a reduction of costs","2級","第8段","熟語"],
+ ["foster","動 育む、促進する","Fostering environments that encourage greater research productivity","準1級","第9段","単語"],
+ ["imply","動 意味する、含意する","greater productivity implies increased use of the labs","準1級","第9段","単語"],
+ ["generate","動 生み出す","required to generate the work","2級","第9段","単語"],
+ ["review","名 総説、レビュー論文","A 2017 review by a British team","2級","第9段","単語"],
+ ["explore the effects of ~","~の影響を検討する【設問5⑦】","explored the (effects) of concentrating more work in one facility","2級","第9段","熟語"],
+ ["concentrate A in B","AをBに集中させる","concentrating more work in one facility","2級","第9段","熟語"],
+ ["biomedical","形 生物医学の","biomedical and health research","級外","第9段","単語"],
+ ["direct evidence","名 直接的な証拠","some direct evidence for positive economies of scale","2級","第9段","単語"],
+ ["economies of scale","名 規模の経済（規模拡大でコストが下がること）【設問3】","positive economies of scale in universities and research institutes","級外","第9段","熟語"],
+ ["institute","名 研究所","universities and research institutes","2級","第9段","単語"],
+ ["affirm","動 裏づける、肯定する","Our personal experiences affirm such economies of scale","1級","第9段","単語"],
+ ["depend heavily on ~","~に大きく依存する","research that depends heavily on repetitive use of complex procedures","2級","第9段","熟語"],
+ ["repetitive","形 反復的な、繰り返しの","repetitive use of complex procedures","準1級","第9段","単語"],
+ ["instrument","名 器具、（精密）機器","complex procedures or instruments","2級","第9段","単語"],
+ ["initially","副 初めは、当初は","initially expensive to install","2級","第9段","単語"],
+ ["install","動 設置する、導入する","expensive to install or difficult to master","2級","第9段","単語"],
+ ["master","動 習得する、使いこなす","difficult to master","2級","第9段","単語"],
+ ["breakthrough","名 大発見、飛躍的進歩","creative breakthroughs are usually the result of deep focus（設問4(A)）","準1級","設問","単語"],
+ ["insight","名 洞察、ひらめき","good ideas are born from insights（設問4(B)）","準1級","設問","単語"],
+ ["regardless of ~","~に関係なく","regardless of the number of experiments（設問4(D)）","2級","設問","熟語"],
+ ["inspiration","名 ひらめき、着想","came from sudden inspiration（設問4(E)）","2級","設問","単語"]
+];
+
+const ORDER=["3級","準2級","2級","準1級","1級","級外"];
+let data=[...DATA],activeLv="all",activeType="all",hideDone=false;
+const done=new Set();
+
+const cW=DATA.filter(d=>d[5]==="単語").length, cI=DATA.length-cW;
+document.getElementById("total").textContent=DATA.length;
+document.getElementById("nw").textContent=cW;
+document.getElementById("ni").textContent=cI;
+
+const cnt={},cntW={},cntI={};
+ORDER.forEach(l=>{cnt[l]=0;cntW[l]=0;cntI[l]=0;});
+DATA.forEach(d=>{cnt[d[3]]++;(d[5]==="単語"?cntW:cntI)[d[3]]++;});
+document.getElementById("sumbody").innerHTML=ORDER.map(l=>{
+ const n=cnt[l],p=Math.round(n/DATA.length*100);
+ return `<tr><td><span class="badge" style="background:${LV[l].c}">${l}</span></td>
+ <td><b>${n}</b></td><td style="color:var(--tw);font-weight:700">${cntW[l]}</td>
+ <td style="color:var(--ti);font-weight:700">${cntI[l]}</td>
+ <td><span class="bar" style="width:${Math.max(p*2.6,6)}px;background:${LV[l].c}"></span>${p}%</td>
+ <td style="color:var(--sub)">${LV[l].note}</td></tr>`;}).join("");
+
+document.getElementById("filters").innerHTML=
+ `<button class="on" data-lv="all">すべて</button>`+
+ ORDER.map(l=>cnt[l]?`<button data-lv="${l}" style="color:${LV[l].c}">${l} (${cnt[l]})</button>`:"").join("");
+document.getElementById("filters").onclick=e=>{
+ if(e.target.tagName!=="BUTTON")return;
+ [...e.currentTarget.children].forEach(b=>b.classList.remove("on"));
+ e.target.classList.add("on");activeLv=e.target.dataset.lv;render();};
+
+function list(){return data.filter(d=>
+ (activeLv==="all"||d[3]===activeLv)&&
+ (activeType==="all"||d[5]===activeType)&&
+ !(hideDone&&done.has(d[0])));}
+
+function render(){
+ const L=list();
+ document.getElementById("grid").innerHTML=L.map(d=>{
+  const[p,m,ex,lv,ln,ty]=d, t=ty==="単語"?"w":"i";
+  return `<div class="card hidden" data-w="${p}" style="border-left-color:${LV[lv].c}">
+   <span class="check">✓ 覚えた</span>
+   <div class="top"><span class="phrase">${p}</span>
+   <span style="display:flex;flex-direction:column;gap:4px;align-items:flex-end">
+   <span class="badge" style="background:${LV[lv].c}">${lv}</span>
+   <span class="tag ${t}">${ty}</span></span></div>
+   <div class="line">${ln}</div>
+   <div class="meaning">${m}</div>
+   <div class="ex">${ex}</div>
+   <div class="hint">タップで表示 ／ ダブルクリックで「覚えた」</div></div>`;}).join("");
+ [...document.getElementById("grid").children].forEach(c=>{
+  if(done.has(c.dataset.w))c.classList.add("done");
+  c.onclick=()=>c.classList.toggle("hidden");
+  c.ondblclick=e=>{e.preventDefault();const w=c.dataset.w;
+   done.has(w)?done.delete(w):done.add(w);render();};});
+
+ document.getElementById("tbody").innerHTML=L.map(d=>{
+  const[p,m,ex,lv,ln,ty]=d, t=ty==="単語"?"w":"i";
+  return `<tr class="hid ${done.has(p)?'done':''}" data-w="${p}">
+   <td><span class="mark">✓</span></td>
+   <td><span class="tag ${t}">${ty}</span></td>
+   <td class="ph">${p}</td><td class="mn">${m}</td>
+   <td class="exc">${ex}</td>
+   <td><span class="badge" style="background:${LV[lv].c}">${lv}</span></td>
+   <td class="ln">${ln}</td></tr>`;}).join("");
+ [...document.getElementById("tbody").children].forEach(tr=>{
+  tr.querySelector(".mn").onclick=()=>tr.classList.toggle("hid");
+  tr.querySelector(".exc").onclick=()=>tr.classList.toggle("hid");
+  tr.querySelector(".mark").onclick=()=>{const w=tr.dataset.w;
+   done.has(w)?done.delete(w):done.add(w);render();};});
+
+ document.getElementById("shown").textContent=L.length;
+ document.getElementById("doneN").textContent=done.size;
+}
+
+function setView(v){
+ document.getElementById("cardView").classList.toggle("hide",v!=="card");
+ document.getElementById("tableView").classList.toggle("hide",v!=="table");
+ document.getElementById("bCard").classList.toggle("on",v==="card");
+ document.getElementById("bTable").classList.toggle("on",v==="table");}
+function setType(t){activeType=t;
+ document.getElementById("tAll").classList.toggle("on",t==="all");
+ document.getElementById("tW").classList.toggle("on",t==="単語");
+ document.getElementById("tI").classList.toggle("on",t==="熟語");render();}
+function allHide(){document.querySelectorAll(".card").forEach(c=>c.classList.add("hidden"));
+ document.querySelectorAll("#tbody tr").forEach(t=>t.classList.add("hid"));}
+function allShow(){document.querySelectorAll(".card").forEach(c=>c.classList.remove("hidden"));
+ document.querySelectorAll("#tbody tr").forEach(t=>t.classList.remove("hid"));}
+function shuffle(){for(let i=data.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[data[i],data[j]]=[data[j],data[i]];}render();}
+function resetOrder(){data=[...DATA];render();}
+function resetDone(){done.clear();render();}
+function toggleDoneFilter(){hideDone=!hideDone;
+ document.getElementById("hideDoneBtn").textContent=hideDone?"覚えた項目も表示":"覚えた項目を隠す";render();}
+
+render();
+</script>
+</body>
+</html>
