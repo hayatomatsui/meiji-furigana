@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Humboldt Brothers｜単語・熟語リスト＋背景解説</title>
+<style>
+:root{
+  --g3:#4CAF50; --g3p:#8BC34A; --g2:#03A9F4; --g2p:#7E57C2; --g1:#E91E63; --gx:#F44336;
+  --tw:#ff6a3d; --ti:#1668c7;
+  --bg:#f4f6fb; --card:#fff; --ink:#1b2233; --sub:#6b7590;
+  --al:#1d7a6c; --wi:#3c5fa8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+  background:var(--bg);color:var(--ink);padding:18px;line-height:1.65}
+.wrap{max-width:1180px;margin:0 auto}
+header{background:linear-gradient(135deg,#0f3b57,#1d7a6c 48%,#5b4b8a);color:#fff;
+  border-radius:18px;padding:26px 24px 18px;margin-bottom:16px;box-shadow:0 8px 26px rgba(15,59,87,.28)}
+header h1{font-size:1.38rem;margin-bottom:6px}
+header p{opacity:.94;font-size:.87rem}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:15px}
+.stat{background:rgba(255,255,255,.22);border-radius:12px;padding:8px 14px;font-size:.8rem}
+.stat b{font-size:1.15rem;display:block}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.tabs button{background:rgba(255,255,255,.18);color:#fff;box-shadow:none;padding:9px 18px}
+.tabs button.on{background:#fff;color:#0f3b57}
+h2{font-size:1.03rem;margin:24px 0 10px;padding-left:12px;border-left:5px solid #1d7a6c}
+h3{font-size:.95rem;margin:16px 0 8px}
+p.lead{font-size:.86rem;color:var(--sub);margin-bottom:10px}
+
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 14px}
+.lbl{font-size:.72rem;color:var(--sub);font-weight:700;margin-right:2px}
+button{font-family:inherit;cursor:pointer;border:none;border-radius:999px;padding:8px 15px;
+  font-size:.82rem;font-weight:700;transition:.15s;background:#fff;color:var(--sub);
+  box-shadow:0 2px 6px rgba(0,0,0,.08)}
+button:hover{transform:translateY(-1px)}
+button.on{background:#1b2233;color:#fff}
+.util{background:#e0f2f1;color:#00695c}
+.sw{display:inline-flex;background:#fff;border-radius:999px;padding:4px;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.sw button{box-shadow:none;padding:8px 18px}
+.sw button.on{background:linear-gradient(135deg,#1d7a6c,#3c5fa8);color:#fff}
+.spacer{flex:1}
+
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;
+  box-shadow:0 2px 10px rgba(0,0,0,.07)}
+th,td{padding:10px 13px;text-align:left;border-bottom:1px solid #eef1f6;font-size:.87rem;vertical-align:top}
+th{background:#1b2233;color:#fff;font-size:.76rem;letter-spacing:.04em}
+tbody tr:nth-child(even){background:#fafbfe}
+tbody tr:hover{background:#e8f5f3}
+tbody tr.done{opacity:.4}
+td.ph{font-weight:700}
+td.mn{cursor:pointer}
+tr.hid td.mn,tr.hid td.exc{filter:blur(5px);opacity:.5}
+td.exc{color:#5c6580;font-style:italic;font-size:.79rem}
+td.ln{color:#aab2c4;font-size:.75rem;white-space:nowrap}
+.mark{cursor:pointer;color:#c9cfdd;font-weight:800;user-select:none}
+tr.done .mark{color:#4CAF50}
+.bar{height:9px;border-radius:5px;display:inline-block;vertical-align:middle;margin-right:8px}
+.sumtbl td,.sumtbl th{font-size:.85rem}
+.tblwrap{overflow-x:auto}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:12px}
+.card{background:var(--card);border-radius:14px;padding:14px 16px;cursor:pointer;
+  box-shadow:0 2px 8px rgba(0,0,0,.07);border-left:6px solid #ccc;transition:.18s;
+  position:relative;user-select:none}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.12)}
+.card.done{opacity:.42}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.phrase{font-size:1.05rem;font-weight:700}
+.badge{font-size:.65rem;font-weight:800;color:#fff;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.tag{font-size:.63rem;font-weight:800;padding:2px 8px;border-radius:999px;color:#fff}
+.tag.w{background:var(--tw)} .tag.i{background:var(--ti)}
+.meaning{margin-top:9px;padding-top:9px;border-top:1px dashed #dde2ec;font-size:.92rem}
+.ex{margin-top:7px;font-size:.77rem;color:#5c6580;font-style:italic}
+.hidden .meaning,.hidden .ex{filter:blur(6px);opacity:.5}
+.hint{font-size:.66rem;color:#b9c0d0;margin-top:6px}
+.line{font-size:.67rem;color:#aab2c4;margin-top:3px}
+.check{position:absolute;top:8px;right:10px;font-size:.66rem;color:#4CAF50;display:none;font-weight:800}
+.card.done .check{display:block}
+.hide{display:none}
+
+/* ---- 背景解説 ---- */
+.panel{background:#fff;border-radius:16px;padding:18px 20px;box-shadow:0 2px 10px rgba(0,0,0,.07);margin-bottom:14px}
+.panel p{font-size:.9rem}
+.panel p+p{margin-top:9px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:760px){.two{grid-template-columns:1fr}}
+.bro{border-top:7px solid var(--al)}
+.bro.w{border-top-color:var(--wi)}
+.bro h3{font-size:1.12rem;display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+.bro h3 small{font-size:.68rem;color:var(--sub);font-weight:600}
+.who{font-size:.74rem;font-weight:800;color:#fff;background:var(--al);padding:3px 10px;border-radius:999px}
+.bro.w .who{background:var(--wi)}
+ul.tight{margin:8px 0 0 18px;font-size:.86rem}
+ul.tight li{margin-bottom:6px}
+.quote{background:#f0f5f9;border-left:4px solid #90a4ae;padding:9px 13px;border-radius:0 10px 10px 0;
+  font-size:.82rem;color:#37474f;margin:10px 0;font-style:italic}
+.quote b{font-style:normal}
+.acc{border:2px solid #eef1f6;border-radius:12px;margin-bottom:9px;overflow:hidden}
+.acc>div.q{padding:12px 15px;cursor:pointer;font-weight:700;font-size:.9rem;display:flex;
+  justify-content:space-between;align-items:center;gap:10px;background:#fff;user-select:none}
+.acc>div.q:hover{background:#f5f8fc}
+.acc>div.q .mk{color:#1d7a6c;font-size:1.05rem;font-weight:800}
+.acc>div.a{padding:0 15px;max-height:0;overflow:hidden;transition:.25s;font-size:.87rem;background:#fbfcfe}
+.acc.open>div.a{max-height:1400px;padding:12px 15px 15px;border-top:1px solid #eef1f6}
+.chain{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin-top:12px}
+.node{flex:1 1 160px;background:linear-gradient(135deg,#eef4fb,#e6f2ef);border-radius:12px;padding:11px 13px;
+  border:2px solid #dde7f0}
+.node b{display:block;font-size:.95rem;color:#0f3b57}
+.node span{font-size:.76rem;color:var(--sub)}
+.arrow{align-self:center;color:#9fb0c4;font-weight:800}
+@media(max-width:760px){.arrow{transform:rotate(90deg)}}
+.mtn{display:block;width:100%;max-width:640px;margin:6px auto 0;cursor:pointer}
+.mtn .band{transition:.15s}
+.mtn .band:hover{opacity:.75}
+.zoneinfo{margin-top:10px;background:#f0f5f9;border-radius:12px;padding:12px 15px;font-size:.86rem;min-height:64px}
+.zoneinfo b{color:#0f3b57}
+.pill{display:inline-block;font-size:.68rem;font-weight:800;padding:2px 9px;border-radius:999px;
+  background:#e0f2f1;color:#00695c;margin-right:5px}
+.pill.src{background:#fff3e0;color:#e65100}
+
+/* ---- 年表 ---- */
+.tl{position:relative;margin-left:6px;padding-left:22px;border-left:3px solid #d7e0ea}
+.ev{position:relative;margin-bottom:10px;background:#fff;border-radius:12px;padding:11px 14px;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);cursor:pointer;user-select:none}
+.ev::before{content:"";position:absolute;left:-29px;top:16px;width:13px;height:13px;border-radius:50%;
+  background:#9fb0c4;border:3px solid #f4f6fb}
+.ev.a::before{background:var(--al)} .ev.w::before{background:var(--wi)}
+.ev .yr{font-weight:800;font-size:.82rem;color:#0f3b57;margin-right:9px}
+.ev .ti{font-size:.9rem;font-weight:700}
+.ev .de{font-size:.83rem;color:#5c6580;margin-top:7px;display:none}
+.ev.open .de{display:block}
+.ev .ref{font-size:.66rem;font-weight:800;color:#fff;background:#ff8a65;padding:2px 8px;border-radius:999px;margin-left:6px}
+
+/* ---- クイズ ---- */
+.qz{background:#fff;border-radius:14px;padding:15px 17px;box-shadow:0 2px 10px rgba(0,0,0,.07);margin-bottom:11px}
+.qz .qt{font-weight:700;font-size:.93rem;margin-bottom:10px}
+.qz .qt em{color:#0f3b57;font-style:normal;font-weight:800;margin-right:6px}
+.opt{border:2px solid #eef1f6;border-radius:10px;padding:9px 13px;margin-bottom:7px;cursor:pointer;
+  font-size:.88rem;transition:.15s}
+.opt:hover{border-color:#1d7a6c;background:#f5fbfa}
+.opt.ok{border-color:#4CAF50;background:#eaf7ea}
+.opt.ng{border-color:#F44336;background:#fdeceb}
+.opt.dim{opacity:.45}
+.exp{display:none;margin-top:9px;padding:10px 13px;background:#f0f5f9;border-radius:10px;font-size:.84rem}
+.qz.ansd .exp{display:block}
+.score{position:sticky;bottom:12px;background:#1b2233;color:#fff;border-radius:999px;padding:11px 20px;
+  font-size:.88rem;font-weight:700;display:inline-block;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+@media(max-width:640px){body{padding:12px}th,td{padding:8px 9px;font-size:.79rem}td.exc,th.exc{display:none}
+  header h1{font-size:1.12rem}.panel{padding:15px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>The Humboldt Brothers — 単語・熟語リスト ＋ 背景解説</h1>
+  <p>英検長文「フンボルト兄弟」。本文に出てくる語句を英検レベル別に整理し、さらに「この兄弟が実際に何をした人なのか」を掘り下げました。設問を解いたあとの復習・発展用。</p>
+  <div class="stats">
+    <div class="stat"><b id="total">0</b>総項目</div>
+    <div class="stat"><b id="nw">0</b>単語</div>
+    <div class="stat"><b id="ni">0</b>熟語・構文</div>
+    <div class="stat"><b id="shown">0</b>表示中</div>
+    <div class="stat"><b id="doneN">0</b>覚えた</div>
+  </div>
+  <div class="tabs">
+    <button id="tb-vocab" class="on" onclick="setTab('vocab')">① 単語・熟語</button>
+    <button id="tb-bg" onclick="setTab('bg')">② 背景解説</button>
+    <button id="tb-tl" onclick="setTab('tl')">③ 年表</button>
+    <button id="tb-quiz" onclick="setTab('quiz')">④ 確認クイズ</button>
+  </div>
+</header>
+
+<!-- ============ ① 単語・熟語 ============ -->
+<section id="tab-vocab">
+
+<h2>レベル別分布（単語 / 熟語 内訳つき）</h2>
+<div class="tblwrap">
+<table class="sumtbl"><thead><tr><th>英検レベル</th><th>合計</th><th>単語</th><th>熟語</th><th>割合</th><th>目安</th></tr></thead>
+<tbody id="sumbody"></tbody></table>
+</div>
+
+<div class="controls" style="margin-top:22px">
+  <span class="sw"><button id="bCard" class="on" onclick="setView('card')">カード形式</button><button id="bTable" onclick="setView('table')">表形式</button></span>
+  <span class="spacer"></span>
+  <span class="sw"><button id="tAll" class="on" onclick="setType('all')">単語＋熟語</button><button id="tW" onclick="setType('単語')">単語のみ</button><button id="tI" onclick="setType('熟語')">熟語のみ</button></span>
+</div>
+
+<div class="controls"><span class="lbl">レベル</span><span id="filters" style="display:contents"></span></div>
+<div class="controls"><span class="lbl">段落</span><span id="pfilters" style="display:contents"></span></div>
+<div class="controls">
+  <button class="util" onclick="allHide()">すべて隠す</button>
+  <button class="util" onclick="allShow()">すべて表示</button>
+  <button class="util" onclick="shuffle()">シャッフル</button>
+  <button class="util" onclick="resetOrder()">本文順に戻す</button>
+  <button class="util" onclick="resetDone()">「覚えた」リセット</button>
+  <span class="spacer"></span>
+  <button class="util" id="hideDoneBtn" onclick="toggleDoneFilter()">覚えた項目を隠す</button>
+</div>
+
+<div id="cardView"><div class="grid" id="grid"></div></div>
+<div id="tableView" class="hide tblwrap">
+  <table><thead><tr><th style="width:30px"></th><th style="width:46px">種類</th><th>語句</th><th>意味</th><th class="exc">本文での使われ方</th><th>レベル</th><th>箇所</th></tr></thead>
+  <tbody id="tbody"></tbody></table>
+</div>
+
+<h2>つまずきやすい7カ所</h2>
+<div class="panel">
+<ul class="tight">
+<li><b>what is now Germany</b> — 「今ではドイツである場所」。関係代名詞 what＝「〜するもの／こと」。当時はまだドイツという国はなくプロイセン王国だった、という歴史的事実を1語で処理している。</li>
+<li><b>Following his death</b> — この following は前置詞で <b>after</b> の意味。「〜に続いて」。分詞と間違えやすい。</li>
+<li><b>The younger of the two</b> — 2人のうちの年下の方。<b>「2つのうちどちらか」を比較級で言うときは the がつく</b>（the younger, the larger）。</li>
+<li><b>had been deeply interested ... since early childhood</b> — 過去完了。「南米に行く前の時点ですでに、幼少期からずっと」という二重の時間差。</li>
+<li><b>helped found a university</b> — found は「見つける」の過去形ではなく <b>found（創設する）の原形</b>。help (to) do の to が省略された形。found-founded-founded。</li>
+<li><b>He considered language to be something whose ...</b> — consider O to be C（OをCとみなす）＋ 所有格の関係代名詞 whose。「その構造と性格が〜を反映するようなもの」。</li>
+<li><b>not everyone could have</b> — 部分否定。「全員が持てたわけではない」であって「誰も持てなかった」ではない。</li>
+</ul>
+</div>
+</section>
+
+<!-- ============ ② 背景解説 ============ -->
+<section id="tab-bg" class="hide">
+
+<h2>まず全体像：外へ向かった弟、内へ向かった兄</h2>
+<div class="two">
+  <div class="panel bro">
+    <h3><span class="who">弟</span>Alexander von Humboldt <small>1769–1859</small></h3>
+    <p style="font-size:.86rem;color:var(--sub)">アレクサンダー・フォン・フンボルト</p>
+    <ul class="tight">
+      <li><b>向かった先：自然界</b>。南米を5年歩き回り、植物・動物・地形を測りまくった。</li>
+      <li>発明したもの：<b>等温線（isotherm）</b>＝今の天気図で同じ気温の地点を結ぶあの線。</li>
+      <li><b>植物地理学</b>の創始。「標高が変われば植生が変わる。その並び方はアンデスでもアルプスでも同じ法則」と発見。</li>
+      <li>1802年、<b>チンボラソ山</b>を約5,875mまで登り、当時の人類最高到達高度を記録。</li>
+      <li>森林伐採が湖の水位を下げ土地を乾かすと記述 ＝ <b>人為的な気候変動を指摘した最初期の一人</b>。</li>
+      <li>奴隷制と植民地支配を厳しく批判した。</li>
+    </ul>
+  </div>
+  <div class="panel bro w">
+    <h3><span class="who">兄</span>Wilhelm von Humboldt <small>1767–1835</small></h3>
+    <p style="font-size:.86rem;color:var(--sub)">ヴィルヘルム・フォン・フンボルト</p>
+    <ul class="tight">
+      <li><b>向かった先：人間の内側</b>。教育と言語。</li>
+      <li>1809〜10年、プロイセン内務省の宗教・公教育局長。<b>在任わずか16か月</b>で教育制度を作り替えた。</li>
+      <li>1810年、<b>ベルリン大学を創設</b>。現在の<b>フンボルト大学ベルリン</b>。</li>
+      <li>本文の "The proposal he wrote" ＝ 覚書「ベルリンの高等学問施設の内的・外的組織について」。</li>
+      <li>言語学者としては<b>ジャワのカウィ語</b>研究が主著。言語をどう捉えるかを一変させた。</li>
+      <li>外交官としてウィーン会議（1814–15）にもプロイセン代表として出席。</li>
+    </ul>
+  </div>
+</div>
+<div class="panel">
+  <p><b>ここが面白いところ：</b>二人はまったく別方向に進んだように見えて、発想はそっくりです。<b>バラバラに見える事物を、一つのつながりとして捉え直す</b>——弟はそれを自然界（気候・植物・地形・人間活動をひとつの網として見る）で、兄はそれを言語と精神（言語・文化・世界の見え方をひとつの網として見る）でやった。本文最終段の "a lasting impact" は、この共通の発想が今も生きているという意味です。</p>
+</div>
+
+<h2>弟の代表作『コスモス』（Kosmos）とは何か</h2>
+<div class="panel">
+  <p>本文で名前が出る唯一の書物。<b>1845〜1862年、全5巻</b>。アレクサンダーが<b>76歳から書き始め、死ぬまで書き続けて未完</b>に終わった大著です。</p>
+  <p>狙いは本文の説明どおり、「自然界のあらゆるものがどう働き、どうつながっているか」を一冊に描き切ること。星雲から地磁気、火山、海流、植物分布、さらには人間の芸術や言語まで、宇宙を<b>一枚の織物</b>として記述しようとしました。専門分化していく19世紀科学に逆らう試みで、それゆえ各国語に訳される大ベストセラーになりました。</p>
+  <div class="quote"><b>もう一冊の重要作：</b>『新大陸赤道地方紀行（Personal Narrative）』。若きダーウィンがビーグル号にこの本を持ち込み、自分の人生の進路はこの本で決まった、と後に語っています。フンボルト → ダーウィン → 現代生物学、という線がここでつながる。</div>
+
+  <h3>『コスモス』の発想を1枚の絵にすると：チンボラソ山の断面図</h3>
+  <p class="lead">アレクサンダーが描いた「自然の絵（Naturgemälde）」の考え方。<b>帯をタップすると説明が出ます。</b></p>
+  <svg class="mtn" viewBox="0 0 640 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="チンボラソ山の植生帯断面図">
+    <defs><clipPath id="mt"><polygon points="320,18 600,300 40,300"/></clipPath></defs>
+    <g clip-path="url(#mt)">
+      <rect class="band" data-z="5" x="0" y="0"   width="640" height="70"  fill="#eceff1"/>
+      <rect class="band" data-z="4" x="0" y="70"  width="640" height="52"  fill="#cfd8dc"/>
+      <rect class="band" data-z="3" x="0" y="122" width="640" height="58"  fill="#c5cfa4"/>
+      <rect class="band" data-z="2" x="0" y="180" width="640" height="58"  fill="#8fbf7f"/>
+      <rect class="band" data-z="1" x="0" y="238" width="640" height="62"  fill="#3f8f5f"/>
+    </g>
+    <polygon points="320,18 600,300 40,300" fill="none" stroke="#607d8b" stroke-width="2.5"/>
+    <line x1="40" y1="300" x2="600" y2="300" stroke="#607d8b" stroke-width="2.5"/>
+    <line x1="248" y1="88" x2="612" y2="88" stroke="#e53935" stroke-width="1.6" stroke-dasharray="5 4"/>
+    <text x="616" y="84" font-size="11" fill="#e53935" text-anchor="end" font-weight="bold">1802年 到達点 約5,875m</text>
+    <text x="320" y="13" font-size="11" fill="#37474f" text-anchor="middle" font-weight="bold">チンボラソ 6,263m（未到達）</text>
+    <g font-size="11" fill="#37474f">
+      <text x="46" y="44">氷雪・岩</text>
+      <text x="46" y="102">コケ・地衣類</text>
+      <text x="46" y="156">高山草原（パラモ）</text>
+      <text x="46" y="214">雲霧林</text>
+      <text x="46" y="272">熱帯林</text>
+    </g>
+    <text x="320" y="322" font-size="10.5" fill="#78909c" text-anchor="middle">帯をタップすると解説が出ます</text>
+  </svg>
+  <div class="zoneinfo" id="zoneinfo">標高が変われば、そこに生える植物が変わる。しかも<b>その並び方には法則がある</b>——アンデスでもアルプスでもヒマラヤでも同じ順で帯が現れる。この一枚の図が「植物地理学」という分野を生みました。上の帯をタップしてください。</div>
+</div>
+
+<h2>兄が作った「大学」という仕組み</h2>
+<div class="panel">
+  <p>本文の "The proposal he wrote for the university has influenced the German university system ever since" は、控えめすぎる表現です。影響を受けたのはドイツだけではありません。</p>
+  <div class="tblwrap">
+  <table><thead><tr><th style="width:34%">フンボルト理念</th><th>中身</th></tr></thead><tbody>
+    <tr><td><b>研究と教育の統一</b><br><span style="font-size:.75rem;color:var(--sub)">Einheit von Forschung und Lehre</span></td><td>教授は自分が研究していることを学生に教える。大学は<b>知識を配る場所ではなく、作る場所</b>。ゼミも卒業論文もこの原則から生まれた。</td></tr>
+    <tr><td><b>学問の自由</b></td><td>教える自由（Lehrfreiheit）と学ぶ自由（Lernfreiheit）。何を研究し何を履修するかは本人が決める。</td></tr>
+    <tr><td><b>教養（Bildung）</b></td><td>目的は職業訓練ではなく、人格の全体的な形成。専門家を作る前に人間を作る。</td></tr>
+    <tr><td><b>孤独と自由</b></td><td>国家は金を出すが口は出さない。研究の中身に政治が介入しない。</td></tr>
+  </tbody></table>
+  </div>
+  <h3>本文の "many people have indirectly received benefits" を具体化すると</h3>
+  <div class="chain">
+    <div class="node"><b>1810</b><span>ベルリン大学 創設<br>（ヴィルヘルムの覚書）</span></div>
+    <div class="arrow">▶</div>
+    <div class="node"><b>1876</b><span>米ジョンズ・ホプキンス大<br>＝ドイツ型研究大学を輸入</span></div>
+    <div class="arrow">▶</div>
+    <div class="node"><b>1886</b><span>日本・帝国大学令<br>ドイツ型を範に制度設計</span></div>
+    <div class="arrow">▶</div>
+    <div class="node"><b>現在</b><span>日本の大学のゼミ・研究室<br>・卒論・大学院</span></div>
+  </div>
+  <p style="margin-top:11px"><b>つまり：</b>日本の大学生がゼミに入って卒論を書くという習慣は、200年前のベルリンで兄ヴィルヘルムが書いた1本の企画書に遡ります。本文が言う「間接的に恩恵を受けている多くの人」には、この文章を読んでいる高校生・大学生も含まれる。</p>
+</div>
+
+<h2>兄の言語論：本文第3段の中身</h2>
+<div class="panel">
+  <p class="lead">本文の "language was not just a collection of words but a means that allowed people to perceive the world" は、ヴィルヘルムの言語理論をかなり正確に要約しています。原典ではこう言われています。</p>
+  <div class="acc"><div class="q">① 言語は「作品」ではなく「活動」である<span class="mk">＋</span></div>
+    <div class="a"><b>ergon（できあがった作品）ではなく energeia（活動そのもの）。</b><br>
+    言語は辞書に並んだ単語の在庫ではなく、話すたびに毎回そのつど生成されるはたらきだ、という主張。本文の "not just a collection of words" がこれ。<br>
+    <span class="pill">高校英語との接点</span>「英単語を何個覚えたか」ではなく「その言語で考えられるか」を問う発想の源流。</div></div>
+  <div class="acc"><div class="q">② 言語ごとに Weltansicht（世界の見え方）がある<span class="mk">＋</span></div>
+    <div class="a">それぞれの言語は、その話し手たちの<b>世界の切り取り方</b>を含んでいる。日本語の「木漏れ日」、英語の serendipity のように、言語が違えば世界の分節の仕方が違う。<br>
+    本文の "reflected the culture and individuality of its speakers" と "allowed people to perceive the world" は、まさにこの Weltansicht の説明。<br>
+    <span class="pill">後の展開</span>20世紀の<b>サピア＝ウォーフ仮説</b>（言語が思考を規定する）の源流とされる。</div></div>
+  <div class="acc"><div class="q">③ 「有限の手段の無限の使用」<span class="mk">＋</span></div>
+    <div class="a">限られた語彙と規則から、誰も言ったことのない文を無限に作れる。<br>
+    この一句を<b>ノーム・チョムスキー</b>が生成文法の核心として繰り返し引用したことで、ヴィルヘルムは現代言語学の祖の一人として復権しました。</div></div>
+</div>
+
+<h2>本文の主張を検証する</h2>
+<div class="panel">
+  <div class="acc"><div class="q">「世界であまり名前を知られていない」は本当か？<span class="mk">＋</span></div>
+    <div class="a">少なくともドイツ語圏では逆で、フンボルトは国民的英雄です。名前がついているものだけでも——<br>
+    <b>フンボルト海流</b>（南米西岸を流れる寒流）／<b>フンボルトペンギン</b>／<b>フンボルトイカ</b>／月と火星のクレーター／<b>フンボルト大学ベルリン</b>／<b>フンボルト財団</b>（世界的な研究助成機関）／北米だけで数百の郡・町・川・山。<br><br>
+    正確に言うと、<b>19世紀には超有名人で、20世紀に忘れられた</b>。理由の一つは二度の世界大戦でドイツ的なものが敬遠されたこと。近年再評価され、その火付け役が<b>アンドレア・ウルフ『自然の発明（The Invention of Nature）』(2015)</b>。背景を1冊で知りたいならこれ。<br>
+    <span class="pill src">授業での使い方</span>本文の最後の一文が事実として正しいかを議論させると、そのまま調べ学習になる。</div></div>
+  <div class="acc"><div class="q">最終段は「才能」の話ではなく「特権」の話<span class="mk">＋</span></div>
+    <div class="a">最終段をよく読むと、筆者は兄弟の天才性をほとんど褒めていません。書いてあるのは<b>環境・機会・富</b>です。<br>
+    "a life that not everyone could have" ／ "Their wealthy background gave them early access to quality education" ——つまり<b>この二人の業績は、生まれの偶然に大きく依存していた</b>と述べている。<br>
+    英作文や意見論述で「では現代において、生まれに関係なく教育の機会を保障するには何が必要か」につなげやすい段落です。</div></div>
+  <div class="acc"><div class="q">本文には出てこないが知っておくと面白い事実<span class="mk">＋</span></div>
+    <div class="a">
+    ・アレクサンダーの家庭教師の一人 <b>J.H.カンペ</b> は、『ロビンソン・クルーソー』を子ども向けに書き直した作家。<b>探検物語を書いた人物が、実際の大探検家を育てた</b>ことになる。<br>
+    ・母の宗教はユグノー（フランス系プロテスタント）の流れをくむカルヴァン派。本文の "strict and serious religious beliefs" はこれ。<br>
+    ・アレクサンダーの死は<b>1859年</b>。ダーウィン『種の起源』が出た年と同じで、フンボルトはそれを見ずに世を去った。<br>
+    ・兄ヴィルヘルムの主著は<b>死後出版</b>（1836年）。生前は政治家・外交官として知られ、言語学者としての評価は死後についた。</div></div>
+</div>
+</section>
+
+<!-- ============ ③ 年表 ============ -->
+<section id="tab-tl" class="hide">
+<h2>年表（クリックで詳細）</h2>
+<p class="lead"><span style="color:var(--al);font-weight:800">●</span> 弟アレクサンダー　<span style="color:var(--wi);font-weight:800">●</span> 兄ヴィルヘルム　<span style="color:#9fb0c4;font-weight:800">●</span> 二人／その他　　<span class="ref" style="background:#ff8a65">本文</span>＝本文に対応する記述がある出来事</p>
+<div class="tl" id="tl"></div>
+</section>
+
+<!-- ============ ④ クイズ ============ -->
+<section id="tab-quiz" class="hide">
+<h2>確認クイズ（英検の設問とは別の、語彙＋背景の復習用）</h2>
+<p class="lead">選択肢をクリックすると即座に正誤と解説が出ます。全12問。</p>
+<div id="quiz"></div>
+<div style="text-align:center;margin:16px 0">
+  <span class="score" id="score">0 / 12 正解</span>
+  <div style="margin-top:12px"><button class="util" onclick="resetQuiz()">もう一度やる</button></div>
+</div>
+</section>
+
+</div>
+
+<script>
+const LV={
+ "3級":{c:"var(--g3)",note:"中学卒業程度"},
+ "準2級":{c:"var(--g3p)",note:"高校中級程度"},
+ "2級":{c:"var(--g2)",note:"高校卒業程度"},
+ "準1級":{c:"var(--g2p)",note:"大学中級程度"},
+ "1級":{c:"var(--g1)",note:"大学上級程度"},
+ "級外":{c:"var(--gx)",note:"固有名詞・専門語"}
+};
+// [語句, 意味, 本文での使われ方, レベル, 箇所, 種類]
+const DATA=[
+ // ---- 第1段 ----
+ ["in the late eighteenth century","18世紀後半に（late＝〜の後期）","were born in the late eighteenth century","2級","第1段","熟語"],
+ ["what is now Germany","現在ドイツである地域（関係代名詞 what）","in what is now Germany","2級","第1段","熟語"],
+ ["be born into a wealthy family","裕福な家に生まれる（into に注意）","born ... into a wealthy family","準2級","第1段","熟語"],
+ ["wealthy","形 裕福な、富裕な","into a wealthy family","2級","第1段","単語"],
+ ["pass away","亡くなる（die の婉曲表現）","their father passed away","2級","第1段","熟語"],
+ ["even before ~","~より前の時点ですでに","Even before his death","準2級","第1段","熟語"],
+ ["ensure that ~","確実に~であるようにする","wanted to ensure that their sons received a good education","準1級","第1段","熟語"],
+ ["receive an education","教育を受ける（get/have も可）","their sons received a good education","準2級","第1段","熟語"],
+ ["following ~","前 ~の後に（＝after）","Following his death","2級","第1段","単語"],
+ ["raise","動 育てる、養育する","the brothers were raised mainly by their mother","準2級","第1段","単語"],
+ ["mainly","副 主に、大部分は","raised mainly by their mother","準2級","第1段","単語"],
+ ["hold a belief","信念を抱いている（hold＝抱く）","who held strict and serious religious beliefs","2級","第1段","熟語"],
+ ["strict","形 厳格な、厳しい","strict and serious religious beliefs","準2級","第1段","単語"],
+ ["religious","形 宗教の、信仰心の厚い","serious religious beliefs","2級","第1段","単語"],
+ ["belief","名 信念、信仰","religious beliefs","2級","第1段","単語"],
+ ["take charge of ~","~を引き受ける、~の責任を負う","She took charge of their education","2級","第1段","熟語"],
+ ["hire","動 雇う","hiring famous educators and experts","2級","第1段","単語"],
+ ["educator","名 教育者","hiring famous educators","準1級","第1段","単語"],
+ ["expert","名 専門家","experts in various fields","2級","第1段","単語"],
+ ["various","形 さまざまな","experts in various fields","準2級","第1段","単語"],
+ ["field","名 分野、領域","in various fields","2級","第1段","単語"],
+ ["tutor","動 個人指導する／名 家庭教師","experts ... to tutor them","準1級","第1段","単語"],
+ ["cover","動 (範囲として)扱う、含む","The brothers' education covered many academic subjects","2級","第1段","単語"],
+ ["academic","形 学問の、学術的な","many academic subjects","2級","第1段","単語"],
+ ["subject","名 科目、教科","many academic subjects","3級","第1段","単語"],
+ ["such as ~","たとえば~のような","such as mathematics, languages, history","3級","第1段","熟語"],
+ ["mathematics","名 数学","mathematics, languages, history","3級","第1段","単語"],
+ ["economics","名 経済学（-s でも単数扱い）","history, and economics","2級","第1段","単語"],
+
+ // ---- 第2段 ----
+ ["the younger of the two","2人のうち年下の方（the に注意）","The younger of the two, Alexander","2級","第2段","熟語"],
+ ["be deeply interested in ~","~に深い関心を抱いている","had been deeply interested in adventure","準2級","第2段","熟語"],
+ ["adventure","名 冒険","interested in adventure","準2級","第2段","単語"],
+ ["since early childhood","幼少期からずっと","since early childhood","2級","第2段","熟語"],
+ ["childhood","名 子ども時代","early childhood","準2級","第2段","単語"],
+ ["had been ~ since ...","…以来ずっと~だった【過去完了】","had been deeply interested ... since early childhood","2級","第2段","熟語"],
+ ["make ~ come true","~を実現させる","made his dream ... come true","準2級","第2段","熟語"],
+ ["come true","実現する、本当になる","made his dream of traveling ... come true","3級","第2段","熟語"],
+ ["dream of doing","~するという夢","his dream of traveling to South America","準2級","第2段","熟語"],
+ ["spend + 時間 + doing","~して(時間)を過ごす","He spent several years there studying plants","準2級","第2段","熟語"],
+ ["several","形 いくつかの、数〜","several years","準2級","第2段","単語"],
+ ["natural features of the land","土地の自然的特徴、地形","the natural features of the land","2級","第2段","熟語"],
+ ["feature","名 特徴、地形","the natural features","2級","第2段","単語"],
+ ["what he had learned","彼が学んでいたこと（関係代名詞 what＋過去完了）","wrote books about what he had learned there","2級","第2段","熟語"],
+ ["one of the +最上級+複数名詞","最も~なもののひとつ","One of his most famous books is Kosmos","3級","第2段","熟語"],
+ ["in which ~","そこで~するところの【前置詞＋関係代名詞】","Kosmos, in which he tried to explain ...","準1級","第2段","熟語"],
+ ["try to do","~しようと試みる","he tried to explain how everything worked","3級","第2段","熟語"],
+ ["work","動 (仕組みが)機能する、作用する","how everything in the natural world worked","2級","第2段","単語"],
+ ["be connected to each other","互いにつながっている","how things were connected to each other","2級","第2段","熟語"],
+ ["each other","お互い","connected to each other","3級","第2段","熟語"],
+
+ // ---- 第3段 ----
+ ["on the other hand","他方で、それに対して","On the other hand, Wilhelm's passion was ...","2級","第3段","熟語"],
+ ["passion","名 情熱、強い関心","Wilhelm's passion was education and language","準1級","第3段","単語"],
+ ["serve as ~","~を務める、~の職に就く","He served as the education director","準1級","第3段","熟語"],
+ ["director","名 局長、責任者、部長","the education director","2級","第3段","単語"],
+ ["ministry","名 (行政の)省","the Ministry of the Interior","準1級","第3段","単語"],
+ ["the Ministry of the Interior","内務省","the Ministry of the Interior in Prussia","級外","第3段","熟語"],
+ ["Prussia","名 プロイセン（現ドイツ北部の王国）","the Ministry of the Interior in Prussia","級外","第3段","単語"],
+ ["help (to) do","~するのに貢献する、手伝う","helped found a university","準2級","第3段","熟語"],
+ ["found","動 創設する【found-founded-founded】","helped found a university","準1級","第3段","単語"],
+ ["proposal","名 提案書、企画書","The proposal he wrote for the university","2級","第3段","単語"],
+ ["influence","動 影響を与える","has influenced the German university system","2級","第3段","単語"],
+ ["ever since","それ以来ずっと","has influenced ... ever since","2級","第3段","熟語"],
+ ["be known for ~","~で知られている","He is also known for his studies of language","準2級","第3段","熟語"],
+ ["consider A to be B","AをBだとみなす","He considered language to be something ...","準1級","第3段","熟語"],
+ ["whose","関代 その~が【所有格の関係代名詞】","something whose structure and character reflected ...","2級","第3段","単語"],
+ ["structure","名 構造","whose structure and character","2級","第3段","単語"],
+ ["character","名 性格、特質","structure and character","2級","第3段","単語"],
+ ["reflect","動 反映する、映し出す","reflected the culture and individuality","準1級","第3段","単語"],
+ ["individuality","名 個性、独自性","the culture and individuality of its speakers","1級","第3段","単語"],
+ ["speaker","名 (その言語の)話者","its speakers","3級","第3段","単語"],
+ ["according to ~","~によれば","According to him, language was ...","準2級","第3段","熟語"],
+ ["not just A but B","AだけでなくBも","not just a collection of words but a means","2級","第3段","熟語"],
+ ["a collection of ~","~の集まり、~の寄せ集め","a collection of words","2級","第3段","熟語"],
+ ["means","名 手段、方法【単複同形】","a means that allowed people to perceive","準1級","第3段","単語"],
+ ["allow O to do","Oが~するのを可能にする／許す","a means that allowed people to perceive the world","2級","第3段","熟語"],
+ ["perceive","動 知覚する、認識する","perceive the world","1級","第3段","単語"],
+
+ // ---- 第4段 ----
+ ["It is clear that ~","~は明らかである","It is clear that the environment ...","準2級","第4段","熟語"],
+ ["the environment in which ~","~するところの環境【前置詞＋関係代名詞】","the environment in which the brothers grew up","準1級","第4段","熟語"],
+ ["environment","名 環境","the environment ... gave them opportunities","準2級","第4段","単語"],
+ ["grow up","成長する、育つ","in which the Humboldt brothers grew up","3級","第4段","熟語"],
+ ["opportunity","名 機会、好機","gave them opportunities to achieve","2級","第4段","単語"],
+ ["achieve","動 成し遂げる、達成する","opportunities to achieve something","2級","第4段","単語"],
+ ["lasting","形 長く続く、永続的な","something with a lasting impact","準1級","第4段","単語"],
+ ["impact","名 影響、衝撃","a lasting impact","2級","第4段","単語"],
+ ["enjoy","動 (恩恵などを)享受する","They enjoyed a life that not everyone could have","2級","第4段","単語"],
+ ["not everyone","全員が~というわけではない【部分否定】","a life that not everyone could have","準1級","第4段","熟語"],
+ ["growing up around ~","~に囲まれて育ちながら【分詞構文】","growing up around great leaders, scientists","準1級","第4段","熟語"],
+ ["background","名 生い立ち、経歴、背景","Their wealthy background","2級","第4段","単語"],
+ ["access to ~","~を利用できること、~への接近","early access to quality education","2級","第4段","熟語"],
+ ["quality education","質の高い教育（quality＝形容詞的に「良質の」）","early access to quality education","準1級","第4段","熟語"],
+ ["intellectual","形 知的な、知性の","rich intellectual opportunities","準1級","第4段","単語"],
+ ["shape","動 形作る、形成する","helped shape ideas","準1級","第4段","単語"],
+ ["continue to do","~し続ける","ideas that continue to influence society","準2級","第4段","熟語"],
+ ["society","名 社会","influence society today","準2級","第4段","単語"],
+ ["while ~","~だけれども【譲歩】","While not many people ... may know their names","2級","第4段","熟語"],
+ ["indirectly","副 間接的に","many people have indirectly received benefits","準1級","第4段","単語"],
+ ["receive benefits from ~","~から恩恵を受ける","received benefits from their work","2級","第4段","熟語"]
+];
+
+const ORDER=["3級","準2級","2級","準1級","1級","級外"];
+const PORDER=["第1段","第2段","第3段","第4段"];
+let data=[...DATA],activeLv="all",activePara="all",activeType="all",hideDone=false;
+const done=new Set();
+
+const cW=DATA.filter(d=>d[5]==="単語").length, cI=DATA.length-cW;
+document.getElementById("total").textContent=DATA.length;
+document.getElementById("nw").textContent=cW;
+document.getElementById("ni").textContent=cI;
+
+const cnt={},cntW={},cntI={},cntP={};
+ORDER.forEach(l=>{cnt[l]=0;cntW[l]=0;cntI[l]=0;});
+PORDER.forEach(p=>cntP[p]=0);
+DATA.forEach(d=>{cnt[d[3]]++;(d[5]==="単語"?cntW:cntI)[d[3]]++;cntP[d[4]]++;});
+document.getElementById("sumbody").innerHTML=ORDER.map(l=>{
+ const n=cnt[l],p=Math.round(n/DATA.length*100);
+ return `<tr><td><span class="badge" style="background:${LV[l].c}">${l}</span></td>
+ <td><b>${n}</b></td><td style="color:var(--tw);font-weight:700">${cntW[l]}</td>
+ <td style="color:var(--ti);font-weight:700">${cntI[l]}</td>
+ <td><span class="bar" style="width:${Math.max(p*2.6,6)}px;background:${LV[l].c}"></span>${p}%</td>
+ <td style="color:var(--sub)">${LV[l].note}</td></tr>`;}).join("");
+
+document.getElementById("filters").innerHTML=
+ `<button class="on" data-lv="all">すべて</button>`+
+ ORDER.map(l=>cnt[l]?`<button data-lv="${l}" style="color:${LV[l].c}">${l} (${cnt[l]})</button>`:"").join("");
+document.getElementById("filters").onclick=e=>{
+ if(e.target.tagName!=="BUTTON")return;
+ [...e.currentTarget.children].forEach(b=>b.classList.remove("on"));
+ e.target.classList.add("on");activeLv=e.target.dataset.lv;render();};
+
+document.getElementById("pfilters").innerHTML=
+ `<button class="on" data-p="all">すべて</button>`+
+ PORDER.map(p=>`<button data-p="${p}">${p} (${cntP[p]})</button>`).join("");
+document.getElementById("pfilters").onclick=e=>{
+ if(e.target.tagName!=="BUTTON")return;
+ [...e.currentTarget.children].forEach(b=>b.classList.remove("on"));
+ e.target.classList.add("on");activePara=e.target.dataset.p;render();};
+
+function list(){return data.filter(d=>
+ (activeLv==="all"||d[3]===activeLv)&&
+ (activePara==="all"||d[4]===activePara)&&
+ (activeType==="all"||d[5]===activeType)&&
+ !(hideDone&&done.has(d[0])));}
+
+function render(){
+ const L=list();
+ document.getElementById("grid").innerHTML=L.map(d=>{
+  const[p,m,ex,lv,ln,ty]=d, t=ty==="単語"?"w":"i";
+  return `<div class="card hidden" data-w="${p}" style="border-left-color:${LV[lv].c}">
+   <span class="check">✓ 覚えた</span>
+   <div class="top"><span class="phrase">${p}</span>
+   <span style="display:flex;flex-direction:column;gap:4px;align-items:flex-end">
+   <span class="badge" style="background:${LV[lv].c}">${lv}</span>
+   <span class="tag ${t}">${ty}</span></span></div>
+   <div class="line">${ln}</div>
+   <div class="meaning">${m}</div>
+   <div class="ex">${ex}</div>
+   <div class="hint">タップで表示 ／ ダブルクリックで「覚えた」</div></div>`;}).join("");
+ [...document.getElementById("grid").children].forEach(c=>{
+  if(done.has(c.dataset.w))c.classList.add("done");
+  c.onclick=()=>c.classList.toggle("hidden");
+  c.ondblclick=e=>{e.preventDefault();const w=c.dataset.w;
+   done.has(w)?done.delete(w):done.add(w);render();};});
+
+ document.getElementById("tbody").innerHTML=L.map(d=>{
+  const[p,m,ex,lv,ln,ty]=d, t=ty==="単語"?"w":"i";
+  return `<tr class="hid ${done.has(p)?'done':''}" data-w="${p}">
+   <td><span class="mark">✓</span></td>
+   <td><span class="tag ${t}">${ty}</span></td>
+   <td class="ph">${p}</td><td class="mn">${m}</td>
+   <td class="exc">${ex}</td>
+   <td><span class="badge" style="background:${LV[lv].c}">${lv}</span></td>
+   <td class="ln">${ln}</td></tr>`;}).join("");
+ [...document.getElementById("tbody").children].forEach(tr=>{
+  tr.querySelector(".mn").onclick=()=>tr.classList.toggle("hid");
+  tr.querySelector(".exc").onclick=()=>tr.classList.toggle("hid");
+  tr.querySelector(".mark").onclick=()=>{const w=tr.dataset.w;
+   done.has(w)?done.delete(w):done.add(w);render();};});
+
+ document.getElementById("shown").textContent=L.length;
+ document.getElementById("doneN").textContent=done.size;
+}
+
+function setView(v){
+ document.getElementById("cardView").classList.toggle("hide",v!=="card");
+ document.getElementById("tableView").classList.toggle("hide",v!=="table");
+ document.getElementById("bCard").classList.toggle("on",v==="card");
+ document.getElementById("bTable").classList.toggle("on",v==="table");}
+function setType(t){activeType=t;
+ document.getElementById("tAll").classList.toggle("on",t==="all");
+ document.getElementById("tW").classList.toggle("on",t==="単語");
+ document.getElementById("tI").classList.toggle("on",t==="熟語");render();}
+function allHide(){document.querySelectorAll(".card").forEach(c=>c.classList.add("hidden"));
+ document.querySelectorAll("#tbody tr").forEach(t=>t.classList.add("hid"));}
+function allShow(){document.querySelectorAll(".card").forEach(c=>c.classList.remove("hidden"));
+ document.querySelectorAll("#tbody tr").forEach(t=>t.classList.remove("hid"));}
+function shuffle(){for(let i=data.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[data[i],data[j]]=[data[j],data[i]];}render();}
+function resetOrder(){data=[...DATA];render();}
+function resetDone(){done.clear();render();}
+function toggleDoneFilter(){hideDone=!hideDone;
+ document.getElementById("hideDoneBtn").textContent=hideDone?"覚えた項目も表示":"覚えた項目を隠す";render();}
+
+/* ---- タブ ---- */
+function setTab(t){
+ ["vocab","bg","tl","quiz"].forEach(k=>{
+  document.getElementById("tab-"+k).classList.toggle("hide",k!==t);
+  document.getElementById("tb-"+k).classList.toggle("on",k===t);});
+ window.scrollTo({top:0,behavior:"smooth"});}
+
+/* ---- アコーディオン ---- */
+document.querySelectorAll(".acc>.q").forEach(q=>{
+ q.onclick=()=>{const a=q.parentElement;a.classList.toggle("open");
+  q.querySelector(".mk").textContent=a.classList.contains("open")?"−":"＋";};});
+
+/* ---- チンボラソ断面図 ---- */
+const ZONE={
+ 1:["熱帯林（0〜1,000m）","ヤシ、バナナ、着生植物。高温多湿で種の数が最も多い帯。アレクサンダーはここでオリノコ川流域を調査し、数千点の標本を集めた。"],
+ 2:["雲霧林（1,000〜2,500m）","つねに霧に包まれる森。マラリアの特効薬キニーネが採れる<b>キナノキ</b>の産地で、彼はこの木の乱伐と絶滅を警告している。"],
+ 3:["高山草原・パラモ（2,500〜4,000m）","樹木が消え、草とロゼット状の植物の世界になる。<b>「森林限界」という概念を測定で示した</b>のがフンボルト。"],
+ 4:["コケ・地衣類帯（4,000〜4,800m）","土壌がほぼなく、岩に貼りつく生物だけが残る。ここで彼は気温・気圧・空気の乾湿・青空の色まで測り続けた。"],
+ 5:["氷雪と岩（4,800m〜）","1802年6月、アレクサンダーは<b>約5,875m</b>まで登り、クレバスに阻まれて断念。それでも当時の人類最高到達高度で、この記録は約30年破られなかった。<b>この登山中に「自然はひとつのつながった全体だ」という着想を得たと本人が語っている。</b>"]
+};
+document.querySelectorAll(".mtn .band").forEach(b=>{
+ b.onclick=()=>{const z=ZONE[b.dataset.z];
+  document.getElementById("zoneinfo").innerHTML=`<b>${z[0]}</b><br>${z[1]}`;};});
+
+/* ---- 年表 ---- */
+// [年, 誰(a=弟/w=兄/x=両方), 見出し, 詳細, 本文対応か]
+const TL=[
+ ["1767","w","兄ヴィルヘルム誕生","ポツダムで生まれる。","0"],
+ ["1769","a","弟アレクサンダー誕生","ベルリンで生まれる。一家の拠点はベルリン近郊のテーゲル城。","1"],
+ ["1779","x","父の死","父アレクサンダー・ゲオルクが死去。弟は9歳。以後、母マリー・エリーザベトが二人の教育を全面的に取り仕切る。","1"],
+ ["1780年代","x","豪華な家庭教師陣","『ロビンソン・クルーソー』を子ども向けに書き直した作家<b>J.H.カンペ</b>、のちのプロイセン高官<b>G.J.C.クント</b>らが個人教授。数学・語学・歴史・経済学（官房学）を叩き込まれる。","1"],
+ ["1787〜","x","大学へ","二人ともフランクフルト・アン・デア・オーダー、次いでゲッティンゲン大学に学ぶ。","0"],
+ ["1791","a","フライベルク鉱山学校","弟は鉱山学校で地質学と鉱物学を修め、鉱山監督官となる。この実地訓練が後の探検の技術的土台になった。","0"],
+ ["1791","w","結婚と隠遁","兄はカロリーネと結婚。いったん公職を離れ、古典研究とギリシア語に没頭する時期に入る。","0"],
+ ["1796","a","母の死＝遺産","母が死去。弟は多額の遺産を相続し、これが探検の資金になった。","1"],
+ ["1799","a","南米へ出発","植物学者エメ・ボンプランとともにスペインを発つ。以後5年、ベネズエラ、オリノコ川、キューバ、コロンビア、エクアドル、ペルー、メキシコを踏査。","1"],
+ ["1802","a","チンボラソ登山","約5,875mまで到達（頂上は6,263m）。当時の人類最高到達高度。<b>自然を一つのつながりとして見る発想がここで固まる。</b>","0"],
+ ["1804","a","帰路にジェファソン大統領と会見","米国に立ち寄り、ワシントンでトマス・ジェファソン大統領と数日にわたり議論した。","0"],
+ ["1805","a","『植物地理学試論』と自然の絵","チンボラソの断面に植生帯を描いた図<b>Naturgemälde</b>を発表。植物地理学の誕生。","1"],
+ ["1809-10","w","教育局長／ベルリン大学創設","兄が内務省の宗教・公教育局長に就任（在任わずか16か月）。ギムナジウム制度を整え、<b>1810年にベルリン大学（現フンボルト大学）を創設</b>。本文の「彼が書いた提案書」はこのときの覚書。","1"],
+ ["1814-15","w","ウィーン会議","プロイセン代表として出席。外交官としても第一線にいた。","0"],
+ ["1819","w","政界引退、言語研究へ","政治から退き、以後は世界中の言語の比較研究に専念する。","0"],
+ ["1835","w","兄ヴィルヘルム死去","67歳。主著は未刊のまま残された。","0"],
+ ["1836","w","『人間の言語構造の多様性…』刊行","死後出版。ジャワのカウィ語研究の序論として書かれた言語哲学の主著。<b>Weltansicht（言語ごとの世界の見え方）</b>を論じる。","1"],
+ ["1845","a","『コスモス』第1巻","76歳から刊行開始。宇宙と自然のすべてを一つのつながりとして描く試み。大ベストセラーになる。","1"],
+ ["1859","a","弟アレクサンダー死去","89歳。奇しくもダーウィン『種の起源』が出た年で、それを見ることなく世を去った。","0"],
+ ["1862","a","『コスモス』第5巻（未完）","死後に刊行。全体は未完のまま終わった。","1"],
+ ["1876","x","米ジョンズ・ホプキンス大学","フンボルト型の「研究する大学」をアメリカが輸入。ここから世界に広がる。","0"],
+ ["1886","x","日本・帝国大学令","日本もドイツ型の大学制度を範とする。<b>今の日本の大学のゼミ・研究室・卒論は、この線の先にある。</b>","1"],
+ ["2015","x","『自然の発明』が世界的ベストセラーに","アンドレア・ウルフによる評伝。20世紀に忘れられていたアレクサンダーの再評価が一気に進む。","1"]
+];
+document.getElementById("tl").innerHTML=TL.map(e=>
+ `<div class="ev ${e[1]}"><span class="yr">${e[0]}</span><span class="ti">${e[2]}</span>${e[4]==="1"?'<span class="ref">本文</span>':''}
+  <div class="de">${e[3]}</div></div>`).join("");
+document.querySelectorAll(".ev").forEach(e=>e.onclick=()=>e.classList.toggle("open"));
+
+/* ---- クイズ ---- */
+// [問題, [選択肢], 正解index, 解説]
+const QUIZ=[
+ ["本文の <b>Following his death</b> の following と同じ用法はどれ？",
+  ["Following the accident, the road was closed.","She is following her brother.","The following students should come here.","He kept following the same rule."],0,
+  "前置詞の following＝after「〜の後に」。1は「事故の後、道路が閉鎖された」で同じ用法。2は動詞、3は形容詞「次の」、4は動詞。"],
+ ["<b>helped found a university</b> の found の意味は？",
+  ["創設した","見つけた","（土台を）掘った","資金を出した"],0,
+  "found（創設する）の原形。help (to) do の to が省略された形なので原形が来る。find の過去形 found と混同しやすい最頻出ポイント。found-founded-founded と活用する。"],
+ ["<b>The younger of the two</b> に the がつく理由は？",
+  ["2者のうちの一方に限定されるから","younger が名詞だから","of があるから","慣用的に必ずつくものだから"],0,
+  "「2つのうちのどちらか」を比較級で表すときは、対象が一つに特定されるので the がつく。the larger of the two boxes なども同じ。"],
+ ["<b>a life that not everyone could have</b> の意味として正しいのは？",
+  ["誰もが送れるわけではない人生","誰も送れなかった人生","誰もが送れた人生","誰かが送れたかもしれない人生"],0,
+  "not + everyone は<b>部分否定</b>で「全員が〜というわけではない」。全否定にしたければ no one になる。この一文は、兄弟の環境が例外的に恵まれていたことを示す最終段の核心。"],
+ ["本文によれば、アレクサンダーが南米に行けたのは何のおかげ？",
+  ["母の死後に受け取ったお金","父が残した事業","プロイセン政府の資金援助","本の印税"],0,
+  "第2段 The money he received after his mother's death made his dream ... come true。母の死は1796年、出発は1799年。"],
+ ["<b>Kosmos</b> はどんな本か？",
+  ["自然界のすべてがどう働き、どうつながっているかを描こうとした本","南米旅行の日記","ドイツの大学制度の提案書","言語の構造を分析した学術書"],0,
+  "第2段の説明どおり。1845〜62年の全5巻で、76歳から書き始め未完に終わった。星雲から植物分布、人間の芸術までを一つのつながりとして記述しようとした。"],
+ ["アレクサンダーが発明し、今も天気予報で使われているものは？",
+  ["等温線（isotherm）","気圧計","温度計","天気図の前線"],0,
+  "同じ気温の地点を結ぶ線＝等温線。「場所ごとの気候を比較できる形にする」という発想そのものがフンボルトの発明で、これが気候学の出発点になった。"],
+ ["ヴィルヘルムが1810年に創設した大学は現在なんと呼ばれる？",
+  ["フンボルト大学ベルリン","ゲッティンゲン大学","ハイデルベルク大学","ミュンヘン大学"],0,
+  "1810年創設のベルリン大学。現在の Humboldt-Universität zu Berlin。本文の a university がこれ。"],
+ ["フンボルト理念（Humboldtian model）の中心にある原則は？",
+  ["研究と教育の統一","少人数教育の徹底","国家による厳格な管理","職業訓練の重視"],0,
+  "教授は自分が研究していることを教える＝大学は知識を配る場ではなく作る場。ゼミも卒業論文もこの原則から生まれた。他に学問の自由・教養（Bildung）・孤独と自由。"],
+ ["本文第3段の「言語は単語の集まりではなく世界を知覚させる手段」という考えは、後の何につながったか？",
+  ["サピア＝ウォーフ仮説（言語が思考の枠を作る）","進化論","行動主義心理学","比較解剖学"],0,
+  "ヴィルヘルムの Weltansicht（言語ごとの世界の見え方）が源流。また「有限の手段の無限の使用」という彼の言葉をチョムスキーが生成文法の核心として引用し、現代言語学の祖として復権した。"],
+ ["本文最終段が兄弟の成功の理由として挙げているのは何か？",
+  ["富と環境がもたらした教育機会","生まれつきの才能","国家の支援","幸運な偶然"],0,
+  "Their wealthy background gave them early access to quality education and rich intellectual opportunities。筆者は天才性ではなく<b>特権</b>を理由として挙げている。ここは意見論述の題材にしやすい。"],
+ ["本文は「兄弟の名を知る人は多くない」と述べるが、実際にフンボルトの名がついているものは？",
+  ["南米西岸の海流、ペンギン、イカ、月のクレーター","化学元素と星座","数学の定理と単位","病名と薬品名"],0,
+  "フンボルト海流、フンボルトペンギン、フンボルトイカ、月・火星のクレーター、フンボルト大学、フンボルト財団、北米だけで数百の地名。19世紀には超有名人で、20世紀に忘れられた——というのが正確なところ。"]
+];
+let correct=0;
+function buildQuiz(){
+ correct=0;document.getElementById("score").textContent="0 / "+QUIZ.length+" 正解";
+ document.getElementById("quiz").innerHTML=QUIZ.map((q,i)=>{
+  const idx=q[1].map((_,j)=>j);
+  for(let k=idx.length-1;k>0;k--){const r=Math.random()*(k+1)|0;[idx[k],idx[r]]=[idx[r],idx[k]];}
+  return `<div class="qz" data-ans="${idx.indexOf(q[2])}">
+   <div class="qt"><em>Q${i+1}</em>${q[0]}</div>
+   ${idx.map(j=>`<div class="opt">${q[1][j]}</div>`).join("")}
+   <div class="exp"><b>解説：</b>${q[3]}</div></div>`;}).join("");
+ document.querySelectorAll(".qz").forEach(qz=>{
+  const opts=[...qz.querySelectorAll(".opt")],ans=+qz.dataset.ans;
+  opts.forEach((o,i)=>o.onclick=()=>{
+   if(qz.classList.contains("ansd"))return;
+   qz.classList.add("ansd");
+   opts.forEach((x,k)=>{if(k===ans)x.classList.add("ok");else if(k===i)x.classList.add("ng");else x.classList.add("dim");});
+   if(i===ans)correct++;
+   document.getElementById("score").textContent=correct+" / "+QUIZ.length+" 正解";});});
+}
+function resetQuiz(){buildQuiz();window.scrollTo({top:0,behavior:"smooth"});}
+
+render();
+buildQuiz();
+</script>
+</body>
+</html>
