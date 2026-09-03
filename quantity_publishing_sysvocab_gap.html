@@ -1,0 +1,499 @@
+<meta charset="utf-8">
+<title>シス単未習語｜The Case for Quantity in Science Publishing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Old+Mincho:wght@600;900&family=IBM+Plex+Mono:wght@400;600&display=swap">
+
+<style>
+  :root{
+    --paper:#F5F6F8;
+    --card:#FFFFFF;
+    --ink:#151D26;
+    --ink-2:#4A5865;
+    --ink-3:#7A8794;
+    --rule:#D9DEE4;
+    --rule-soft:#E8EBEF;
+    --shu:#C0392B;
+    --shu-wash:#FBEDEB;
+    --slate:#2F6B6E;
+    --slate-wash:#E9F1F1;
+    --quiet:#4E5F7C;
+    --quiet-wash:#EAEEF4;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#11161C; --card:#171E26;
+      --ink:#E8ECF1; --ink-2:#A7B2BE; --ink-3:#79848F;
+      --rule:#2A343F; --rule-soft:#222B34;
+      --shu:#F0847A; --shu-wash:#2B1D1C;
+      --slate:#6FBDBF; --slate-wash:#16262A;
+      --quiet:#9AAAC4; --quiet-wash:#1B222D;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#11161C; --card:#171E26;
+    --ink:#E8ECF1; --ink-2:#A7B2BE; --ink-3:#79848F;
+    --rule:#2A343F; --rule-soft:#222B34;
+    --shu:#F0847A; --shu-wash:#2B1D1C;
+    --slate:#6FBDBF; --slate-wash:#16262A;
+    --quiet:#9AAAC4; --quiet-wash:#1B222D;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;
+    font-size:15px;
+    line-height:1.85;
+    -webkit-font-smoothing:antialiased;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .sheet{
+    max-width:760px;margin:0 auto;padding:48px 26px 88px;
+    display:flex;flex-direction:column;gap:40px;
+  }
+
+  /* ── masthead ───────────────────────── */
+  .masthead{display:flex;flex-direction:column;gap:14px;}
+  .eyebrow{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);
+    margin:0;
+  }
+  h1{
+    font-family:"Zen Old Mincho",serif;font-weight:900;
+    font-size:clamp(28px,5.2vw,40px);line-height:1.3;margin:0;
+    letter-spacing:.02em;text-wrap:balance;
+  }
+  .standfirst{max-width:60ch;color:var(--ink-2);font-size:14.5px;margin:0;}
+  .stats{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+    gap:1px;background:var(--rule);border:1px solid var(--rule);
+    border-radius:3px;overflow:hidden;margin-top:6px;
+  }
+  .stat{background:var(--card);padding:12px 14px;display:flex;flex-direction:column;gap:2px;}
+  .stat b{
+    font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:20px;
+    font-variant-numeric:tabular-nums;line-height:1.2;color:var(--ink);
+  }
+  .stat span{font-size:11.5px;color:var(--ink-3);line-height:1.5;}
+  .stat.hit b{color:var(--shu);}
+
+  /* ── sections ───────────────────────── */
+  section{display:flex;flex-direction:column;gap:18px;}
+  .sec-head{
+    display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+    border-bottom:1px solid var(--rule);padding-bottom:10px;
+  }
+  .tier{
+    font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:12px;
+    width:24px;height:24px;flex:none;display:grid;place-items:center;
+    border-radius:2px;background:var(--tier-wash);color:var(--tier);
+    border:1px solid var(--tier);
+  }
+  h2{font-weight:700;font-size:17px;margin:0;letter-spacing:.02em;}
+  .sec-note{font-size:12.5px;color:var(--ink-3);margin:0;margin-left:auto;}
+  #tierA{--tier:var(--shu);--tier-wash:var(--shu-wash);}
+  #tierB{--tier:var(--slate);--tier-wash:var(--slate-wash);}
+  #tierC{--tier:var(--quiet);--tier-wash:var(--quiet-wash);}
+  #tierD{--tier:var(--ink-2);--tier-wash:var(--rule-soft);}
+
+  .reveal-all{
+    font-family:inherit;font-size:12px;line-height:1;
+    margin-left:auto;padding:7px 12px;cursor:pointer;
+    color:var(--tier);background:var(--tier-wash);
+    border:1px solid var(--tier);border-radius:2px;
+    transition:opacity .15s;
+  }
+  .reveal-all:hover{opacity:.75;}
+  .reveal-all:focus-visible{outline:2px solid var(--tier);outline-offset:2px;}
+  .sec-head .reveal-all + .sec-note{margin-left:0;}
+
+  /* ── A: full entries ────────────────── */
+  .entries{
+    display:flex;flex-direction:column;gap:1px;background:var(--rule-soft);
+    border:1px solid var(--rule-soft);border-radius:3px;overflow:hidden;
+  }
+  .entry{
+    background:var(--card);display:flex;flex-direction:column;gap:4px;
+    padding:14px 16px 14px 18px;border-left:3px solid var(--tier);
+  }
+  .entry.coined{border-left-style:dotted;}
+  .head-row{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;}
+  .word{
+    font-family:"Newsreader",Georgia,serif;font-size:22px;font-weight:600;
+    letter-spacing:-.005em;line-height:1.25;
+  }
+  .word .alt{color:var(--ink-3);font-weight:400;font-size:17px;}
+  .pos{
+    font-size:11px;line-height:1;padding:4px 6px;border-radius:2px;
+    background:var(--tier-wash);color:var(--tier);flex:none;
+    border:1px solid var(--tier);
+  }
+  .gloss{font-size:14.5px;color:var(--ink);margin:0;}
+  .cite{font-size:12.5px;color:var(--ink-3);margin:0;display:flex;gap:7px;align-items:baseline;}
+  .cite::before{content:"▸";color:var(--tier);font-size:9px;flex:none;line-height:2;}
+  .cite em{font-family:"Newsreader",Georgia,serif;font-style:italic;font-size:13.5px;color:var(--ink-2);}
+
+  /* ── B / C: flip cards ──────────────── */
+  .deck{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none;}
+  .deck li{display:flex;}
+  .flip{
+    display:inline-grid;
+    font:inherit;padding:0;border:0;background:none;cursor:pointer;
+    perspective:700px;
+  }
+  .flip .f{
+    grid-area:1/1;
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    padding:5px 13px;min-height:34px;
+    border:1px solid var(--rule);border-radius:2px;background:var(--card);
+    backface-visibility:hidden;-webkit-backface-visibility:hidden;
+    transition:transform .42s cubic-bezier(.2,.75,.3,1);
+  }
+  .flip .front{
+    font-family:"Newsreader",Georgia,serif;font-size:16.5px;color:var(--ink);
+    border-bottom:2px solid var(--tier);
+  }
+  .flip .back{
+    font-size:13.5px;line-height:1.5;color:var(--tier);
+    background:var(--tier-wash);border-color:var(--tier);
+    transform:rotateY(180deg);
+  }
+  .flip[aria-pressed="true"] .front{transform:rotateY(180deg);}
+  .flip[aria-pressed="true"] .back{transform:rotateY(360deg);}
+  .flip:focus-visible .f{outline:2px solid var(--tier);outline-offset:2px;}
+  .flip:hover .front{border-color:var(--tier);}
+  .hint{
+    font-size:12.5px;color:var(--ink-3);margin:0;
+    display:flex;align-items:center;gap:6px;
+  }
+  .hint::before{content:"↔";color:var(--tier);font-size:14px;}
+
+  .caveat{
+    font-size:13px;color:var(--ink-2);margin:0;
+    background:var(--shu-wash);border-left:3px solid var(--shu);
+    padding:10px 14px;border-radius:0 3px 3px 0;
+  }
+  .caveat b{color:var(--shu);font-family:"Newsreader",Georgia,serif;font-size:15px;}
+
+  /* ── D: idioms ──────────────────────── */
+  .idioms{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;
+    background:var(--rule-soft);border:1px solid var(--rule-soft);
+    border-radius:3px;overflow:hidden;
+  }
+  .idiom{background:var(--card);padding:12px 15px;display:flex;flex-direction:column;gap:2px;}
+  .idiom span{font-family:"Newsreader",Georgia,serif;font-size:16.5px;}
+  .idiom small{font-size:13px;color:var(--ink-2);}
+
+  footer{
+    border-top:1px solid var(--rule);padding-top:14px;
+    font-size:12px;color:var(--ink-3);line-height:1.7;
+  }
+  footer code{font-family:"IBM Plex Mono",monospace;font-size:11.5px;}
+
+  @media (prefers-reduced-motion: reduce){
+    .flip .f{transition:none;}
+  }
+
+  @media print{
+    :root{
+      --paper:#fff;--card:#fff;--ink:#000;--ink-2:#333;--ink-3:#555;
+      --rule:#bbb;--rule-soft:#ddd;
+    }
+    body{font-size:10.5pt;line-height:1.6;}
+    .sheet{max-width:none;padding:0;gap:22px;}
+    section,.entry{break-inside:avoid;}
+    .reveal-all,.hint{display:none;}
+    /* 印刷時は表裏を並べて出す */
+    .flip{grid-template-columns:auto auto;perspective:none;}
+    .flip .f{transform:none !important;backface-visibility:visible;min-height:0;padding:2px 8px;}
+    .flip .front{grid-area:1/1;border-bottom-width:1px;}
+    .flip .back{grid-area:1/2;border-left:0;}
+  }
+</style>
+
+<div class="sheet">
+
+  <header class="masthead">
+    <p class="eyebrow">名古屋大学 2026 前期 英語 · 大問Ⅱ</p>
+    <h1>システム英単語では出会わない語</h1>
+    <p class="standfirst">
+      出典は Allison &amp; Boutwell, “The Case for Quantity in Science Publishing”（<i>American Scientist</i>, 2025）。
+      本文＋設問の全異なり語を、システム英単語 5訂版の見出し語と機械照合し、
+      語形変化・派生接辞を吸収したうえで、中高標準語彙かどうかを人手で選り分けた結果。
+    </p>
+    <div class="stats">
+      <div class="stat"><b>2,269</b><span>シス単 見出し語<br>（5,513 notes を重複整理）</span></div>
+      <div class="stat"><b>407</b><span>本文＋設問の<br>異なり語</span></div>
+      <div class="stat hit"><b>20</b><span>要暗記の未習語<br>（うち造語・専門語 5）</span></div>
+      <div class="stat"><b>16</b><span>派生で推測可能</span></div>
+    </div>
+  </header>
+
+  <section id="tierA">
+    <div class="sec-head">
+      <div class="tier">A</div>
+      <h2>未習の難語 — シス単にも中高標準語彙にもない</h2>
+      <p class="sec-note">最優先。ここだけカード化すれば足りる</p>
+    </div>
+
+    <div class="entries">
+
+      <div class="entry">
+        <div class="head-row"><span class="word">truism</span><span class="pos">名</span></div>
+        <p class="gloss">自明の理、わかりきったこと</p>
+        <p class="cite">第1段落 <em>it has practically become an accepted truism</em>（下線部(1)＝設問1の和訳対象）</p>
+      </div>
+
+      <div class="entry">
+        <div class="head-row"><span class="word">trajectory</span><span class="pos">名</span></div>
+        <p class="gloss">軌道、（今後の）進み方・趨勢</p>
+        <p class="cite">第1段落 <em>Current trajectories threaten science…</em>／複数形 trajectories で登場</p>
+      </div>
+
+      <div class="entry">
+        <div class="head-row"><span class="word">flounder</span><span class="pos">動</span></div>
+        <p class="gloss">もがく、行き詰まる、うまくいかない</p>
+        <p class="cite">第5段落 <em>Most ideas will flounder</em>／直後の Edison の逸話が意味のヒント</p>
+      </div>
+
+      <div class="entry">
+        <div class="head-row"><span class="word">flimsy</span><span class="pos">形</span></div>
+        <p class="gloss">もろい、薄っぺらな、根拠が乏しい</p>
+        <p class="cite"><em>conceal flimsy bodies of evidence</em>／空所⑥の直後、文脈把握のカギ</p>
+      </div>
+
+      <div class="entry">
+        <div class="head-row"><span class="word">perseverance</span><span class="pos">名</span></div>
+        <p class="gloss">忍耐、粘り強さ（動詞 persevere）</p>
+        <p class="cite"><em>steady productivity, patience, and perseverance</em></p>
+      </div>
+
+      <div class="entry">
+        <div class="head-row"><span class="word">plagiarize</span><span class="pos">動</span></div>
+        <p class="gloss">盗用する、剽窃（ひょうせつ）する</p>
+        <p class="cite">第3段落 <em>duplicated, plagiarized and false results</em>（過去分詞形で出題）</p>
+      </div>
+
+      <div class="entry">
+        <div class="head-row"><span class="word">scarcity</span><span class="pos">名</span></div>
+        <p class="gloss">不足、希少性</p>
+        <p class="cite">設問5 選択肢(H)＝空所⑥の正解。<em>a scarcity of replication</em></p>
+      </div>
+
+      <div class="entry">
+        <div class="head-row"><span class="word">methodology</span><span class="pos">名</span></div>
+        <p class="gloss">方法論、研究手法</p>
+        <p class="cite"><em>subtle differences in methodologies</em></p>
+      </div>
+
+      <div class="entry">
+        <div class="head-row"><span class="word">replication <span class="alt">/ replicate / replicability</span></span><span class="pos">名・動</span></div>
+        <p class="gloss">追試（再現実験）／再現する／再現性</p>
+        <p class="cite">下線部(2) <em>Concerns about replicability</em> 周辺に3語形が集中。設問2の解答に直結</p>
+      </div>
+
+      <div class="entry">
+        <div class="head-row"><span class="word">upside</span><span class="pos">名</span></div>
+        <p class="gloss">良い面、利点（↔ downside）</p>
+        <p class="cite">第4段落 <em>significant upsides to quantity in publishing</em></p>
+      </div>
+
+      <div class="entry">
+        <div class="head-row"><span class="word">editorial</span><span class="pos">名</span></div>
+        <p class="gloss">社説、論説（形容詞では「編集上の」）</p>
+        <p class="cite">冒頭 <em>an influential 2016 editorial in the journal Nature</em></p>
+      </div>
+
+      <div class="entry">
+        <div class="head-row"><span class="word">proficient</span><span class="pos">形</span></div>
+        <p class="gloss">熟達した、腕のいい</p>
+        <p class="cite"><em>increasingly efficient and proficient</em>／シス単は名詞 proficiency のみ収録</p>
+      </div>
+
+      <div class="entry">
+        <div class="head-row"><span class="word">biomedical</span><span class="pos">形</span></div>
+        <p class="gloss">生物医学の</p>
+        <p class="cite">最終段 <em>for biomedical and health research</em></p>
+      </div>
+
+      <div class="entry">
+        <div class="head-row"><span class="word">frictionless</span><span class="pos">形</span></div>
+        <p class="gloss">摩擦のない、引っかかりなく行える</p>
+        <p class="cite"><em>make those actions as frictionless as possible</em>（friction 自体はシス単収録）</p>
+      </div>
+
+      <div class="entry">
+        <div class="head-row"><span class="word">bulb</span><span class="pos">名</span></div>
+        <p class="gloss">電球（light bulb）、球根</p>
+        <p class="cite">Edison の逸話 <em>his repeated failed attempts to develop the light bulb</em></p>
+      </div>
+
+      <div class="entry coined">
+        <div class="head-row"><span class="word">hyperproductive</span><span class="pos">形・造語</span></div>
+        <p class="gloss">極端に多作な（hyper- ＝過度に ＋ productive）</p>
+        <p class="cite">第3段落 <em>a relatively small number of hyperproductive publishers</em></p>
+      </div>
+
+      <div class="entry coined">
+        <div class="head-row"><span class="word">salami-sliced</span><span class="pos">形・専門語</span></div>
+        <p class="gloss">細切れに分割して発表された。学術界の俗語 salami slicing（一つの成果を小分けに論文化する行為）から</p>
+        <p class="cite">第3段落 <em>flooded with salami-sliced, trivial, incomplete… results</em></p>
+      </div>
+
+      <div class="entry coined">
+        <div class="head-row"><span class="word">zero-sum</span><span class="pos">形・専門語</span></div>
+        <p class="gloss">ゼロサムの（一方の得がそのまま他方の損になる）</p>
+        <p class="cite">第4段落 <em>imagine a zero-sum game where none actually exists</em></p>
+      </div>
+
+      <div class="entry coined">
+        <div class="head-row"><span class="word">pre-register</span><span class="pos">動・専門語</span></div>
+        <p class="gloss">（研究計画を）事前登録する。オープンサイエンスの用語</p>
+        <p class="cite"><em>pre-registering their plans for research and analysis</em></p>
+      </div>
+
+      <div class="entry coined">
+        <div class="head-row"><span class="word">overpublishing</span><span class="pos">名・造語</span></div>
+        <p class="gloss">出版過多（over- ＋ publish）。この文章全体の論点</p>
+        <p class="cite">第1段落・第4段落に反復。訳語を決めておくと読解が安定する</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="tierB">
+    <div class="sec-head">
+      <div class="tier">B</div>
+      <h2>シス単未収録だが派生で推測できる語</h2>
+      <button class="reveal-all" type="button" data-target="deckB">すべてめくる</button>
+      <p class="sec-note">16語</p>
+    </div>
+    <p class="hint">タップ／クリックで裏返る</p>
+    <ul class="deck" id="deckB">
+      <li><button class="flip" type="button"><span class="f front">productivity</span><span class="f back">生産性</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">publication</span><span class="f back">出版、公表、刊行物</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">selective</span><span class="f back">選択的な、えり好みする</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">emergence</span><span class="f back">出現、発生</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">systematically</span><span class="f back">体系的に、組織的に</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">incomplete</span><span class="f back">不完全な、未完成の</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">duplicated</span><span class="f back">重複した、複製された</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">questionable</span><span class="f back">疑わしい、問題のある</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">statistical</span><span class="f back">統計上の、統計的な</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">initially</span><span class="f back">最初は、当初は</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">reduction</span><span class="f back">削減、減少</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">repetitive</span><span class="f back">繰り返しの多い、反復的な</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">repetition</span><span class="f back">繰り返し、反復</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">institute</span><span class="f back">研究所、協会</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">conduct</span><span class="f back">（調査などを）行う／行い、指揮する</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">inspiration</span><span class="f back">ひらめき、着想</span></button></li>
+    </ul>
+  </section>
+
+  <section id="tierC">
+    <div class="sec-head">
+      <div class="tier">C</div>
+      <h2>シス単収録済み — 復習範囲</h2>
+      <button class="reveal-all" type="button" data-target="deckC">すべてめくる</button>
+      <p class="sec-note">40語</p>
+    </div>
+    <p class="hint">先に英語だけ見て、詰まったものにチェックを</p>
+    <ul class="deck" id="deckC">
+      <li><button class="flip" type="button"><span class="f front">undermine</span><span class="f back">徐々に弱める、むしばむ</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">threaten</span><span class="f back">脅かす、〜の恐れがある</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">drown</span><span class="f back">おぼれる、かき消す</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">notion</span><span class="f back">考え、概念</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">contrary</span><span class="f back">反対の（on the contrary それどころか）</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">suppress</span><span class="f back">抑える、抑圧する</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">hinder</span><span class="f back">妨げる、邪魔する</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">modest</span><span class="f back">控えめな、（量が）多くない</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">widespread</span><span class="f back">広く行き渡った</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">literature</span><span class="f back">文献、（研究）論文群、文学</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">flood</span><span class="f back">氾濫させる、殺到させる</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">trivial</span><span class="f back">ささいな、取るに足らない</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">exaggerate</span><span class="f back">誇張する、大げさに言う</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">distort</span><span class="f back">ゆがめる、曲解する</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">enterprise</span><span class="f back">事業、企て、企業</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">thereby</span><span class="f back">それによって</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">capture</span><span class="f back">とらえる、（本質を）的確に表す</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">urge</span><span class="f back">強く促す、駆り立てる</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">steady</span><span class="f back">着実な、安定した</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">subtle</span><span class="f back">微妙な、かすかな</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">manipulate</span><span class="f back">操作する、巧みに操る</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">conceal</span><span class="f back">隠す、覆い隠す</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">foster</span><span class="f back">育む、促進する</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">imply</span><span class="f back">暗に意味する、含意する</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">generate</span><span class="f back">生み出す、発生させる</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">concentrate</span><span class="f back">集中させる、一点に集める</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">affirm</span><span class="f back">断言する、肯定する、裏づける</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">install</span><span class="f back">設置する、導入する</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">alike</span><span class="f back">同様に、いずれも／似ている</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">surge</span><span class="f back">急増する／急増、うねり</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">extensive</span><span class="f back">広範な、大規模な</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">efficient</span><span class="f back">効率的な、無駄のない</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">instrument</span><span class="f back">器具、装置、楽器</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">friction</span><span class="f back">摩擦、あつれき</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">scarcely</span><span class="f back">ほとんど〜ない</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">proficiency</span><span class="f back">熟達、習熟</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">regardless</span><span class="f back">（of 〜）〜に関係なく</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">guarantee</span><span class="f back">保証する／保証</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">insight</span><span class="f back">洞察、見識</span></button></li>
+      <li><button class="flip" type="button"><span class="f front">breakthrough</span><span class="f back">突破口、大発見</span></button></li>
+    </ul>
+    <p class="caveat">
+      落とし穴 — シス単に載っているのは副詞の <b>scarcely</b>（ほとんど〜ない）だが、
+      設問5の空所⑥で問われるのは名詞の <b>scarcity</b>（不足）。
+      同様に <b>proficiency</b>（名）は収録、本文に出るのは <b>proficient</b>（形）。
+      「見出し語は知っている、別品詞で落とす」典型パターン。
+    </p>
+  </section>
+
+  <section id="tierD">
+    <div class="sec-head">
+      <div class="tier">D</div>
+      <h2>あわせて押さえる熟語</h2>
+      <p class="sec-note">空所補充の直接の手がかり</p>
+    </div>
+    <div class="idioms">
+      <div class="idiom"><span>economies of scale</span><small>規模の経済（最終段のキー表現）</small></div>
+      <div class="idiom"><span>come at the cost of ~</span><small>〜を犠牲にして成り立つ／空所③</small></div>
+      <div class="idiom"><span>the law of large numbers</span><small>大数の法則／空所④</small></div>
+      <div class="idiom"><span>end up -ing</span><small>結局〜することになる</small></div>
+      <div class="idiom"><span>take effect</span><small>効力を発揮する、効き始める</small></div>
+    </div>
+  </section>
+
+  <footer>
+    照合方法：<code>システム英単語.apkg</code> を展開し <code>collection.anki21</code> の notes 5,513件から
+    見出し語 2,269語を抽出。本文・設問を語単位に分解した 407 の異なり語に対し、
+    屈折語尾と派生接辞（-tion / -ity / -ive / -ance / un- / re- / over- など）を展開して照合し、
+    残差を中高標準語彙かどうかで手作業選別した。印刷すると表裏が並んで出ます。
+  </footer>
+
+</div>
+
+<script>
+  document.querySelectorAll(".flip").forEach(function(btn){
+    btn.setAttribute("aria-pressed","false");
+    btn.addEventListener("click",function(){
+      var on = btn.getAttribute("aria-pressed") === "true";
+      btn.setAttribute("aria-pressed", on ? "false" : "true");
+    });
+  });
+
+  document.querySelectorAll(".reveal-all").forEach(function(ctrl){
+    ctrl.addEventListener("click",function(){
+      var deck = document.getElementById(ctrl.dataset.target);
+      var cards = deck.querySelectorAll(".flip");
+      var anyHidden = Array.prototype.some.call(cards,function(c){
+        return c.getAttribute("aria-pressed") !== "true";
+      });
+      cards.forEach(function(c){ c.setAttribute("aria-pressed", anyHidden ? "true" : "false"); });
+      ctrl.textContent = anyHidden ? "すべて戻す" : "すべてめくる";
+    });
+  });
+</script>
