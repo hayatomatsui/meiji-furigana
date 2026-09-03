@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>名大英語 大問Ⅲ｜リモートワーク対話 — 単語・全訳・設問和訳</title>
+<style>
+:root{
+  --g3:#4CAF50; --g3p:#8BC34A; --g2:#03A9F4; --g2p:#7E57C2; --g1:#E91E63; --gx:#F44336;
+  --tw:#ff6a3d; --ti:#1668c7;
+  --bg:#f4f6fb; --card:#fff; --ink:#1b2233; --sub:#6b7590;
+  --mk:#0b5d3b; --st:#c2410c;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+  background:var(--bg);color:var(--ink);padding:18px;line-height:1.65}
+.wrap{max-width:1180px;margin:0 auto}
+header{background:linear-gradient(135deg,#0b5d3b,#0f766e 45%,#3b4d9e);color:#fff;
+  border-radius:18px;padding:26px 24px 18px;margin-bottom:16px;box-shadow:0 8px 26px rgba(11,93,59,.28)}
+header h1{font-size:1.36rem;margin-bottom:6px}
+header p{opacity:.94;font-size:.87rem}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:15px}
+.stat{background:rgba(255,255,255,.22);border-radius:12px;padding:8px 14px;font-size:.8rem}
+.stat b{font-size:1.15rem;display:block}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.tabs button{background:rgba(255,255,255,.18);color:#fff;box-shadow:none;padding:9px 18px}
+.tabs button.on{background:#fff;color:#0b5d3b}
+h2{font-size:1.03rem;margin:24px 0 10px;padding-left:12px;border-left:5px solid #0f766e}
+h3{font-size:.95rem;margin:16px 0 8px}
+p.lead{font-size:.86rem;color:var(--sub);margin-bottom:10px}
+
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 14px}
+.lbl{font-size:.72rem;color:var(--sub);font-weight:700;margin-right:2px}
+button{font-family:inherit;cursor:pointer;border:none;border-radius:999px;padding:8px 15px;
+  font-size:.82rem;font-weight:700;transition:.15s;background:#fff;color:var(--sub);
+  box-shadow:0 2px 6px rgba(0,0,0,.08)}
+button:hover{transform:translateY(-1px)}
+button.on{background:#1b2233;color:#fff}
+.util{background:#e0f2f1;color:#00695c}
+.sw{display:inline-flex;background:#fff;border-radius:999px;padding:4px;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.sw button{box-shadow:none;padding:8px 18px}
+.sw button.on{background:linear-gradient(135deg,#0f766e,#3b4d9e);color:#fff}
+.spacer{flex:1}
+
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;
+  box-shadow:0 2px 10px rgba(0,0,0,.07)}
+th,td{padding:10px 13px;text-align:left;border-bottom:1px solid #eef1f6;font-size:.87rem;vertical-align:top}
+th{background:#1b2233;color:#fff;font-size:.76rem;letter-spacing:.04em}
+tbody tr:nth-child(even){background:#fafbfe}
+tbody tr:hover{background:#e8f5f3}
+tbody tr.done{opacity:.4}
+td.ph{font-weight:700}
+td.mn{cursor:pointer}
+tr.hid td.mn,tr.hid td.exc{filter:blur(5px);opacity:.5}
+td.exc{color:#5c6580;font-style:italic;font-size:.79rem}
+td.ln{color:#aab2c4;font-size:.75rem;white-space:nowrap}
+.mark{cursor:pointer;color:#c9cfdd;font-weight:800;user-select:none}
+tr.done .mark{color:#4CAF50}
+.bar{height:9px;border-radius:5px;display:inline-block;vertical-align:middle;margin-right:8px}
+.sumtbl td,.sumtbl th{font-size:.85rem}
+.tblwrap{overflow-x:auto}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:12px}
+.card{background:var(--card);border-radius:14px;padding:14px 16px;cursor:pointer;
+  box-shadow:0 2px 8px rgba(0,0,0,.07);border-left:6px solid #ccc;transition:.18s;
+  position:relative;user-select:none}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.12)}
+.card.done{opacity:.42}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.phrase{font-size:1.05rem;font-weight:700}
+.badge{font-size:.65rem;font-weight:800;color:#fff;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.tag{font-size:.63rem;font-weight:800;padding:2px 8px;border-radius:999px;color:#fff}
+.tag.w{background:var(--tw)} .tag.i{background:var(--ti)}
+.meaning{margin-top:9px;padding-top:9px;border-top:1px dashed #dde2ec;font-size:.92rem}
+.ex{margin-top:7px;font-size:.77rem;color:#5c6580;font-style:italic}
+.hidden .meaning,.hidden .ex{filter:blur(6px);opacity:.5}
+.hint{font-size:.66rem;color:#b9c0d0;margin-top:6px}
+.line{font-size:.67rem;color:#aab2c4;margin-top:3px}
+.check{position:absolute;top:8px;right:10px;font-size:.66rem;color:#4CAF50;display:none;font-weight:800}
+.card.done .check{display:block}
+.hide{display:none}
+
+/* ---- 全訳 ---- */
+.turn{background:#fff;border-radius:14px;padding:13px 16px;box-shadow:0 2px 9px rgba(0,0,0,.06);
+  margin-bottom:9px;border-left:6px solid #cbd5e1}
+.turn.mike{border-left-color:var(--mk);background:#f6fbf8}
+.turn.yuki{border-left-color:#1668c7}
+.turn.hana{border-left-color:#c2410c}
+.spk{font-size:.72rem;font-weight:800;color:#fff;padding:3px 11px;border-radius:999px;background:#94a3b8}
+.turn.mike .spk{background:var(--mk)} .turn.yuki .spk{background:#1668c7} .turn.hana .spk{background:#c2410c}
+.role{font-size:.68rem;color:var(--sub);margin-left:8px}
+.cue{font-size:.79rem;color:#64748b;font-style:italic;margin-top:8px;padding-left:10px;
+  border-left:3px solid #e2e8f0}
+.jp{margin-top:8px;font-size:.93rem}
+.sp{background:#fffbeb;border:1px dashed #fbbf24;border-radius:10px;padding:9px 12px;margin-top:8px;
+  font-size:.93rem}
+.sp::before{content:"プレゼン原稿（斜体部）";display:block;font-size:.65rem;font-weight:800;
+  color:#b45309;margin-bottom:5px;letter-spacing:.04em}
+.bk{background:#0f766e;color:#fff;padding:1px 8px;border-radius:6px;font-weight:800;font-size:.86rem}
+.ul{background:linear-gradient(transparent 62%,#fde68a 62%);font-weight:700}
+.utag{font-size:.62rem;font-weight:800;color:#fff;background:#d97706;padding:2px 7px;
+  border-radius:999px;margin-right:5px;vertical-align:middle}
+.tlhide .jp,.tlhide .sp{filter:blur(6px)}
+.cuehide .cue{display:none}
+
+/* ---- 設問 ---- */
+.qbox{background:#fff;border-radius:16px;padding:17px 19px;box-shadow:0 2px 10px rgba(0,0,0,.07);margin-bottom:13px}
+.qno{display:inline-block;font-size:.7rem;font-weight:800;color:#fff;background:#1b2233;
+  padding:3px 11px;border-radius:999px;margin-bottom:9px}
+.qen{font-size:.82rem;color:#64748b;font-style:italic;padding-left:11px;border-left:3px solid #e2e8f0;margin-bottom:9px}
+.qja{font-size:.93rem;font-weight:600;margin-bottom:10px}
+.ch{border:2px solid #eef1f6;border-radius:10px;padding:9px 13px;margin-bottom:7px;font-size:.87rem;
+  display:flex;gap:10px;align-items:flex-start}
+.ch b{color:#1b2233;flex-shrink:0}
+.ch .cja{color:#475569}
+.ch.ok{border-color:#16a34a;background:#f0fdf4}
+.ans{margin-top:11px;background:#f1f5f9;border-radius:12px;padding:12px 15px;font-size:.88rem;cursor:pointer}
+.ans.hid .body{filter:blur(6px)}
+.ans .hd{font-size:.7rem;font-weight:800;color:#0f766e;letter-spacing:.05em;margin-bottom:7px}
+.ans .body p+p{margin-top:7px}
+.ans .k{font-weight:800;color:#0b5d3b}
+.model{background:#eef6ff;border-radius:12px;padding:12px 15px;margin-top:9px;font-size:.87rem}
+.model .en{font-style:italic;color:#1e3a8a}
+.model .wc{font-size:.72rem;color:var(--sub);font-weight:800}
+.note{font-size:.8rem;color:var(--sub);margin-top:8px}
+.wl{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:8px;margin-top:8px}
+.wl div{background:#f8fafc;border:2px solid #eef1f6;border-radius:10px;padding:8px 12px;font-size:.85rem}
+.wl div.used{border-color:#0f766e;background:#ecfdf5}
+.wl b{color:#0b5d3b}
+@media(max-width:640px){body{padding:12px}th,td{padding:8px 9px;font-size:.79rem}td.exc,th.exc{display:none}
+  header h1{font-size:1.1rem}.qbox{padding:14px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>名古屋大学 二次試験 英語 大問Ⅲ — リモートワークのプレゼン練習</h1>
+  <p>ユキ・ハナ・マイク先生の対話文（p.9〜13）。①難語リスト ②本文全訳 ③設問の全訳と解答解説 の3タブ構成です。</p>
+  <div class="stats">
+    <div class="stat"><b id="total">0</b>総項目</div>
+    <div class="stat"><b id="nw">0</b>単語</div>
+    <div class="stat"><b id="ni">0</b>熟語・構文</div>
+    <div class="stat"><b id="shown">0</b>表示中</div>
+    <div class="stat"><b id="doneN">0</b>覚えた</div>
+  </div>
+  <div class="tabs">
+    <button id="tb-vocab" class="on" onclick="setTab('vocab')">① 単語・熟語</button>
+    <button id="tb-tl" onclick="setTab('tl')">② 本文 全訳</button>
+    <button id="tb-q" onclick="setTab('q')">③ 設問 全訳＋解答</button>
+  </div>
+</header>
+
+<!-- ============ ① 単語・熟語 ============ -->
+<section id="tab-vocab">
+
+<h2>レベル別分布（単語 / 熟語 内訳つき）</h2>
+<div class="tblwrap">
+<table class="sumtbl"><thead><tr><th>英検レベル</th><th>合計</th><th>単語</th><th>熟語</th><th>割合</th><th>目安</th></tr></thead>
+<tbody id="sumbody"></tbody></table>
+</div>
+
+<div class="controls" style="margin-top:22px">
+  <span class="sw"><button id="bCard" class="on" onclick="setView('card')">カード形式</button><button id="bTable" onclick="setView('table')">表形式</button></span>
+  <span class="spacer"></span>
+  <span class="sw"><button id="tAll" class="on" onclick="setType('all')">単語＋熟語</button><button id="tW" onclick="setType('単語')">単語のみ</button><button id="tI" onclick="setType('熟語')">熟語のみ</button></span>
+</div>
+
+<div class="controls"><span class="lbl">レベル</span><span id="filters" style="display:contents"></span></div>
+<div class="controls"><span class="lbl">箇所</span><span id="pfilters" style="display:contents"></span></div>
+<div class="controls">
+  <button class="util" onclick="allHide()">すべて隠す</button>
+  <button class="util" onclick="allShow()">すべて表示</button>
+  <button class="util" onclick="shuffle()">シャッフル</button>
+  <button class="util" onclick="resetOrder()">本文順に戻す</button>
+  <button class="util" onclick="resetDone()">「覚えた」リセット</button>
+  <span class="spacer"></span>
+  <button class="util" id="hideDoneBtn" onclick="toggleDoneFilter()">覚えた項目を隠す</button>
+</div>
+
+<div id="cardView"><div class="grid" id="grid"></div></div>
+<div id="tableView" class="hide tblwrap">
+  <table><thead><tr><th style="width:30px"></th><th style="width:46px">種類</th><th>語句</th><th>意味</th><th class="exc">本文での使われ方</th><th>レベル</th><th>箇所</th></tr></thead>
+  <tbody id="tbody"></tbody></table>
+</div>
+</section>
+
+<!-- ============ ② 本文 全訳 ============ -->
+<section id="tab-tl" class="hide">
+<h2>導入文（問題の指示）</h2>
+<div class="qbox">
+  <div class="qen">Two Japanese university students, Yuki and Hana, are practicing a presentation … Read the dialogue and answer the following questions.</div>
+  <div class="qja">日本人の大学生2人、ユキとハナが、英語の授業で一緒に行う予定のプレゼンテーションの練習をしている。担当教員のマイクが、二人に助言をしようと申し出た。学生のプレゼン原稿にあたる言葉は<b>斜体</b>で示されている。対話を読み、次の設問に答えなさい。</div>
+</div>
+
+<h2>本文 全訳</h2>
+<div class="controls">
+  <button class="util" id="btnJP" onclick="toggleJP()">訳を隠す</button>
+  <button class="util" id="btnCUE" onclick="toggleCUE()">英文キューを隠す</button>
+  <span class="spacer"></span>
+  <span class="lbl">緑のタグ＝空所の答え／黄色のマーカー＝下線部(1)</span>
+</div>
+<div id="tlbody"></div>
+</section>
+
+<!-- ============ ③ 設問 ============ -->
+<section id="tab-q" class="hide">
+<h2>設問の全訳と解答・解説</h2>
+<p class="lead">英文の設問文もすべて訳しました。灰色の「解答・解説」ボックスはタップでぼかしが外れます。まず自分で解いてから開いてください。</p>
+<div id="qbody"></div>
+</section>
+
+</div>
+
+<script>
+/* ================= ① 単語データ ================= */
+const LV={
+ "3級":{c:"var(--g3)",note:"中学卒業程度"},
+ "準2級":{c:"var(--g3p)",note:"高校中級程度"},
+ "2級":{c:"var(--g2)",note:"高校卒業程度"},
+ "準1級":{c:"var(--g2p)",note:"大学中級程度"},
+ "1級":{c:"var(--g1)",note:"大学上級程度"},
+ "級外":{c:"var(--gx)",note:"口語表現・専門語"}
+};
+// [語句, 意味, 本文での使われ方, レベル, 箇所, 種類]
+const DATA=[
+ /* ---- 導入文・p.9 ---- */
+ ["dialogue","名 対話、会話文","Read the dialogue and answer the questions","準1級","導入文","単語"],
+ ["in italics","斜体で","The words ... are shown in italics","準1級","導入文","熟語"],
+ ["offer to do","～しようと申し出る","Mike has offered to give them some advice","2級","導入文","熟語"],
+ ["remote working","リモートワーク、在宅勤務","Many people believe that remote working will change our society","2級","p.9 前半","熟語"],
+ ["completely","副 完全に、すっかり","will change our society completely","2級","p.9 前半","単語"],
+ ["digital platform","デジタル・プラットフォーム（ネット上の取引・仲介基盤）","digital platforms are transforming ...","準1級","p.9 前半","熟語"],
+ ["transform","動 一変させる、根本から作り変える【空所①】","digital platforms are (transforming) traditional employment structures","準1級","p.9 前半","単語"],
+ ["traditional","形 従来の、伝統的な","traditional employment structures","2級","p.9 前半","単語"],
+ ["employment","名 雇用","traditional employment structures","準1級","p.9 前半","単語"],
+ ["structure","名 構造、仕組み","employment structures","2級","p.9 前半","単語"],
+ ["opening","名 冒頭、出だし","that's a strong opening","2級","p.9 前半","単語"],
+ ["frighten","動 怖がらせる、おびえさせる","you should not frighten the audience","準2級","p.9 前半","単語"],
+ ["audience","名 聴衆、聞き手","frighten the audience with too many abstract nouns","2級","p.9 前半","単語"],
+ ["abstract","形 抽象的な（⇔concrete）","too many abstract nouns","準1級","p.9 前半","単語"],
+ ["noun","名 名詞","too many abstract nouns","2級","p.9 前半","単語"],
+ ["straight out of the gate","いきなり、出だしから即座に【設問2・下線部(1)】","abstract nouns straight out of the gate","級外","p.9 前半","熟語"],
+ ["concrete","形 具体的な、目に見える","try beginning with a concrete image","準1級","p.9 前半","単語"],
+ ["begin with ~","～から始める【空所②】","try (beginning) with a concrete image","2級","p.9 前半","熟語"],
+ ["Take your time.","急がなくていいよ、ゆっくりどうぞ","Mike: Take your time.","2級","p.9 前半","熟語"],
+ ["connect with ~","～とつながる、交流する【空所③】","workers (connecting) with each other online","2級","p.9 前半","熟語"],
+ ["from anywhere in the world","世界のどこからでも","online from anywhere in the world","2級","p.9 前半","熟語"],
+ ["vivid","形 鮮明な、生き生きとした","you have put a vivid picture in the audience's mind","準1級","p.9 前半","単語"],
+ ["put a picture in one's mind","～の頭の中に映像を描かせる","put a vivid picture in the audience's mind","準1級","p.9 前半","熟語"],
+ ["bring in ~","～を持ち込む、導入する","you can bring in the more abstract stuff","2級","p.9 前半","熟語"],
+ ["stuff","名 もの、こと（漠然と指す口語）","the more abstract stuff","2級","p.9 前半","単語"],
+ ["Oh dear!","あらまあ、困ったな","Hana: Now it's me, right? Oh dear!","2級","p.9 前半","熟語"],
+ ["health effects","健康への影響","remote work has many health effects","2級","p.9 前半","熟語"],
+ ["negative","形 マイナスの、否定的な（⇔positive）","Um, negative effects","2級","p.9 前半","単語"],
+ ["for instance","例えば（＝for example）","For instance, er, people sit too long","2級","p.9 前半","熟語"],
+ ["back pain","腰痛","causes things like back pain","準2級","p.9 前半","熟語"],
+ ["eye strain","眼精疲労、目の疲れ","and eye, um, strain","1級","p.9 前半","熟語"],
+ ["strain","名 （酷使による）疲れ・負担、緊張","eye strain","1級","p.9 前半","単語"],
+ ["er / um","えーと、あのー（つなぎ語＝filler）","However, remote work has, er, many health effects","級外","p.9 前半","単語"],
+ /* ---- p.10 ---- */
+ ["content","名 内容、中身","Your content is good, Hana","2級","p.10 中盤","単語"],
+ ["rather too ~","いささか～すぎる","your voice is rather too quiet","準1級","p.10 中盤","熟語"],
+ ["delivery","名 話し方、話しぶり、（演説の）伝え方","your delivery is much too hesitant","準1級","p.10 中盤","単語"],
+ ["hesitant","形 ためらいがちな、自信なさげな","your delivery is much too hesitant","1級","p.10 中盤","単語"],
+ ["confident","形 自信のある","Be more confident!","準1級","p.10 中盤","単語"],
+ ["full sentence","完全な文（単語の羅列でない文）","give us full sentences","2級","p.10 中盤","熟語"],
+ ["professional","形 プロらしい、本格的な","Very clear and professional","2級","p.10 中盤","単語"],
+ ["begin to do","～し始める","I'm beginning to understand how to do this","2級","p.10 中盤","熟語"],
+ ["moreover","副 さらに、その上","Moreover, remote work also creates legal problems","準1級","p.10 中盤","単語"],
+ ["legal","形 法律の、法的な","remote work also creates legal problems","準1級","p.10 中盤","単語"],
+ ["labor law","労働法","Labor law must change","準1級","p.10 中盤","熟語"],
+ ["match","動 ～に合う、適合する","change to match the new working styles","2級","p.10 中盤","単語"],
+ ["working style","働き方","the new working styles","2級","p.10 中盤","熟語"],
+ ["rhetorical question","修辞疑問（答えを求めず印象づけるための問い）【設問4】","when you use a rhetorical question","1級","p.10 中盤","熟語"],
+ ["rhetorical","形 修辞的な、レトリック上の","Pause for rhetorical effect","1級","p.10 中盤","単語"],
+ ["pause","動 少し間を置く／名 間（ま）","you should pause briefly afterwards","準1級","p.10 中盤","単語"],
+ ["briefly","副 短く、少しの間","pause briefly afterwards","準1級","p.10 中盤","単語"],
+ ["afterwards","副 その後で","pause briefly afterwards","2級","p.10 中盤","単語"],
+ ["give ~ a moment to do","～に…する時間を少し与える","Give the audience a moment to think","2級","p.10 中盤","熟語"],
+ ["issue","名 問題、論点","Another issue is mental health","2級","p.10 中盤","単語"],
+ ["mental health","メンタルヘルス、心の健康","Another issue is mental health","2級","p.10 中盤","熟語"],
+ ["isolated","形 孤立した","Many people feel isolated when they work at home","準1級","p.10 中盤","単語"],
+ ["lose contact with ~","～との接触・連絡が絶える","They lose daily contact with colleagues","2級","p.10 中盤","熟語"],
+ ["colleague","名 同僚","daily contact with colleagues","準1級","p.10 中盤","単語"],
+ ["depression","名 うつ、抑うつ状態","This may increase stress or depression","準1級","p.10 中盤","単語"],
+ ["academic support","学術的な裏づけ（研究・データによる根拠）","can you add some academic support?","準1級","p.10 中盤","熟語"],
+ ["credible","形 信頼できる、説得力のある","That would make it sound more credible","1級","p.10 中盤","単語"],
+ ["How about doing ~?","～してはどうか","How about mentioning that report ...?","2級","p.10 中盤","熟語"],
+ ["mention","動 言及する、話に出す","mentioning that report you were reading","2級","p.10 中盤","単語"],
+ ["survey","名 （アンケート）調査","A recent survey by Harvard Medical School","準1級","p.10 中盤","単語"],
+ ["find that ~","～ということを見出す・突き止める","A recent survey ... found that remote workers reported ...","2級","p.10 中盤","熟語"],
+ ["report","動 （自分について）申告する、報告する","remote workers reported higher levels of loneliness","2級","p.10 中盤","単語"],
+ ["loneliness","名 孤独感","higher levels of loneliness","準1級","p.10 中盤","単語"],
+ ["make it clear why ~","なぜ～かを明らかにする（it＝形式目的語）","the report made it clear why ... is essential","2級","p.10 中盤","熟語"],
+ ["adequate","形 十分な、必要を満たす","adequate mental health support","1級","p.10 中盤","単語"],
+ ["essential","形 不可欠な、絶対必要な","support for such workers is essential","準1級","p.10 中盤","単語"],
+ /* ---- p.11 ---- */
+ ["support A with B","AをBで裏づける・支える","support your arguments with evidence","2級","p.11 後半","熟語"],
+ ["argument","名 主張、論拠","support your arguments with evidence","2級","p.11 後半","単語"],
+ ["evidence","名 証拠、根拠","support your arguments with evidence","準1級","p.11 後半","単語"],
+ ["run short of ~","～が足りなくなる、不足してくる【空所④】","we're (running) a bit short of time","準1級","p.11 後半","熟語"],
+ ["had better do","～したほうがよい（強めの助言）","I had better have a look at your slides","2級","p.11 後半","熟語"],
+ ["have a look at ~","～をちょっと見る","have a look at your slides","2級","p.11 後半","熟語"],
+ ["dreaded","形 恐ろしい、いやな、悪名高い","the dreaded \"Wall of Text\"","1級","p.11 後半","単語"],
+ ["Wall of Text","「文字の壁」＝文字がびっしり詰まったスライド","Oh no, the dreaded \"Wall of Text!\"","級外","p.11 後半","熟語"],
+ ["far too many ~","あまりにも多すぎる～","you've just got far too many words here","2級","p.11 後半","熟語"],
+ ["compete with A for B","Bを求めてAと張り合う","slides should not compete with your voice for the audience's attention","準1級","p.11 後半","熟語"],
+ ["attention","名 注意、関心","for the audience's attention","2級","p.11 後半","単語"],
+ ["diagram","名 図、図解","Use keywords, a diagram, or a striking image","準1級","p.11 後半","単語"],
+ ["striking","形 目を引く、印象的な","a striking image","1級","p.11 後半","単語"],
+ ["a couple of ~","2、3の～、いくつかの～","I've made a couple of slides like that","2級","p.11 後半","熟語"],
+ ["compare","動 比較する【空所⑤】","a simple chart (comparing) the advantages and disadvantages","2級","p.11 後半","単語"],
+ ["advantages and disadvantages","利点と欠点、長所と短所","the advantages and disadvantages of remote working","2級","p.11 後半","熟語"],
+ ["at a glance","一目で、ぱっと見て","see the key ideas at a glance","準1級","p.11 後半","熟語"],
+ ["detailed","形 詳しい、詳細な","while listening to your detailed explanation","2級","p.11 後半","単語"],
+ ["concluding","形 締めくくりの、結びの","on this concluding slide","準1級","p.11 後半","単語"],
+ ["summarize","動 要約する、まとめる","I summarize our main points","準1級","p.11 後半","単語"],
+ ["main points","要点、主な論点","summarize our main points","2級","p.11 後半","熟語"],
+ ["flexibility","名 柔軟性、融通のきくこと","Remote work offers flexibility and global connection","準1級","p.11 後半","単語"],
+ ["challenge","名 課題、難題（「挑戦」だけではない）","legal and health challenges","2級","p.11 後半","単語"],
+ ["need addressing","対処される必要がある（need doing＝need to be done の受身的用法）","challenges that need addressing","1級","p.11 後半","熟語"],
+ ["address","動 （問題に）取り組む、対処する","challenges that need addressing","準1級","p.11 後半","単語"],
+ ["memorable","形 記憶に残る","That's clear, memorable and thought-provoking","準1級","p.11 後半","単語"],
+ ["thought-provoking","形 考えさせる、示唆に富む","clear, memorable and thought-provoking","1級","p.11 後半","単語"],
+ ["lead-in","名 導入、次への橋渡し","a good lead-in to the Q and A session","級外","p.11 後半","単語"],
+ ["Q and A session","質疑応答の時間","a good lead-in to the Q and A session","2級","p.11 後半","熟語"],
+ ["make a great team","いいチームになる、相性がよい","You two make a great team","2級","p.11 後半","熟語"],
+ ["do one's best","全力を尽くす","Hana: We'll do our best.","3級","p.11 後半","熟語"],
+ /* ---- 設問文 ---- */
+ ["appropriate","形 適切な、ふさわしい","Select the most appropriate words","準1級","設問文","単語"],
+ ["fill in the blank","空所を埋める","to fill in the blanks","2級","設問文","熟語"],
+ ["be reflected in ~","～に反映されている","Which meaning is NOT reflected in the phrase ...?","準1級","設問文","熟語"],
+ ["underlined","形 下線を引かれた","the underlined expression (1)","2級","設問文","単語"],
+ ["excessively","副 過度に、度を超して","(B) excessively","1級","設問文","単語"],
+ ["sufficient","形 十分な","(E) without sufficient context","準1級","設問文","単語"],
+ ["context","名 文脈、前後関係","without sufficient context","準1級","設問文","単語"],
+ ["based on ~","～に基づいて","Based on the dialogue, which TWO ...","2級","設問文","熟語"],
+ ["replace A with B","AをBに置き換える","abstract terms should be replaced with concrete examples","準1級","設問文","熟語"],
+ ["term","名 用語、術語","abstract terms","準1級","設問文","単語"],
+ ["throughout","前 ～を通してずっと、～全体で","throughout the presentation","準1級","設問文","単語"],
+ ["alternately","副 交互に","by speaking alternately","1級","設問文","単語"],
+ ["aspect","名 側面、観点","the medical, financial and legal aspects","準1級","設問文","単語"],
+ ["financial","形 財政的な、金銭面の","medical, financial and legal aspects","準1級","設問文","単語"],
+ ["contrasting","形 対照的な","have contrasting strengths as presenters","準1級","設問文","単語"],
+ ["strength","名 強み、長所","contrasting strengths","2級","設問文","単語"],
+ ["in function","機能の点で","most likely be rhetorical in function","2級","設問文","熟語"],
+ ["handout","名 配布資料、プリント","Has everyone got the handout?","2級","設問文","単語"],
+ ["conclude","動 結論を出す、結論づける","What can we conclude?","準1級","設問文","単語"],
+ ["matter","動 重要である、大事である","Why does this matter?","2級","設問文","単語"],
+ ["prefer to do","～するほうを好む","Would you prefer to work remotely ...?","2級","設問文","熟語"],
+ ["workplace","名 職場","a traditional workplace such as an office","2級","設問文","単語"],
+ ["indicate","動 示す、明示する","Indicate the number of words you have written","準1級","設問文","単語"],
+ ["punctuation","名 句読点","Do not count punctuation such as commas or periods","1級","設問文","単語"]
+];
+
+const ORDER=["3級","準2級","2級","準1級","1級","級外"];
+const PORDER=["導入文","p.9 前半","p.10 中盤","p.11 後半","設問文"];
+let data=[...DATA],activeLv="all",activePara="all",activeType="all",hideDone=false;
+const done=new Set();
+
+const cW=DATA.filter(d=>d[5]==="単語").length, cI=DATA.length-cW;
+document.getElementById("total").textContent=DATA.length;
+document.getElementById("nw").textContent=cW;
+document.getElementById("ni").textContent=cI;
+
+const cnt={},cntW={},cntI={},cntP={};
+ORDER.forEach(l=>{cnt[l]=0;cntW[l]=0;cntI[l]=0;});
+PORDER.forEach(p=>cntP[p]=0);
+DATA.forEach(d=>{cnt[d[3]]++;(d[5]==="単語"?cntW:cntI)[d[3]]++;cntP[d[4]]++;});
+document.getElementById("sumbody").innerHTML=ORDER.map(l=>{
+ const n=cnt[l],p=Math.round(n/DATA.length*100);
+ return `<tr><td><span class="badge" style="background:${LV[l].c}">${l}</span></td>
+ <td><b>${n}</b></td><td style="color:var(--tw);font-weight:700">${cntW[l]}</td>
+ <td style="color:var(--ti);font-weight:700">${cntI[l]}</td>
+ <td><span class="bar" style="width:${Math.max(p*2.6,6)}px;background:${LV[l].c}"></span>${p}%</td>
+ <td style="color:var(--sub)">${LV[l].note}</td></tr>`;}).join("");
+
+document.getElementById("filters").innerHTML=
+ `<button class="on" data-lv="all">すべて</button>`+
+ ORDER.map(l=>cnt[l]?`<button data-lv="${l}" style="color:${LV[l].c}">${l} (${cnt[l]})</button>`:"").join("");
+document.getElementById("filters").onclick=e=>{
+ if(e.target.tagName!=="BUTTON")return;
+ [...e.currentTarget.children].forEach(b=>b.classList.remove("on"));
+ e.target.classList.add("on");activeLv=e.target.dataset.lv;render();};
+
+document.getElementById("pfilters").innerHTML=
+ `<button class="on" data-p="all">すべて</button>`+
+ PORDER.map(p=>`<button data-p="${p}">${p} (${cntP[p]})</button>`).join("");
+document.getElementById("pfilters").onclick=e=>{
+ if(e.target.tagName!=="BUTTON")return;
+ [...e.currentTarget.children].forEach(b=>b.classList.remove("on"));
+ e.target.classList.add("on");activePara=e.target.dataset.p;render();};
+
+function list(){return data.filter(d=>
+ (activeLv==="all"||d[3]===activeLv)&&
+ (activePara==="all"||d[4]===activePara)&&
+ (activeType==="all"||d[5]===activeType)&&
+ !(hideDone&&done.has(d[0])));}
+
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+
+function render(){
+ const L=list();
+ document.getElementById("grid").innerHTML=L.map(d=>{
+  const[p,m,ex,lv,ln,ty]=d, t=ty==="単語"?"w":"i";
+  return `<div class="card hidden" data-w="${esc(p)}" style="border-left-color:${LV[lv].c}">
+   <span class="check">✓ 覚えた</span>
+   <div class="top"><span class="phrase">${esc(p)}</span>
+   <span style="display:flex;flex-direction:column;gap:4px;align-items:flex-end">
+   <span class="badge" style="background:${LV[lv].c}">${lv}</span>
+   <span class="tag ${t}">${ty}</span></span></div>
+   <div class="line">${ln}</div>
+   <div class="meaning">${m}</div>
+   <div class="ex">${esc(ex)}</div>
+   <div class="hint">タップで表示 ／ ダブルクリックで「覚えた」</div></div>`;}).join("");
+ [...document.getElementById("grid").children].forEach(c=>{
+  if(done.has(c.dataset.w))c.classList.add("done");
+  c.onclick=()=>c.classList.toggle("hidden");
+  c.ondblclick=e=>{e.preventDefault();const w=c.dataset.w;
+   done.has(w)?done.delete(w):done.add(w);render();};});
+
+ document.getElementById("tbody").innerHTML=L.map(d=>{
+  const[p,m,ex,lv,ln,ty]=d, t=ty==="単語"?"w":"i";
+  return `<tr class="hid ${done.has(p)?'done':''}" data-w="${esc(p)}">
+   <td><span class="mark">✓</span></td>
+   <td><span class="tag ${t}">${ty}</span></td>
+   <td class="ph">${esc(p)}</td><td class="mn">${m}</td>
+   <td class="exc">${esc(ex)}</td>
+   <td><span class="badge" style="background:${LV[lv].c}">${lv}</span></td>
+   <td class="ln">${ln}</td></tr>`;}).join("");
+ [...document.getElementById("tbody").children].forEach(tr=>{
+  tr.querySelector(".mn").onclick=()=>tr.classList.toggle("hid");
+  tr.querySelector(".exc").onclick=()=>tr.classList.toggle("hid");
+  tr.querySelector(".mark").onclick=()=>{const w=tr.dataset.w;
+   done.has(w)?done.delete(w):done.add(w);render();};});
+
+ document.getElementById("shown").textContent=L.length;
+ document.getElementById("doneN").textContent=done.size;
+}
+
+function setView(v){
+ document.getElementById("cardView").classList.toggle("hide",v!=="card");
+ document.getElementById("tableView").classList.toggle("hide",v!=="table");
+ document.getElementById("bCard").classList.toggle("on",v==="card");
+ document.getElementById("bTable").classList.toggle("on",v==="table");}
+function setType(t){activeType=t;
+ document.getElementById("tAll").classList.toggle("on",t==="all");
+ document.getElementById("tW").classList.toggle("on",t==="単語");
+ document.getElementById("tI").classList.toggle("on",t==="熟語");render();}
+function allHide(){document.querySelectorAll(".card").forEach(c=>c.classList.add("hidden"));
+ document.querySelectorAll("#tbody tr").forEach(t=>t.classList.add("hid"));}
+function allShow(){document.querySelectorAll(".card").forEach(c=>c.classList.remove("hidden"));
+ document.querySelectorAll("#tbody tr").forEach(t=>t.classList.remove("hid"));}
+function shuffle(){for(let i=data.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[data[i],data[j]]=[data[j],data[i]];}render();}
+function resetOrder(){data=[...DATA];render();}
+function resetDone(){done.clear();render();}
+function toggleDoneFilter(){hideDone=!hideDone;
+ document.getElementById("hideDoneBtn").textContent=hideDone?"覚えた項目も表示":"覚えた項目を隠す";render();}
+
+/* ================= ② 全訳データ ================= */
+// [話者キー, 英文キュー, 地の会話の訳, プレゼン原稿部分の訳(なければ"")]
+const TL=[
+ ["mike","Right, the projector is on now so, if you're ready Yuki, please begin.",
+  "さあ、プロジェクターがついたよ。ユキ、準備ができていたら始めてください。",""],
+ ["yuki","Thank you, Mike. / Good afternoon, everybody. …",
+  "ありがとうございます、マイク先生。",
+  "皆さん、こんにちは。今日はハナと私で「仕事の未来」についてお話しします。多くの人が、リモートワークは私たちの社会を完全に変えてしまうだろうと考えています。たとえば、デジタル・プラットフォームは従来の雇用構造を（<span class=\"bk\">①一変させ</span>）つつあり……"],
+ ["mike","Yuki, that's a strong opening, but be careful: …",
+  "ユキ、力強い出だしだね。でも気をつけて。<span class=\"utag\">下線部(1)</span><span class=\"ul\">いきなり抽象名詞を並べすぎて聴衆を怖じ気づかせてはいけない。</span>「雇用構造」「デジタル・プラットフォーム」「社会」——こうした語自体は悪くない。でも、まずは具体的なイメージから（<span class=\"bk\">②始めて</span>）みるといい。",""],
+ ["yuki","Okay, let me think …","なるほど、ちょっと考えてみます……",""],
+ ["mike","Take your time.","ゆっくりでいいよ。",""],
+ ["yuki","How about this? / Imagine an office with no desks …",
+  "これはどうでしょう。",
+  "机もなく、椅子もなく、建物さえない職場を想像してみてください。いるのは、世界中のどこからでもオンラインで互いに（<span class=\"bk\">③つながって</span>）働く人たちだけです。"],
+ ["mike","Excellent! Now you have put a vivid picture in the audience's mind. …",
+  "すばらしい！これで聴衆の頭の中に鮮明な映像が浮かんだ。そのあとで、もっと抽象的な話を持ち込めばいい。",""],
+ ["hana","Now it's me, right? Oh dear! / However, remote work has, er, many health effects. …",
+  "次は私ですね。ああ、どうしよう！",
+  "でも、リモートワークには、えー、多くの健康面の影響があります。うーん、悪い影響です。たとえば、えー、人はパソコンの前に座りすぎて、うーん、それが腰痛みたいなものを引き起こします。あと、えー、首の痛み……それと目の、うーん、疲れ。えー……"],
+ ["mike","Your content is good, Hana, but your voice is rather too quiet …",
+  "内容はいいよ、ハナ。でも声がいささか小さすぎるし、話し方がためらいがちすぎる。もっと自信を持って！顔を上げて、聴衆を見て、きちんとした文で話すこと。",""],
+ ["hana","Okay, I'll try again. / However, remote work has many negative health effects. …",
+  "わかりました、もう一度やってみます。",
+  "しかし、リモートワークには健康面での悪影響が数多くあります。パソコンの前に長時間座っていると、腰痛や首の痛み、眼精疲労を引き起こすおそれがあります。"],
+ ["mike","Perfect! Very clear and professional.","完璧！とても明快で、プロらしい話し方だ。",""],
+ ["hana","Thanks. I'm beginning to understand how to do this. / Back to you, Yuki.",
+  "ありがとうございます。だんだんやり方が分かってきました。",
+  "ユキ、交代します。"],
+ ["yuki","Moreover, remote work also creates legal problems. …","",
+  "さらに、リモートワークは法律上の問題も生み出します。たとえば、従業員が真夜中にメールに返信した場合、「労働時間」とは何を指すのでしょうか。労働法は新しい働き方に合わせて変わらなければなりません。"],
+ ["mike","That's a great point, Yuki. Just remember, when you use a rhetorical question …",
+  "いい指摘だね、ユキ。ただ覚えておいて。「労働時間とは何か」のような修辞疑問を使ったときは、そのあと短く間を置くこと。聴衆に考える時間を与えるんだ。",""],
+ ["yuki","Pause for rhetorical effect. Got it!","修辞的効果のために間を置く。了解です！",""],
+ ["hana","Another issue is mental health. Many people feel isolated …","",
+  "もう一つの問題はメンタルヘルスです。在宅で働くと孤独を感じる人が多くいます。同僚との日々の接触が失われるのです。これはストレスやうつを、うーん、増やすかもしれません。"],
+ ["mike","That's also a very important point, Hana, but can you add some academic support? …",
+  "それも非常に重要な点だね、ハナ。でも学術的な裏づけを加えられるかな？そうすればもっと説得力が出るよ。",""],
+ ["yuki","How about mentioning that report you were reading in the library yesterday, Hana?",
+  "ハナ、昨日図書館で読んでいたあの報告書に触れたらどう？",""],
+ ["hana","Good idea! / A recent survey by Harvard Medical School found that …",
+  "いい考えですね！",
+  "ハーバード大学医学大学院による最近の調査によれば、リモートワーカーはより高い水準の孤独感を訴えていることが分かりました。うーん、その報告書は、そうした労働者に十分なメンタルヘルス支援がなぜ不可欠なのかを明確に示していました。"],
+ ["mike","Nice! You should always try to support your arguments with evidence. …",
+  "いいね！主張はつねに証拠で裏づけるようにしよう。さて、少し時間が（<span class=\"bk\">④なく</span>）なってきたから、スライドを見せてもらったほうがよさそうだ。いくつか見せてくれる？",""],
+ ["yuki","Of course. I think this is one of my better ones.",
+  "もちろんです。これは自分の中ではよくできたほうだと思います。",""],
+ ["mike","Oh no, the dreaded \"Wall of Text!\" …",
+  "おっと、あの悪名高い「文字の壁」だ！悪いけどユキ、これは言葉が多すぎる。いいかい、スライドは聴衆の注意をめぐって君の声と張り合ってはいけないんだ。キーワードか、図か、印象的な画像を使うこと。",""],
+ ["hana","Actually, I've made a couple of slides like that. How about this one? …",
+  "実は、私はそういうスライドを2、3枚作ってあります。これはどうですか？リモートワークの利点と欠点を（<span class=\"bk\">⑤比較した</span>）シンプルな図です。",""],
+ ["mike","That slide looks much better! …",
+  "そのスライドのほうがずっといい！聴衆は君たちの詳しい説明を聞きながら、要点を一目でつかむことができる。",""],
+ ["hana","And on this concluding slide, I summarize our main points. …",
+  "それから、この締めくくりのスライドで、私たちの要点をまとめます。",
+  "リモートワークは柔軟性と世界的なつながりをもたらしますが、同時に、対処すべき法的・健康的な課題も存在します。"],
+ ["mike","That's clear, memorable and thought-provoking. …",
+  "明快で、記憶に残り、考えさせられる締めだ。質疑応答へのいい導入になる。君たち二人はいいチームだね。あと少し練習すれば、プレゼンは問題ないと思うよ。",""],
+ ["yuki","Thanks.","ありがとうございます。",""],
+ ["hana","We'll do our best.","全力を尽くします。",""]
+];
+const SPK={mike:["Mike","担当教員"],yuki:["Yuki","学生"],hana:["Hana","学生"]};
+document.getElementById("tlbody").innerHTML=TL.map(t=>{
+ const[k,cue,ja,sp]=t;
+ return `<div class="turn ${k}">
+  <span class="spk">${SPK[k][0]}</span><span class="role">${SPK[k][1]}</span>
+  <div class="cue">${esc(cue)}</div>
+  ${ja?`<div class="jp">${ja}</div>`:""}
+  ${sp?`<div class="sp">${sp}</div>`:""}
+ </div>`;}).join("");
+
+let jpHidden=false,cueHidden=false;
+function toggleJP(){jpHidden=!jpHidden;
+ document.getElementById("tlbody").classList.toggle("tlhide",jpHidden);
+ document.getElementById("btnJP").textContent=jpHidden?"訳を表示":"訳を隠す";}
+function toggleCUE(){cueHidden=!cueHidden;
+ document.getElementById("tlbody").classList.toggle("cuehide",cueHidden);
+ document.getElementById("btnCUE").textContent=cueHidden?"英文キューを表示":"英文キューを隠す";}
+
+/* ================= ③ 設問データ ================= */
+const WORDS=[
+ ["(A) beginning","begin：始める・～から着手する","1"],
+ ["(B) comparing","compare：比較する","1"],
+ ["(C) completing","complete：完成させる","0"],
+ ["(D) connecting","connect：つなぐ・つながる","1"],
+ ["(E) reaching","reach：到達する・（手が）届く","0"],
+ ["(F) running","run short of ~ で「～が不足してくる」","1"],
+ ["(G) transforming","transform：一変させる・作り変える","1"],
+ ["(H) using","use：使う","0"]
+];
+const QS=[
+ {no:"設問 1",
+  en:"Select the most appropriate words from the list below to fill in the blanks ( ① ) to ( ⑤ ). Answer using the letters (A) to (H). Do not use any letter more than ONCE.",
+  ja:"下のリストから最も適切な語を選び、空所（①）〜（⑤）を埋めなさい。解答は (A)〜(H) の記号で答えること。<b>どの記号も2回以上使ってはいけない。</b>",
+  words:true,
+  ans:`<p><span class="k">① (G) transforming ／ ② (A) beginning ／ ③ (D) connecting ／ ④ (F) running ／ ⑤ (B) comparing</span>（不使用：C completing・E reaching・H using）</p>
+  <p><b>①</b> are ( ) traditional employment structures：進行形。「デジタル・プラットフォームが従来の雇用構造を<b>一変させつつある</b>」。直前の change our society completely の言い換え。</p>
+  <p><b>②</b> try ( ) with a concrete image：「具体的なイメージ<b>から始めて</b>みなさい」。直後にユキが Imagine an office ... と<b>具体像で切り出す</b>のが決定打。try doing（試しに～してみる）。</p>
+  <p><b>③</b> Just workers ( ) with each other online：workers を後ろから修飾する現在分詞。connect with ~＝「～とつながる」。each other と online が手がかり。</p>
+  <p><b>④</b> we're ( ) a bit short of time：<b>run short of ~</b>「～が不足してくる」。直後に「だからスライドを見せてもらったほうがいい」と急ぐ流れ。</p>
+  <p><b>⑤</b> a simple chart ( ) the advantages and disadvantages：chart を修飾する現在分詞。<b>compare</b>「利点と欠点を<b>比較した</b>図」。</p>`},
+ {no:"設問 2",
+  en:"Which of the following meanings is NOT reflected in the phrase \"straight out of the gate\" as Mike uses it in the underlined expression (1)?",
+  ja:"下線部(1)でマイクが使っている <b>\"straight out of the gate\"</b> という表現に反映されて<b>いない</b>意味は、次のうちどれか。",
+  ch:[["(A)","before the audience is ready","聴衆の準備が整う前に"],
+      ["(B)","excessively","過度に、度を超して",1],
+      ["(C)","from the very beginning","まさに冒頭から"],
+      ["(D)","immediately","すぐに、即座に"],
+      ["(E)","without sufficient context","十分な文脈がないまま"]],
+  ans:`<p><span class="k">正解：(B) excessively</span></p>
+  <p>straight out of the gate は競馬のゲートが開いた瞬間のイメージから来た比喩で、意味は「<b>スタートしたとたんに／出だしからいきなり</b>」。つまり<b>タイミング</b>を表す表現であって、<b>量や程度</b>は含まない。</p>
+  <p>「多すぎる」という程度の意味は、この句ではなく直前の <b>too many</b> abstract nouns が担っている。(A)(C)(D)(E) はいずれも「冒頭でいきなり・下地ができていないうちに」というタイミングの含意から自然に出てくる。<b>設問文の \"NOT reflected\" を見落とさないこと。</b></p>`},
+ {no:"設問 3",
+  en:"Based on the dialogue, which TWO of the following are most clearly NOT true?",
+  ja:"対話に基づいて、次のうち明らかに<b>正しくない</b>ものを<b>2つ</b>選びなさい。",
+  ch:[["(A)","According to Mike, abstract terms should be replaced with concrete examples throughout the presentation.","マイクによれば、抽象的な語はプレゼン全体を通して具体例に置き換えるべきである。",1],
+      ["(B)","Both the positive and negative aspects of remote working are mentioned in the presentation.","リモートワークの良い面と悪い面の両方がプレゼンで述べられている。"],
+      ["(C)","Hana and Yuki are planning to give their presentation by speaking alternately.","ハナとユキは交互に話してプレゼンをする計画である。"],
+      ["(D)","Hana and Yuki's presentation addresses some of the medical, financial and legal aspects of remote working.","ハナとユキのプレゼンは、リモートワークの医学的・金銭的・法的側面のいくつかを扱っている。",1],
+      ["(E)","Mike's feedback suggests that Hana and Yuki have contrasting strengths as presenters.","マイクの助言からは、ハナとユキが発表者として対照的な強みを持っていることがうかがえる。"]],
+  ans:`<p><span class="k">正解：(A) と (D)</span></p>
+  <p><b>(A) ✕</b> マイクは抽象語を否定していない。<i>"those words are fine, but try beginning with a concrete image"</i>／<i>"After that, you can bring in the more abstract stuff."</i> ＝「<b>冒頭は</b>具体像で、<b>そのあと</b>抽象を持ち込む」。<b>throughout（全体を通して）</b>と <b>replaced（置き換える）</b>の2点が本文と食い違う。</p>
+  <p><b>(D) ✕</b> 健康（medical）と法律（legal）は出てくるが、<b>financial（金銭面）の話は一切出てこない</b>。3つ並べた列挙のうち1つだけ紛れ込ませる典型パターン。</p>
+  <p><b>(B) ○</b> 最後のまとめ <i>"Remote work offers flexibility and global connection, but there are also legal and health challenges"</i> が良い面・悪い面の両方。</p>
+  <p><b>(C) ○</b> ユキ→ハナ→ユキ→ハナ と実際に交代しており、<i>"Back to you, Yuki."</i> がその証拠。</p>
+  <p><b>(E) ○</b> ユキ＝出だしの話し方は力強い（strong opening）がスライドは「文字の壁」。ハナ＝声が小さく自信なさげだが内容はよく、スライドは的確。まさに contrasting strengths。</p>`},
+ {no:"設問 4",
+  en:"If someone were giving a presentation, which TWO of the following questions would most likely be rhetorical in function?",
+  ja:"ある人がプレゼンをしているとして、次のうち<b>修辞疑問</b>として機能する可能性が最も高いものを<b>2つ</b>選びなさい。",
+  ch:[["(A)","Has everyone got the handout?","全員に配布資料は行き渡っていますか。"],
+      ["(B)","How much time do I have left?","私の残り時間はあとどれくらいですか。"],
+      ["(C)","What can we conclude?","では、どんな結論が導けるでしょうか。",1],
+      ["(D)","Which slide do you mean?","どのスライドのことをおっしゃっていますか。"],
+      ["(E)","Why does this matter?","なぜこれが重要なのでしょうか。",1]],
+  ans:`<p><span class="k">正解：(C) と (E)</span></p>
+  <p>修辞疑問＝<b>聴き手からの答えを期待せず、話し手が自分で答える／注意を引き寄せるための問い</b>。マイクが挙げた本文の例 <i>"What is working time?"</i> と同じ型。</p>
+  <p><b>(C) What can we conclude?</b> と <b>(E) Why does this matter?</b> は、そのあと話し手自身が答えを述べて話を先に進める定番の型。</p>
+  <p>一方 (A)(B)(D) は、いずれも<b>相手から実際の返答が必要な本物の質問</b>。(A) は聴衆に挙手や返事を求め、(B) は司会者に時間を尋ね、(D) は相手の発言内容を確認している。</p>`},
+ {no:"設問 5",
+  en:"Would you prefer to work remotely or in a traditional workplace such as an office? Explain your preference in your own words. Your answer must be between 30 and 40 words. Indicate the number of words you have written at the end of your answer. Do not count punctuation such as commas or periods as words.",
+  ja:"あなたはリモートで働くのと、オフィスのような従来型の職場で働くのと、どちらを好むか。自分自身の言葉で、その理由を説明しなさい。解答は<b>30語以上40語以内</b>とすること。書いた語数を解答の最後に示すこと。カンマやピリオドなどの句読点は語数に数えないこと。",
+  ans:`<p><span class="k">採点の型：①立場をはっきり書く → ②理由を2つ → ③軽く締める</span>。凝った内容より、30〜40語という条件を守り、文法ミスをなくすほうが得点は安定する。<b>語数の記載忘れは失点に直結する。</b></p>
+  <div class="model"><b>解答例① リモート派</b>
+  <p class="en">I would prefer to work remotely. Without a daily commute, I can use that time for sleep and study. I also concentrate better in a quiet room, and video calls are enough for most of my work. <span class="wc">(37 words)</span></p>
+  <p>【訳】私はリモートで働くほうを選びたい。毎日の通勤がなければ、その時間を睡眠や勉強に使える。静かな部屋のほうが集中もできるし、私の仕事のほとんどはビデオ通話で足りる。</p></div>
+  <div class="model"><b>解答例② オフィス派</b>
+  <p class="en">I would rather work in a traditional office. Talking with colleagues face to face helps me solve problems quickly and learn from them. Working alone at home would make me feel isolated and less motivated. <span class="wc">(34 words)</span></p>
+  <p>【訳】私はむしろ従来型のオフィスで働きたい。同僚と直接顔を合わせて話すことで、問題を早く解決でき、彼らから学ぶこともできる。家で一人で働けば、孤独を感じ、やる気も下がってしまうだろう。</p></div>
+  <p class="note">語数の数え方：I / would / prefer … と1語ずつ。ハイフン語（face-to-face）は1語扱いが無難。短縮形（I'm）も1語。数字も1語。</p>`}
+];
+
+document.getElementById("qbody").innerHTML=QS.map(q=>{
+ let inner=`<div class="qbox"><span class="qno">${q.no}</span>
+  <div class="qen">${esc(q.en)}</div>
+  <div class="qja">${q.ja}</div>`;
+ if(q.words){
+  inner+=`<div class="wl">`+WORDS.map(w=>
+   `<div class="${w[2]==="1"?"used":""}"><b>${w[0]}</b><br><span style="font-size:.78rem;color:var(--sub)">${w[1]}</span></div>`).join("")+`</div>`;
+ }
+ if(q.ch){
+  inner+=q.ch.map(c=>`<div class="ch"><b>${c[0]}</b><span><span style="font-style:italic;color:#334155">${esc(c[1])}</span><br><span class="cja">${c[2]}</span></span></div>`).join("");
+ }
+ inner+=`<div class="ans hid"><div class="hd">解答・解説（タップで表示）</div><div class="body">${q.ans}</div></div></div>`;
+ return inner;}).join("");
+document.querySelectorAll(".ans").forEach(a=>a.onclick=()=>a.classList.toggle("hid"));
+
+/* ================= タブ ================= */
+function setTab(t){
+ ["vocab","tl","q"].forEach(k=>{
+  document.getElementById("tab-"+k).classList.toggle("hide",k!==t);
+  document.getElementById("tb-"+k).classList.toggle("on",k===t);});
+ window.scrollTo({top:0,behavior:"smooth"});}
+
+render();
+</script>
+</body>
+</html>
