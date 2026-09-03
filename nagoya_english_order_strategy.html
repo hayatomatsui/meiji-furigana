@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>名大英語｜解く順番と、大学が伝えたいこと</title>
+<style>
+:root{
+  --bg:#f4f6fb; --card:#fff; --ink:#1b2233; --sub:#6b7590;
+  --acc:#1f3a93; --acc2:#3949ab; --acc3:#00897b;
+  --warn:#c62828; --warn-bg:#fdecec; --ok:#00695c;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+  background:var(--bg);color:var(--ink);padding:18px;line-height:1.9}
+.wrap{max-width:900px;margin:0 auto}
+
+header{background:linear-gradient(135deg,#1f3a93,#3949ab 48%,#00897b);color:#fff;
+  border-radius:18px;padding:26px 24px;margin-bottom:18px;box-shadow:0 8px 26px rgba(31,58,147,.25)}
+header h1{font-size:1.35rem;margin-bottom:8px;line-height:1.5}
+header .sub{opacity:.94;font-size:.86rem;line-height:1.7}
+header .src{margin-top:14px;font-size:.74rem;opacity:.82;border-top:1px solid rgba(255,255,255,.3);
+  padding-top:10px;line-height:1.65}
+
+h2{font-size:1.05rem;margin:32px 0 12px;padding-left:12px;border-left:5px solid var(--acc2)}
+h3{font-size:.92rem;margin:18px 0 8px;color:var(--acc)}
+
+.card{background:var(--card);border-radius:14px;padding:16px 18px;margin-bottom:12px;
+  box-shadow:0 2px 10px rgba(0,0,0,.07)}
+.card p+p{margin-top:10px}
+
+/* 結論ボックス */
+.verdict{background:linear-gradient(135deg,#1f3a93,#3949ab);color:#fff;border-radius:16px;
+  padding:20px 22px;box-shadow:0 6px 20px rgba(31,58,147,.28)}
+.verdict .lbl{font-size:.7rem;font-weight:800;letter-spacing:.1em;opacity:.85}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0 10px}
+.step{background:rgba(255,255,255,.16);border:1.5px solid rgba(255,255,255,.5);
+  border-radius:10px;padding:9px 14px;font-weight:800;font-size:.95rem;line-height:1.4}
+.step small{display:block;font-size:.66rem;font-weight:600;opacity:.85;margin-top:2px}
+.arrow{font-weight:900;opacity:.75}
+.verdict .note{font-size:.8rem;line-height:1.75;opacity:.95;
+  border-top:1px solid rgba(255,255,255,.28);padding-top:10px;margin-top:4px}
+
+/* 表 */
+.tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:14px;
+  box-shadow:0 2px 10px rgba(0,0,0,.07);margin-bottom:10px}
+table{width:100%;min-width:640px;border-collapse:collapse;background:#fff}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid #eef1f6;font-size:.82rem;
+  vertical-align:top;line-height:1.65}
+th{background:#1b2233;color:#fff;font-size:.73rem;letter-spacing:.04em;white-space:nowrap}
+tbody tr:nth-child(even){background:#fafbfe}
+td.yr{font-weight:800;white-space:nowrap;color:var(--acc)}
+.hard{color:var(--warn);font-weight:800;white-space:nowrap}
+.tag{display:inline-block;font-size:.64rem;font-weight:800;color:#fff;border-radius:4px;
+  padding:1px 6px;margin-right:4px;vertical-align:.1em}
+.t-trap{background:var(--warn)}
+.t-easy{background:var(--acc3)}
+
+/* 時間配分バー */
+.bar{display:flex;border-radius:10px;overflow:hidden;margin:12px 0 8px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);min-height:52px}
+.seg{color:#fff;font-size:.76rem;font-weight:800;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;padding:6px 2px;line-height:1.3}
+.seg small{font-size:.64rem;font-weight:600;opacity:.9}
+.s4{background:#00897b;flex:10}
+.s3{background:#3949ab;flex:20}
+.sA{background:#1f3a93;flex:35}
+.sB{background:#2c2f4a;flex:35}
+
+/* 判定ルール */
+.rule{background:var(--warn-bg);border-left:5px solid var(--warn);border-radius:0 12px 12px 0;
+  padding:14px 16px;margin:12px 0;font-size:.86rem;line-height:1.8}
+.rule b{color:var(--warn)}
+.good{background:#e8f5e9;border-left-color:var(--ok)}
+.good b{color:var(--ok)}
+
+/* メッセージ4系統 */
+.msg{background:#fff;border-radius:14px;padding:15px 17px;margin-bottom:11px;
+  box-shadow:0 2px 10px rgba(0,0,0,.07);border-top:4px solid var(--acc2)}
+.msg h3{margin:0 0 8px;font-size:.95rem;color:var(--acc)}
+.msg ul{list-style:none;margin:0}
+.msg li{font-size:.82rem;line-height:1.75;padding:5px 0 5px 0;border-bottom:1px dashed #e6eaf2}
+.msg li:last-child{border-bottom:none}
+.yrtag{display:inline-block;background:#eef1f8;color:var(--acc);font-weight:800;
+  font-size:.68rem;border-radius:5px;padding:1px 7px;margin-right:7px;white-space:nowrap}
+
+.note{font-size:.78rem;color:var(--sub);background:#f0f3f9;border-radius:9px;
+  padding:10px 13px;margin-top:10px;line-height:1.75}
+
+footer{margin:34px 0 8px;font-size:.72rem;color:var(--sub);text-align:center;line-height:1.8}
+
+@media (max-width:520px){
+  body{padding:12px}
+  header{padding:20px 18px}
+  header h1{font-size:1.15rem}
+  .flow{gap:6px}
+  .step{padding:8px 11px;font-size:.85rem}
+}
+@media print{
+  body{background:#fff;padding:0}
+  .card,.msg,.tblwrap{box-shadow:none;border:1px solid #dde2ec}
+  header{box-shadow:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>名大英語｜解く順番と、大学が伝えたいこと</h1>
+  <div class="sub">
+    2022〜2026年度（令和4〜8年度）の前期日程・外国語（英語／全学部共通）5年分を、
+    大問ごとの負荷と出題テーマの両面から比較しました。
+  </div>
+  <div class="src">
+    試験時間 105分（10:00–11:45）／大問4題・答案紙7枚。各大問の配点は非公表のため、
+    以下の時間配分は「4題ほぼ均等」を前提とした目安です。
+  </div>
+</header>
+
+<h2>結論：この順番で解く</h2>
+
+<div class="verdict">
+  <div class="lbl">RECOMMENDED ORDER</div>
+  <div class="flow">
+    <div class="step">Ⅳ<small>約10分</small></div>
+    <span class="arrow">▶</span>
+    <div class="step">Ⅲ<small>約20分</small></div>
+    <span class="arrow">▶</span>
+    <div class="step">ⅠとⅡの軽い方<small>約35分</small></div>
+    <span class="arrow">▶</span>
+    <div class="step">残った方<small>約35分</small></div>
+  </div>
+  <div class="note">
+    <b>Ⅳ→Ⅲ が易しい順であることは、調べた5年すべてで例外がありませんでした。</b>
+    ここは迷わず先に取ってください。一方で <b>ⅠとⅡのどちらが重いかは年によって入れ替わります</b>。
+    最後の2題だけは、その場で見て決めます。
+  </div>
+</div>
+
+<div class="card">
+  <p><b>なぜこの順番か。</b>Ⅳは図表またはテーマだけを見て英語で書く問題で、長文読解がありません。
+  設問数も少なく、年によっては1問だけです。Ⅲは会話文で、語彙・慣用表現・内容一致といった
+  取りやすい設問が中心。<b>この2題で、35分以内に確実な得点を先に確保できます。</b></p>
+  <p>逆にⅠから順番に手をつけると、年によっては最初の1ページで固有名詞と見慣れない語に足を取られ、
+  そこで時間を溶かしたままⅢ・Ⅳに届かない、という最悪の展開になります。
+  実際、5年のうち3年はⅠがその危険な作りでした（下表）。</p>
+</div>
+
+<h2>5年分の比較</h2>
+
+<div class="tblwrap">
+<table>
+  <thead>
+    <tr><th>年度</th><th>Ⅰ</th><th>Ⅱ</th><th>Ⅲ</th><th>Ⅳ</th><th>最難</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="yr">2026<br>令和8</td>
+      <td>睡眠と記憶の定着（Psychology Today）<br>英語15語で説明・整序・和訳</td>
+      <td>科学出版における量と質（American Scientist）<br>和訳・30〜40字説明・語彙7</td>
+      <td>プレゼン練習の対話<br>30〜40語の意見英作文</td>
+      <td><span class="tag t-easy">軽</span>添い寝の国際比較グラフ<br>40〜50語＋30〜40語</td>
+      <td class="hard">Ⅱ<br><small>Ⅰと僅差</small></td>
+    </tr>
+    <tr>
+      <td class="yr">2025<br>令和7</td>
+      <td><span class="tag t-trap">罠</span>英国鉄道の駅food（19世紀の引用文・難語多）</td>
+      <td>ことばと障害をめぐる議論（学術書）<br><b>抽象度が5年で最高</b></td>
+      <td>未来予測の対話<br>30〜40語の意見英作文</td>
+      <td><span class="tag t-easy">軽</span>自由英作文のみ（SNS）<br>30〜40語＋40〜50語</td>
+      <td class="hard">Ⅱ<br><small>Ⅰと僅差</small></td>
+    </tr>
+    <tr>
+      <td class="yr">2024<br>令和6</td>
+      <td><span class="tag t-trap">罠</span>ロナール・クレーター、地質学×神話（固有名詞が多い）</td>
+      <td>親切の心理学（Scientific American）<br>設問は6問だが読みやすい</td>
+      <td>祖父と孫の対話・口述史<br>20〜30語の意見英作文</td>
+      <td><span class="tag t-easy">軽</span>ミュラー・リヤー錯視の図<br>30〜50語×2</td>
+      <td class="hard">Ⅰ</td>
+    </tr>
+    <tr>
+      <td class="yr">2023<br>令和5</td>
+      <td><span class="tag t-trap">罠</span>水泳の歴史（古代ギリシャ・ユダヤ教・ローマ軍事）<br>10語整序＋和訳2＋<b>和文英訳</b></td>
+      <td>イルカの「名前」（科学記事・読みやすい）<br>空所補充中心</td>
+      <td>留学生3人の食堂の対話<br>25〜35語の意見英作文</td>
+      <td><span class="tag t-easy">軽</span>献血のグラフ2枚<br>30〜50語×2</td>
+      <td class="hard">Ⅰ</td>
+    </tr>
+    <tr>
+      <td class="yr">2022<br>令和4</td>
+      <td>加重ブランケット（健康記事）<br>設問7問・<b>和文英訳</b>あり</td>
+      <td>能動的学習と講義（A. グラント『Think Again』）<br>14語整序・5文並べ替え</td>
+      <td>親子の対話・リペアカフェ<br>15〜20語の意見英作文</td>
+      <td><span class="tag t-easy">軽</span>正直箱と「目」の画像<br>40〜50語 <b>1問のみ</b></td>
+      <td class="hard">Ⅱ</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="note">
+  <b>「罠」マーク＝Ⅰが歴史・文化・固有名詞型の年。</b>
+  2023・2024・2025の3年がこれに当たります。読解力ではなく背景知識の有無で差がつくように見えるため、
+  最初に当たると心理的なダメージが大きい。だからこそ最後に回します。
+</div>
+
+<h2>時間配分の目安</h2>
+
+<div class="card">
+  <div class="bar">
+    <div class="seg s4">Ⅳ<small>10分</small></div>
+    <div class="seg s3">Ⅲ<small>20分</small></div>
+    <div class="seg sA">軽い方<small>35分</small></div>
+    <div class="seg sB">重い方<small>35分</small></div>
+  </div>
+  <p style="font-size:.82rem">
+    合計100分。残り5分を見直しに充てます。Ⅳは書く量が決まっているので<b>10分を超えたら切り上げる</b>。
+    語数指定（「30〜40語」など）と語数申告の指示は毎年必ずあるので、書き終えたら必ず数えて末尾に書く。
+    ここは読解力と無関係に落とせる失点です。
+  </p>
+</div>
+
+<h2>ⅠとⅡ、どちらを先にするか（30秒で決める）</h2>
+
+<div class="rule">
+  <b>Ⅰの第1段落に、人名・地名・年号・作品名が合計3つ以上あったら、Ⅱを先に。</b>
+  2023（古代ギリシャ、プラトン、タルムード…）、2024（インドの地名、ヒンドゥーの神々…）、
+  2025（ディケンズら19世紀の作家の引用）はすべてこのパターンでした。
+</div>
+
+<div class="rule good">
+  <b>Ⅰが科学記事・実用記事の書き出しなら、そのままⅠから。</b>
+  2022（睡眠グッズ）、2026（睡眠と記憶）はこちら。設問は重めですが、本文で止まることはありません。
+</div>
+
+<h2>もうひとつ知っておくこと：この試験は「大学からのメッセージ」でできている</h2>
+
+<div class="card">
+  <p>5年分の出典を並べると、はっきりした偏りがあります。Discover、Scientific American、
+  American Scientist、Psychology Today、学術誌、学術書、専門書の一般向け解説書——
+  <b>小説も新聞コラムも1本もありません。「これから研究に入る人に向けて書かれた文章」だけ</b>が
+  5年連続で選ばれています。内容も4系統に整理できます。</p>
+</div>
+
+<div class="msg">
+  <h3>① 学問の作法そのもの</h3>
+  <ul>
+    <li><span class="yrtag">2026 Ⅲ</span>抽象名詞を並べるな／具体的なイメージを先に出せ／修辞疑問のあとは間を置け／文字だらけのスライドは不可／主張には根拠を添えろ ——<b>プレゼン指導そのもの</b></li>
+    <li><span class="yrtag">2026 Ⅱ</span>量をこなすことが質を生む。数が増えれば追試の機会も増え、設備の反復利用でコストも下がる ——<b>研究生産性の擁護</b></li>
+    <li><span class="yrtag">2024 Ⅲ</span>「史学史を学んでいるので、人に聞いて情報を集める経験を積めと教授に言われた」——<b>研究方法論の実演</b></li>
+    <li><span class="yrtag">2022 Ⅱ</span>講義は楽しいが学びは浅い。情報を与えられるだけで、それに挑戦する機会がなければ、考え直す力は育たない ——<b>大学が自分の講義形式を批判する文章を出題している</b></li>
+  </ul>
+</div>
+
+<div class="msg">
+  <h3>② エビデンスを疑う訓練</h3>
+  <ul>
+    <li><span class="yrtag">2022 Ⅰ</span>「経験則であって科学的研究に基づかない」「限定的な研究」「一度しか受けていないので因果は言えない」——健康情報の吟味の教材</li>
+    <li><span class="yrtag">2023 Ⅱ</span>研究者2人の見解が対立したまま、<b>未解決で終わる</b>。科学は論争と未完である、という提示</li>
+    <li><span class="yrtag">2024 Ⅳ</span>錯視図。見えているものが真実とは限らない</li>
+    <li><span class="yrtag">2026 Ⅰ</span>弱く学習した記憶ほど睡眠が強化する／睡眠は記憶を干渉から守る ——<b>受験生への学習法の助言としても読める</b></li>
+  </ul>
+</div>
+
+<div class="msg">
+  <h3>③ 学際性と多様性</h3>
+  <ul>
+    <li><span class="yrtag">2024 Ⅰ</span>地質学と神話学を重ねて一つの場所を理解する。「三つの層の交差点にこの場所のアイデンティティがある」で締める</li>
+    <li><span class="yrtag">2025 Ⅱ</span>ことばが現実をつくる。支配的な語り方と、それに対抗する語り方。言葉の習慣を意識的に変えれば世界の見え方も変わる</li>
+    <li><span class="yrtag">2023 Ⅲ</span>3か国の留学生が食と環境を議論する、多文化キャンパスの風景</li>
+  </ul>
+</div>
+
+<div class="msg">
+  <h3>④ データを読み、自分の言葉で書く（Ⅳは5年連続でこれ）</h3>
+  <ul>
+    <li><span class="yrtag">2025 Ⅳ</span>「<b>三人称の視点で述べよ。個人的な経験を例に使ってはならない</b>」——学術的な記述と個人的な感想の区別を、設問の指示文で直接教えている</li>
+    <li><span class="yrtag">2026 Ⅳ</span>グラフから傾向を読み取り、原因を推測し、自分の意見を述べる ——研究の初歩動作そのもの</li>
+    <li><span class="yrtag">2023 Ⅳ</span>献血者数の推移。日本の社会課題をデータで読ませる</li>
+  </ul>
+</div>
+
+<div class="note">
+  つまり名大英語は<b>「入学後に必要な作法の予告編」</b>として設計されています。
+  2026年の「研究生産性＋プレゼン技法」という組み合わせは、その路線が最も露骨に出た年です。
+  <br><br>
+  この見立てが対策にどう効くか。<b>Ⅳの自由英作文で「私は〜と感じた」という感想文を書くと減点方向に働く</b>可能性が高い、
+  ということです。データを指し、理由を挙げ、一般化して書く。求められているのはその型です。
+</div>
+
+<h2>出題形式の変化（覚えておくと得）</h2>
+
+<div class="card">
+  <p><b>和文英訳（下線部の日本語を英語に訳す）は 2022・2023 にあり、2024以降3年連続で出ていません。</b>
+  完全になくなったと決めつけるのは危険ですが、優先度は下げてよい。</p>
+  <p><b>代わりにⅣの「図表＋語数指定の自由英作文」が定着しました。</b>
+  2022は1問だけでしたが、2023以降は2問構成が続いています。
+  ここは形式が安定しているので、<b>過去問で型を作れば最も確実に点になる大問</b>です。</p>
+</div>
+
+<footer>
+  2022〜2026年度 名古屋大学 前期日程 外国語（英語・全学部共通）問題冊子より作成。<br>
+  難易度の評価は本文の語彙・構文と設問形式にもとづく目安であり、公式の発表ではありません。
+</footer>
+
+</div>
+</body>
+</html>
