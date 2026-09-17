@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>言説とは何か — 言葉が世界をつくるという考え方</title>
+<style>
+:root{
+  --bg:#f5f4f2; --card:#fff; --ink:#1a1b1e; --sub:#6b6f76; --line:#e7e4df;
+  --ac:#7c2d12; --ac2:#b45309; --am:#f59e0b; --in:#3730a3; --in2:#6d28d9;
+  --gr:#15803d; --rd:#b91c1c;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+  background:var(--bg);color:var(--ink);padding:18px;line-height:1.75}
+.wrap{max-width:1080px;margin:0 auto}
+header{background:linear-gradient(140deg,#1c1917,#3730a3 55%,#7c2d12);color:#fff;
+  border-radius:20px;padding:30px 26px 20px;margin-bottom:16px;box-shadow:0 10px 30px rgba(28,25,23,.3)}
+header .eye{font-size:.72rem;letter-spacing:.22em;opacity:.75;font-weight:700}
+header h1{font-size:1.5rem;margin:8px 0 10px;line-height:1.45}
+header p{opacity:.92;font-size:.87rem;max-width:760px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.tabs button{background:rgba(255,255,255,.16);color:#fff;box-shadow:none;padding:9px 16px}
+.tabs button.on{background:#fff;color:#1c1917}
+button{font-family:inherit;cursor:pointer;border:none;border-radius:999px;padding:8px 15px;
+  font-size:.82rem;font-weight:700;transition:.15s;background:#fff;color:var(--sub);
+  box-shadow:0 2px 6px rgba(0,0,0,.08)}
+button:hover{transform:translateY(-1px)}
+h2{font-size:1.1rem;margin:26px 0 12px;padding-left:13px;border-left:5px solid var(--in2)}
+h3{font-size:.98rem;margin:18px 0 8px}
+p.lead{font-size:.87rem;color:var(--sub);margin-bottom:12px}
+.hide{display:none}
+.box{background:var(--card);border-radius:16px;padding:18px 20px;box-shadow:0 2px 10px rgba(0,0,0,.06);
+  margin-bottom:13px}
+.note{font-size:.82rem;color:var(--sub);margin-top:9px}
+.kw{background:linear-gradient(transparent 60%,#fde68a 60%);font-weight:700}
+.en{font-style:italic;color:#44403c}
+b.hl{color:var(--in)}
+
+/* 核心：対比 */
+.vs{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:stretch;margin:14px 0}
+.vs .side{background:#fff;border-radius:16px;padding:16px 18px;box-shadow:0 2px 10px rgba(0,0,0,.06);
+  border-top:5px solid #94a3b8}
+.vs .side.b{border-top-color:var(--ac2)}
+.vs .mid{display:flex;align-items:center;font-weight:800;color:var(--sub);font-size:.9rem}
+.vs h4{font-size:.95rem;margin-bottom:6px}
+.vs .tagline{font-size:.78rem;color:var(--sub);margin-bottom:9px}
+.vs ul{margin-left:18px;font-size:.87rem}
+.vs li{margin-bottom:4px}
+@media(max-width:760px){.vs{grid-template-columns:1fr}.vs .mid{justify-content:center}}
+
+/* 3命題 */
+.props{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:12px;margin-top:12px}
+.prop{background:#fff;border-radius:16px;padding:16px 18px;box-shadow:0 2px 10px rgba(0,0,0,.06);
+  border-left:6px solid var(--in2)}
+.prop .n{font-size:.68rem;font-weight:800;color:#fff;background:var(--in2);border-radius:999px;
+  padding:2px 10px;display:inline-block;margin-bottom:8px}
+.prop h4{font-size:1rem;margin-bottom:7px}
+.prop p{font-size:.87rem}
+.prop .ex{font-size:.8rem;color:var(--sub);margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)}
+
+/* 系譜 */
+.tl{position:relative;padding-left:30px}
+.tl::before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:3px;
+  background:linear-gradient(#cbd5e1,#6d28d9,#b45309)}
+.ev{position:relative;margin-bottom:11px}
+.ev::before{content:"";position:absolute;left:-26px;top:17px;width:13px;height:13px;border-radius:50%;
+  background:#fff;border:3px solid var(--in2)}
+.ev .hd{background:#fff;border-radius:14px;padding:13px 16px;box-shadow:0 2px 9px rgba(0,0,0,.06);
+  cursor:pointer;display:flex;gap:11px;align-items:baseline;flex-wrap:wrap}
+.ev .hd:hover{background:#fffdf7}
+.ev .yr{font-size:.72rem;font-weight:800;color:#fff;background:#1c1917;border-radius:999px;padding:2px 10px;
+  white-space:nowrap}
+.ev .who{font-size:1rem;font-weight:800}
+.ev .one{font-size:.84rem;color:var(--sub);flex:1;min-width:200px}
+.ev .bd{background:#fff;border-radius:0 0 14px 14px;margin-top:-6px;padding:14px 17px 15px;
+  box-shadow:0 2px 9px rgba(0,0,0,.06);font-size:.89rem;border-top:1px dashed var(--line)}
+.ev .bd p+p{margin-top:8px}
+.ev .lk{margin-top:9px;background:#f5f3ff;border-radius:10px;padding:9px 12px;font-size:.84rem}
+.ev .lk::before{content:"本文のここに効く";display:block;font-size:.64rem;font-weight:800;color:var(--in2);
+  letter-spacing:.05em;margin-bottom:4px}
+
+/* 実験室 */
+.lab{background:#fff;border-radius:18px;padding:18px 20px;box-shadow:0 2px 12px rgba(0,0,0,.07);margin-bottom:14px}
+.lab .lt{font-size:1.02rem;font-weight:800;margin-bottom:4px}
+.lab .ld{font-size:.83rem;color:var(--sub);margin-bottom:12px}
+.pick{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.pick button{background:#f1f0ee;color:#44403c;border:2px solid transparent}
+.pick button.on{background:var(--in);color:#fff;border-color:var(--in)}
+.pick.amber button.on{background:var(--ac2);border-color:var(--ac2)}
+.word{font-size:1.15rem;font-weight:800;color:var(--in);margin-bottom:3px}
+.pick.amber ~ .out .word{color:var(--ac2)}
+.out{background:#faf9f7;border-radius:14px;padding:15px 17px;border:1px solid var(--line)}
+.rows{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin-top:11px}
+.row{background:#fff;border-radius:11px;padding:10px 13px;border:1px solid var(--line)}
+.row .rl{font-size:.64rem;font-weight:800;letter-spacing:.05em;color:var(--sub);margin-bottom:4px}
+.row.up{border-left:4px solid var(--gr)} .row.down{border-left:4px solid var(--rd)}
+.row.act{border-left:4px solid var(--in)} .row.hid2{border-left:4px solid var(--am)}
+.row p{font-size:.86rem}
+.same{font-size:.8rem;color:var(--sub);margin-top:11px;padding-top:10px;border-top:1px dashed var(--line)}
+
+/* ループ */
+.loop{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}
+.st{background:#fff;border-radius:14px;padding:14px 15px;border:2px solid var(--line);opacity:.42;
+  transition:.25s;position:relative}
+.st.on{opacity:1;border-color:var(--in2);box-shadow:0 6px 16px rgba(109,40,217,.16);transform:translateY(-2px)}
+.st .sn2{font-size:.66rem;font-weight:800;color:#fff;background:#94a3b8;border-radius:999px;padding:2px 9px}
+.st.on .sn2{background:var(--in2)}
+.st h4{font-size:.92rem;margin:8px 0 5px}
+.st p{font-size:.81rem;color:#44403c}
+@media(max-width:760px){.loop{grid-template-columns:1fr 1fr}}
+@media(max-width:440px){.loop{grid-template-columns:1fr}}
+.loopmsg{background:#f5f3ff;border-radius:12px;padding:12px 15px;font-size:.88rem;margin-top:6px;
+  border-left:5px solid var(--in2);min-height:64px}
+
+/* 対応表 */
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;
+  box-shadow:0 2px 10px rgba(0,0,0,.06)}
+th,td{padding:11px 13px;text-align:left;border-bottom:1px solid #f1f0ee;font-size:.86rem;vertical-align:top}
+th{background:#1c1917;color:#fff;font-size:.74rem;letter-spacing:.04em}
+tbody tr:nth-child(even){background:#faf9f7}
+.tblwrap{overflow-x:auto}
+td.pg{font-weight:800;white-space:nowrap;color:var(--in)}
+
+/* クイズ */
+.q{background:#fff;border-radius:16px;padding:17px 19px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:12px}
+.q .qh{font-size:.95rem;font-weight:700;margin-bottom:11px}
+.q .qn{font-size:.67rem;font-weight:800;color:#fff;background:#1c1917;border-radius:999px;
+  padding:2px 10px;margin-right:9px}
+.opt{display:block;width:100%;text-align:left;background:#faf9f7;border:2px solid var(--line);
+  border-radius:11px;padding:11px 14px;margin-bottom:7px;font-size:.88rem;color:var(--ink);
+  font-weight:500;box-shadow:none}
+.opt:hover{border-color:#c7c2ba;transform:none}
+.opt.ok{border-color:var(--gr);background:#f0fdf4}
+.opt.ng{border-color:var(--rd);background:#fef2f2}
+.opt.dim{opacity:.5}
+.fb{margin-top:9px;background:#f5f3ff;border-radius:11px;padding:11px 14px;font-size:.87rem;
+  border-left:5px solid var(--in2)}
+.score{position:sticky;bottom:12px;background:#1c1917;color:#fff;border-radius:999px;padding:11px 20px;
+  font-size:.88rem;font-weight:700;box-shadow:0 8px 20px rgba(0,0,0,.25);display:inline-block;margin-top:8px}
+.refs li{font-size:.87rem;margin-bottom:7px;margin-left:19px}
+@media(max-width:640px){body{padding:12px}header h1{font-size:1.16rem}.box,.lab{padding:15px 15px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eye">名大英語 大問Ⅱ ／ 背景知識</div>
+  <h1>言説（discourse）とは何か<br>— 言葉が世界をつくる、という考え方</h1>
+  <p>「言葉は現実を写す鏡なのか、それとも現実をつくる道具なのか」。名大の長文が立っている土台を、ソシュールからフーコー、ハッキングまでたどります。読むだけでなく、実際に語を入れ替えて世界の見え方が変わるのを確かめてください。</p>
+  <p style="margin-top:12px;font-size:.83rem"><a href="名大英語_大問2_ディスコースと障がい_単語構文全訳.html" style="color:#fde68a;font-weight:700">→ 本編（単語・構文・全文対訳・設問解説）へ</a></p>
+  <div class="tabs">
+    <button id="tb-core" class="on" onclick="setTab('core')">① 核心</button>
+    <button id="tb-line" onclick="setTab('line')">② 思想の系譜</button>
+    <button id="tb-lab" onclick="setTab('lab')">③ 実験室</button>
+    <button id="tb-map" onclick="setTab('map')">④ 本文とのつながり</button>
+    <button id="tb-quiz" onclick="setTab('quiz')">⑤ 確認クイズ</button>
+  </div>
+</header>
+
+<!-- ========== ① 核心 ========== -->
+<section id="tab-core">
+<h2>出発点にある、ひとつの問い</h2>
+<div class="vs">
+  <div class="side">
+    <h4>A：反映説（言葉は鏡）</h4>
+    <div class="tagline">世界が先にあり、言葉はそれに貼るラベル</div>
+    <ul>
+      <li>「障がい者」という語があるのは、そういう人が実際にいるから</li>
+      <li>言葉を変えても、現実は変わらない</li>
+      <li>言い換え＝ごまかし、きれいごと</li>
+    </ul>
+  </div>
+  <div class="mid">⇄</div>
+  <div class="side b">
+    <h4>B：構成説（言葉は道具）</h4>
+    <div class="tagline">語り方が、対象そのものをつくり出す</div>
+    <ul>
+      <li>「障がい者」というカテゴリがあるから、人はそこに振り分けられる</li>
+      <li>制度・予算・支援・まなざしが、その語に沿って組み立てられる</li>
+      <li>本人も、その語で自分を理解するようになる</li>
+    </ul>
+  </div>
+</div>
+<div class="box">
+<p>名大の本文は、<b class="hl">Bの側に立っています</b>。それを一文で宣言しているのがこれです。</p>
+<p style="margin-top:10px;font-size:1rem"><span class="en">Discourses do <span class="kw">not carry meaning so much as perform</span> specific functions.</span></p>
+<p class="note">「言葉は意味を<b>運ぶ</b>のではなく、特定の機能を<b>果たす</b>」。carry（運ぶ／容器）と perform（行う／装置）の対比が、この分野の合言葉です。</p>
+</div>
+
+<h2>discourse＝言説：3つの層</h2>
+<div class="box">
+<div class="tblwrap">
+<table><thead><tr><th style="width:150px">層</th><th>意味</th><th style="width:120px">訳語</th></tr></thead>
+<tbody>
+<tr><td><b>日常英語</b></td><td>まとまった話・論述。語源は dis-（あちこち）＋ currere（走る）＝話が行き来すること</td><td>談話・論説</td></tr>
+<tr><td><b>言語学</b></td><td>文を超えた単位。文法が文<i>の中</i>の規則なら、談話は文<i>をまたぐ</i>つながり（discourse analysis）</td><td>談話</td></tr>
+<tr><td><b>社会理論（本文）</b></td><td><b class="hl">ある対象について「何がどう語られうるか」を決めている語り方の総体。それ自体が対象をつくり出す</b></td><td><b>言説</b></td></tr>
+</tbody></table>
+</div>
+<p class="note">本文の discourse はすべて3段目の意味です。「議論」「会話」と訳すと全文が崩れます。</p>
+</div>
+
+<h2>フーコーの核心を3つに絞る</h2>
+<div class="props">
+  <div class="prop"><span class="n">命題 1</span>
+    <h4>言説が対象をつくる</h4>
+    <p>「狂気」「非行」「性」は、それについて語る制度（病院・監獄・告白）が整ってから、はじめて<b>そういう「もの」</b>になった。語が現実を写したのではなく、語る枠が現実を切り出した。</p>
+    <div class="ex">本文では「障がい」がこれ。英国平等法の一文が、誰を障がい者にするかを決めている。</div></div>
+  <div class="prop"><span class="n">命題 2</span>
+    <h4>権力は持ち物ではなく、働き</h4>
+    <p>王や国家が金庫にしまっている財ではない。<b>誰が何を語れるかを配分している仕組みそのもの</b>が権力。だから「奪う」対象ではなく、いたるところで回っている。</p>
+    <div class="ex">第5段落の dominant discourses / competing discourses は、この配分をめぐる押し合い。</div></div>
+  <div class="prop"><span class="n">命題 3</span>
+    <h4>権力は禁じるより、生み出す</h4>
+    <p>権力は「するな」と抑えつけるだけの否定的な力ではない。カテゴリ・知識・アイデンティティ・「正常」の基準を<b>積極的につくり出す</b>。抵抗もまた、別の語り方を立ち上げることで行われる。</p>
+    <div class="ex">支援を受ける学生が more empowering expressions を選ぶ（第4段落）のが、まさにその抵抗。</div></div>
+</div>
+
+<h2>ここは誤解されやすい</h2>
+<div class="box">
+<p><b>Q. 「言葉が現実をつくる」なら、痛みや身体的制約は実在しないということ？</b></p>
+<p style="margin-top:8px">いいえ。この立場は<b>実在を否定しません</b>。区別されているのは次の2つです。</p>
+<div class="rows" style="margin-top:11px">
+  <div class="row act"><div class="rl">IMPAIRMENT／機能障害</div><p>目が見えにくい、文字が読みにくい、足が動かない——身体の側にある事実。これは実在する。</p></div>
+  <div class="row hid2"><div class="rl">DISABILITY／障がい</div><p>段差、文字だけの資料、時間制限の試験——<b>社会の側がつくっている障壁</b>。ここは変えられる。</p></div>
+</div>
+<p class="note">この2語の分離が「障がいの社会モデル」の中核です。<b>人を無力にしているのは身体ではなく、身体に合わせて設計されていない社会のほうだ</b>——だから語を変えることは、ごまかしではなく設計変更の第一歩になる。本文第3段落の「一連の<b>障壁</b>として捉えるのであって、人格を規定する特徴としてではない」は、この区別をそのまま述べています。</p>
+<p class="note">逆に、本文も言説論も「言葉さえ変えれば解決する」とは言っていません。第5段落が釘を刺します——<span class="en">It takes time for alternative terminology to become established …, and usually even longer for attitudes to change.</span>（用語が定着するのは遅く、態度が変わるのはもっと遅い）。</p>
+</div>
+</section>
+
+<!-- ========== ② 系譜 ========== -->
+<section id="tab-line" class="hide">
+<h2>「言葉が世界をつくる」という考えは、どこから来たのか</h2>
+<p class="lead">見出しをタップすると中身が開きます。100年かけて、少しずつ組み上がった発想です。</p>
+<div class="tl" id="tlbody"></div>
+</section>
+
+<!-- ========== ③ 実験室 ========== -->
+<section id="tab-lab" class="hide">
+<h2>実験1：語を入れ替えると、何が変わるか</h2>
+<p class="lead">指している人・事態は同じです。語を切り替えて、<b>何が前に出て、何が後ろに下がるか</b>を見てください。</p>
+<div class="lab">
+  <div class="lt" id="pTitle">—</div>
+  <div class="ld" id="pDesc">—</div>
+  <div class="pick" id="pTheme"></div>
+  <div class="pick amber" id="pWord"></div>
+  <div class="out" id="pOut"></div>
+</div>
+
+<h2>実験2：比喩を選ぶと、どんな政策が「自然」になるか</h2>
+<p class="lead">2020年、各国の指導者は感染症を何かに喩えました。喩えるものを変えると、前景と後景が入れ替わります。本文第1段落の <span class="en">fore-fronted … while minimizing any inconvenient details</span> の実演です。</p>
+<div class="lab">
+  <div class="lt">COVID-19 を何に喩えるか</div>
+  <div class="ld">比喩は飾りではありません。何を見せ、何を見せないかを決める装置です。</div>
+  <div class="pick" id="mPick"></div>
+  <div class="out" id="mOut"></div>
+</div>
+
+<h2>実験3：ループ効果 — 分類が人をつくり、人が分類を変える</h2>
+<p class="lead">イアン・ハッキングの「人を作り上げる（making up people）」。ボタンで1周まわしてみてください。</p>
+<div class="lab">
+  <div class="loop" id="loopBox"></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+    <button onclick="loopNext()" style="background:#3730a3;color:#fff">▶ 次のステップへ</button>
+    <button onclick="loopReset()">最初に戻す</button>
+    <span style="font-size:.78rem;color:var(--sub)">いま <b id="lapN">0</b> 周目</span>
+  </div>
+  <div class="loopmsg" id="loopMsg">「ディスレクシア」という語がまだ無かった時代から始めます。</div>
+</div>
+</section>
+
+<!-- ========== ④ 本文とのつながり ========== -->
+<section id="tab-map" class="hide">
+<h2>名大 大問Ⅱ の各段落は、どの理論に立っているか</h2>
+<p class="lead">本文は理論を名指ししません（研究者名はすべて a study / another study / a group of researchers に置き換えられています）。その裏側を補うと、論の運びが一気に見通せます。</p>
+<div class="tblwrap">
+<table><thead><tr><th style="width:74px">段落</th><th style="width:34%">本文の鍵表現</th><th>背後にある考え方</th><th style="width:130px">誰</th></tr></thead>
+<tbody id="mapbody"></tbody></table>
+</div>
+
+<h2>この本文が最後に言いたいこと</h2>
+<div class="box">
+<p>本文は<b>どちらの極端にも立ちません</b>。言語決定論（言葉が思考を決める）でも、素朴な反映説（言葉は経験を写すだけ）でもない。</p>
+<p style="margin-top:9px"><span class="en">Most likely it is an <span class="kw">interactive and cyclical</span> process …</span></p>
+<p style="margin-top:9px">そのうえで、実践的な結論はひとつだけ置かれます。</p>
+<p style="margin-top:9px"><span class="en">… making a conscious effort to change our language habits and usage <span class="kw">can affect the way we think</span> about the world around us, and can also influence the thinking of others we interact with.</span></p>
+<p class="note">「言葉を変えれば世界が変わる」ではなく、「<b>意識して言葉を変える努力は、自分と他人の考え方に効く</b>」。控えめですが、ここまで読んできた系譜のすべてが、この一文を支えています。設問6が never になるのも、この慎重さの表れです。</p>
+</div>
+
+<h2>もう少し知りたい人へ</h2>
+<div class="box">
+<ul class="refs">
+<li><b>M. フーコー『知の考古学』『監獄の誕生』</b> — 言説と権力の原典。いきなりは重いので、入門書を挟むのが現実的。</li>
+<li><b>J. L. オースティン『言語と行為』</b> — 「言うことは行うこと」。薄いが転回点。</li>
+<li><b>I. ハッキング『何が社会的に構成されるのか』</b> — 構成主義の整理として最も冷静。ループ効果の議論もここ。</li>
+<li><b>N. フェアクラフ『言語とパワー』</b> — 批判的言説分析の教科書。本文第2段落の立場そのもの。</li>
+<li><b>出典：Kormos, J. &amp; Smith, A. M., <i>Teaching languages to students with specific learning differences</i> (2nd ed., 2024)</b> — 本文はこの第1章あたりからの抜粋（出題にあたり一部改変）。</li>
+</ul>
+</div>
+</section>
+
+<!-- ========== ⑤ クイズ ========== -->
+<section id="tab-quiz" class="hide">
+<h2>確認クイズ（全10問）</h2>
+<p class="lead">選択肢を押すと、その場で正誤と解説が出ます。答え直しはできません。</p>
+<div id="quizbody"></div>
+<div class="score" id="scoreBar">正解 0 / 10　　未回答 10問</div>
+</section>
+
+</div>
+<script>
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+
+/* ====== ② 系譜 ====== */
+const TLD=[
+{yr:"1916",who:"ソシュール",one:"言葉は現実のラベルではない。意味は「差異」から生まれる",
+ bd:`<p>英語は羊を生き物 <span class="en">sheep</span> と肉 <span class="en">mutton</span> に分けますが、日本語は「羊」ひとつ。日本語は「水」と「湯」を分けますが、英語は <span class="en">water</span> 一語です。<b>どちらが正しいかではなく、言語ごとに世界の切り分け方が違う</b>。</p>
+ <p>記号（音・文字）と概念の結びつきは<b>恣意的</b>で、意味は他の語との<b>違い</b>から生まれる。「赤」の意味は「橙でも桃でもない」ことで決まります。</p>
+ <p>ここから「言語は現実の写しではなく、<b>現実を区切る網</b>だ」という発想が始まりました。以後のすべての出発点です。</p>`,
+ lk:`第6段落「母語が言い表す手段を持たない事物には気づけないかもしれない」の大元。`},
+{yr:"1930-40s",who:"サピア＝ウォーフ",one:"言語相対性仮説。言語は思考を規定する／影響する",
+ bd:`<p><b>強い版＝言語決定論</b>：母語が思考の限界を決める。→ 現在はほぼ否定されています。</p>
+ <p><b>弱い版＝言語相対性</b>：言語は思考に影響を与える。色の区別や空間の表現などで実験的な支持があります。</p>
+ <p class="note">注意：本文は relativism を「言語は経験を<b>反映するだけ</b>」の意味で使っており、学術上の標準的な用法（弱い影響説）とは少しずれます。<b>設問では必ず本文の定義に従うこと。</b></p>`,
+ lk:`第6段落まるごと。設問5（あ）の Conversely は、この二項対立の切れ目に置かれています。`},
+{yr:"1955/62",who:"オースティン",one:"言うこと自体が「行為」である（言語行為論）",
+ bd:`<p>「この船をクイーン・エリザベス号と<b>命名する</b>」「私はこれを<b>約束する</b>」——これらは真偽を問える<b>記述ではなく、発話それ自体が行為</b>です（行為遂行的発話）。</p>
+ <p>判定基準も変わります。「真か偽か」ではなく「<b>うまくいくか</b>（適切な条件を満たすか）」。船の命名は、権限のない人が言っても成立しません。</p>
+ <p>「言葉は世界を写す」から「<b>言葉は世界に働きかける</b>」への転回点です。</p>`,
+ lk:`第2段落 <span class="en">perform specific functions</span> の perform は、この系譜の語。`},
+{yr:"1961-1976",who:"フーコー",one:"言説・権力・知。語り方の枠が、何を「真理」として通用させるかを決める",
+ bd:`<p><b>『狂気の歴史』(1961)</b>：狂気は普遍の病ではなく、時代ごとに区切り方が変わってきた。何を異常とするかは、その時代の語り方が決めている。</p>
+ <p><b>『知の考古学』(1969)</b>：言説とは「誰かの意見の集まり」ではなく、<b>何が言明として成立しうるかを定める規則の体系</b>。エピステーメー＝ある時代に何が「知」として通用するかの枠組み。</p>
+ <p><b>『監獄の誕生』(1975)</b>：パノプティコン（一望監視装置）。見られているかもしれないと思うだけで、人は<b>自分で自分を監視する</b>。権力は外から殴るのではなく、内側に住み着く（規律権力）。</p>
+ <p>だから権力は「奪って自分のものにする」財ではありません。<b>語り方を配分する働き</b>であり、いたるところで生産されている。<b>抵抗もまた、別の語り方を立ち上げることで行われます。</b></p>`,
+ lk:`第5段落 <span class="en">dominant discourses / competing discourses</span>、<span class="en">the powerful / the oppressed</span>。この段落はほぼフーコーの要約です。`},
+{yr:"1989/92",who:"フェアクロー",one:"批判的言説分析（CDA）。テキストの細部を社会の権力構造につなぐ",
+ bd:`<p>フーコーの発想を、実際に文章を分析する<b>手続き</b>に落とし込んだのが批判的言説分析です。</p>
+ <p>設問3の選択肢(B)——<span class="en">Discourse is socially constitutive as well as socially conditioned</span>——は、この立場の要約そのもの。<b>社会が言葉を条件づけると同時に、言葉が社会を構成する</b>という双方向性が核心です。</p>
+ <p>分析は3層：<b>テキスト</b>（語彙・文法の選択）／<b>言説実践</b>（誰が作り、誰が受け取るか）／<b>社会実践</b>（背後の権力関係）。</p>`,
+ lk:`第2段落。<span class="en">discursive practices</span>（言説実践）という語も、この分野の術語です。`},
+{yr:"1986-1995",who:"ハッキング",one:"人を作り上げる（making up people）／ループ効果",
+ bd:`<p>新しいカテゴリができると、人はそこに当てはめられ、当てはめられた人は<b>自己理解を変え、振る舞いを変える</b>。すると分類の中身自体が変わっていく——これが<b>ループ効果</b>です。</p>
+ <p>クォークは「クォーク」と呼ばれても振る舞いを変えません。<b>人間だけが分類に反応する</b>（相互作用的カテゴリ）。だから人間を分類する言葉は、記述であると同時に<b>介入</b>になります。</p>
+ <p>「障がい」という語の選択は、その人を<b>どう書くか</b>の問題ではなく、その人が<b>どうなるか</b>の問題になる。ここがこの系譜のいちばん切実な地点です。</p>`,
+ lk:`第4段落の問い——学生の自己認識と行動は周囲の言葉にどの程度影響されるのか——は、ループ効果の定式化そのもの。`},
+{yr:"1976-",who:"障がいの社会モデル",one:"impairment（機能障害）と disability（社会がつくる障壁）を切り離す",
+ bd:`<p>英国の障がい者運動から出てきた転換です。<b>「私たちを無力にしているのは私たちの身体ではなく、私たちを締め出すように設計された社会のほうだ」</b></p>
+ <p><b>医学モデル</b>＝障がいは個人の中の欠損。治療・矯正の対象。<br><b>社会モデル</b>＝障がいは社会の側の設計の問題。環境を変える対象。</p>
+ <p>この転換が、英国平等法（2010）や国連障害者権利条約（2006）の文言に流れ込んでいます。条約の <span class="en">Persons with Disabilities</span> という語順（人が先）も、その成果のひとつ。</p>
+ <p class="note">ただし英国の運動には、あえて <span class="en">disabled people</span>（社会によって disable <b>された</b>人々）と呼ぶ立場も根強くあります。<b>言い換えの「正解」は当事者のあいだでも割れている</b>——本文が「定義は変わり続ける」と言うのは、この現在進行形の議論を指しています。</p>`,
+ lk:`第3段落まるごと。<span class="en">disability is an evolving concept</span> は、社会モデルの勝利宣言でもあります。`},
+{yr:"2024",who:"Kormos &amp; Smith（本文）",one:"この系譜の上に立つ、外国語教育の実践書",
+ bd:`<p>原題は <span class="en">Teaching languages to students with specific learning <b>differences</b></span>。<b>disabilities ではなく differences</b> を選んでいるところに、本書の立場がそのまま出ています。</p>
+ <p>構成は、第1〜2段落＝理論（比喩と言説）、第3〜5段落＝障がいをめぐる語彙の政治、第6〜7段落＝言語と思考の関係。<b>抽象 → 具体 → 抽象</b>という、名大が好む往復型です。</p>`,
+ lk:`第7段落の結論。設問6の never は、この本の慎重な中立性から来ています。`}
+];
+document.getElementById("tlbody").innerHTML=TLD.map((e,i)=>
+ `<div class="ev"><div class="hd" onclick="evT(${i})">
+   <span class="yr">${e.yr}</span><span class="who">${e.who}</span><span class="one">${e.one}</span>
+   <span style="color:#a8a29e;font-weight:800" id="ar${i}">＋</span></div>
+   <div class="bd hide" id="bd${i}">${e.bd}<div class="lk">${e.lk}</div></div></div>`).join("");
+function evT(i){const b=document.getElementById("bd"+i);b.classList.toggle("hide");
+ document.getElementById("ar"+i).textContent=b.classList.contains("hide")?"＋":"−";}
+
+/* ====== ③-1 言い換え実験 ====== */
+const PAIRS=[
+{t:"障がいのある人をどう呼ぶか",d:"英語圏でいまも議論が続いている、いちばん有名な対立です。",
+ same:"指している人は同一。どちらが「正解」かは当事者・地域・時代で割れており、本文が「定義は変わり続ける」と言うのはこのためです。",
+ ws:[{w:"disabled person（障がい者）",
+   up:"「障がい」がその人を説明する第一の特徴になる",
+   down:"学生であること、得意なことなど、その人の他の側面",
+   act:"障がいを基準にした分類・配置（特別枠、別クラス）",
+   hid:"「なぜその人が困るのか」という、環境の側への問い",
+   memo:"ただし英国の当事者運動は、<b>社会によって disable された人々</b>という意味で、あえてこの語を選びます。"},
+  {w:"person with a disability（障がいのある人）",
+   up:"まず「人」であること。障がいは持っている属性のひとつ",
+   down:"障がいの切実さが薄まって見えることがある",
+   act:"個別の必要に応じた調整（合理的配慮）",
+   hid:"集団として受けてきた差別の歴史",
+   memo:"国連障害者権利条約はこちら。日本語の「障がいのある人」もこの発想です。"}]},
+{t:"授業で手を焼く子をどう呼ぶか",d:"教室でいちばん頻繁に起きる言い換えです。",
+ same:"同じ子の、同じ行動を指しています。",
+ ws:[{w:"問題児",
+   up:"行動の原因がその子の内側にあること",
+   down:"授業・家庭・人間関係など、環境の側の要因",
+   act:"指導、矯正、場合によっては排除",
+   hid:"その子はいま何に困っているのか",
+   memo:"原因を個人に置く語は、対応も個人に向かわせます。"},
+  {w:"支援を必要としている子",
+   up:"その子が困っているという事実",
+   down:"周囲の子が受けている影響という視点",
+   act:"原因の調査と、環境そのものの調整",
+   hid:"支援が足りないのは誰の責任か（予算・人員）",
+   memo:"語を変えると、責任の所在も一緒に動きます。"}]},
+{t:"読み書きの困難をどう呼ぶか",d:"この本のタイトルそのものが、この選択でできています。",
+ same:"同じ状態を指していますが、<b>どちらを選んでも失うものがある</b>——ここがこの実験でいちばん重要な点です。",
+ ws:[{w:"learning disabilities（学習障害）",
+   up:"医学的な診断であり、支援を要求する根拠になること",
+   down:"その人の強みや、学び方の個性",
+   act:"診断書にもとづく制度的支援（試験時間の延長、音声教材）",
+   hid:"「標準的な学び方」とは誰が決めたのか",
+   memo:"支援の法的根拠を確保できるのは、こちらの語です。"},
+  {w:"specific learning differences（特異的な学び方の違い）",
+   up:"標準からの<b>逸脱</b>ではなく、<b>差異</b>であること",
+   down:"「違いなら支援は要らない」と読まれる危険",
+   act:"教え方の設計そのものを変える",
+   hid:"診断がないと支援が出ない、という制度との齟齬",
+   memo:"本書はこちらを採用。ただし法的支援の根拠を弱めうるというジレンマを抱えます。"}]},
+{t:"車いすを使う人をどう書くか",d:"当事者の評価がはっきり分かれている例。",
+ same:"同じ人、同じ移動手段。",
+ ws:[{w:"wheelchair-bound（車いすに縛られた）",
+   up:"不自由さ、拘束されているイメージ",
+   down:"車いすがその人にもたらしている自由",
+   act:"同情、保護、「かわいそう」というまなざし",
+   hid:"移動を妨げているのは段差のほうだ、という事実",
+   memo:"当事者からは強く否定されることが多い表現です。"},
+  {w:"wheelchair user（車いす使用者）",
+   up:"車いすは移動を<b>可能にする道具</b>だということ",
+   down:"—",
+   act:"段差の除去、エレベーターの設置",
+   hid:"—",
+   memo:"「車いすは私を解放するもので、縛るものではない」——この一言が語の選択を決めています。"}]},
+{t:"支援を何として位置づけるか",d:"行為は同じでも、根拠が変わると関係が変わります。",
+ same:"実際に起きている配慮の中身は、どちらでも同じです。",
+ ws:[{w:"思いやりで支援する",
+   up:"支援する側の善意",
+   down:"受ける側が「してもらう」立場に置かれること",
+   act:"施し、ボランティア、「お願いする」関係",
+   hid:"支援がなかったとき、誰が責任を負うのか",
+   memo:"善意は尊いが、断られても文句が言えない構造になります。"},
+  {w:"権利として保障する",
+   up:"支援を受けることが当然の<b>資格</b>であること",
+   down:"温かさの言葉が失われるという批判もある",
+   act:"制度・法・義務としての合理的配慮",
+   hid:"財源と優先順位をめぐる政治",
+   memo:"国連条約と英国平等法は、この立場です。"}]}
+];
+let pI=0,pW=0;
+function pRender(){
+ const p=PAIRS[pI];
+ document.getElementById("pTitle").textContent=p.t;
+ document.getElementById("pDesc").textContent=p.d;
+ document.getElementById("pTheme").innerHTML=PAIRS.map((x,i)=>
+  `<button class="${i===pI?"on":""}" onclick="pSet(${i})">${x.t}</button>`).join("");
+ document.getElementById("pWord").innerHTML=p.ws.map((x,i)=>
+  `<button class="${i===pW?"on":""}" onclick="pWord(${i})">${x.w}</button>`).join("");
+ const w=p.ws[pW];
+ document.getElementById("pOut").innerHTML=
+  `<div class="word">${w.w}</div>
+   <div class="rows">
+    <div class="row up"><div class="rl">前に出るもの</div><p>${w.up}</p></div>
+    <div class="row down"><div class="rl">後ろに下がるもの</div><p>${w.down}</p></div>
+    <div class="row act"><div class="rl">自然になる対応</div><p>${w.act}</p></div>
+    <div class="row hid2"><div class="rl">見えにくくなる問い</div><p>${w.hid}</p></div>
+   </div>
+   <p class="same">${w.memo}</p>
+   <p class="same" style="border:none;padding-top:0"><b>指示対象は同じ：</b>${p.same}</p>`;
+}
+function pSet(i){pI=i;pW=0;pRender();}
+function pWord(i){pW=i;pRender();}
+pRender();
+
+/* ====== ③-2 比喩シミュレータ ====== */
+const META=[
+{n:"戦争（an alien invader / fight the enemy）",
+ up:"団結、敵、犠牲、英雄としての指導者",
+ down:"医療体制の不備、格差、ケア労働の負担",
+ act:"強権的な措置、外出禁止、非常事態宣言",
+ hid:"「敵」とされた感染者や特定の集団への攻撃が起きる",
+ memo:"本文第1段落が挙げている実例。指導者は自らを <span class=\"en\">modern-day heroes</span> として位置づけられます。"},
+{n:"マラソン（it's a marathon not a sprint）",
+ up:"長期戦であること、忍耐、ペース配分",
+ down:"いま目の前で起きている被害の切迫さ",
+ act:"長期の行動制限を受け入れさせること",
+ hid:"「ゴールはいつなのか」を誰も言わなくてよくなる",
+ memo:"設問1の答え。<span class=\"en\">be patient / long-term restrictions</span> と完全に対応します。"},
+{n:"自然災害（嵐が過ぎるのを待つ）",
+ up:"不可抗力であること、耐えて待つ姿勢",
+ down:"人災の側面（準備不足、判断の遅れ）",
+ act:"我慢と復旧、見舞いとしての支援",
+ hid:"誰の判断がまずかったのか、という責任追及",
+ memo:"「仕方なかった」を作り出す比喩。政治的には最も便利です。"},
+{n:"火事（まず消火する）",
+ up:"緊急性、資源の一点集中",
+ down:"慢性的な課題、長期の備え",
+ act:"即時の大量投入、平時のルールの一時停止",
+ hid:"消したあとの再建を誰がどう担うのか",
+ memo:"短期には動員力が強いが、長期戦になると疲弊を招きます。"},
+{n:"比喩を使わない（解くべき公衆衛生上の課題）",
+ up:"データ、検証、修正可能性",
+ down:"感情に訴える力、動員力",
+ act:"専門家の説明と合意形成、段階的な方針変更",
+ hid:"「なぜ今すぐ行動しなければならないのか」が伝わりにくい",
+ memo:"比喩を避けることもまた一つの選択であり、そこにも代償があります。<b>中立な語り方は存在しない</b>——これが言説論の帰結です。"}
+];
+let mI=1;
+function mRender(){
+ document.getElementById("mPick").innerHTML=META.map((x,i)=>
+  `<button class="${i===mI?"on":""}" onclick="mSet(${i})">${x.n.split("（")[0]}</button>`).join("");
+ const m=META[mI];
+ document.getElementById("mOut").innerHTML=
+  `<div class="word">${m.n}</div>
+   <div class="rows">
+    <div class="row up"><div class="rl">前景化するもの</div><p>${m.up}</p></div>
+    <div class="row down"><div class="rl">後景に退くもの</div><p>${m.down}</p></div>
+    <div class="row act"><div class="rl">正当化される対応</div><p>${m.act}</p></div>
+    <div class="row hid2"><div class="rl">この比喩が隠すもの</div><p>${m.hid}</p></div>
+   </div>
+   <p class="same">${m.memo}</p>`;
+}
+function mSet(i){mI=i;mRender();}
+mRender();
+
+/* ====== ③-3 ループ効果 ====== */
+const LOOP=[
+{h:"カテゴリが生まれる",p:"「ディスレクシア」という語と診断基準ができる。それ以前、同じ困難は「怠けている」「頭が悪い」と語られていた。",
+ m:"<b>ステップ1。</b>語ができた瞬間に、それまで別々に扱われていた人たちが、ひとつの集団として<b>見えるようになります</b>。語が先で、集団があとです。"},
+{h:"人が振り分けられる",p:"診断が下り、制度が動きだす。試験時間の延長、音声教材。同時に「障がい者に分類される」というラベルもつく。",
+ m:"<b>ステップ2。</b>本文第3段落の <span class=\"en\">Many dyslexic people are surprised when they learn that they are classed—technically—as being disabled</span> は、まさにこの瞬間の驚きです。"},
+{h:"自己の語り直しが起こる",p:"「自分は努力が足りない人間だ」から「自分は文字の処理の仕方が違う人間だ」へ。自己認識が変われば、挑戦する範囲も変わる。",
+ m:"<b>ステップ3。</b>ここが決定的。<b>分類は人の内側に入り込み、その人の自己理解を書き換えます。</b>物理学の対象は名前を変えても振る舞いを変えませんが、人間は変えます。"},
+{h:"分類そのものが変わる",p:"当事者が声を上げ、「障害（disability）」ではなく「学び方の違い（difference）」と呼ぶべきだという主張が生まれる。定義が書き換えられ、①に戻る。",
+ m:"<b>ステップ4、そして①へ。</b>これがハッキングの言う <b>looping effect</b>。だから本文第4段落は、学生の自己認識が周囲の言葉にどの程度影響されるかを <span class=\"en\">an important question to be asked</span> と呼ぶのです。もう一周まわしてみてください——今度は「違い」という語から始まります。"}
+];
+let lStep=-1,lap=0;
+function lRender(){
+ document.getElementById("loopBox").innerHTML=LOOP.map((s,i)=>
+  `<div class="st ${i===lStep?"on":""}"><span class="sn2">${i+1}</span>
+   <h4>${s.h}</h4><p>${s.p}</p></div>`).join("");
+}
+function loopNext(){lStep++;if(lStep>=LOOP.length){lStep=0;lap++;document.getElementById("lapN").textContent=lap;}
+ if(lStep===0&&lap===0){lap=1;document.getElementById("lapN").textContent=1;}
+ document.getElementById("loopMsg").innerHTML=LOOP[lStep].m;lRender();}
+function loopReset(){lStep=-1;lap=0;document.getElementById("lapN").textContent=0;
+ document.getElementById("loopMsg").textContent="「ディスレクシア」という語がまだ無かった時代から始めます。";lRender();}
+lRender();
+
+/* ====== ④ 対応表 ====== */
+const MAP=[
+["第1段落",`<span class="en">fore-fronted … while minimizing any inconvenient details</span>`,"比喩は、何を見せ何を隠すかを切り替える装置である","オースティン〜レイコフ"],
+["第2段落",`<span class="en">not carry meaning so much as perform specific functions</span>`,"言説は社会に条件づけられると同時に、社会を構成する","フェアクロー"],
+["第2段落",`<span class="en">discursive practices</span>`,"職業的アイデンティティは、語り方の実践として立ち上がる","フェアクロー／フーコー"],
+["第3段落",`<span class="en">barriers … rather than a defining characteristic</span>`,"impairment（身体の事実）と disability（社会がつくる障壁）の分離","障がいの社会モデル"],
+["第3段落",`<span class="en">disability is an evolving concept</span>`,"定義は社会がつくるものであり、書き換えられる","社会モデル／フーコー"],
+["第4段落",`<span class="en">self-perception … influenced by the language they hear</span>`,"分類が人を変え、変わった人が分類を変える（ループ効果）","ハッキング"],
+["第5段落",`<span class="en">dominant / competing discourses, the powerful / the oppressed</span>`,"権力とは、誰が何を語れるかを配分する働きである","フーコー"],
+["第6段落",`<span class="en">linguistic determinism / relativism</span>`,"言語は世界観を決めるのか、経験を映すだけなのか","サピア＝ウォーフ（源流はソシュール）"],
+["第7段落",`<span class="en">an interactive and cyclical process</span>`,"決定でも反映でもなく、生涯続く相互循環","本書の立場"]
+];
+document.getElementById("mapbody").innerHTML=MAP.map(r=>
+ `<tr><td class="pg">${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`).join("");
+
+/* ====== ⑤ クイズ ====== */
+const QZ=[
+{q:"本文で使われている discourse の意味に最も近いものは？",
+ o:["二人以上でかわす会話",
+    "ある分野で「何がどう語られうるか」を決めている語り方の総体",
+    "聴衆に向けた長い演説",
+    "文章の論理構成・パラグラフの組み立て"],a:1,
+ f:"本文は社会理論の用法。第2段落の冒頭（設問3の(F)）が、その定義そのものです。「議論」「会話」と訳すと全文が崩れます。"},
+{q:"<span class=\"en\">Discourses do not carry meaning so much as perform specific functions.</span> — この発想に最も近いのは？",
+ o:["言葉は現実をできるだけ正確に写すべきだ",
+    "言うこと自体がひとつの行為である",
+    "語の意味は辞書が決める",
+    "意味とは話し手の意図と同じものだ"],a:1,
+ f:"オースティンの言語行為論。perform という動詞がその系譜を示しています。「命名する」「約束する」は記述ではなく行為です。"},
+{q:"フーコーの権力観として正しいのは？",
+ o:["権力は国家が独占している財である",
+    "権力は奪い合う資源であり、持つ者と持たざる者に分かれる",
+    "権力は「誰が何を語れるか」を配分する働きであり、いたるところで生産されている",
+    "権力は言葉とは無関係な、物理的な強制力のことである"],a:2,
+ f:"金庫にしまわれた財ではなく、働き。だから抵抗も、別の語り方を立ち上げる形で行われます（第5段落の competing discourses）。"},
+{q:"障がいの社会モデルにおける impairment と disability の区別は？",
+ o:["どちらも同じ意味で、言い換えにすぎない",
+    "impairment＝身体の側にある事実／disability＝社会の側がつくる障壁",
+    "impairment＝軽度のもの／disability＝重度のもの",
+    "impairment＝先天的なもの／disability＝後天的なもの"],a:1,
+ f:"この分離が社会モデルの中核。「実在を否定している」という誤解への応答もここにあります。身体の事実は否定せず、変えられる側（社会）を名指しするための区別です。"},
+{q:"ハッキングの「ループ効果」の説明として正しいのは？",
+ o:["同じ議論が堂々巡りして結論が出ないこと",
+    "分類された人が自己理解と行動を変え、その結果、分類そのものも変わっていくこと",
+    "ある言葉が世代を越えて繰り返し使われること",
+    "翻訳と逆翻訳を重ねると意味がずれていくこと"],a:1,
+ f:"クォークは「クォーク」と呼ばれても振る舞いを変えませんが、人間は変えます。だから人を分類する言葉は、記述であると同時に介入になります。"},
+{q:"本書が題名で learning disabilities ではなく specific learning differences を選んでいる理由として最も適切なのは？",
+ o:["そのほうが短くて言いやすいから",
+    "医学用語を避けたほうが法的な支援を受けやすいから",
+    "標準からの「欠損」ではなく「差異」として構成するため",
+    "disabilities という語は英国では使えないから"],a:2,
+ f:"正解。ただし「違いなら支援は要らない」と読まれ、法的支援の根拠を弱めうるというジレンマも同時に抱えます（実験室の実験1・3つめ）。言い換えには必ず代償があります。"},
+{q:"「これは短距離走ではなくマラソンだ」という比喩が後景に退かせるのは？",
+ o:["長期的な視野を持つ必要",
+    "忍耐が必要だということ",
+    "「ゴールはいつなのか」という問いと、いま起きている被害の切迫さ",
+    "指導者を信頼すべきだということ"],a:2,
+ f:"比喩は必ず、見せるものと隠すものをセットで持ちます。本文の <span class=\"en\">while minimizing any inconvenient details</span> がこれです。"},
+{q:"本文の定義による linguistic determinism と linguistic relativism の違いは？",
+ o:["決定論＝言語が世界観を形づくる／相対論＝言語は経験を反映するにすぎない",
+    "決定論＝言語は経験を反映する／相対論＝言語が世界観を形づくる",
+    "両者は同じ立場の別名である",
+    "決定論は言語学、相対論は心理学の用語である"],a:0,
+ f:"本文の定義ではこれが正解。ただし学術上の標準的な relativism（＝言語は思考に影響を与える、という弱い立場）とは少しずれます。設問では必ず本文の定義に従ってください。"},
+{q:"dominant discourse（支配的言説）の例として最も適切なのは？",
+ o:["障がい学生の家族が SNS で発信する体験談",
+    "行政機関や専門職団体が用いる、公式の診断名と支援の用語",
+    "当事者が新しく作り出した言い換え表現",
+    "外国語からの直訳語"],a:1,
+ f:"制度・予算・資格認定を動かせる側の語り方が dominant。残りの3つは、それに対抗して焦点を置き直そうとする competing discourses の側です。"},
+{q:"「言葉が現実をつくるなら、痛みや身体的制約は実在しないのか」という反論への応答として、本文と社会モデルに沿うものは？",
+ o:["痛みもまた言葉にすぎず、実在しない",
+    "実在は否定しない。身体の事実（impairment）と、社会がつくる障壁（disability）を分けて考える",
+    "その反論のとおりで、この立場は成り立たない",
+    "痛みは個人の問題なので、社会理論の対象外である"],a:1,
+ f:"構成説は「何も実在しない」という主張ではありません。何を<b>変えられる側</b>として名指すかの議論です。だから本文も「言葉を変えれば解決」とは言わず、態度が変わるにはもっと時間がかかると釘を刺します。"}
+];
+let ansN=0,okN=0;
+document.getElementById("quizbody").innerHTML=QZ.map((q,i)=>
+ `<div class="q" id="q${i}"><div class="qh"><span class="qn">Q${i+1}</span>${q.q}</div>
+  ${q.o.map((o,j)=>`<button class="opt" id="o${i}_${j}" onclick="pickQ(${i},${j})">${o}</button>`).join("")}
+  <div class="fb hide" id="f${i}"></div></div>`).join("");
+function pickQ(i,j){
+ if(document.getElementById("q"+i).dataset.done)return;
+ document.getElementById("q"+i).dataset.done="1";
+ const a=QZ[i].a;
+ QZ[i].o.forEach((_,k)=>{const b=document.getElementById(`o${i}_${k}`);
+  if(k===a)b.classList.add("ok");else if(k===j)b.classList.add("ng");else b.classList.add("dim");});
+ const f=document.getElementById("f"+i);f.classList.remove("hide");
+ f.innerHTML=(j===a?"<b style='color:#15803d'>正解</b> — ":"<b style='color:#b91c1c'>不正解</b> — ")+QZ[i].f;
+ ansN++;if(j===a)okN++;
+ document.getElementById("scoreBar").textContent=
+  `正解 ${okN} / 10　　未回答 ${10-ansN}問`+(ansN===10?`　　→ ${okN>=9?"完璧":okN>=7?"合格ライン":"実験室タブに戻ろう"}`:"");
+}
+
+/* ====== タブ ====== */
+function setTab(t){
+ ["core","line","lab","map","quiz"].forEach(k=>{
+  document.getElementById("tab-"+k).classList.toggle("hide",k!==t);
+  document.getElementById("tb-"+k).classList.toggle("on",k===t);});
+ window.scrollTo({top:0,behavior:"smooth"});}
+</script>
+</body>
+</html>
