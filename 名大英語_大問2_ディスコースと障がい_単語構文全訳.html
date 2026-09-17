@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
 <title>名大英語 大問Ⅱ｜言語・ディスコース・障がい — 単語／構文／全訳／設問解説</title>
 <style>
 :root{
@@ -109,16 +110,25 @@ tr.done .mark{color:#4CAF50}
 .para .pno{font-size:.68rem;font-weight:800;color:#fff;background:#475569;padding:3px 10px;border-radius:999px}
 .para.ins .pno{background:#6d28d9}
 .para .pti{font-size:.94rem;font-weight:800;color:#1b2233}
-.sent{padding:7px 0;border-top:1px solid #f1f5f9}
+.sent{padding:9px 0;border-top:1px solid #f1f5f9}
 .sent:first-of-type{border-top:none}
+.sn{display:inline-block;font-size:.62rem;font-weight:800;color:#94a3b8;background:#f1f5f9;
+  border-radius:999px;padding:1px 8px;margin-bottom:5px}
 .cue{font-size:.78rem;color:#64748b;font-style:italic;padding-left:10px;border-left:3px solid #e2e8f0}
-.jp{margin-top:6px;font-size:.93rem}
+.en2{font-size:.88rem;color:#1e293b;line-height:1.85;padding-left:11px;border-left:3px solid #ddd6fe}
+.jp{margin-top:7px;font-size:.93rem;padding-left:11px;border-left:3px solid #e8ecf3}
 .boxsent{background:#f5f3ff;border:1px dashed #c4b5fd;border-radius:11px;padding:10px 13px;margin-bottom:9px}
 .boxsent .bl{font-size:.64rem;font-weight:800;color:#6d28d9;letter-spacing:.04em;display:block;margin-bottom:5px}
 .bk{background:#6d28d9;color:#fff;padding:1px 8px;border-radius:6px;font-weight:800;font-size:.86rem}
 .ul{background:linear-gradient(transparent 62%,#fde68a 62%);font-weight:700}
 .tlhide .jp,.tlhide .boxsent .bj{filter:blur(6px)}
-.cuehide .cue{display:none}
+.enhide .en2,.enhide .boxsent .cue{filter:blur(6px)}
+.blank{background:#fff!important;color:#6d28d9!important;border:1px dashed #a78bfa;padding:0 7px}
+#tlbody.tl2 .sent{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+#tlbody.tl2 .sent .jp{margin-top:0}
+#tlbody.tl2 .sn{grid-column:1/-1;margin-bottom:0}
+@media(max-width:860px){#tlbody.tl2 .sent{grid-template-columns:1fr}
+  #tlbody.tl2 .sent .jp{margin-top:7px}}
 .mapbox{background:#fff;border-radius:15px;padding:16px 18px;box-shadow:0 2px 9px rgba(0,0,0,.06);margin-bottom:14px}
 .mapbox ol{margin-left:19px;font-size:.89rem}
 .mapbox li{margin-bottom:5px}
@@ -160,7 +170,7 @@ tr.done .mark{color:#4CAF50}
 
 <header>
   <h1>名古屋大学 二次試験 英語 大問Ⅱ — 言語・ディスコース・障がい</h1>
-  <p>出典：Kormos, J. &amp; Smith, A. M. <i>Teaching languages to students with specific learning differences</i> (2nd ed., 2024)。①難語リスト ②難構文24 ③本文全訳 ④設問の解答解説 の4タブです。</p>
+  <p>出典：Kormos, J. &amp; Smith, A. M. <i>Teaching languages to students with specific learning differences</i> (2nd ed., 2024)。①難語リスト ②難構文24 ③本文（英文＋全訳の対訳） ④設問の解答解説 の4タブです。</p>
   <div class="stats">
     <div class="stat"><b id="total">0</b>総項目</div>
     <div class="stat"><b id="nw">0</b>単語</div>
@@ -171,7 +181,7 @@ tr.done .mark{color:#4CAF50}
   <div class="tabs">
     <button id="tb-vocab" class="on" onclick="setTab('vocab')">① 単語・熟語</button>
     <button id="tb-syn" onclick="setTab('syn')">② 難構文 24</button>
-    <button id="tb-tl" onclick="setTab('tl')">③ 本文 全訳</button>
+    <button id="tb-tl" onclick="setTab('tl')">③ 英文＋全訳</button>
     <button id="tb-q" onclick="setTab('q')">④ 設問 解答・解説</button>
   </div>
 </header>
@@ -235,10 +245,13 @@ tr.done .mark{color:#4CAF50}
 <p class="note">※ 抽象論（1・2）→ 具体例（3・4・5）→ 理論的な問い（6）→ 中立的な結論（7）という、名大が好む「抽象と具体の往復」型。設問3の段落先頭文補充は、この流れが見えていれば解ける。</p>
 </div>
 
-<h2>本文 全訳</h2>
+<h2>本文（英文＋全訳）</h2>
+<p class="lead">1文ずつ英文と訳を並べています。「左右2段で表示」にすると対訳のように見比べられます（画面が狭いときは自動で上下に並びます）。空所①〜⑥・（あ）（い）の答えは紫タグ。「空所の答えを隠す」を押すと空所の状態に戻るので、解き直しにも使えます。</p>
 <div class="controls">
   <button class="util" id="btnJP" onclick="toggleJP()">訳を隠す</button>
-  <button class="util" id="btnCUE" onclick="toggleCUE()">英文キューを隠す</button>
+  <button class="util" id="btnEN" onclick="toggleEN()">英文を隠す</button>
+  <button class="util" id="btnANS" onclick="toggleANS()">空所の答えを隠す</button>
+  <button class="util" id="btnCOL" onclick="toggleCOL()">左右2段で表示</button>
   <span class="spacer"></span>
   <span class="lbl">紫タグ＝空所の答え／黄マーカー＝下線部</span>
 </div>
@@ -685,99 +698,111 @@ document.getElementById("synbody").innerHTML=SYN.map(s=>
 document.querySelectorAll(".syn .pt").forEach(p=>p.onclick=()=>p.classList.toggle("hid"));
 function synAll(h){document.querySelectorAll(".syn .pt").forEach(p=>p.classList.toggle("hid",h));}
 
-/* ================= ③ 全訳データ ================= */
+/* ================= ③ 全訳データ（英文＋訳） ================= */
+// B(番号,答え) = 空所の答え／U(答え) = 下線部
+const B=(q,a)=>`<span class="bk sw2" data-q="( ${q} )" data-a="${a}">${a}</span>`;
+const U=(q,a)=>`<span class="ul sw2" data-q="［ ${q} ］" data-a="${a}">${a}</span>`;
 const TL=[
 {p:"第1段落",ti:"言葉は世論を動かす — コロナ禍の比喩",ins:null,items:[
- [`Politicians and marketing executives have long known that language plays a crucial role …`,
+ [`Politicians and marketing executives have long known that language plays a crucial role in influencing public opinion.`,
   `政治家やマーケティング担当の幹部たちは、言語が世論を動かすうえで決定的に重要な役割を果たすことを、ずっと以前から知っている。`],
- [`A clever choice of metaphor, (<span class="bk">① in</span>) particular, can make a situation more accessible …`,
+ [`A clever choice of metaphor, ${B("①","in")} particular, can make a situation more accessible to the public, and also provide a mechanism by which the speaker's priorities can be fore-fronted, while minimizing any inconvenient details.`,
   `とりわけ巧みな比喩の選択は、ある状況を一般の人々に理解しやすいものにすると同時に、都合の悪い細部は最小限に抑えつつ、話し手の優先事項を前面に押し出す仕組みにもなる。`],
- [`A study documented the terminology used globally to describe the Covid-19 global pandemic …`,
+ [`A study documented the terminology used globally to describe the Coronavirus (Covid-19) global pandemic which started in 2020.`,
   `ある研究は、2020年に始まった新型コロナウイルス（COVID-19）の世界的大流行を説明するために、世界中で用いられた用語を記録した。`],
- [`Many leaders employed war metaphors, describing the virus as an 'alien invader' …`,
+ [`Many leaders employed war metaphors, describing the virus as an 'alien invader', encouraging people to 'fight' the 'enemy'; that is, to pull together as a community.`,
   `多くの指導者が戦争の比喩を用い、ウイルスを「異質な侵略者」と表現して、人々に「敵」と「戦う」よう、つまり共同体として一致団結するよう促した。`],
- [`This discourse invokes memories of historic victories, allowing leaders to position themselves …`,
+ [`This discourse invokes memories of historic victories, allowing leaders to position themselves as modern-day heroes, and encourage the population to accept authoritarian measures ostensibly designed to 'repel' the virus.`,
   `この言説は歴史的な勝利の記憶を呼び起こし、指導者たちが自らを現代の英雄として位置づけること、そしてウイルスを「撃退する」ために作られたと表向きは説明される強権的な措置を国民に受け入れさせることを、可能にする。`],
- [`References to sport (for example, '<span class="ul">(1) it's a marathon not a sprint</span>') also encouraged populations …`,
+ [`References to sport (for example, '${U("(1)","it's a marathon not a sprint")}') also encouraged populations to be patient with their leaders and prepared them to accept long-term restrictions in everyday activities.`,
   `スポーツへの言及（例えば「<span class="ul">これは短距離走ではなくマラソンだ</span>」）もまた、国民が指導者に対して辛抱強くあるよう促し、日常生活における長期の行動制限を受け入れる心構えをさせた。`],
- [`The power that carefully chosen language <span class="ul">(2) has to change the way we perceive a situation</span> is clear.`,
+ [`The power that carefully chosen language ${U("(2)","has to change the way we perceive a situation")} is clear.`,
   `注意深く選ばれた言葉が、<span class="ul">私たちの状況の捉え方を変えてしまう力を持っている</span>ことは明らかである。`],
- [`This has been the case throughout history, and has been well documented in the field of education …`,
+ [`This has been the case throughout history, and has been well documented in the field of education, particularly with reference to disability.`,
   `これは歴史を通じてずっとそうであったし、教育の分野において、とりわけ障がいに関して、十分に記録されてきた。`]]},
 {p:"第2段落",ti:"ディスコースとは何か — 意味を運ぶより「機能を果たす」",
  ins:{lab:`空所 Ⅰ ＝ (F)`,
   en:`When we talk about any aspect of our society, we have to make choices about the words that we use; the particular way that we use language is described as the discourse of that field.`,
   ja:`私たちが社会のどんな側面について語るときも、どの言葉を使うかを選ばなければならない。そして、その分野に特有の言語の使い方が、その分野の「ディスコース（言説）」と呼ばれるものである。`},
  items:[
- [`Discourses do not carry meaning so much as perform specific functions … according to another study.`,
+ [`Discourses do not carry meaning so much as perform specific functions, particularly in the sociopolitical domain in which education is located, according to another study.`,
   `別の研究によれば、ディスコースは意味を運ぶものというより、特定の機能を果たすものである。とりわけ教育が置かれている社会政治的な領域においてそうだ。`],
- [`A different study points out that the developing professional identities of novice teachers become visible …`,
+ [`A different study points out that the developing professional identities of novice teachers become visible when considered from the perspective of their discursive practices.`,
   `さらに別の研究は、新任教師が形成しつつある職業的アイデンティティは、彼らの言説実践という観点から見たときに姿を現す、と指摘している。`],
- [`Adopting professional discourses allows them to gain entry to the teaching community …`,
+ [`Adopting professional discourses allows them to gain entry to the teaching community and enables them to organize their ideas and understanding of the new concepts to which they are introduced.`,
   `職業上のディスコースを身につけることで、彼らは教師の共同体に参入することができ、また新たに触れる概念について自分の考えと理解を整理できるようにもなる。`]]},
 {p:"第3段落",ti:"「障がい」という語そのものが揺れている",
  ins:{lab:`空所 Ⅱ ＝ (A)`,
   en:`Although the desire to use transparent and non-offensive terminology may be strong, it is not always easy to find expressions that all can agree on, and even the term 'disability' is itself not straightforward to define.`,
   ja:`分かりやすく人を傷つけない用語を使いたいという思いは強いかもしれないが、誰もが同意できる表現を見つけるのは必ずしも容易ではなく、「障がい」という語そのものでさえ、定義は単純ではない。`},
  items:[
- [`In the UK Equality Act (2010), it is defined as a 'physical or mental impairment which has a substantial and long-term adverse effect (<span class="bk">② on</span>) your ability …'`,
+ [`In the UK Equality Act (2010), it is defined as a 'physical or mental impairment which has a substantial and long-term adverse effect ${B("②","on")} your ability to carry out normal day-to-day activities', a description which includes dyslexia*, depending on how 'substantial' and 'normal, day-to-day activities' are defined.`,
   `英国の平等法（2010年）では、それは「通常の日常的な活動を行う能力に、重大かつ長期的な悪影響を及ぼす身体的または精神的な機能障害」と定義されている。これは、「重大」および「通常の日常的活動」をどう定義するかによっては、ディスレクシアも含む記述である。`],
- [`Many dyslexic people are surprised when they learn that they are classed—technically—(<span class="bk">③ as</span>) being disabled …`,
+ [`Many dyslexic people are surprised when they learn that they are classed—technically—${B("③","as")} being disabled, because, in common with many other groups of disabled people, they perceive their disability as a series of barriers in their lives, rather than as a defining characteristic of their personality or identity.`,
   `ディスレクシアのある多くの人は、自分が――厳密な定義の上では――障がい者に分類されると知って驚く。というのも、他の多くの障がい者集団と同じく、彼らは自分の障がいを、人格やアイデンティティを規定する特徴としてではなく、生活の中にある一連の障壁として捉えているからである。`],
- [`In the UN Convention on the Rights of Persons with Disabilities, it is acknowledged that 'disability is an evolving concept' …`,
+ [`In the UN Convention on the Rights of Persons with Disabilities, it is acknowledged that 'disability is an evolving concept' (United Nations, 2006).`,
   `国連の障害者権利条約では、「障害とは発展し続ける概念である」と認められている（国際連合、2006年）。`],
- [`Definitions may therefore be subject to alteration as societies change their perceptions …`,
+ [`Definitions may therefore be subject to alteration as societies change their perceptions, and as more disabled people's voices are heard in the debate.`,
   `したがって定義は、社会の認識が変化するにつれて、また障がい当事者の声がより多く議論の場で聞かれるようになるにつれて、変更されうるのである。`]]},
 {p:"第4段落",ti:"学生自身の言葉づかいもばらばらである",
  ins:{lab:`空所 Ⅲ ＝ (D)`,
   en:`Naturally, not every student accessing support from their institution will choose the same terminology to describe their lived experiences.`,
   ja:`当然ながら、所属機関から支援を受けている学生の全員が、自分の実体験を語るのに同じ用語を選ぶわけではない。`},
  items:[
- [`A group of researchers found a wide range of discourses among students in higher education …, (<span class="bk">④ with</span>) some making use of …`,
+ [`A group of researchers found a wide range of discourses among students in higher education who were accessing disability support, ${B("④","with")} some making use of the medical terminology and others adopting more empowering expressions.`,
   `ある研究グループは、障がい支援を受けている高等教育の学生たちの間に、実に幅広いディスコースがあることを見出した。医学的な用語を使う学生もいれば、より力づけるような表現を選ぶ学生もいたのである。`],
- [`There is an important question to be asked about whether (and to what degree) these students' self-perception …`,
+ [`There is an important question to be asked about whether (and to what degree) these students' self-perception and behavior are influenced by the language they hear around them and incorporate into their own communication.`,
   `これらの学生の自己認識と行動が、周囲で耳にして自分の言葉づかいに取り込んでいく言語によって影響されるのか、またどの程度影響されるのかについては、問われるべき重要な問いがある。`]]},
 {p:"第5段落",ti:"支配的ディスコース vs 対抗的ディスコース",ins:null,items:[
- [`Dominant discourses tend to reflect and further the interests of the powerful …, while competing discourses seek to challenge this power structure …`,
+ [`Dominant discourses tend to reflect and further the interests of the powerful (for example, policymakers and professional bodies), while competing discourses seek to challenge this power structure and refocus the discussion, usually in favor of the oppressed or less powerful (in this case, these might be disabled students and their families and advocates).`,
   `支配的なディスコースは、力を持つ側（たとえば政策立案者や専門職団体）の利益を反映し、それを推し進める傾向がある。一方、対抗的なディスコースはこの権力構造に異議を唱え、たいていは抑圧された側・力の弱い側（この場合は障がいのある学生やその家族、擁護者たち）に有利になるよう、議論の焦点を置き直そうとする。`],
- [`It takes time for alternative terminology (<span class="bk">⑤ to</span>) become established in a community, and usually even longer for attitudes to change …`,
+ [`It takes time for alternative terminology ${B("⑤","to")} become established in a community, and usually even longer for attitudes to change; as Corbett notes, language pertaining to disability 'has always been built on shifting sands … waves move in to wash away one set of words and new shapes are drawn'.`,
   `代わりとなる用語が共同体に定着するには時間がかかり、人々の態度が変わるにはたいていそれ以上の時間がかかる。コーベットが指摘するように、障がいに関わる言葉は「つねに流砂の上に築かれてきた……波が寄せてはひとそろいの言葉を洗い流し、そこに新たな形が描かれる」のである。`],
- [`In order to establish the role that discourses play in our society, it is important to consider …`,
+ [`In order to establish the role that discourses play in our society, it is important to consider the relationship between language and thought.`,
   `ディスコースが私たちの社会で果たしている役割を明らかにするためには、言語と思考の関係を考えることが重要である。`]]},
 {p:"第6段落",ti:"言語決定論 vs 言語相対論",
  ins:{lab:`空所 Ⅳ ＝ (E)`,
   en:`The exact role that language plays in shaping our thoughts has long been debated by linguists, anthropologists and psychologists, but opinions are still divided as to the nature of the relationship between language and thought.`,
   ja:`言語が私たちの思考を形づくるうえで果たしている正確な役割は、言語学者・人類学者・心理学者によって長らく議論されてきたが、言語と思考の関係がどのようなものであるかについては、いまなお意見が分かれている。`},
  items:[
- [`A group of researchers discuss a spectrum of views regarding the extent to which language shapes our view of the world …`,
+ [`A group of researchers discuss a spectrum of views regarding the extent to which language shapes our view of the world (linguistic determinism), or merely reflects our experiences (linguistic relativism).`,
   `ある研究グループは、言語が私たちの世界の見方をどの程度形づくるのか（言語決定論）、それとも単に私たちの経験を反映しているだけなのか（言語相対論）をめぐる、幅のある見解を論じている。`],
- [`Linguistic determinists argue that we may not be aware of things that our first language does not have ways of describing …`,
+ [`Linguistic determinists argue that we may not be aware of things that our first language does not have ways of describing, because our world view is shaped by the first language we learn.`,
   `言語決定論者は、母語が言い表す手段を持たない事物には私たちは気づけないかもしれない、と主張する。なぜなら、私たちの世界観は最初に習得する言語によって形づくられるからである。`],
- [`(<span class="bk">あ Conversely</span>), linguistic relativists argue, babies and infants must generate thoughts long before … independent (<span class="bk">⑥ of</span>) our language use …`,
+ [`${B("あ","Conversely")}, linguistic relativists argue, babies and infants must generate thoughts long before they develop language use, so it seems clear that our thoughts are independent ${B("⑥","of")} our language use, and perhaps even shape it, rather than being determined by it.`,
   `（<b>これとは逆に</b>）言語相対論者はこう論じる。赤ん坊や幼児は、言語を使えるようになるずっと前から思考を生み出しているはずであり、したがって私たちの思考は言語使用から独立していて、言語に規定されるどころか、むしろ言語を形づくってさえいることは明らかだ、と。`]]},
 {p:"第7段落",ti:"結論 — 相互循環、そして「意識して言葉を変える」こと",ins:null,items:[
- [`In its simplest form, the question is whether language fundamentally determines our view of the world … it may (<span class="bk">い never</span>) be possible to say definitively …`,
+ [`In its simplest form, the question is whether language fundamentally determines our view of the world, or only reflects it, but this long-running debate is extremely nuanced, and it may ${B("い","never")} be possible to say definitively whether language exerts more influence over thought, or vice versa.`,
   `最も単純化して言えば、問題は、言語が私たちの世界の見方を根本的に決定しているのか、それとも単に反映しているだけなのか、ということである。しかしこの長年の論争は極めて込み入っていて、言語が思考により大きな影響を及ぼすのか、それともその逆なのかを断定的に述べることは、（<b>決して</b>）できないかもしれない。`],
- [`Most likely it is an interactive and cyclical process, which starts as language use develops …`,
+ [`Most likely it is an interactive and cyclical process, which starts as language use develops and continues throughout a person's life.`,
   `おそらくそれは、言語使用の発達とともに始まり、人の生涯を通じて続いていく、相互作用的で循環的な過程なのだろう。`],
- [`What is important here is the idea that making a conscious effort to change our language habits and usage …`,
+ [`What is important here is the idea that making a conscious effort to change our language habits and usage can affect the way we think about the world around us, and can also influence the thinking of others we interact with.`,
   `ここで重要なのは、自分の言語習慣や言葉づかいを意識して変えようと努めることが、周りの世界についての自分の考え方を変えうるし、また関わり合う他者の考え方にも影響を与えうる、という考えである。`]]}
 ];
-document.getElementById("tlbody").innerHTML=TL.map(t=>
+document.getElementById("tlbody").innerHTML=TL.map((t,pi)=>
  `<div class="para${t.ins?" ins":""}">
    <div class="pt2"><span class="pno">${t.p}</span><span class="pti">${t.ti}</span></div>
    ${t.ins?`<div class="boxsent"><span class="bl">${t.ins.lab}（段落冒頭に入る文）</span>
      <div class="cue">${esc(t.ins.en)}</div><div class="jp bj">${t.ins.ja}</div></div>`:""}
-   ${t.items.map(s=>`<div class="sent"><div class="cue">${s[0]}</div><div class="jp">${s[1]}</div></div>`).join("")}
+   ${t.items.map((s,si)=>`<div class="sent"><span class="sn">${pi+1}-${si+1}</span>
+     <div class="en2">${s[0]}</div><div class="jp">${s[1]}</div></div>`).join("")}
  </div>`).join("");
 
-let jpHidden=false,cueHidden=false;
+let jpHidden=false,enHidden=false,ansHidden=false,twoCol=false;
 function toggleJP(){jpHidden=!jpHidden;
  document.getElementById("tlbody").classList.toggle("tlhide",jpHidden);
  document.getElementById("btnJP").textContent=jpHidden?"訳を表示":"訳を隠す";}
-function toggleCUE(){cueHidden=!cueHidden;
- document.getElementById("tlbody").classList.toggle("cuehide",cueHidden);
- document.getElementById("btnCUE").textContent=cueHidden?"英文キューを表示":"英文キューを隠す";}
+function toggleEN(){enHidden=!enHidden;
+ document.getElementById("tlbody").classList.toggle("enhide",enHidden);
+ document.getElementById("btnEN").textContent=enHidden?"英文を表示":"英文を隠す";}
+function toggleANS(){ansHidden=!ansHidden;
+ document.querySelectorAll("#tlbody .sw2").forEach(e=>{
+  e.textContent=ansHidden?e.dataset.q:e.dataset.a;
+  e.classList.toggle("blank",ansHidden);});
+ document.getElementById("btnANS").textContent=ansHidden?"空所の答えを表示":"空所の答えを隠す";}
+function toggleCOL(){twoCol=!twoCol;
+ document.getElementById("tlbody").classList.toggle("tl2",twoCol);
+ document.getElementById("btnCOL").textContent=twoCol?"上下に並べて表示":"左右2段で表示";}
 
 /* ================= ④ 設問データ ================= */
 const QS=[
