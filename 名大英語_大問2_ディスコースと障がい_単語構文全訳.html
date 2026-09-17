@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>名大英語 大問Ⅱ｜言語・ディスコース・障がい — 単語／構文／全訳／設問解説</title>
+<style>
+:root{
+  --g3:#4CAF50; --g3p:#8BC34A; --g2:#03A9F4; --g2p:#7E57C2; --g1:#E91E63; --gx:#F44336;
+  --tw:#ff6a3d; --ti:#1668c7;
+  --bg:#f4f6fb; --card:#fff; --ink:#1b2233; --sub:#6b7590;
+  --mk:#3730a3; --st:#c2410c;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+  background:var(--bg);color:var(--ink);padding:18px;line-height:1.65}
+.wrap{max-width:1180px;margin:0 auto}
+header{background:linear-gradient(135deg,#3730a3,#6d28d9 48%,#be185d);color:#fff;
+  border-radius:18px;padding:26px 24px 18px;margin-bottom:16px;box-shadow:0 8px 26px rgba(55,48,163,.3)}
+header h1{font-size:1.34rem;margin-bottom:6px}
+header p{opacity:.94;font-size:.87rem}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:15px}
+.stat{background:rgba(255,255,255,.22);border-radius:12px;padding:8px 14px;font-size:.8rem}
+.stat b{font-size:1.15rem;display:block}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.tabs button{background:rgba(255,255,255,.18);color:#fff;box-shadow:none;padding:9px 16px}
+.tabs button.on{background:#fff;color:#3730a3}
+h2{font-size:1.03rem;margin:24px 0 10px;padding-left:12px;border-left:5px solid #6d28d9}
+h3{font-size:.95rem;margin:16px 0 8px}
+p.lead{font-size:.86rem;color:var(--sub);margin-bottom:10px}
+
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 14px}
+.lbl{font-size:.72rem;color:var(--sub);font-weight:700;margin-right:2px}
+button{font-family:inherit;cursor:pointer;border:none;border-radius:999px;padding:8px 15px;
+  font-size:.82rem;font-weight:700;transition:.15s;background:#fff;color:var(--sub);
+  box-shadow:0 2px 6px rgba(0,0,0,.08)}
+button:hover{transform:translateY(-1px)}
+button.on{background:#1b2233;color:#fff}
+.util{background:#ede9fe;color:#5b21b6}
+.sw{display:inline-flex;background:#fff;border-radius:999px;padding:4px;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.sw button{box-shadow:none;padding:8px 18px}
+.sw button.on{background:linear-gradient(135deg,#6d28d9,#3730a3);color:#fff}
+.spacer{flex:1}
+
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;
+  box-shadow:0 2px 10px rgba(0,0,0,.07)}
+th,td{padding:10px 13px;text-align:left;border-bottom:1px solid #eef1f6;font-size:.87rem;vertical-align:top}
+th{background:#1b2233;color:#fff;font-size:.76rem;letter-spacing:.04em}
+tbody tr:nth-child(even){background:#fafbfe}
+tbody tr:hover{background:#f3f0ff}
+tbody tr.done{opacity:.4}
+td.ph{font-weight:700}
+td.mn{cursor:pointer}
+tr.hid td.mn,tr.hid td.exc{filter:blur(5px);opacity:.5}
+td.exc{color:#5c6580;font-style:italic;font-size:.79rem}
+td.ln{color:#aab2c4;font-size:.75rem;white-space:nowrap}
+.mark{cursor:pointer;color:#c9cfdd;font-weight:800;user-select:none}
+tr.done .mark{color:#4CAF50}
+.bar{height:9px;border-radius:5px;display:inline-block;vertical-align:middle;margin-right:8px}
+.sumtbl td,.sumtbl th{font-size:.85rem}
+.tblwrap{overflow-x:auto}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:12px}
+.card{background:var(--card);border-radius:14px;padding:14px 16px;cursor:pointer;
+  box-shadow:0 2px 8px rgba(0,0,0,.07);border-left:6px solid #ccc;transition:.18s;
+  position:relative;user-select:none}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.12)}
+.card.done{opacity:.42}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.phrase{font-size:1.05rem;font-weight:700}
+.badge{font-size:.65rem;font-weight:800;color:#fff;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.tag{font-size:.63rem;font-weight:800;padding:2px 8px;border-radius:999px;color:#fff}
+.tag.w{background:var(--tw)} .tag.i{background:var(--ti)}
+.meaning{margin-top:9px;padding-top:9px;border-top:1px dashed #dde2ec;font-size:.92rem}
+.ex{margin-top:7px;font-size:.77rem;color:#5c6580;font-style:italic}
+.hidden .meaning,.hidden .ex{filter:blur(6px);opacity:.5}
+.hint{font-size:.66rem;color:#b9c0d0;margin-top:6px}
+.line{font-size:.67rem;color:#aab2c4;margin-top:3px}
+.check{position:absolute;top:8px;right:10px;font-size:.66rem;color:#4CAF50;display:none;font-weight:800}
+.card.done .check{display:block}
+.hide{display:none}
+
+/* ---- 構文 ---- */
+.syn{background:#fff;border-radius:15px;padding:15px 18px;box-shadow:0 2px 10px rgba(0,0,0,.07);
+  margin-bottom:11px;border-left:6px solid #6d28d9}
+.syn .sh{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.syn .sno{font-size:.68rem;font-weight:800;color:#fff;background:#3730a3;padding:3px 10px;border-radius:999px}
+.syn .sti{font-size:.97rem;font-weight:800}
+.syn .star{font-size:.72rem;color:#f59e0b;font-weight:800;letter-spacing:.06em}
+.syn .loc{font-size:.66rem;color:var(--sub);background:#f1f5f9;padding:2px 9px;border-radius:999px}
+.syn .sen{font-size:.86rem;font-style:italic;color:#334155;background:#faf9ff;border:1px dashed #ddd6fe;
+  border-radius:10px;padding:9px 12px;margin-bottom:9px;line-height:1.75}
+.syn .pt{font-size:.9rem;cursor:pointer;background:#f8fafc;border-radius:11px;padding:11px 14px}
+.syn .pt.hid .pb{filter:blur(6px)}
+.syn .pt .ph2{font-size:.68rem;font-weight:800;color:#6d28d9;letter-spacing:.05em;margin-bottom:7px}
+.syn .pb p+p{margin-top:7px}
+.syn .pb b{color:#3730a3}
+.syn .tr{margin-top:8px;background:#f5f3ff;border-radius:10px;padding:9px 13px;font-size:.9rem}
+.syn .tr::before{content:"訳";display:inline-block;font-size:.64rem;font-weight:800;color:#fff;
+  background:#6d28d9;padding:1px 8px;border-radius:999px;margin-right:8px;vertical-align:1px}
+.ng{color:#dc2626;font-weight:700}
+.okm{color:#15803d;font-weight:700}
+
+/* ---- 全訳 ---- */
+.para{background:#fff;border-radius:15px;padding:15px 18px;box-shadow:0 2px 9px rgba(0,0,0,.06);
+  margin-bottom:11px;border-left:6px solid #cbd5e1}
+.para.ins{border-left-color:#6d28d9}
+.para .pt2{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-bottom:9px}
+.para .pno{font-size:.68rem;font-weight:800;color:#fff;background:#475569;padding:3px 10px;border-radius:999px}
+.para.ins .pno{background:#6d28d9}
+.para .pti{font-size:.94rem;font-weight:800;color:#1b2233}
+.sent{padding:7px 0;border-top:1px solid #f1f5f9}
+.sent:first-of-type{border-top:none}
+.cue{font-size:.78rem;color:#64748b;font-style:italic;padding-left:10px;border-left:3px solid #e2e8f0}
+.jp{margin-top:6px;font-size:.93rem}
+.boxsent{background:#f5f3ff;border:1px dashed #c4b5fd;border-radius:11px;padding:10px 13px;margin-bottom:9px}
+.boxsent .bl{font-size:.64rem;font-weight:800;color:#6d28d9;letter-spacing:.04em;display:block;margin-bottom:5px}
+.bk{background:#6d28d9;color:#fff;padding:1px 8px;border-radius:6px;font-weight:800;font-size:.86rem}
+.ul{background:linear-gradient(transparent 62%,#fde68a 62%);font-weight:700}
+.tlhide .jp,.tlhide .boxsent .bj{filter:blur(6px)}
+.cuehide .cue{display:none}
+.mapbox{background:#fff;border-radius:15px;padding:16px 18px;box-shadow:0 2px 9px rgba(0,0,0,.06);margin-bottom:14px}
+.mapbox ol{margin-left:19px;font-size:.89rem}
+.mapbox li{margin-bottom:5px}
+.mapbox li b{color:#3730a3}
+
+/* ---- 設問 ---- */
+.qbox{background:#fff;border-radius:16px;padding:17px 19px;box-shadow:0 2px 10px rgba(0,0,0,.07);margin-bottom:13px}
+.qno{display:inline-block;font-size:.7rem;font-weight:800;color:#fff;background:#1b2233;
+  padding:3px 11px;border-radius:999px;margin-bottom:9px}
+.qja{font-size:.93rem;font-weight:600;margin-bottom:10px}
+.ch{border:2px solid #eef1f6;border-radius:10px;padding:9px 13px;margin-bottom:7px;font-size:.87rem;
+  display:flex;gap:10px;align-items:flex-start}
+.ch b{color:#1b2233;flex-shrink:0}
+.ch .cja{color:#475569}
+.qbox.reveal .ch.ok{border-color:#16a34a;background:#f0fdf4}
+.qbox.reveal .ch.ok b::after{content:" ✓";color:#16a34a}
+.ans{margin-top:11px;background:#f1f5f9;border-radius:12px;padding:12px 15px;font-size:.88rem;cursor:pointer}
+.ans.hid .body{filter:blur(6px)}
+.ans .hd{font-size:.7rem;font-weight:800;color:#6d28d9;letter-spacing:.05em;margin-bottom:7px}
+.ans .body p+p{margin-top:7px}
+.ans .k{font-weight:800;color:#3730a3}
+.model{background:#eef6ff;border-radius:12px;padding:12px 15px;margin-top:9px;font-size:.87rem}
+.model .en{font-style:italic;color:#1e3a8a}
+.note{font-size:.8rem;color:var(--sub);margin-top:8px}
+.wl{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-top:8px}
+.wl div{background:#f8fafc;border:2px solid #eef1f6;border-radius:10px;padding:8px 12px;font-size:.85rem}
+.wl div.used{border-color:#6d28d9;background:#f5f3ff}
+.wl b{color:#3730a3}
+.slot{display:inline-block;background:#3730a3;color:#fff;border-radius:7px;padding:1px 9px;
+  font-weight:800;font-size:.82rem;margin:0 3px}
+.fill{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px;margin:10px 0}
+.fill div{background:#faf9ff;border:2px solid #ede9fe;border-radius:10px;padding:9px 12px;font-size:.85rem}
+@media(max-width:640px){body{padding:12px}th,td{padding:8px 9px;font-size:.79rem}td.exc,th.exc{display:none}
+  header h1{font-size:1.06rem}.qbox,.syn,.para{padding:13px 14px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>名古屋大学 二次試験 英語 大問Ⅱ — 言語・ディスコース・障がい</h1>
+  <p>出典：Kormos, J. &amp; Smith, A. M. <i>Teaching languages to students with specific learning differences</i> (2nd ed., 2024)。①難語リスト ②難構文24 ③本文全訳 ④設問の解答解説 の4タブです。</p>
+  <div class="stats">
+    <div class="stat"><b id="total">0</b>総項目</div>
+    <div class="stat"><b id="nw">0</b>単語</div>
+    <div class="stat"><b id="ni">0</b>熟語・構文</div>
+    <div class="stat"><b id="shown">0</b>表示中</div>
+    <div class="stat"><b id="doneN">0</b>覚えた</div>
+  </div>
+  <div class="tabs">
+    <button id="tb-vocab" class="on" onclick="setTab('vocab')">① 単語・熟語</button>
+    <button id="tb-syn" onclick="setTab('syn')">② 難構文 24</button>
+    <button id="tb-tl" onclick="setTab('tl')">③ 本文 全訳</button>
+    <button id="tb-q" onclick="setTab('q')">④ 設問 解答・解説</button>
+  </div>
+</header>
+
+<!-- ============ ① 単語・熟語 ============ -->
+<section id="tab-vocab">
+<h2>レベル別分布（単語 / 熟語 内訳つき）</h2>
+<div class="tblwrap">
+<table class="sumtbl"><thead><tr><th>英検レベル</th><th>合計</th><th>単語</th><th>熟語</th><th>割合</th><th>目安</th></tr></thead>
+<tbody id="sumbody"></tbody></table>
+</div>
+
+<div class="controls" style="margin-top:22px">
+  <span class="sw"><button id="bCard" class="on" onclick="setView('card')">カード形式</button><button id="bTable" onclick="setView('table')">表形式</button></span>
+  <span class="spacer"></span>
+  <span class="sw"><button id="tAll" class="on" onclick="setType('all')">単語＋熟語</button><button id="tW" onclick="setType('単語')">単語のみ</button><button id="tI" onclick="setType('熟語')">熟語のみ</button></span>
+</div>
+<div class="controls"><span class="lbl">レベル</span><span id="filters" style="display:contents"></span></div>
+<div class="controls"><span class="lbl">箇所</span><span id="pfilters" style="display:contents"></span></div>
+<div class="controls">
+  <button class="util" onclick="allHide()">すべて隠す</button>
+  <button class="util" onclick="allShow()">すべて表示</button>
+  <button class="util" onclick="shuffle()">シャッフル</button>
+  <button class="util" onclick="resetOrder()">本文順に戻す</button>
+  <button class="util" onclick="resetDone()">「覚えた」リセット</button>
+  <span class="spacer"></span>
+  <button class="util" id="hideDoneBtn" onclick="toggleDoneFilter()">覚えた項目を隠す</button>
+</div>
+
+<div id="cardView"><div class="grid" id="grid"></div></div>
+<div id="tableView" class="hide tblwrap">
+  <table><thead><tr><th style="width:30px"></th><th style="width:46px">種類</th><th>語句</th><th>意味</th><th class="exc">本文での使われ方</th><th>レベル</th><th>箇所</th></tr></thead>
+  <tbody id="tbody"></tbody></table>
+</div>
+</section>
+
+<!-- ============ ② 構文 ============ -->
+<section id="tab-syn" class="hide">
+<h2>この長文の難構文 24</h2>
+<p class="lead">★★★＝名大レベルの勝負どころ。英文を見て自分で訳してから、紫の「ポイント」をタップして答え合わせをしてください。</p>
+<div class="controls">
+  <button class="util" onclick="synAll(true)">解説をすべて隠す</button>
+  <button class="util" onclick="synAll(false)">解説をすべて表示</button>
+</div>
+<div id="synbody"></div>
+</section>
+
+<!-- ============ ③ 全訳 ============ -->
+<section id="tab-tl" class="hide">
+<h2>読解の地図（論の流れ）</h2>
+<div class="mapbox">
+<ol>
+  <li><b>第1段落</b>：言葉は世論を動かす。コロナ禍の「戦争の比喩」「スポーツの比喩」が実例。<b>→ 言葉は状況の見え方を変える</b></li>
+  <li><b>第2段落</b>：その力を「ディスコース（言説）」という概念で捉え直す。ディスコースは意味を運ぶより<b>機能を果たす</b>。</li>
+  <li><b>第3段落</b>：具体例としての「障がい」。<b>定義そのものが揺れている</b>（英国平等法／国連条約）。</li>
+  <li><b>第4段落</b>：障がい学生自身の言葉づかいも<b>多様</b>。それが自己認識に影響するのか？という問い。</li>
+  <li><b>第5段落</b>：<b>支配的ディスコース vs 対抗的ディスコース</b>。言葉が変わるのは遅く、態度が変わるのはもっと遅い。</li>
+  <li><b>第6段落</b>：ではそもそも言語と思考はどちらが先か。<b>言語決定論 vs 言語相対論</b>。</li>
+  <li><b>第7段落</b>：結論は<b>どちらとも断定できない（相互循環）</b>。だが「意識して言葉を変えれば考え方も変わる」ことが重要。</li>
+</ol>
+<p class="note">※ 抽象論（1・2）→ 具体例（3・4・5）→ 理論的な問い（6）→ 中立的な結論（7）という、名大が好む「抽象と具体の往復」型。設問3の段落先頭文補充は、この流れが見えていれば解ける。</p>
+</div>
+
+<h2>本文 全訳</h2>
+<div class="controls">
+  <button class="util" id="btnJP" onclick="toggleJP()">訳を隠す</button>
+  <button class="util" id="btnCUE" onclick="toggleCUE()">英文キューを隠す</button>
+  <span class="spacer"></span>
+  <span class="lbl">紫タグ＝空所の答え／黄マーカー＝下線部</span>
+</div>
+<div id="tlbody"></div>
+</section>
+
+<!-- ============ ④ 設問 ============ -->
+<section id="tab-q" class="hide">
+<h2>設問の解答・解説</h2>
+<p class="lead">灰色の「解答・解説」ボックスはタップでぼかしが外れます。まず自分で解いてから開いてください。</p>
+<div id="qbody"></div>
+</section>
+
+</div>
+
+<script>
+/* ================= ① 単語データ ================= */
+const LV={
+ "3級":{c:"var(--g3)",note:"中学卒業程度"},
+ "準2級":{c:"var(--g3p)",note:"高校中級程度"},
+ "2級":{c:"var(--g2)",note:"高校卒業程度"},
+ "準1級":{c:"var(--g2p)",note:"大学中級程度"},
+ "1級":{c:"var(--g1)",note:"大学上級程度"},
+ "級外":{c:"var(--gx)",note:"専門語・難語"}
+};
+// [語句, 意味, 本文での使われ方, レベル, 箇所, 種類]
+const DATA=[
+ /* ---- 1 比喩と世論 ---- */
+ ["executive","名 幹部、重役","politicians and marketing executives","準1級","1 比喩と世論","単語"],
+ ["have long known","ずっと前から知っている（long は現在完了の間に入る）","have long known that language plays ...","2級","1 比喩と世論","熟語"],
+ ["play a crucial role in ~","～において決定的に重要な役割を果たす","language plays a crucial role in influencing public opinion","準1級","1 比喩と世論","熟語"],
+ ["crucial","形 決定的に重要な（＝vital, essential）","a crucial role","準1級","1 比喩と世論","単語"],
+ ["public opinion","世論","influencing public opinion","準1級","1 比喩と世論","熟語"],
+ ["metaphor","名 比喩、隠喩（「～のようだ」を使わないたとえ）","a clever choice of metaphor","準1級","1 比喩と世論","単語"],
+ ["in particular","とりわけ、特に【空所①】","A clever choice of metaphor, (in) particular","2級","1 比喩と世論","熟語"],
+ ["accessible","形 理解しやすい、近づきやすい【多義】","make a situation more accessible to the public","準1級","1 比喩と世論","単語"],
+ ["mechanism","名 仕組み、手段","provide a mechanism by which ...","準1級","1 比喩と世論","単語"],
+ ["priority","名 優先事項、優先順位","the speaker's priorities can be fore-fronted","準1級","1 比喩と世論","単語"],
+ ["fore-front","動 前面に押し出す（front を動詞化した造語的用法）","the speaker's priorities can be fore-fronted","級外","1 比喩と世論","単語"],
+ ["minimize","動 最小限に抑える（⇔maximize）","while minimizing any inconvenient details","準1級","1 比喩と世論","単語"],
+ ["inconvenient","形 都合の悪い、不都合な","any inconvenient details","準1級","1 比喩と世論","単語"],
+ ["document","動 記録する、文書で裏づける【名詞「書類」ではない】","A study documented the terminology","準1級","1 比喩と世論","単語"],
+ ["terminology","名 （専門）用語、術語（集合名詞）","the terminology used globally","1級","1 比喩と世論","単語"],
+ ["pandemic","名 世界的大流行（cf. epidemic＝地域的流行）","the Covid-19 global pandemic","準1級","1 比喩と世論","単語"],
+ ["employ","動 用いる、使う【「雇う」以外の意味が頻出】","Many leaders employed war metaphors","準1級","1 比喩と世論","単語"],
+ ["alien","形 異質な、外来の／名 宇宙人","describing the virus as an 'alien invader'","準1級","1 比喩と世論","単語"],
+ ["invader","名 侵略者（invade 動 侵略する）","an 'alien invader'","準1級","1 比喩と世論","単語"],
+ ["pull together","力を合わせる、一致団結する","to pull together as a community","1級","1 比喩と世論","熟語"],
+ ["discourse","名 言説、ディスコース、談話【本文のキーワード】","This discourse invokes memories","1級","1 比喩と世論","単語"],
+ ["invoke","動 （記憶・感情を）呼び起こす、想起させる","invokes memories of historic victories","1級","1 比喩と世論","単語"],
+ ["historic","形 歴史に残る、歴史的に重要な（cf. historical＝歴史上の）","memories of historic victories","2級","1 比喩と世論","単語"],
+ ["position oneself as ~","自らを～として位置づける","leaders to position themselves as modern-day heroes","準1級","1 比喩と世論","熟語"],
+ ["population","名 国民、住民【「人口」だけではない】","encourage the population to accept ...","2級","1 比喩と世論","単語"],
+ ["authoritarian","形 権威主義的な、強権的な","authoritarian measures","1級","1 比喩と世論","単語"],
+ ["measure","名 措置、対策【「測定」「寸法」以外】","authoritarian measures","準1級","1 比喩と世論","単語"],
+ ["ostensibly","副 表向きは、うわべは（実際は違うという含み）","measures ostensibly designed to 'repel' the virus","級外","1 比喩と世論","単語"],
+ ["be designed to do","～するために作られている、～するのが狙いだ","ostensibly designed to 'repel' the virus","2級","1 比喩と世論","熟語"],
+ ["repel","動 撃退する、追い払う","designed to 'repel' the virus","1級","1 比喩と世論","単語"],
+ ["reference to ~","～への言及（refer to ~ の名詞形）","References to sport also encouraged ...","準1級","1 比喩と世論","熟語"],
+ ["be patient with ~","～に対して辛抱強くする","to be patient with their leaders","2級","1 比喩と世論","熟語"],
+ ["prepare A to do","Aに～する心構えをさせる","prepared them to accept long-term restrictions","2級","1 比喩と世論","熟語"],
+ ["restriction","名 制限、規制","long-term restrictions in everyday activities","準1級","1 比喩と世論","単語"],
+ ["perceive","動 知覚する、（～と）捉える","the way we perceive a situation","準1級","1 比喩と世論","単語"],
+ ["be the case","当てはまる、事実である","This has been the case throughout history","準1級","1 比喩と世論","熟語"],
+ ["with reference to ~","～に関して（＝regarding）","particularly with reference to disability","準1級","1 比喩と世論","熟語"],
+ ["disability","名 障がい（disabled 形 障がいのある）","with reference to disability","2級","1 比喩と世論","単語"],
+ /* ---- 2 ディスコース ---- */
+ ["not A so much as B","AというよりむしろB【最重要構文】","Discourses do not carry meaning so much as perform ...","1級","2 ディスコース","熟語"],
+ ["carry meaning","意味を担う、意味を運ぶ","do not carry meaning","準1級","2 ディスコース","熟語"],
+ ["perform a function","機能を果たす","perform specific functions","準1級","2 ディスコース","熟語"],
+ ["sociopolitical","形 社会政治的な（socio-＝社会の）","the sociopolitical domain","級外","2 ディスコース","単語"],
+ ["domain","名 領域、分野","the domain in which education is located","1級","2 ディスコース","単語"],
+ ["be located","位置している、置かれている","the domain in which education is located","2級","2 ディスコース","熟語"],
+ ["point out that ...","～だと指摘する","A different study points out that ...","2級","2 ディスコース","熟語"],
+ ["novice","形 新米の、駆け出しの／名 初心者","novice teachers","1級","2 ディスコース","単語"],
+ ["identity","名 アイデンティティ、自己同一性、独自性","the developing professional identities","準1級","2 ディスコース","単語"],
+ ["from the perspective of ~","～の観点から","from the perspective of their discursive practices","準1級","2 ディスコース","熟語"],
+ ["discursive","形 言説の、ディスコースに関わる","their discursive practices","級外","2 ディスコース","単語"],
+ ["adopt","動 採用する、取り入れる（cf. adapt＝適応させる）","Adopting professional discourses","準1級","2 ディスコース","単語"],
+ ["gain entry to ~","～への参入を果たす、～に入れてもらう","gain entry to the teaching community","準1級","2 ディスコース","熟語"],
+ ["enable A to do","Aが～できるようにする","enables them to organize their ideas","2級","2 ディスコース","熟語"],
+ ["be introduced to ~","～に触れさせられる、～を紹介される","the new concepts to which they are introduced","2級","2 ディスコース","熟語"],
+ ["socially constitutive","社会を構成する力を持つ【選択肢(B)】","Discourse is socially constitutive","級外","設問・選択肢","熟語"],
+ ["conditioned","形 条件づけられた、規定された【選択肢(B)】","as well as socially conditioned","準1級","設問・選択肢","単語"],
+ /* ---- 3 障がいの定義 ---- */
+ ["transparent","形 透明な、分かりやすい、隠し立てのない【選択肢(A)】","transparent and non-offensive terminology","準1級","3 障がいの定義","単語"],
+ ["offensive","形 不快感を与える、侮辱的な（non-offensive＝人を傷つけない）","non-offensive terminology","準1級","3 障がいの定義","単語"],
+ ["straightforward","形 単純明快な、分かりやすい","not straightforward to define","準1級","3 障がいの定義","単語"],
+ ["impairment","名 （機能）障害、損なわれた状態","a physical or mental impairment","1級","3 障がいの定義","単語"],
+ ["substantial","形 かなりの、重大な【「実質的な」だけではない】","a substantial and long-term adverse effect","準1級","3 障がいの定義","単語"],
+ ["adverse","形 不利な、好ましくない","an adverse effect on your ability","1級","3 障がいの定義","単語"],
+ ["have an effect on ~","～に影響を及ぼす【空所②】","adverse effect (on) your ability","2級","3 障がいの定義","熟語"],
+ ["carry out ~","～を実行する、遂行する","carry out normal day-to-day activities","2級","3 障がいの定義","熟語"],
+ ["day-to-day","形 日々の、日常の","normal day-to-day activities","2級","3 障がいの定義","熟語"],
+ ["depending on ~","～次第で、～によって","depending on how 'substantial' ... are defined","2級","3 障がいの定義","熟語"],
+ ["dyslexia","名 ディスレクシア（読み書きの困難／本文注では失読症）","a description which includes dyslexia","級外","3 障がいの定義","単語"],
+ ["be classed as ~","～に分類される【空所③】","they are classed—technically—(as) being disabled","準1級","3 障がいの定義","熟語"],
+ ["technically","副 厳密に言えば、専門的な定義の上では","classed—technically—as being disabled","準1級","3 障がいの定義","単語"],
+ ["in common with ~","～と同様に、～と共通して","in common with many other groups of disabled people","準1級","3 障がいの定義","熟語"],
+ ["perceive A as B","AをBとして捉える","they perceive their disability as a series of barriers","準1級","3 障がいの定義","熟語"],
+ ["a series of ~","一連の～","a series of barriers in their lives","2級","3 障がいの定義","熟語"],
+ ["barrier","名 障壁、妨げ","barriers in their lives","準1級","3 障がいの定義","単語"],
+ ["defining","形 本質を決定づける、特徴を規定する","a defining characteristic of their personality","1級","3 障がいの定義","単語"],
+ ["rather than ~","～ではなく、～よりむしろ","as barriers ... rather than as a defining characteristic","2級","3 障がいの定義","熟語"],
+ ["convention","名 条約、協定【「慣習」「大会」以外の意味】","the UN Convention on the Rights of Persons with Disabilities","1級","3 障がいの定義","単語"],
+ ["acknowledge","動 （事実だと）認める","it is acknowledged that ...","準1級","3 障がいの定義","単語"],
+ ["evolving","形 発展し続ける、変化しつつある","disability is an evolving concept","準1級","3 障がいの定義","単語"],
+ ["be subject to ~","～を受けやすい、～の対象となる","Definitions may be subject to alteration","1級","3 障がいの定義","熟語"],
+ ["alteration","名 変更、修正（alter 動 変える）","subject to alteration","準1級","3 障がいの定義","単語"],
+ ["perception","名 認識、受け止め方","as societies change their perceptions","準1級","3 障がいの定義","単語"],
+ /* ---- 4 学生の語り ---- */
+ ["institution","名 （大学などの）機関、施設","support from their institution","準1級","4 学生の語り","単語"],
+ ["lived experience","実体験、自分が生きてきた経験【選択肢(D)】","describe their lived experiences","1級","4 学生の語り","熟語"],
+ ["a wide range of ~","幅広い～、多岐にわたる～","a wide range of discourses","2級","4 学生の語り","熟語"],
+ ["higher education","高等教育（大学以上）","students in higher education","準1級","4 学生の語り","熟語"],
+ ["access","動 （支援などを）利用する、受ける","students who were accessing disability support","2級","4 学生の語り","単語"],
+ ["make use of ~","～を利用する","some making use of the medical terminology","2級","4 学生の語り","熟語"],
+ ["empowering","形 力を与えてくれる、自信を持たせる","more empowering expressions","1級","4 学生の語り","単語"],
+ ["to what degree","どの程度まで","whether (and to what degree) ...","準1級","4 学生の語り","熟語"],
+ ["self-perception","名 自己認識、自己イメージ","these students' self-perception and behavior","準1級","4 学生の語り","単語"],
+ ["incorporate A into B","AをBに取り入れる、組み込む","incorporate into their own communication","1級","4 学生の語り","熟語"],
+ /* ---- 5 支配と対抗 ---- */
+ ["dominant","形 支配的な、優勢な","Dominant discourses","準1級","5 支配と対抗","単語"],
+ ["tend to do","～する傾向がある","tend to reflect and further the interests","2級","5 支配と対抗","熟語"],
+ ["further","動 促進する、推し進める【副詞・形容詞ではなく動詞】","reflect and further the interests of the powerful","1級","5 支配と対抗","単語"],
+ ["the powerful","権力を持つ人々（the＋形容詞＝～な人々）","the interests of the powerful","準1級","5 支配と対抗","熟語"],
+ ["policymaker","名 政策立案者","policymakers and professional bodies","準1級","5 支配と対抗","単語"],
+ ["body","名 団体、組織【「体」以外】","professional bodies","2級","5 支配と対抗","単語"],
+ ["competing","形 対抗する、競合する","competing discourses","準1級","5 支配と対抗","単語"],
+ ["seek to do","～しようと努める","seek to challenge this power structure","準1級","5 支配と対抗","熟語"],
+ ["challenge","動 異議を唱える、挑む【「挑戦する」だけではない】","challenge this power structure","準1級","5 支配と対抗","単語"],
+ ["refocus","動 焦点を当て直す","refocus the discussion","1級","5 支配と対抗","単語"],
+ ["in favor of ~","～に有利に、～を支持して","in favor of the oppressed or less powerful","準1級","5 支配と対抗","熟語"],
+ ["the oppressed","抑圧された人々（oppress 動 抑圧する）","the oppressed or less powerful","1級","5 支配と対抗","熟語"],
+ ["advocate","名 擁護者、支援者／動 主張する","their families and advocates","1級","5 支配と対抗","単語"],
+ ["It takes time for A to do","Aが～するには時間がかかる【空所⑤】","It takes time for alternative terminology (to) become established","2級","5 支配と対抗","熟語"],
+ ["alternative","形 代わりの、既存とは別の","alternative terminology","準1級","5 支配と対抗","単語"],
+ ["become established","定着する、確立される","become established in a community","準1級","5 支配と対抗","熟語"],
+ ["pertain to ~","～に関係する、～に付随する（≒relate to）","language pertaining to disability","級外","5 支配と対抗","熟語"],
+ ["shifting sands","流砂、不安定でたえず動く土台","built on shifting sands","級外","5 支配と対抗","熟語"],
+ ["wash away ~","～を洗い流す","waves move in to wash away one set of words","2級","5 支配と対抗","熟語"],
+ ["establish","動 明らかにする、立証する【「設立する」以外】","In order to establish the role that discourses play","準1級","5 支配と対抗","単語"],
+ ["play a role in ~","～において役割を果たす","the role that discourses play in our society","2級","5 支配と対抗","熟語"],
+ /* ---- 6 決定論と相対論 ---- */
+ ["exact","形 正確な、まさにその","The exact role that language plays","2級","6 決定論と相対論","単語"],
+ ["linguist","名 言語学者（linguistic 形 言語の）","debated by linguists, anthropologists ...","準1級","6 決定論と相対論","単語"],
+ ["anthropologist","名 人類学者","linguists, anthropologists and psychologists","1級","6 決定論と相対論","単語"],
+ ["opinions are divided","意見が分かれている","opinions are still divided as to ...","準1級","6 決定論と相対論","熟語"],
+ ["as to ~","～に関して（＝about）","divided as to the nature of the relationship","準1級","6 決定論と相対論","熟語"],
+ ["a spectrum of ~","幅のある～、連続的に広がる～","a spectrum of views","1級","6 決定論と相対論","熟語"],
+ ["regarding","前 ～に関して","views regarding the extent to which ...","準1級","6 決定論と相対論","単語"],
+ ["the extent to which ...","～がどの程度まで…するか【最重要構文】","the extent to which language shapes our view","準1級","6 決定論と相対論","熟語"],
+ ["shape","動 形づくる、方向づける【名詞「形」以外】","language shapes our view of the world","2級","6 決定論と相対論","単語"],
+ ["determinism","名 決定論（determine 動 決定する）","linguistic determinism","級外","6 決定論と相対論","単語"],
+ ["relativism","名 相対論、相対主義","linguistic relativism","級外","6 決定論と相対論","単語"],
+ ["merely","副 単に、ただ～にすぎない","or merely reflects our experiences","準1級","6 決定論と相対論","単語"],
+ ["be aware of ~","～に気づいている","we may not be aware of things","2級","6 決定論と相対論","熟語"],
+ ["world view","世界観、物の見方","our world view is shaped by ...","準1級","6 決定論と相対論","熟語"],
+ ["conversely","副 逆に、これとは反対に【空所（あ）】","(Conversely), linguistic relativists argue ...","1級","6 決定論と相対論","単語"],
+ ["infant","名 幼児、乳児","babies and infants","準1級","6 決定論と相対論","単語"],
+ ["generate","動 生み出す、発生させる","must generate thoughts","準1級","6 決定論と相対論","単語"],
+ ["long before ...","…するずっと前に","long before they develop language use","2級","6 決定論と相対論","熟語"],
+ ["be independent of ~","～から独立している、～に左右されない【空所⑥】","our thoughts are independent (of) our language use","準1級","6 決定論と相対論","熟語"],
+ /* ---- 7 結論 ---- */
+ ["in its simplest form","最も単純化して言えば","In its simplest form, the question is whether ...","準1級","7 結論","熟語"],
+ ["fundamentally","副 根本的に","language fundamentally determines our view","準1級","7 結論","単語"],
+ ["long-running","形 長く続いている","this long-running debate","準1級","7 結論","単語"],
+ ["nuanced","形 微妙な差異を含む、一筋縄ではいかない","the debate is extremely nuanced","級外","7 結論","単語"],
+ ["definitively","副 決定的に、断定的に","to say definitively whether ...","1級","7 結論","単語"],
+ ["exert influence over ~","～に影響力を及ぼす","language exerts more influence over thought","1級","7 結論","熟語"],
+ ["vice versa","逆もまた同様に、その逆","over thought, or vice versa","1級","7 結論","熟語"],
+ ["most likely","おそらく、十中八九","Most likely it is an interactive process","2級","7 結論","熟語"],
+ ["interactive","形 相互に作用し合う","an interactive and cyclical process","準1級","7 結論","単語"],
+ ["cyclical","形 循環的な、周期的な","an interactive and cyclical process","1級","7 結論","単語"],
+ ["make a conscious effort to do","意識して～しようと努める","making a conscious effort to change our language habits","準1級","7 結論","熟語"],
+ ["usage","名 語法、言葉の使い方","our language habits and usage","準1級","7 結論","単語"],
+ ["interact with ~","～と関わり合う、交流する","others we interact with","準1級","7 結論","熟語"],
+ /* ---- 設問・選択肢 ---- */
+ ["sprint","名 短距離走、全力疾走【設問1】","it's a marathon not a sprint","準1級","設問・選択肢","単語"],
+ ["dribble","動 ドリブルする【設問1】","it's dribbling a basketball","準1級","設問・選択肢","単語"],
+ ["foul ball","ファウルボール【設問1】","a homerun not a foul ball","2級","設問・選択肢","熟語"],
+ ["irrelevant","形 無関係な、的外れな【選択肢(C)】","is considered irrelevant today","準1級","設問・選択肢","単語"],
+ ["regrettably","副 残念ながら【設問5選択肢】","(C) Regrettably","1級","設問・選択肢","単語"],
+ ["conversely / moreover / therefore","逆に／さらに／したがって（論理標識の3類型）【設問5】","(A)(B)(D)","準1級","設問・選択肢","熟語"]
+];
+const ORDER=["3級","準2級","2級","準1級","1級","級外"];
+const PORDER=["1 比喩と世論","2 ディスコース","3 障がいの定義","4 学生の語り","5 支配と対抗","6 決定論と相対論","7 結論","設問・選択肢"];
+let data=[...DATA],activeLv="all",activePara="all",activeType="all",hideDone=false;
+const done=new Set();
+
+const cW=DATA.filter(d=>d[5]==="単語").length, cI=DATA.length-cW;
+document.getElementById("total").textContent=DATA.length;
+document.getElementById("nw").textContent=cW;
+document.getElementById("ni").textContent=cI;
+
+const cnt={},cntW={},cntI={},cntP={};
+ORDER.forEach(l=>{cnt[l]=0;cntW[l]=0;cntI[l]=0;});
+PORDER.forEach(p=>cntP[p]=0);
+DATA.forEach(d=>{cnt[d[3]]++;(d[5]==="単語"?cntW:cntI)[d[3]]++;cntP[d[4]]++;});
+document.getElementById("sumbody").innerHTML=ORDER.map(l=>{
+ const n=cnt[l],p=Math.round(n/DATA.length*100);
+ return `<tr><td><span class="badge" style="background:${LV[l].c}">${l}</span></td>
+ <td><b>${n}</b></td><td style="color:var(--tw);font-weight:700">${cntW[l]}</td>
+ <td style="color:var(--ti);font-weight:700">${cntI[l]}</td>
+ <td><span class="bar" style="width:${Math.max(p*2.6,6)}px;background:${LV[l].c}"></span>${p}%</td>
+ <td style="color:var(--sub)">${LV[l].note}</td></tr>`;}).join("");
+
+document.getElementById("filters").innerHTML=
+ `<button class="on" data-lv="all">すべて</button>`+
+ ORDER.map(l=>cnt[l]?`<button data-lv="${l}" style="color:${LV[l].c}">${l} (${cnt[l]})</button>`:"").join("");
+document.getElementById("filters").onclick=e=>{
+ if(e.target.tagName!=="BUTTON")return;
+ [...e.currentTarget.children].forEach(b=>b.classList.remove("on"));
+ e.target.classList.add("on");activeLv=e.target.dataset.lv;render();};
+
+document.getElementById("pfilters").innerHTML=
+ `<button class="on" data-p="all">すべて</button>`+
+ PORDER.map(p=>`<button data-p="${p}">${p} (${cntP[p]})</button>`).join("");
+document.getElementById("pfilters").onclick=e=>{
+ if(e.target.tagName!=="BUTTON")return;
+ [...e.currentTarget.children].forEach(b=>b.classList.remove("on"));
+ e.target.classList.add("on");activePara=e.target.dataset.p;render();};
+
+function list(){return data.filter(d=>
+ (activeLv==="all"||d[3]===activeLv)&&
+ (activePara==="all"||d[4]===activePara)&&
+ (activeType==="all"||d[5]===activeType)&&
+ !(hideDone&&done.has(d[0])));}
+
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+
+function render(){
+ const L=list();
+ document.getElementById("grid").innerHTML=L.map(d=>{
+  const[p,m,ex,lv,ln,ty]=d, t=ty==="単語"?"w":"i";
+  return `<div class="card hidden" data-w="${esc(p)}" style="border-left-color:${LV[lv].c}">
+   <span class="check">✓ 覚えた</span>
+   <div class="top"><span class="phrase">${esc(p)}</span>
+   <span style="display:flex;flex-direction:column;gap:4px;align-items:flex-end">
+   <span class="badge" style="background:${LV[lv].c}">${lv}</span>
+   <span class="tag ${t}">${ty}</span></span></div>
+   <div class="line">${ln}</div>
+   <div class="meaning">${m}</div>
+   <div class="ex">${esc(ex)}</div>
+   <div class="hint">タップで表示 ／ ダブルクリックで「覚えた」</div></div>`;}).join("");
+ [...document.getElementById("grid").children].forEach(c=>{
+  if(done.has(c.dataset.w))c.classList.add("done");
+  c.onclick=()=>c.classList.toggle("hidden");
+  c.ondblclick=e=>{e.preventDefault();const w=c.dataset.w;
+   done.has(w)?done.delete(w):done.add(w);render();};});
+
+ document.getElementById("tbody").innerHTML=L.map(d=>{
+  const[p,m,ex,lv,ln,ty]=d, t=ty==="単語"?"w":"i";
+  return `<tr class="hid ${done.has(p)?'done':''}" data-w="${esc(p)}">
+   <td><span class="mark">✓</span></td>
+   <td><span class="tag ${t}">${ty}</span></td>
+   <td class="ph">${esc(p)}</td><td class="mn">${m}</td>
+   <td class="exc">${esc(ex)}</td>
+   <td><span class="badge" style="background:${LV[lv].c}">${lv}</span></td>
+   <td class="ln">${ln}</td></tr>`;}).join("");
+ [...document.getElementById("tbody").children].forEach(tr=>{
+  tr.querySelector(".mn").onclick=()=>tr.classList.toggle("hid");
+  tr.querySelector(".exc").onclick=()=>tr.classList.toggle("hid");
+  tr.querySelector(".mark").onclick=()=>{const w=tr.dataset.w;
+   done.has(w)?done.delete(w):done.add(w);render();};});
+
+ document.getElementById("shown").textContent=L.length;
+ document.getElementById("doneN").textContent=done.size;
+}
+function setView(v){
+ document.getElementById("cardView").classList.toggle("hide",v!=="card");
+ document.getElementById("tableView").classList.toggle("hide",v!=="table");
+ document.getElementById("bCard").classList.toggle("on",v==="card");
+ document.getElementById("bTable").classList.toggle("on",v==="table");}
+function setType(t){activeType=t;
+ document.getElementById("tAll").classList.toggle("on",t==="all");
+ document.getElementById("tW").classList.toggle("on",t==="単語");
+ document.getElementById("tI").classList.toggle("on",t==="熟語");render();}
+function allHide(){document.querySelectorAll(".card").forEach(c=>c.classList.add("hidden"));
+ document.querySelectorAll("#tbody tr").forEach(t=>t.classList.add("hid"));}
+function allShow(){document.querySelectorAll(".card").forEach(c=>c.classList.remove("hidden"));
+ document.querySelectorAll("#tbody tr").forEach(t=>t.classList.remove("hid"));}
+function shuffle(){for(let i=data.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[data[i],data[j]]=[data[j],data[i]];}render();}
+function resetOrder(){data=[...DATA];render();}
+function resetDone(){done.clear();render();}
+function toggleDoneFilter(){hideDone=!hideDone;
+ document.getElementById("hideDoneBtn").textContent=hideDone?"覚えた項目も表示":"覚えた項目を隠す";render();}
+
+/* ================= ② 構文データ ================= */
+// {n:番号, s:星, t:見出し, loc:箇所, en:英文, pt:ポイント, tr:訳}
+const SYN=[
+{n:1,s:"★★",t:"and の並列＋前置詞+関係代名詞＋接続詞付き分詞構文",loc:"第1段落",
+ en:`A clever choice of metaphor, in particular, can make a situation more accessible to the public, and also provide a mechanism by which the speaker's priorities can be fore-fronted, while minimizing any inconvenient details.`,
+ pt:`<p>主語は <b>A clever choice of metaphor</b>。述語は <b>can make …</b> と <b>(can) also provide …</b> の2つ。provide が原形なのは can を共有しているから。</p>
+ <p><b>by which</b> は〈前置詞＋関係代名詞〉。元に戻すと the speaker's priorities can be fore-fronted <b>by the mechanism</b>。「<b>それによって</b>話し手の優先事項が前面に出される仕組み」。</p>
+ <p><b>while minimizing …</b> は〈接続詞＋分詞構文〉。while を残すことで「～する一方で／～しつつ」の意味をはっきりさせている。<b>any</b> は「どんな～も」。</p>`,
+ tr:`とりわけ巧みな比喩の選択は、状況を一般の人々に理解しやすいものにすると同時に、都合の悪い細部は最小限に抑えつつ、話し手の優先事項を前面に押し出す仕組みにもなる。`},
+{n:2,s:"★",t:"documented は動詞／過去分詞の後置修飾",loc:"第1段落",
+ en:`A study documented the terminology used globally to describe the Coronavirus (Covid-19) global pandemic which started in 2020.`,
+ pt:`<p><b>document</b> を名詞「書類」と読むと動詞が消えて文が壊れる。ここは<b>動詞「記録する・文書で裏づける」</b>の過去形。</p>
+ <p><b>used globally to describe …</b> は terminology を後ろから修飾する過去分詞句。<b>which started in 2020</b> は pandemic を修飾。この文の動詞は documented と started の2つだけで、あとはすべて修飾語。</p>`,
+ tr:`ある研究は、2020年に始まった新型コロナウイルス（COVID-19）の世界的大流行を説明するために世界中で使われた用語を記録した。`},
+{n:3,s:"★★",t:"分詞構文の連続＋that is（言い換え）",loc:"第1段落",
+ en:`Many leaders employed war metaphors, describing the virus as an 'alien invader', encouraging people to 'fight' the 'enemy'; that is, to pull together as a community.`,
+ pt:`<p><b>employ</b>＝「用いる」。「雇う」ではない（名大頻出の多義語）。</p>
+ <p><b>describing / encouraging</b> はどちらも分詞構文で、意味上の主語は Many leaders。</p>
+ <p><b>that is</b>＝「すなわち」。セミコロン以下の <b>to pull together</b> は、encouraging people <b>to 'fight'</b> の to fight と並列。つまり「敵と戦え」＝「団結せよ」と言い換えている。</p>`,
+ tr:`多くの指導者が戦争の比喩を用い、ウイルスを「異質な侵略者」と表現して、人々に「敵」と「戦う」よう、つまり共同体として団結するよう促した。`},
+{n:4,s:"★★★",t:"allow A to do の to 不定詞が2つ（to の省略）",loc:"第1段落",
+ en:`This discourse invokes memories of historic victories, allowing leaders to position themselves as modern-day heroes, and encourage the population to accept authoritarian measures ostensibly designed to 'repel' the virus.`,
+ pt:`<p>最大の罠は <b>encourage</b> が原形であること。allowing leaders <b>to [position themselves …]</b> and <b>[(to) encourage the population …]</b> と、2つの不定詞が並列している（2つめの to が省略）。</p>
+ <p>ここを「指導者を励ます」と読むと主語がねじれる。<b>「指導者が～することを可能にする」</b>が2つ続く形。</p>
+ <p><b>ostensibly designed to 'repel' the virus</b> は measures を修飾する過去分詞句。ostensibly（表向きは）は「実際はそうとは限らない」という筆者の皮肉。</p>`,
+ tr:`この言説は歴史的な勝利の記憶を呼び起こし、指導者が自らを現代の英雄として位置づけ、ウイルスを「撃退する」ためとうたわれる強権的な措置を国民に受け入れさせることを可能にする。`},
+{n:5,s:"★★★",t:"下線部(2)：the power that S has to do【設問2そのもの】",loc:"第1段落",
+ en:`The power that carefully chosen language has to change the way we perceive a situation is clear.`,
+ pt:`<p>骨格は <b>The power … is clear.</b>（主語が長い一文）。</p>
+ <p><b>that</b> は目的格の関係代名詞。carefully chosen language has ＿＿ の空所に the power が入る。</p>
+ <p class="ng">✕ has to ＝「～しなければならない」ではない。</p>
+ <p class="okm">○ have <b>the power to do</b>（～する力を持つ）の the power が先行詞として前に出た結果、has と to change が隣り合っただけ。</p>
+ <p><b>the way (in which) we perceive a situation</b>＝「私たちが状況を捉える仕方」。the way と how は一緒に使えない。</p>`,
+ tr:`注意深く選ばれた言葉が、私たちの状況の捉え方を変えてしまう力を持っていることは明らかである。`},
+{n:6,s:"★★",t:"not A so much as B（AというよりむしろB）",loc:"第2段落",
+ en:`Discourses do not carry meaning so much as perform specific functions, particularly in the sociopolitical domain in which education is located.`,
+ pt:`<p><b>not A so much as B</b>＝「AというよりむしろB」。B（後ろ）が筆者の主張。<b>do not carry</b> … <b>so much as perform</b> … と、carry と perform が原形どうしで並列している点を必ず確認。</p>
+ <p>意味は「言葉は意味を<b>運ぶ</b>入れ物ではなく、何かを<b>する</b>道具だ」。この一文が本文全体の中心テーマ。</p>
+ <p><b>in which</b>＝where。「教育が置かれている社会政治的領域」。</p>`,
+ tr:`ディスコースは意味を運ぶものというより、特定の機能を果たすものである。とりわけ教育が位置している社会政治的な領域においてそうだ。`},
+{n:7,s:"★★",t:"接続詞＋過去分詞（S＋be の省略）",loc:"第2段落",
+ en:`… the developing professional identities of novice teachers become visible when considered from the perspective of their discursive practices.`,
+ pt:`<p><b>when considered</b> は <b>when they are considered</b> の省略形（副詞節中の「主語＋be動詞」の省略）。省略された主語は主節の主語 identities。</p>
+ <p><b>developing</b> は「発達しつつある」の現在分詞。「開発途上の」の意味に引きずられないこと。</p>`,
+ tr:`新任教師が形成しつつある職業的アイデンティティは、彼らの言説実践という観点から見たときに姿を現す。`},
+{n:8,s:"★★",t:"前置詞＋関係代名詞（be introduced to ~）",loc:"第2段落",
+ en:`Adopting professional discourses allows them to gain entry to the teaching community and enables them to organize their ideas and understanding of the new concepts to which they are introduced.`,
+ pt:`<p>主語は動名詞句 <b>Adopting professional discourses</b>。述語は <b>allows …</b> と <b>enables …</b> の2つ。</p>
+ <p><b>to which they are introduced</b> は be introduced <b>to</b> ~（～に触れる／紹介される）の to が前に出た形。元は they are introduced <b>to the new concepts</b>。</p>`,
+ tr:`職業上のディスコースを身につけることで、彼らは教師の共同体に参入でき、また新しく触れる概念について自分の考えと理解を整理できるようになる。`},
+{n:9,s:"★★",t:"同格の名詞句＋ability to do＋depending on how …",loc:"第3段落",
+ en:`… it is defined as a 'physical or mental impairment which has a substantial and long-term adverse effect on your ability to carry out normal day-to-day activities', a description which includes dyslexia, depending on how 'substantial' and 'normal, day-to-day activities' are defined.`,
+ pt:`<p>引用符で囲まれた定義文の全体を、コンマの後の <b>a description which includes dyslexia</b> が<b>同格</b>で言い換えている（「…という記述、それはディスレクシアも含む記述だ」）。</p>
+ <p><b>your ability to carry out …</b> は「～する能力」（不定詞の形容詞用法）。<b>effect on</b> の on が空所②。</p>
+ <p><b>depending on how … are defined</b>＝「…がどう定義されるか次第で」。つまり<b>定義が定義次第で揺れる</b>という、この段落の要点。</p>`,
+ tr:`それは「通常の日常的な活動を行う能力に、重大かつ長期的な悪影響を及ぼす身体的または精神的な機能障害」と定義されており、これは「重大」や「通常の日常的活動」をどう定義するか次第ではディスレクシアも含む記述である。`},
+{n:10,s:"★★★",t:"perceive A as B ／ as ~ rather than as ~",loc:"第3段落",
+ en:`… in common with many other groups of disabled people, they perceive their disability as a series of barriers in their lives, rather than as a defining characteristic of their personality or identity.`,
+ pt:`<p>挿入の <b>in common with many other groups of disabled people</b>（他の多くの障がい者集団と同じく）をいったん外すと骨格が見える。</p>
+ <p><b>perceive A as B</b>「AをBと捉える」。as が2回出るのがポイントで、<b>as a series of barriers</b>（○こう捉える）／<b>rather than as a defining characteristic</b>（✕こうは捉えない）。</p>
+ <p>内容は障がいの<b>「社会モデル」（障壁は社会の側にある）</b>と<b>「医学モデル」（本人の属性）</b>の対立そのもの。背景知識として押さえておくと第5段落の「支配的／対抗的ディスコース」が一気に読める。</p>`,
+ tr:`他の多くの障がい者集団と同じく、彼らは自分の障がいを、人格やアイデンティティを規定する特徴としてではなく、生活の中にある一連の障壁として捉えているのである。`},
+{n:11,s:"★",t:"形式主語 it ＋ that 節",loc:"第3段落",
+ en:`In the UN Convention on the Rights of Persons with Disabilities, it is acknowledged that 'disability is an evolving concept'.`,
+ pt:`<p><b>it</b> は形式主語、真主語は that 節。「～ということが認められている」。</p>
+ <p><b>Convention</b>＝「条約」。「慣習」「大会」ではない。<b>Persons with Disabilities</b>（障害のある人々）という語順自体が、人を先に置く people-first language で、まさに本文のテーマの実例。</p>`,
+ tr:`国連の障害者権利条約では、「障害とは発展し続ける概念である」と認められている。`},
+{n:12,s:"★★",t:"be subject to ＋ as（～につれて）の並列",loc:"第3段落",
+ en:`Definitions may therefore be subject to alteration as societies change their perceptions, and as more disabled people's voices are heard in the debate.`,
+ pt:`<p><b>be subject to ~</b>＝「～を受けることがある、～の対象となる」。to は<b>前置詞</b>なので後ろは名詞（alteration）。不定詞と間違えないこと。</p>
+ <p><b>as … , and as …</b> の2つが並列で、どちらも「～するにつれて」。</p>`,
+ tr:`したがって定義は、社会の認識が変わるにつれて、また障がい当事者の声がより多く議論の場で聞かれるようになるにつれて、変更されうるのである。`},
+{n:13,s:"★★★",t:"with＋O＋doing（付帯状況）／some … others …【空所④】",loc:"第4段落",
+ en:`A group of researchers found a wide range of discourses among students in higher education who were accessing disability support, with some making use of the medical terminology and others adopting more empowering expressions.`,
+ pt:`<p>空所④は <b>with</b>。〈<b>with＋名詞＋分詞</b>〉の付帯状況で「～が…している状態で」。</p>
+ <p>文法的な決め手：接続詞がないのに making / adopting という動詞的要素が続く。これを文につなげられるのは前置詞 with だけ。</p>
+ <p>内容的な決め手：直前の <b>a wide range of discourses</b>（幅の広さ）の中身を <b>some … and others …</b>（～な者もいれば～な者も）で具体化している。</p>`,
+ tr:`ある研究グループは、障がい支援を受けている高等教育の学生たちの間に、実に幅広いディスコースがあることを見出した。医学的な用語を使う学生もいれば、より力づけるような表現を選ぶ学生もいたのである。`},
+{n:14,s:"★★★",t:"不定詞の受動＋関係代名詞が2つの動詞の目的語",loc:"第4段落",
+ en:`There is an important question to be asked about whether (and to what degree) these students' self-perception and behavior are influenced by the language they hear around them and incorporate into their own communication.`,
+ pt:`<p><b>a question to be asked</b>＝「問われるべき問い」（不定詞の受動・形容詞用法）。</p>
+ <p><b>(and to what degree)</b> は挿入。about の目的語は whether 節で、「影響されるのか、そして<b>どの程度</b>影響されるのか」。</p>
+ <p>最難所は末尾。<b>the language 〔(which) they hear around them〕 and 〔(which) they incorporate into their own communication〕</b>。省略された関係代名詞が hear と incorporate の<b>両方の目的語</b>になっている。incorporate の後ろに目的語がないことに気づけるかどうかが分かれ目。</p>`,
+ tr:`これらの学生の自己認識と行動が、周囲で耳にして自分の言葉づかいに取り込んでいく言語によって影響されるのか、またどの程度影響されるのかについては、問われるべき重要な問いがある。`},
+{n:15,s:"★★★",t:"further は動詞／the＋形容詞＝人々",loc:"第5段落",
+ en:`Dominant discourses tend to reflect and further the interests of the powerful (for example, policymakers and professional bodies) …`,
+ pt:`<p class="ng">✕ further を「さらに」（副詞）と読む → 文が崩壊する。</p>
+ <p class="okm">○ tend to <b>[reflect]</b> and <b>[further]</b> の並列で、further は<b>動詞「促進する・推し進める」</b>。</p>
+ <p><b>the powerful</b>＝〈the＋形容詞〉で「力を持つ人々」。同じ段落の <b>the oppressed</b>（抑圧された人々）、<b>less powerful</b>（力の弱い人々）も同型。</p>`,
+ tr:`支配的なディスコースは、力を持つ側（たとえば政策立案者や専門職団体）の利益を反映し、それを推し進める傾向がある。`},
+{n:16,s:"★★",t:"while の対比／challenge・in favor of",loc:"第5段落",
+ en:`…, while competing discourses seek to challenge this power structure and refocus the discussion, usually in favor of the oppressed or less powerful.`,
+ pt:`<p><b>while</b> は「～する一方で」の<b>対比</b>。dominant ⇄ competing の対立構図をつくる。</p>
+ <p><b>challenge</b>＝「異議を唱える、挑む」。seek to <b>[challenge]</b> and <b>[refocus]</b> の並列。</p>
+ <p><b>in favor of ~</b>＝「～に有利になるように、～の側に立って」。</p>`,
+ tr:`一方、対抗的なディスコースはこの権力構造に異議を唱え、たいていは抑圧された側・力の弱い側に有利になるよう、議論の焦点を置き直そうとする。`},
+{n:17,s:"★★★",t:"It takes 時間 for A to do ＋ 反復の省略【空所⑤】",loc:"第5段落",
+ en:`It takes time for alternative terminology to become established in a community, and usually even longer for attitudes to change.`,
+ pt:`<p><b>It takes＋時間＋for A＋to do</b>「Aが～するには…の時間がかかる」。空所⑤は <b>to</b>。for は to 不定詞の<b>意味上の主語</b>を示す。</p>
+ <p>後半は and usually <b>(it takes)</b> even longer for attitudes to change と、<b>takes が省略</b>されている。even は比較級 longer を強める「さらに」。</p>
+ <p>言い換えれば「<b>言葉が変わるのは遅い／人の意識が変わるのはもっと遅い</b>」。ここが第5段落の主張。</p>`,
+ tr:`代わりとなる用語が共同体に定着するには時間がかかり、人々の態度が変わるにはたいていそれ以上の時間がかかる。`},
+{n:18,s:"★★",t:"play a role in ~ の a role が先行詞になる形",loc:"第5・6段落",
+ en:`In order to establish the role that discourses play in our society, it is important to consider the relationship between language and thought. / The exact role that language plays in shaping our thoughts has long been debated …`,
+ pt:`<p>どちらも <b>play a role in ~</b>（～で役割を果たす）の a role が先行詞として前に出た形。that の後ろで play の目的語が欠けている。</p>
+ <p><b>establish</b>＝「明らかにする、立証する」。「設立する」ではない。</p>
+ <p>2文目は主語が <b>The exact role … in shaping our thoughts</b> と長く、述語は <b>has long been debated</b>。主語の切れ目を見抜くこと。</p>`,
+ tr:`ディスコースが社会で果たしている役割を明らかにするためには、言語と思考の関係を考える必要がある。／言語が思考を形づくるうえで果たしている正確な役割は、長く議論されてきた。`},
+{n:19,s:"★★★",t:"the extent to which S V（どの程度～か）",loc:"第6段落",
+ en:`A group of researchers discuss a spectrum of views regarding the extent to which language shapes our view of the world (linguistic determinism), or merely reflects our experiences (linguistic relativism).`,
+ pt:`<p><b>the extent to which S V</b>＝「SがVする程度」＝「<b>どの程度～か</b>」。to which は to an extent の to。名大では毎年のように出る型。</p>
+ <p>which 節の中で <b>shapes …</b> と <b>merely reflects …</b> が or で並列（主語はどちらも language）。「形づくるのか、単に反映するだけなのか」という対立が、この段落の軸。</p>
+ <p>※ 本文は relativism を「経験を反映するだけ」の立場として使っている。学術的な標準用法とは少しずれるが、<b>設問は必ず本文の定義に従う</b>こと。</p>`,
+ tr:`ある研究グループは、言語が私たちの世界の見方をどの程度形づくるのか（言語決定論）、それとも単に私たちの経験を反映しているだけなのか（言語相対論）をめぐる、幅のある見解を論じている。`},
+{n:20,s:"★★★",t:"先行詞が動名詞の目的語になる関係詞",loc:"第6段落",
+ en:`Linguistic determinists argue that we may not be aware of things that our first language does not have ways of describing, because our world view is shaped by the first language we learn.`,
+ pt:`<p>関係詞節 <b>that our first language does not have ways of describing</b> が <b>describing で終わって目的語がない</b>。つまり先行詞 things が describing の目的語。</p>
+ <p>元の形：our first language does not have ways of describing <b>things</b>（母語はそれらを言い表す手段を持たない）。</p>
+ <p><b>the first language (which) we learn</b> は関係代名詞が省略された接触節。</p>`,
+ tr:`言語決定論者は、母語が言い表す手段を持たない事物には私たちは気づけないかもしれない、なぜなら私たちの世界観は最初に習得する言語によって形づくられるからだ、と主張する。`},
+{n:21,s:"★★",t:"挿入節／be independent of ／rather than doing【空所（あ）⑥】",loc:"第6段落",
+ en:`Conversely, linguistic relativists argue, babies and infants must generate thoughts long before they develop language use, so it seems clear that our thoughts are independent of our language use, and perhaps even shape it, rather than being determined by it.`,
+ pt:`<p><b>linguistic relativists argue</b> は<b>挿入節</b>。「～と、言語相対論者は論じる」。文頭の（あ）に入るのは <b>Conversely</b>（これとは逆に）で、直前の言語決定論と正反対の立場が来る合図。</p>
+ <p>that 節の中は our thoughts <b>[are independent of …]</b> and <b>[perhaps even shape it]</b> の並列。shape は動詞、it＝our language use。空所⑥は <b>of</b>（be independent of ~）。</p>
+ <p><b>rather than being determined by it</b>＝「言語に決定されるのではなく」。むしろ思考の側が言語を作る、という主張。</p>`,
+ tr:`これとは逆に、言語相対論者はこう論じる。赤ん坊や幼児は言語を使えるようになるずっと前から思考を生み出しているはずであり、だとすれば私たちの思考は言語使用から独立していて、言語に規定されるどころか、むしろ言語を形づくってさえいることは明らかだ、と。`},
+{n:22,s:"★★",t:"形式主語＋whether A or B ／ may never【空所（い）】",loc:"第7段落",
+ en:`… this long-running debate is extremely nuanced, and it may never be possible to say definitively whether language exerts more influence over thought, or vice versa.`,
+ pt:`<p><b>it</b> は形式主語、真主語は <b>to say …</b>。<b>whether A or B</b>「AなのかBなのか」。</p>
+ <p><b>vice versa</b>＝「その逆」。ここでは「思考のほうが言語に大きな影響を及ぼす」の代わり。</p>
+ <p>（い）に入るのは <b>never</b>。<b>may never</b>＝「決して～ないかもしれない」。nuanced（込み入っている）という直前の語と、次文の「相互循環」がその根拠。</p>`,
+ tr:`この長年の論争は極めて込み入っており、言語が思考により大きな影響を及ぼすのか、それともその逆なのかを断定的に述べることは、決してできないかもしれない。`},
+{n:23,s:"★★",t:"非制限用法の which ／ as（～につれて）",loc:"第7段落",
+ en:`Most likely it is an interactive and cyclical process, which starts as language use develops and continues throughout a person's life.`,
+ pt:`<p><b>, which</b> は非制限用法で、直前の process を補足説明。<b>which starts … and continues …</b> の並列。</p>
+ <p><b>as</b>＝「～するにつれて」。<b>Most likely</b> は文全体を修飾する「おそらく」。</p>
+ <p>ここが筆者の結論：<b>どちらが先かではなく、相互に作用する循環</b>。</p>`,
+ tr:`おそらくそれは、言語使用の発達とともに始まり、人の生涯を通じて続いていく、相互作用的で循環的な過程なのだろう。`},
+{n:24,s:"★★★",t:"What節の主語＋同格のthat＋動名詞主語【筆者の主張】",loc:"第7段落",
+ en:`What is important here is the idea that making a conscious effort to change our language habits and usage can affect the way we think about the world around us, and can also influence the thinking of others we interact with.`,
+ pt:`<p>主語は <b>What is important here</b>（関係代名詞 what の名詞節）、述語は <b>is the idea</b>。</p>
+ <p><b>the idea that …</b> は<b>同格</b>の that（「～という考え」）。後ろが完全な文なので関係代名詞ではない。</p>
+ <p>that 節の中の主語は動名詞句 <b>making a conscious effort to change …</b>、述語は <b>can affect …</b> and <b>can also influence …</b>。主語が長いので動詞を見失わないこと。</p>
+ <p><b>others (whom) we interact with</b> は接触節＋前置詞の残留。</p>
+ <p class="okm">この一文が筆者の最終的な主張。設問5・6の「著者の主張を踏まえ」は、ここと第7段落前半（断定を避ける中立的な姿勢）を根拠にする。</p>`,
+ tr:`ここで重要なのは、自分の言語習慣や言葉づかいを意識して変えようと努めることが、周りの世界についての自分の考え方を変えうるし、関わり合う他者の考え方にも影響を与えうる、という考えである。`}
+];
+document.getElementById("synbody").innerHTML=SYN.map(s=>
+ `<div class="syn">
+   <div class="sh"><span class="sno">構文 ${s.n}</span><span class="star">${s.s}</span>
+   <span class="sti">${s.t}</span><span class="loc">${s.loc}</span></div>
+   <div class="sen">${esc(s.en)}</div>
+   <div class="pt hid"><div class="ph2">ポイント（タップで表示）</div>
+   <div class="pb">${s.pt}<div class="tr">${s.tr}</div></div></div>
+ </div>`).join("");
+document.querySelectorAll(".syn .pt").forEach(p=>p.onclick=()=>p.classList.toggle("hid"));
+function synAll(h){document.querySelectorAll(".syn .pt").forEach(p=>p.classList.toggle("hid",h));}
+
+/* ================= ③ 全訳データ ================= */
+const TL=[
+{p:"第1段落",ti:"言葉は世論を動かす — コロナ禍の比喩",ins:null,items:[
+ [`Politicians and marketing executives have long known that language plays a crucial role …`,
+  `政治家やマーケティング担当の幹部たちは、言語が世論を動かすうえで決定的に重要な役割を果たすことを、ずっと以前から知っている。`],
+ [`A clever choice of metaphor, (<span class="bk">① in</span>) particular, can make a situation more accessible …`,
+  `とりわけ巧みな比喩の選択は、ある状況を一般の人々に理解しやすいものにすると同時に、都合の悪い細部は最小限に抑えつつ、話し手の優先事項を前面に押し出す仕組みにもなる。`],
+ [`A study documented the terminology used globally to describe the Covid-19 global pandemic …`,
+  `ある研究は、2020年に始まった新型コロナウイルス（COVID-19）の世界的大流行を説明するために、世界中で用いられた用語を記録した。`],
+ [`Many leaders employed war metaphors, describing the virus as an 'alien invader' …`,
+  `多くの指導者が戦争の比喩を用い、ウイルスを「異質な侵略者」と表現して、人々に「敵」と「戦う」よう、つまり共同体として一致団結するよう促した。`],
+ [`This discourse invokes memories of historic victories, allowing leaders to position themselves …`,
+  `この言説は歴史的な勝利の記憶を呼び起こし、指導者たちが自らを現代の英雄として位置づけること、そしてウイルスを「撃退する」ために作られたと表向きは説明される強権的な措置を国民に受け入れさせることを、可能にする。`],
+ [`References to sport (for example, '<span class="ul">(1) it's a marathon not a sprint</span>') also encouraged populations …`,
+  `スポーツへの言及（例えば「<span class="ul">これは短距離走ではなくマラソンだ</span>」）もまた、国民が指導者に対して辛抱強くあるよう促し、日常生活における長期の行動制限を受け入れる心構えをさせた。`],
+ [`The power that carefully chosen language <span class="ul">(2) has to change the way we perceive a situation</span> is clear.`,
+  `注意深く選ばれた言葉が、<span class="ul">私たちの状況の捉え方を変えてしまう力を持っている</span>ことは明らかである。`],
+ [`This has been the case throughout history, and has been well documented in the field of education …`,
+  `これは歴史を通じてずっとそうであったし、教育の分野において、とりわけ障がいに関して、十分に記録されてきた。`]]},
+{p:"第2段落",ti:"ディスコースとは何か — 意味を運ぶより「機能を果たす」",
+ ins:{lab:`空所 Ⅰ ＝ (F)`,
+  en:`When we talk about any aspect of our society, we have to make choices about the words that we use; the particular way that we use language is described as the discourse of that field.`,
+  ja:`私たちが社会のどんな側面について語るときも、どの言葉を使うかを選ばなければならない。そして、その分野に特有の言語の使い方が、その分野の「ディスコース（言説）」と呼ばれるものである。`},
+ items:[
+ [`Discourses do not carry meaning so much as perform specific functions … according to another study.`,
+  `別の研究によれば、ディスコースは意味を運ぶものというより、特定の機能を果たすものである。とりわけ教育が置かれている社会政治的な領域においてそうだ。`],
+ [`A different study points out that the developing professional identities of novice teachers become visible …`,
+  `さらに別の研究は、新任教師が形成しつつある職業的アイデンティティは、彼らの言説実践という観点から見たときに姿を現す、と指摘している。`],
+ [`Adopting professional discourses allows them to gain entry to the teaching community …`,
+  `職業上のディスコースを身につけることで、彼らは教師の共同体に参入することができ、また新たに触れる概念について自分の考えと理解を整理できるようにもなる。`]]},
+{p:"第3段落",ti:"「障がい」という語そのものが揺れている",
+ ins:{lab:`空所 Ⅱ ＝ (A)`,
+  en:`Although the desire to use transparent and non-offensive terminology may be strong, it is not always easy to find expressions that all can agree on, and even the term 'disability' is itself not straightforward to define.`,
+  ja:`分かりやすく人を傷つけない用語を使いたいという思いは強いかもしれないが、誰もが同意できる表現を見つけるのは必ずしも容易ではなく、「障がい」という語そのものでさえ、定義は単純ではない。`},
+ items:[
+ [`In the UK Equality Act (2010), it is defined as a 'physical or mental impairment which has a substantial and long-term adverse effect (<span class="bk">② on</span>) your ability …'`,
+  `英国の平等法（2010年）では、それは「通常の日常的な活動を行う能力に、重大かつ長期的な悪影響を及ぼす身体的または精神的な機能障害」と定義されている。これは、「重大」および「通常の日常的活動」をどう定義するかによっては、ディスレクシアも含む記述である。`],
+ [`Many dyslexic people are surprised when they learn that they are classed—technically—(<span class="bk">③ as</span>) being disabled …`,
+  `ディスレクシアのある多くの人は、自分が――厳密な定義の上では――障がい者に分類されると知って驚く。というのも、他の多くの障がい者集団と同じく、彼らは自分の障がいを、人格やアイデンティティを規定する特徴としてではなく、生活の中にある一連の障壁として捉えているからである。`],
+ [`In the UN Convention on the Rights of Persons with Disabilities, it is acknowledged that 'disability is an evolving concept' …`,
+  `国連の障害者権利条約では、「障害とは発展し続ける概念である」と認められている（国際連合、2006年）。`],
+ [`Definitions may therefore be subject to alteration as societies change their perceptions …`,
+  `したがって定義は、社会の認識が変化するにつれて、また障がい当事者の声がより多く議論の場で聞かれるようになるにつれて、変更されうるのである。`]]},
+{p:"第4段落",ti:"学生自身の言葉づかいもばらばらである",
+ ins:{lab:`空所 Ⅲ ＝ (D)`,
+  en:`Naturally, not every student accessing support from their institution will choose the same terminology to describe their lived experiences.`,
+  ja:`当然ながら、所属機関から支援を受けている学生の全員が、自分の実体験を語るのに同じ用語を選ぶわけではない。`},
+ items:[
+ [`A group of researchers found a wide range of discourses among students in higher education …, (<span class="bk">④ with</span>) some making use of …`,
+  `ある研究グループは、障がい支援を受けている高等教育の学生たちの間に、実に幅広いディスコースがあることを見出した。医学的な用語を使う学生もいれば、より力づけるような表現を選ぶ学生もいたのである。`],
+ [`There is an important question to be asked about whether (and to what degree) these students' self-perception …`,
+  `これらの学生の自己認識と行動が、周囲で耳にして自分の言葉づかいに取り込んでいく言語によって影響されるのか、またどの程度影響されるのかについては、問われるべき重要な問いがある。`]]},
+{p:"第5段落",ti:"支配的ディスコース vs 対抗的ディスコース",ins:null,items:[
+ [`Dominant discourses tend to reflect and further the interests of the powerful …, while competing discourses seek to challenge this power structure …`,
+  `支配的なディスコースは、力を持つ側（たとえば政策立案者や専門職団体）の利益を反映し、それを推し進める傾向がある。一方、対抗的なディスコースはこの権力構造に異議を唱え、たいていは抑圧された側・力の弱い側（この場合は障がいのある学生やその家族、擁護者たち）に有利になるよう、議論の焦点を置き直そうとする。`],
+ [`It takes time for alternative terminology (<span class="bk">⑤ to</span>) become established in a community, and usually even longer for attitudes to change …`,
+  `代わりとなる用語が共同体に定着するには時間がかかり、人々の態度が変わるにはたいていそれ以上の時間がかかる。コーベットが指摘するように、障がいに関わる言葉は「つねに流砂の上に築かれてきた……波が寄せてはひとそろいの言葉を洗い流し、そこに新たな形が描かれる」のである。`],
+ [`In order to establish the role that discourses play in our society, it is important to consider …`,
+  `ディスコースが私たちの社会で果たしている役割を明らかにするためには、言語と思考の関係を考えることが重要である。`]]},
+{p:"第6段落",ti:"言語決定論 vs 言語相対論",
+ ins:{lab:`空所 Ⅳ ＝ (E)`,
+  en:`The exact role that language plays in shaping our thoughts has long been debated by linguists, anthropologists and psychologists, but opinions are still divided as to the nature of the relationship between language and thought.`,
+  ja:`言語が私たちの思考を形づくるうえで果たしている正確な役割は、言語学者・人類学者・心理学者によって長らく議論されてきたが、言語と思考の関係がどのようなものであるかについては、いまなお意見が分かれている。`},
+ items:[
+ [`A group of researchers discuss a spectrum of views regarding the extent to which language shapes our view of the world …`,
+  `ある研究グループは、言語が私たちの世界の見方をどの程度形づくるのか（言語決定論）、それとも単に私たちの経験を反映しているだけなのか（言語相対論）をめぐる、幅のある見解を論じている。`],
+ [`Linguistic determinists argue that we may not be aware of things that our first language does not have ways of describing …`,
+  `言語決定論者は、母語が言い表す手段を持たない事物には私たちは気づけないかもしれない、と主張する。なぜなら、私たちの世界観は最初に習得する言語によって形づくられるからである。`],
+ [`(<span class="bk">あ Conversely</span>), linguistic relativists argue, babies and infants must generate thoughts long before … independent (<span class="bk">⑥ of</span>) our language use …`,
+  `（<b>これとは逆に</b>）言語相対論者はこう論じる。赤ん坊や幼児は、言語を使えるようになるずっと前から思考を生み出しているはずであり、したがって私たちの思考は言語使用から独立していて、言語に規定されるどころか、むしろ言語を形づくってさえいることは明らかだ、と。`]]},
+{p:"第7段落",ti:"結論 — 相互循環、そして「意識して言葉を変える」こと",ins:null,items:[
+ [`In its simplest form, the question is whether language fundamentally determines our view of the world … it may (<span class="bk">い never</span>) be possible to say definitively …`,
+  `最も単純化して言えば、問題は、言語が私たちの世界の見方を根本的に決定しているのか、それとも単に反映しているだけなのか、ということである。しかしこの長年の論争は極めて込み入っていて、言語が思考により大きな影響を及ぼすのか、それともその逆なのかを断定的に述べることは、（<b>決して</b>）できないかもしれない。`],
+ [`Most likely it is an interactive and cyclical process, which starts as language use develops …`,
+  `おそらくそれは、言語使用の発達とともに始まり、人の生涯を通じて続いていく、相互作用的で循環的な過程なのだろう。`],
+ [`What is important here is the idea that making a conscious effort to change our language habits and usage …`,
+  `ここで重要なのは、自分の言語習慣や言葉づかいを意識して変えようと努めることが、周りの世界についての自分の考え方を変えうるし、また関わり合う他者の考え方にも影響を与えうる、という考えである。`]]}
+];
+document.getElementById("tlbody").innerHTML=TL.map(t=>
+ `<div class="para${t.ins?" ins":""}">
+   <div class="pt2"><span class="pno">${t.p}</span><span class="pti">${t.ti}</span></div>
+   ${t.ins?`<div class="boxsent"><span class="bl">${t.ins.lab}（段落冒頭に入る文）</span>
+     <div class="cue">${esc(t.ins.en)}</div><div class="jp bj">${t.ins.ja}</div></div>`:""}
+   ${t.items.map(s=>`<div class="sent"><div class="cue">${s[0]}</div><div class="jp">${s[1]}</div></div>`).join("")}
+ </div>`).join("");
+
+let jpHidden=false,cueHidden=false;
+function toggleJP(){jpHidden=!jpHidden;
+ document.getElementById("tlbody").classList.toggle("tlhide",jpHidden);
+ document.getElementById("btnJP").textContent=jpHidden?"訳を表示":"訳を隠す";}
+function toggleCUE(){cueHidden=!cueHidden;
+ document.getElementById("tlbody").classList.toggle("cuehide",cueHidden);
+ document.getElementById("btnCUE").textContent=cueHidden?"英文キューを表示":"英文キューを隠す";}
+
+/* ================= ④ 設問データ ================= */
+const QS=[
+{no:"設問 1（記号＋60字以内の理由説明）",
+ ja:`下線部(1)に入れる例として最も適切なものを選び、記号で答えなさい。加えて、その例が文意に沿う理由を<b>60字以内（句読点を含む）</b>の日本語で説明しなさい。`,
+ ch:[["(A)","it's a marathon not a sprint","これは短距離走ではなくマラソンだ",1],
+     ["(B)","it's dribbling a basketball not kicking a soccer ball","これはサッカーボールを蹴るのではなくバスケットボールをドリブルすることだ"],
+     ["(C)","it's hitting a homerun not a foul ball","これはファウルボールではなくホームランを打つことだ"],
+     ["(D)","it's speed skating not figure skating","これはフィギュアスケートではなくスピードスケートだ"]],
+ ans:`<p><span class="k">正解：(A) it's a marathon not a sprint</span></p>
+ <p><b>根拠は空所の直後にある。</b> also encouraged populations to <b>be patient</b> with their leaders and prepared them to accept <b>long-term restrictions</b>。つまりこの比喩が生み出すべき効果は「<b>辛抱</b>」と「<b>長期</b>の制限の受け入れ」の2点。<b>長い時間耐える競技＝マラソン</b>しかない。</p>
+ <p class="note">実際にコロナ禍で各国首脳が繰り返した定番表現が "This is a marathon, not a sprint." で、本文の a study が記録した実例そのもの。</p>
+ <div class="model"><b>解答例（51字）</b>
+ <p>マラソンは短距離走と違い長期にわたる忍耐を要する競技であり、長期の行動制限の受容を促す比喩となるから。</p></div>
+ <div class="model"><b>別解（52字）</b>
+ <p>短距離走と違いマラソンは長期戦であり、我慢が長く続くという含意が、長期の制限受容を促す文脈に合うから。</p></div>
+ <p class="note">採点の骨：① マラソン＝<b>長時間・長期</b>の比喩であること ② それが本文の <b>be patient／long-term restrictions</b> という効果につながること。この2要素が入っていれば表現は自由。字数は50字前後を狙うと安全。</p>
+ <p><b>✕ (B)</b> バスケとサッカーの対比は<b>技術の種類</b>の違いで、時間の長さと無関係。<br>
+ <b>✕ (C)</b> ホームランとファウルの対比は<b>成功か失敗か</b>。忍耐とも長期とも関係がない。<br>
+ <b>✕ (D)</b> スピードスケートは<b>速さ</b>を含意するので、「長く待て」という文脈とむしろ<b>逆</b>。「フィギュア＝時間がかかる」と誤読させる引っかけ。</p>`},
+{no:"設問 2（語句整序）",
+ ja:`文脈を踏まえ、意味が通るように下線部(2)の単語を並べ替えて文を完成させなさい。<br>
+ <span style="font-size:.85rem;color:#64748b">The power that carefully chosen language ［ a, change, has, perceive, the, to, situation, way, we ］ is clear.</span>`,
+ ans:`<p><span class="k">正解：The power that carefully chosen language <u>has to change the way we perceive a situation</u> is clear.</span></p>
+ <p><b>手順①　骨格を確定する。</b>文末に <b>is clear</b> があるので、主語は <b>The power … </b>。that 以下はすべて power を修飾する関係詞節。</p>
+ <p><b>手順②　that の正体。</b>目的格の関係代名詞。language has ＿＿＿ の目的語が抜けており、そこに the power が入る。つまり元の形は <b>language has the power to do</b>（言語は～する力を持つ）。</p>
+ <p><b>手順③　has to を「～ねばならない」と読まない。</b>the power が前に出た結果 <b>has</b> と <b>to change</b> が隣り合っただけ。ここが最大の罠。</p>
+ <p><b>手順④　残りを組む。</b>change の目的語は <b>the way we perceive a situation</b>（＝私たちが状況を捉える仕方）。the way S V「SがVする仕方」。the way と how は併用できない。a situation は第2文の make <b>a situation</b> more accessible と呼応している。</p>
+ <p><b>訳：</b>注意深く選ばれた言葉が、私たちの状況の捉え方を変えてしまう力を持っていることは明らかである。</p>
+ <p class="note">チェック法：使用語 9 語（a / change / has / perceive / the / to / situation / way / we）をすべて1回ずつ使えているか必ず数えること。</p>`},
+{no:"設問 3（段落冒頭の文補充 Ⅰ〜Ⅳ）",
+ ja:`Ⅰ〜Ⅳ に入る最も適切な文を選択肢から選び、記号で答えなさい。ただし、各記号は1回しか使用できない。`,
+ ch:[["(A)","Although the desire to use transparent and non-offensive terminology may be strong, … even the term 'disability' is itself not straightforward to define.","分かりやすく人を傷つけない用語を使いたい思いは強くとも、誰もが同意できる表現を見つけるのは容易ではなく、「障がい」という語自体の定義さえ単純ではない。",1],
+     ["(B)","Discourse is socially constitutive as well as socially conditioned—it constitutes situations, objects of knowledge and the social identities of and relationships between people …","ディスコースは社会的に条件づけられていると同時に社会を構成してもいる。状況・知識の対象・人々の社会的アイデンティティや関係を作り出す。"],
+     ["(C)","Much of the terminology relating to disabled learners … used in Britain up to the 1970s is considered irrelevant today.","1970年代までの英国で使われていた障がいのある学習者に関する用語の多くは、今日では無関係だとみなされている。"],
+     ["(D)","Naturally, not every student accessing support from their institution will choose the same terminology to describe their lived experiences.","当然ながら、所属機関の支援を受ける学生の全員が、自分の実体験を語るのに同じ用語を選ぶわけではない。",1],
+     ["(E)","The exact role that language plays in shaping our thoughts has long been debated … but opinions are still divided …","言語が思考を形づくるうえで果たす正確な役割は長く議論されてきたが、言語と思考の関係については今なお意見が分かれている。",1],
+     ["(F)","When we talk about any aspect of our society, we have to make choices about the words that we use; the particular way that we use language is described as the discourse of that field.","社会のどの側面について語るときも、私たちは使う言葉を選ばねばならない。その分野に特有の言語の使い方が、その分野のディスコースと呼ばれる。",1]],
+ ans:`<p><span class="k">正解：Ⅰ ＝ (F)／Ⅱ ＝ (A)／Ⅲ ＝ (D)／Ⅳ ＝ (E)　（不使用：(B)・(C)）</span></p>
+ <p><b>解く順番は「代名詞と語のつながりが決定打になるもの」から。</b></p>
+ <p><b>Ⅱ ＝ (A)【最も easy。ここから取る】</b> 直後が <i>In the UK Equality Act (2010), <b>it</b> is defined as …</i>。この <b>it</b> が指すものが前になければならない。(A) の末尾は <i>even the term <b>'disability'</b> is itself not straightforward to define</i>。<b>define → is defined</b> の反復も決め手。</p>
+ <p><b>Ⅲ ＝ (D)</b> (D) は <b>not every …</b>（部分否定）＝「全員が同じ用語を選ぶわけではない」。直後がその中身 <i>a wide range of discourses …, with <b>some</b> … and <b>others</b> …</i>。<b>一般論 → 具体化</b>の典型。</p>
+ <p><b>Ⅳ ＝ (E)</b> 直前の段落末が <i>it is important to consider the relationship between <b>language and thought</b></i>、(E) の末尾も <b>language and thought</b>。そして直後が <i>a spectrum of views regarding …（determinism / relativism）</i>＝ (E) の <b>opinions are still divided</b> の具体化。</p>
+ <p><b>Ⅰ ＝ (F)</b> 残るは (B) と (F)。決め手は3つ。<br>
+ ① <b>語の導入順</b>：(F) は「discourse」という<b>用語そのものを定義する</b>文。第2段落以降この語が主役になるので、定義が先。<br>
+ ② <b>直後との論理</b>：<i>Discourses do <b>not carry meaning so much as</b> perform specific functions</i> は「意味を運ぶものと思われがちだが、そうではない」という<b>訂正</b>。その前提として「言語の使い方＝ディスコース」という素朴な定義（＝F）が置かれていなければ、訂正が宙に浮く。<br>
+ ③ <b>語彙の連結</b>：第1段落末 <i>in the <b>field</b> of education</i> → (F) 末尾 <i>the discourse of that <b>field</b></i> → 直後 <i><b>Discourses</b> do not carry …</i>。</p>
+ <p><b>✕ (B) が入らない理由</b>：内容は正しいが、これは discourse がすでに定義済みであることを前提に<b>その働きを論じる</b>文。定義より先に置くと順序が逆になる。また (B) を入れると、直後の「意味を運ぶのではなく機能を果たす」という対比が (B) の内容とほぼ重複してしまう。</p>
+ <p><b>✕ (C) が入らない理由</b>：「1970年代までの英国の用語」という限定的な話題は、本文のどの段落ともつながらない。第5段落は用語が変わる<b>速度</b>の話であって、特定の年代の話ではない。また「今日では<b>irrelevant（無関係）</b>だとみなされている」という断定自体、「言葉は変わっても態度が変わるのは遅い」という本文の論旨とかみ合わない。</p>`},
+{no:"設問 4（前置詞など ①〜⑥）",
+ ja:`（①）〜（⑥）に入る最も適切な単語を選択肢から選び、記号で答えなさい。ただし、各記号は1回しか使用できない。<br>
+ <span style="font-size:.85rem;color:#64748b">(A) around　(B) as　(C) at　(D) in　(E) of　(F) on　(G) out　(H) to　(I) with</span>`,
+ fill:[["① a clever choice of metaphor, ( ) particular","(D) in"],
+       ["② an adverse effect ( ) your ability","(F) on"],
+       ["③ classed—technically—( ) being disabled","(B) as"],
+       ["④ …disability support, ( ) some making use of…","(I) with"],
+       ["⑤ It takes time for terminology ( ) become established","(H) to"],
+       ["⑥ our thoughts are independent ( ) our language use","(E) of"]],
+ ans:`<p><span class="k">① (D) in ／ ② (F) on ／ ③ (B) as ／ ④ (I) with ／ ⑤ (H) to ／ ⑥ (E) of　（不使用：(A) around・(C) at・(G) out）</span></p>
+ <p><b>①　in particular</b>＝「とりわけ」。挿入句として主語の直後に置かれている。in particular／particularly は本文中に3回登場する筆者の口ぐせ。</p>
+ <p><b>②　have an adverse effect <u>on</u> ~</b>＝「～に悪影響を及ぼす」。effect / influence / impact はすべて <b>on</b> を取る。この3語セットで覚える。</p>
+ <p><b>③　be classed <u>as</u> ~</b>＝「～に分類される」。class A as B の受動。as の後ろが <b>being disabled</b>（動名詞）なので、前置詞でなければならない点も確認。regard / see / view / think of … as と同じ「A＝Bと見なす」型。</p>
+ <p><b>④　with＋名詞＋分詞（付帯状況）</b>。接続詞がないのに <b>some making …</b> and <b>others adopting …</b> という分詞句が続くので、これらを文につなげられるのは前置詞 <b>with</b> だけ。意味は「～する者もいれば、～する者もいるという状態で」。</p>
+ <p><b>⑤　It takes time for A <u>to</u> do</b>＝「Aが～するには時間がかかる」。for は不定詞の意味上の主語。ここを for … <b>to</b> become と見抜けるかどうか。</p>
+ <p><b>⑥　be independent <u>of</u> ~</b>＝「～から独立している」。independent は of とセット（from ではない）。反対は be dependent <b>on</b> ~。</p>
+ <p class="note">残った around / at / out は、いずれも本文の空所に入れると意味も語法も成立しない。ダミーは<b>「使わない語が3つある」と最初に確認</b>しておくと、迷ったときに消去法が効く。</p>`},
+{no:"設問 5（あ）",
+ ja:`著者の主張を踏まえ、（あ）に入る最も適切な単語を選択肢から選び、記号で答えなさい。`,
+ ch:[["(A)","Conversely","逆に、これとは反対に",1],
+     ["(B)","Moreover","さらに、その上"],
+     ["(C)","Regrettably","残念ながら"],
+     ["(D)","Therefore","したがって"]],
+ ans:`<p><span class="k">正解：(A) Conversely</span></p>
+ <p>（あ）の<b>前</b>：linguistic <b>determinists</b> argue …（言語が思考を決める）。<br>
+ （あ）の<b>後</b>：linguistic <b>relativists</b> argue …（思考が先にあり、むしろ言語を形づくる）。</p>
+ <p>正反対の2つの立場が並んでいるので、逆接・対照の <b>Conversely</b>。空所の直後に相手方の名称（relativists）が来ている時点で対比だと判断できる。</p>
+ <p><b>✕ (B) Moreover</b>＝追加。同じ方向の主張を重ねるときの語で、立場が入れ替わる場面では使えない。<br>
+ <b>✕ (C) Regrettably</b>＝「残念ながら」。筆者の<b>価値判断</b>が入る語。しかし筆者は最終段落で <i>Most likely it is an interactive and cyclical process</i> と<b>どちらにも肩入れしない中立</b>の立場を取る。だから一方を「残念」と評することはない（＝「著者の主張を踏まえ」という設問文の指示がここで効く）。<br>
+ <b>✕ (D) Therefore</b>＝因果。決定論から相対論は導けない。</p>`},
+{no:"設問 6（い）",
+ ja:`著者の主張を踏まえ、（い）に入る最も適切な単語を選択肢から選び、記号で答えなさい。`,
+ ch:[["(A)","always","つねに"],
+     ["(B)","never","決して～ない",1],
+     ["(C)","often","しばしば"],
+     ["(D)","sometimes","時々"]],
+ ans:`<p><span class="k">正解：(B) never</span>　→ <b>it may never be possible to say definitively …</b>「断定的に言うことは決してできないかもしれない」</p>
+ <p><b>根拠①（直前）</b>：but this long-running debate is <b>extremely nuanced</b>。「極めて込み入っている」＝<b>単純な結論は出ない</b>という前置き。but があるので、前半（言語が決めるのか反映するのかという単純な二択）を否定する内容が来る。</p>
+ <p><b>根拠②（直後）</b>：<b>Most likely it is an interactive and cyclical process</b>。そもそも「どちらが優位か」という問いの立て方自体が適切でない、というのが筆者の答え。だから「いつか断定できる」ではなく「<b>決して断定できないかもしれない</b>」。</p>
+ <p><b>✕ (A) always</b>「つねに断定できるかもしれない」…nuanced と正面から矛盾。<br>
+ <b>✕ (C) often／(D) sometimes</b>「しばしば／時には断定できるかもしれない」…断定できる場合があることになり、やはり nuanced・cyclical の主張と噛み合わない。<b>部分的に可能</b>と<b>原理的に不可能</b>の区別がこの問題の核心。</p>
+ <p class="note">文法の確認：<b>may never</b>＝「決して～しないかもしれない」。never は not より強い全面否定で、may（可能性）と組んで「可能になる日は来ないかもしれない」という含みを作る。</p>`}
+];
+document.getElementById("qbody").innerHTML=QS.map(q=>{
+ let inner=`<div class="qbox"><span class="qno">${q.no}</span>
+  <div class="qja">${q.ja}</div>`;
+ if(q.fill){
+  inner+=`<div class="fill">`+q.fill.map(f=>
+   `<div>${esc(f[0])}<br><span class="slot">${f[1]}</span></div>`).join("")+`</div>`;
+ }
+ if(q.ch){
+  inner+=q.ch.map(c=>`<div class="ch${c[3]?" ok":""}"><b>${c[0]}</b><span><span style="font-style:italic;color:#334155">${esc(c[1])}</span><br><span class="cja">${c[2]}</span></span></div>`).join("");
+ }
+ inner+=`<div class="ans hid"><div class="hd">解答・解説（タップで表示）</div><div class="body">${q.ans}</div></div></div>`;
+ return inner;}).join("");
+document.querySelectorAll(".ans").forEach(a=>a.onclick=()=>{
+ a.classList.toggle("hid");
+ a.closest(".qbox").classList.toggle("reveal",!a.classList.contains("hid"));});
+
+/* ================= タブ ================= */
+function setTab(t){
+ ["vocab","syn","tl","q"].forEach(k=>{
+  document.getElementById("tab-"+k).classList.toggle("hide",k!==t);
+  document.getElementById("tb-"+k).classList.toggle("on",k===t);});
+ window.scrollTo({top:0,behavior:"smooth"});}
+
+render();
+</script>
+</body>
+</html>
