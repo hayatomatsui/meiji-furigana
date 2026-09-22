@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>discourse と CDA — 用語と分析道具</title>
+<style>
+:root{
+  --bg:#f5f4f2; --card:#fff; --ink:#1a1b1e; --sub:#6b6f76; --line:#e7e4df;
+  --ac:#7c2d12; --ac2:#b45309; --am:#f59e0b; --in:#3730a3; --in2:#6d28d9;
+  --gr:#15803d; --rd:#b91c1c;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+  background:var(--bg);color:var(--ink);padding:18px;line-height:1.75}
+.wrap{max-width:1080px;margin:0 auto}
+header{background:linear-gradient(140deg,#1c1917,#3730a3 55%,#7c2d12);color:#fff;
+  border-radius:20px;padding:30px 26px 20px;margin-bottom:16px;box-shadow:0 10px 30px rgba(28,25,23,.3)}
+header .eye{font-size:.72rem;letter-spacing:.22em;opacity:.75;font-weight:700}
+header h1{font-size:1.5rem;margin:8px 0 10px;line-height:1.45}
+header p{opacity:.92;font-size:.87rem;max-width:760px}
+header a{color:#fde68a;font-weight:700;text-decoration:none}
+header a:hover{text-decoration:underline}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.tabs button{background:rgba(255,255,255,.16);color:#fff;box-shadow:none;padding:9px 16px}
+.tabs button.on{background:#fff;color:#1c1917}
+button{font-family:inherit;cursor:pointer;border:none;border-radius:999px;padding:8px 15px;
+  font-size:.82rem;font-weight:700;transition:.15s;background:#fff;color:var(--sub);
+  box-shadow:0 2px 6px rgba(0,0,0,.08)}
+button:hover{transform:translateY(-1px)}
+h2{font-size:1.1rem;margin:26px 0 12px;padding-left:13px;border-left:5px solid var(--in2)}
+h3{font-size:.98rem;margin:18px 0 8px}
+p.lead{font-size:.87rem;color:var(--sub);margin-bottom:12px}
+.hide{display:none}
+.box{background:var(--card);border-radius:16px;padding:18px 20px;box-shadow:0 2px 10px rgba(0,0,0,.06);
+  margin-bottom:13px}
+.box p+p{margin-top:9px}
+.note{font-size:.82rem;color:var(--sub);margin-top:9px}
+.kw{background:linear-gradient(transparent 60%,#fde68a 60%);font-weight:700}
+.en{font-style:italic;color:#44403c}
+b.hl{color:var(--in)}
+.tblwrap{overflow-x:auto;margin-bottom:13px}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;
+  box-shadow:0 2px 10px rgba(0,0,0,.06)}
+th,td{padding:11px 13px;text-align:left;border-bottom:1px solid #f1f0ee;font-size:.86rem;vertical-align:top}
+th{background:#1c1917;color:#fff;font-size:.74rem;letter-spacing:.04em}
+tbody tr:nth-child(even){background:#faf9f7}
+td.lv{font-weight:800;white-space:nowrap;color:var(--in)}
+tr.key{background:#fffbeb !important}
+tr.key td{font-weight:600}
+/* 可算性 */
+.cnt{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+.cnt .c{background:#fff;border-radius:16px;padding:16px 18px;box-shadow:0 2px 10px rgba(0,0,0,.06);
+  border-top:5px solid #94a3b8}
+.cnt .c.pro{border-top-color:var(--in2)}
+.cnt h4{font-size:.95rem;margin-bottom:5px}
+.cnt .tag{font-size:.68rem;font-weight:800;color:#fff;background:#94a3b8;border-radius:999px;
+  padding:2px 10px;display:inline-block;margin-bottom:8px}
+.cnt .c.pro .tag{background:var(--in2)}
+.cnt ul{margin-left:18px;font-size:.86rem}
+.cnt li{margin-bottom:4px}
+@media(max-width:700px){.cnt{grid-template-columns:1fr}}
+/* 判定ドリル */
+.drill .item{background:#fff;border-radius:13px;padding:13px 16px;margin-bottom:9px;
+  box-shadow:0 2px 9px rgba(0,0,0,.06);cursor:pointer}
+.drill .item:hover{background:#fffdf7}
+.drill .s{font-size:.93rem;font-style:italic;color:#292524}
+.drill .a{font-size:.85rem;margin-top:9px;padding-top:9px;border-top:1px dashed var(--line)}
+.drill .a .v{font-weight:800}
+.drill .a .v.d{color:var(--sub)} .drill .a .v.p{color:var(--in2)}
+/* Gee 2列 */
+.gee{display:grid;grid-template-columns:1fr 1.25fr;gap:12px;margin:14px 0}
+.gee .g{background:#fff;border-radius:16px;padding:16px 18px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.gee .g.big{border-left:6px solid var(--ac2)}
+.gee .g.small{border-left:6px solid #94a3b8}
+.gee .d{font-size:2rem;font-weight:800;line-height:1;margin-bottom:6px}
+.gee .g.big .d{color:var(--ac2)} .gee .g.small .d{color:#94a3b8}
+.gee h4{font-size:.95rem;margin-bottom:7px}
+.gee p{font-size:.87rem}
+@media(max-width:700px){.gee{grid-template-columns:1fr}}
+.kit{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}
+.kit span{background:#fff7ed;border:1.5px solid #fed7aa;border-radius:999px;padding:5px 12px;
+  font-size:.8rem;font-weight:700;color:var(--ac)}
+/* 引用 */
+.quote{background:#faf9f7;border-left:5px solid var(--in);border-radius:0 12px 12px 0;
+  padding:13px 17px;margin:12px 0;font-size:.9rem}
+.quote .en2{font-style:italic;color:#292524;line-height:1.7}
+.quote .ja{font-size:.85rem;color:var(--sub);margin-top:7px}
+/* 3次元 */
+.dim{margin:14px 0}
+.dim .layer{background:#fff;border-radius:16px;box-shadow:0 2px 10px rgba(0,0,0,.06);
+  padding:15px 18px;margin-bottom:0;position:relative}
+.dim .l3{border:2px solid #ddd6fe;padding-bottom:16px}
+.dim .l2{border:2px solid #c7d2fe;margin:11px 0 0}
+.dim .l1{border:2px solid #bfdbfe;margin:11px 0 0}
+.dim .nm{font-size:.7rem;font-weight:800;letter-spacing:.06em;color:var(--in2);margin-bottom:5px}
+.dim h4{font-size:.95rem;margin-bottom:5px}
+.dim p{font-size:.86rem;color:#44403c}
+.dim .q{font-size:.83rem;color:var(--in);font-weight:700;margin-top:6px}
+/* 道具カード */
+.tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(285px,1fr));gap:12px;margin-top:12px}
+.tool{background:#fff;border-radius:16px;padding:16px 18px;box-shadow:0 2px 10px rgba(0,0,0,.06);
+  border-left:6px solid var(--in2)}
+.tool .n{font-size:.68rem;font-weight:800;color:#fff;background:var(--in2);border-radius:999px;
+  padding:2px 10px;display:inline-block;margin-bottom:8px}
+.tool h4{font-size:.97rem;margin-bottom:6px}
+.tool p{font-size:.86rem}
+.tool .ex{font-size:.83rem;color:#44403c;margin-top:9px;padding:9px 12px;background:#faf9f7;
+  border-radius:10px}
+.tool .ex .en{display:block;margin-bottom:3px}
+/* 名詞化ステッパー */
+.nomi{background:#fff;border-radius:18px;padding:18px 20px;box-shadow:0 2px 12px rgba(0,0,0,.07);margin:14px 0}
+.nomi .lt{font-size:1.02rem;font-weight:800;margin-bottom:4px}
+.nomi .ld{font-size:.83rem;color:var(--sub);margin-bottom:13px}
+.nomi .stage{background:#faf9f7;border:1px solid var(--line);border-radius:14px;padding:16px 18px;
+  text-align:center;margin-bottom:11px}
+.nomi .txt{font-size:1.1rem;font-style:italic;font-weight:700;color:#292524;line-height:1.5}
+.nomi .agent{margin-top:12px;font-size:.85rem}
+.nomi .agent .lb{font-size:.66rem;font-weight:800;letter-spacing:.05em;color:var(--sub);
+  display:block;margin-bottom:4px}
+.nomi .agent .who{font-weight:800;font-size:.95rem}
+.nomi .agent .who.on{color:var(--gr)} .nomi .agent .who.off{color:var(--rd)}
+.nomi .ctl{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.nomi .ctl .pg{font-size:.8rem;color:var(--sub);font-weight:700}
+.nomi .memo{background:#f5f3ff;border-radius:12px;padding:12px 15px;font-size:.87rem;margin-top:11px;
+  border-left:5px solid var(--in2)}
+/* 他動性3枚 */
+.tri{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}
+.tri .t{background:#fff;border-radius:14px;padding:13px 15px;box-shadow:0 2px 9px rgba(0,0,0,.06);
+  border-top:4px solid var(--am)}
+.tri .w{font-size:.95rem;font-weight:800;font-style:italic;color:#292524;margin-bottom:6px}
+.tri p{font-size:.83rem}
+@media(max-width:700px){.tri{grid-template-columns:1fr}}
+/* 判定バッジ */
+.bd{font-size:.7rem;font-weight:800;border-radius:999px;padding:2px 9px;white-space:nowrap;color:#fff}
+.bd.t1{background:var(--gr)} .bd.t2{background:var(--ac2)} .bd.t3{background:#94a3b8}
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:11px;font-size:.83rem;align-items:center}
+.legend span.l{display:flex;gap:6px;align-items:center}
+/* まとめ */
+.fin{background:linear-gradient(140deg,#1c1917,#3730a3);color:#fff;border-radius:18px;
+  padding:22px 24px;margin-top:16px;box-shadow:0 8px 24px rgba(28,25,23,.25)}
+.fin h3{font-size:1.05rem;margin-bottom:9px;color:#fde68a}
+.fin p{font-size:.89rem;opacity:.95} .fin p+p{margin-top:9px}
+.links{background:#fff;border-radius:16px;padding:17px 20px;box-shadow:0 2px 10px rgba(0,0,0,.06);
+  margin-top:14px}
+.links h3{margin-top:0} .links li{font-size:.87rem;margin-bottom:7px;margin-left:19px}
+.links a{color:var(--in);font-weight:700}
+footer{text-align:center;font-size:.78rem;color:var(--sub);margin:22px 0 6px}
+@media(max-width:640px){body{padding:12px}header h1{font-size:1.16rem}.box,.nomi{padding:15px 15px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eye">名大英語 大問Ⅱ ／ 用語編</div>
+  <h1>discourse と CDA<br>— 用語の三層と、分析の道具立て</h1>
+  <p>本文の discourse は日常語の「議論」ではありません。どの層の意味なのかを可算性で見分け、Gee の大文字 D を押さえ、批判的言説分析（CDA）が実際に何を見ているのかまで一気に整理します。最後に、その道具のうち本文がどれを扱い、どれを自分で使っているかを対照します。</p>
+  <p style="margin-top:12px;font-size:.83rem">
+    <a href="名大英語_大問2_ディスコースと障がい_単語構文全訳.html">→ 本編（単語・構文・全文対訳・設問解説）</a>　
+    <a href="名大英語_大問2_言説と権力_哲学背景.html">→ 背景知識（ソシュール〜ハッキングの系譜）</a>
+  </p>
+  <div class="tabs">
+    <button id="tb-core" class="on" onclick="setTab('core')">① discourse の核</button>
+    <button id="tb-gee" onclick="setTab('gee')">② Gee の大文字D</button>
+    <button id="tb-cda" onclick="setTab('cda')">③ CDA とは</button>
+    <button id="tb-map" onclick="setTab('map')">④ 本文は何を扱ったか</button>
+  </div>
+</header>
+
+<!-- ========== ① 核心 ========== -->
+<section id="tab-core">
+
+<h2>三層ある。本文は全部が三層目</h2>
+<p class="lead">同じ綴りで、まったく別の概念が三つ走っています。どれを当てはめるかで全文の読みが変わります。</p>
+
+<div class="tblwrap">
+<table>
+  <thead><tr><th style="width:130px">層</th><th>意味</th><th style="width:110px">訳</th></tr></thead>
+  <tbody>
+    <tr><td class="lv">日常英語</td><td>まとまった論述・議論。語源は dis-（あちこち）＋ currere（走る）＝話が行き来すること</td><td>談話・論説</td></tr>
+    <tr><td class="lv">言語学</td><td>文を超えた単位。文法が文<b>の中</b>の規則なら、談話は文<b>をまたぐ</b>つながり（discourse analysis）</td><td>談話</td></tr>
+    <tr class="key"><td class="lv">社会理論</td><td>ある対象について<span class="kw">「何がどう語られうるか」を規定している語り方の総体</span>。それ自体が対象をつくり出す</td><td>言説</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box">
+  <p>本文の discourse は<b class="hl">すべて三段目</b>です。「議論」「会話」と訳すと全文が崩れます。それを一文で宣言しているのが第2段落の冒頭。</p>
+  <div class="quote">
+    <div class="en2">Discourses do <b>not carry meaning so much as perform</b> specific functions.</div>
+    <div class="ja">言葉は意味を<b>運ぶ</b>のではなく、特定の機能を<b>果たす</b>。</div>
+  </div>
+  <p>carry（運ぶ／容器）と perform（行う／装置）の対比が、この分野の合言葉です。</p>
+</div>
+
+<h2>実用的な見分け方 ── 可算性</h2>
+<p class="lead">試験場で一番速い判定法。辞書的な意味を思い出すより、冠詞と語尾を見るほうが確実です。</p>
+
+<div class="cnt">
+  <div class="c">
+    <span class="tag">不可算</span>
+    <h4>日常語の discourse</h4>
+    <p style="font-size:.87rem">「〜をめぐる議論全般」。話題の総称であって、対立する複数の立場を数えていない。</p>
+    <ul style="margin-top:9px">
+      <li><span class="en">public discourse</span>（世論・公共的な議論）</li>
+      <li><span class="en">political discourse</span>（政治的言説＝政治をめぐる語り全般）</li>
+      <li><span class="en">academic discourse</span>（学術的な言葉づかい）</li>
+    </ul>
+  </div>
+  <div class="c pro">
+    <span class="tag">可算・とくに複数形</span>
+    <h4>専門用法の discourses</h4>
+    <p style="font-size:.87rem">ほぼ確実にフーコー／CDA 系。<b>複数形になった時点で「互いに競合する複数の語り方」を含意</b>している。</p>
+    <ul style="margin-top:9px">
+      <li><span class="en">dominant discourses</span>（支配的言説）</li>
+      <li><span class="en">competing discourses</span>（対抗言説）</li>
+      <li><span class="en">a wide range of discourses</span>（第4段落）</li>
+    </ul>
+  </div>
+</div>
+
+<div class="box">
+  <p><b>数えられる名詞になったということは、他の discourse と区別され、並べられ、争わされているということ</b>です。ここが読解上の分岐点になります。</p>
+  <p class="note">なお可算<b>単数</b>もあります。第1段落の <span class="en">This discourse invokes memories of historic victories</span> は「戦争の比喩という一つの語り方」を指す可算単数。「この議論は」と訳すと意味が崩れます。</p>
+</div>
+
+<h3>判定ドリル</h3>
+<p class="lead">クリックすると判定と訳が出ます。</p>
+<div class="drill" id="drill"></div>
+
+</section>
+
+<!-- ========== ② Gee ========== -->
+<section id="tab-gee" class="hide">
+
+<h2>第2段落後半の正体は Gee である</h2>
+<p class="lead">novice teachers の話は、フーコーでもフェアクローでもありません。教育分野で discourse といえば、まずこの枠組みです。</p>
+
+<div class="box">
+  <p><b>James Paul Gee</b>（ジェームズ・ポール・ジー）が導入した、頭文字の大小による区別。教育学・リテラシー研究では標準装備です。</p>
+</div>
+
+<div class="gee">
+  <div class="g small">
+    <div class="d">d</div>
+    <h4>discourse（小文字）</h4>
+    <p>言語使用そのもの。実際に話され書かれた言葉のつながり。</p>
+  </div>
+  <div class="g big">
+    <div class="d">D</div>
+    <h4>Discourse（大文字）</h4>
+    <p>言葉だけではない。<b>振る舞い・服装・価値観・道具・立ち居振る舞いまで含めた組み合わせ</b>で、「ある集団の一員として<span class="kw">認知される</span>ためのキット」。Gee はこれを <span class="en">identity kit</span>（アイデンティティ・キット）と呼びました。</p>
+    <div class="kit">
+      <span>語彙・言い回し</span><span>振る舞い</span><span>服装</span><span>価値観</span><span>道具</span><span>居場所</span>
+    </div>
+  </div>
+</div>
+
+<div class="box">
+  <p>大文字 D のポイントは<b class="hl">「認知される」</b>という受動形にあります。自分で名乗るのではなく、<b>その集団から一員として通用させてもらえるか</b>。だから Discourse は身につけるものであると同時に、審査されるものです。</p>
+</div>
+
+<h3>本文はこの定式そのまま</h3>
+<div class="quote">
+  <div class="en2">Adopting professional discourses <b>allows them to gain entry to the teaching community</b> and enables them to organize their ideas and understanding of the new concepts.</div>
+  <div class="ja">専門的な言説を身につけることが、彼らに教職共同体への参入を許し、また新しい概念についての考えと理解を整理することを可能にする。</div>
+</div>
+
+<div class="box">
+  <p>新人教師は、教育学の用語を使えるようになることで<b>「教師らしく」なる</b>。<span class="kw">言葉を身につけることが、共同体のメンバーシップを獲得することと同義になっている</span>。単なる語彙習得の話ではありません。</p>
+  <p>だから第2段落の <span class="en">developing professional identities ... become visible when considered from the perspective of their discursive practices</span>（言説実践の観点から見ると、専門職アイデンティティの形成が可視化される）が成り立つ。アイデンティティが言葉づかいに<b>現れる</b>のではなく、言葉づかいがアイデンティティを<b>作っている</b>。</p>
+  <p class="note">同じ構造は身近にもあります。新入社員が社内用語を使い始めた瞬間に「社員らしく」なる、研究者が分野の術語で話せた瞬間に同業者として扱われる。Discourse は入場券です。</p>
+</div>
+
+<div class="box" style="border-left:6px solid var(--am)">
+  <h3 style="margin-top:0">後半は第6段落への伏線</h3>
+  <p>引用文の後半 <span class="en">enables them to organize their ideas and understanding of the new concepts</span> に注目。ここで論点が<b>共同体への参入</b>から<b>思考の整理</b>へ移っています。</p>
+  <p>つまり「言葉 → 集団への所属」だけでなく「言葉 → 思考の形」まで踏み込んだ。これが第6段落の言語決定論／言語相対論の議論へ、そのままつながります。<b class="hl">第2段落と第6段落は、この一句で連結されている</b>。</p>
+</div>
+
+</section>
+
+<!-- ========== ③ CDA ========== -->
+<section id="tab-cda" class="hide">
+
+<h2>CDA ＝ Critical Discourse Analysis（批判的言説分析）</h2>
+<p class="lead">フーコーの言説論を、実際のテキストを一行ずつ分析する手続きに落とし込んだ研究プログラム。背景知識ページの「フェアクロー 1989/92」の項目がこれです。</p>
+
+<div class="box">
+  <p>普通の談話分析（discourse analysis）は、会話や文章がどう構造化されているかを<b>記述</b>します。結束性、ジャンル、話者交替。記述で止まる。</p>
+  <p>CDA は問いを一段足します ── <b class="hl">この語り方は誰の利益になっているのか</b>。</p>
+  <p>前提は「言語使用は中立ではない」。あらゆるテキストは無数の選択肢から特定の語彙・構文・比喩を選んだ結果であり、その選択にイデオロギーが沈殿している。しかも書き手自身が自覚していないことが多い。だから分析者が掘り出す。</p>
+  <p class="note">critical は「非難する」ではなく、語源 krinein（分ける・より分ける）から来た「吟味する」。critical acclaim（批評家の絶賛）が示すとおり、この語自体は否定的な意味を持ちません。</p>
+</div>
+
+<h2>フェアクローの3次元モデル</h2>
+<p class="lead">CDA の標準的な枠組み。テキストを三つの入れ子として見ます。外側にいくほど、見るものが大きくなる。</p>
+
+<div class="dim">
+  <div class="layer l3">
+    <div class="nm">LAYER 3 ／ 社会実践</div>
+    <h4>social practice</h4>
+    <p>権力関係・イデオロギー・ヘゲモニー</p>
+    <div class="q">問い：それは何を維持し、何を変革しているか</div>
+
+    <div class="layer l2">
+      <div class="nm">LAYER 2 ／ 言説実践</div>
+      <h4>discursive practice</h4>
+      <p>誰が作り、どう流通し、誰が受け取るか（生産・配布・消費）</p>
+      <div class="q">問い：このテキストはどんな慣行の産物か</div>
+
+      <div class="layer l1">
+        <div class="nm">LAYER 1 ／ テキスト</div>
+        <h4>text</h4>
+        <p>語彙・文法・比喩の選択</p>
+        <div class="q">問い：何が、どう書かれているか</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="box">
+  <p>三層目に<b>グラムシのヘゲモニー</b>が入るのが肝です。支配は暴力ではなく<b class="hl">同意</b>によって維持される。その同意を調達する装置が言説である、と。</p>
+  <p>本文第5段落の <span class="en">dominant discourses</span> と <span class="en">competing discourses</span> の押し合いは、まさにヘゲモニー闘争の記述です。</p>
+  <div class="quote">
+    <div class="en2">Dominant discourses tend to reflect and further <b>the interests of the powerful</b> ... while competing discourses seek to <b>challenge this power structure</b> and refocus the discussion, usually in favor of the oppressed or less powerful.</div>
+  </div>
+</div>
+
+<h2>実際に何を見るか ── 7つの道具</h2>
+<p class="lead">分析の道具立ては Halliday の選択体系機能言語学から来ています。「他の言い方もできたのに、なぜこれを選んだのか」を毎回問う。</p>
+
+<div class="tools">
+  <div class="tool">
+    <span class="n">TOOL 1</span>
+    <h4>語彙選択（naming）</h4>
+    <p>何と呼ぶか。同じ人・同じ事態を指していても、責任の所在が動く。</p>
+    <div class="ex"><span class="en">illegal immigrant ／ undocumented worker ／ asylum seeker</span>
+    同じ人を指して、犯罪者・労働者・庇護を求める人へと位置が変わる。</div>
+  </div>
+
+  <div class="tool">
+    <span class="n">TOOL 2</span>
+    <h4>比喩（metaphor）</h4>
+    <p>何に喩えるか。比喩は飾りではなく、何を見せ何を隠すかを決める装置。</p>
+    <div class="ex"><span class="en">a war on drugs ／ a public health crisis</span>
+    戦争に喩えれば敵と兵士が要る。公衆衛生に喩えれば患者と治療が要る。</div>
+  </div>
+
+  <div class="tool">
+    <span class="n">TOOL 3</span>
+    <h4>名詞化（nominalization）</h4>
+    <p>動詞を名詞に変えると<b>行為者が消える</b>。CDA が最も重視する指標。</p>
+    <div class="ex"><span class="en">They cut the budget. → the budget cuts → austerity</span>
+    誰が切ったのかが消えていく。→ 下のステッパーで確認</div>
+  </div>
+
+  <div class="tool">
+    <span class="n">TOOL 4</span>
+    <h4>受動態・行為者削除</h4>
+    <p>by 〜 を落とせば、誰がやったのかを言わずに済む。</p>
+    <div class="ex"><span class="en">Mistakes were made.</span>
+    誰が? ── 政治家の謝罪会見に頻出する構文です。</div>
+  </div>
+
+  <div class="tool">
+    <span class="n">TOOL 5</span>
+    <h4>他動性（transitivity）</h4>
+    <p>誰が能動的な行為者として、誰が受け身の側として布置されているか。</p>
+    <div class="ex">障がいの言説では、同じ状態が三通りに配置されます → 下の3枚を参照</div>
+  </div>
+
+  <div class="tool">
+    <span class="n">TOOL 6</span>
+    <h4>法性（modality）</h4>
+    <p>断定の強さ。must / should / may / 言い切り。誰が断定する権利を持つか。</p>
+    <div class="ex"><span class="en">This is the case. ／ This may be the case.</span>
+    強い法性は権威の表明であり、弱い法性は留保の表明。</div>
+  </div>
+
+  <div class="tool">
+    <span class="n">TOOL 7</span>
+    <h4>前提（presupposition）</h4>
+    <p>議論せずに既成事実として滑り込ませる。否定しても消えないものが前提。</p>
+    <div class="ex"><span class="en">When did you stop ...?</span>
+    「していた」ことが前提に埋め込まれ、問いに答えると認めたことになる。</div>
+  </div>
+</div>
+
+<div class="nomi">
+  <div class="lt">道具3の実演 ── 行為者はこうして消える</div>
+  <div class="ld">同じ出来事を三段階で書き換えます。ボタンを押してください。</div>
+  <div class="stage">
+    <div class="txt" id="nomiTxt">The police shot the protesters.</div>
+    <div class="agent">
+      <span class="lb">誰が撃ったのか</span>
+      <span class="who on" id="nomiWho">明示されている（The police）</span>
+    </div>
+  </div>
+  <div class="ctl">
+    <button onclick="nomiNext()" style="background:var(--in2);color:#fff">▶ 書き換える</button>
+    <button onclick="nomiReset()">最初に戻す</button>
+    <span class="pg" id="nomiPg">段階 1 / 3</span>
+  </div>
+  <div class="memo" id="nomiMemo">動詞 shot が、行為者・対象・行為を全部抱えています。文法的に主語が要るので、誰がやったかを書かざるを得ない。</div>
+</div>
+
+<h3>道具5の実演 ── 同じ状態の三つの配置</h3>
+<div class="tri">
+  <div class="t">
+    <div class="w">suffers from dyslexia</div>
+    <p><b>病が主体</b>。人は被害を受ける側に置かれる。同情と治療の語彙を呼ぶ。</p>
+  </div>
+  <div class="t">
+    <div class="w">is dyslexic</div>
+    <p><b>属性</b>。人そのものの性質になる。アイデンティティとして固定されやすい。</p>
+  </div>
+  <div class="t">
+    <div class="w">has dyslexia</div>
+    <p><b>所有物</b>。人が主体で、状態は持ち物のひとつ。切り離して扱える。</p>
+  </div>
+</div>
+<div class="box">
+  <p class="note">指している状態は三つとも同一です。変わるのは、人と困難のあいだの<b>力の向き</b>だけ。第3段落の <span class="en">a series of barriers in their lives, rather than as a defining characteristic of their personality or identity</span> は、まさにこの配置の選択を論じています。</p>
+</div>
+
+</section>
+
+<!-- ========== ④ 本文は何を扱ったか ========== -->
+<section id="tab-map" class="hide">
+
+<h2>本文が論じた道具は、7つのうち2つだけ</h2>
+<p class="lead">残りの5つは、本文が<b>論じていない</b>代わりに<b>自分で使っています</b>。ここが面白いところです。</p>
+
+<div class="legend">
+  <span class="l"><span class="bd t1">論じている</span>本文が明示的に主題化</span>
+  <span class="l"><span class="bd t2">使っている</span>論じないが本文自身が実演</span>
+  <span class="l"><span class="bd t3">扱わない</span>本文に登場しない</span>
+</div>
+
+<div class="tblwrap">
+<table>
+  <thead><tr><th style="width:150px">道具</th><th style="width:96px">扱い</th><th>本文のどこに</th></tr></thead>
+  <tbody>
+    <tr class="key">
+      <td class="lv">1 語彙選択</td><td><span class="bd t1">論じている</span></td>
+      <td>第3〜5段落がまるごとこれ。<span class="en">disabled people</span> と <span class="en">people with disabilities</span>、<span class="en">medical terminology</span> と <span class="en">more empowering expressions</span>、書名の <span class="en">specific learning differences</span>。第5段落の Corbett 引用（<span class="en">shifting sands ... waves move in to wash away one set of words</span>）は、語彙が入れ替わり続ける現象そのものの記述。</td>
+    </tr>
+    <tr class="key">
+      <td class="lv">2 比喩</td><td><span class="bd t1">論じている</span></td>
+      <td>第1段落がまるごとこれ。<span class="en">war metaphors</span>／<span class="en">alien invader</span>／<span class="en">fight the enemy</span>／<span class="en">repel</span>、そしてスポーツへの言及。<b>CDA の教科書的な定式を、出題文が地の文で説明してしまっている</b>：<span class="en">fore-fronted, while minimizing any inconvenient details</span>。</td>
+    </tr>
+    <tr>
+      <td class="lv">3 名詞化</td><td><span class="bd t3">扱わない</span></td>
+      <td>CDA の中心道具だが、本文は触れない。<span class="en">discourse</span> という語自体が動詞 discourir の名詞形である、というところまでは行かない。</td>
+    </tr>
+    <tr>
+      <td class="lv">4 行為者削除</td><td><span class="bd t2">使っている</span></td>
+      <td>研究者名がすべて <span class="en">A study</span>／<span class="en">another study</span>／<span class="en">A different study</span>／<span class="en">A group of researchers</span> に置き換えられている（出題にあたる改変）。さらに <span class="en">it is defined as</span>、<span class="en">it is acknowledged that</span> と受動態が続く。<b>誰がそう定義したのかが、文面から消えている</b>。</td>
+    </tr>
+    <tr>
+      <td class="lv">5 他動性</td><td><span class="bd t2">使っている</span></td>
+      <td>論じてはいないが、第3段落 <span class="en">they perceive their disability as a series of barriers ... rather than as a defining characteristic</span> は、人と困難の配置を二択で提示している。他動性の議論に片足を入れている。</td>
+    </tr>
+    <tr>
+      <td class="lv">6 法性</td><td><span class="bd t2">使っている</span></td>
+      <td>最終2段落で急に弱くなる。<span class="en">may</span>／<span class="en">might</span>／<span class="en">it seems clear</span>／<span class="en">Most likely</span>／<span class="en">perhaps</span>。断定を避ける構えが、そのまま設問6の <span class="en">never</span> の根拠になる。</td>
+    </tr>
+    <tr>
+      <td class="lv">7 前提</td><td><span class="bd t2">使っている</span></td>
+      <td>逆向きに。第4段落 <span class="en">There is an important question to be asked about whether (and to what degree) ...</span> は、前提化を<b>拒んで</b>明示的な問いに開いている。CDA が暴く操作を、著者が自分では避けている。</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box">
+  <h3 style="margin-top:0">なぜ2つだけなのか</h3>
+  <p>語彙選択と比喩は、<b>専門知識なしで実感できる</b>道具です。「問題児」と「支援を必要としている子」の違いは誰にでも分かる。一方、名詞化や他動性は文法の術語を要求します。</p>
+  <p>Kormos &amp; Smith の原著は語学教師向けの実践書なので、読者が明日の授業で使える2つに絞った ── と読むのが自然です。<b class="hl">入試問題として成立しているのも、この2つが直感的だから</b>。</p>
+</div>
+
+<div class="fin">
+  <h3>本文は、教材であると同時に標本でもある</h3>
+  <p>CDA の7つの道具のうち、本文が<b>論じている</b>のは2つ。残る5つは、本文が<b>自分で使っている</b>ほうに現れます。研究者名を消し、受動態で定義を提示し、最後は法性を弱めて断定を避ける。</p>
+  <p>つまりこの文章は、言説について語りながら、それ自体がひとつの言説として書かれている。<b>語彙選択と比喩を論じている本文を、行為者削除と法性の観点から読み返す</b> ── これができると、読解が一段深くなります。</p>
+  <p style="font-size:.85rem;opacity:.85;margin-top:12px">同じ視点で、注の日本語訳「dyslexia 失読症（文字や文章の理解が不能となる障がい）」も読んでみてください。本文が批判している医学モデルの語彙が、そこで再生産されています。</p>
+</div>
+
+<div class="links">
+  <h3>関連ページ</h3>
+  <ul>
+    <li><a href="名大英語_大問2_ディスコースと障がい_単語構文全訳.html">本編</a> — 単語・構文・全文対訳・設問解説</li>
+    <li><a href="名大英語_大問2_言説と権力_哲学背景.html">背景知識</a> — ソシュール、サピア＝ウォーフ、オースティン、フーコー、フェアクロー、ハッキング、障がいの社会モデル</li>
+  </ul>
+</div>
+
+</section>
+
+<footer>名大英語 大問Ⅱ ／ 用語編　出典：Kormos, J. &amp; Smith, A. M., <i>Teaching languages to students with specific learning differences</i> (2nd ed., 2024)</footer>
+
+</div>
+
+<script>
+/* ===== タブ ===== */
+const TABS=["core","gee","cda","map"];
+function setTab(t){
+  TABS.forEach(x=>{
+    document.getElementById("tab-"+x).classList.toggle("hide",x!==t);
+    document.getElementById("tb-"+x).classList.toggle("on",x===t);
+  });
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* ===== 判定ドリル ===== */
+const DRILL=[
+ {s:"Politicians have shaped the public discourse on immigration for decades.",
+  v:"d", vl:"不可算 ＝ 日常語",
+  a:"冠詞 the ＋ 単数、複数形にならない。「移民をめぐる世論・議論全般」。専門用法ではありません。"},
+ {s:"A group of researchers found a wide range of discourses among students.",
+  v:"p", vl:"可算・複数 ＝ 専門用法",
+  a:"本文第4段落。a wide range of と複数形。学生たちのあいだに<b>複数の異なる語り方</b>が並存していた、という意味。「さまざまな議論」ではありません。"},
+ {s:"Dominant discourses tend to reflect the interests of the powerful.",
+  v:"p", vl:"可算・複数 ＝ 専門用法",
+  a:"本文第5段落。複数形＋dominant という形容。competing discourses と対になって、言説どうしの勢力争いを述べています。"},
+ {s:"This discourse invokes memories of historic victories.",
+  v:"p", vl:"可算・単数 ＝ 専門用法",
+  a:"本文第1段落。単数ですが <b>this ＋ 可算単数</b>。直前の「戦争の比喩」という<b>一つの語り方</b>を指しています。「この議論は」と訳すと崩れます。"},
+ {s:"Her writing shows a mastery of academic discourse.",
+  v:"d", vl:"不可算 ＝ 日常語",
+  a:"「学術的な言葉づかい」という様式の総称。数えていないので日常語寄りの用法です。"},
+ {s:"Adopting professional discourses allows them to gain entry to the teaching community.",
+  v:"p", vl:"可算・複数 ＝ 専門用法",
+  a:"本文第2段落。複数形。Gee の大文字 D にあたる用法で、専門職共同体ごとに別々の discourse がある、という含意。"}
+];
+document.getElementById("drill").innerHTML=DRILL.map((d,i)=>
+ '<div class="item" onclick="dt('+i+')">'+
+ '<div class="s">'+d.s+'</div>'+
+ '<div class="a hide" id="da'+i+'"><span class="v '+d.v+'">'+d.vl+'</span> — '+d.a+'</div>'+
+ '</div>').join("");
+function dt(i){document.getElementById("da"+i).classList.toggle("hide");}
+
+/* ===== 名詞化ステッパー ===== */
+const NOMI=[
+ {t:"The police shot the protesters.",
+  w:"明示されている（The police）", on:true,
+  m:"動詞 shot が、行為者・対象・行為を全部抱えています。文法的に主語が要るので、誰がやったかを書かざるを得ない。"},
+ {t:"The shooting of the protesters",
+  w:"消えた（of 以下は撃たれた側）", on:false,
+  m:"動詞 shot を名詞 shooting に変えた。名詞には主語が要らないので、<b>警察が文から消えます</b>。残るのは撃たれた側だけ。"},
+ {t:"Recent unrest",
+  w:"完全に消滅（撃ったことすら消えた）", on:false,
+  m:"さらに抽象名詞へ。もはや誰かが誰かを撃った出来事ですらなく、<b>自然に発生した状態</b>のように見える。ここまで来ると、責任を問う文法的な足場がなくなります。"}
+];
+let ni=0;
+function nomiRender(){
+  const d=NOMI[ni];
+  document.getElementById("nomiTxt").textContent=d.t;
+  const w=document.getElementById("nomiWho");
+  w.innerHTML=d.w; w.className="who "+(d.on?"on":"off");
+  document.getElementById("nomiMemo").innerHTML=d.m;
+  document.getElementById("nomiPg").textContent="段階 "+(ni+1)+" / 3";
+}
+function nomiNext(){ni=(ni+1)%3;nomiRender();}
+function nomiReset(){ni=0;nomiRender();}
+nomiRender();
+</script>
+</body>
+</html>
