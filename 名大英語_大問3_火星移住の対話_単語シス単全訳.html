@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>名大英語 大問Ⅲ｜火星移住の対話 — 単語・シス単未収録語・全訳・設問</title>
+<style>
+:root{
+  --g3:#4CAF50; --g3p:#8BC34A; --g2:#03A9F4; --g2p:#7E57C2; --g1:#E91E63; --gx:#F44336;
+  --tw:#ff6a3d; --ti:#1668c7;
+  --bg:#f4f6fb; --card:#fff; --ink:#1b2233; --sub:#6b7590;
+  --rb:#1d4ed8; --sd:#c2410c;
+  --sxa:#dc2626; --sxb:#d97706; --sxc:#0f766e; --sxd:#475569;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+  background:var(--bg);color:var(--ink);padding:18px;line-height:1.65}
+.wrap{max-width:1180px;margin:0 auto}
+header{background:linear-gradient(135deg,#0f172a,#1e3a8a 48%,#c2410c);color:#fff;
+  border-radius:18px;padding:26px 24px 18px;margin-bottom:16px;box-shadow:0 8px 26px rgba(30,58,138,.3)}
+header h1{font-size:1.34rem;margin-bottom:6px}
+header p{opacity:.94;font-size:.87rem}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:15px}
+.stat{background:rgba(255,255,255,.2);border-radius:12px;padding:8px 14px;font-size:.8rem}
+.stat b{font-size:1.15rem;display:block}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.tabs button{background:rgba(255,255,255,.18);color:#fff;box-shadow:none;padding:9px 16px}
+.tabs button.on{background:#fff;color:#1e3a8a}
+h2{font-size:1.03rem;margin:24px 0 10px;padding-left:12px;border-left:5px solid #c2410c}
+h3{font-size:.95rem;margin:16px 0 8px}
+p.lead{font-size:.86rem;color:var(--sub);margin-bottom:10px}
+
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 14px}
+.lbl{font-size:.72rem;color:var(--sub);font-weight:700;margin-right:2px}
+button{font-family:inherit;cursor:pointer;border:none;border-radius:999px;padding:8px 15px;
+  font-size:.82rem;font-weight:700;transition:.15s;background:#fff;color:var(--sub);
+  box-shadow:0 2px 6px rgba(0,0,0,.08)}
+button:hover{transform:translateY(-1px)}
+button.on{background:#1b2233;color:#fff}
+.util{background:#ffedd5;color:#9a3412}
+.sw{display:inline-flex;background:#fff;border-radius:999px;padding:4px;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.sw button{box-shadow:none;padding:8px 18px}
+.sw button.on{background:linear-gradient(135deg,#c2410c,#1e3a8a);color:#fff}
+.spacer{flex:1}
+
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;
+  box-shadow:0 2px 10px rgba(0,0,0,.07)}
+th,td{padding:10px 13px;text-align:left;border-bottom:1px solid #eef1f6;font-size:.87rem;vertical-align:top}
+th{background:#1b2233;color:#fff;font-size:.76rem;letter-spacing:.04em}
+tbody tr:nth-child(even){background:#fafbfe}
+tbody tr:hover{background:#fff7ed}
+tbody tr.done{opacity:.4}
+td.ph{font-weight:700}
+td.mn{cursor:pointer}
+tr.hid td.mn,tr.hid td.exc{filter:blur(5px);opacity:.5}
+td.exc{color:#5c6580;font-style:italic;font-size:.79rem}
+td.ln{color:#aab2c4;font-size:.75rem;white-space:nowrap}
+.mark{cursor:pointer;color:#c9cfdd;font-weight:800;user-select:none}
+tr.done .mark{color:#4CAF50}
+.bar{height:9px;border-radius:5px;display:inline-block;vertical-align:middle;margin-right:8px}
+.sumtbl td,.sumtbl th{font-size:.85rem}
+.tblwrap{overflow-x:auto}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:12px}
+.card{background:var(--card);border-radius:14px;padding:14px 16px;cursor:pointer;
+  box-shadow:0 2px 8px rgba(0,0,0,.07);border-left:6px solid #ccc;transition:.18s;
+  position:relative;user-select:none}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.12)}
+.card.done{opacity:.42}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.phrase{font-size:1.05rem;font-weight:700}
+.badge{font-size:.65rem;font-weight:800;color:#fff;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.tag{font-size:.63rem;font-weight:800;padding:2px 8px;border-radius:999px;color:#fff;white-space:nowrap}
+.tag.w{background:var(--tw)} .tag.i{background:var(--ti)}
+.tag.sa{background:var(--sxa)} .tag.sb{background:var(--sxb)}
+.meaning{margin-top:9px;padding-top:9px;border-top:1px dashed #dde2ec;font-size:.92rem}
+.ex{margin-top:7px;font-size:.77rem;color:#5c6580;font-style:italic}
+.hidden .meaning,.hidden .ex{filter:blur(6px);opacity:.5}
+.hint{font-size:.66rem;color:#b9c0d0;margin-top:6px}
+.line{font-size:.67rem;color:#aab2c4;margin-top:3px}
+.check{position:absolute;top:8px;right:10px;font-size:.66rem;color:#4CAF50;display:none;font-weight:800}
+.card.done .check{display:block}
+.hide{display:none}
+
+/* ---- ② シス単 ---- */
+.sxstats{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px;margin:8px 0 6px}
+.sxstats div{background:#fff;border-radius:12px;padding:10px 14px;box-shadow:0 2px 8px rgba(0,0,0,.06);
+  font-size:.74rem;color:var(--sub);line-height:1.5}
+.sxstats b{display:block;font-size:1.35rem;color:var(--ink);line-height:1.3}
+.sxstats .hit b{color:var(--sxa)}
+.tierhead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:28px 0 12px;
+  padding-bottom:8px;border-bottom:2px solid #e5e7eb}
+.tierhead .tl{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;
+  font-weight:800;color:#fff;background:var(--tc);flex:none}
+.tierhead h3{margin:0;font-size:.98rem}
+.tierhead .tn{font-size:.75rem;color:var(--sub)}
+.tierhead .util{margin-left:auto}
+#tierA{--tc:var(--sxa)} #tierB{--tc:var(--sxb);--tw2:#fffbeb} #tierC{--tc:var(--sxc);--tw2:#f0fdfa} #tierD{--tc:var(--sxd)}
+.entries{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+.entry{background:#fff;border-radius:14px;padding:13px 16px;box-shadow:0 2px 8px rgba(0,0,0,.06);
+  border-left:6px solid var(--sxa)}
+.entry .hw{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.entry .wd{font-size:1.2rem;font-weight:800;font-family:Georgia,"Times New Roman",serif}
+.entry .alt{font-size:.92rem;color:var(--sub);font-weight:600;font-family:Georgia,serif}
+.entry .pos{font-size:.66rem;font-weight:800;padding:2px 8px;border-radius:999px;background:#fee2e2;color:#b91c1c}
+.entry .gl{margin-top:6px;font-size:.9rem}
+.entry .ct{margin-top:6px;font-size:.78rem;color:var(--sub)}
+.entry .ct em{font-family:Georgia,serif;color:#334155}
+.unsure{font-size:.62rem;font-weight:800;color:#92400e;background:#fef3c7;border:1px solid #fcd34d;
+  padding:1px 7px;border-radius:999px;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif}
+.deckhint{font-size:.76rem;color:var(--sub);margin-bottom:9px}
+.deck{display:flex;flex-wrap:wrap;gap:8px;list-style:none}
+.deck li{display:flex}
+button.flip{display:inline-grid;padding:0;background:none;box-shadow:none;border-radius:10px;perspective:700px}
+button.flip:hover{transform:none}
+.flip .f{grid-area:1/1;display:flex;align-items:center;justify-content:center;gap:6px;text-align:center;
+  padding:7px 14px;min-height:40px;border-radius:10px;background:#fff;border:1px solid #e5e7eb;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;transition:transform .42s cubic-bezier(.2,.75,.3,1)}
+.flip .front{font-family:Georgia,"Times New Roman",serif;font-size:1rem;color:var(--ink);border-bottom:3px solid var(--tc)}
+.flip .back{font-size:.82rem;color:var(--tc);background:var(--tw2);border-color:var(--tc);transform:rotateY(180deg)}
+.flip[aria-pressed="true"] .front{transform:rotateY(180deg)}
+.flip[aria-pressed="true"] .back{transform:rotateY(360deg)}
+.flip:focus-visible .f{outline:2px solid var(--tc);outline-offset:2px}
+.idioms{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px}
+.idiom{background:#fff;border-radius:12px;padding:10px 14px;box-shadow:0 2px 6px rgba(0,0,0,.05);
+  border-left:4px solid var(--sxd)}
+.idiom span{display:block;font-family:Georgia,"Times New Roman",serif;font-size:1rem;font-weight:700}
+.idiom small{font-size:.8rem;color:var(--sub)}
+.caveat{margin-top:14px;font-size:.85rem;background:#fef2f2;border-left:4px solid var(--sxa);
+  border-radius:0 10px 10px 0;padding:10px 14px}
+.caveat b{color:#b91c1c}
+.method{margin-top:24px;font-size:.78rem;color:var(--sub);background:#fff;border-radius:12px;
+  padding:12px 15px;border:1px dashed #cbd5e1}
+.method p+p{margin-top:6px}
+
+/* ---- ③ 全訳 ---- */
+.mapbox{background:#fff;border-radius:15px;padding:16px 18px;box-shadow:0 2px 9px rgba(0,0,0,.06);margin-bottom:14px}
+.mapbox ol{margin-left:19px;font-size:.89rem}
+.mapbox li{margin-bottom:5px}
+.mapbox li b{color:#9a3412}
+.turn{background:#fff;border-radius:14px;padding:13px 16px;box-shadow:0 2px 9px rgba(0,0,0,.06);
+  margin-bottom:9px;border-left:6px solid #cbd5e1}
+.turn.rob{border-left-color:var(--rb)}
+.turn.san{border-left-color:var(--sd);background:#fffaf6}
+.turn.intro{border-left-color:#64748b;background:#f8fafc}
+.spk{font-size:.72rem;font-weight:800;color:#fff;padding:3px 11px;border-radius:999px;background:#64748b}
+.turn.rob .spk{background:var(--rb)} .turn.san .spk{background:var(--sd)}
+.role{font-size:.68rem;color:var(--sub);margin-left:8px}
+.sents{margin-top:6px}
+.sent{padding:8px 0;border-top:1px solid #f1f5f9;cursor:pointer}
+.sent:first-child{border-top:none}
+.en2{font-size:.9rem;color:#1e293b;line-height:1.85;padding-left:11px;border-left:3px solid #fed7aa}
+.turn.rob .en2{border-left-color:#bfdbfe}
+.turn.intro .en2{border-left-color:#cbd5e1}
+.jp{margin-top:6px;font-size:.93rem;padding-left:11px;border-left:3px solid #e8ecf3}
+.tnote{margin-top:7px;font-size:.78rem;color:#7c2d12;background:#fff7ed;border-radius:8px;padding:6px 10px}
+.tnote::before{content:"メモ";font-size:.62rem;font-weight:800;color:#fff;background:#c2410c;
+  padding:1px 7px;border-radius:999px;margin-right:6px;vertical-align:1px}
+.ul{background:linear-gradient(transparent 62%,#fde68a 62%);font-weight:700}
+.utag{font-size:.62rem;font-weight:800;color:#fff;background:#d97706;padding:1px 6px;
+  border-radius:999px;margin-right:4px;vertical-align:middle}
+.tlhide .jp,.tlhide .tnote{filter:blur(6px)}
+.enhide .en2{filter:blur(6px)}
+.tlhide .sent.peek .jp,.tlhide .sent.peek .tnote,.enhide .sent.peek .en2{filter:none}
+#tlbody.tl2 .sent{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+#tlbody.tl2 .sent .jp{margin-top:0}
+#tlbody.tl2 .sent .tnote{grid-column:1/-1;margin-top:0}
+@media(max-width:860px){#tlbody.tl2 .sent{grid-template-columns:1fr;gap:0}
+  #tlbody.tl2 .sent .jp{margin-top:6px}#tlbody.tl2 .sent .tnote{margin-top:7px}}
+
+/* ---- ④ 設問 ---- */
+.stance th:nth-child(2){background:#9a3412} .stance th:nth-child(3){background:#1e3a8a}
+.stance td:first-child{font-weight:800;white-space:nowrap;color:#334155}
+.qbox{background:#fff;border-radius:16px;padding:17px 19px;box-shadow:0 2px 10px rgba(0,0,0,.07);margin-bottom:13px}
+.qno{display:inline-block;font-size:.7rem;font-weight:800;color:#fff;background:#1b2233;
+  padding:3px 11px;border-radius:999px;margin-bottom:9px}
+.qen{font-size:.84rem;color:#475569;font-style:italic;padding-left:11px;border-left:3px solid #e2e8f0;margin-bottom:8px}
+.qja{font-size:.93rem;font-weight:600;margin-bottom:10px}
+.ch{border:2px solid #eef1f6;border-radius:10px;padding:9px 13px;margin-bottom:7px;font-size:.87rem;
+  display:flex;gap:10px;align-items:flex-start}
+.ch b{color:#1b2233;flex-shrink:0}
+.ch .cja{color:#475569}
+.qbox.reveal .ch.ok{border-color:#16a34a;background:#f0fdf4}
+.qbox.reveal .ch.ok b::after{content:" ✓";color:#16a34a}
+.ans{margin-top:11px;background:#f1f5f9;border-radius:12px;padding:12px 15px;font-size:.88rem;cursor:pointer}
+.ans.hid .body{filter:blur(6px)}
+.ans .hd{font-size:.7rem;font-weight:800;color:#c2410c;letter-spacing:.05em;margin-bottom:7px}
+.ans .body p+p{margin-top:7px}
+.ans .k{font-weight:800;color:#9a3412}
+.model{background:#eef6ff;border-radius:12px;padding:12px 15px;margin-top:9px;font-size:.87rem}
+.model .en{font-style:italic;color:#1e3a8a}
+.model .wc{font-size:.72rem;color:var(--sub);font-weight:800;font-style:normal}
+.note{font-size:.8rem;color:var(--sub);margin-top:8px}
+@media(max-width:640px){body{padding:12px}th,td{padding:8px 9px;font-size:.79rem}td.exc,th.exc{display:none}
+  header h1{font-size:1.08rem}.qbox,.turn{padding:13px 14px}.entries{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>名古屋大学 二次試験 英語 大問Ⅲ — 50年後の世界と火星移住</h1>
+  <p>未来の記事を読むサンドラ（楽観派）と、それに反論するロバート（慎重派）の対話文（p.13〜16）。①難語リスト ②システム英単語に載っていない語 ③英文＋全訳（対訳） ④設問の全訳と解答解説 の4タブ構成です。</p>
+  <div class="stats">
+    <div class="stat"><b id="total">0</b>総項目</div>
+    <div class="stat"><b id="nw">0</b>単語</div>
+    <div class="stat"><b id="ni">0</b>熟語・構文</div>
+    <div class="stat"><b id="nsx">0</b>シス単外</div>
+    <div class="stat"><b id="shown">0</b>表示中</div>
+    <div class="stat"><b id="doneN">0</b>覚えた</div>
+  </div>
+  <div class="tabs">
+    <button id="tb-vocab" class="on" onclick="setTab('vocab')">① 難単語・熟語</button>
+    <button id="tb-sx" onclick="setTab('sx')">② シス単にない語</button>
+    <button id="tb-tl" onclick="setTab('tl')">③ 英文＋全訳</button>
+    <button id="tb-q" onclick="setTab('q')">④ 設問 全訳＋解答</button>
+  </div>
+</header>
+
+<!-- ============ ① 単語・熟語 ============ -->
+<section id="tab-vocab">
+
+<h2>レベル別分布（単語 / 熟語 内訳つき）</h2>
+<div class="tblwrap">
+<table class="sumtbl"><thead><tr><th>英検レベル</th><th>合計</th><th>単語</th><th>熟語</th><th>割合</th><th>目安</th></tr></thead>
+<tbody id="sumbody"></tbody></table>
+</div>
+
+<div class="controls" style="margin-top:22px">
+  <span class="sw"><button id="bCard" class="on" onclick="setView('card')">カード形式</button><button id="bTable" onclick="setView('table')">表形式</button></span>
+  <span class="spacer"></span>
+  <span class="sw"><button id="tAll" class="on" onclick="setType('all')">単語＋熟語</button><button id="tW" onclick="setType('単語')">単語のみ</button><button id="tI" onclick="setType('熟語')">熟語のみ</button></span>
+</div>
+
+<div class="controls"><span class="lbl">レベル</span><span id="filters" style="display:contents"></span></div>
+<div class="controls"><span class="lbl">箇所</span><span id="pfilters" style="display:contents"></span></div>
+<div class="controls"><span class="lbl">シス単</span>
+  <span class="sw"><button id="sAll" class="on" onclick="setSx('all')">すべて</button><button id="sOut" onclick="setSx('out')">シス単に載っていない語だけ</button></span>
+</div>
+<div class="controls">
+  <button class="util" onclick="allHide()">すべて隠す</button>
+  <button class="util" onclick="allShow()">すべて表示</button>
+  <button class="util" onclick="shuffle()">シャッフル</button>
+  <button class="util" onclick="resetOrder()">本文順に戻す</button>
+  <button class="util" onclick="resetDone()">「覚えた」リセット</button>
+  <span class="spacer"></span>
+  <button class="util" id="hideDoneBtn" onclick="toggleDoneFilter()">覚えた項目を隠す</button>
+</div>
+
+<div id="cardView"><div class="grid" id="grid"></div></div>
+<div id="tableView" class="hide tblwrap">
+  <table><thead><tr><th style="width:30px"></th><th style="width:46px">種類</th><th>語句</th><th>意味</th><th class="exc">本文での使われ方</th><th>レベル</th><th>箇所</th><th>シス単</th></tr></thead>
+  <tbody id="tbody"></tbody></table>
+</div>
+</section>
+
+<!-- ============ ② シス単にない語 ============ -->
+<section id="tab-sx" class="hide">
+<h2>システム英単語では出会わない語</h2>
+<p class="lead">本文＋設問の語彙を、システム英単語（5訂版）の見出し語・派生語と照らし合わせて4段階に分けました。<b>A だけは必ずカード化</b>、B は語の作りから推測する練習用、C はシス単の復習範囲です。判定方法はページ末尾を見てください。</p>
+<div class="sxstats" id="sxstats"></div>
+
+<div id="tierA">
+  <div class="tierhead"><span class="tl">A</span><h3>シス単にない難語 — 意味を知らないと読めない（最優先）</h3><span class="tn" id="nA"></span></div>
+  <div class="entries" id="sxA"></div>
+</div>
+
+<div id="tierB">
+  <div class="tierhead"><span class="tl">B</span><h3>シス単にないが、語の作りやカタカナ語から推測できる語</h3><span class="tn" id="nB"></span>
+    <button class="util" type="button" data-deck="deckB" onclick="flipAll(this)">すべてめくる</button></div>
+  <p class="deckhint">タップで裏返ります（英語 → 意味）。</p>
+  <ul class="deck" id="deckB"></ul>
+</div>
+
+<div id="tierC">
+  <div class="tierhead"><span class="tl">C</span><h3>シス単に載っている語 — 復習範囲</h3><span class="tn" id="nC"></span>
+    <button class="util" type="button" data-deck="deckC" onclick="flipAll(this)">すべてめくる</button></div>
+  <p class="deckhint">英語だけ見て意味を言えるか確認。<span class="unsure">△</span> は収録判定に自信がない語（要確認）。</p>
+  <ul class="deck" id="deckC"></ul>
+  <p class="caveat">落とし穴 — 基本語なのに<b>別の意味</b>で出てくる語：<b>room</b>（部屋 → 空間・余地）／<b>field</b>（分野 → 畑）／<b>mine</b>（私のもの → 鉱山）／<b>supplies</b>（供給 → 物資）／<b>certain</b>（確かな → ある～）。fields と mines は設問1の根拠そのもの。</p>
+</div>
+
+<div id="tierD">
+  <div class="tierhead"><span class="tl">D</span><h3>あわせて押さえる熟語・口語表現</h3><span class="tn" id="nD"></span></div>
+  <div class="idioms" id="sxD"></div>
+</div>
+
+<div class="method">
+  <p><b>判定方法</b>：以前の「The Case for Quantity in Science Publishing」（名大2026 大問Ⅱ）のページではシステム英単語の apkg を展開して機械照合しましたが、今回は apkg が手元にないため、シス単5訂版（Stage 1〜5・派生語欄を含む）の収録状況を<b>知識ベースで手作業判定</b>しています。<span class="unsure">△要確認</span> は判定の確信度が低い語なので、お手元のシス単で確認してください。</p>
+  <p>insect・rabbit・terrible など中学〜高校基礎の語は対象外にしています。apkg を共有いただければ、前回と同じ方法で機械照合して確定版に差し替えます。</p>
+</div>
+</section>
+
+<!-- ============ ③ 英文＋全訳 ============ -->
+<section id="tab-tl" class="hide">
+<h2>読解の地図（対話の流れ）</h2>
+<div class="mapbox">
+<ol>
+  <li><b>導入</b>：サンドラが読む「50年後の世界」の記事は<b>楽観的</b>。飢餓と温暖化の解決、100〜120歳まで生きる長寿、月のポッド、火星の植民地。</li>
+  <li><b>ロバート①</b>：戦争は技術の発達でもっと悲惨になる。<b>→ サンドラ</b>：住む場所が広がれば世の中は良くなる、と筆者は考えている。</li>
+  <li><b>ロバート②</b>：ポッドや宇宙船に閉じ込められたら窮屈で、<b>怒りっぽく攻撃的</b>になる（船室から出られないクルーズと同じ）。<b>→ サンドラ</b>：人は慣れる。畑や鉱山の仕事からパソコンの仕事に慣れたように。<b>【下線部(1)】</b></li>
+  <li><b>ロバート③</b>：植民地でも人は争い、<b>無法地帯</b>になる。<b>【下線部(2)】</b><b>→ サンドラ</b>：物資を地球に頼るから当面は独立できない。優秀で道徳的な人が選ばれるから、いずれ独立して私たちよりうまく治めるかも。</li>
+  <li><b>ロバート④</b>：暮らしは過酷で食事もひどい（水で戻した食品・ペースト・粉末・虫）。<b>→ サンドラ</b>：最初はね。でも植物の栽培や養殖、ウサギやネズミの飼育も始まる。</li>
+  <li><b>ロバートの結論</b>：科学者と政府は、<b>地球の暮らしと環境をよくすること</b>に力とお金を使うべき。<b>→ サンドラ</b>：たぶんその通り。<b>でも火星に行きたい</b>。</li>
+</ol>
+<p class="note">※ 楽観（サンドラ）と慎重・悲観（ロバート）の言い合いが最後まで続く構成。設問3(C)はこの対比そのもの。</p>
+</div>
+
+<h2>本文（英文＋全訳）</h2>
+<p class="lead">発言を1文ずつ英文と訳に分けて並べています。「左右2段で表示」で対訳のように見比べられます（画面が狭いときは上下に並びます）。訳や英文を隠したときは、文をタップするとその文だけ表示されます。黄色マーカーは下線部、オレンジの「メモ」は設問の根拠になる箇所です。</p>
+<div class="controls">
+  <button class="util" id="btnJP" onclick="toggleJP()">訳を隠す</button>
+  <button class="util" id="btnEN" onclick="toggleEN()">英文を隠す</button>
+  <button class="util" id="btnCOL" onclick="toggleCOL()">左右2段で表示</button>
+  <span class="spacer"></span>
+  <span class="lbl">黄マーカー＝下線部(1)(2)</span>
+</div>
+<div id="tlbody"></div>
+</section>
+
+<!-- ============ ④ 設問 ============ -->
+<section id="tab-q" class="hide">
+<h2>解く前に：二人の立場の整理</h2>
+<div class="tblwrap">
+<table class="stance"><thead><tr><th>論点</th><th>Sandra（楽観・冒険派）</th><th>Robert（慎重・悲観派）</th></tr></thead>
+<tbody>
+<tr><td>50年後の世界</td><td>筆者の楽観論を紹介（飢餓・温暖化の解決、長寿、月と火星への移住）</td><td>そもそも世界が残っているか怪しい。戦争は技術の発達でもっと悲惨に</td></tr>
+<tr><td>宇宙での暮らし</td><td>人は慣れる（畑・鉱山 → パソコンの仕事に慣れたように）</td><td>窮屈で怒りっぽく攻撃的になる（船室から出られないクルーズ）</td></tr>
+<tr><td>植民地の秩序</td><td>物資で地球に頼るので当面は独立できない。優秀で道徳的な人が選ばれ、<b>いずれ独立</b>して私たちよりうまく治めるかも</td><td>人は争い続け、法と秩序のない<b>無法地帯（the Wild West）</b>になる</td></tr>
+<tr><td>食べ物</td><td><b>最初は</b>戻した食品かも。やがて植物栽培・養殖、ウサギやネズミの飼育</td><td>戻した食品・ペースト・粉末・虫はいや。ウサギはかわいい、ネズミは気持ち悪い</td></tr>
+<tr><td>結論</td><td>たぶんあなたの言う通り。でも火星に行きたい</td><td>努力とお金は地球の暮らしと環境をよくすることに</td></tr>
+</tbody></table>
+</div>
+
+<h2>設問の全訳と解答・解説</h2>
+<p class="lead">英文の設問文と選択肢もすべて訳しました。灰色の「解答・解説」ボックスはタップでぼかしが外れ、正解の選択肢に緑の印が付きます。まず自分で解いてから開いてください。</p>
+<div id="qbody"></div>
+</section>
+
+</div>
+
+<script>
+/* ================= ① 単語データ ================= */
+const LV={
+ "3級":{c:"var(--g3)",note:"中学卒業程度"},
+ "準2級":{c:"var(--g3p)",note:"高校中級程度"},
+ "2級":{c:"var(--g2)",note:"高校卒業程度"},
+ "準1級":{c:"var(--g2p)",note:"大学中級程度"},
+ "1級":{c:"var(--g1)",note:"大学上級程度"},
+ "級外":{c:"var(--gx)",note:"口語表現・専門語"}
+};
+// [語句, 意味, 本文での使われ方, レベル, 箇所, 種類, シス単(A=載っていない難語／B=載っていないが推測可／△=判定に自信なし)]
+const DATA=[
+ /* ---- 導入文 ---- */
+ ["be curious about ~","～に興味津々だ、～を知りたがる","Robert, is curious about what she is reading","2級","導入文","熟語",""],
+ ["dialogue","名 対話、会話文","Read the dialogue and answer the following questions","2級","導入文","単語",""],
+ /* ---- p.13 ---- */
+ ["in fifty years' time","（今から）50年後に　※time の前は所有格 years'","what the world will be like in fifty years' time","2級","p.13 未来と宇宙","熟語",""],
+ ["what S is like","Sがどのようなものか（like は前置詞「～のような」）","what the world will be like in fifty years' time","2級","p.13 未来と宇宙","熟語",""],
+ ["I'm not sure if ~","～かどうかわからない","I'm not sure if I want to think about that","準2級","p.13 未来と宇宙","熟語",""],
+ ["with the way (that) things are going","今の成り行きからすると、このままいけば","With the way that things are going, I wonder whether ...","準1級","p.13 未来と宇宙","熟語",""],
+ ["wonder whether ~","～だろうかと思う（疑いの気持ち）","I wonder whether there will be a world at all","2級","p.13 未来と宇宙","熟語",""],
+ ["at all","（疑問・条件の文で）そもそも、いったい","whether there will be a world at all","2級","p.13 未来と宇宙","熟語",""],
+ ["optimistic","形 楽観的な（⇔pessimistic）","The author's actually quite optimistic","準1級","p.13 未来と宇宙","単語",""],
+ ["will have done","（未来完了）～してしまっているだろう","we'll have solved the problems of global hunger","2級","p.13 未来と宇宙","熟語",""],
+ ["hunger","名 飢え、飢餓","the problems of global hunger and global warming","2級","p.13 未来と宇宙","単語",""],
+ ["global warming","地球温暖化","global hunger and global warming","2級","p.13 未来と宇宙","熟語",""],
+ ["cure (for ~)","名 （～の）治療法、治療薬／動 治す","we'll have found cures for many diseases","準1級","p.13 未来と宇宙","単語",""],
+ ["live to be ~","～歳まで生きる（結果を表す不定詞）","Most people will live to be at least a hundred","2級","p.13 未来と宇宙","熟語",""],
+ ["quite a lot of ~","かなり多くの～","quite a lot of them will live to be a hundred and twenty","準2級","p.13 未来と宇宙","熟語",""],
+ ["pod","名 ポッド（宇宙基地などのカプセル型居住区画）。原義は豆の「さや」","we'll be living in pods on the moon","級外","p.13 未来と宇宙","単語","A"],
+ ["colony","名 植民地、入植地（宇宙の居住地にも使う）","there'll be a colony on Mars","準1級","p.13 未来と宇宙","単語",""],
+ ["Mars","名 火星（Venus 金星／Jupiter 木星）","a colony on Mars","2級","p.13 未来と宇宙","単語","B"],
+ ["That might be so, but ~","そうかもしれないけど～（いったん認めてから反論）","That might be so, but what about wars?","2級","p.13 未来と宇宙","熟語",""],
+ ["What about ~?","～はどうなの？（別の論点・懸念を持ち出す）","but what about wars?","準2級","p.13 未来と宇宙","熟語",""],
+ ["deadly","形 命取りの、致命的な（-ly だが形容詞）","They'll be even more deadly in the future","準1級","p.13 未来と宇宙","単語","B"],
+ ["even + 比較級","さらにいっそう～（比較級の強調）","even more deadly","2級","p.13 未来と宇宙","熟語",""],
+ ["as S V","（比例の as）～するにつれて","as technology develops","2級","p.13 未来と宇宙","熟語",""],
+ ["human beings","人間、人類","when human beings have more room to live in","2級","p.13 未来と宇宙","熟語",""],
+ ["room","名 （不可算）空間、余地　※「部屋」ではない","have more room to live in","2級","p.13 未来と宇宙","単語",""],
+ ["as if ~","まるで～かのように","People won't feel as if they have more room","2級","p.13 未来と宇宙","熟語",""],
+ ["be stuck in ~","～に閉じ込められている、～から抜け出せない","if they are stuck in space pods and spaceships","準1級","p.13 未来と宇宙","熟語",""],
+ ["spaceship","名 宇宙船","space pods and spaceships","2級","p.13 未来と宇宙","単語","B"],
+ ["move around","動き回る","They won't be able to move around much","準2級","p.13 未来と宇宙","熟語",""],
+ ["most likely","十中八九、おそらく","it will most likely make them bad-tempered","準1級","p.13 未来と宇宙","熟語",""],
+ ["bad-tempered","形 不機嫌な、怒りっぽい（temper＝気性・機嫌）","make them bad-tempered and aggressive","準1級","p.13 未来と宇宙","単語","B"],
+ ["aggressive","形 攻撃的な、けんか腰の","bad-tempered and aggressive","準1級","p.13 未来と宇宙","単語",""],
+ ["a bit like ~","ちょっと～のような","It will be a bit like going on a cruise","2級","p.13 未来と宇宙","熟語",""],
+ ["go on a cruise","船旅に出る、クルーズに行く","going on a cruise to see the world","2級","p.13 未来と宇宙","熟語","B"],
+ ["cabin","名 （船の）客室、船室；（飛行機の）客室；山小屋","not being able to leave your cabin","2級","p.13 未来と宇宙","単語","A"],
+ ["won't have been anywhere","（未来完了）どこにも行ったことにならない","you won't really have been anywhere","2級","p.13 未来と宇宙","熟語",""],
+ ["I dare say ~","たぶん～だろう、まあ～でしょうね（半ば認める）","I dare say they'll get used to it","準1級","p.13 未来と宇宙","熟語",""],
+ ["get used to ~ing","～することに慣れる（to は前置詞）","we've got used to spending hours with our computers","準2級","p.13 未来と宇宙","熟語",""],
+ ["spend + 時間 + with ~","～を相手に（時間）を過ごす","spending hours with our computers and mobile phones","準2級","p.13 未来と宇宙","熟語",""],
+ ["mobile phone","携帯電話（英）＝cell phone（米）","our computers and mobile phones","準2級","p.13 未来と宇宙","熟語",""],
+ ["instead of ~ing","～する代わりに、～しないで","instead of working in the fields or the mines","準2級","p.13 未来と宇宙","熟語",""],
+ ["field","名 畑、田畑　※「分野」ではない","working in the fields","準2級","p.13 未来と宇宙","単語",""],
+ ["mine","名 鉱山　※「私のもの」ではない","working in the fields or the mines","2級","p.13 未来と宇宙","単語","B"],
+ ["leave A for B","Aを捨てて[辞めて]Bに移る","leave your office job for something like that","2級","p.13 未来と宇宙","熟語",""],
+ ["something like that","そのようなもの【下線部(1)＝畑や鉱山での仕事】","for something like that?","準2級","p.13 未来と宇宙","熟語",""],
+ /* ---- p.14 植民地 ---- */
+ ["fight each other","互いに争う","people would still fight each other in the new colonies","準2級","p.14 植民地","熟語",""],
+ ["just as ~","ちょうど～のように","just as we still fight each other from behind our computers","2級","p.14 植民地","熟語",""],
+ ["from behind ~","～の陰から（前置詞＋前置詞）","from behind our computers","2級","p.14 植民地","熟語",""],
+ ["the Wild West","（19世紀米国の）西部開拓地＝無法地帯の代名詞【下線部(2)】","It could be like the Wild West","級外","p.14 植民地","熟語",""],
+ ["enforce","動 （法律を）施行する、守らせる；強制する","There won't be anyone to enforce law and order","準1級","p.14 植民地","単語",""],
+ ["law and order","法と秩序、治安","enforce law and order","準1級","p.14 植民地","熟語",""],
+ ["depend on A for B","BをAに頼る","They will still depend on the Earth for supplies","2級","p.14 植民地","熟語",""],
+ ["supplies","名 （複数形で）必需品、物資","depend on the Earth for supplies","2級","p.14 植民地","単語",""],
+ ["break away (from ~)","（～から）離脱する、独立する","they won't be able to break away","準1級","p.14 植民地","熟語",""],
+ ["select","動 選び出す、選抜する","will be very carefully selected","準2級","p.14 植民地","単語",""],
+ ["highly","副 非常に、高度に","highly intelligent and moral people","2級","p.14 植民地","単語",""],
+ ["intelligent","形 知能の高い、聡明な","highly intelligent and moral people","2級","p.14 植民地","単語",""],
+ ["moral","形 道徳的な、品行方正な","highly intelligent and moral people","準1級","p.14 植民地","単語",""],
+ ["in time","やがて、いずれ（on time＝時間通りに と区別）","Maybe in time they will break away","2級","p.14 植民地","熟語",""],
+ ["set up ~","～を設立する、樹立する","set up their own governments","2級","p.14 植民地","熟語",""],
+ ["organize","動 （物事を）取りまとめる、運営する","they will organize things better than we do","2級","p.14 植民地","単語",""],
+ /* ---- p.14 火星の食事 ---- */
+ ["just think what it would be like to do","～したらどんな感じか、考えてもみてよ（仮定法）","just think what it would be like to actually live there!","2級","p.14 火星の食事","熟語",""],
+ ["for long","長い間（主に否定文・疑問文で）","You couldn't go outside for long","2級","p.14 火星の食事","熟語",""],
+ ["spacesuit","名 宇宙服","even with a spacesuit","2級","p.14 火星の食事","単語","B"],
+ ["radiation","名 放射線、放射","because of strong winds and radiation","準1級","p.14 火星の食事","単語","A△"],
+ ["fairly","副 かなり、相当","the food would be fairly terrible","2級","p.14 火星の食事","単語",""],
+ ["live off ~","～に頼って暮らす、～で食いつなぐ","People would have to live off reconstituted meals","準1級","p.14 火星の食事","熟語",""],
+ ["reconstituted","形 （乾燥食品を水で）戻した、再構成した【設問4(A)】","live off reconstituted meals, pastes and powders","級外","p.14 火星の食事","単語","A"],
+ ["paste","名 ペースト、練り状の食べ物","meals, pastes and powders","2級","p.14 火星の食事","単語","B"],
+ ["powder","名 粉末、粉","pastes and powders","2級","p.14 火星の食事","単語","B"],
+ ["munch on ~","～をむしゃむしゃ食べる","they would be munching on insects","1級","p.14 火星の食事","熟語","A"],
+ ["insect","名 昆虫、虫","munching on insects","準2級","p.14 火星の食事","単語",""],
+ ["yuck","間 げーっ、おえっ（嫌悪を表す）","munching on insects—yuck!","級外","p.14 火星の食事","単語",""],
+ ["at first","最初のうちは（あとで変わる含み）","Perhaps at first, but then ...","準2級","p.14 火星の食事","熟語",""],
+ ["grow plants","植物を育てる、栽培する","start to grow plants inside the pods","準2級","p.14 火星の食事","熟語",""],
+ ["aquaculture","名 水産養殖（aqua＝水＋culture＝育てること）【設問4(B)】","They would also develop aquaculture","1級","p.14 火星の食事","単語","A"],
+ ["fish tank","水槽、養魚槽","Lots of fish tanks full of delicious salmon","2級","p.14 火星の食事","熟語",""],
+ ["full of ~","～でいっぱいの（後ろから名詞を修飾）","fish tanks full of delicious salmon","準2級","p.14 火星の食事","熟語",""],
+ ["salmon","名 サケ（l は発音しない）","delicious salmon and trout","2級","p.14 火星の食事","単語",""],
+ ["trout","名 マス","salmon and trout","1級","p.14 火星の食事","単語","A"],
+ ["lobster","名 ロブスター（大型のエビ）","lobster and prawns","2級","p.14 火星の食事","単語",""],
+ ["prawn","名 （クルマエビ程度の）エビ　※米では shrimp","lobster and prawns","1級","p.14 火星の食事","単語","A"],
+ ["would sooner do","むしろ～したい（＝would rather do）","I'd sooner go fishing for them here","1級","p.14 火星の食事","熟語",""],
+ ["breed","動 （動物を）繁殖させる、飼育する","they might breed rabbits or rats for food","準1級","p.14 火星の食事","単語",""],
+ ["rat","名 ネズミ（ドブネズミなど大型。小型は mouse）","breed rabbits or rats for food","2級","p.14 火星の食事","単語",""],
+ ["Even worse.","なおさら悪い、もっとひどい","Robert: Even worse.","2級","p.14 火星の食事","熟語",""],
+ ["too ~ to do","～すぎて…できない","Rabbits are too cute to eat","準2級","p.14 火星の食事","熟語",""],
+ ["disgusting","形 気持ち悪い、むかむかする","rats are too disgusting","準1級","p.14 火星の食事","単語",""],
+ ["devote A to B","AをBにささげる・注ぐ（to は前置詞→動名詞）","devote their efforts to making life better on Earth","準1級","p.14 火星の食事","熟語",""],
+ ["put money into ~","～にお金をつぎ込む","put their money into improving the environment","2級","p.14 火星の食事","熟語",""],
+ ["aquarium","名 水槽、水族館（aqua＝水）","not aquariums on Mars!","2級","p.14 火星の食事","単語","B"],
+ /* ---- 設問文 ---- */
+ ["underlined","形 下線を引かれた","the underlined phrase after (1)","2級","設問文","単語",""],
+ ["certain","形 （名詞の前で）ある～、特定の　※「確かな」ではない","(A) a certain office job","2級","設問文","単語",""],
+ ["manual labor","肉体労働【設問1の正解(B)】","a traditional manual labor job such as farming","準1級","設問文","熟語",""],
+ ["farming","名 農業、農作業","such as farming","準2級","設問文","単語",""],
+ ["infer","動 推論する、推測する","infer the most accurate explanation","準1級","設問文","単語",""],
+ ["accurate","形 正確な、的確な","the most accurate explanation","準1級","設問文","単語",""],
+ ["context","名 文脈、前後関係","Based on the context","準1級","設問文","単語",""],
+ ["wild","形 野蛮な、手に負えない；野生の","People will become wild","準2級","設問文","単語",""],
+ ["consider A (to be) B","AをBだとみなす","consider Mars to be the final frontier","2級","設問文","熟語",""],
+ ["the final frontier","最後のフロンティア（人類未踏の領域＝宇宙）","consider Mars to be the final frontier","準1級","設問文","熟語","A△"],
+ ["lawlessness","名 無法状態（law＋less＋ness）【設問2の正解(E)】","live in a state of lawlessness","1級","設問文","単語","B"],
+ ["a state of ~","～の状態","a state of lawlessness","2級","設問文","熟語",""],
+ ["neither A nor B","AもBも～ない（動詞は B に一致）","Neither Sandra nor Robert has tried to eat insects","準2級","設問文","熟語",""],
+ ["enjoy oneself","楽しく過ごす","has been on cruises and not enjoyed himself","準2級","設問文","熟語",""],
+ ["cautious","形 慎重な、用心深い","more cautious and pessimistic than Sandra","準1級","設問文","単語",""],
+ ["pessimistic","形 悲観的な（⇔optimistic）","cautious and pessimistic","準1級","設問文","単語",""],
+ ["care about ~","～を気にかける、大切に思う","Sandra cares more about Earth's ecology","準2級","設問文","熟語",""],
+ ["ecology","名 生態系、自然環境；生態学","Earth's ecology","準1級","設問文","単語",""],
+ ["adventurous","形 冒険好きな、大胆な","Sandra is more adventurous than Robert","準1級","設問文","単語","B"],
+ ["disagree with ~","～と意見が合わない、～に反対する","always disagrees with his opinions","2級","設問文","熟語",""],
+ ["settler","名 入植者、移住者（settle＝定住する）","settlers on Mars","準1級","設問文","単語","B"],
+ ["be against ~","～に反対している（⇔be for ~）","Robert is against aquaculture","2級","設問文","熟語",""],
+ ["pollute","動 汚染する（名 pollution）","because it pollutes the rivers","準1級","設問文","単語",""],
+ ["squeamish","形 （血・虫・生き物を食べることなどに）すぐ気分が悪くなる【設問4(C)】","Robert is squeamish about eating small mammals","1級","設問文","単語","A"],
+ ["mammal","名 哺乳動物","eating small mammals","準1級","設問文","単語",""],
+ ["autonomous","形 自治の、自立した（名 autonomy）【設問4(D)】","new colonies may become autonomous","1級","設問文","単語","A△"],
+ ["the average person","平均的な人、普通の人","better than the average person on Earth","2級","設問文","熟語",""],
+ ["in one's opinion","～の意見では","In your opinion, how will the world ...","準2級","設問文","熟語",""],
+ ["remain unchanged","変わらないままである【設問5のテーマ】","how will the world remain unchanged in fifty years?","準1級","設問文","熟語",""],
+ ["support","動 （意見を）裏づける","Give one example to support your opinion","準2級","設問文","単語",""],
+ ["indicate","動 示す、明記する","Indicate the number of words you have written","準1級","設問文","単語",""],
+ ["punctuation","名 句読点（comma＝カンマ／period＝ピリオド）","Do not count punctuation such as commas or periods","準1級","設問文","単語","A"]
+];
+
+const ORDER=["3級","準2級","2級","準1級","1級","級外"];
+const PORDER=["導入文","p.13 未来と宇宙","p.14 植民地","p.14 火星の食事","設問文"];
+let data=[...DATA],activeLv="all",activePara="all",activeType="all",activeSx="all",hideDone=false;
+const done=new Set();
+
+const cW=DATA.filter(d=>d[5]==="単語").length, cI=DATA.length-cW;
+document.getElementById("total").textContent=DATA.length;
+document.getElementById("nw").textContent=cW;
+document.getElementById("ni").textContent=cI;
+document.getElementById("nsx").textContent=DATA.filter(d=>d[6]).length;
+
+const cnt={},cntW={},cntI={},cntP={};
+ORDER.forEach(l=>{cnt[l]=0;cntW[l]=0;cntI[l]=0;});
+PORDER.forEach(p=>cntP[p]=0);
+DATA.forEach(d=>{cnt[d[3]]++;(d[5]==="単語"?cntW:cntI)[d[3]]++;cntP[d[4]]++;});
+document.getElementById("sumbody").innerHTML=ORDER.map(l=>{
+ const n=cnt[l],p=Math.round(n/DATA.length*100);
+ return `<tr><td><span class="badge" style="background:${LV[l].c}">${l}</span></td>
+ <td><b>${n}</b></td><td style="color:var(--tw);font-weight:700">${cntW[l]}</td>
+ <td style="color:var(--ti);font-weight:700">${cntI[l]}</td>
+ <td><span class="bar" style="width:${Math.max(p*2.6,6)}px;background:${LV[l].c}"></span>${p}%</td>
+ <td style="color:var(--sub)">${LV[l].note}</td></tr>`;}).join("");
+
+document.getElementById("filters").innerHTML=
+ `<button class="on" data-lv="all">すべて</button>`+
+ ORDER.map(l=>cnt[l]?`<button data-lv="${l}" style="color:${LV[l].c}">${l} (${cnt[l]})</button>`:"").join("");
+document.getElementById("filters").onclick=e=>{
+ if(e.target.tagName!=="BUTTON")return;
+ [...e.currentTarget.children].forEach(b=>b.classList.remove("on"));
+ e.target.classList.add("on");activeLv=e.target.dataset.lv;render();};
+
+document.getElementById("pfilters").innerHTML=
+ `<button class="on" data-p="all">すべて</button>`+
+ PORDER.map(p=>`<button data-p="${p}">${p} (${cntP[p]})</button>`).join("");
+document.getElementById("pfilters").onclick=e=>{
+ if(e.target.tagName!=="BUTTON")return;
+ [...e.currentTarget.children].forEach(b=>b.classList.remove("on"));
+ e.target.classList.add("on");activePara=e.target.dataset.p;render();};
+
+function list(){return data.filter(d=>
+ (activeLv==="all"||d[3]===activeLv)&&
+ (activePara==="all"||d[4]===activePara)&&
+ (activeType==="all"||d[5]===activeType)&&
+ (activeSx==="all"||d[6])&&
+ !(hideDone&&done.has(d[0])));}
+
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function sxTag(s){
+ if(!s)return"";
+ const u=s.includes("△")?"△":"";
+ return s[0]==="A"?`<span class="tag sa">シス単外${u}</span>`:`<span class="tag sb">シス単外・推測可${u}</span>`;}
+
+function render(){
+ const L=list();
+ document.getElementById("grid").innerHTML=L.map(d=>{
+  const[p,m,ex,lv,ln,ty,sx]=d, t=ty==="単語"?"w":"i";
+  return `<div class="card hidden" data-w="${esc(p)}" style="border-left-color:${LV[lv].c}">
+   <span class="check">✓ 覚えた</span>
+   <div class="top"><span class="phrase">${esc(p)}</span>
+   <span style="display:flex;flex-direction:column;gap:4px;align-items:flex-end">
+   <span class="badge" style="background:${LV[lv].c}">${lv}</span>
+   <span class="tag ${t}">${ty}</span>${sxTag(sx)}</span></div>
+   <div class="line">${ln}</div>
+   <div class="meaning">${m}</div>
+   <div class="ex">${esc(ex)}</div>
+   <div class="hint">タップで表示 ／ ダブルクリックで「覚えた」</div></div>`;}).join("");
+ [...document.getElementById("grid").children].forEach(c=>{
+  if(done.has(c.dataset.w))c.classList.add("done");
+  c.onclick=()=>c.classList.toggle("hidden");
+  c.ondblclick=e=>{e.preventDefault();const w=c.dataset.w;
+   done.has(w)?done.delete(w):done.add(w);render();};});
+
+ document.getElementById("tbody").innerHTML=L.map(d=>{
+  const[p,m,ex,lv,ln,ty,sx]=d, t=ty==="単語"?"w":"i";
+  return `<tr class="hid ${done.has(p)?'done':''}" data-w="${esc(p)}">
+   <td><span class="mark">✓</span></td>
+   <td><span class="tag ${t}">${ty}</span></td>
+   <td class="ph">${esc(p)}</td><td class="mn">${m}</td>
+   <td class="exc">${esc(ex)}</td>
+   <td><span class="badge" style="background:${LV[lv].c}">${lv}</span></td>
+   <td class="ln">${ln}</td><td>${sxTag(sx)}</td></tr>`;}).join("");
+ [...document.getElementById("tbody").children].forEach(tr=>{
+  tr.querySelector(".mn").onclick=()=>tr.classList.toggle("hid");
+  tr.querySelector(".exc").onclick=()=>tr.classList.toggle("hid");
+  tr.querySelector(".mark").onclick=()=>{const w=tr.dataset.w;
+   done.has(w)?done.delete(w):done.add(w);render();};});
+
+ document.getElementById("shown").textContent=L.length;
+ document.getElementById("doneN").textContent=done.size;
+}
+
+function setView(v){
+ document.getElementById("cardView").classList.toggle("hide",v!=="card");
+ document.getElementById("tableView").classList.toggle("hide",v!=="table");
+ document.getElementById("bCard").classList.toggle("on",v==="card");
+ document.getElementById("bTable").classList.toggle("on",v==="table");}
+function setType(t){activeType=t;
+ document.getElementById("tAll").classList.toggle("on",t==="all");
+ document.getElementById("tW").classList.toggle("on",t==="単語");
+ document.getElementById("tI").classList.toggle("on",t==="熟語");render();}
+function setSx(s){activeSx=s;
+ document.getElementById("sAll").classList.toggle("on",s==="all");
+ document.getElementById("sOut").classList.toggle("on",s==="out");render();}
+function allHide(){document.querySelectorAll(".card").forEach(c=>c.classList.add("hidden"));
+ document.querySelectorAll("#tbody tr").forEach(t=>t.classList.add("hid"));}
+function allShow(){document.querySelectorAll(".card").forEach(c=>c.classList.remove("hidden"));
+ document.querySelectorAll("#tbody tr").forEach(t=>t.classList.remove("hid"));}
+function shuffle(){for(let i=data.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[data[i],data[j]]=[data[j],data[i]];}render();}
+function resetOrder(){data=[...DATA];render();}
+function resetDone(){done.clear();render();}
+function toggleDoneFilter(){hideDone=!hideDone;
+ document.getElementById("hideDoneBtn").textContent=hideDone?"覚えた項目も表示":"覚えた項目を隠す";render();}
+
+/* ================= ② シス単にない語 ================= */
+// A: [見出し, 併記, 品詞, 意味, 本文での出方, △]
+const SXA=[
+ ["reconstituted","","形","（乾燥食品などを水で）戻した、再構成した。re-（再び）＋constitute（構成する）","p.14 <em>live off reconstituted meals, pastes and powders</em>／設問4(A)にも再登場",""],
+ ["squeamish","","形","（血・虫・生き物を食べることなどに）すぐ気分が悪くなる、抵抗感が強い","設問4(C) <em>Robert is squeamish about eating small mammals</em>＝本文 rats are too disgusting の言い換え",""],
+ ["munch","(on ~)","動","むしゃむしゃ・ぼりぼり食べる","p.14 <em>they would be munching on insects—yuck!</em>",""],
+ ["aquaculture","","名","水産養殖。aqua（水）＋culture（育てること。agriculture の culture と同じ）","p.14 <em>They would also develop aquaculture</em>／設問4(B)",""],
+ ["autonomous","","形","自治の、自立した（名 autonomy 自治・自律）","設問4(D) <em>new colonies may become autonomous</em>＝本文 break away and set up their own governments の言い換え","△"],
+ ["pod","","名","ポッド。宇宙基地などのカプセル型の居住区画（原義は豆の「さや」）","p.13 <em>we'll be living in pods on the moon</em>／<em>space pods</em>",""],
+ ["cabin","","名","（船の）客室・船室／（飛行機の）客室／丸太小屋","p.13 <em>not being able to leave your cabin</em>（クルーズのたとえ）",""],
+ ["radiation","","名","放射線、放射","p.14 <em>because of strong winds and radiation</em>","△"],
+ ["trout","/ prawn","名","マス／（クルマエビ程度の）エビ。英 prawn ≒ 米 shrimp","p.14 <em>salmon and trout, lobster and prawns</em>",""],
+ ["frontier","","名","辺境、未開拓の領域。the final frontier＝人類最後の未踏領域（宇宙を指す決まり文句）","設問2(D) <em>People would consider Mars to be the final frontier</em>（ひっかけの選択肢）","△"],
+ ["punctuation","","名","句読点（comma カンマ／period ピリオド）","設問5 <em>Do not count punctuation such as commas or periods as words</em>（名大英作文の定型の指示文）",""]
+];
+// B: [英語, 意味]
+const SXB=[
+ ["deadly","命取りの、致命的な（-ly だが形容詞）"],
+ ["bad-tempered","不機嫌な、怒りっぽい（temper 気性）"],
+ ["lawlessness","無法状態（law＋less＋ness）★設問2の正解"],
+ ["settler","入植者（settle 定住する＋-er）"],
+ ["adventurous","冒険好きな（adventure＋-ous）"],
+ ["spaceship","宇宙船"],
+ ["spacesuit","宇宙服"],
+ ["aquarium","水槽、水族館（aqua＝水）"],
+ ["cruise","船旅、クルーズ"],
+ ["paste","ペースト、練り状の食べ物"],
+ ["powder","粉末、パウダー"],
+ ["Mars","火星（Venus 金星・Jupiter 木星）"],
+ ["mine","鉱山（「私のもの」ではない！）"]
+];
+// C: [英語, 意味, △]
+const SXC=[
+ ["curious","好奇心の強い、知りたがる",""],
+ ["optimistic","楽観的な",""],
+ ["pessimistic","悲観的な",""],
+ ["cure","治療法／治す",""],
+ ["aggressive","攻撃的な",""],
+ ["stick","くっつく／be stuck in ～に閉じ込められる",""],
+ ["supply","供給（する）／supplies 物資",""],
+ ["devote","ささげる（devote A to B）",""],
+ ["moral","道徳的な",""],
+ ["intelligent","知能の高い（名 intelligence）",""],
+ ["organize","まとめる、組織する",""],
+ ["pollute","汚染する（名 pollution）",""],
+ ["infer","推論する",""],
+ ["manual","手の、手作業の（manual labor 肉体労働）",""],
+ ["labor","労働",""],
+ ["accurate","正確な",""],
+ ["context","文脈",""],
+ ["indicate","示す",""],
+ ["colony","植民地、入植地","△"],
+ ["enforce","（法を）施行する、守らせる","△"],
+ ["breed","繁殖させる、飼育する","△"],
+ ["disgusting","気持ち悪い（disgust 嫌悪）","△"],
+ ["mammal","哺乳動物","△"],
+ ["cautious","慎重な（名 caution）","△"],
+ ["ecology","生態系、生態学","△"]
+];
+// D: [表現, 意味]
+const SXD=[
+ ["in fifty years' time","（今から）50年後に"],
+ ["with the way things are going","このままの成り行きだと"],
+ ["live to be ~","～歳まで生きる"],
+ ["I dare say ~","たぶん～だろう（半ば認める）"],
+ ["leave A for B","Aを捨ててBに移る　※下線部(1)の文"],
+ ["from behind ~","～の陰から（前置詞＋前置詞）"],
+ ["the Wild West","西部開拓時代＝無法地帯の代名詞　※下線部(2)"],
+ ["law and order","法と秩序、治安"],
+ ["depend on A for B","BをAに頼る"],
+ ["break away (from ~)","（～から）離脱・独立する"],
+ ["in time","やがて（on time＝時間通りに）"],
+ ["live off ~","～に頼って暮らす、～で食いつなぐ"],
+ ["would sooner do","むしろ～したい（＝would rather）"],
+ ["yuck!","げーっ、おえっ（嫌悪の間投詞）"],
+ ["most likely","十中八九、おそらく"],
+ ["remain unchanged","変わらないままである　※設問5"]
+];
+const U=`<span class="unsure">△要確認</span>`;
+document.getElementById("sxstats").innerHTML=
+ `<div><b>約300</b>本文＋設問の異なり語（見出し語ベース）</div>
+  <div class="hit"><b>${SXA.length}</b>A 最優先で覚える</div>
+  <div><b>${SXB.length}</b>B 語の作りから推測</div>
+  <div><b>${SXC.length}</b>C シス単で復習</div>
+  <div><b>${SXD.length}</b>D 熟語・口語表現</div>`;
+document.getElementById("nA").textContent=SXA.length+"語";
+document.getElementById("nB").textContent=SXB.length+"語";
+document.getElementById("nC").textContent=SXC.length+"語";
+document.getElementById("nD").textContent=SXD.length+"表現";
+document.getElementById("sxA").innerHTML=SXA.map(e=>
+ `<div class="entry"><div class="hw"><span class="wd">${e[0]}</span>${e[1]?`<span class="alt">${e[1]}</span>`:""}<span class="pos">${e[2]}</span>${e[5]?U:""}</div>
+  <div class="gl">${e[3]}</div><div class="ct">${e[4]}</div></div>`).join("");
+const flipHTML=(w,m,u)=>`<li><button class="flip" type="button" aria-pressed="false"><span class="f front">${w}${u?'<span class="unsure">△</span>':""}</span><span class="f back">${m}</span></button></li>`;
+document.getElementById("deckB").innerHTML=SXB.map(e=>flipHTML(e[0],e[1],"")).join("");
+document.getElementById("deckC").innerHTML=SXC.map(e=>flipHTML(e[0],e[1],e[2])).join("");
+document.getElementById("sxD").innerHTML=SXD.map(e=>`<div class="idiom"><span>${e[0]}</span><small>${e[1]}</small></div>`).join("");
+document.querySelectorAll(".flip").forEach(b=>b.onclick=()=>
+ b.setAttribute("aria-pressed",b.getAttribute("aria-pressed")==="true"?"false":"true"));
+function flipAll(btn){
+ const cards=document.querySelectorAll("#"+btn.dataset.deck+" .flip");
+ const anyFront=[...cards].some(c=>c.getAttribute("aria-pressed")!=="true");
+ cards.forEach(c=>c.setAttribute("aria-pressed",anyFront?"true":"false"));
+ btn.textContent=anyFront?"すべて戻す":"すべてめくる";}
+
+/* ================= ③ 全訳データ（英文＋訳） ================= */
+// [話者, [[英文, 訳, 設問メモ(任意)], ...]]
+const UL=(n,s)=>`<span class="ul"><span class="utag">(${n})</span>${s}</span>`;
+const TL=[
+ ["intro",[
+  [`Sandra is reading an article about the future. Her friend, Robert, is curious about what she is reading. Read the dialogue and answer the following questions.`,
+   `サンドラは未来についての記事を読んでいる。友人のロバートは、彼女が何を読んでいるのか興味津々だ。対話を読み、以下の設問に答えなさい。`]]],
+ ["rob",[
+  [`What are you reading there?`,`何を読んでるの？`]]],
+ ["san",[
+  [`An article about what the world will be like in fifty years' time.`,`50年後に世界がどうなっているかについての記事よ。`]]],
+ ["rob",[
+  [`I'm not sure if I want to think about that.`,`そんなこと、考えたいかどうかわからないな。`],
+  [`With the way that things are going, I wonder whether there will be a world at all.`,
+   `今の成り行きを見ていると、そもそも世界がまだ存在しているのかどうかも怪しいと思うよ。`]]],
+ ["san",[
+  [`The author's actually quite optimistic.`,`筆者は実はかなり楽観的なのよ。`],
+  [`She says that we'll have solved the problems of global hunger and global warming, and that we'll have found cures for many diseases.`,
+   `彼女が言うには、（50年後には）私たちは世界的な飢餓や地球温暖化の問題をすでに解決していて、多くの病気の治療法も見つけているだろうって。`],
+  [`Most people will live to be at least a hundred, and quite a lot of them will live to be a hundred and twenty or more.`,
+   `ほとんどの人が少なくとも100歳まで生き、その中のかなり多くの人は120歳かそれ以上まで生きるそうよ。`],
+  [`She also says that we'll be living in pods on the moon and that there'll be a colony on Mars.`,
+   `それに、私たちは月面のポッド（カプセル型の居住区画）で暮らしていて、火星には植民地ができているだろうとも言っているわ。`]]],
+ ["rob",[
+  [`That might be so, but what about wars?`,`そうかもしれないけど、戦争はどうなんだい？`],
+  [`They'll be even more deadly in the future, as technology develops.`,
+   `技術が発達するにつれて、戦争は将来いっそう多くの命を奪うものになるだろう。`]]],
+ ["san",[
+  [`She doesn't say so much about that, but she seems to think that things will be better when human beings have more room to live in.`,
+   `それについてはあまり書いていないけど、人類がもっと広い生活空間を持てるようになれば、世の中は良くなると考えているみたい。`]]],
+ ["rob",[
+  [`People won't feel as if they have more room to live in if they are stuck in space pods and spaceships.`,
+   `宇宙のポッドや宇宙船に閉じ込められていたら、生活空間が広がったなんて感じないよ。`],
+  [`They won't be able to move around much and it will most likely make them bad-tempered and aggressive.`,
+   `あまり動き回れないし、そのせいで十中八九、怒りっぽくて攻撃的になるだろうね。`],
+  [`It will be a bit like going on a cruise to see the world, but not being able to leave your cabin.`,
+   `世界を見て回るために船旅に出たのに、自分の船室から出られない、みたいなものさ。`],
+  [`You might be able to take some nice photos from the window but you won't really have been anywhere.`,
+   `窓からいい写真は撮れるかもしれないけど、本当の意味ではどこにも行ったことにはならないんだ。`]]],
+ ["san",[
+  [`I dare say they'll get used to it.`,`まあ、そのうち慣れるんじゃないかしら。`],
+  [`Just like we've got used to spending hours with our computers and mobile phones instead of working in the fields or the mines.`,
+   `私たちが、畑や鉱山で働く代わりに、パソコンや携帯電話を相手に何時間も過ごすことに慣れてきたのと同じようにね。`],
+  [`Would you like to leave your office job for ${UL(1,"something like that")}?`,
+   `あなたは今の事務の仕事を辞めて、<span class="ul">そういう仕事</span>に移りたいと思う？`,
+   `下線部(1)の that は直前の working in the fields or the mines（畑や鉱山での労働）を指す。答えを求めない修辞疑問。「戻りたくはないでしょう？」＝人は新しい暮らしに慣れると、もう元には戻りたくなくなる、と言っている → 設問1`]]],
+ ["rob",[
+  [`Maybe you're right.`,`君の言う通りかもしれないね。`],
+  [`But I think that people would still fight each other in the new colonies, just as we still fight each other from behind our computers.`,
+   `でも、僕たちが今でもパソコンの陰に隠れて（画面越しに）争い合っているのとちょうど同じように、人々は新しい植民地でも相変わらず争い合うと思うんだ。`],
+  [`It could be like ${UL(2,"the Wild West")}.`,
+   `<span class="ul">西部開拓時代のアメリカ</span>みたいになりかねないよ。`,
+   `the Wild West＝19世紀後半のアメリカ西部。保安官の手が回らず、無法者が横行した「無法地帯」の代名詞。直後の文がその中身を説明している → 設問2`],
+  [`There won't be anyone to enforce law and order.`,`法と秩序を守らせる人が誰もいないだろうからね。`]]],
+ ["san",[
+  [`They will still depend on the Earth for supplies, so they won't be able to break away.`,
+   `入植者たちは物資をこれからも地球に頼ることになるから、（地球から）離れて独立することはできないわ。`],
+  [`And the people who are chosen to go to the colonies will be very carefully selected.`,
+   `それに、植民地へ行く人たちは、とても慎重に選抜されるはずよ。`],
+  [`They'll all be highly intelligent and moral people.`,`みんな非常に知的で、道徳心の高い人たちでしょうね。`],
+  [`Maybe in time they will break away and set up their own governments and they will organize things better than we do!`,
+   `ひょっとしたら、やがて彼らは（地球から）独立して自分たちの政府を作り、私たちよりもうまく物事を運営するかもしれないわよ！`,
+   `1文目では「（当面は）独立できない」、この文では「やがて独立するかも」。短期と長期で見通しが違う点に注意 → 設問4(D)。優秀で道徳的な人々という評価 → 設問4(E)`]]],
+ ["rob",[
+  [`But just think what it would be like to actually live there!`,`でも、実際にそこで暮らすのがどんなものか、ちょっと考えてみてよ！`],
+  [`You couldn't go outside for long even with a spacesuit because of strong winds and radiation.`,
+   `強風や放射線のせいで、宇宙服を着ていても長くは外に出られないんだよ。`],
+  [`And the food would be fairly terrible, I think...`,`それに、食べ物もかなりひどいものになると思うな……。`],
+  [`You'll never have cows and sheep on Mars.`,`火星で牛や羊を飼うなんて絶対に無理だろう。`],
+  [`People would have to live off reconstituted meals, pastes and powders.`,
+   `人々は、水で戻した乾燥食品や、ペースト状のものや粉末で食いつなぐしかないだろうね。`],
+  [`Or maybe they would be munching on insects—yuck!`,`さもなきゃ、虫をむしゃむしゃ食べているかもね——おえっ！`]]],
+ ["san",[
+  [`Perhaps at first, but then they would soon start to grow plants inside the pods.`,
+   `最初はそうかもしれないわね。でもその後すぐに、ポッドの中で植物を育て始めるはずよ。`,
+   `Perhaps at first＝戻した食品を食べることになるのは「最初のうちはそうかも」とロバートに同意 → 設問4(A)が本文と合う根拠`],
+  [`They would also develop aquaculture.`,`水産養殖も発達させるでしょうね。`],
+  [`Lots of fish tanks full of delicious salmon and trout, lobster and prawns.`,
+   `おいしいサケやマス、ロブスターやエビでいっぱいの水槽がたくさん並ぶのよ。`]]],
+ ["rob",[
+  [`I'd sooner go fishing for them here.`,`それなら僕は、むしろこっち（地球）でそういう魚介類を釣りに行くほうがいいな。`],
+  [`Or get them from the supermarket.`,`じゃなきゃスーパーで買うよ。`]]],
+ ["san",[
+  [`And they might breed rabbits or rats for food.`,`それに、食用にウサギやネズミを繁殖させるかもしれないわ。`]]],
+ ["rob",[
+  [`Even worse.`,`なおさら悪いよ。`],
+  [`Rabbits are too cute to eat, and rats are too disgusting.`,
+   `ウサギはかわいすぎて食べられないし、ネズミは気持ち悪すぎる。`,
+   `ウサギもネズミも small mammals（小型の哺乳動物）。食べるのに抵抗がある → 設問4(C) squeamish の根拠`],
+  [`No, I think scientists should devote their efforts to making life better on Earth and governments should put their money into improving the environment.`,
+   `いや、科学者は地球での暮らしをより良くすることに力を注ぐべきだし、政府は環境の改善にこそお金を使うべきだと思うよ。`],
+  [`Let's have clean water in our rivers for fish, not aquariums on Mars!`,
+   `火星の水槽なんかじゃなくて、魚のために地球の川にきれいな水を取り戻そうよ！`,
+   `「養殖が川を汚す」とは言っていない。お金と努力をどこに使うかという優先順位の話 → 設問4(B)は本文と合わない`]]],
+ ["san",[
+  [`I dare say you're right, but I would still like to go to Mars...`,
+   `たぶんあなたの言う通りね。でも、それでも私は火星に行ってみたいな……。`,
+   `最後にサンドラはロバートに同意している → 設問3(E) always disagrees は誤り`]]]
+];
+const SPK={intro:["導入文","問題の指示"],rob:["Robert","慎重・悲観派"],san:["Sandra","楽観・冒険派"]};
+document.getElementById("tlbody").innerHTML=TL.map(t=>{
+ const[k,items]=t;
+ return `<div class="turn ${k}">
+  <span class="spk">${SPK[k][0]}</span><span class="role">${SPK[k][1]}</span>
+  <div class="sents">${items.map(s=>`<div class="sent">
+   <div class="en2">${s[0]}</div><div class="jp">${s[1]}</div>${s[2]?`<div class="tnote">${s[2]}</div>`:""}</div>`).join("")}</div>
+ </div>`;}).join("");
+document.getElementById("tlbody").onclick=e=>{
+ const s=e.target.closest(".sent");if(s)s.classList.toggle("peek");};
+
+let jpHidden=false,enHidden=false,twoCol=false;
+function clearPeek(){document.querySelectorAll("#tlbody .peek").forEach(s=>s.classList.remove("peek"));}
+function toggleJP(){jpHidden=!jpHidden;clearPeek();
+ document.getElementById("tlbody").classList.toggle("tlhide",jpHidden);
+ document.getElementById("btnJP").textContent=jpHidden?"訳を表示":"訳を隠す";}
+function toggleEN(){enHidden=!enHidden;clearPeek();
+ document.getElementById("tlbody").classList.toggle("enhide",enHidden);
+ document.getElementById("btnEN").textContent=enHidden?"英文を表示":"英文を隠す";}
+function toggleCOL(){twoCol=!twoCol;
+ document.getElementById("tlbody").classList.toggle("tl2",twoCol);
+ document.getElementById("btnCOL").textContent=twoCol?"上下に並べて表示":"左右2段で表示";}
+
+/* ================= ④ 設問データ ================= */
+const QS=[
+ {no:"設問 1",
+  en:"What does Sandra mean by the underlined phrase after (1)?",
+  ja:"下線部(1)の語句で、サンドラは何を意味しているか。",
+  ch:[["(A)","a certain office job or something similar","ある事務職、またはそれに類する仕事"],
+      ["(B)","a traditional manual labor job such as farming","農業のような、昔ながらの肉体労働の仕事",1],
+      ["(C)","a traditional office job working with computers or mobile phones","パソコンや携帯電話を使って働く、従来型の事務職"],
+      ["(D)","some jobs that have more free time","自由な時間がもっと多い仕事"],
+      ["(E)","some jobs that you'll get used to","（いずれ）慣れるであろう仕事"]],
+  ans:`<p><span class="k">正解：(B) a traditional manual labor job such as farming</span></p>
+  <p><b>something like that</b> の <b>that</b> は、直前の文の <i>working in the fields or the mines</i>（畑や鉱山で働くこと）を指す。つまり「そういう仕事」＝<b>畑仕事や鉱山労働のような肉体労働</b>。</p>
+  <p>サンドラの論理：「人は新しい環境に慣れる。私たちだって、畑や鉱山で働く代わりにパソコンの前で過ごす生活に慣れた。<b>今さら事務の仕事を辞めて、畑や鉱山の仕事に戻りたい？</b>（戻りたくないでしょう）」。答えを求めない<b>修辞疑問</b>で、「慣れてしまえば元の生活には戻りたくなくなる＝宇宙の暮らしにも慣れる」と言っている。だからロバートは次に <i>Maybe you're right.</i> と認める。</p>
+  <p><b>✕ (A)(C)</b> office job は今の仕事で、<b>辞める側</b>（leave A for B の A）。移る先（B）ではない。<br>
+  <b>✕ (D)</b> 自由時間の話は出てこない。<br>
+  <b>✕ (E)</b> 直前の get used to を拾っただけのひっかけ。</p>`},
+ {no:"設問 2",
+  en:"Based on the context, infer the most accurate explanation of the underlined phrase after (2).",
+  ja:"文脈から判断して、下線部(2)の語句の説明として最も正確なものを推測しなさい。",
+  ch:[["(A)","People will become wild as soon as they leave the Earth.","人々は地球を離れるやいなや野蛮になるだろう。"],
+      ["(B)","People will be gone after law and order has been enforced.","法と秩序が施行されたあと、人々はいなくなるだろう。"],
+      ["(C)","People will still fight each other from behind their computers.","人々は相変わらずパソコンの陰から互いに争うだろう。"],
+      ["(D)","People would consider Mars to be the final frontier.","人々は火星を最後のフロンティア（人類未踏の地）とみなすだろう。"],
+      ["(E)","People would live in a state of lawlessness.","人々は無法状態の中で暮らすことになるだろう。",1]],
+  ans:`<p><span class="k">正解：(E) People would live in a state of lawlessness.</span></p>
+  <p><b>the Wild West</b>＝19世紀後半のアメリカ西部の開拓地。保安官や裁判所の手が行き届かず、ガンマンや無法者が横行した<b>「無法地帯」の代名詞</b>。本文でも直後に <i>There won't be anyone to enforce law and order.</i>（法と秩序を守らせる人が誰もいない）と、たとえの中身をそのまま説明している。これを <b>lawlessness（無法状態）</b>の一語でまとめたのが (E)。</p>
+  <p><b>✕ (A)</b> as soon as（離れたとたんに）が言い過ぎ。wild を「野蛮」と字面で取ったひっかけ。<br>
+  <b>✕ (B)</b> 本文の趣旨は、法と秩序を守らせる人が<b>いない</b>こと。「施行されたあと」は逆で、内容も意味をなさない。<br>
+  <b>✕ (C)</b> パソコン越しに争うのは<b>今の地球</b>の話（下線部の直前の just as 節）。the Wild West の説明ではない。<br>
+  <b>✕ (D)</b> frontier は西部開拓からの連想としてはもっともらしいが、「争い」「法の不在」という文脈を説明していない。設問文の <b>Based on the context</b> がここで効く。</p>`},
+ {no:"設問 3",
+  en:"Based on the dialogue, which of the following is most likely to be true?",
+  ja:"対話に基づくと、次のうち正しい可能性が最も高いものはどれか。",
+  ch:[["(A)","Neither Sandra nor Robert has tried to eat insects.","サンドラもロバートも、虫を食べてみたことがない。"],
+      ["(B)","Robert has been on cruises and not enjoyed himself.","ロバートはクルーズ船の旅に行ったことがあり、楽しめなかった。"],
+      ["(C)","Robert seems to be more cautious and pessimistic than Sandra.","ロバートはサンドラよりも慎重で悲観的であるようだ。",1],
+      ["(D)","Sandra cares more about Earth's ecology than Robert.","サンドラはロバートよりも、地球の生態系（自然環境）を気にかけている。"],
+      ["(E)","Sandra is more adventurous than Robert and always disagrees with his opinions.","サンドラはロバートよりも冒険好きで、いつも彼の意見に反対している。"]],
+  ans:`<p><span class="k">正解：(C)</span></p>
+  <p>ロバートは冒頭の <i>I wonder whether there will be a world at all</i> から始まり、戦争はもっと悲惨に／ポッド暮らしで攻撃的に／植民地は無法地帯に／食事はひどい、と<b>一貫して慎重・悲観的</b>。サンドラは筆者の楽観論を紹介し、最後まで「火星に行きたい」と言う。</p>
+  <p><b>✕ (A)(B)</b> 本文に書かれていない。<i>yuck!</i> やクルーズのたとえからは、実際に経験したかどうかはわからない。<br>
+  <b>✕ (D)</b> 逆。「政府は環境の改善にお金を使うべき」「川にきれいな水を」と言うのは<b>ロバート</b>。<br>
+  <b>✕ (E)</b> 前半（冒険好き）は正しいが、<b>always disagrees</b> が誤り。最後にサンドラは <i>I dare say you're right</i> と同意している（ロバートも途中で <i>Maybe you're right.</i> と認めている）。<b>always / never など言い切りの語は要注意</b>。</p>`},
+ {no:"設問 4",
+  en:"Based on the dialogue, which TWO of the following are NOT true?",
+  ja:"対話に基づくと、次のうち正しく<b>ない</b>ものを<b>2つ</b>選びなさい。",
+  ch:[["(A)","Both Robert and Sandra think that settlers on Mars will probably have to eat reconstituted food.","ロバートもサンドラも、火星の入植者はおそらく（乾燥食品を）水で戻した食べ物を食べなければならないだろうと考えている。"],
+      ["(B)","Robert is against aquaculture because it pollutes the rivers.","ロバートは、水産養殖は川を汚染するので反対している。",1],
+      ["(C)","Robert is squeamish about eating small mammals.","ロバートは小型の哺乳動物を食べることに抵抗がある（気持ち悪がる）。"],
+      ["(D)","Sandra doesn't think that new colonies may become autonomous.","サンドラは、新しい植民地が自治権を持つ（独立する）かもしれないとは考えていない。",1],
+      ["(E)","Sandra thinks that the people sent to the new colonies will be better than the average person on Earth.","サンドラは、新しい植民地に送られる人々は、地球の平均的な人よりも優れているだろうと考えている。"]],
+  ans:`<p><span class="k">正解：(B) と (D)</span></p>
+  <p><b>(B) ✕</b> ロバートは「養殖が川を汚す」とは一言も言っていない。<i>Let's have clean water in our rivers for fish, not aquariums on Mars!</i> は「火星の水槽にお金をかけるより、地球の川をきれいにしよう」という<b>お金と努力の優先順位</b>の話。rivers という本文の語を使ったひっかけ。</p>
+  <p><b>(D) ✕</b> サンドラは <i>Maybe in time they will break away and set up their own governments</i>（やがて独立して自分たちの政府を作るかもしれない）と言っている。つまり自治（autonomous）の可能性を<b>認めている</b>。その前の <i>they won't be able to break away</i>（物資を地球に頼るので当面は独立できない）だけを読むと、(D) を「正しい」と誤認する。<b>当面は無理／いずれは可能</b>という時間差がポイント。</p>
+  <p><b>(A) ○</b> ロバートの <i>People would have to live off reconstituted meals…</i> に対し、サンドラも <i>Perhaps at first</i>（最初はそうかもね）と認めている。<br>
+  <b>(C) ○</b> <i>Rabbits are too cute to eat, and rats are too disgusting.</i> ウサギもネズミも small mammals。squeamish＝（食べるのを）気持ち悪がる・抵抗がある。<br>
+  <b>(E) ○</b> <i>They'll all be highly intelligent and moral people … they will organize things better than we do!</i></p>`},
+ {no:"設問 5（英作文）",
+  en:"In your opinion, how will the world remain unchanged in fifty years? Give one example to support your opinion. Your answer must be between 30 and 40 words. Indicate the number of words you have written at the end of your answer. Do not count punctuation such as commas or periods as words.",
+  ja:"あなたの考えでは、50年後、世界はどのような点で変わらないままだろうか。自分の意見を裏づける例を1つ挙げなさい。解答は<b>30語以上40語以内</b>とすること。書いた語数を解答の最後に示すこと。カンマやピリオドなどの句読点は語数に数えないこと。",
+  ans:`<p><span class="k">書き方の型：①「何が変わらないか」を1文で言い切る → ②For example で具体例を1つ → ③理由を短く添える</span></p>
+  <p>いちばんの注意点は、問われているのが<b>「変わらない点」</b>だということ。本文が「50年後にどう変わるか」の話なので、つい変化を書いてしまいやすい。<b>will still ～ / will remain ～ / will continue to ～</b> を使えば、題意に沿っていることがひと目で伝わる。<b>語数の書き忘れは失点に直結する。</b></p>
+  <div class="model"><b>解答例① 人と人のつながりは変わらない</b>
+  <p class="en">I believe people will still value meeting face to face. For example, even if virtual reality becomes common, families and friends will keep gathering to celebrate birthdays and weddings, because sharing a meal in person makes us happy. <span class="wc">(38 words)</span></p>
+  <p>【訳】人々はこれからも、直接会うことを大切にし続けると思う。たとえば、仮想現実が普及しても、家族や友人は誕生日や結婚式を祝うために集まり続けるだろう。顔を合わせて食事をともにすることが、私たちを幸せにするからだ。</p></div>
+  <div class="model"><b>解答例② 貧富の差は変わらない（本文の「120歳まで生きる」を利用）</b>
+  <p class="en">I think the gap between rich and poor will remain. For example, even if medical technology lets people live to be a hundred and twenty, such expensive treatment will probably be available only to wealthy people in rich countries. <span class="wc">(39 words)</span></p>
+  <p>【訳】貧富の差は残ると思う。たとえば、医療技術によって人が120歳まで生きられるようになったとしても、そうした高額な治療を受けられるのは、おそらく豊かな国の裕福な人々だけだろう。</p></div>
+  <p class="note">語数の数え方：face to face はハイフンなしなので3語（face-to-face と書けば1語扱いが無難）。a hundred and twenty は4語、数字で 120 と書けば1語。短縮形（I'm）も1語。</p>`}
+];
+
+document.getElementById("qbody").innerHTML=QS.map(q=>{
+ let inner=`<div class="qbox"><span class="qno">${q.no}</span>
+  <div class="qen">${esc(q.en)}</div>
+  <div class="qja">${q.ja}</div>`;
+ if(q.ch){
+  inner+=q.ch.map(c=>`<div class="ch${c[3]?" ok":""}"><b>${c[0]}</b><span><span style="font-style:italic;color:#334155">${esc(c[1])}</span><br><span class="cja">${c[2]}</span></span></div>`).join("");
+ }
+ inner+=`<div class="ans hid"><div class="hd">解答・解説（タップで表示）</div><div class="body">${q.ans}</div></div></div>`;
+ return inner;}).join("");
+document.querySelectorAll(".ans").forEach(a=>a.onclick=()=>{
+ a.classList.toggle("hid");
+ a.closest(".qbox").classList.toggle("reveal",!a.classList.contains("hid"));});
+
+/* ================= タブ ================= */
+function setTab(t){
+ ["vocab","sx","tl","q"].forEach(k=>{
+  document.getElementById("tab-"+k).classList.toggle("hide",k!==t);
+  document.getElementById("tb-"+k).classList.toggle("on",k===t);});
+ window.scrollTo({top:0,behavior:"smooth"});}
+
+render();
+</script>
+</body>
+</html>
