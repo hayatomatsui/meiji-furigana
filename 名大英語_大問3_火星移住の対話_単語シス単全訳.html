@@ -107,8 +107,6 @@ tr.done .mark{color:#4CAF50}
 .entry .gl{margin-top:6px;font-size:.9rem}
 .entry .ct{margin-top:6px;font-size:.78rem;color:var(--sub)}
 .entry .ct em{font-family:Georgia,serif;color:#334155}
-.unsure{font-size:.62rem;font-weight:800;color:#92400e;background:#fef3c7;border:1px solid #fcd34d;
-  padding:1px 7px;border-radius:999px;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif}
 .deckhint{font-size:.76rem;color:var(--sub);margin-bottom:9px}
 .deck{display:flex;flex-wrap:wrap;gap:8px;list-style:none}
 .deck li{display:flex}
@@ -258,7 +256,7 @@ button.flip:hover{transform:none}
 <!-- ============ ② シス単にない語 ============ -->
 <section id="tab-sx" class="hide">
 <h2>システム英単語では出会わない語</h2>
-<p class="lead">本文＋設問の語彙を、システム英単語（5訂版）の見出し語・派生語と照らし合わせて4段階に分けました。<b>A だけは必ずカード化</b>、B は語の作りから推測する練習用、C はシス単の復習範囲です。判定方法はページ末尾を見てください。</p>
+<p class="lead">本文＋設問の語彙を、システム英単語（5訂版）の Anki デッキと機械照合して4段階に分けました。<b>A だけは必ずカード化</b>、B は語の作りやシス単の関連語から推測する練習用、C はシス単の復習範囲です。判定方法はページ末尾を見てください。</p>
 <div class="sxstats" id="sxstats"></div>
 
 <div id="tierA">
@@ -267,7 +265,7 @@ button.flip:hover{transform:none}
 </div>
 
 <div id="tierB">
-  <div class="tierhead"><span class="tl">B</span><h3>シス単にないが、語の作りやカタカナ語から推測できる語</h3><span class="tn" id="nB"></span>
+  <div class="tierhead"><span class="tl">B</span><h3>シス単にないが、シス単の関連語・語の作り・カタカナ語から推測できる語</h3><span class="tn" id="nB"></span>
     <button class="util" type="button" data-deck="deckB" onclick="flipAll(this)">すべてめくる</button></div>
   <p class="deckhint">タップで裏返ります（英語 → 意味）。</p>
   <ul class="deck" id="deckB"></ul>
@@ -276,9 +274,10 @@ button.flip:hover{transform:none}
 <div id="tierC">
   <div class="tierhead"><span class="tl">C</span><h3>シス単に載っている語 — 復習範囲</h3><span class="tn" id="nC"></span>
     <button class="util" type="button" data-deck="deckC" onclick="flipAll(this)">すべてめくる</button></div>
-  <p class="deckhint">英語だけ見て意味を言えるか確認。<span class="unsure">△</span> は収録判定に自信がない語（要確認）。</p>
+  <p class="deckhint">英語だけ見て意味を言えるか確認。裏面の「→」は、シス単の訳と本文での意味がずれる語です。</p>
   <ul class="deck" id="deckC"></ul>
-  <p class="caveat">落とし穴 — 基本語なのに<b>別の意味</b>で出てくる語：<b>room</b>（部屋 → 空間・余地）／<b>field</b>（分野 → 畑）／<b>mine</b>（私のもの → 鉱山）／<b>supplies</b>（供給 → 物資）／<b>certain</b>（確かな → ある～）。fields と mines は設問1の根拠そのもの。</p>
+  <p class="caveat">落とし穴 — 見出し語として覚えた意味のままだと誤読する語：<b>frontier</b>（シス単の訳は「国境」→ the final frontier は「最後の未開拓領域」）／<b>autonomous</b>（シス単のフレーズは autonomous cars「自動運転車」→ ここでは「自治の」）／<b>period</b>（シス単では「時代」→ 設問5の periods は「ピリオド」）。<br>
+  基本語の別の意味にも注意：<b>room</b>（部屋 → 空間・余地）／<b>field</b>（分野 → 畑）／<b>mine</b>（私のもの → 鉱山。シス単にもこの意味で収録）／<b>supplies</b>（供給 → 物資）／<b>certain</b>（確かな → ある～）／<b>fairly</b>（公平に、ではなく「かなり」）。fields と mines は設問1の根拠そのもの。</p>
 </div>
 
 <div id="tierD">
@@ -287,8 +286,8 @@ button.flip:hover{transform:none}
 </div>
 
 <div class="method">
-  <p><b>判定方法</b>：以前の「The Case for Quantity in Science Publishing」（名大2026 大問Ⅱ）のページではシステム英単語の apkg を展開して機械照合しましたが、今回は apkg が手元にないため、シス単5訂版（Stage 1〜5・派生語欄を含む）の収録状況を<b>知識ベースで手作業判定</b>しています。<span class="unsure">△要確認</span> は判定の確信度が低い語なので、お手元のシス単で確認してください。</p>
-  <p>insect・rabbit・terrible など中学〜高校基礎の語は対象外にしています。apkg を共有いただければ、前回と同じ方法で機械照合して確定版に差し替えます。</p>
+  <p><b>判定方法</b>：<code>システム英単語 5訂版.apkg</code> を展開し、<code>collection.anki21b</code> の notes 5,513件のうち、サブデッキ「単語」の見出し語 2,027語と「センターで間違えやすい単語100」（うち単語デッキにない28語）を合わせた 2,055語を収録語とした。本文＋設問を語単位に分解した約300の異なり語について、屈折語尾と派生接辞（-ous／-ion／-ing／-ed／re- など）を展開して照合し、残った語を中高基礎語かどうか手作業で選別した（rabbit・hunger・delicious などシス単にない基礎語は対象外）。</p>
+  <p>デッキ作者が追加した「似てる英単語」（1,359件。cabin・munch・cautious などを含む）は本の見出し語ではないため、収録扱いにしていない。なお infer はデッキ上 <b>inferred</b>（推量する）という形で登録されているため、収録として扱った。</p>
 </div>
 </section>
 
@@ -350,7 +349,7 @@ const LV={
  "1級":{c:"var(--g1)",note:"大学上級程度"},
  "級外":{c:"var(--gx)",note:"口語表現・専門語"}
 };
-// [語句, 意味, 本文での使われ方, レベル, 箇所, 種類, シス単(A=載っていない難語／B=載っていないが推測可／△=判定に自信なし)]
+// [語句, 意味, 本文での使われ方, レベル, 箇所, 種類, シス単(A=載っていない難語／B=載っていないが推測可／空=収録済みまたは基礎語・熟語)]
 const DATA=[
  /* ---- 導入文 ---- */
  ["be curious about ~","～に興味津々だ、～を知りたがる","Robert, is curious about what she is reading","2級","導入文","熟語",""],
@@ -396,7 +395,7 @@ const DATA=[
  ["mobile phone","携帯電話（英）＝cell phone（米）","our computers and mobile phones","準2級","p.13 未来と宇宙","熟語",""],
  ["instead of ~ing","～する代わりに、～しないで","instead of working in the fields or the mines","準2級","p.13 未来と宇宙","熟語",""],
  ["field","名 畑、田畑　※「分野」ではない","working in the fields","準2級","p.13 未来と宇宙","単語",""],
- ["mine","名 鉱山　※「私のもの」ではない","working in the fields or the mines","2級","p.13 未来と宇宙","単語","B"],
+ ["mine","名 鉱山　※「私のもの」ではない","working in the fields or the mines","2級","p.13 未来と宇宙","単語",""],
  ["leave A for B","Aを捨てて[辞めて]Bに移る","leave your office job for something like that","2級","p.13 未来と宇宙","熟語",""],
  ["something like that","そのようなもの【下線部(1)＝畑や鉱山での仕事】","for something like that?","準2級","p.13 未来と宇宙","熟語",""],
  /* ---- p.14 植民地 ---- */
@@ -411,16 +410,16 @@ const DATA=[
  ["break away (from ~)","（～から）離脱する、独立する","they won't be able to break away","準1級","p.14 植民地","熟語",""],
  ["select","動 選び出す、選抜する","will be very carefully selected","準2級","p.14 植民地","単語",""],
  ["highly","副 非常に、高度に","highly intelligent and moral people","2級","p.14 植民地","単語",""],
- ["intelligent","形 知能の高い、聡明な","highly intelligent and moral people","2級","p.14 植民地","単語",""],
+ ["intelligent","形 知能の高い、聡明な","highly intelligent and moral people","2級","p.14 植民地","単語","B"],
  ["moral","形 道徳的な、品行方正な","highly intelligent and moral people","準1級","p.14 植民地","単語",""],
  ["in time","やがて、いずれ（on time＝時間通りに と区別）","Maybe in time they will break away","2級","p.14 植民地","熟語",""],
  ["set up ~","～を設立する、樹立する","set up their own governments","2級","p.14 植民地","熟語",""],
- ["organize","動 （物事を）取りまとめる、運営する","they will organize things better than we do","2級","p.14 植民地","単語",""],
+ ["organize","動 （物事を）取りまとめる、運営する","they will organize things better than we do","2級","p.14 植民地","単語","B"],
  /* ---- p.14 火星の食事 ---- */
  ["just think what it would be like to do","～したらどんな感じか、考えてもみてよ（仮定法）","just think what it would be like to actually live there!","2級","p.14 火星の食事","熟語",""],
  ["for long","長い間（主に否定文・疑問文で）","You couldn't go outside for long","2級","p.14 火星の食事","熟語",""],
  ["spacesuit","名 宇宙服","even with a spacesuit","2級","p.14 火星の食事","単語","B"],
- ["radiation","名 放射線、放射","because of strong winds and radiation","準1級","p.14 火星の食事","単語","A△"],
+ ["radiation","名 放射線、放射","because of strong winds and radiation","準1級","p.14 火星の食事","単語",""],
  ["fairly","副 かなり、相当","the food would be fairly terrible","2級","p.14 火星の食事","単語",""],
  ["live off ~","～に頼って暮らす、～で食いつなぐ","People would have to live off reconstituted meals","準1級","p.14 火星の食事","熟語",""],
  ["reconstituted","形 （乾燥食品を水で）戻した、再構成した【設問4(A)】","live off reconstituted meals, pastes and powders","級外","p.14 火星の食事","単語","A"],
@@ -443,7 +442,7 @@ const DATA=[
  ["rat","名 ネズミ（ドブネズミなど大型。小型は mouse）","breed rabbits or rats for food","2級","p.14 火星の食事","単語",""],
  ["Even worse.","なおさら悪い、もっとひどい","Robert: Even worse.","2級","p.14 火星の食事","熟語",""],
  ["too ~ to do","～すぎて…できない","Rabbits are too cute to eat","準2級","p.14 火星の食事","熟語",""],
- ["disgusting","形 気持ち悪い、むかむかする","rats are too disgusting","準1級","p.14 火星の食事","単語",""],
+ ["disgusting","形 気持ち悪い、むかむかする","rats are too disgusting","準1級","p.14 火星の食事","単語","B"],
  ["devote A to B","AをBにささげる・注ぐ（to は前置詞→動名詞）","devote their efforts to making life better on Earth","準1級","p.14 火星の食事","熟語",""],
  ["put money into ~","～にお金をつぎ込む","put their money into improving the environment","2級","p.14 火星の食事","熟語",""],
  ["aquarium","名 水槽、水族館（aqua＝水）","not aquariums on Mars!","2級","p.14 火星の食事","単語","B"],
@@ -457,23 +456,23 @@ const DATA=[
  ["context","名 文脈、前後関係","Based on the context","準1級","設問文","単語",""],
  ["wild","形 野蛮な、手に負えない；野生の","People will become wild","準2級","設問文","単語",""],
  ["consider A (to be) B","AをBだとみなす","consider Mars to be the final frontier","2級","設問文","熟語",""],
- ["the final frontier","最後のフロンティア（人類未踏の領域＝宇宙）","consider Mars to be the final frontier","準1級","設問文","熟語","A△"],
+ ["the final frontier","最後のフロンティア（人類未踏の領域＝宇宙）","consider Mars to be the final frontier","準1級","設問文","熟語",""],
  ["lawlessness","名 無法状態（law＋less＋ness）【設問2の正解(E)】","live in a state of lawlessness","1級","設問文","単語","B"],
  ["a state of ~","～の状態","a state of lawlessness","2級","設問文","熟語",""],
  ["neither A nor B","AもBも～ない（動詞は B に一致）","Neither Sandra nor Robert has tried to eat insects","準2級","設問文","熟語",""],
  ["enjoy oneself","楽しく過ごす","has been on cruises and not enjoyed himself","準2級","設問文","熟語",""],
- ["cautious","形 慎重な、用心深い","more cautious and pessimistic than Sandra","準1級","設問文","単語",""],
- ["pessimistic","形 悲観的な（⇔optimistic）","cautious and pessimistic","準1級","設問文","単語",""],
+ ["cautious","形 慎重な、用心深い","more cautious and pessimistic than Sandra","準1級","設問文","単語","B"],
+ ["pessimistic","形 悲観的な（⇔optimistic）【設問3の正解(C)】","cautious and pessimistic","準1級","設問文","単語","A"],
  ["care about ~","～を気にかける、大切に思う","Sandra cares more about Earth's ecology","準2級","設問文","熟語",""],
- ["ecology","名 生態系、自然環境；生態学","Earth's ecology","準1級","設問文","単語",""],
+ ["ecology","名 生態系、自然環境；生態学","Earth's ecology","準1級","設問文","単語","B"],
  ["adventurous","形 冒険好きな、大胆な","Sandra is more adventurous than Robert","準1級","設問文","単語","B"],
  ["disagree with ~","～と意見が合わない、～に反対する","always disagrees with his opinions","2級","設問文","熟語",""],
  ["settler","名 入植者、移住者（settle＝定住する）","settlers on Mars","準1級","設問文","単語","B"],
  ["be against ~","～に反対している（⇔be for ~）","Robert is against aquaculture","2級","設問文","熟語",""],
- ["pollute","動 汚染する（名 pollution）","because it pollutes the rivers","準1級","設問文","単語",""],
+ ["pollute","動 汚染する（名 pollution）","because it pollutes the rivers","準1級","設問文","単語","B"],
  ["squeamish","形 （血・虫・生き物を食べることなどに）すぐ気分が悪くなる【設問4(C)】","Robert is squeamish about eating small mammals","1級","設問文","単語","A"],
  ["mammal","名 哺乳動物","eating small mammals","準1級","設問文","単語",""],
- ["autonomous","形 自治の、自立した（名 autonomy）【設問4(D)】","new colonies may become autonomous","1級","設問文","単語","A△"],
+ ["autonomous","形 自治の、自立した（名 autonomy）【設問4(D)】","new colonies may become autonomous","1級","設問文","単語",""],
  ["the average person","平均的な人、普通の人","better than the average person on Earth","2級","設問文","熟語",""],
  ["in one's opinion","～の意見では","In your opinion, how will the world ...","準2級","設問文","熟語",""],
  ["remain unchanged","変わらないままである【設問5のテーマ】","how will the world remain unchanged in fifty years?","準1級","設問文","熟語",""],
@@ -531,8 +530,7 @@ function list(){return data.filter(d=>
 function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
 function sxTag(s){
  if(!s)return"";
- const u=s.includes("△")?"△":"";
- return s[0]==="A"?`<span class="tag sa">シス単外${u}</span>`:`<span class="tag sb">シス単外・推測可${u}</span>`;}
+ return s==="A"?`<span class="tag sa">シス単外</span>`:`<span class="tag sb">シス単外・推測可</span>`;}
 
 function render(){
  const L=list();
@@ -596,24 +594,28 @@ function toggleDoneFilter(){hideDone=!hideDone;
  document.getElementById("hideDoneBtn").textContent=hideDone?"覚えた項目も表示":"覚えた項目を隠す";render();}
 
 /* ================= ② シス単にない語 ================= */
-// A: [見出し, 併記, 品詞, 意味, 本文での出方, △]
+// A: [見出し, 併記, 品詞, 意味, 本文での出方]
 const SXA=[
- ["reconstituted","","形","（乾燥食品などを水で）戻した、再構成した。re-（再び）＋constitute（構成する）","p.14 <em>live off reconstituted meals, pastes and powders</em>／設問4(A)にも再登場",""],
- ["squeamish","","形","（血・虫・生き物を食べることなどに）すぐ気分が悪くなる、抵抗感が強い","設問4(C) <em>Robert is squeamish about eating small mammals</em>＝本文 rats are too disgusting の言い換え",""],
- ["munch","(on ~)","動","むしゃむしゃ・ぼりぼり食べる","p.14 <em>they would be munching on insects—yuck!</em>",""],
- ["aquaculture","","名","水産養殖。aqua（水）＋culture（育てること。agriculture の culture と同じ）","p.14 <em>They would also develop aquaculture</em>／設問4(B)",""],
- ["autonomous","","形","自治の、自立した（名 autonomy 自治・自律）","設問4(D) <em>new colonies may become autonomous</em>＝本文 break away and set up their own governments の言い換え","△"],
- ["pod","","名","ポッド。宇宙基地などのカプセル型の居住区画（原義は豆の「さや」）","p.13 <em>we'll be living in pods on the moon</em>／<em>space pods</em>",""],
- ["cabin","","名","（船の）客室・船室／（飛行機の）客室／丸太小屋","p.13 <em>not being able to leave your cabin</em>（クルーズのたとえ）",""],
- ["radiation","","名","放射線、放射","p.14 <em>because of strong winds and radiation</em>","△"],
- ["trout","/ prawn","名","マス／（クルマエビ程度の）エビ。英 prawn ≒ 米 shrimp","p.14 <em>salmon and trout, lobster and prawns</em>",""],
- ["frontier","","名","辺境、未開拓の領域。the final frontier＝人類最後の未踏領域（宇宙を指す決まり文句）","設問2(D) <em>People would consider Mars to be the final frontier</em>（ひっかけの選択肢）","△"],
- ["punctuation","","名","句読点（comma カンマ／period ピリオド）","設問5 <em>Do not count punctuation such as commas or periods as words</em>（名大英作文の定型の指示文）",""]
+ ["pessimistic","","形","悲観的な。反意語の optimistic（楽観的な）はシス単にあるが、pessimistic は見出し語にない","設問3の正解(C) <em>Robert seems to be more cautious and pessimistic than Sandra</em>"],
+ ["squeamish","","形","（血・虫・生き物を食べることなどに）すぐ気分が悪くなる、抵抗感が強い","設問4(C) <em>Robert is squeamish about eating small mammals</em>＝本文 rats are too disgusting の言い換え"],
+ ["reconstituted","","形","（乾燥食品などを水で）戻した。constitute（構成する）はシス単にあるので「再構成した」まではたどれるが、食品では「水で戻した」の意味になる","p.14 <em>live off reconstituted meals, pastes and powders</em>／設問4(A)にも再登場"],
+ ["aquaculture","","名","水産養殖。シス単の agriculture（農業）の agri（畑）を aqua（水）に置き換えた語","p.14 <em>They would also develop aquaculture</em>／設問4(B)"],
+ ["munch","(on ~)","動","むしゃむしゃ・ぼりぼり食べる","p.14 <em>they would be munching on insects—yuck!</em>"],
+ ["cabin","","名","（船の）客室・船室／（飛行機の）客室／山小屋","p.13 <em>not being able to leave your cabin</em>（クルーズのたとえ）"],
+ ["pod","","名","ポッド。宇宙基地などのカプセル型の居住区画（原義は豆の「さや」）","p.13 <em>we'll be living in pods on the moon</em>／<em>space pods</em>"],
+ ["trout","/ prawn","名","マス／（クルマエビ程度の）エビ。英 prawn ≒ 米 shrimp","p.14 <em>salmon and trout, lobster and prawns</em>"],
+ ["punctuation","","名","句読点（comma カンマ／period ピリオド）。シス単の punctual（時間を守る）と同じく punct-（点）が語源","設問5 <em>Do not count punctuation such as commas or periods as words</em>（名大英作文の定型の指示文）"]
 ];
 // B: [英語, 意味]
 const SXB=[
- ["deadly","命取りの、致命的な（-ly だが形容詞）"],
- ["bad-tempered","不機嫌な、怒りっぽい（temper 気性）"],
+ ["cautious","慎重な ← caution（用心）はシス単"],
+ ["ecology","生態系、生態学 ← ecological はシス単"],
+ ["pollute","汚染する ← pollution はシス単"],
+ ["organize","まとめる、運営する ← organization はシス単"],
+ ["disgusting","気持ち悪い ← disgust（嫌悪）はシス単"],
+ ["bad-tempered","怒りっぽい ← temper（気性）はシス単"],
+ ["intelligent","知能の高い（インテリジェント）"],
+ ["deadly","命取りの（dead＋-ly。副詞ではなく形容詞）"],
  ["lawlessness","無法状態（law＋less＋ness）★設問2の正解"],
  ["settler","入植者（settle 定住する＋-er）"],
  ["adventurous","冒険好きな（adventure＋-ous）"],
@@ -623,42 +625,43 @@ const SXB=[
  ["cruise","船旅、クルーズ"],
  ["paste","ペースト、練り状の食べ物"],
  ["powder","粉末、パウダー"],
- ["Mars","火星（Venus 金星・Jupiter 木星）"],
- ["mine","鉱山（「私のもの」ではない！）"]
+ ["Mars","火星（Venus 金星・Jupiter 木星）"]
 ];
-// C: [英語, 意味, △]
+// C: [英語, シス単の訳（→ 本文での意味）]
 const SXC=[
- ["curious","好奇心の強い、知りたがる",""],
- ["optimistic","楽観的な",""],
- ["pessimistic","悲観的な",""],
- ["cure","治療法／治す",""],
- ["aggressive","攻撃的な",""],
- ["stick","くっつく／be stuck in ～に閉じ込められる",""],
- ["supply","供給（する）／supplies 物資",""],
- ["devote","ささげる（devote A to B）",""],
- ["moral","道徳的な",""],
- ["intelligent","知能の高い（名 intelligence）",""],
- ["organize","まとめる、組織する",""],
- ["pollute","汚染する（名 pollution）",""],
- ["infer","推論する",""],
- ["manual","手の、手作業の（manual labor 肉体労働）",""],
- ["labor","労働",""],
- ["accurate","正確な",""],
- ["context","文脈",""],
- ["indicate","示す",""],
- ["colony","植民地、入植地","△"],
- ["enforce","（法を）施行する、守らせる","△"],
- ["breed","繁殖させる、飼育する","△"],
- ["disgusting","気持ち悪い（disgust 嫌悪）","△"],
- ["mammal","哺乳動物","△"],
- ["cautious","慎重な（名 caution）","△"],
- ["ecology","生態系、生態学","△"]
+ ["curious","好奇心の強い"],
+ ["dialogue","対話"],
+ ["optimistic","楽観的な"],
+ ["cure","治療する／名 治療法"],
+ ["colony","植民地"],
+ ["aggressive","攻撃的な"],
+ ["dare","あえて～する → I dare say たぶん～だろう"],
+ ["mobile","流動的な → mobile phone 携帯電話"],
+ ["mine","鉱山"],
+ ["enforce","（法を）施行する"],
+ ["supply","供給する → supplies 物資"],
+ ["select","選ぶ"],
+ ["moral","道徳的な"],
+ ["radiation","放射線"],
+ ["breed","繁殖させる"],
+ ["devote","ささげる（devote A to B）"],
+ ["manual","手を使う → manual labor 肉体労働"],
+ ["labor","労働"],
+ ["infer","推論する（デッキでは inferred で登録）"],
+ ["accurate","正確な"],
+ ["context","文脈"],
+ ["frontier","国境 → the final frontier 最後の未開拓領域"],
+ ["mammal","哺乳類"],
+ ["autonomous","自律的な（autonomous cars）→ 自治の"],
+ ["remain","～のままでいる → remain unchanged"],
+ ["indicate","示す"]
 ];
 // D: [表現, 意味]
 const SXD=[
  ["in fifty years' time","（今から）50年後に"],
  ["with the way things are going","このままの成り行きだと"],
  ["live to be ~","～歳まで生きる"],
+ ["be stuck in ~","～に閉じ込められる（stick はシス単にない）"],
  ["I dare say ~","たぶん～だろう（半ば認める）"],
  ["leave A for B","Aを捨ててBに移る　※下線部(1)の文"],
  ["from behind ~","～の陰から（前置詞＋前置詞）"],
@@ -673,11 +676,11 @@ const SXD=[
  ["most likely","十中八九、おそらく"],
  ["remain unchanged","変わらないままである　※設問5"]
 ];
-const U=`<span class="unsure">△要確認</span>`;
 document.getElementById("sxstats").innerHTML=
- `<div><b>約300</b>本文＋設問の異なり語（見出し語ベース）</div>
+ `<div><b>2,055</b>シス単の収録語（単語2,027＋センター100の追加28）</div>
+  <div><b>約300</b>本文＋設問の異なり語（見出し語ベース）</div>
   <div class="hit"><b>${SXA.length}</b>A 最優先で覚える</div>
-  <div><b>${SXB.length}</b>B 語の作りから推測</div>
+  <div><b>${SXB.length}</b>B 関連語・語の作りから推測</div>
   <div><b>${SXC.length}</b>C シス単で復習</div>
   <div><b>${SXD.length}</b>D 熟語・口語表現</div>`;
 document.getElementById("nA").textContent=SXA.length+"語";
@@ -685,11 +688,11 @@ document.getElementById("nB").textContent=SXB.length+"語";
 document.getElementById("nC").textContent=SXC.length+"語";
 document.getElementById("nD").textContent=SXD.length+"表現";
 document.getElementById("sxA").innerHTML=SXA.map(e=>
- `<div class="entry"><div class="hw"><span class="wd">${e[0]}</span>${e[1]?`<span class="alt">${e[1]}</span>`:""}<span class="pos">${e[2]}</span>${e[5]?U:""}</div>
+ `<div class="entry"><div class="hw"><span class="wd">${e[0]}</span>${e[1]?`<span class="alt">${e[1]}</span>`:""}<span class="pos">${e[2]}</span></div>
   <div class="gl">${e[3]}</div><div class="ct">${e[4]}</div></div>`).join("");
-const flipHTML=(w,m,u)=>`<li><button class="flip" type="button" aria-pressed="false"><span class="f front">${w}${u?'<span class="unsure">△</span>':""}</span><span class="f back">${m}</span></button></li>`;
-document.getElementById("deckB").innerHTML=SXB.map(e=>flipHTML(e[0],e[1],"")).join("");
-document.getElementById("deckC").innerHTML=SXC.map(e=>flipHTML(e[0],e[1],e[2])).join("");
+const flipHTML=(w,m)=>`<li><button class="flip" type="button" aria-pressed="false"><span class="f front">${w}</span><span class="f back">${m}</span></button></li>`;
+document.getElementById("deckB").innerHTML=SXB.map(e=>flipHTML(e[0],e[1])).join("");
+document.getElementById("deckC").innerHTML=SXC.map(e=>flipHTML(e[0],e[1])).join("");
 document.getElementById("sxD").innerHTML=SXD.map(e=>`<div class="idiom"><span>${e[0]}</span><small>${e[1]}</small></div>`).join("");
 document.querySelectorAll(".flip").forEach(b=>b.onclick=()=>
  b.setAttribute("aria-pressed",b.getAttribute("aria-pressed")==="true"?"false":"true"));
