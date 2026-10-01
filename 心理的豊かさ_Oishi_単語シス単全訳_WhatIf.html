@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>大問Ⅰ｜心理的豊かさ（Oishi）— 単語・シス単未収録語・What if・全訳・設問</title>
+<style>
+:root{
+  --g3:#4CAF50; --g3p:#8BC34A; --g2:#03A9F4; --g2p:#7E57C2; --g1:#E91E63; --gx:#F44336;
+  --tw:#ff6a3d; --ti:#1668c7;
+  --bg:#f4f6fb; --card:#fff; --ink:#1b2233; --sub:#6b7590;
+  --ac:#b45309; --ac2:#3730a3;
+  --sxa:#dc2626; --sxb:#d97706; --sxc:#0f766e; --sxd:#475569;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+  background:var(--bg);color:var(--ink);padding:18px;line-height:1.65}
+.wrap{max-width:1180px;margin:0 auto}
+header{background:linear-gradient(135deg,#0f3b46,#3730a3 52%,#b45309);color:#fff;
+  border-radius:18px;padding:26px 24px 18px;margin-bottom:16px;box-shadow:0 8px 26px rgba(55,48,163,.3)}
+header h1{font-size:1.34rem;margin-bottom:6px}
+header p{opacity:.94;font-size:.87rem}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:15px}
+.stat{background:rgba(255,255,255,.2);border-radius:12px;padding:8px 14px;font-size:.8rem}
+.stat b{font-size:1.15rem;display:block}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.tabs button{background:rgba(255,255,255,.18);color:#fff;box-shadow:none;padding:9px 16px}
+.tabs button.on{background:#fff;color:#3730a3}
+.tabs button.wi{background:rgba(253,230,138,.28)}
+.tabs button.wi.on{background:#fde68a;color:#78350f}
+h2{font-size:1.03rem;margin:24px 0 10px;padding-left:12px;border-left:5px solid var(--ac)}
+h3{font-size:.95rem;margin:16px 0 8px}
+p.lead{font-size:.86rem;color:var(--sub);margin-bottom:10px}
+
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 14px}
+.lbl{font-size:.72rem;color:var(--sub);font-weight:700;margin-right:2px}
+button{font-family:inherit;cursor:pointer;border:none;border-radius:999px;padding:8px 15px;
+  font-size:.82rem;font-weight:700;transition:.15s;background:#fff;color:var(--sub);
+  box-shadow:0 2px 6px rgba(0,0,0,.08)}
+button:hover{transform:translateY(-1px)}
+button.on{background:#1b2233;color:#fff}
+.util{background:#fef3c7;color:#92400e}
+.sw{display:inline-flex;background:#fff;border-radius:999px;padding:4px;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.sw button{box-shadow:none;padding:8px 18px}
+.sw button.on{background:linear-gradient(135deg,#b45309,#3730a3);color:#fff}
+.spacer{flex:1}
+
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;
+  box-shadow:0 2px 10px rgba(0,0,0,.07)}
+th,td{padding:10px 13px;text-align:left;border-bottom:1px solid #eef1f6;font-size:.87rem;vertical-align:top}
+th{background:#1b2233;color:#fff;font-size:.76rem;letter-spacing:.04em}
+tbody tr:nth-child(even){background:#fafbfe}
+tbody tr:hover{background:#fffbeb}
+tbody tr.done{opacity:.4}
+td.ph{font-weight:700}
+td.mn{cursor:pointer}
+tr.hid td.mn,tr.hid td.exc{filter:blur(5px);opacity:.5}
+td.exc{color:#5c6580;font-style:italic;font-size:.79rem}
+td.ln{color:#aab2c4;font-size:.75rem;white-space:nowrap}
+.mark{cursor:pointer;color:#c9cfdd;font-weight:800;user-select:none}
+tr.done .mark{color:#4CAF50}
+.bar{height:9px;border-radius:5px;display:inline-block;vertical-align:middle;margin-right:8px}
+.sumtbl td,.sumtbl th{font-size:.85rem}
+.tblwrap{overflow-x:auto}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:12px}
+.card{background:var(--card);border-radius:14px;padding:14px 16px;cursor:pointer;
+  box-shadow:0 2px 8px rgba(0,0,0,.07);border-left:6px solid #ccc;transition:.18s;
+  position:relative;user-select:none}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.12)}
+.card.done{opacity:.42}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.phrase{font-size:1.05rem;font-weight:700}
+.badge{font-size:.65rem;font-weight:800;color:#fff;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.tag{font-size:.63rem;font-weight:800;padding:2px 8px;border-radius:999px;color:#fff;white-space:nowrap}
+.tag.w{background:var(--tw)} .tag.i{background:var(--ti)}
+.tag.sa{background:var(--sxa)} .tag.sb{background:var(--sxb)}
+.meaning{margin-top:9px;padding-top:9px;border-top:1px dashed #dde2ec;font-size:.92rem}
+.ex{margin-top:7px;font-size:.77rem;color:#5c6580;font-style:italic}
+.hidden .meaning,.hidden .ex{filter:blur(6px);opacity:.5}
+.hint{font-size:.66rem;color:#b9c0d0;margin-top:6px}
+.line{font-size:.67rem;color:#aab2c4;margin-top:3px}
+.check{position:absolute;top:8px;right:10px;font-size:.66rem;color:#4CAF50;display:none;font-weight:800}
+.card.done .check{display:block}
+.hide{display:none}
+
+/* ---- ② シス単 ---- */
+.sxstats{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px;margin:8px 0 6px}
+.sxstats div{background:#fff;border-radius:12px;padding:10px 14px;box-shadow:0 2px 8px rgba(0,0,0,.06);
+  font-size:.74rem;color:var(--sub);line-height:1.5}
+.sxstats b{display:block;font-size:1.35rem;color:var(--ink);line-height:1.3}
+.sxstats .hit b{color:var(--sxa)}
+.tierhead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:28px 0 12px;
+  padding-bottom:8px;border-bottom:2px solid #e5e7eb}
+.tierhead .tl{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;
+  font-weight:800;color:#fff;background:var(--tc);flex:none}
+.tierhead h3{margin:0;font-size:.98rem}
+.tierhead .tn{font-size:.75rem;color:var(--sub)}
+.tierhead .util{margin-left:auto}
+#tierA{--tc:var(--sxa)} #tierB{--tc:var(--sxb);--tw2:#fffbeb} #tierC{--tc:var(--sxc);--tw2:#f0fdfa} #tierD{--tc:var(--sxd)}
+.entries{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+.entry{background:#fff;border-radius:14px;padding:13px 16px;box-shadow:0 2px 8px rgba(0,0,0,.06);
+  border-left:6px solid var(--sxa)}
+.entry .hw{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.entry .wd{font-size:1.2rem;font-weight:800;font-family:Georgia,"Times New Roman",serif}
+.entry .alt{font-size:.92rem;color:var(--sub);font-weight:600;font-family:Georgia,serif}
+.entry .pos{font-size:.66rem;font-weight:800;padding:2px 8px;border-radius:999px;background:#fee2e2;color:#b91c1c}
+.entry .gl{margin-top:6px;font-size:.9rem}
+.entry .ct{margin-top:6px;font-size:.78rem;color:var(--sub)}
+.entry .ct em{font-family:Georgia,serif;color:#334155}
+.deckhint{font-size:.76rem;color:var(--sub);margin-bottom:9px}
+.deck{display:flex;flex-wrap:wrap;gap:8px;list-style:none}
+.deck li{display:flex}
+button.flip{display:inline-grid;padding:0;background:none;box-shadow:none;border-radius:10px;perspective:700px}
+button.flip:hover{transform:none}
+.flip .f{grid-area:1/1;display:flex;align-items:center;justify-content:center;gap:6px;text-align:center;
+  padding:7px 14px;min-height:40px;border-radius:10px;background:#fff;border:1px solid #e5e7eb;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;transition:transform .42s cubic-bezier(.2,.75,.3,1)}
+.flip .front{font-family:Georgia,"Times New Roman",serif;font-size:1rem;color:var(--ink);border-bottom:3px solid var(--tc)}
+.flip .back{font-size:.82rem;color:var(--tc);background:var(--tw2);border-color:var(--tc);transform:rotateY(180deg)}
+.flip[aria-pressed="true"] .front{transform:rotateY(180deg)}
+.flip[aria-pressed="true"] .back{transform:rotateY(360deg)}
+.flip:focus-visible .f{outline:2px solid var(--tc);outline-offset:2px}
+.idioms{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px}
+.idiom{background:#fff;border-radius:12px;padding:10px 14px;box-shadow:0 2px 6px rgba(0,0,0,.05);
+  border-left:4px solid var(--sxd)}
+.idiom span{display:block;font-family:Georgia,"Times New Roman",serif;font-size:1rem;font-weight:700}
+.idiom small{font-size:.8rem;color:var(--sub)}
+.caveat{margin-top:14px;font-size:.85rem;background:#fef2f2;border-left:4px solid var(--sxa);
+  border-radius:0 10px 10px 0;padding:10px 14px}
+.caveat b{color:#b91c1c}
+.method{margin-top:24px;font-size:.78rem;color:var(--sub);background:#fff;border-radius:12px;
+  padding:12px 15px;border:1px dashed #cbd5e1}
+.method p+p{margin-top:6px}
+
+/* ---- ③ What if ---- */
+.wi{max-width:940px;margin:0 auto}
+.wi-hero{background:linear-gradient(135deg,#fffbeb,#eef2ff);border:1px solid #fde68a;border-radius:22px;
+  padding:34px 30px 30px;margin:20px 0 26px;box-shadow:0 6px 22px rgba(180,83,9,.12)}
+.wi-hero .kick{font-size:.74rem;font-weight:800;letter-spacing:.12em;color:#b45309}
+.wi-hero .big{font-family:Georgia,"Times New Roman",serif;font-size:1.75rem;line-height:1.45;
+  margin:12px 0 14px;color:#1e1b4b}
+.wi-hero .big b{color:#b45309}
+.wi-hero .ja{font-size:1.02rem;line-height:1.9}
+.wi-hero .note{font-size:.86rem;margin-top:14px}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 30px}
+.toc a{font-size:.8rem;font-weight:700;text-decoration:none;color:#3730a3;background:#fff;
+  border:1px solid #c7d2fe;border-radius:999px;padding:7px 14px}
+.toc a:hover{background:#eef2ff}
+.wsec{background:#fff;border-radius:20px;padding:28px 30px 30px;margin-bottom:28px;
+  box-shadow:0 3px 14px rgba(0,0,0,.06);line-height:1.95;scroll-margin-top:16px}
+.wsec>h3{display:flex;align-items:center;gap:12px;font-size:1.18rem;margin:0 0 6px}
+.wsec>h3 .n{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;flex:none;
+  font-size:1rem;color:#fff;background:linear-gradient(135deg,#b45309,#3730a3)}
+.wsec .sub{font-size:.84rem;color:var(--sub);margin-bottom:18px}
+.wsec p{font-size:.95rem}
+.wsec p+p{margin-top:10px}
+.en{font-family:Georgia,"Times New Roman",serif;font-style:italic;color:#1e3a8a}
+.formula{background:#f8fafc;border-radius:16px;padding:22px 20px;margin:16px 0;text-align:center;
+  font-family:Georgia,"Times New Roman",serif;font-size:1.22rem;line-height:2.2}
+.formula .om{color:#9ca3af;border:2px dashed #cbd5e1;border-radius:8px;padding:2px 8px;margin:0 3px;font-style:italic}
+.formula .kw{color:#b45309;font-weight:700}
+.formula small{display:block;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;
+  font-size:.8rem;color:var(--sub);line-height:1.6;margin-top:6px}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin:16px 0}
+.tcard{border-radius:16px;padding:18px 18px 16px;border:2px solid #e5e7eb;background:#fff}
+.tcard .tt{font-size:.74rem;font-weight:800;letter-spacing:.06em;color:#fff;display:inline-block;
+  padding:3px 11px;border-radius:999px;margin-bottom:10px}
+.tcard h4{font-size:1rem;margin-bottom:8px}
+.tcard ul{list-style:none}
+.tcard li{font-size:.9rem;padding:6px 0;border-top:1px dashed #e5e7eb;line-height:1.7}
+.tcard li:first-child{border-top:none}
+.tcard li span{display:block;font-size:.82rem;color:#475569}
+.tcard .feel{margin-top:10px;font-size:.82rem;background:#f8fafc;border-radius:10px;padding:8px 11px}
+.tc1{border-color:#bfdbfe}.tc1 .tt{background:#2563eb}
+.tc2{border-color:#fde68a}.tc2 .tt{background:#d97706}
+.tc3{border-color:#e9d5ff}.tc3 .tt{background:#7c3aed}
+.tc4{border-color:#bbf7d0}.tc4 .tt{background:#15803d}
+.callout{background:#fffbeb;border-left:5px solid #f59e0b;border-radius:0 14px 14px 0;padding:14px 18px;
+  margin:16px 0;font-size:.9rem;line-height:1.85}
+.callout.blue{background:#eef2ff;border-left-color:#6366f1}
+.callout b{color:#92400e}
+.callout.blue b{color:#3730a3}
+.flow{display:flex;flex-direction:column;gap:0;margin:18px 0}
+.flow .st{background:#f8fafc;border:1px solid #e5e7eb;border-radius:14px;padding:13px 16px}
+.flow .st .lab{font-size:.7rem;font-weight:800;color:#b45309;letter-spacing:.06em}
+.flow .st .s{font-family:Georgia,"Times New Roman",serif;font-style:italic;color:#1e3a8a;font-size:.98rem}
+.flow .st .j{font-size:.86rem;color:#475569}
+.flow .ar{text-align:center;color:#b45309;font-size:1.1rem;line-height:1.6}
+.tr3{display:grid;gap:10px;margin:14px 0}
+.tr3 div{border-radius:12px;padding:12px 15px;background:#f8fafc;font-size:.94rem}
+.tr3 div b{display:inline-block;font-size:.7rem;color:#fff;background:#475569;border-radius:999px;
+  padding:1px 9px;margin-right:8px;vertical-align:1px}
+.tr3 div.best{background:#f0fdf4;border:1px solid #bbf7d0}
+.tr3 div.best b{background:#15803d}
+.cmp td:first-child{font-family:Georgia,"Times New Roman",serif;font-weight:700;white-space:nowrap;color:#1e3a8a}
+.cmp td:last-child{font-family:Georgia,"Times New Roman",serif;font-style:italic;color:#334155}
+.cmp tr.here td{background:#fffbeb}
+.biz{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:14px 0}
+.biz div{border:1px solid #e5e7eb;border-radius:14px;padding:14px 16px;font-size:.9rem;background:#fcfcfd}
+.biz div b{display:block;font-size:.78rem;color:#3730a3;margin-bottom:4px}
+.quiz{display:grid;gap:10px;margin-top:12px}
+.qz{border:1px solid #e5e7eb;border-radius:14px;padding:13px 16px;cursor:pointer;background:#fff}
+.qz .qs{font-family:Georgia,"Times New Roman",serif;font-style:italic;font-size:1.02rem;color:#1e3a8a}
+.qz .qs.jq{font-family:inherit;font-style:normal;color:var(--ink)}
+.qz .qa{margin-top:8px;font-size:.88rem;background:#f0fdf4;border-radius:10px;padding:8px 12px}
+.qz.hid .qa{filter:blur(6px)}
+.qz .tap{font-size:.68rem;color:#9ca3af;margin-top:4px}
+
+/* ---- ④ 全訳 ---- */
+.mapbox{background:#fff;border-radius:15px;padding:16px 18px;box-shadow:0 2px 9px rgba(0,0,0,.06);margin-bottom:14px}
+.mapbox ol{margin-left:19px;font-size:.89rem}
+.mapbox li{margin-bottom:5px}
+.mapbox li b{color:#3730a3}
+.para{background:#fff;border-radius:15px;padding:15px 18px;box-shadow:0 2px 9px rgba(0,0,0,.06);
+  margin-bottom:11px;border-left:6px solid #cbd5e1}
+.para.ins{border-left-color:var(--ac)}
+.para .pt2{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-bottom:9px}
+.para .pno{font-size:.68rem;font-weight:800;color:#fff;background:#475569;padding:3px 10px;border-radius:999px}
+.para.ins .pno{background:var(--ac)}
+.para .pti{font-size:.94rem;font-weight:800;color:#1b2233}
+.sent{padding:9px 0;border-top:1px solid #f1f5f9;cursor:pointer}
+.sents .sent:first-child{border-top:none}
+.en2{font-size:.9rem;color:#1e293b;line-height:1.85;padding-left:11px;border-left:3px solid #c7d2fe}
+.jp{margin-top:7px;font-size:.93rem;padding-left:11px;border-left:3px solid #e8ecf3}
+.tnote{margin-top:7px;font-size:.78rem;color:#7c2d12;background:#fff7ed;border-radius:8px;padding:6px 10px}
+.tnote::before{content:"メモ";font-size:.62rem;font-weight:800;color:#fff;background:#c2410c;
+  padding:1px 7px;border-radius:999px;margin-right:6px;vertical-align:1px}
+.boxsent{background:#fffbeb;border:1px dashed #fbbf24;border-radius:11px;padding:10px 13px;margin-bottom:9px;cursor:pointer}
+.boxsent .bl{font-size:.64rem;font-weight:800;color:#b45309;letter-spacing:.04em;display:block;margin-bottom:5px}
+.boxsent .cue{font-size:.88rem;color:#1e293b;line-height:1.8}
+.boxsent.blank1{background:#f0fdf4;border-color:#86efac}
+.boxsent.blank1 .bl{color:#15803d}
+.bk{background:var(--ac);color:#fff;padding:1px 8px;border-radius:6px;font-weight:800;font-size:.86rem}
+.ul{background:linear-gradient(transparent 62%,#fde68a 62%);font-weight:700}
+.utag{font-size:.62rem;font-weight:800;color:#fff;background:#d97706;padding:1px 6px;
+  border-radius:999px;margin-right:4px;vertical-align:middle}
+.blank{background:#fff!important;color:var(--ac)!important;border:1px dashed #f59e0b;padding:0 7px}
+.wilink{display:inline-block;margin-top:8px;font-size:.78rem;font-weight:800;color:#78350f;background:#fde68a;
+  border-radius:999px;padding:4px 12px;cursor:pointer;text-decoration:none}
+.tlhide .jp,.tlhide .tnote,.tlhide .boxsent .bj{filter:blur(6px)}
+.enhide .en2,.enhide .boxsent .cue{filter:blur(6px)}
+.tlhide .sent.peek .jp,.tlhide .sent.peek .tnote,.enhide .sent.peek .en2,
+.tlhide .boxsent.peek .bj,.enhide .boxsent.peek .cue{filter:none}
+#tlbody.tl2 .sent{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+#tlbody.tl2 .sent .jp{margin-top:0}
+#tlbody.tl2 .sent .tnote{grid-column:1/-1;margin-top:0}
+@media(max-width:860px){#tlbody.tl2 .sent{grid-template-columns:1fr;gap:0}
+  #tlbody.tl2 .sent .jp{margin-top:7px}#tlbody.tl2 .sent .tnote{margin-top:7px}}
+
+/* ---- ⑤ 設問 ---- */
+.qbox{background:#fff;border-radius:16px;padding:17px 19px;box-shadow:0 2px 10px rgba(0,0,0,.07);margin-bottom:13px}
+.qno{display:inline-block;font-size:.7rem;font-weight:800;color:#fff;background:#1b2233;
+  padding:3px 11px;border-radius:999px;margin-bottom:9px}
+.qja{font-size:.93rem;font-weight:600;margin-bottom:10px}
+.ch{border:2px solid #eef1f6;border-radius:10px;padding:9px 13px;margin-bottom:7px;font-size:.87rem;
+  display:flex;gap:10px;align-items:flex-start}
+.ch b{color:#1b2233;flex-shrink:0}
+.ch .cja{color:#475569}
+.qbox.reveal .ch.ok{border-color:#16a34a;background:#f0fdf4}
+.qbox.reveal .ch.ok b::after{content:" ✓";color:#16a34a}
+.wl{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin:8px 0}
+.wl div{background:#f8fafc;border:2px solid #eef1f6;border-radius:10px;padding:8px 12px;font-size:.85rem}
+.qbox.reveal .wl div.used{border-color:#16a34a;background:#f0fdf4}
+.wl b{color:#3730a3}
+.ans{margin-top:11px;background:#f1f5f9;border-radius:12px;padding:12px 15px;font-size:.88rem;cursor:pointer}
+.ans.hid .body{filter:blur(6px)}
+.ans .hd{font-size:.7rem;font-weight:800;color:var(--ac);letter-spacing:.05em;margin-bottom:7px}
+.ans .body p+p{margin-top:7px}
+.ans .k{font-weight:800;color:#92400e}
+.model{background:#eef6ff;border-radius:12px;padding:12px 15px;margin-top:9px;font-size:.87rem}
+.model .en{font-style:italic;color:#1e3a8a}
+.model .wc{font-size:.72rem;color:var(--sub);font-weight:800;font-style:normal}
+.note{font-size:.8rem;color:var(--sub);margin-top:8px}
+.steps{margin:8px 0 0 20px}
+.steps li{margin-bottom:4px}
+@media(max-width:640px){body{padding:12px}th,td{padding:8px 9px;font-size:.79rem}td.exc,th.exc{display:none}
+  header h1{font-size:1.06rem}.qbox,.para{padding:13px 14px}.entries{grid-template-columns:1fr}
+  .wsec{padding:22px 18px 22px}.wi-hero{padding:24px 18px}.wi-hero .big{font-size:1.32rem}
+  .formula{font-size:1.02rem;padding:16px 12px}.cmp td:first-child{white-space:normal}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>大問Ⅰ — 心理的豊かさ：充実した人生への「第三の道」</h1>
+  <p>出典：Shigehiro Oishi, “The big idea: What’s the real key to a fulfilling life?” <i>The Guardian</i>, Jan 27, 2025（出題の都合上、一部改変）。①難語リスト ②システム英単語にない語 ③What if 徹底解説 ④英文＋全訳 ⑤設問の解答解説 の5タブ構成です。</p>
+  <div class="stats">
+    <div class="stat"><b id="total">0</b>総項目</div>
+    <div class="stat"><b id="nw">0</b>単語</div>
+    <div class="stat"><b id="ni">0</b>熟語・構文</div>
+    <div class="stat"><b id="nsx">0</b>シス単外</div>
+    <div class="stat"><b id="shown">0</b>表示中</div>
+    <div class="stat"><b id="doneN">0</b>覚えた</div>
+  </div>
+  <div class="tabs">
+    <button id="tb-vocab" class="on" onclick="setTab('vocab')">① 難単語・熟語</button>
+    <button id="tb-sx" onclick="setTab('sx')">② シス単にない語</button>
+    <button id="tb-wi" class="wi" onclick="setTab('wi')">③ What if 徹底解説</button>
+    <button id="tb-tl" onclick="setTab('tl')">④ 英文＋全訳</button>
+    <button id="tb-q" onclick="setTab('q')">⑤ 設問 解答・解説</button>
+  </div>
+</header>
+
+<!-- ============ ① 単語・熟語 ============ -->
+<section id="tab-vocab">
+
+<h2>レベル別分布（単語 / 熟語 内訳つき）</h2>
+<div class="tblwrap">
+<table class="sumtbl"><thead><tr><th>英検レベル</th><th>合計</th><th>単語</th><th>熟語</th><th>割合</th><th>目安</th></tr></thead>
+<tbody id="sumbody"></tbody></table>
+</div>
+
+<div class="controls" style="margin-top:22px">
+  <span class="sw"><button id="bCard" class="on" onclick="setView('card')">カード形式</button><button id="bTable" onclick="setView('table')">表形式</button></span>
+  <span class="spacer"></span>
+  <span class="sw"><button id="tAll" class="on" onclick="setType('all')">単語＋熟語</button><button id="tW" onclick="setType('単語')">単語のみ</button><button id="tI" onclick="setType('熟語')">熟語のみ</button></span>
+</div>
+
+<div class="controls"><span class="lbl">レベル</span><span id="filters" style="display:contents"></span></div>
+<div class="controls"><span class="lbl">箇所</span><span id="pfilters" style="display:contents"></span></div>
+<div class="controls"><span class="lbl">シス単</span>
+  <span class="sw"><button id="sAll" class="on" onclick="setSx('all')">すべて</button><button id="sOut" onclick="setSx('out')">シス単に載っていない語だけ</button></span>
+</div>
+<div class="controls">
+  <button class="util" onclick="allHide()">すべて隠す</button>
+  <button class="util" onclick="allShow()">すべて表示</button>
+  <button class="util" onclick="shuffle()">シャッフル</button>
+  <button class="util" onclick="resetOrder()">本文順に戻す</button>
+  <button class="util" onclick="resetDone()">「覚えた」リセット</button>
+  <span class="spacer"></span>
+  <button class="util" id="hideDoneBtn" onclick="toggleDoneFilter()">覚えた項目を隠す</button>
+</div>
+
+<div id="cardView"><div class="grid" id="grid"></div></div>
+<div id="tableView" class="hide tblwrap">
+  <table><thead><tr><th style="width:30px"></th><th style="width:46px">種類</th><th>語句</th><th>意味</th><th class="exc">本文での使われ方</th><th>レベル</th><th>箇所</th><th>シス単</th></tr></thead>
+  <tbody id="tbody"></tbody></table>
+</div>
+</section>
+
+<!-- ============ ② シス単にない語 ============ -->
+<section id="tab-sx" class="hide">
+<h2>システム英単語では出会わない語</h2>
+<p class="lead">本文＋設問の語彙を、システム英単語（5訂版）の Anki デッキと機械照合して4段階に分けました。<b>A だけは必ずカード化</b>、B は語の作りやシス単の関連語から推測する練習用、C はシス単の復習範囲です。判定方法はページ末尾を見てください。</p>
+<div class="sxstats" id="sxstats"></div>
+
+<div id="tierA">
+  <div class="tierhead"><span class="tl">A</span><h3>シス単にない難語 — 意味を知らないと読めない（最優先）</h3><span class="tn" id="nA"></span></div>
+  <div class="entries" id="sxA"></div>
+</div>
+
+<div id="tierB">
+  <div class="tierhead"><span class="tl">B</span><h3>シス単にないが、シス単の関連語・語の作り・カタカナ語から推測できる語</h3><span class="tn" id="nB"></span>
+    <button class="util" type="button" data-deck="deckB" onclick="flipAll(this)">すべてめくる</button></div>
+  <p class="deckhint">タップで裏返ります（英語 → 意味）。「←」の右側がシス単にある関連語です。</p>
+  <ul class="deck" id="deckB"></ul>
+</div>
+
+<div id="tierC">
+  <div class="tierhead"><span class="tl">C</span><h3>シス単に載っている語 — 復習範囲</h3><span class="tn" id="nC"></span>
+    <button class="util" type="button" data-deck="deckC" onclick="flipAll(this)">すべてめくる</button></div>
+  <p class="deckhint">英語だけ見て意味を言えるか確認。裏面の「→」は、シス単の訳と本文での意味がずれる語です。</p>
+  <ul class="deck" id="deckC"></ul>
+  <p class="caveat">落とし穴 — シス単で覚えた意味のままだと誤読する語：<b>lap</b>（ひざ → laps of the same racing circuit「同じコースの周回」）／<b>sight</b>（視力・光景 → lower your sights「目標を下げる」）／<b>deliver</b>（配達する → deliver a baby「出産する」）／<b>wind</b>（曲がる。発音は [wáɪnd]。風の wind [wínd] とは別語 → winding「曲がりくねった」）／<b>rank</b>（地位 → 動詞 rank among「～の中に入る」）／<b>sharp</b>（急激な → sharp lines「くっきりした線」）。<br>
+  シス単にない語でも注意：<b>content</b>（内容 [kɑ́ntent] ではなく、形容詞 [kəntént]「満足して」）／<b>realise</b>（悟る、ではなく「実現する」。英国綴り）／<b>promotion</b>（促進、ではなく「昇進」）／<b>taxing</b>（税の、ではなく「負担の大きい」）。</p>
+</div>
+
+<div id="tierD">
+  <div class="tierhead"><span class="tl">D</span><h3>あわせて押さえる熟語・表現</h3><span class="tn" id="nD"></span></div>
+  <div class="idioms" id="sxD"></div>
+</div>
+
+<div class="method">
+  <p><b>判定方法</b>：<code>システム英単語 5訂版.apkg</code> の notes 5,513件のうち、サブデッキ「単語」の見出し語 2,027語と「センターで間違えやすい単語100」の追加28語、計 2,055語を収録語とした（infer はデッキ上 inferred で登録）。本文＋設問を語単位に分解した約370の異なり語について、屈折語尾と派生接辞（-ous／-ion／-ity／-ly／-ment／re- など）を展開して照合し、残った語を中高基礎語かどうか手作業で選別した（happiness・wedding・pressure などシス単にない基礎語は対象外）。</p>
+  <p>デッキ作者が追加した「似てる英単語」（1,359件。resilient・content・confident などを含む）は本の見出し語ではないため、収録扱いにしていない。</p>
+</div>
+</section>
+
+<!-- ============ ③ What if 徹底解説 ============ -->
+<section id="tab-wi" class="hide">
+<div class="wi">
+
+<div class="wi-hero">
+  <div class="kick">本文の第1文</div>
+  <div class="big"><b>What if</b> I told you that we could all be rich?</div>
+  <div class="ja">「私たちはみんな豊かになれる」——そう言ったら、あなたはどう思うだろうか。</div>
+  <p class="note">長文の書き出しで読者の常識をゆさぶる「つかみ」の What if です。このタブでは、文法上の意味・時制による使い分け・会話での働きから、ビジネスの What-if 分析、思考実験、創作・カルチャーでの使われ方まで、ひと通り整理します。</p>
+</div>
+
+<nav class="toc">
+  <a href="#w1">1 省略のしくみ</a><a href="#w2">2 時制で読み分ける</a><a href="#w3">3 4つの働き</a>
+  <a href="#w4">4 本文の What if を精読</a><a href="#w5">5 仲間の表現</a><a href="#w6">6 後悔と心理的豊かさ</a>
+  <a href="#w7">7 ビジネスの What-if 分析</a><a href="#w8">8 思考実験・発想法</a><a href="#w9">9 創作・カルチャー</a><a href="#w10">10 練習問題</a>
+</nav>
+
+<div class="wsec" id="w1">
+  <h3><span class="n">1</span>What if ...? は「主節の省略」</h3>
+  <p class="sub">英語表現・文法上の基本</p>
+  <p>What if ...? は、疑問詞 what のうしろにあるはずの主節がまるごと省かれ、if 節だけが残った形です。省略される部分は文脈で決まります。</p>
+  <div class="formula">
+    What <span class="om">would happen</span> <span class="kw">if</span> ... ?<small>もし～なら、何が起こるだろう？（どうなるだろう）</small>
+  </div>
+  <div class="formula">
+    What <span class="om">should we do</span> <span class="kw">if</span> ... ?<small>もし～なら、どうすればいいだろう？</small>
+  </div>
+  <div class="formula">
+    What <span class="om">would you think / say</span> <span class="kw">if</span> I told you ... ?<small>もし私が～と言ったら、あなたはどう思う（言う）だろう？ ← 本文はこれ</small>
+  </div>
+  <p>主節が消えているぶん、「もし～だったら……？」と答えを相手に委ねる、余韻のある問いになります。和訳するときは、省略された「どうなるだろう／どうしよう／どう思うだろう」を文脈に合わせて補うのがコツです。</p>
+</div>
+
+<div class="wsec" id="w2">
+  <h3><span class="n">2</span>if のあとの時制で、意味が3つに分かれる</h3>
+  <p class="sub">いちばん大事な読み分け。英作文でもここを間違えやすい</p>
+  <div class="tgrid">
+    <div class="tcard tc1"><span class="tt">現在形（直説法）</span>
+      <h4>What if ＋ 現在形</h4>
+      <ul>
+        <li><span class="en">What if it rains tomorrow?</span><span>明日雨が降ったらどうしよう。</span></li>
+        <li><span class="en">What if we miss the last train?</span><span>終電を逃したらどうなる？</span></li>
+      </ul>
+      <div class="feel">十分ありうる未来への<b>心配・確認</b>。</div>
+    </div>
+    <div class="tcard tc2"><span class="tt">過去形（仮定法過去）</span>
+      <h4>What if ＋ 過去形</h4>
+      <ul>
+        <li><span class="en">What if I told you that we could all be rich?</span><span>そう言ったらどう思う？（本文）</span></li>
+        <li><span class="en">What if we tried a different approach?</span><span>別のやり方を試してみたらどうだろう。</span></li>
+        <li><span class="en">What if you won the lottery?</span><span>宝くじが当たったらどうする？</span></li>
+      </ul>
+      <div class="feel">現実から一歩引いた<b>「仮に」の話</b>。提案に使うと控えめで丁寧になる。</div>
+    </div>
+    <div class="tcard tc3"><span class="tt">過去完了（仮定法過去完了）</span>
+      <h4>What if ＋ had 過去分詞</h4>
+      <ul>
+        <li><span class="en">What if I had taken that offer?</span><span>あのオファーを受けていたら、どうなっていただろう。</span></li>
+        <li><span class="en">What if she hadn’t missed the train?</span><span>彼女があの電車に乗り遅れていなかったら？</span></li>
+      </ul>
+      <div class="feel">過去の事実に反する想像。<b>後悔・「たられば」</b>。</div>
+    </div>
+  </div>
+  <div class="callout"><b>現在形と過去形の差</b>：<span class="en">What if it rains?</span> は「降りそうだけど、降ったら？」、<span class="en">What if it rained?</span> は「（たぶん降らないけど）仮に降ったとしたら？」。どちらも文法的に正しく、違うのは<b>話し手が見込んでいる可能性の高さ</b>です。</div>
+</div>
+
+<div class="wsec" id="w3">
+  <h3><span class="n">3</span>会話での4つの働き</h3>
+  <p class="sub">同じ What if でも、場面によって「心配」にも「提案」にも「後悔」にもなる</p>
+  <div class="tgrid">
+    <div class="tcard tc1"><span class="tt">① 仮定・懸念</span>
+      <h4>もし～だったらどうしよう／どうなるだろう</h4>
+      <ul>
+        <li><span class="en">What if it rains tomorrow?</span><span>明日雨が降ったらどうしよう。</span></li>
+        <li><span class="en">What if we miss the last train?</span><span>終電を逃したらどうなる？</span></li>
+      </ul>
+      <div class="feel">未来の不確定な事態に対する心配や、リスクの想起。</div>
+    </div>
+    <div class="tcard tc4"><span class="tt">② 提案・促し</span>
+      <h4>～してみたらどうだろう？</h4>
+      <ul>
+        <li><span class="en">What if we start from scratch?</span><span>いっそ最初からやり直してみるのはどう？</span></li>
+      </ul>
+      <div class="feel">Why don’t we ...? や How about ...ing? とほぼ同じ。相手に柔らかく新しいアイデアを投げかける。</div>
+    </div>
+    <div class="tcard tc3"><span class="tt">③ 反実仮想・後悔</span>
+      <h4>あのとき～していたらどうなっていただろう</h4>
+      <ul>
+        <li><span class="en">What if I had taken that offer?</span><span>あのオファーを受けていたらどうなっていただろう。</span></li>
+      </ul>
+      <div class="feel">過去完了形を伴う。選ばなかった選択肢への想像。</div>
+    </div>
+    <div class="tcard tc2"><span class="tt">④ 修辞的な導入</span>
+      <h4>もし～と言ったら、どう思う？</h4>
+      <ul>
+        <li><span class="en">What if I told you (that) ...?</span><span>（本文の第1文）</span></li>
+      </ul>
+      <div class="feel">答えを求めず、聞き手の常識をひっくり返す「前振り」。スピーチ・プレゼン・エッセイの書き出しの定番。</div>
+    </div>
+  </div>
+  <div class="callout blue"><b>豆知識</b>：映画『マトリックス』のモーフィアスの画像に <span class="en">What if I told you ...</span> と添えるネットミームが有名です。「あなたが当たり前だと思っていることは、実は違うとしたら？」という④の働きを、そのままネタにしたものです。</div>
+</div>
+
+<div class="wsec" id="w4">
+  <h3><span class="n">4</span>本文の What if を精読する</h3>
+  <p class="sub">What if I told you that we could all be rich?</p>
+  <div class="formula">
+    What <span class="om">would you think</span> <span class="kw">if</span> I <span class="kw">told</span> you [ that we <span class="kw">could</span> all be rich ] ?
+    <small>told＝仮定法過去（まだ言っていない。「仮に言ったら」）／could＝仮定法の could＋時制の一致（「なれるかもしれない」）</small>
+  </div>
+  <p><b>働きは「④ 修辞的な導入」</b>です。rich と聞けば、読者はまずお金持ちを思い浮かべます。筆者はその思い込みを、直後の文で鮮やかに裏切ります。</p>
+  <div class="flow">
+    <div class="st"><div class="lab">問いかけ</div><div class="s">What if I told you that we could all be rich?</div><div class="j">みんな豊かになれる、と言ったら？ ——「お金持ちに？」と思わせる</div></div>
+    <div class="ar">↓</div>
+    <div class="st"><div class="lab">常識を外す</div><div class="s">Not in dollars or pounds, yen or rupees, but a completely different type of currency.</div><div class="j">ドルでもポンドでも円でもルピーでもない、まったく別の通貨で</div></div>
+    <div class="ar">↓</div>
+    <div class="st"><div class="lab">新しい定義</div><div class="s">A currency measured in experiences, adventures, lessons learned and stories told.</div><div class="j">経験・冒険・学んだ教訓・語られた物語で測る通貨</div></div>
+    <div class="ar">↓</div>
+    <div class="st"><div class="lab">伏線の回収（第6段落）</div><div class="s">... a third route to fulfilment: psychological richness.</div><div class="j">充実した人生への第三の道＝心理的豊かさ</div></div>
+  </div>
+  <p>つまり冒頭の rich は、文章全体のキーワード <b>psychological richness（心理的豊かさ）</b>への伏線です。What if の一文が、テーマへの入口になっています。</p>
+  <h3 style="margin-top:22px">訳し方の3段階</h3>
+  <div class="tr3">
+    <div><b>直訳</b>もし私が、私たちはみな豊かになれると言ったら、どうだろうか。</div>
+    <div class="best"><b>自然な訳</b>私たちはみな豊かになれる——そう言ったら、あなたはどう思うだろうか。</div>
+    <div><b>意訳</b>誰もが「豊か」になれる、と聞いたら驚くだろうか。</div>
+  </div>
+  <div class="callout"><b>和訳答案のコツ</b>：「もし～と言ったら」で止めず、省略された主節（どう思うだろうか／どうだろうか）を補うと減点されにくくなります。could を「できた」と過去の意味で訳すのは誤りです。</div>
+</div>
+
+<div class="wsec" id="w5">
+  <h3><span class="n">5</span>what を使う仲間の表現</h3>
+  <p class="sub">本文第6段落の What of ...? も同じ仲間</p>
+  <div class="tblwrap">
+  <table class="cmp"><thead><tr><th>表現</th><th>意味・働き</th><th>例</th></tr></thead>
+  <tbody>
+    <tr><td>What if ...?</td><td>もし～ならどう？（懸念・提案・後悔・導入）</td><td>What if it rains?</td></tr>
+    <tr><td>What about ...?</td><td>～はどう？（提案・話題の追加）</td><td>What about Sunday?</td></tr>
+    <tr class="here"><td>What of ...?</td><td>～はどうなのか（What about のやや文語的な形）<b>← 本文第6段落</b></td><td>What of curiosity, ambition and exploration?</td></tr>
+    <tr><td>So what if ...?</td><td>～だからどうだっていうの（開き直り）</td><td>So what if I’m late?</td></tr>
+    <tr><td>If only ...!</td><td>～でさえあればなあ（願望・後悔）</td><td>If only I had studied harder!</td></tr>
+    <tr><td>Suppose / Imagine (that) ...</td><td>仮に～だとしよう（仮定を先に置く）</td><td>Suppose you won the lottery. What would you do?</td></tr>
+    <tr><td>what-if（名詞）</td><td>「たられば」の仮定</td><td>Life is full of what-ifs.（人生はたらればだらけだ）</td></tr>
+    <tr><td>what-if（形容詞的）</td><td>仮定の</td><td>a what-if scenario（仮定のシナリオ）</td></tr>
+  </tbody></table>
+  </div>
+</div>
+
+<div class="wsec" id="w6">
+  <h3><span class="n">6</span>What if と「後悔」——本文のテーマにつなげる</h3>
+  <p class="sub">第6段落 <span class="en">embracing the pursuit of psychological richness can make us less prone to regret</span></p>
+  <p>後悔は、<span class="en">What if I had ...?</span>（あのとき～していたら）という頭の中のシミュレーションから生まれます。心理学ではこれを<b>反実仮想（counterfactual thinking）</b>と呼びます。</p>
+  <p>「やったこと」と「やらなかったこと」の後悔を比べると、長い目で見れば人は<b>やらなかったこと</b>のほうを強く後悔しやすい、という研究があります（Gilovich & Medvec, 1995）。</p>
+  <p>一方、本文の筆者は、心理的豊かさを追い求めると後悔しにくくなると述べます。<span class="en">it matters less if the thing you did went wrong</span>（やったことがうまくいかなくても、それほど問題ではなくなる）。結果が失敗でも、「やってみた経験」そのものが人生の豊かさに加わるからです。</p>
+  <div class="callout blue"><b>読み方の一つ</b>：「やらなかった what if」を減らして、回り道（detours）や転機（turning points）を自分から経験しにいくこと。それが筆者の言う心理的に豊かな人生だ、と読むこともできます。</div>
+</div>
+
+<div class="wsec" id="w7">
+  <h3><span class="n">7</span>ビジネス・意思決定での What-if 分析</h3>
+  <p class="sub">不確実性に対処するためのシナリオ分析（感応度分析）</p>
+  <div class="biz">
+    <div><b>What-if シナリオの例①</b>主要原材料の価格が20%高騰したら、利益率はどうなるか？</div>
+    <div><b>What-if シナリオの例②</b>計画が3か月遅延した場合、どの工程でボトルネックが発生するか？</div>
+  </div>
+  <p><b>目的</b>は二つです。前提条件を変数として動かし、結果への影響度を測ること。そして最悪のケース（ワーストシナリオ）をあらかじめ織り込み、許容できる損失や代替策（Plan B）を事前に設計しておくことです。</p>
+  <p>身近な例では、Excel の［データ］タブに「What-If 分析」があり、「シナリオの登録と管理」「ゴール シーク」「データ テーブル」で前提を動かした結果を比べられます。</p>
+  <div class="callout">英語で使う表現：<span class="en">run a what-if analysis</span>（What-if 分析を行う）／<span class="en">a what-if scenario</span>（仮定のシナリオ）／<span class="en">the worst-case scenario</span>（最悪のシナリオ）／<span class="en">a Plan B</span>（代替策）</div>
+</div>
+
+<div class="wsec" id="w8">
+  <h3><span class="n">8</span>思考実験・発想法としての What if</h3>
+  <p class="sub">現状の常識や制約条件をあえて外し、新しい可能性を拓くための問いのきっかけ</p>
+  <div class="biz">
+    <div><b>前提破壊の問い①</b>もし予算がゼロだったら、どうやってこの問題を解決するか？</div>
+    <div><b>前提破壊の問い②</b>もし競合がこの事業を買収したら、どんな手を打ってくるか？</div>
+  </div>
+  <p><b>効果</b>：既存の枠組み（認知バイアス）を強制的に外し、創造的な跳躍を生み出します。</p>
+  <p>科学の世界でも What if は強力です。アインシュタインは少年時代に「光と同じ速さで光を追いかけたら、光はどう見えるか」と考え、それがのちの特殊相対性理論の出発点になったと回想しています。ランドール・マンローの『ホワット・イフ？』（原題 <i>What If?</i>, 2014）は、「野球のボールを光速で投げたらどうなるか」といった突拍子もない仮定に、科学で大真面目に答える本です。</p>
+</div>
+
+<div class="wsec" id="w9">
+  <h3><span class="n">9</span>創作・カルチャーにおける What if（代替現実）</h3>
+  <p class="sub">「選ばれなかった道」を描くことで、選択の重みが浮かび上がる</p>
+  <div class="biz">
+    <div><b>歴史改変・パラレルワールド</b>「もし第二次世界大戦で枢軸国が勝っていたら？」——フィリップ・K・ディック『高い城の男』（1962年）</div>
+    <div><b>マーベル『What If...?』</b>正史と異なる分岐点を描いたアンソロジー。コミックは1977年から、アニメシリーズはディズニープラスで2021年から。</div>
+    <div><b>人生のオルタナティブ</b>映画『スライディング・ドア』（1998年）は、地下鉄に乗れたかどうかで分かれた二つの人生を並行して描く。</div>
+    <div><b>「選ばれなかった道」</b>ロバート・フロストの詩 <i>The Road Not Taken</i>。森の分かれ道でどちらを選ぶかという、人生の分岐の象徴としてよく引用される。</div>
+  </div>
+  <p>本文の筆者が理想とする「立ち止まり、回り道をし、転機を迎える人生（a life with stops, detours and turning points）」は、こうした分岐の連続そのものです。選ばなかった道を想像する力が、選んだ道を味わう力にもなります。</p>
+</div>
+
+<div class="wsec" id="w10">
+  <h3><span class="n">10</span>練習問題</h3>
+  <p class="sub">タップすると答えが出ます。まず働き（①懸念 ②提案 ③後悔 ④修辞的導入 ⑤開き直り ⑥What about と同じ）を見分けてください</p>
+  <div class="quiz" id="wiquiz"></div>
+  <h3 style="margin-top:24px">英作文：What if を使って英語に</h3>
+  <div class="quiz" id="wicomp"></div>
+  <div class="callout" style="margin-top:16px"><b>英作文のコツ</b>：if のあとの時制で意味が決まります。未来の心配なら現在形、仮定や控えめな提案なら過去形、過去の後悔なら過去完了。仮定法では be 動詞を主語に関係なく were にするのが正式です。</div>
+</div>
+
+</div>
+</section>
+
+<!-- ============ ④ 英文＋全訳 ============ -->
+<section id="tab-tl" class="hide">
+<h2>読解の地図（論の流れ）</h2>
+<div class="mapbox">
+<ol>
+  <li><b>第1段落 導入</b>：「豊かさ」をお金ではなく<b>経験という通貨</b>で考えよう。良い人生への道は従来<b>幸福</b>と<b>意味</b>の二つ。だがどちらにも限界がある。</li>
+  <li><b>第2段落 幸福の限界①</b>：幸福は「運」から「努力と成功の結果」へ。その結果、悲しみや怒りが<b>個人の失敗</b>に見えてしまう。</li>
+  <li><b>第3段落 幸福の限界②</b>：期待を下げれば幸福になれる（デンマーク・フィンランド）。大きな出来事にはすぐ慣れる（<b>快楽のトレッドミル</b>）。でも、楽な授業だけ取る学生のようで物足りない。</li>
+  <li><b>第4段落 意味の限界①</b>：世界を変えるような壮大な理想は重荷で手が届かない。<b>小さな日々の営み</b>に意味を見出すほうが現実的。</li>
+  <li><b>第5段落 意味の限界②</b>：意味の追求は「仲間とそれ以外」の間に線を引き、<b>異なる人への思いやり</b>を損なうことがある。</li>
+  <li><b>第6段落 第三の道</b>：<b>心理的豊かさ</b>＝多様で波乱に富んだ経験に満ちた人生。心の回復力が高まり、<b>後悔しにくく</b>なる。</li>
+  <li><b>第7段落 逆境でも</b>：病気・死別・経済的破綻のときでも、豊かさの視点なら災難を人生の織物に組み込める。</li>
+  <li><b>第8段落 具体例</b>：タクシー運転手リンダの人生。豊かさの<b>副産物</b>として幸福と意味もついてくる。</li>
+</ol>
+<p class="note">※ 問題提起（1）→ 幸福の限界（2・3）→ 意味の限界（4・5）→ 第三の道の提示（6）→ 補強（7）→ 具体例（8）という構成。空所①〜④の文は、この「限界の指摘→譲歩→転換」の節目に入る。</p>
+<p class="note">背景：筆者の大石繁宏（Shigehiro Oishi）はシカゴ大学の社会心理学者。「心理的豊かさ（psychological richness）」は、共同研究者のウェストゲートとともに2022年に学術誌 <i>Psychological Review</i> で提唱した概念。</p>
+</div>
+
+<h2>本文（英文＋全訳）</h2>
+<p class="lead">1文ずつ英文と訳を並べています。「左右2段で表示」で対訳のように見比べられます。訳や英文を隠したときは、文をタップするとその文だけ表示されます。空所①〜④は段落冒頭の黄色い枠、下線部(1)は緑の枠（解答例）、（あ）〜（う）の答えはオレンジのタグ、黄マーカーは下線部(2)(3)です。</p>
+<div class="controls">
+  <button class="util" id="btnJP" onclick="toggleJP()">訳を隠す</button>
+  <button class="util" id="btnEN" onclick="toggleEN()">英文を隠す</button>
+  <button class="util" id="btnANS" onclick="toggleANS()">空所の答えを隠す</button>
+  <button class="util" id="btnCOL" onclick="toggleCOL()">左右2段で表示</button>
+</div>
+<div id="tlbody"></div>
+</section>
+
+<!-- ============ ⑤ 設問 ============ -->
+<section id="tab-q" class="hide">
+<h2>設問の解答・解説</h2>
+<p class="lead">選択肢の英文もすべて訳しました。灰色の「解答・解説」ボックスはタップでぼかしが外れ、正解の選択肢に緑の印が付きます。まず自分で解いてから開いてください。</p>
+<div id="qbody"></div>
+</section>
+
+</div>
+
+<script>
+/* ================= ① 単語データ ================= */
+const LV={
+ "3級":{c:"var(--g3)",note:"中学卒業程度"},
+ "準2級":{c:"var(--g3p)",note:"高校中級程度"},
+ "2級":{c:"var(--g2)",note:"高校卒業程度"},
+ "準1級":{c:"var(--g2p)",note:"大学中級程度"},
+ "1級":{c:"var(--g1)",note:"大学上級程度"},
+ "級外":{c:"var(--gx)",note:"固有名詞・専門語"}
+};
+// [語句, 意味, 本文での使われ方, レベル, 箇所, 種類, シス単(A=載っていない難語／B=載っていないが推測可／空=収録済みまたは基礎語・熟語)]
+const DATA=[
+ /* ---- 第1段落 ---- */
+ ["What if ~?","もし～だったらどうだろう（③タブで詳しく解説）","What if I told you that we could all be rich?","2級","第1段落","熟語",""],
+ ["currency","名 通貨","a completely different type of currency","準1級","第1段落","単語","A"],
+ ["rupee","名 ルピー（インドなどの通貨単位）","yen or rupees","級外","第1段落","単語",""],
+ ["measured in ~","～で測られる（過去分詞の後置修飾）","A currency measured in experiences","2級","第1段落","熟語",""],
+ ["lessons learned","学んだ教訓（stories told＝語られた物語）","lessons learned and stories told","2級","第1段落","熟語",""],
+ ["psychologist","名 心理学者（psychology 心理学）","As a social psychologist","準1級","第1段落","単語","B"],
+ ["dedicate A to B","AをBにささげる","I have dedicated my research career to a simple, but universal question","準1級","第1段落","熟語",""],
+ ["universal","形 普遍的な、誰にでも当てはまる","a simple, but universal question","準1級","第1段落","単語","B"],
+ ["make for ~","～をもたらす、～に役立つ","what makes for a good life","準1級","第1段落","熟語",""],
+ ["for much of ~","～の大部分の間","For much of human history","2級","第1段落","熟語",""],
+ ["be presented with ~","～を提示される、～を示される","we have been presented with two possibilities","準1級","第1段落","熟語",""],
+ ["pursue","動 追い求める、追求する（名 pursuit）","pursuing a life of happiness","準1級","第1段落","単語",""],
+ ["proponent","名 支持者、提唱者","Each of these paths has its benefits and proponents","1級","第1段落","単語","A"],
+ ["decades of ~","何十年にもわたる～","decades of psychological research","2級","第1段落","熟語",""],
+ ["psychological","形 心理学の、心理的な","decades of psychological research","準1級","第1段落","単語","B"],
+ ["reveal","動 明らかにする","have also revealed their limits","準1級","第1段落","単語",""],
+ /* ---- 第2段落 ---- */
+ ["conception","名 考え方、捉え方、概念【空所①(D)】","The current cultural conception of happiness","1級","第2段落","単語","B"],
+ ["work against ~","～に不利に働く、～の妨げになる","can work against us finding fulfilment","準1級","第2段落","熟語",""],
+ ["fulfilment","名 充実感、満たされること（米 fulfillment）","us finding fulfilment","準1級","第2段落","単語","B"],
+ ["historically","副 歴史的に見ると、昔は","Historically, happiness tended to be defined as ...","準1級","第2段落","単語",""],
+ ["tend to do","～する傾向がある","happiness tended to be defined as ...","2級","第2段落","熟語",""],
+ ["define A as B","AをBと定義する","be defined as the result of good luck","準1級","第2段落","熟語",""],
+ ["fortune","名 運、幸運；財産","good luck and fortune","2級","第2段落","単語",""],
+ ["expect A to do","Aが～すると期待する・思う","many expect it to come from individual effort","2級","第2段落","熟語",""],
+ ["individual","形 個人の／名 個人","individual effort and success","2級","第2段落","単語",""],
+ ["in turn","今度は、その結果として","But this, in turn, makes unhappiness ... seem like ...","準1級","第2段落","熟語",""],
+ ["negative emotions","否定的な感情、負の感情","negative emotions such as sadness or anger","2級","第2段落","熟語",""],
+ ["make O seem like ~","Oを～のように思わせる（使役 make＋原形）","makes unhappiness ... seem like personal failures","2級","第2段落","熟語",""],
+ /* ---- 第3段落 ---- */
+ ["the Danes / the Finns","デンマーク人／フィンランド人（形 Danish / Finnish）","Ask the Danes and Finns","級外","第3段落","単語",""],
+ ["consistently","副 一貫して、常に","who consistently rank among the happiest people","準1級","第3段落","単語","B"],
+ ["rank among ~","～の中に入る、～に数えられる","rank among the happiest people in the world","準1級","第3段落","熟語",""],
+ ["命令文, and ...","～しなさい、そうすれば…","Ask the Danes ... what their secret is and they'll tell you this","2級","第3段落","熟語",""],
+ ["lower one's expectations","期待を下げる（lower は動詞「下げる」）","lower your expectations","準1級","第3段落","熟語",""],
+ ["expectation","名 期待、予想","lower your expectations","2級","第3段落","単語","B"],
+ ["be content with ~","～に満足している（content [kəntént] は形容詞）","be content with what you have","準1級","第3段落","熟語","A"],
+ ["recommendation","名 推奨、助言","It is a recommendation backed by plenty of evidence","2級","第3段落","単語","B"],
+ ["backed by ~","～に裏づけられた","backed by plenty of evidence","準1級","第3段落","熟語",""],
+ ["evidence","名 証拠","plenty of evidence","2級","第3段落","単語",""],
+ ["paradoxically","副 逆説的に（言えば）","Paradoxically, happiness is easier to achieve ...","1級","第3段落","単語","B"],
+ ["assume","動 （根拠なく）思い込む、当然と考える","We assume that the big things in life will make us happy","準1級","第3段落","単語",""],
+ ["promotion","名 昇進　※「促進」ではない","a wedding, a promotion or a new car","準1級","第3段落","単語","B"],
+ ["adapt to ~","～に適応する、慣れる","we adapt to our new conditions","準1級","第3段落","熟語",""],
+ ["more ~ than you might think","思っている以上に～","more quickly than you might think","2級","第3段落","熟語",""],
+ ["hedonic treadmill","快楽のトレッドミル（快楽順応）：良いことがあってもすぐ慣れて、幸福度が元の水準に戻ってしまうこと","something psychologists call the hedonic treadmill","級外","第3段落","熟語","A"],
+ ["something (that) S call ~","Sが～と呼ぶもの（前の内容を言い換える同格）","..., something psychologists call the hedonic treadmill","準1級","第3段落","熟語",""],
+ ["It is ~ that ...（強調構文）","…なのは～だ","it's the daily walks ... that provide a more enduring happiness","2級","第3段落","熟語",""],
+ ["enduring","形 長続きする、永続的な（endure 耐える）","a more enduring happiness","準1級","第3段落","単語",""],
+ ["leave out ~","～を省く、取りこぼす","But it leaves something out","2級","第3段落","熟語",""],
+ ["be sure of ~ing","確実に～する","to be sure of getting good grades","2級","第3段落","熟語",""],
+ ["There is more to A than B","AにはB以上のものがある","Might there be more to life than simple pleasures ...?","準1級","第3段落","熟語",""],
+ ["cosy","形 居心地のよい、くつろいだ（米 cozy）","simple pleasures and cosy comfort","準1級","第3段落","単語","A"],
+ /* ---- 第4段落 ---- */
+ ["flow from ~","～から生じる","meaning flows from trying to change the world","準1級","第4段落","熟語",""],
+ ["realise","動 実現する（米 realize）　※ここでは「悟る」ではない","The pressure to realise this kind of grand vision","2級","第4段落","単語","B"],
+ ["grand vision","壮大な構想、大きな理想","this kind of grand vision","準1級","第4段落","熟語",""],
+ ["immensely","副 計り知れないほど、非常に","can be immensely taxing","準1級","第4段落","単語","B"],
+ ["taxing","形 負担の大きい、骨の折れる【下線部(2)】","can be immensely taxing","1級","第4段落","単語","A"],
+ ["out of reach","手の届かない","the vision feels out of reach for most of us","2級","第4段落","熟語",""],
+ ["lower one's sights","目標を下げる、望みを低くする","lowering your sights and focusing on the little things","1級","第4段落","熟語",""],
+ ["achievable","形 達成できる、実現可能な","a more achievable sense of meaning","準1級","第4段落","単語","B"],
+ ["routine","名 日課、決まった習慣","Often people find it in routines like ...","2級","第4段落","単語",""],
+ ["volunteer","動 ボランティア活動をする","volunteering in the community","2級","第4段落","単語",""],
+ ["maintain","動 維持する、続ける","maintaining a religious practice","2級","第4段落","単語",""],
+ ["religious","形 宗教の、信心深い（religion 宗教）","maintaining a religious practice","2級","第4段落","単語","B"],
+ /* ---- 第5段落 ---- */
+ ["inherently","副 本質的に、本来【空所②(E)】","There is nothing inherently wrong with this","1級","第5段落","単語","B"],
+ ["There is nothing wrong with ~","～には何も問題がない","There is nothing inherently wrong with this","2級","第5段落","熟語",""],
+ ["a dark side to ~","～の負の側面","there is also a dark side to the pursuit of meaning","2級","第5段落","熟語",""],
+ ["pursuit","名 追求（pursue の名詞）","the pursuit of meaning","準1級","第5段落","単語","B"],
+ ["encourage O to do","Oに～するよう促す","it can encourage people to draw sharp lines","2級","第5段落","熟語",""],
+ ["draw a line between A and B","AとBの間に線を引く、区別する","draw sharp lines between those who belong ... and those who don't","準1級","第5段落","熟語",""],
+ ["belong in ~","～の一員である、～にふさわしい","those who belong in their group","2級","第5段落","熟語",""],
+ ["ritual","名 儀式、しきたり","The rituals and love that bind us ...","準1級","第5段落","単語",""],
+ ["bind A to B","AをBに結びつける・縛りつける","bind us to our chosen way of life","準1級","第5段落","熟語",""],
+ ["at the expense of ~","～を犠牲にして","at the expense of compassion","準1級","第5段落","熟語",""],
+ ["compassion","名 思いやり、同情","compassion for those unlike us","準1級","第5段落","単語","A"],
+ ["those unlike us","自分たちとは違う人々（unlike は前置詞）","compassion for those unlike us","2級","第5段落","熟語",""],
+ /* ---- 第6段落 ---- */
+ ["None of this is to say that ~","だからといって～というわけではない【空所③(C)】","None of this is to say that happy or meaningful lives cannot be good ones","準1級","第6段落","熟語",""],
+ ["fail to do","～しない、～できない","both models fail to capture ...","2級","第6段落","熟語",""],
+ ["capture","動 （本質・特徴を）とらえる","fail to capture the breadth of human experience","準1級","第6段落","単語",""],
+ ["breadth","名 幅、広さ（broad の名詞形）","the breadth of human experience","1級","第6段落","単語","A"],
+ ["What of ~?","～はどうなのか（＝What about ~?）","What of curiosity, ambition and exploration?","準1級","第6段落","熟語",""],
+ ["curiosity","名 好奇心（curious）","What of curiosity, ambition and exploration?","2級","第6段落","単語","B"],
+ ["ambition","名 野心、大望","curiosity, ambition and exploration","2級","第6段落","単語",""],
+ ["exploration","名 探究、探検（explore）","curiosity, ambition and exploration","準1級","第6段落","単語","B"],
+ ["resurgence","名 復活、再起（re＋surge 高まり）","Or failure and resurgence?","1級","第6段落","単語","B"],
+ ["set A a trap","Aに罠をしかける","the traps they can set us","準1級","第6段落","熟語",""],
+ ["S lead O to do","Sが O を～するように導く（Sのおかげで O は～するに至る）","Thinking about ... led me and my research lab to sketch out ...","2級","第6段落","熟語",""],
+ ["sketch out ~","～の概略を描く、大まかに示す","to sketch out a third route to fulfilment","準1級","第6段落","熟語",""],
+ ["psychological richness","心理的豊かさ（本文のキーワード）","a third route to fulfilment: psychological richness","級外","第6段落","熟語",""],
+ ["richness","名 豊かさ（rich＋-ness）","psychological richness","準1級","第6段落","単語","B"],
+ ["diverse","形 多様な（名 diversity）","diverse, unusual and interesting experiences","準1級","第6段落","単語","B"],
+ ["perspective","名 ものの見方、視点","experiences that change your perspective","準1級","第6段落","単語",""],
+ ["twists and turns","紆余曲折、思いがけない展開","a life with twists and turns","準1級","第6段落","熟語",""],
+ ["eventful","形 波乱に富んだ、出来事の多い","a dramatic, eventful life","準1級","第6段落","単語","B"],
+ ["straightforward","形 単純な、まっすぐな、わかりやすい","a simple and straightforward one","準1級","第6段落","単語",""],
+ ["multiplicity","名 多様性、多数あること","a life with multiplicity and complexity","1級","第6段落","単語","B"],
+ ["complexity","名 複雑さ（complex）","multiplicity and complexity","準1級","第6段落","単語","B"],
+ ["detour","名 回り道、迂回","a life with stops, detours and turning points","準1級","第6段落","単語","A"],
+ ["turning point","転機、分岐点","stops, detours and turning points","2級","第6段落","熟語",""],
+ ["winding","形 曲がりくねった（wind [wáɪnd] 曲がる）","a long, winding hike","準1級","第6段落","単語",""],
+ ["lap","名 （コースの）1周　※シス単の「ひざ」とは別の意味","many laps of the same racing circuit","準1級","第6段落","単語",""],
+ ["racing circuit","レース場、サーキット","the same racing circuit","2級","第6段落","熟語",""],
+ ["kickstart","動 始動させる、活性化させる","Such experiences can kickstart the psychological immune system","1級","第6段落","単語","B"],
+ ["immune system","免疫システム（psychological immune system＝心の免疫）","the psychological immune system","準1級","第6段落","熟語",""],
+ ["resilient","形 回復力のある、立ち直りの早い【設問4(あ)】","making us more resilient","1級","第6段落","単語","A"],
+ ["Not only that, ~","それだけではなく～","Not only that, embracing the pursuit ...","2級","第6段落","熟語",""],
+ ["embrace","動 受け入れる、進んで取り入れる","embracing the pursuit of psychological richness","準1級","第6段落","単語",""],
+ ["be prone to ~","～しがちである、～に陥りやすい","make us less prone to regret","準1級","第6段落","熟語",""],
+ ["regret","名 後悔／動 後悔する","less prone to regret","2級","第6段落","単語",""],
+ ["go wrong","うまくいかない、失敗する【設問4(い)】","if the thing you did went wrong","2級","第6段落","熟語",""],
+ /* ---- 第7段落 ---- */
+ ["accessible","形 手の届く、利用できる【空所④(A)】","A life of psychological richness is also accessible to everyone","準1級","第7段落","単語","B"],
+ ["whatever their circumstances","どんな状況にあっても（whatever＝no matter what）","accessible to everyone, whatever their circumstances","準1級","第7段落","熟語",""],
+ ["in times of ~","～のときには","In times of illness, bereavement or financial ruin","2級","第7段落","熟語",""],
+ ["bereavement","名 （家族などとの）死別","illness, bereavement or financial ruin","1級","第7段落","単語","A"],
+ ["financial ruin","経済的破綻、破産","illness, bereavement or financial ruin","準1級","第7段落","熟語",""],
+ ["mindset","名 考え方、心の持ち方","A mindset focused on richness","準1級","第7段落","単語","B"],
+ ["incorporate A into B","AをBに組み込む、取り入れる","incorporate these disasters into the tapestry of life","準1級","第7段落","熟語",""],
+ ["tapestry","名 タペストリー、つづれ織り；さまざまな要素が織りなすもの","the tapestry of life","1級","第7段落","単語","A"],
+ ["(be) confident in the knowledge that ~","～だとわかっていて安心して【設問4(う)】","confident in the knowledge that things will change again soon","準1級","第7段落","熟語",""],
+ ["confident","形 確信している、自信のある（confidence）","confident in the knowledge that ...","2級","第7段落","単語","B"],
+ /* ---- 第8段落 ---- */
+ ["in any case","いずれにせよ","In any case, a psychologically rich life ...","2級","第8段落","熟語",""],
+ ["byproduct","名 副産物（by＋product）","have meaning and happiness as its byproduct","準1級","第8段落","単語","B"],
+ ["Take ~.","～を例に取ってみよう","Take Linda, the taxi driver I met ...","2級","第8段落","熟語",""],
+ ["by any standards","どんな基準から見ても","psychologically rich by any standards","準1級","第8段落","熟語",""],
+ ["give birth to ~","～を産む","she gave birth to two of her grandchildren","2級","第8段落","熟語",""],
+ ["surrogate","名 代理母（surrogate mother）、代理","as a surrogate for her daughter","1級","第8段落","単語","A"],
+ ["medical condition","病状、持病","whose medical condition made it dangerous ...","準1級","第8段落","熟語",""],
+ ["make it ~ to do","…することを～にする（it は形式目的語）【下線部(3)】","made it dangerous to deliver a baby","2級","第8段落","熟語",""],
+ ["deliver a baby","出産する　※deliver＝「配達する」ではない","made it dangerous to deliver a baby","準1級","第8段落","熟語",""],
+ ["public servant","公務員","her previous career as a public servant","準1級","第8段落","熟語",""],
+ ["previous","形 以前の、前の","her previous career","準1級","第8段落","単語",""],
+ ["donation","名 提供、寄付（donate）","the donation of one of her kidneys","準1級","第8段落","単語","B"],
+ ["kidney","名 腎臓","one of her kidneys","準1級","第8段落","単語","A"],
+ ["ex-husband","名 元夫（ex-＝元の）","to her ex-husband","2級","第8段落","単語",""],
+ /* ---- 設問文 ---- */
+ ["essential","形 不可欠な","financial success is essential to happiness","準1級","設問文","単語",""],
+ ["arrogant","形 傲慢な、横柄な","(A) arrogant","準1級","設問文","単語",""],
+ ["stubborn","形 頑固な","(D) stubborn","準1級","設問文","単語",""],
+ ["vulnerable","形 傷つきやすい、弱い（⇔resilient）","(E) vulnerable","準1級","設問文","単語",""],
+ ["be composed of ~","～から成る","can be composed of twists and turns","準1級","設問文","熟語",""],
+ ["equate A with B","AをBと同一視する","a good life has been equated with happiness or meaning","1級","設問文","熟語","B"],
+ ["approach to ~","～への取り組み方、方法","The Danish and Finnish approach to happiness","2級","設問文","熟語",""]
+];
+
+const ORDER=["3級","準2級","2級","準1級","1級","級外"];
+const PORDER=["第1段落","第2段落","第3段落","第4段落","第5段落","第6段落","第7段落","第8段落","設問文"];
+let data=[...DATA],activeLv="all",activePara="all",activeType="all",activeSx="all",hideDone=false;
+const done=new Set();
+
+const cW=DATA.filter(d=>d[5]==="単語").length, cI=DATA.length-cW;
+document.getElementById("total").textContent=DATA.length;
+document.getElementById("nw").textContent=cW;
+document.getElementById("ni").textContent=cI;
+document.getElementById("nsx").textContent=DATA.filter(d=>d[6]).length;
+
+const cnt={},cntW={},cntI={},cntP={};
+ORDER.forEach(l=>{cnt[l]=0;cntW[l]=0;cntI[l]=0;});
+PORDER.forEach(p=>cntP[p]=0);
+DATA.forEach(d=>{cnt[d[3]]++;(d[5]==="単語"?cntW:cntI)[d[3]]++;cntP[d[4]]++;});
+document.getElementById("sumbody").innerHTML=ORDER.map(l=>{
+ const n=cnt[l],p=Math.round(n/DATA.length*100);
+ return `<tr><td><span class="badge" style="background:${LV[l].c}">${l}</span></td>
+ <td><b>${n}</b></td><td style="color:var(--tw);font-weight:700">${cntW[l]}</td>
+ <td style="color:var(--ti);font-weight:700">${cntI[l]}</td>
+ <td><span class="bar" style="width:${Math.max(p*2.6,6)}px;background:${LV[l].c}"></span>${p}%</td>
+ <td style="color:var(--sub)">${LV[l].note}</td></tr>`;}).join("");
+
+document.getElementById("filters").innerHTML=
+ `<button class="on" data-lv="all">すべて</button>`+
+ ORDER.map(l=>cnt[l]?`<button data-lv="${l}" style="color:${LV[l].c}">${l} (${cnt[l]})</button>`:"").join("");
+document.getElementById("filters").onclick=e=>{
+ if(e.target.tagName!=="BUTTON")return;
+ [...e.currentTarget.children].forEach(b=>b.classList.remove("on"));
+ e.target.classList.add("on");activeLv=e.target.dataset.lv;render();};
+
+document.getElementById("pfilters").innerHTML=
+ `<button class="on" data-p="all">すべて</button>`+
+ PORDER.map(p=>`<button data-p="${p}">${p} (${cntP[p]})</button>`).join("");
+document.getElementById("pfilters").onclick=e=>{
+ if(e.target.tagName!=="BUTTON")return;
+ [...e.currentTarget.children].forEach(b=>b.classList.remove("on"));
+ e.target.classList.add("on");activePara=e.target.dataset.p;render();};
+
+function list(){return data.filter(d=>
+ (activeLv==="all"||d[3]===activeLv)&&
+ (activePara==="all"||d[4]===activePara)&&
+ (activeType==="all"||d[5]===activeType)&&
+ (activeSx==="all"||d[6])&&
+ !(hideDone&&done.has(d[0])));}
+
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function sxTag(s){
+ if(!s)return"";
+ return s==="A"?`<span class="tag sa">シス単外</span>`:`<span class="tag sb">シス単外・推測可</span>`;}
+
+function render(){
+ const L=list();
+ document.getElementById("grid").innerHTML=L.map(d=>{
+  const[p,m,ex,lv,ln,ty,sx]=d, t=ty==="単語"?"w":"i";
+  return `<div class="card hidden" data-w="${esc(p)}" style="border-left-color:${LV[lv].c}">
+   <span class="check">✓ 覚えた</span>
+   <div class="top"><span class="phrase">${esc(p)}</span>
+   <span style="display:flex;flex-direction:column;gap:4px;align-items:flex-end">
+   <span class="badge" style="background:${LV[lv].c}">${lv}</span>
+   <span class="tag ${t}">${ty}</span>${sxTag(sx)}</span></div>
+   <div class="line">${ln}</div>
+   <div class="meaning">${m}</div>
+   <div class="ex">${esc(ex)}</div>
+   <div class="hint">タップで表示 ／ ダブルクリックで「覚えた」</div></div>`;}).join("");
+ [...document.getElementById("grid").children].forEach(c=>{
+  if(done.has(c.dataset.w))c.classList.add("done");
+  c.onclick=()=>c.classList.toggle("hidden");
+  c.ondblclick=e=>{e.preventDefault();const w=c.dataset.w;
+   done.has(w)?done.delete(w):done.add(w);render();};});
+
+ document.getElementById("tbody").innerHTML=L.map(d=>{
+  const[p,m,ex,lv,ln,ty,sx]=d, t=ty==="単語"?"w":"i";
+  return `<tr class="hid ${done.has(p)?'done':''}" data-w="${esc(p)}">
+   <td><span class="mark">✓</span></td>
+   <td><span class="tag ${t}">${ty}</span></td>
+   <td class="ph">${esc(p)}</td><td class="mn">${m}</td>
+   <td class="exc">${esc(ex)}</td>
+   <td><span class="badge" style="background:${LV[lv].c}">${lv}</span></td>
+   <td class="ln">${ln}</td><td>${sxTag(sx)}</td></tr>`;}).join("");
+ [...document.getElementById("tbody").children].forEach(tr=>{
+  tr.querySelector(".mn").onclick=()=>tr.classList.toggle("hid");
+  tr.querySelector(".exc").onclick=()=>tr.classList.toggle("hid");
+  tr.querySelector(".mark").onclick=()=>{const w=tr.dataset.w;
+   done.has(w)?done.delete(w):done.add(w);render();};});
+
+ document.getElementById("shown").textContent=L.length;
+ document.getElementById("doneN").textContent=done.size;
+}
+
+function setView(v){
+ document.getElementById("cardView").classList.toggle("hide",v!=="card");
+ document.getElementById("tableView").classList.toggle("hide",v!=="table");
+ document.getElementById("bCard").classList.toggle("on",v==="card");
+ document.getElementById("bTable").classList.toggle("on",v==="table");}
+function setType(t){activeType=t;
+ document.getElementById("tAll").classList.toggle("on",t==="all");
+ document.getElementById("tW").classList.toggle("on",t==="単語");
+ document.getElementById("tI").classList.toggle("on",t==="熟語");render();}
+function setSx(s){activeSx=s;
+ document.getElementById("sAll").classList.toggle("on",s==="all");
+ document.getElementById("sOut").classList.toggle("on",s==="out");render();}
+function allHide(){document.querySelectorAll(".card").forEach(c=>c.classList.add("hidden"));
+ document.querySelectorAll("#tbody tr").forEach(t=>t.classList.add("hid"));}
+function allShow(){document.querySelectorAll(".card").forEach(c=>c.classList.remove("hidden"));
+ document.querySelectorAll("#tbody tr").forEach(t=>t.classList.remove("hid"));}
+function shuffle(){for(let i=data.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[data[i],data[j]]=[data[j],data[i]];}render();}
+function resetOrder(){data=[...DATA];render();}
+function resetDone(){done.clear();render();}
+function toggleDoneFilter(){hideDone=!hideDone;
+ document.getElementById("hideDoneBtn").textContent=hideDone?"覚えた項目も表示":"覚えた項目を隠す";render();}
+
+/* ================= ② シス単にない語 ================= */
+// A: [見出し, 併記, 品詞, 意味, 本文での出方]
+const SXA=[
+ ["resilient","","形","回復力のある、立ち直りの早い（名 resilience）。vulnerable（傷つきやすい）の反対","設問4(あ)の正解 <em>making us more resilient</em>"],
+ ["content","[kəntént]","形","満足して（be content with ～に満足する）。名詞の content [kɑ́ntent]「内容」とは発音も意味も別","第3段落 <em>be content with what you have</em>"],
+ ["taxing","","形","負担の大きい、骨の折れる。シス単の tax は「税金」だけだが、動詞 tax には「重い負担をかける」の意味がある","下線部(2) <em>can be immensely taxing</em>"],
+ ["currency","","名","通貨。シス単の current（最新の）と同じく「流れる」が語源（世の中を流れるもの＝通貨）","第1段落 <em>a completely different type of currency</em>"],
+ ["breadth","","名","幅、広さ。broad の名詞形（wide → width, long → length と同じ型）","第6段落 <em>the breadth of human experience</em>"],
+ ["compassion","","名","思いやり、同情。シス単の passion（情熱）に com-（共に）がついた語","第5段落 <em>compassion for those unlike us</em>"],
+ ["proponent","","名","支持者、提唱者","第1段落 <em>Each of these paths has its benefits and proponents</em>"],
+ ["hedonic","treadmill","名","快楽のトレッドミル（快楽順応）。hedonic＝快楽の、treadmill＝ルームランナー。走っても前に進まないように、良いことがあってもすぐ慣れて幸福度が元に戻ること","第3段落 <em>something psychologists call the hedonic treadmill</em>"],
+ ["tapestry","","名","タペストリー、つづれ織り。比喩で「さまざまな要素が織りなすもの」","第7段落 <em>incorporate these disasters into the tapestry of life</em>"],
+ ["bereavement","","名","（家族などとの）死別","第7段落 <em>In times of illness, bereavement or financial ruin</em>"],
+ ["surrogate","","名","代理母（surrogate mother）、代理","第8段落 <em>as a surrogate for her daughter</em>"],
+ ["detour","","名","回り道、迂回","第6段落 <em>a life with stops, detours and turning points</em>"],
+ ["kidney","","名","腎臓","第8段落 <em>the donation of one of her kidneys</em>"],
+ ["cosy","","形","居心地のよい、くつろいだ（英国綴り。米 cozy）","第3段落 <em>simple pleasures and cosy comfort</em>"]
+];
+// B: [英語, 意味 ← シス単の関連語]
+const SXB=[
+ ["confident","確信している ← confidence"],
+ ["accessible","手の届く ← access ★空所④"],
+ ["achievable","達成できる ← achieve"],
+ ["curiosity","好奇心 ← curious"],
+ ["diverse","多様な ← diversity"],
+ ["expectation","期待 ← expect"],
+ ["exploration","探究 ← explore"],
+ ["fulfilment","充実感 ← fulfill（英国綴り）"],
+ ["multiplicity","多様性 ← multiple"],
+ ["paradoxically","逆説的に ← paradox"],
+ ["psychological / psychologist","心理的な／心理学者 ← psychology"],
+ ["pursuit","追求 ← pursue"],
+ ["realise","実現する ← realize（英国綴り）"],
+ ["recommendation","推奨 ← recommend"],
+ ["religious","宗教の ← religion"],
+ ["resurgence","復活、再起 ← surge（高まり）"],
+ ["conception","考え方 ← concept ★空所①"],
+ ["consistently","一貫して ← consistent"],
+ ["donation","提供 ← donate"],
+ ["immensely","計り知れないほど ← immense"],
+ ["inherently","本質的に ← inherent ★空所②"],
+ ["promotion","昇進 ← promote（促進する）"],
+ ["complexity","複雑さ ← complex"],
+ ["universal","普遍的な ← universe（宇宙）"],
+ ["byproduct","副産物（by＋product）"],
+ ["eventful","波乱に富んだ（event＋-ful）"],
+ ["richness","豊かさ（rich＋-ness）"],
+ ["kickstart","始動させる（kick＋start）"],
+ ["mindset","考え方（mind＋set）"],
+ ["equate","同一視する ← equal"]
+];
+// C: [英語, シス単の訳（→ 本文での意味）]
+const SXC=[
+ ["dedicate","ささげる（dedicate A to B）"],
+ ["pursue","追求する"],
+ ["reveal","明らかにする"],
+ ["define","定義する（define A as B）"],
+ ["tend","～する傾向がある"],
+ ["individual","個人 → 形容詞「個人の」"],
+ ["rank","地位 → 動詞 rank among「～の中に入る」"],
+ ["evidence","証拠"],
+ ["assume","思い込む"],
+ ["adapt","適応する（adapt to）"],
+ ["endure","耐える → enduring「長続きする」"],
+ ["present","与える → be presented with「～を示される」"],
+ ["encourage","はげます → encourage O to do「～するよう促す」"],
+ ["ritual","儀式"],
+ ["bind","縛る → bind A to B「AをBに結びつける」"],
+ ["capture","捕らえる → （本質を）とらえる"],
+ ["ambition","熱望、野心"],
+ ["embrace","受け入れる"],
+ ["prone","～しやすい（be prone to）"],
+ ["regret","後悔（する）"],
+ ["perspective","見方"],
+ ["straightforward","わかりやすい → 単純な、平坦な"],
+ ["twist","ねじ曲げる → twists and turns「紆余曲折」"],
+ ["wind","曲がる [wáɪnd] → winding「曲がりくねった」"],
+ ["lap","ひざ → （コースの）1周"],
+ ["immune","免疫 → psychological immune system"],
+ ["incorporate","取り入れる（incorporate A into B）"],
+ ["ruin","台無しにする → 名 financial ruin「経済的破綻」"],
+ ["disaster","災害 → 災難"],
+ ["routine","日課"],
+ ["approach","方法、取り組み"],
+ ["compose","組み立てる → be composed of「～から成る」"],
+ ["essential","不可欠な"],
+ ["deliver","配達する → deliver a baby「出産する」"],
+ ["sight","視力、光景 → lower one's sights「目標を下げる」"],
+ ["sharp","急激な → sharp lines「くっきりした線」"],
+ ["previous","前の"],
+ ["arrogant","傲慢な（設問4の選択肢）"],
+ ["stubborn","頑固な（設問4の選択肢）"],
+ ["vulnerable","傷つきやすい（設問4の選択肢）"],
+ ["unlike","～と違って → those unlike us"],
+ ["trap","わな → set ~ a trap"],
+ ["circumstances","状況 → whatever their circumstances"]
+];
+// D: [表現, 意味]
+const SXD=[
+ ["What if ~?","もし～ならどうだろう（③タブで詳しく）"],
+ ["make for ~","～をもたらす、～に役立つ"],
+ ["be presented with ~","～を提示される"],
+ ["work against ~","～の妨げになる　※空所①"],
+ ["in turn","今度は、その結果として"],
+ ["rank among ~","～の中に入る"],
+ ["be content with ~","～に満足している"],
+ ["backed by ~","～に裏づけられた"],
+ ["leave out ~","～を省く、取りこぼす"],
+ ["There is more to A than B","AにはB以上のものがある"],
+ ["flow from ~","～から生じる"],
+ ["out of reach","手の届かない　※下線部(2)"],
+ ["lower one's sights","目標を下げる"],
+ ["at the expense of ~","～を犠牲にして"],
+ ["None of this is to say that ~","だからといって～というわけではない　※空所③"],
+ ["What of ~?","～はどうなのか（＝What about ~?）"],
+ ["twists and turns","紆余曲折"],
+ ["go wrong","うまくいかない　※設問4(い)"],
+ ["confident in the knowledge that ~","～とわかっていて安心して　※設問4(う)"],
+ ["by any standards","どんな基準から見ても"],
+ ["give birth to ~","～を産む"],
+ ["deliver a baby","出産する　※下線部(3)"],
+ ["equate A with B","AをBと同一視する　※設問6"]
+];
+document.getElementById("sxstats").innerHTML=
+ `<div><b>2,055</b>シス単の収録語（単語2,027＋センター100の追加28）</div>
+  <div><b>約370</b>本文＋設問の異なり語（語形ベース）</div>
+  <div class="hit"><b>${SXA.length}</b>A 最優先で覚える</div>
+  <div><b>${SXB.length}</b>B 関連語・語の作りから推測</div>
+  <div><b>${SXC.length}</b>C シス単で復習</div>
+  <div><b>${SXD.length}</b>D 熟語・表現</div>`;
+document.getElementById("nA").textContent=SXA.length+"語";
+document.getElementById("nB").textContent=SXB.length+"語";
+document.getElementById("nC").textContent=SXC.length+"語";
+document.getElementById("nD").textContent=SXD.length+"表現";
+document.getElementById("sxA").innerHTML=SXA.map(e=>
+ `<div class="entry"><div class="hw"><span class="wd">${e[0]}</span>${e[1]?`<span class="alt">${e[1]}</span>`:""}<span class="pos">${e[2]}</span></div>
+  <div class="gl">${e[3]}</div><div class="ct">${e[4]}</div></div>`).join("");
+const flipHTML=(w,m)=>`<li><button class="flip" type="button" aria-pressed="false"><span class="f front">${w}</span><span class="f back">${m}</span></button></li>`;
+document.getElementById("deckB").innerHTML=SXB.map(e=>flipHTML(e[0],e[1])).join("");
+document.getElementById("deckC").innerHTML=SXC.map(e=>flipHTML(e[0],e[1])).join("");
+document.getElementById("sxD").innerHTML=SXD.map(e=>`<div class="idiom"><span>${e[0]}</span><small>${e[1]}</small></div>`).join("");
+document.querySelectorAll(".flip").forEach(b=>b.onclick=()=>
+ b.setAttribute("aria-pressed",b.getAttribute("aria-pressed")==="true"?"false":"true"));
+function flipAll(btn){
+ const cards=document.querySelectorAll("#"+btn.dataset.deck+" .flip");
+ const anyFront=[...cards].some(c=>c.getAttribute("aria-pressed")!=="true");
+ cards.forEach(c=>c.setAttribute("aria-pressed",anyFront?"true":"false"));
+ btn.textContent=anyFront?"すべて戻す":"すべてめくる";}
+
+/* ================= ③ What if 練習問題 ================= */
+const WQ=[
+ ["What if we miss the last bus?","① 懸念：最終バスに乗り遅れたらどうしよう。（現在形＝十分ありうる未来）"],
+ ["What if we asked the teacher for advice?","② 提案：先生に助言を求めてみたらどうだろう。（過去形で控えめに提案）"],
+ ["What if I had left home ten minutes earlier?","③ 後悔：あと10分早く家を出ていたら、どうなっていただろう。（過去完了＝過去の反実仮想）"],
+ ["What if I told you that sleep can improve your memory?","④ 修辞的導入：睡眠で記憶力が上がる、と言ったらどう思う？（答えを求めない前振り）"],
+ ["So what if I made a mistake?","⑤ 開き直り：ミスしたからって、何だっていうの。"],
+ ["What of those who cannot afford it?","⑥ What about と同じ：それを買う余裕のない人たちはどうなるのか。（本文第6段落の What of と同じ形）"]
+];
+const WC=[
+ ["明日の試験が中止になったら、どうする？","What would you do if tomorrow's exam were cancelled?／What if tomorrow's exam were cancelled?（起こりそうなら What if tomorrow's exam is cancelled? も可）"],
+ ["いっそ最初からやり直してみたらどう？","What if we started over from scratch?（start from scratch＝ゼロから始める）"],
+ ["あのとき別の道を選んでいたら、どうなっていただろう。","What if I had chosen a different path back then?"],
+ ["誰もが毎日1時間、好きなことに使えると言ったら、どう思いますか。","What if I told you that everyone could spend an hour a day doing what they love?"]
+];
+const qzHTML=(arr,ja)=>arr.map(q=>`<div class="qz hid"><div class="qs${ja?" jq":""}">${esc(q[0])}</div><div class="qa">${esc(q[1])}</div><div class="tap">タップで答え</div></div>`).join("");
+document.getElementById("wiquiz").innerHTML=qzHTML(WQ,false);
+document.getElementById("wicomp").innerHTML=qzHTML(WC,true);
+document.querySelectorAll(".qz").forEach(q=>q.onclick=()=>q.classList.toggle("hid"));
+
+/* ================= ④ 全訳データ（英文＋訳） ================= */
+// B(番号,答え) = 空所の答え／U(番号,文) = 下線部
+const B=(q,a)=>`<span class="bk sw2" data-q="( ${q} )" data-a="${a}">${a}</span>`;
+const U=(q,s)=>`<span class="ul"><span class="utag">${q}</span>${s}</span>`;
+const TL=[
+{p:"第1段落",ti:"導入 — 誰もが「豊か」になれる？",ins:null,items:[
+ [`What if I told you that we could all be rich?`,
+  `「私たちはみんな豊かになれる」——そう言ったら、あなたはどう思うだろうか。`,
+  `What if＋過去形（仮定法過去）の修辞的な導入。「豊か＝お金持ち」という常識をゆさぶる前振り → <a class="wilink" onclick="goWI('w4')">③ What if 徹底解説へ</a>`],
+ [`Not in dollars or pounds, yen or rupees, but a completely different type of currency.`,
+  `ドルやポンド、円やルピーで、ではない。まったく別の種類の通貨で、である。`],
+ [`A currency measured in experiences, adventures, lessons learned and stories told.`,
+  `経験、冒険、学んだ教訓、語られた物語によって測られる通貨だ。`],
+ [`As a social psychologist, I have dedicated my research career to a simple, but universal question: what makes for a good life, and how can we achieve it?`,
+  `社会心理学者として、私は研究者人生を、単純だが普遍的なある問いに捧げてきた。何が良い人生をもたらすのか、そしてどうすればそれを実現できるのか、という問いである。`],
+ [`For much of human history, we have been presented with two possibilities: pursuing a life of happiness, or a life of meaning.`,
+  `人類の歴史の大半において、私たちには二つの可能性が示されてきた。幸福な人生を追い求めるか、意味のある人生を追い求めるか、である。`,
+  `→ 設問6(C)「人類史の大半で、良い人生は幸福か意味と同一視されてきた」の根拠`],
+ [`Each of these paths has its benefits and proponents, but decades of psychological research have also revealed their limits.`,
+  `どちらの道にも利点と支持者があるが、数十年にわたる心理学の研究は、それぞれの限界も明らかにしてきた。`]]},
+{p:"第2段落",ti:"幸福の限界① — 不幸が「自己責任」になる",
+ ins:{lab:"空所①＝(D)",en:"The current cultural conception of happiness, for example, can work against us finding fulfilment.",
+      ja:"たとえば、現在の文化における幸福の捉え方は、私たちが充実感を得る妨げになることがある。"},items:[
+ [`Historically, happiness tended to be defined as the result of “good luck” and “fortune”.`,
+  `歴史的には、幸福は「幸運」や「運」の結果だと定義される傾向にあった。`],
+ [`Today many expect it to come from individual effort and success.`,
+  `今日では、多くの人が、幸福は個人の努力と成功から生まれるものだと考えている。`],
+ [`But this, in turn, makes unhappiness and negative emotions such as sadness or anger seem like personal failures.`,
+  `しかしそうなると今度は、不幸や、悲しみ・怒りといった否定的な感情が、個人の失敗のように思えてしまう。`]]},
+{p:"第3段落",ti:"幸福の限界② — 期待を下げる幸福と「快楽のトレッドミル」",ins:null,items:[
+ [`Ask the Danes and Finns, who consistently rank among the happiest people in the world, what their secret is and they’ll tell you this: <i>lower your expectations and be content with what you have</i>.`,
+  `世界で最も幸福な人々に常に数えられるデンマーク人やフィンランド人に、その秘訣は何かと尋ねてみるといい。彼らはこう答えるだろう。「期待を低くして、今あるもので満足しなさい」と。`,
+  `命令文, and ...「～しなさい、そうすれば…」。ask＋人＋what their secret is（間接疑問）`],
+ [`It is a recommendation backed by plenty of evidence.`,
+  `これは豊富な証拠に裏づけられた助言である。`,
+  `→ 設問6(D)「デンマークとフィンランドの幸福へのアプローチは証拠に裏づけられている」の根拠`],
+ [`Paradoxically, happiness is easier to achieve if you don’t want too much of it.`,
+  `逆説的だが、幸福は求めすぎないほうが手に入れやすいのである。`],
+ [`We assume that the big things in life will make us happy: a wedding, a promotion or a new car.`,
+  `私たちは、人生の大きな出来事、たとえば結婚式や昇進、新車などが自分を幸せにしてくれると思い込んでいる。`],
+ [`<span class="bk">下線部(1)</span> <b>They do, but only for a short time.</b>（解答例）`,
+  `確かにそれらは幸せにしてくれる。だがそれは短い間だけだ。`,
+  `設問2：They で始まる10語以内。直後の「新しい状況にすぐ慣れる（快楽のトレッドミル）」が根拠。They＝the big things`],
+ [`Studies show that we adapt to our new conditions more quickly than you might think, something psychologists call the “hedonic treadmill”.`,
+  `研究によれば、私たちは思っている以上に早く新しい状況に慣れてしまう。これは心理学者が「快楽のトレッドミル」と呼ぶ現象である。`,
+  `, something S call ~ は前の文全体を言い換える同格。トレッドミル（ルームランナー）の上では走っても前に進まないように、良いことが起きても幸福度はすぐ元に戻る`],
+ [`Instead, it’s the daily walks with your dog, the weekly coffee with your best friend and the monthly romantic dinner with your partner that provide a more enduring happiness.`,
+  `むしろ、より長続きする幸福をもたらすのは、毎日の犬との散歩、毎週の親友とのコーヒー、そして毎月のパートナーとのロマンチックなディナーなのだ。`,
+  `It is ~ that ... の強調構文。daily / weekly / monthly と頻度の語を並べ、「小さな習慣」を強調`],
+ [`It sounds good, doesn’t it?`,
+  `いい話に聞こえるだろう。`],
+ [`But it leaves something out.`,
+  `しかし、この考え方には抜け落ちているものがある。`],
+ [`It’s a bit like being a college student who only takes easy courses to be sure of getting good grades.`,
+  `それは、確実によい成績を取るために楽な授業しか履修しない大学生のようなものだ。`],
+ [`Might there be more to life than simple pleasures and cosy comfort?`,
+  `人生には、ささやかな楽しみや心地よい安らぎ以上の何かがあるのではないだろうか。`,
+  `There is more to A than B「AにはB以上のものがある」の疑問文。Might で控えめに問いかけている`]]},
+{p:"第4段落",ti:"意味の限界① — 壮大な理想は重すぎる",ins:null,items:[
+ [`Then there’s the meaningful life.`,
+  `次に、意味のある人生がある。`],
+ [`We often imagine that meaning flows from trying to change the world, like Steve Jobs, Greta Thunberg or Mother Theresa.`,
+  `私たちはしばしば、意味というものは、スティーブ・ジョブズやグレタ・トゥーンベリ、マザー・テレサのように、世界を変えようとすることから生まれると想像する。`,
+  `Mother Theresa は問題文の表記（一般的な綴りは Mother Teresa）`],
+ [`${U("(2)","The pressure to realise this kind of grand vision can be immensely taxing, and the vision feels out of reach for most of us.")}`,
+  `<span class="ul">このような壮大な構想を実現しなければという重圧は、計り知れないほど大きな負担になりうるし、その構想は私たちの大半にとって手の届かないものに感じられる。</span>`,
+  `設問3の和訳対象。realise＝実現する（英国綴り）、taxing＝負担の大きい、out of reach＝手の届かない`],
+ [`Once again, the research shows that lowering your sights and focusing on the little things can offer a more achievable sense of meaning.`,
+  `ここでもまた研究が示しているのは、目標を下げて小さなことに目を向けるほうが、より手の届きやすい「意味」の感覚を得られるということだ。`,
+  `→ 設問6(B)「小さなことに目を向けると、世界を変えるような大きな夢を追うよう促される」は、この文と逆なので本文にない内容`],
+ [`Often people find it in routines like taking care of family, volunteering in the community or maintaining a religious practice.`,
+  `人々はしばしば、家族の世話をする、地域でボランティアをする、宗教的な習慣を続けるといった日々の営みの中に、それ（意味）を見出す。`]]},
+{p:"第5段落",ti:"意味の限界② — 「仲間」と「それ以外」を分ける",
+ ins:{lab:"空所②＝(E)",en:"There is nothing inherently wrong with this.",
+      ja:"このこと自体には、本質的に何の問題もない。"},items:[
+ [`But there is also a dark side to the pursuit of meaning: researchers have found that it can encourage people to draw sharp lines between those who belong in their group and those who don’t.`,
+  `しかし、意味の追求には負の側面もある。研究者たちは、意味の追求が、自分の集団に属する人とそうでない人との間にはっきりと線を引くよう人々を促しうることを明らかにしてきた。`],
+ [`The rituals and love that bind us to our chosen way of life can come at the expense of compassion for those unlike us.`,
+  `私たちを自ら選んだ生き方に結びつけている儀式や愛情は、自分とは異なる人々への思いやりを犠牲にして成り立つことがある。`,
+  `come at the expense of ～「～を犠牲にして生じる」`]]},
+{p:"第6段落",ti:"第三の道 — 心理的豊かさ",
+ ins:{lab:"空所③＝(C)",en:"None of this is to say that happy or meaningful lives cannot be good ones.",
+      ja:"とはいえ、だからといって、幸福な人生や意味のある人生が良い人生になりえない、というわけでは決してない。"},items:[
+ [`But both models fail to capture the breadth of human experience.`,
+  `しかし、どちらのモデルも、人間の経験の幅広さをとらえきれていない。`],
+ [`What of curiosity, ambition and exploration?`,
+  `好奇心や野心、探究はどうなのか。`,
+  `What of ~?＝What about ~?「～はどうなのか」（やや文語的） → <a class="wilink" onclick="goWI('w5')">③の「仲間の表現」へ</a>`],
+ [`Or failure and resurgence?`,
+  `あるいは、失敗と再起は？`],
+ [`Thinking about what happiness and meaning leave out, and the traps they can set us, led me and my research lab to sketch out a third route to fulfilment: psychological richness.`,
+  `幸福と意味が取りこぼしているもの、そしてそれらが私たちに仕掛けうる罠について考えた結果、私と私の研究室は、充実した人生への第三の道を描き出すに至った。それが「心理的豊かさ」である。`,
+  `S（Thinking about ...）led O to do「Sが O を～するよう導いた」→「～を考えた結果、O は～するに至った」と訳すと自然`],
+ [`A psychologically rich life is one filled with diverse, unusual and interesting experiences that change your perspective; a life with twists and turns; a dramatic, eventful life instead of a simple and straightforward one; a life with multiplicity and complexity; a life with stops, detours and turning points; a life that feels like a long, winding hike rather than many laps of the same racing circuit.`,
+  `心理的に豊かな人生とは、ものの見方を変えてくれる、多様で珍しく興味深い経験に満ちた人生のことである。紆余曲折のある人生。単純で平坦な人生ではなく、劇的で波乱に富んだ人生。多様さと複雑さをもつ人生。立ち止まり、回り道をし、転機を迎える人生。同じレース場を何周も回るのではなく、長く曲がりくねった山道を歩いているように感じられる人生である。`,
+  `セミコロン（;）で「a life with ...」を言い換えながら畳みかける。→ 設問6(A)「紆余曲折と複雑さから成りうる」の根拠`],
+ [`Such experiences can kickstart the psychological immune system, making us more ${B("あ","resilient")}.`,
+  `そうした経験は心の免疫システムを始動させ、私たちをより（<b>立ち直る力の強い</b>）存在にしてくれる。`,
+  `making 以下は分詞構文（結果）。immune system（免疫）→ 立ち直りやすくなる＝resilient`],
+ [`Not only that, embracing the pursuit of psychological richness can make us less prone to regret: it matters less if the thing you did went ${B("い","wrong")}.`,
+  `それだけではない。心理的豊かさの追求を受け入れると、後悔しにくくなる。やったことが（<b>うまくいかなかった</b>）としても、それほど問題ではなくなるのだ。`,
+  `go wrong「うまくいかない」。コロン（:）以下が less prone to regret の具体的な説明`]]},
+{p:"第7段落",ti:"逆境でも手に入る豊かさ",
+ ins:{lab:"空所④＝(A)",en:"A life of psychological richness is also accessible to everyone, whatever their circumstances.",
+      ja:"また、心理的に豊かな人生は、どんな境遇にある人にも手の届くものである。"},items:[
+ [`In times of illness, bereavement or financial ruin, happiness or meaning can seem out of reach.`,
+  `病気や死別、経済的破綻のときには、幸福や意味は手の届かないものに思えることがある。`],
+ [`A mindset focused on richness is able to incorporate these disasters into the tapestry of life, ${B("う","confident")} in the knowledge that things will change again soon.`,
+  `豊かさに目を向ける考え方であれば、物事はまたすぐに変わるとわかっていて（<b>安心して</b>）、こうした災難を、人生というタペストリーを織りなす糸の一本として組み込むことができる。`,
+  `(being) confident in the knowledge that ~「～とわかっていて安心して」。前に being が省略された分詞構文`]]},
+{p:"第8段落",ti:"具体例 — タクシー運転手リンダの人生",ins:null,items:[
+ [`In any case, a psychologically rich life can have meaning and happiness as its byproduct.`,
+  `いずれにせよ、心理的に豊かな人生は、その副産物として意味と幸福をもたらしうる。`],
+ [`Take Linda, the taxi driver I met in Riverside, California.`,
+  `カリフォルニア州リバーサイドで出会ったタクシー運転手のリンダを例に取ろう。`],
+ [`Her life has been psychologically rich by any standards: she gave birth to two of her grandchildren as a surrogate for her daughter, ${U("(3)","whose medical condition made it dangerous to deliver a baby")}.`,
+  `彼女の人生は、どんな基準から見ても心理的に豊かなものだった。彼女は娘の代理母として、孫のうち二人を出産した。<span class="ul">娘は持病のために、自分で出産するのが危険だったのである</span>。`,
+  `設問5：whose（先行詞 her daughter）medical condition（S）made（V）it（形式目的語）dangerous（C）to deliver a baby（真の目的語）`],
+ [`She finds happiness in regular visits to her children and grandchildren and finds meaning in her previous career as a public servant and the donation of one of her kidneys to her ex-husband.`,
+  `彼女は、子どもや孫のもとを定期的に訪ねることに幸福を見出し、以前の公務員としての仕事や、元夫に腎臓を一つ提供したことに意味を見出している。`,
+  `happiness と meaning の両方を得ている＝冒頭の第8段落第1文「副産物として意味と幸福をもたらす」の具体例`]]}
+];
+document.getElementById("tlbody").innerHTML=TL.map((t,pi)=>
+ `<div class="para${t.ins?" ins":""}">
+   <div class="pt2"><span class="pno">${t.p}</span><span class="pti">${t.ti}</span></div>
+   ${t.ins?`<div class="boxsent"><span class="bl">${t.ins.lab}（段落冒頭に入る文）</span>
+     <div class="cue">${esc(t.ins.en)}</div><div class="jp bj">${t.ins.ja}</div></div>`:""}
+   <div class="sents">${t.items.map(s=>`<div class="sent">
+     <div class="en2">${s[0]}</div><div class="jp">${s[1]}</div>${s[2]?`<div class="tnote">${s[2]}</div>`:""}</div>`).join("")}</div>
+ </div>`).join("");
+document.getElementById("tlbody").onclick=e=>{
+ if(e.target.closest(".wilink"))return;
+ const s=e.target.closest(".sent,.boxsent");if(s)s.classList.toggle("peek");};
+
+let jpHidden=false,enHidden=false,ansHidden=false,twoCol=false;
+function clearPeek(){document.querySelectorAll("#tlbody .peek").forEach(s=>s.classList.remove("peek"));}
+function toggleJP(){jpHidden=!jpHidden;clearPeek();
+ document.getElementById("tlbody").classList.toggle("tlhide",jpHidden);
+ document.getElementById("btnJP").textContent=jpHidden?"訳を表示":"訳を隠す";}
+function toggleEN(){enHidden=!enHidden;clearPeek();
+ document.getElementById("tlbody").classList.toggle("enhide",enHidden);
+ document.getElementById("btnEN").textContent=enHidden?"英文を表示":"英文を隠す";}
+function toggleANS(){ansHidden=!ansHidden;
+ document.querySelectorAll("#tlbody .sw2").forEach(e=>{
+  e.textContent=ansHidden?e.dataset.q:e.dataset.a;
+  e.classList.toggle("blank",ansHidden);});
+ document.getElementById("btnANS").textContent=ansHidden?"空所の答えを表示":"空所の答えを隠す";}
+function toggleCOL(){twoCol=!twoCol;
+ document.getElementById("tlbody").classList.toggle("tl2",twoCol);
+ document.getElementById("btnCOL").textContent=twoCol?"上下に並べて表示":"左右2段で表示";}
+
+/* ================= ⑤ 設問データ ================= */
+const QS=[
+ {no:"設問 1（空欄①〜④・文の選択）",
+  ja:"空欄①〜④に入る最も適切な文を選択肢から選び、記号で答えなさい。ただし、各記号は1回しか使用できない。",
+  ch:[["(A)","A life of psychological richness is also accessible to everyone, whatever their circumstances.","心理的に豊かな人生は、どんな境遇の人にも手の届くものでもある。",1],
+      ["(B)","In other words, financial success is essential to happiness.","言い換えれば、経済的な成功は幸福に不可欠である。"],
+      ["(C)","None of this is to say that happy or meaningful lives cannot be good ones.","だからといって、幸福な人生や意味のある人生が良い人生になりえないというわけではない。",1],
+      ["(D)","The current cultural conception of happiness, for example, can work against us finding fulfilment.","たとえば、現在の文化における幸福の捉え方は、私たちが充実感を得る妨げになりうる。",1],
+      ["(E)","There is nothing inherently wrong with this.","このこと自体に本質的な問題は何もない。",1],
+      ["(F)","Therefore, meaning is more important than happiness.","したがって、意味は幸福より重要である。"]],
+  ans:`<p><span class="k">正解：① (D)　② (E)　③ (C)　④ (A)</span>（不使用：B・F）</p>
+  <p><b>① (D)</b>：直前の第1段落の最後で「研究はそれぞれの限界も明らかにしてきた」と予告し、①の後で幸福の捉え方の変化（運 → 努力と成功）とその弊害（不幸が個人の失敗に見える）を具体的に述べている。(D) の <b>for example</b> と <b>conception of happiness</b> が、「幸福の限界の第一例」を出すこの位置にぴったり合う。</p>
+  <p><b>② (E)</b>：直前の段落で「家族の世話・地域のボランティア・宗教的習慣に意味を見出す」と述べ、②の直後は <i>But there is also a dark side ...</i>。(E)「このこと自体に問題はない」でいったん認めてから、But で負の側面へ移る<b>譲歩 → 逆接</b>の流れ。</p>
+  <p><b>③ (C)</b>：直後の <i>But both models fail to capture ...</i> の <b>both models</b> は幸福モデルと意味モデル。(C)「だからといって、幸福な人生や意味ある人生が良い人生になりえないわけではない」で両者をいったん擁護してから、But で「どちらも人間の経験の幅をとらえきれない」と転じる。</p>
+  <p><b>④ (A)</b>：直後で「病気・死別・経済的破綻のときは幸福や意味は手が届かないが、豊かさに目を向ける考え方ならこうした災難も人生に組み込める」と説明している。(A) の <b>whatever their circumstances</b>（どんな境遇でも）がその要約になっている。</p>
+  <p><b>(C) を①に入れたくなる人へ</b>：None of this（これまでのどれも）が指すのは、幸福と意味の<b>両方の問題点</b>を述べ終えた内容。①の時点ではまだ何も批判していないので、指すものがない。また (C) の後には But（しかし）で本題に戻るのが自然だが、①の直後は Historically, ... であって But では始まらない。</p>
+  <p><b>✕ (B)</b> 本文の主張（お金ではない豊かさ）と正反対。<b>✕ (F)</b> 本文は幸福と意味の優劣を論じておらず、どちらにも限界があるという立場。</p>`},
+ {no:"設問 2（下線部(1)・10語以内の英文）",
+  ja:"下線部(1)に入る文を本文の内容に即して、They から始まる10語以内の英文で書きなさい。",
+  ans:`<p><span class="k">解答例：They do, but only for a short time.</span>（8語）</p>
+  <p><b>根拠</b>：直前は「私たちは、結婚式・昇進・新車といった人生の大きな出来事が幸せにしてくれると思い込んでいる」。直後は「研究によれば、私たちは思っている以上に早く新しい状況に慣れてしまう（快楽のトレッドミル）」。さらに後で「むしろ、より<b>長続きする</b>幸福をもたらすのは日々の小さな習慣だ」と続く。したがって (1) には「大きな出来事は確かに幸せにしてくれるが、<b>長続きしない</b>」という内容が入る。They＝the big things in life。</p>
+  <div class="model"><b>ほかの解答例</b>
+  <p class="en">They make us happy, but not for long. <span class="wc">(8 words)</span></p>
+  <p class="en">They do not make us happy for very long. <span class="wc">(9 words)</span></p></div>
+  <p><b>✕ They don't make us happy.</b>「まったく幸せにしない」と読めてしまい、直後の <i>a more enduring happiness</i>（より長続きする幸福）という比較とかみ合わない。「一時的には幸せになるが続かない」という<b>時間の要素</b>を必ず入れる。</p>
+  <p class="note">採点の観点：They で始めているか／10語以内か（do と but も1語ずつ数える）／時制は現在形か／「長続きしない」が表せているか。</p>`},
+ {no:"設問 3（下線部(2)・和訳）",
+  ja:"下線部(2)を日本語に訳しなさい。",
+  ans:`<p class="en" style="font-size:.95rem">The pressure to realise this kind of grand vision can be immensely taxing, and the vision feels out of reach for most of us.</p>
+  <p><span class="k">解答例：このような壮大な構想を実現しなければという重圧は、計り知れないほど大きな負担になりうるし、その構想は私たちの大半にとって手の届かないものに感じられる。</span></p>
+  <p><b>ポイント</b></p>
+  <ul class="steps">
+   <li><b>The pressure to realise ~</b>：to 不定詞は pressure の中身を説明する形容詞的用法。「～を実現しなければという重圧」。</li>
+   <li><b>realise</b>：英国綴り（米 realize）。ここでは「悟る」ではなく「実現する」。目的語が vision（構想）なので判断できる。</li>
+   <li><b>this kind of grand vision</b>：直前のジョブズやグレタのように「世界を変える」という壮大な構想・理想。</li>
+   <li><b>can be</b>：可能性の can「～になりうる」。「～できる」と訳さない。</li>
+   <li><b>immensely taxing</b>：immensely＝計り知れないほど／taxing＝負担の大きい、骨の折れる（動詞 tax「重い負担をかける」）。「税」と訳すのは誤り。</li>
+   <li><b>feels out of reach</b>：feel＋形容詞句「～に感じられる」。out of reach＝手の届かない。</li>
+   <li><b>for most of us</b>：「私たちのほとんどにとって」。</li>
+  </ul>`},
+ {no:"設問 4（空欄（あ）〜（う）・語の選択）",
+  ja:"空欄（あ）〜（う）に入る最も適切な語を選択肢から選び、記号で答えなさい。ただし、各記号は1回しか使用できない。",
+  words:[["(A) arrogant","傲慢な",0],["(B) confident","確信している、自信のある",1],["(C) resilient","回復力のある",1],
+         ["(D) stubborn","頑固な",0],["(E) vulnerable","傷つきやすい",0],["(F) wrong","間違った、うまくいかない",1]],
+  ans:`<p><span class="k">正解：（あ）(C) resilient　（い）(F) wrong　（う）(B) confident</span></p>
+  <p><b>（あ）</b><i>Such experiences can kickstart the psychological immune system, making us more ( resilient ).</i>　心の「免疫システム」が働き出す → 打たれ強くなる、立ち直りやすくなる。反対の vulnerable（傷つきやすい）は文脈と逆。</p>
+  <p><b>（い）</b><i>it matters less if the thing you did went ( wrong ).</i>　<b>go wrong</b>「うまくいかない」の定型。後悔しにくくなる＝やったことが失敗しても、それほど気にならない。</p>
+  <p><b>（う）</b><i>..., ( confident ) in the knowledge that things will change again soon.</i>　<b>confident in the knowledge that ~</b>「～とわかっていて安心して・確信して」。前に being が省略された分詞構文で、主語は a mindset（を持つ人）。</p>
+  <p><b>✕ arrogant（傲慢な）・stubborn（頑固な）</b>はどの空欄でも文意に合わない。</p>`},
+ {no:"設問 5（下線部(3)・整序）",
+  ja:"下線部(3)の文意が最も適切に通るように括弧内の語を並び替え、2番目、4番目、6番目の語をそれぞれ書き出しなさい。<br>[ a, baby, condition, dangerous, deliver, it, made, medical, to, whose ]",
+  ans:`<p><span class="k">正解：2番目 medical　4番目 made　6番目 dangerous</span></p>
+  <p>完成文：she gave birth to two of her grandchildren as a surrogate for her daughter, <b>whose</b><sup>1</sup> <b>medical</b><sup>2</sup> <b>condition</b><sup>3</sup> <b>made</b><sup>4</sup> <b>it</b><sup>5</sup> <b>dangerous</b><sup>6</sup> <b>to</b><sup>7</sup> <b>deliver</b><sup>8</sup> <b>a</b><sup>9</sup> <b>baby</b><sup>10</sup>.</p>
+  <p>訳：彼女は娘の代理母として孫のうち二人を出産した。娘は持病のために、自分で出産するのが危険だったのである。</p>
+  <p><b>組み立ての手順</b></p>
+  <ol class="steps">
+   <li>カンマの直後で先行詞 her daughter を受ける関係詞 → <b>whose</b>（後ろに無冠詞の名詞が続く）。</li>
+   <li>whose の後ろに名詞のかたまり → <b>medical condition</b>（病状、持病）。ここまでが主語。</li>
+   <li>動詞 → <b>made</b>。make O C「O を C にする」の形を予想する。</li>
+   <li>O に形式目的語 <b>it</b>、C に <b>dangerous</b> → made it dangerous。</li>
+   <li>it の中身（真の目的語）→ <b>to deliver a baby</b>（deliver a baby＝出産する）。</li>
+  </ol>
+  <p><b>よくある誤り</b>：<b>to made</b>（✕ to の後ろは原形なので to deliver）／<b>a medical</b>（✕ a は baby につく。whose の後ろに冠詞は置けない）／<b>made dangerous it</b>（✕ 形式目的語 it は C の前）。</p>`},
+ {no:"設問 6（内容不一致）",
+  ja:"本文で<b>述べられていない</b>内容を選択肢から1つ選び、記号で答えなさい。",
+  ch:[["(A)","A psychologically rich life can be composed of twists and turns with complexity.","心理的に豊かな人生は、紆余曲折と複雑さから成りうる。"],
+      ["(B)","Focusing on the little things encourages us to pursue a big dream like changing the world.","小さなことに目を向けると、世界を変えるような大きな夢を追い求めるよう促される。",1],
+      ["(C)","For much of human history, a good life has been equated with happiness or meaning.","人類の歴史の大半において、良い人生は幸福か意味と同一視されてきた。"],
+      ["(D)","The Danish and Finnish approach to happiness is supported by evidence.","デンマーク人とフィンランド人の幸福への取り組み方は、証拠に裏づけられている。"]],
+  ans:`<p><span class="k">正解：(B)</span></p>
+  <p><b>(B) ✕ 述べられていない</b>：第4段落は「世界を変えるような壮大な構想は重荷で、ほとんどの人には手が届かない。<b>だからこそ</b>目標を下げて小さなことに目を向けるほうが、達成しやすい意味の感覚が得られる」という流れ。小さなことへの注目は、大きな夢を追う<b>代わり</b>であって、大きな夢を促すものではない。</p>
+  <p><b>(A) ○</b> 第6段落 <i>a life with twists and turns ... a life with multiplicity and complexity</i>。<br>
+  <b>(C) ○</b> 第1段落 <i>For much of human history, we have been presented with two possibilities: pursuing a life of happiness, or a life of meaning.</i><br>
+  <b>(D) ○</b> 第3段落 <i>It is a recommendation backed by plenty of evidence.</i>（backed by ＝ supported by の言い換え）</p>`}
+];
+document.getElementById("qbody").innerHTML=QS.map(q=>{
+ let inner=`<div class="qbox"><span class="qno">${q.no}</span><div class="qja">${q.ja}</div>`;
+ if(q.words){
+  inner+=`<div class="wl">`+q.words.map(w=>
+   `<div class="${w[2]?"used":""}"><b>${w[0]}</b><br><span style="font-size:.78rem;color:var(--sub)">${w[1]}</span></div>`).join("")+`</div>`;
+ }
+ if(q.ch){
+  inner+=q.ch.map(c=>`<div class="ch${c[3]?" ok":""}"><b>${c[0]}</b><span><span style="font-style:italic;color:#334155">${esc(c[1])}</span><br><span class="cja">${c[2]}</span></span></div>`).join("");
+ }
+ inner+=`<div class="ans hid"><div class="hd">解答・解説（タップで表示）</div><div class="body">${q.ans}</div></div></div>`;
+ return inner;}).join("");
+document.querySelectorAll(".ans").forEach(a=>a.onclick=()=>{
+ a.classList.toggle("hid");
+ a.closest(".qbox").classList.toggle("reveal",!a.classList.contains("hid"));});
+
+/* ================= タブ ================= */
+function setTab(t){
+ ["vocab","sx","wi","tl","q"].forEach(k=>{
+  document.getElementById("tab-"+k).classList.toggle("hide",k!==t);
+  document.getElementById("tb-"+k).classList.toggle("on",k===t);});
+ window.scrollTo({top:0,behavior:"smooth"});}
+function goWI(id){
+ setTab("wi");
+ setTimeout(()=>document.getElementById(id).scrollIntoView({behavior:"smooth",block:"start"}),60);}
+
+render();
+</script>
+</body>
+</html>
