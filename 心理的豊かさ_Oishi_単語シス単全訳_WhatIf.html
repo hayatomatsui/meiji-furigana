@@ -219,6 +219,28 @@ button.flip:hover{transform:none}
 .srcs li{margin-bottom:6px}
 .srcs a{color:#3730a3}
 
+.qbig{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;font-weight:800}
+.quiltfig{margin:16px 0}
+.quiltfig svg{width:100%;height:auto;display:block;border-radius:14px;box-shadow:0 4px 14px rgba(146,64,14,.15)}
+.quiltfig figcaption{font-size:.84rem;color:var(--sub);margin-top:10px;text-align:center}
+.qrows{display:grid;gap:10px;margin-top:6px}
+.qhead,.qrow{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.qhead span{font-size:.78rem;font-weight:800;color:#fff;border-radius:10px;padding:7px 12px}
+.qhead span:nth-child(1){background:#3730a3}.qhead span:nth-child(2){background:#b45309}.qhead span:nth-child(3){background:#0f766e}
+.qrow>div{background:#f8fafc;border-radius:12px;padding:11px 13px;font-size:.88rem;line-height:1.75}
+.qrow>div:nth-child(1){border-left:4px solid #6366f1}.qrow>div:nth-child(2){border-left:4px solid #f59e0b}.qrow>div:nth-child(3){border-left:4px solid #14b8a6}
+.qrow .en{display:block;font-size:.84rem;margin-top:4px}
+.qlab{display:none}
+.qrow>div:nth-child(3) .qlab{display:block;font-size:.8rem;color:#0f766e;margin-bottom:2px}
+.talk{margin:6px 0 0 22px}
+.talk li{margin-bottom:8px;font-size:.93rem}
+.talk li b{display:inline-block;min-width:8.5em;color:#92400e}
+.oneline{margin-top:18px;background:linear-gradient(135deg,#fffbeb,#eef2ff);border:1px solid #fde68a;border-radius:16px;
+  padding:20px 18px;text-align:center;font-size:1.12rem;font-weight:800;line-height:1.8;color:#1e1b4b}
+@media(max-width:760px){.qhead{display:none}.qrow{grid-template-columns:1fr;background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:8px}
+  .qlab{display:block;font-size:.72rem;font-weight:800;margin-bottom:2px}
+  .qrow>div:nth-child(1) .qlab{color:#3730a3}.qrow>div:nth-child(2) .qlab{color:#b45309}}
+
 /* ---- ④ 全訳 ---- */
 .mapbox{background:#fff;border-radius:15px;padding:16px 18px;box-shadow:0 2px 9px rgba(0,0,0,.06);margin-bottom:14px}
 .mapbox ol{margin-left:19px;font-size:.89rem}
@@ -297,7 +319,7 @@ button.flip:hover{transform:none}
 
 <header>
   <h1>大問Ⅰ — 心理的豊かさ：充実した人生への「第三の道」</h1>
-  <p>出典：Shigehiro Oishi, “The big idea: What’s the real key to a fulfilling life?” <i>The Guardian</i>, Jan 27, 2025（出題の都合上、一部改変）。①難語リスト ②システム英単語にない語 ③What if 徹底解説 ④英文＋全訳 ⑤設問の解答解説 ⑥筆者について の6タブ構成です。</p>
+  <p>出典：Shigehiro Oishi, “The big idea: What’s the real key to a fulfilling life?” <i>The Guardian</i>, Jan 27, 2025（出題の都合上、一部改変）。①難語リスト ②システム英単語にない語 ③What if 徹底解説 ④英文＋全訳 ⑤設問の解答解説 ⑥筆者について ⑦キルトで読む（Everyday Use とエフェクチュエーションによる見立て） の7タブ構成です。</p>
   <div class="stats">
     <div class="stat"><b id="total">0</b>総項目</div>
     <div class="stat"><b id="nw">0</b>単語</div>
@@ -313,6 +335,7 @@ button.flip:hover{transform:none}
     <button id="tb-tl" onclick="setTab('tl')">④ 英文＋全訳</button>
     <button id="tb-q" onclick="setTab('q')">⑤ 設問 解答・解説</button>
     <button id="tb-au" onclick="setTab('au')">⑥ 筆者について</button>
+    <button id="tb-qu" onclick="setTab('qu')">⑦ キルトで読む</button>
   </div>
 </header>
 
@@ -700,6 +723,175 @@ button.flip:hover{transform:none}
     <li><a href="https://digital-is-green.jp/initiative/advisor/oishi/" target="_blank" rel="noopener">Sustainable Smart City Partner Program アドバイザー紹介</a></li>
     <li><a href="https://ci.nii.ac.jp/ncid/BA90229385" target="_blank" rel="noopener">CiNii 図書『幸せを科学する』</a></li>
     <li><a href="https://journals.sagepub.com/doi/abs/10.1177/0146167213480042" target="_blank" rel="noopener">Concepts of Happiness Across Time and Cultures（2013）</a></li>
+  </ul>
+</div>
+
+</div>
+</section>
+
+<!-- ============ ⑦ キルトで読む ============ -->
+<section id="tab-qu" class="hide">
+<div class="wi">
+
+<div class="wi-hero">
+  <div class="kick">見立て：Everyday Use × エフェクチュエーション</div>
+  <div class="big qbig">心理的に豊かな人生は、<br>一枚のクレイジーキルトである</div>
+  <div class="ja">壁に飾る完成品ではなく、毎日使いながら縫い足していく布。手元のハギレ（経験）から縫い始め、出会った人が持ち寄った布をつなぎ、喪失の布まで縫い込む。アリス・ウォーカーの短編『Everyday Use』と、エフェクチュエーションの「クレイジーキルト」を重ねて、本文の「心理的豊かさ」を読み解きます。</div>
+  <p class="note">※ これは本文の筆者の主張ではなく、文学と起業論を重ねた「見立て」です。入試の設問には、本文の内容に即して答えてください。</p>
+</div>
+
+<div class="wsec">
+  <h3><span class="n">1</span>重ねる3つの素材</h3>
+  <div class="tgrid">
+    <div class="tcard tc1"><span class="tt">本文（Oishi）</span>
+      <h4>心理的豊かさ＝第三の道</h4>
+      <div class="feel">幸福の人生、意味のある人生に続く、良い人生への第三の道。経験・冒険・教訓・物語という「通貨」で測る豊かさ。紆余曲折や回り道があり、災難さえ「人生のタペストリー（織物）」に組み込める。幸福と意味は、その副産物としてついてくる。</div>
+    </div>
+    <div class="tcard tc2"><span class="tt">Everyday Use（アリス・ウォーカー、1973年）</span>
+      <h4>キルトは飾るものか、使うものか</h4>
+      <div class="feel">都会で暮らす娘ディーが帰省し、祖母たちが縫ったキルトを「壁に飾りたい」と持ち帰ろうとする。だが母は、それを毎日使う妹マギーに渡す。キルトには、祖母の服、祖父のシャツ、曾祖父が南北戦争で着た軍服の切れ端が縫い込まれている。</div>
+    </div>
+    <div class="tcard tc4"><span class="tt">エフェクチュエーション（サラス・サラスバシー）</span>
+      <h4>手元の手段から、目的を生み出す</h4>
+      <div class="feel">熟練の起業家の考え方。目標から逆算して手段をそろえる（コーゼーション）のではなく、いま手元にある手段から始め、関わると決めた人との約束を重ねながら、目的そのものを生み出していく。クレイジーキルトは、その5つの原則の一つ。</div>
+    </div>
+  </div>
+</div>
+
+<div class="wsec">
+  <h3><span class="n">2</span>クレイジーキルトとは</h3>
+  <p class="sub">決まった図案のない、不揃いな布をつなぎ合わせたキルト</p>
+  <figure class="quiltfig">
+    <svg viewBox="0 0 600 300" role="img" aria-label="不揃いなハギレを縫い合わせたクレイジーキルトの図。経験、冒険、学んだ教訓、出会った人の布、回り道、喪失のパッチ、再起、語られた物語の8枚の布がつながっている">
+      <polygon points="0,0 230,0 190,120 0,140" fill="#fde68a"/>
+      <polygon points="230,0 430,0 400,90 190,120" fill="#bfdbfe"/>
+      <polygon points="430,0 600,0 600,130 400,90" fill="#bbf7d0"/>
+      <polygon points="0,140 190,120 300,210 160,300 0,300" fill="#94a3b8"/>
+      <polygon points="190,120 400,90 470,200 300,210" fill="#fecaca"/>
+      <polygon points="400,90 600,130 470,200" fill="#e9d5ff"/>
+      <polygon points="600,130 600,300 380,300 470,200" fill="#fed7aa"/>
+      <polygon points="300,210 470,200 380,300 160,300" fill="#c7d2fe"/>
+      <g fill="none" stroke="#92400e" stroke-width="2" stroke-dasharray="7 5">
+        <polyline points="0,140 190,120 400,90 600,130"/>
+        <polyline points="230,0 190,120 300,210 160,300"/>
+        <polyline points="430,0 400,90 470,200 380,300"/>
+        <polyline points="300,210 470,200 600,130"/>
+        <rect x="1" y="1" width="598" height="298"/>
+      </g>
+      <g font-size="17" font-weight="700" text-anchor="middle" fill="#1f2937">
+        <text x="105" y="70">経験</text>
+        <text x="312" y="58">冒険</text>
+        <text x="507" y="60">学んだ教訓</text>
+        <text x="122" y="222" fill="#fff">喪失のパッチ</text>
+        <text x="338" y="160">出会った人の布</text>
+        <text x="492" y="146">回り道</text>
+        <text x="520" y="250">語られた物語</text>
+        <text x="322" y="262">再起</text>
+      </g>
+    </svg>
+    <figcaption>完成図は最初からない。手元の布、人が持ち寄った布、喪失の布まで縫い足していくうちに、模様があとから見えてくる。</figcaption>
+  </figure>
+  <p>エフェクチュエーションでは、このキルトの名前を「<b>他者とのコミットメントを通じて、新しい手段と目的を生成する</b>」という原則に使っています。事業の形は、ひとりで設計図を引いて決めるのではなく、関わると決めた人たちが持ち寄った「布」と約束から生まれてくる、という考え方です。</p>
+</div>
+
+<div class="wsec">
+  <h3><span class="n">3</span>対応表：本文 × Everyday Use × エフェクチュエーション</h3>
+  <p class="sub">本文のどの表現が、キルトのどの場面、どの原則に重なるか</p>
+  <div class="qrows">
+    <div class="qhead"><span>本文（心理的豊かさ）</span><span>Everyday Use</span><span>エフェクチュエーション</span></div>
+    <div class="qrow">
+      <div><b class="qlab">本文</b>経験・冒険・教訓・物語という「通貨」<span class="en">A currency measured in experiences, adventures, lessons learned and stories told.</span></div>
+      <div><b class="qlab">Everyday Use</b>祖母の服、祖父のシャツ、南北戦争の軍服の切れ端。一枚ずつに家族の物語が宿るハギレ。</div>
+      <div><b class="qlab">手中の鳥（Bird-in-Hand）</b>いま手元にあるものから始める。「持っているもの」を固定資産ではなく、関係の中で意味を変えうる素材として扱う。</div>
+    </div>
+    <div class="qrow">
+      <div><b class="qlab">本文</b>やったことがうまくいかなくても、後悔しにくい<span class="en">it matters less if the thing you did went wrong</span></div>
+      <div><b class="qlab">Everyday Use</b>擦り切れても、縫い方を知っているマギーはまた縫える。<span class="en">“Maggie knows how to quilt.”</span></div>
+      <div><b class="qlab">許容可能な損失（Affordable Loss）</b>致命傷を避け、失敗しても次の一手を打てる状態を残す。</div>
+    </div>
+    <div class="qrow">
+      <div><b class="qlab">本文</b>病気・死別・破産といった災難さえ、人生の織物に組み込める<span class="en">incorporate these disasters into the tapestry of life</span></div>
+      <div><b class="qlab">Everyday Use</b>昔の家の火事で傷を負ったマギーが、キルトを受け継ぐ縫い手になる。喪失のパッチも模様の一部。</div>
+      <div><b class="qlab">レモネード（Lemonade）</b>予期せぬ出来事を排除せず、予定外の可能性へ変換する。</div>
+    </div>
+    <div class="qrow">
+      <div><b class="qlab">本文</b>リンダの人生：娘の代理母として出産、元夫への腎臓提供、公務員の仕事</div>
+      <div><b class="qlab">Everyday Use</b>祖母が布をつなぎ、母とおばが縫い上げたキルト。マギーはその祖母とおばから縫い方を教わった。たくさんの手でできた一枚。</div>
+      <div><b class="qlab">クレイジーキルト（Crazy Quilt）</b>他者とのコミットメントを通じて、新しい手段と目的を生成する。</div>
+    </div>
+    <div class="qrow">
+      <div><b class="qlab">本文</b>どんな境遇の人にも手が届く／幸福と意味は副産物<span class="en">accessible to everyone, whatever their circumstances</span></div>
+      <div><b class="qlab">Everyday Use</b>母は「壁に飾る」ではなく「毎日使う」を選び、キルトをディーの手から取ってマギーの膝に置く。</div>
+      <div><b class="qlab">飛行機のパイロット（Pilot-in-the-Plane）</b>未来を予測するより、自分で舵を握る。何に価値を置くかを自分で決める。</div>
+    </div>
+  </div>
+</div>
+
+<div class="wsec">
+  <h3><span class="n">4</span>ディーとマギー：二つのキルト観</h3>
+  <p class="sub">同じキルトを、ディーは「飾る」、マギーは「使う」</p>
+  <div class="tgrid">
+    <div class="tcard tc3"><span class="tt">ディー</span>
+      <h4>壁に飾る完成品</h4>
+      <ul>
+        <li><span class="en">“Maggie can’t appreciate these quilts! She’d probably be backward enough to put them to everyday use.”</span><span>マギーにこのキルトの価値はわからない。きっと普段使いにしてしまう。</span></li>
+      </ul>
+      <div class="feel">キルトを保存して見せる「作品」として扱う。本文に重ねると、<b>意味の追求の負の側面</b>（第5段落）に近い。「遺産」を語りながら、目の前の母と妹を見下ろしてしまう＝自分の側とそれ以外に線を引き、思いやりを失う。</div>
+    </div>
+    <div class="tcard tc4"><span class="tt">マギー</span>
+      <h4>毎日使い、また縫う布</h4>
+      <ul>
+        <li><span class="en">“I can ’member Grandma Dee without the quilts.”</span><span>キルトがなくても、おばあちゃんのことは覚えている。</span></li>
+      </ul>
+      <div class="feel">価値はモノそのものではなく、使い続け、縫い続ける営みの中にある。本文に重ねると、<b>経験という通貨</b>で測る心理的豊かさそのもの。</div>
+    </div>
+  </div>
+  <div class="callout"><b>母の選択</b>：物語の最後、母はディーの手からキルトを取り、マギーの膝に置きます。何に価値を置くかを自分で決め、舵を握る。エフェクチュエーションでいう<b>飛行機のパイロット</b>の構えです。</div>
+</div>
+
+<div class="wsec">
+  <h3><span class="n">5</span>本文の三つの人生をキルトにたとえると</h3>
+  <div class="tgrid">
+    <div class="tcard tc1"><span class="tt">幸福の人生</span>
+      <h4>同じ柄を繰り返す、整ったキルト</h4>
+      <div class="feel">毎日の散歩、毎週のコーヒー、毎月のディナー。心地よいが、図柄は増えない。本文の言う「同じレース場を何周も回る」人生。</div>
+    </div>
+    <div class="tcard tc2"><span class="tt">意味の人生</span>
+      <h4>完成図を先に決めて縫うキルト</h4>
+      <div class="feel">「世界を変える」という壮大な図案から逆算して縫う。図案どおりにいかないと重荷になり、図案に合わない布ははじかれがち。</div>
+    </div>
+    <div class="tcard tc4"><span class="tt">心理的に豊かな人生</span>
+      <h4>クレイジーキルト</h4>
+      <div class="feel">図案はない。手元の布、出会った人の布、喪失の布までつないでいくうちに、模様があとから見えてくる。幸福と意味は、その模様の中に副産物として現れる。</div>
+    </div>
+  </div>
+  <div class="callout blue"><b>エフェクチュエーションの言葉で言うと</b>：幸福や意味を「目標」に置いて逆算するのがコーゼーション。手元の経験から縫い始め、幸福や意味が後から生まれてくるのがエフェクチュエーション。本文の「心理的に豊かな人生は、意味と幸福を副産物としてもたらしうる」は、まさに後者の発想です。</div>
+</div>
+
+<div class="wsec">
+  <h3><span class="n">6</span>ウォーカーの〈不完全な全体〉</h3>
+  <p>ウォーカーの語る全体性（wholeness）は、欠けのない完璧さではありません。喪失や痛みを縫い合わせて立ち上がる〈不完全な全体〉です。嫌だからと喪失の一片を外せば、布全体がほどけてしまいます。</p>
+  <p>本文の「心の免疫システムが働き、立ち直る力が強くなる（resilient）」「災難を人生の織物に組み込める」は、この〈不完全な全体〉を心理学の言葉で言い換えたものと読めます。</p>
+  <div class="callout">ウォーカー作品に通じる再生の鍵は三つ。<b>家族や共同体の新しい愛のかたち</b>、<b>土地と歴史への再接続</b>、そして<b>語り直し</b>（沈黙を破り、自分の物語を編み直すこと）。本文が「通貨」の一つに挙げる <span class="en">stories told</span>（語られた物語）とも響き合います。</div>
+</div>
+
+<div class="wsec">
+  <h3><span class="n">7</span>授業で話すときの順番（3分版）</h3>
+  <ol class="talk">
+    <li><b>問いかける</b>「豊かな人生」と聞いて、何を思い浮かべますか？（本文の What if と同じ入り方）</li>
+    <li><b>本文の答え</b>幸福でも意味でもない、第三の道＝心理的豊かさ。お金ではなく、経験という通貨で測る豊かさ。</li>
+    <li><b>Everyday Use の場面</b>キルトを壁に飾りたいディー、毎日使うマギー、そしてキルトをマギーに渡す母。</li>
+    <li><b>クレイジーキルト</b>図案はなく、手元の布と出会った人の布、喪失の布まで縫い込むと、模様があとから見えてくる。</li>
+    <li><b>ひとことで締める</b>下の一文。</li>
+  </ol>
+  <div class="oneline">人生は、壁に飾る完成品ではなく、<br>毎日使いながら縫い足していくクレイジーキルトだ。</div>
+</div>
+
+<div class="wsec">
+  <h3><span class="n">8</span>関連ページ</h3>
+  <ul class="srcs">
+    <li><a href="レシピと冷蔵庫.html">レシピと冷蔵庫 — エフェクチュエーションと縁起の絵解き</a></li>
+    <li><a href="effectuation_engi_summary.html">エフェクチュエーション×縁起 研究メモ</a></li>
   </ul>
 </div>
 
@@ -1396,7 +1588,7 @@ document.querySelectorAll(".ans").forEach(a=>a.onclick=()=>{
 
 /* ================= タブ ================= */
 function setTab(t){
- ["vocab","sx","wi","tl","q","au"].forEach(k=>{
+ ["vocab","sx","wi","tl","q","au","qu"].forEach(k=>{
   document.getElementById("tab-"+k).classList.toggle("hide",k!==t);
   document.getElementById("tb-"+k).classList.toggle("on",k===t);});
  window.scrollTo({top:0,behavior:"smooth"});}
