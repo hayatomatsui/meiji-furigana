@@ -208,6 +208,17 @@ button.flip:hover{transform:none}
 .qz.hid .qa{filter:blur(6px)}
 .qz .tap{font-size:.68rem;color:#9ca3af;margin-top:4px}
 
+.tline{list-style:none;margin-top:6px}
+.tline li{display:flex;gap:14px;padding:10px 0;border-top:1px dashed #e5e7eb;font-size:.93rem;line-height:1.8}
+.tline li:first-child{border-top:none}
+.tline .yr{flex:none;width:78px;font-weight:800;color:#3730a3;font-variant-numeric:tabular-nums}
+.en-name{font-size:1.05rem;color:#475569;font-style:italic;margin-left:12px}
+.flow .st .au-j{color:var(--ink)}
+.flow .st .au-j small{display:block;font-size:.78rem;color:var(--sub);margin-top:4px}
+.srcs{margin-left:20px;font-size:.9rem}
+.srcs li{margin-bottom:6px}
+.srcs a{color:#3730a3}
+
 /* ---- ④ 全訳 ---- */
 .mapbox{background:#fff;border-radius:15px;padding:16px 18px;box-shadow:0 2px 9px rgba(0,0,0,.06);margin-bottom:14px}
 .mapbox ol{margin-left:19px;font-size:.89rem}
@@ -286,7 +297,7 @@ button.flip:hover{transform:none}
 
 <header>
   <h1>大問Ⅰ — 心理的豊かさ：充実した人生への「第三の道」</h1>
-  <p>出典：Shigehiro Oishi, “The big idea: What’s the real key to a fulfilling life?” <i>The Guardian</i>, Jan 27, 2025（出題の都合上、一部改変）。①難語リスト ②システム英単語にない語 ③What if 徹底解説 ④英文＋全訳 ⑤設問の解答解説 の5タブ構成です。</p>
+  <p>出典：Shigehiro Oishi, “The big idea: What’s the real key to a fulfilling life?” <i>The Guardian</i>, Jan 27, 2025（出題の都合上、一部改変）。①難語リスト ②システム英単語にない語 ③What if 徹底解説 ④英文＋全訳 ⑤設問の解答解説 ⑥筆者について の6タブ構成です。</p>
   <div class="stats">
     <div class="stat"><b id="total">0</b>総項目</div>
     <div class="stat"><b id="nw">0</b>単語</div>
@@ -301,6 +312,7 @@ button.flip:hover{transform:none}
     <button id="tb-wi" class="wi" onclick="setTab('wi')">③ What if 徹底解説</button>
     <button id="tb-tl" onclick="setTab('tl')">④ 英文＋全訳</button>
     <button id="tb-q" onclick="setTab('q')">⑤ 設問 解答・解説</button>
+    <button id="tb-au" onclick="setTab('au')">⑥ 筆者について</button>
   </div>
 </header>
 
@@ -598,7 +610,7 @@ button.flip:hover{transform:none}
   <li><b>第8段落 具体例</b>：タクシー運転手リンダの人生。豊かさの<b>副産物</b>として幸福と意味もついてくる。</li>
 </ol>
 <p class="note">※ 問題提起（1）→ 幸福の限界（2・3）→ 意味の限界（4・5）→ 第三の道の提示（6）→ 補強（7）→ 具体例（8）という構成。空所①〜④の文は、この「限界の指摘→譲歩→転換」の節目に入る。</p>
-<p class="note">背景：筆者の大石繁宏（Shigehiro Oishi）はシカゴ大学の社会心理学者。「心理的豊かさ（psychological richness）」は、共同研究者のウェストゲートとともに2022年に学術誌 <i>Psychological Review</i> で提唱した概念。</p>
+<p class="note">筆者の大石繁宏（Shigehiro Oishi）の経歴と研究は <a class="wilink" onclick="setTab('au')">⑥ 筆者について</a> にまとめています。</p>
 </div>
 
 <h2>本文（英文＋全訳）</h2>
@@ -617,6 +629,81 @@ button.flip:hover{transform:none}
 <h2>設問の解答・解説</h2>
 <p class="lead">選択肢の英文もすべて訳しました。灰色の「解答・解説」ボックスはタップでぼかしが外れ、正解の選択肢に緑の印が付きます。まず自分で解いてから開いてください。</p>
 <div id="qbody"></div>
+</section>
+
+<!-- ============ ⑥ 筆者について ============ -->
+<section id="tab-au" class="hide">
+<div class="wi">
+
+<div class="wi-hero">
+  <div class="kick">筆者について</div>
+  <div class="big">大石繁宏<span class="en-name">Shigehiro Oishi</span></div>
+  <div class="ja">シカゴ大学 心理学教授（Marshall Field IV Professor of Psychology）。福岡県出身の社会心理学者で、幸福研究の第一人者の一人。</div>
+  <p class="note">本文の冒頭で筆者は <span class="en">As a social psychologist, I have dedicated my research career to a simple, but universal question: what makes for a good life, and how can we achieve it?</span> と自己紹介しています。そのことばどおり、「良い人生とは何か」を四半世紀にわたって研究してきた人です。</p>
+</div>
+
+<div class="wsec">
+  <h3><span class="n">1</span>経歴</h3>
+  <ul class="tline">
+    <li><span class="yr">1991–92</span><span>国際基督教大学（ICU）在学中に、ロータリー財団の奨学生としてアメリカのベイツ大学へ1年間留学</span></li>
+    <li><span class="yr">1993</span><span>ICU 教養学部を卒業し、アメリカへ</span></li>
+    <li><span class="yr">1995</span><span>コロンビア大学ティーチャーズ・カレッジで、カウンセリング心理学の修士号</span></li>
+    <li><span class="yr">2000</span><span>イリノイ大学で人格・社会心理学の博士号。指導教員は幸福研究の草分けのエド・ディーナー。博士論文は、幸福感の「その場での評価」と「振り返っての評価」の文化差がテーマ</span></li>
+    <li><span class="yr">2000–04</span><span>ミネソタ大学 助教授</span></li>
+    <li><span class="yr">2004–22</span><span>バージニア大学（助教授 → 准教授 → 2012年から教授）。2018〜2020年はコロンビア大学で教える</span></li>
+    <li><span class="yr">2022–</span><span>シカゴ大学 心理学教授（Marshall Field IV Professor）</span></li>
+    <li><span class="yr">2023</span><span>アメリカ芸術科学アカデミーの会員に選出。論文・著書は200本以上</span></li>
+  </ul>
+</div>
+
+<div class="wsec">
+  <h3><span class="n">2</span>研究テーマ</h3>
+  <div class="biz">
+    <div><b>幸福と人生の意味</b>人はどんなときに幸せや生きがいを感じるのか。その感じ方は、文化によってどう違うのか。</div>
+    <div><b>幸せを左右する「社会の条件」</b>所得格差、引っ越しの多さ（居住流動性）、街の歩きやすさなど、暮らしている環境が心に与える影響。</div>
+    <div><b>心理的豊かさ</b>幸福・意味に並ぶ「第三の良い人生」。共同研究者のエリン・ウェストゲートとともに、2022年に学術誌 <i>Psychological Review</i> で提唱した。</div>
+  </div>
+</div>
+
+<div class="wsec">
+  <h3><span class="n">3</span>本文とのつながり</h3>
+  <p class="sub">入試の文章の背後に、筆者自身の実証研究がある</p>
+  <div class="flow">
+    <div class="st"><div class="lab">第2段落</div><div class="s">Historically, happiness tended to be defined as the result of “good luck” and “fortune”.</div><div class="j">歴史的には、幸福は「幸運」や「運」の結果だと定義される傾向にあった。</div></div>
+    <div class="ar">↑</div>
+    <div class="st"><div class="lab">もとになった研究（2013年）</div><div class="j au-j">30か国の辞書にある「幸福」の定義を調べたところ、多くの文化で「幸運・恵まれた状況」と定義されていた。アメリカ英語の辞書では、1920年代以降、「内面のよい気分」という定義に変わっていった。<small>Oishi, Graham, Kesebir &amp; Galinha, “Concepts of Happiness Across Time and Cultures” (2013)</small></div></div>
+  </div>
+  <div class="flow">
+    <div class="st"><div class="lab">第6段落</div><div class="s">... led me and my research lab to sketch out a third route to fulfilment: psychological richness.</div><div class="j">私と私の研究室は、充実した人生への第三の道を描き出すに至った。それが「心理的豊かさ」である。</div></div>
+    <div class="ar">↑</div>
+    <div class="st"><div class="lab">もとになった研究（2022年）</div><div class="j au-j">論文「心理的に豊かな人生——幸福と意味を超えて」で、幸福・意味と並ぶ第三の良い人生として心理的豊かさを提唱した。<small>Oishi &amp; Westgate, “A psychologically rich life: Beyond happiness and meaning” (2022)</small></div></div>
+  </div>
+  <div class="callout blue"><b>読解のヒント</b>：第2段落の「運 → 努力と成功」という幸福観の変化は、筆者が研究で示した「辞書の定義の変化」と重なります。第6段落の my research lab（私の研究室）という言い方からも、筆者が自分の研究成果を一般の読者に向けて語っている文章だとわかります。</div>
+</div>
+
+<div class="wsec">
+  <h3><span class="n">4</span>著書</h3>
+  <div class="biz">
+    <div><b>日本語で読める本</b>『幸せを科学する——心理学からわかったこと』（新曜社）。幸福研究の入門書。</div>
+    <div><b>英語の研究書</b><i>The Psychological Wealth of Nations</i>（Wiley）。幸せな人が幸せな社会をつくるのかを論じた本。</div>
+    <div><b>一般向けの本</b><i>Life in Three Dimensions: How Curiosity, Exploration, and Experience Make a Fuller, Better Life</i>（Doubleday）。心理的豊かさの研究をまとめた本。今回のガーディアンの記事も、この本の考え方を紹介したものとみられる。</div>
+  </div>
+</div>
+
+<div class="wsec">
+  <h3><span class="n">5</span>参考にした情報源</h3>
+  <ul class="srcs">
+    <li><a href="https://psychology.uchicago.edu/directory/shigehiro-oishi" target="_blank" rel="noopener">シカゴ大学心理学部 教員紹介</a></li>
+    <li><a href="https://news.uchicago.edu/big-brains-podcast-little-known-secrets-good-life" target="_blank" rel="noopener">UChicago News：ポッドキャスト Big Brains「The little-known secrets to a good life」（本人が出演）</a></li>
+    <li><a href="https://www.aspenideas.org/speakers/shigehiro-oishi" target="_blank" rel="noopener">Aspen Ideas 登壇者紹介（Life in Three Dimensions の著者として）</a></li>
+    <li><a href="https://www.works-i.com/project/ikiiki/wellbeing/detail001.html" target="_blank" rel="noopener">リクルートワークス研究所「幸福感研究」の観点から 大石繁宏氏</a></li>
+    <li><a href="https://digital-is-green.jp/initiative/advisor/oishi/" target="_blank" rel="noopener">Sustainable Smart City Partner Program アドバイザー紹介</a></li>
+    <li><a href="https://ci.nii.ac.jp/ncid/BA90229385" target="_blank" rel="noopener">CiNii 図書『幸せを科学する』</a></li>
+    <li><a href="https://journals.sagepub.com/doi/abs/10.1177/0146167213480042" target="_blank" rel="noopener">Concepts of Happiness Across Time and Cultures（2013）</a></li>
+  </ul>
+</div>
+
+</div>
 </section>
 
 </div>
@@ -1089,7 +1176,8 @@ const TL=[
  ins:{lab:"空所①＝(D)",en:"The current cultural conception of happiness, for example, can work against us finding fulfilment.",
       ja:"たとえば、現在の文化における幸福の捉え方は、私たちが充実感を得る妨げになることがある。"},items:[
  [`Historically, happiness tended to be defined as the result of “good luck” and “fortune”.`,
-  `歴史的には、幸福は「幸運」や「運」の結果だと定義される傾向にあった。`],
+  `歴史的には、幸福は「幸運」や「運」の結果だと定義される傾向にあった。`,
+  `筆者自身の研究（2013年、30か国の辞書にある「幸福」の定義を分析）にもとづく記述 → <a class="wilink" onclick="setTab('au')">⑥ 筆者について</a>`],
  [`Today many expect it to come from individual effort and success.`,
   `今日では、多くの人が、幸福は個人の努力と成功から生まれるものだと考えている。`],
  [`But this, in turn, makes unhappiness and negative emotions such as sadness or anger seem like personal failures.`,
@@ -1308,7 +1396,7 @@ document.querySelectorAll(".ans").forEach(a=>a.onclick=()=>{
 
 /* ================= タブ ================= */
 function setTab(t){
- ["vocab","sx","wi","tl","q"].forEach(k=>{
+ ["vocab","sx","wi","tl","q","au"].forEach(k=>{
   document.getElementById("tab-"+k).classList.toggle("hide",k!==t);
   document.getElementById("tb-"+k).classList.toggle("on",k===t);});
  window.scrollTo({top:0,behavior:"smooth"});}
