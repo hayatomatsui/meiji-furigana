@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>名大英語 二重否定トレーナー</title>
+<style>
+:root{
+  --bg:#f5f4f2; --card:#fff; --ink:#1a1b1e; --sub:#6b6f76; --line:#e7e4df;
+  --ac:#7c2d12; --in:#3730a3; --in2:#6d28d9; --gr:#15803d; --rd:#b91c1c; --am:#b45309;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+  background:var(--bg);color:var(--ink);padding:16px;line-height:1.75}
+.wrap{max-width:960px;margin:0 auto}
+header{background:linear-gradient(140deg,#1c1917,#3730a3 55%,#7c2d12);color:#fff;
+  border-radius:20px;padding:28px 24px 20px;margin-bottom:16px;box-shadow:0 10px 30px rgba(28,25,23,.3)}
+header .eye{font-size:.72rem;letter-spacing:.22em;opacity:.75;font-weight:700}
+header h1{font-size:1.45rem;margin:8px 0 10px;line-height:1.45}
+header p{opacity:.92;font-size:.87rem;max-width:760px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.tabs button{background:rgba(255,255,255,.16);color:#fff;box-shadow:none;padding:9px 16px}
+.tabs button.on{background:#fff;color:#1c1917}
+button{font-family:inherit;cursor:pointer;border:none;border-radius:999px;padding:8px 15px;
+  font-size:.84rem;font-weight:700;transition:.15s;background:#fff;color:var(--sub);
+  box-shadow:0 2px 6px rgba(0,0,0,.08)}
+button:hover{transform:translateY(-1px)}
+button:disabled{opacity:.45;cursor:default;transform:none}
+button.pri{background:var(--in);color:#fff}
+h2{font-size:1.1rem;margin:24px 0 12px;padding-left:13px;border-left:5px solid var(--in2)}
+.hide{display:none}
+.box{background:var(--card);border-radius:16px;padding:18px 20px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:13px}
+.box p+p{margin-top:9px}
+.note{font-size:.82rem;color:var(--sub);margin-top:8px}
+.kw{background:linear-gradient(transparent 60%,#fde68a 60%);font-weight:700}
+.en{font-family:Georgia,"Times New Roman",serif;font-size:1.05rem}
+.steps{counter-reset:s;list-style:none}
+.steps li{counter-increment:s;position:relative;padding:10px 0 10px 46px;border-bottom:1px dashed var(--line)}
+.steps li:last-child{border:none}
+.steps li::before{content:counter(s);position:absolute;left:0;top:10px;width:32px;height:32px;border-radius:50%;
+  background:var(--in);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center}
+.verdict{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6px}
+.verdict .v{border-radius:14px;padding:12px 14px;font-size:.84rem;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.06);border-top:5px solid}
+.verdict .v b{display:block;font-size:.92rem;margin-bottom:3px}
+.v.ok{border-color:var(--gr)} .v.adj{border-color:var(--am)} .v.ng{border-color:var(--rd)}
+@media(max-width:640px){.verdict{grid-template-columns:1fr}}
+.tblwrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid #f1f0ee;font-size:.86rem;vertical-align:top}
+th{background:#1c1917;color:#fff;font-size:.74rem;letter-spacing:.04em}
+tbody tr:nth-child(even){background:#faf9f7}
+td:first-child{font-family:Georgia,serif;font-weight:700;white-space:nowrap}
+tr.trap{background:#fef2f2 !important}
+/* drill */
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
+.bar .score{margin-left:auto;font-weight:800;color:var(--in)}
+.prog{height:6px;background:#e7e4df;border-radius:99px;overflow:hidden;margin-bottom:14px}
+.prog i{display:block;height:100%;background:var(--in2);transition:.3s}
+.card{background:#fff;border-radius:18px;padding:20px;box-shadow:0 4px 18px rgba(0,0,0,.08)}
+.card .no{font-size:.75rem;font-weight:800;color:var(--sub);letter-spacing:.1em}
+.stepl{font-size:.8rem;font-weight:800;color:var(--in2);margin:14px 0 6px}
+.sent{line-height:2.4;margin:4px 0}
+.tk{display:inline-block;padding:0 3px;border-radius:6px;cursor:pointer;border-bottom:2px solid transparent;user-select:none}
+.tk:hover{background:#eef2ff}
+.tk.sel{background:#e0e7ff;border-bottom-color:var(--in)}
+.tk.hit{background:#dcfce7;border-bottom-color:var(--gr)}
+.tk.miss{outline:2px dashed var(--rd);outline-offset:1px}
+.tk.wrong{background:#f3f4f6;text-decoration:line-through;color:#9ca3af}
+.tk.opt{background:#fef3c7;border-bottom-color:var(--am)}
+.locked .tk{cursor:default}
+.fb{font-size:.86rem;margin-top:8px;padding:10px 12px;border-radius:12px;background:#f8fafc}
+.q{font-weight:700;font-size:.92rem}
+.opts{display:grid;gap:8px;margin-top:8px}
+.opts button{text-align:left;border-radius:12px;padding:11px 14px;color:var(--ink);font-weight:500;font-size:.9rem;border:2px solid transparent}
+.opts button.ok{border-color:var(--gr);background:#f0fdf4}
+.opts button.ng{border-color:var(--rd);background:#fef2f2}
+.exp{margin-top:14px;border-top:1px dashed var(--line);padding-top:12px}
+.erase{font-family:Georgia,serif;background:#faf9f7;border-radius:10px;padding:8px 12px;margin:6px 0}
+.erase s{color:var(--rd)}
+.badge{display:inline-block;font-size:.74rem;font-weight:800;color:#fff;border-radius:999px;padding:3px 11px;margin-right:6px}
+.badge.ok{background:var(--gr)} .badge.adj{background:var(--am)} .badge.ng{background:var(--rd)}
+.tag{display:inline-block;font-size:.7rem;font-weight:700;color:var(--in);background:#eef2ff;border-radius:999px;padding:2px 9px;margin:0 4px 4px 0}
+.nav{display:flex;justify-content:space-between;margin-top:16px}
+.done{text-align:center;padding:30px}
+.done .big{font-size:2.4rem;font-weight:900;color:var(--in)}
+.legend{font-size:.78rem;color:var(--sub);margin-top:6px}
+.legend span{padding:0 4px;border-radius:4px;margin-right:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eye">NAGOYA UNIV. ENGLISH · DOUBLE NEGATIVES</div>
+  <h1>二重否定トレーナー<br>「消して肯定」＋ 3つの補正</h1>
+  <p>否定を<b>数える</b> → 偶数なら肯定 → <b>強さ</b>と<b>働き</b>を確認する。隠れ否定と部分否定のワナも練習します。</p>
+  <div class="tabs">
+    <button data-t="how" class="on">① 考え方</button>
+    <button data-t="drill">② ドリル（21問）</button>
+    <button data-t="list">③ 早見表</button>
+  </div>
+</header>
+
+<!-- ① 考え方 -->
+<section id="how">
+  <h2>基本：両方消して肯定で考える</h2>
+  <div class="box">
+    <p class="en">None of this is to say that happy or meaningful lives <b>cannot</b> be good ones.</p>
+    <div class="erase"><s>None of</s> this is to say that happy or meaningful lives can<s>not</s> be good ones.</div>
+    <p>→ 「幸福で意味のある人生<span class="kw">も</span>良い人生で<span class="kw">ありうる</span>」</p>
+    <p class="note">意味はこれで取れる。ただし筆者は「〜だ」と主張しているわけではない。<b>「〜でありえない、と言うつもりはない」＝誤解の予防（譲歩）</b>。このあとに「しかし〜」で本当の主張が来る。</p>
+  </div>
+
+  <h2>手順（4ステップ）</h2>
+  <div class="box">
+    <ol class="steps">
+      <li><b>否定を数える</b>：not / no / never だけでなく、<span class="kw">隠れ否定</span>（few, hardly, fail, lack, deny, without, prevent, free from, far from, unless, im-/un-）も数える。</li>
+      <li><b>偶数なら肯定、奇数なら否定</b>：同じ節の中で数える。別の節にある否定や、名詞・形容詞の中にある否定（unexamined など）は数えない。</li>
+      <li><b>強さを補正</b>：二重否定は控えめな肯定になりやすい。not uncommon ＝「かなりよくある」。「いつも」「全員」まで強めない。</li>
+      <li><b>働きを確認</b>：It is not that … not / None of this is to say … not / does not deny ＝ 譲歩。次の <b>but / rather / however</b> を探す。</li>
+    </ol>
+  </div>
+
+  <h2>「消す」が通用する度合い</h2>
+  <div class="verdict">
+    <div class="v ok"><b>消すだけでOK</b>Few would deny … → 多くが認める。<br>cannot … without → 必ず〜する。</div>
+    <div class="v adj"><b>消してから補正</b>not uncommon → 「よくある」より少し控えめ。<br>It is not that … not → 譲歩として読む。</div>
+    <div class="v ng"><b>消すと誤訳</b><b style="display:inline">部分否定</b>：Not all X are without cost<br>✗ すべてのXはコストを伴う<br>○ コストを伴うXもある</div>
+  </div>
+  <p class="note" style="margin-top:14px">→ ドリルでは、1問ごとにこの3つのどれに当たるかを表示します。</p>
+</section>
+
+<!-- ② ドリル -->
+<section id="drill" class="hide">
+  <div class="bar">
+    <button id="shuf">シャッフル</button>
+    <button id="reset">最初から</button>
+    <span class="score" id="score">0 / 0</span>
+  </div>
+  <div class="prog"><i id="pg"></i></div>
+  <div id="stage"></div>
+</section>
+
+<!-- ③ 早見表 -->
+<section id="list" class="hide">
+  <h2>隠れ否定（これも1つと数える）</h2>
+  <div class="tblwrap"><table>
+    <thead><tr><th>語句</th><th>否定の中身</th><th>例</th></tr></thead>
+    <tbody>
+      <tr><td>few / little</td><td>ほとんど〜ない</td><td>Few would deny … ＝ ほとんどの人が認める</td></tr>
+      <tr><td>hardly / scarcely / seldom</td><td>ほとんど〜ない</td><td>Hardly a day passes without …</td></tr>
+      <tr><td>fail to</td><td>〜しない</td><td>never fail to ＝ 必ず〜する</td></tr>
+      <tr><td>lack / absence of</td><td>〜がない</td><td>not that they lack … ＝ 欠けているのではない</td></tr>
+      <tr><td>deny / refuse</td><td>〜でないと言う／〜しない</td><td>does not deny ＝ 認める（譲歩）</td></tr>
+      <tr><td>without</td><td>〜なしで</td><td>not without ＝ 〜がないわけではない</td></tr>
+      <tr><td>prevent / keep … from</td><td>〜させない</td><td>should not prevent us from -ing ＝ 〜すべきだ</td></tr>
+      <tr><td>free from</td><td>〜がない</td><td>No society is free from … ＝ どの社会にも〜はある</td></tr>
+      <tr><td>far from / anything but</td><td>決して〜でない</td><td>Far from irrelevant ＝ 大いに関係がある</td></tr>
+      <tr><td>unless</td><td>〜しない限り</td><td>Unless …, not ～ ＝ …してはじめて～</td></tr>
+      <tr><td>mistake / wrong to</td><td>〜は誤り（＝〜ではない）</td><td>a mistake to assume … never ＝ 〜することもある</td></tr>
+      <tr><td>im- / un- / in- / ir-</td><td>形容詞の打ち消し</td><td>not unaware ＝ 重々承知している</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>二重否定の定型表現</h2>
+  <div class="tblwrap"><table>
+    <thead><tr><th>表現</th><th>意味</th><th>注意</th></tr></thead>
+    <tbody>
+      <tr><td>cannot … without -ing</td><td>…すれば必ず〜する</td><td>消すだけでOK</td></tr>
+      <tr><td>never fail to</td><td>必ず〜する</td><td>消すだけでOK</td></tr>
+      <tr><td>not without</td><td>〜がないわけではない（ある）</td><td>「少なからずある」くらいの強さ</td></tr>
+      <tr><td>not un-</td><td>かなり〜だ</td><td>控えめな肯定。強めすぎない</td></tr>
+      <tr><td>It is not that … not</td><td>〜しないわけではない</td><td>譲歩 → rather / but を探す</td></tr>
+      <tr><td>None of this is to say … not</td><td>〜でないと言うつもりはない</td><td>誤解予防 → 次に主張が来る</td></tr>
+      <tr><td>No one … who does not</td><td>…なら誰でも〜する</td><td>全称の肯定</td></tr>
+      <tr><td>cannot help -ing / cannot but</td><td>〜せずにいられない</td><td>否定は1つだが意味は強い肯定</td></tr>
+      <tr class="trap"><td>Not all … are without</td><td>〜を伴うものもある</td><td><b>部分否定：消すと誤訳</b></td></tr>
+      <tr class="trap"><td>not always … not</td><td>〜しないこともある／〜することもある</td><td><b>部分否定：「いつも」にしない</b></td></tr>
+      <tr class="trap"><td>does not mean … never</td><td>〜だからといって決して〜ないわけではない＝時には〜</td><td><b>「いつも」にしない</b></td></tr>
+    </tbody>
+  </table></div>
+</section>
+</div>
+
+<script>
+/* 記法: {neg} = 数える否定, {?neg} = 否定だが数えない（別の節・語彙内）, 複数語は _ でつなぐ。
+   v: ok=消すだけでOK / adj=消してから補正 / ng=消すと誤訳 */
+const ITEMS=[
+{s:"{None} of this is to say that happy or meaningful lives {cannot} be good ones.",
+ er:"This is to say that happy or meaningful lives can be good ones.",
+ q:"筆者の立場に最も近いのは？",
+ o:["幸福や意味のある人生が良い人生でありうることは否定しない","幸福や意味のある人生は良い人生ではない","幸福や意味のある人生こそが唯一の良い人生だ","幸福な人生は良い人生になりえないと言える"],
+ v:"adj",tags:["働き：誤解予防","強さ：can"],
+ x:"None と not で偶数 → 肯定。ただし「良い人生だ」と主張しているのではなく「ありえないとは言わない」。これは<b>誤解予防の譲歩</b>なので、次に but で主張が来ると予測する。「唯一の」は強すぎる。"},
+{s:"It is {not} {un}common for researchers to revise their hypotheses midway through a study.",
+ er:"It is common for researchers to revise their hypotheses midway through a study.",
+ q:"意味として最も適切なのは？",
+ o:["研究者が途中で仮説を修正するのは珍しいことではない","研究者は必ず途中で仮説を修正する","研究者が途中で仮説を修正するのはまれだ","研究者は途中で仮説を修正すべきではない"],
+ v:"adj",tags:["強さ：控えめな肯定"],
+ x:"not ＋ un- で肯定。ただし <b>not uncommon は「かなりよくある」</b>くらいの強さ。「必ず」は強めすぎ。"},
+{s:"{Few} scientists would {deny} that climate change is, at least in part, driven by human activity.",
+ er:"Many scientists would admit that climate change is, at least in part, driven by human activity.",
+ q:"意味として最も適切なのは？",
+ o:["気候変動が少なくとも一部は人間活動によるものだと、大半の科学者が認めるだろう","気候変動が人間活動によるものだと否定する科学者は多い","気候変動は人間活動だけが原因だと、すべての科学者が考えている","気候変動の原因について意見を述べる科学者は少ない"],
+ v:"ok",tags:["隠れ否定：few / deny"],
+ x:"few（ほとんど〜ない）と deny（〜でないと言う）はどちらも<b>隠れ否定</b>。2つで肯定 → 「大半が認める」。at least in part を落として「人間活動だけ」とするのは誤り。"},
+{s:"The new policy was {not} {without} its critics.",
+ er:"The new policy was with its critics.",
+ q:"意味として最も適切なのは？",
+ o:["新政策には批判する人もいた","新政策を批判する人はいなかった","誰もが新政策を批判した","新政策は批判に耳を傾けなかった"],
+ v:"adj",tags:["強さ：控えめな肯定","not without"],
+ x:"not without ＝「〜がないわけではない」→ 批判者は<b>いた</b>。ただし「誰もが」まで強めない。"},
+{s:"One {cannot} read his later essays {without} being struck by how much his views had changed.",
+ er:"Whenever one reads his later essays, one is struck by how much his views had changed.",
+ q:"意味として最も適切なのは？",
+ o:["彼の後期の随筆を読めば、見解の変化の大きさに必ず驚かされる","彼の後期の随筆を読むと、見解がほとんど変わっていないことに驚く","彼の後期の随筆は、見解が変わったせいで読めない","彼の後期の随筆を読まなければ、見解の変化はわからない"],
+ v:"ok",tags:["cannot … without"],
+ x:"cannot A without B ＝「A すれば必ず B」。消すだけで素直に取れる型。"},
+{s:"It is {not} that the students {lack} ability; rather, they have {?never} been given the chance to use it.",
+ er:"The students have ability; rather, ...",
+ q:"筆者の主張の中心は？",
+ o:["学生に能力はあるが、それを使う機会が与えられてこなかった","学生には能力も機会も欠けている","学生は能力がないので、機会を与えても無駄だ","学生は機会を与えられたのに能力を使わなかった"],
+ v:"adj",tags:["働き：It is not that … rather","スコープ"],
+ x:"前半の not ＋ lack で「能力はある」。<b>never は rather 以下の別の節</b>にあるので数えない。It is not that … rather 〜 ＝「…というわけではなく、むしろ〜」。主張は rather の後ろにある。"},
+{s:"{No} society, however advanced, is entirely {free_from} inequality.",
+ er:"Every society, however advanced, has some inequality.",
+ q:"意味として最も適切なのは？",
+ o:["どれほど進んだ社会にも、何らかの不平等はある","進んだ社会には不平等がない","不平等のない社会も存在する","社会が進むほど不平等は大きくなる"],
+ v:"ok",tags:["隠れ否定：free from"],
+ x:"No ＋ free from（〜がない）で肯定 → 「どの社会にも不平等はある」。entirely があるので「完全に不平等のない社会はない」という言い方。"},
+{s:"{Nobody} who has studied the data closely could {fail} to notice the pattern.",
+ er:"Anybody who has studied the data closely would notice the pattern.",
+ q:"意味として最も適切なのは？",
+ o:["データを精査した人なら誰でも、そのパターンに気づくはずだ","データを精査しても、誰もパターンに気づかなかった","データを精査しなかった人はパターンに気づかない","データにはパターンがなかった"],
+ v:"ok",tags:["隠れ否定：fail","No one … who"],
+ x:"Nobody ＋ fail（〜しない）で肯定。「〜した人なら誰でも」と<b>全員</b>に言い換えるのがコツ。"},
+{s:"{Not} all forms of progress are {without} cost.",
+ er:"（✗ All forms of progress are with cost.）",
+ q:"意味として最も適切なのは？",
+ o:["進歩の中には、代償を伴うものもある","すべての進歩は代償を伴う","どんな進歩にも代償はない","進歩には代償を払う価値がない"],
+ v:"ng",tags:["部分否定"],
+ x:"<b>消すと誤訳になる代表例。</b>Not all ＝「すべてが〜というわけではない」（部分否定）。「代償のない進歩ばかりではない」→「代償を伴う進歩もある」。両方消して「すべて代償を伴う」とすると強すぎる。"},
+{s:"I am {not} {un}aware of the risks involved in this approach.",
+ er:"I am aware of the risks involved in this approach.",
+ q:"話し手の態度として最も近いのは？",
+ o:["この方法の危険性は十分承知している（そのうえで提案している）","この方法の危険性にまったく気づいていない","この方法には危険性がない","この方法の危険性を知り、提案を取り下げる"],
+ v:"adj",tags:["強さ：婉曲","働き：譲歩"],
+ x:"not unaware ＝「承知している」。わざわざ二重否定にするのは、<b>批判を先回りする譲歩</b>。次に but で「それでも〜」が来る。"},
+{s:"There is {no} theory in the social sciences that does {not} rest on some {?un}examined assumption.",
+ er:"Every theory in the social sciences rests on some unexamined assumption.",
+ q:"意味として最も適切なのは？",
+ o:["社会科学のどの理論も、検討されていない前提に何かしら依拠している","社会科学には前提に依拠しない理論もある","社会科学の理論はすべての前提を検討済みだ","検討されていない前提に依拠する理論は存在しない"],
+ v:"ok",tags:["スコープ","No … that not"],
+ x:"no ＋ not で肯定 →「どの理論も〜に依拠している」。<b>unexamined の un- は名詞の性質を表す語彙内の否定</b>で、文の否定とは打ち消し合わない。数えるのは2つ。"},
+{s:"The difficulty of the task should {not} {prevent} us from attempting it.",
+ er:"Despite the difficulty, we should attempt the task.",
+ q:"意味として最も適切なのは？",
+ o:["難しくても、その課題に挑むべきだ","難しいので、その課題は避けるべきだ","難しさが私たちの挑戦を妨げてきた","簡単な課題なら挑戦すべきだ"],
+ v:"ok",tags:["隠れ否定：prevent"],
+ x:"prevent A from -ing ＝「A に〜させない」（隠れ否定）。not と合わせて肯定 →「挑戦すべき」。"},
+{s:"{Far_from} being {ir}relevant, these ancient debates continue to shape modern ethics.",
+ er:"Being very relevant, these ancient debates continue to shape modern ethics.",
+ q:"意味として最も適切なのは？",
+ o:["古代の論争は無関係どころか、今も現代倫理を形づくっている","古代の論争は現代倫理とは無関係だ","古代の論争は現代倫理からかけ離れている","現代倫理は古代の論争を否定している"],
+ v:"ok",tags:["隠れ否定：far from"],
+ x:"far from ＝「決して〜でない」。irrelevant と合わせて「大いに関係がある」。「〜どころか、むしろ」と訳すと流れがきれいに出る。"},
+{s:"It would be a {mistake} to assume that language learners {never} benefit from explicit grammar instruction.",
+ er:"Language learners sometimes benefit from explicit grammar instruction.",
+ q:"意味として最も適切なのは？",
+ o:["明示的な文法指導が学習者の役に立つこともある","明示的な文法指導は学習者の役に立たない","明示的な文法指導は常に学習者の役に立つ","学習者は文法指導を受けるべきではない"],
+ v:"adj",tags:["隠れ否定：mistake","強さ：sometimes"],
+ x:"「〜と考えるのは誤り」＝ mistake も否定として数える。<b>「決して〜ない」の否定は「〜することもある」</b>であって「常に〜する」ではない。名大頻出のワナ。"},
+{s:"{Hardly} a day passes {without} some new study claiming to overturn what we thought we knew.",
+ er:"Almost every day, some new study claims to overturn what we thought we knew.",
+ q:"意味として最も適切なのは？",
+ o:["ほぼ毎日のように、定説を覆すと主張する新研究が出てくる","定説を覆す研究はほとんど出てこない","新研究が定説を覆すまでには何日もかかる","毎日、定説が確実に覆されている"],
+ v:"ok",tags:["隠れ否定：hardly","強さ：ほぼ"],
+ x:"hardly ＋ without で肯定。hardly なので「毎日」ではなく<b>「ほぼ毎日」</b>。「確実に覆されている」は claiming（主張している）を無視している。"},
+{s:"The author does {not} {deny} that technology has improved our lives; her concern lies elsewhere.",
+ er:"The author admits that technology has improved our lives; ...",
+ q:"この文の直後に続く内容として最も自然なのは？",
+ o:["しかし彼女は、技術が私たちの注意力を少しずつ損なってきたと論じる","したがって彼女は、技術の進歩を全面的に支持する","実際、技術が生活を改善したという証拠はない","彼女は技術について関心を持っていない"],
+ v:"adj",tags:["働き：譲歩→but"],
+ x:"does not deny ＝「認める」。ただし<b>譲歩</b>（her concern lies elsewhere がその合図）。次に but で別の論点（技術の負の面）が来る。"},
+{s:"{Nothing} is so {?un}important that it does {not} deserve careful thought.",
+ er:"Everything, however unimportant, deserves careful thought.",
+ q:"意味として最も適切なのは？",
+ o:["どんなに些細に見えることでも、よく考える価値がある","重要でないことは考える必要がない","よく考える価値のあることは何もない","重要なことだけをよく考えるべきだ"],
+ v:"ok",tags:["スコープ","so … that"],
+ x:"Nothing ＋ not で肯定 →「すべてのことが熟考に値する」。unimportant は so … that の中で「どれほど取るに足らなくても」を作る部品なので、<b>数えない</b>。"},
+{s:"It is {im}possible to understand modern Japan {without} some knowledge of its Meiji-era reforms.",
+ er:"To understand modern Japan, one needs some knowledge of its Meiji-era reforms.",
+ q:"意味として最も適切なのは？",
+ o:["近代日本を理解するには、明治期の改革についての知識が必要だ","明治期の改革を知っても、近代日本は理解できない","近代日本を理解するのに明治期の改革の知識はいらない","明治期の改革さえ知れば、近代日本は完全に理解できる"],
+ v:"ok",tags:["隠れ否定：im-","必要条件"],
+ x:"impossible ＋ without で肯定 →「〜が<b>必要</b>」。ただし「さえ知れば十分」とは言っていない（必要条件と十分条件の区別）。"},
+{s:"{Not} a single participant {failed} to complete the survey.",
+ er:"Every participant completed the survey.",
+ q:"意味として最も適切なのは？",
+ o:["参加者全員が調査票を最後まで回答した","回答を終えられなかった参加者が1人いた","調査票を完成させた参加者は1人もいなかった","参加者のほとんどが回答に失敗した"],
+ v:"ok",tags:["隠れ否定：fail"],
+ x:"Not a single ＋ failed で肯定 →「全員が完了した」。"},
+{s:"{Unless} we are prepared to question our own assumptions, we will {not} make genuine progress.",
+ er:"Only if we are prepared to question our own assumptions will we make genuine progress.",
+ q:"意味として最も適切なのは？",
+ o:["自分の前提を疑う覚悟があってはじめて、本当の進歩ができる","自分の前提を疑えば、必ず進歩できる","自分の前提を疑うと、進歩が妨げられる","進歩するためには前提を疑う必要はない"],
+ v:"adj",tags:["隠れ否定：unless","必要条件"],
+ x:"Unless A, not B ＝「A して<b>はじめて</b> B」（only if）。「疑えば必ず進歩できる」は十分条件にすり替えている。"},
+{s:"That meaning and happiness often overlap does {not} mean they are {never} in tension.",
+ er:"Meaning and happiness are sometimes in tension.",
+ q:"意味として最も適切なのは？",
+ o:["意味と幸福はよく重なるが、ときに衝突することもある","意味と幸福はいつも衝突している","意味と幸福は決して衝突しない","意味と幸福が重なることはない"],
+ v:"adj",tags:["強さ：sometimes","does not mean"],
+ x:"not ＋ never で肯定。ただし「決して〜ない」の否定なので<b>「〜することもある」</b>。「いつも衝突」は強すぎる。模試本文（幸福と意味）の論点そのもの。"}
+];
+
+const LBL={ok:"消すだけでOK",adj:"消してから補正",ng:"消すと誤訳"};
+let order=[...ITEMS.keys()], idx=0, score=0, answered=0;
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function esc(s){return s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]))}
+
+// 文をトークン列へ: {t:表示, kind:'neg'|'opt'|null}
+function parse(s){
+  const out=[];
+  s.split(" ").forEach((w,wi)=>{
+    if(wi>0) out.push({sp:true});
+    const re=/\{(\??)([^}]+)\}|[^{]+/g; let m;
+    while((m=re.exec(w))){
+      if(m[2]!==undefined) out.push({t:m[2].replace(/_/g," "),kind:m[1]?"opt":"neg"});
+      else out.push({t:m[0],kind:null});
+    }
+  });
+  return out;
+}
+
+function render(){
+  const st=document.getElementById("stage");
+  document.getElementById("pg").style.width=(idx/order.length*100)+"%";
+  document.getElementById("score").textContent=score+" / "+answered;
+  if(idx>=order.length){
+    st.innerHTML=`<div class="card done"><div class="big">${score} / ${order.length}</div>
+      <p>おつかれさま。間違えた問題は「消すと誤訳」「消してから補正」が多いはず。<br>そこが名大の得点差になります。</p>
+      <p style="margin-top:14px"><button class="pri" onclick="restart(true)">シャッフルしてもう一周</button></p></div>`;
+    return;
+  }
+  const it=ITEMS[order[idx]], toks=parse(it.s);
+  const nNeg=toks.filter(t=>t.kind==="neg").length;
+  st.innerHTML=`<div class="card">
+    <div class="no">Q${idx+1} / ${order.length}</div>
+    <div class="stepl">STEP 1　否定をタップ（隠れ否定も）→ チェック</div>
+    <div class="sent en" id="sent">${toks.map((t,i)=>t.sp?" ":`<span class="tk" data-i="${i}">${esc(t.t)}</span>`).join("")}</div>
+    <div class="legend">un- や im- は語の一部だけが否定。長い語はタップでまとめて選べます。</div>
+    <div style="margin-top:8px"><button class="pri" id="chk">チェック</button> <button id="skip1">STEP 2 へ進む</button></div>
+    <div id="fb1"></div>
+    <div id="s2" class="hide">
+      <div class="stepl">STEP 2　意味を選ぶ</div>
+      <div class="q">${it.q}</div>
+      <div class="opts" id="opts"></div>
+      <div id="exp"></div>
+    </div>
+  </div>`;
+  const sel=new Set(), sent=document.getElementById("sent");
+  sent.querySelectorAll(".tk").forEach(el=>el.onclick=()=>{
+    if(sent.classList.contains("locked"))return;
+    const i=+el.dataset.i; sel.has(i)?sel.delete(i):sel.add(i); el.classList.toggle("sel");
+  });
+  const showS2=()=>{document.getElementById("s2").classList.remove("hide");
+    document.getElementById("chk").disabled=true;document.getElementById("skip1").disabled=true;};
+  document.getElementById("chk").onclick=()=>{
+    sent.classList.add("locked");
+    let hit=0,miss=0,wrong=0;
+    sent.querySelectorAll(".tk").forEach(el=>{
+      const i=+el.dataset.i,k=toks[i].kind,s=sel.has(i); el.classList.remove("sel");
+      if(k==="neg"){ if(s){el.classList.add("hit");hit++}else{el.classList.add("miss");miss++} }
+      else if(k==="opt"){ el.classList.add("opt") }
+      else if(s){ el.classList.add("wrong");wrong++ }
+    });
+    const hasOpt=toks.some(t=>t.kind==="opt");
+    document.getElementById("fb1").innerHTML=`<div class="fb">
+      数える否定は <b>${nNeg}個</b> → <b>${nNeg%2===0?"偶数＝肯定の向き":"奇数＝否定の向き"}</b>。
+      ${miss?`<span style="color:var(--rd)">見落とし ${miss}（赤い点線）</span>　`:""}
+      ${wrong?`<span style="color:var(--sub)">否定でない語 ${wrong}（取り消し線）</span>　`:""}
+      ${!miss&&!wrong?`<span style="color:var(--gr)">全部見つけられた！</span>`:""}
+      ${hasOpt?`<br><span style="background:#fef3c7;padding:0 4px;border-radius:4px">黄色</span> は否定だが<b>数えない</b>（別の節、または語の中の否定）。`:""}
+      <br>次は<b>強さ</b>と<b>働き</b>を考えて STEP 2 へ。</div>`;
+    showS2();
+  };
+  document.getElementById("skip1").onclick=showS2;
+
+  const opts=shuffle(it.o.map((t,i)=>({t,ok:i===0})));
+  const box=document.getElementById("opts");
+  opts.forEach(o=>{const b=document.createElement("button");b.textContent=o.t;
+    b.onclick=()=>{
+      box.querySelectorAll("button").forEach((x,j)=>{x.disabled=true;if(opts[j].ok)x.classList.add("ok")});
+      if(!o.ok)b.classList.add("ng"); else score++;
+      answered++; document.getElementById("score").textContent=score+" / "+answered;
+      document.getElementById("exp").innerHTML=`<div class="exp">
+        <div><span class="badge ${it.v}">${LBL[it.v]}</span>${it.tags.map(t=>`<span class="tag">${t}</span>`).join("")}</div>
+        <div class="erase">${esc(it.er)}</div>
+        <p style="font-size:.9rem">${it.x}</p>
+        <div class="nav"><span></span><button class="pri" id="next">${idx+1<order.length?"次の問題 →":"結果を見る"}</button></div></div>`;
+      document.getElementById("next").onclick=()=>{idx++;render();window.scrollTo({top:document.getElementById("drill").offsetTop-10,behavior:"smooth"})};
+    };
+    box.appendChild(b);});
+}
+function restart(sh){order=[...ITEMS.keys()];if(sh)shuffle(order);idx=0;score=0;answered=0;render()}
+document.getElementById("shuf").onclick=()=>restart(true);
+document.getElementById("reset").onclick=()=>restart(false);
+
+document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x===b));
+  ["how","drill","list"].forEach(id=>document.getElementById(id).classList.toggle("hide",id!==b.dataset.t));
+});
+render();
+</script>
+</body>
+</html>
