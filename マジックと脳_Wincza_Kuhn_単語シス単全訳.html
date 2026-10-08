@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>大問Ⅱ｜マジックが明かす脳のしくみ（Wincza & Kuhn）— 単語・シス単未収録語・全訳・設問</title>
+<style>
+:root{
+  --g3:#4CAF50; --g3p:#8BC34A; --g2:#03A9F4; --g2p:#7E57C2; --g1:#E91E63; --gx:#F44336;
+  --tw:#ff6a3d; --ti:#1668c7;
+  --bg:#f4f6fb; --card:#fff; --ink:#1b2233; --sub:#6b7590;
+  --ac:#7c3aed;
+  --sxa:#dc2626; --sxb:#d97706; --sxc:#0f766e; --sxd:#475569;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+  background:var(--bg);color:var(--ink);padding:18px;line-height:1.65}
+.wrap{max-width:1180px;margin:0 auto}
+header{background:linear-gradient(135deg,#111827,#4c1d95 52%,#b45309);color:#fff;
+  border-radius:18px;padding:26px 24px 18px;margin-bottom:16px;box-shadow:0 8px 26px rgba(76,29,149,.3)}
+header h1{font-size:1.34rem;margin-bottom:6px}
+header p{opacity:.94;font-size:.87rem}
+header a{color:#fde68a;font-weight:700}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:15px}
+.stat{background:rgba(255,255,255,.2);border-radius:12px;padding:8px 14px;font-size:.8rem}
+.stat b{font-size:1.15rem;display:block}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.tabs button{background:rgba(255,255,255,.18);color:#fff;box-shadow:none;padding:9px 16px}
+.tabs button.on{background:#fff;color:#4c1d95}
+h2{font-size:1.03rem;margin:24px 0 10px;padding-left:12px;border-left:5px solid var(--ac)}
+h3{font-size:.95rem;margin:16px 0 8px}
+p.lead{font-size:.86rem;color:var(--sub);margin-bottom:10px}
+
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 14px}
+.lbl{font-size:.72rem;color:var(--sub);font-weight:700;margin-right:2px}
+button{font-family:inherit;cursor:pointer;border:none;border-radius:999px;padding:8px 15px;
+  font-size:.82rem;font-weight:700;transition:.15s;background:#fff;color:var(--sub);
+  box-shadow:0 2px 6px rgba(0,0,0,.08)}
+button:hover{transform:translateY(-1px)}
+button.on{background:#1b2233;color:#fff}
+.util{background:#ede9fe;color:#5b21b6}
+.sw{display:inline-flex;background:#fff;border-radius:999px;padding:4px;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.sw button{box-shadow:none;padding:8px 18px}
+.sw button.on{background:linear-gradient(135deg,#7c3aed,#4c1d95);color:#fff}
+.spacer{flex:1}
+
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;
+  box-shadow:0 2px 10px rgba(0,0,0,.07)}
+th,td{padding:10px 13px;text-align:left;border-bottom:1px solid #eef1f6;font-size:.87rem;vertical-align:top}
+th{background:#1b2233;color:#fff;font-size:.76rem;letter-spacing:.04em}
+tbody tr:nth-child(even){background:#fafbfe}
+tbody tr:hover{background:#f5f3ff}
+tbody tr.done{opacity:.4}
+td.ph{font-weight:700}
+td.mn{cursor:pointer}
+tr.hid td.mn,tr.hid td.exc{filter:blur(5px);opacity:.5}
+td.exc{color:#5c6580;font-style:italic;font-size:.79rem}
+td.ln{color:#aab2c4;font-size:.75rem;white-space:nowrap}
+.mark{cursor:pointer;color:#c9cfdd;font-weight:800;user-select:none}
+tr.done .mark{color:#4CAF50}
+.bar{height:9px;border-radius:5px;display:inline-block;vertical-align:middle;margin-right:8px}
+.sumtbl td,.sumtbl th{font-size:.85rem}
+.tblwrap{overflow-x:auto}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:12px}
+.card{background:var(--card);border-radius:14px;padding:14px 16px;cursor:pointer;
+  box-shadow:0 2px 8px rgba(0,0,0,.07);border-left:6px solid #ccc;transition:.18s;
+  position:relative;user-select:none}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.12)}
+.card.done{opacity:.42}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.phrase{font-size:1.05rem;font-weight:700}
+.badge{font-size:.65rem;font-weight:800;color:#fff;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.tag{font-size:.63rem;font-weight:800;padding:2px 8px;border-radius:999px;color:#fff;white-space:nowrap}
+.tag.w{background:var(--tw)} .tag.i{background:var(--ti)}
+.tag.sa{background:var(--sxa)} .tag.sb{background:var(--sxb)}
+.meaning{margin-top:9px;padding-top:9px;border-top:1px dashed #dde2ec;font-size:.92rem}
+.ex{margin-top:7px;font-size:.77rem;color:#5c6580;font-style:italic}
+.hidden .meaning,.hidden .ex{filter:blur(6px);opacity:.5}
+.hint{font-size:.66rem;color:#b9c0d0;margin-top:6px}
+.line{font-size:.67rem;color:#aab2c4;margin-top:3px}
+.check{position:absolute;top:8px;right:10px;font-size:.66rem;color:#4CAF50;display:none;font-weight:800}
+.card.done .check{display:block}
+.hide{display:none}
+
+/* ---- ② シス単 ---- */
+.sxstats{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px;margin:8px 0 6px}
+.sxstats div{background:#fff;border-radius:12px;padding:10px 14px;box-shadow:0 2px 8px rgba(0,0,0,.06);
+  font-size:.74rem;color:var(--sub);line-height:1.5}
+.sxstats b{display:block;font-size:1.35rem;color:var(--ink);line-height:1.3}
+.sxstats .hit b{color:var(--sxa)}
+.tierhead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:28px 0 12px;
+  padding-bottom:8px;border-bottom:2px solid #e5e7eb}
+.tierhead .tl{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;
+  font-weight:800;color:#fff;background:var(--tc);flex:none}
+.tierhead h3{margin:0;font-size:.98rem}
+.tierhead .tn{font-size:.75rem;color:var(--sub)}
+.tierhead .util{margin-left:auto}
+#tierA{--tc:var(--sxa)} #tierB{--tc:var(--sxb);--tw2:#fffbeb} #tierC{--tc:var(--sxc);--tw2:#f0fdfa} #tierD{--tc:var(--sxd)}
+.entries{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+.entry{background:#fff;border-radius:14px;padding:13px 16px;box-shadow:0 2px 8px rgba(0,0,0,.06);
+  border-left:6px solid var(--sxa)}
+.entry .hw{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.entry .wd{font-size:1.2rem;font-weight:800;font-family:Georgia,"Times New Roman",serif}
+.entry .alt{font-size:.92rem;color:var(--sub);font-weight:600;font-family:Georgia,serif}
+.entry .pos{font-size:.66rem;font-weight:800;padding:2px 8px;border-radius:999px;background:#fee2e2;color:#b91c1c}
+.entry .gl{margin-top:6px;font-size:.9rem}
+.entry .ct{margin-top:6px;font-size:.78rem;color:var(--sub)}
+.entry .ct em{font-family:Georgia,serif;color:#334155}
+.deckhint{font-size:.76rem;color:var(--sub);margin-bottom:9px}
+.deck{display:flex;flex-wrap:wrap;gap:8px;list-style:none}
+.deck li{display:flex}
+button.flip{display:inline-grid;padding:0;background:none;box-shadow:none;border-radius:10px;perspective:700px}
+button.flip:hover{transform:none}
+.flip .f{grid-area:1/1;display:flex;align-items:center;justify-content:center;gap:6px;text-align:center;
+  padding:7px 14px;min-height:40px;border-radius:10px;background:#fff;border:1px solid #e5e7eb;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;transition:transform .42s cubic-bezier(.2,.75,.3,1)}
+.flip .front{font-family:Georgia,"Times New Roman",serif;font-size:1rem;color:var(--ink);border-bottom:3px solid var(--tc)}
+.flip .back{font-size:.82rem;color:var(--tc);background:var(--tw2);border-color:var(--tc);transform:rotateY(180deg)}
+.flip[aria-pressed="true"] .front{transform:rotateY(180deg)}
+.flip[aria-pressed="true"] .back{transform:rotateY(360deg)}
+.flip:focus-visible .f{outline:2px solid var(--tc);outline-offset:2px}
+.idioms{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px}
+.idiom{background:#fff;border-radius:12px;padding:10px 14px;box-shadow:0 2px 6px rgba(0,0,0,.05);
+  border-left:4px solid var(--sxd)}
+.idiom span{display:block;font-family:Georgia,"Times New Roman",serif;font-size:1rem;font-weight:700}
+.idiom small{font-size:.8rem;color:var(--sub)}
+.caveat{margin-top:14px;font-size:.85rem;background:#fef2f2;border-left:4px solid var(--sxa);
+  border-radius:0 10px 10px 0;padding:10px 14px}
+.caveat b{color:#b91c1c}
+.method{margin-top:24px;font-size:.78rem;color:var(--sub);background:#fff;border-radius:12px;
+  padding:12px 15px;border:1px dashed #cbd5e1}
+.method p+p{margin-top:6px}
+
+/* ---- ③ 全訳 ---- */
+.mapbox{background:#fff;border-radius:15px;padding:16px 18px;box-shadow:0 2px 9px rgba(0,0,0,.06);margin-bottom:14px}
+.mapbox ol{margin-left:19px;font-size:.89rem}
+.mapbox li{margin-bottom:5px}
+.mapbox li b{color:#4c1d95}
+.note{font-size:.8rem;color:var(--sub);margin-top:8px}
+.note a{color:#5b21b6}
+.para{background:#fff;border-radius:15px;padding:15px 18px;box-shadow:0 2px 9px rgba(0,0,0,.06);
+  margin-bottom:11px;border-left:6px solid #cbd5e1}
+.para .pt2{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-bottom:9px}
+.para .pno{font-size:.68rem;font-weight:800;color:#fff;background:#475569;padding:3px 10px;border-radius:999px}
+.para .pti{font-size:.94rem;font-weight:800;color:#1b2233}
+.sent{padding:9px 0;border-top:1px solid #f1f5f9;cursor:pointer}
+.sents .sent:first-child{border-top:none}
+.en2{font-size:.9rem;color:#1e293b;line-height:1.85;padding-left:11px;border-left:3px solid #ddd6fe}
+.jp{margin-top:7px;font-size:.93rem;padding-left:11px;border-left:3px solid #e8ecf3}
+.tnote{margin-top:7px;font-size:.78rem;color:#4c1d95;background:#f5f3ff;border-radius:8px;padding:6px 10px}
+.tnote::before{content:"メモ";font-size:.62rem;font-weight:800;color:#fff;background:#7c3aed;
+  padding:1px 7px;border-radius:999px;margin-right:6px;vertical-align:1px}
+.bk{background:var(--ac);color:#fff;padding:1px 8px;border-radius:6px;font-weight:800;font-size:.86rem}
+.ul{background:linear-gradient(transparent 62%,#fde68a 62%);font-weight:700}
+.utag{font-size:.62rem;font-weight:800;color:#fff;background:#d97706;padding:1px 6px;
+  border-radius:999px;margin-right:4px;vertical-align:middle}
+.blank{background:#fff!important;color:var(--ac)!important;border:1px dashed #a78bfa;padding:0 7px}
+.tlhide .jp,.tlhide .tnote{filter:blur(6px)}
+.enhide .en2{filter:blur(6px)}
+.tlhide .sent.peek .jp,.tlhide .sent.peek .tnote,.enhide .sent.peek .en2{filter:none}
+#tlbody.tl2 .sent{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+#tlbody.tl2 .sent .jp{margin-top:0}
+#tlbody.tl2 .sent .tnote{grid-column:1/-1;margin-top:0}
+@media(max-width:860px){#tlbody.tl2 .sent{grid-template-columns:1fr;gap:0}
+  #tlbody.tl2 .sent .jp{margin-top:7px}#tlbody.tl2 .sent .tnote{margin-top:7px}}
+
+/* ---- ④ 設問 ---- */
+.qbox{background:#fff;border-radius:16px;padding:17px 19px;box-shadow:0 2px 10px rgba(0,0,0,.07);margin-bottom:13px}
+.qno{display:inline-block;font-size:.7rem;font-weight:800;color:#fff;background:#1b2233;
+  padding:3px 11px;border-radius:999px;margin-bottom:9px}
+.qja{font-size:.93rem;font-weight:600;margin-bottom:10px}
+.ch{border:2px solid #eef1f6;border-radius:10px;padding:9px 13px;margin-bottom:7px;font-size:.87rem;
+  display:flex;gap:10px;align-items:flex-start}
+.ch b{color:#1b2233;flex-shrink:0}
+.ch .cja{color:#475569}
+.qbox.reveal .ch.ok{border-color:#16a34a;background:#f0fdf4}
+.qbox.reveal .ch.ok b::after{content:" ✓";color:#16a34a}
+.wl{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin:8px 0}
+.wl div{background:#f8fafc;border:2px solid #eef1f6;border-radius:10px;padding:8px 12px;font-size:.85rem}
+.qbox.reveal .wl div.used{border-color:#16a34a;background:#f0fdf4}
+.wl b{color:#4c1d95}
+.ans{margin-top:11px;background:#f1f5f9;border-radius:12px;padding:12px 15px;font-size:.88rem;cursor:pointer}
+.ans.hid .body{filter:blur(6px)}
+.ans .hd{font-size:.7rem;font-weight:800;color:var(--ac);letter-spacing:.05em;margin-bottom:7px}
+.ans .body p+p{margin-top:7px}
+.ans .k{font-weight:800;color:#5b21b6}
+.en{font-family:Georgia,"Times New Roman",serif;font-style:italic;color:#1e3a8a}
+.model{background:#eef6ff;border-radius:12px;padding:12px 15px;margin-top:9px;font-size:.87rem}
+.steps{margin:8px 0 0 20px}
+.steps li{margin-bottom:4px}
+@media(max-width:640px){body{padding:12px}th,td{padding:8px 9px;font-size:.79rem}td.exc,th.exc{display:none}
+  header h1{font-size:1.06rem}.qbox,.para{padding:13px 14px}.entries{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>大問Ⅱ — マジックが明かす脳のしくみ：マジシャンも自分をだましている？</h1>
+  <p>出典：Radoslaw Wincza and Gustav Kuhn, “What magic reveals about the brain — and how magicians sometimes fool themselves.” <i>The Conversation</i>, April 29, 2025（出題の都合上、一部改変）。①難語リスト ②システム英単語にない語 ③英文＋全訳 ④設問の解答解説 の4タブ構成です。<a href="心理的豊かさ_Oishi_単語シス単全訳_WhatIf.html">→ 大問Ⅰ（心理的豊かさ）のページ</a></p>
+  <div class="stats">
+    <div class="stat"><b id="total">0</b>総項目</div>
+    <div class="stat"><b id="nw">0</b>単語</div>
+    <div class="stat"><b id="ni">0</b>熟語・構文</div>
+    <div class="stat"><b id="nsx">0</b>シス単外</div>
+    <div class="stat"><b id="shown">0</b>表示中</div>
+    <div class="stat"><b id="doneN">0</b>覚えた</div>
+  </div>
+  <div class="tabs">
+    <button id="tb-vocab" class="on" onclick="setTab('vocab')">① 難単語・熟語</button>
+    <button id="tb-sx" onclick="setTab('sx')">② シス単にない語</button>
+    <button id="tb-tl" onclick="setTab('tl')">③ 英文＋全訳</button>
+    <button id="tb-q" onclick="setTab('q')">④ 設問 解答・解説</button>
+  </div>
+</header>
+
+<!-- ============ ① 単語・熟語 ============ -->
+<section id="tab-vocab">
+
+<h2>レベル別分布（単語 / 熟語 内訳つき）</h2>
+<div class="tblwrap">
+<table class="sumtbl"><thead><tr><th>英検レベル</th><th>合計</th><th>単語</th><th>熟語</th><th>割合</th><th>目安</th></tr></thead>
+<tbody id="sumbody"></tbody></table>
+</div>
+
+<div class="controls" style="margin-top:22px">
+  <span class="sw"><button id="bCard" class="on" onclick="setView('card')">カード形式</button><button id="bTable" onclick="setView('table')">表形式</button></span>
+  <span class="spacer"></span>
+  <span class="sw"><button id="tAll" class="on" onclick="setType('all')">単語＋熟語</button><button id="tW" onclick="setType('単語')">単語のみ</button><button id="tI" onclick="setType('熟語')">熟語のみ</button></span>
+</div>
+
+<div class="controls"><span class="lbl">レベル</span><span id="filters" style="display:contents"></span></div>
+<div class="controls"><span class="lbl">箇所</span><span id="pfilters" style="display:contents"></span></div>
+<div class="controls"><span class="lbl">シス単</span>
+  <span class="sw"><button id="sAll" class="on" onclick="setSx('all')">すべて</button><button id="sOut" onclick="setSx('out')">シス単に載っていない語だけ</button></span>
+</div>
+<div class="controls">
+  <button class="util" onclick="allHide()">すべて隠す</button>
+  <button class="util" onclick="allShow()">すべて表示</button>
+  <button class="util" onclick="shuffle()">シャッフル</button>
+  <button class="util" onclick="resetOrder()">本文順に戻す</button>
+  <button class="util" onclick="resetDone()">「覚えた」リセット</button>
+  <span class="spacer"></span>
+  <button class="util" id="hideDoneBtn" onclick="toggleDoneFilter()">覚えた項目を隠す</button>
+</div>
+
+<div id="cardView"><div class="grid" id="grid"></div></div>
+<div id="tableView" class="hide tblwrap">
+  <table><thead><tr><th style="width:30px"></th><th style="width:46px">種類</th><th>語句</th><th>意味</th><th class="exc">本文での使われ方</th><th>レベル</th><th>箇所</th><th>シス単</th></tr></thead>
+  <tbody id="tbody"></tbody></table>
+</div>
+</section>
+
+<!-- ============ ② シス単にない語 ============ -->
+<section id="tab-sx" class="hide">
+<h2>システム英単語では出会わない語</h2>
+<p class="lead">本文＋設問の語彙を、システム英単語（5訂版）の Anki デッキと機械照合して4段階に分けました。<b>A だけは必ずカード化</b>、B は語の作りやシス単の関連語から推測する練習用、C はシス単の復習範囲です。判定方法はページ末尾を見てください。</p>
+<div class="sxstats" id="sxstats"></div>
+
+<div id="tierA">
+  <div class="tierhead"><span class="tl">A</span><h3>シス単にない難語 — 意味を知らないと読めない（最優先）</h3><span class="tn" id="nA"></span></div>
+  <div class="entries" id="sxA"></div>
+</div>
+
+<div id="tierB">
+  <div class="tierhead"><span class="tl">B</span><h3>シス単にないが、シス単の関連語・語の作り・カタカナ語から推測できる語</h3><span class="tn" id="nB"></span>
+    <button class="util" type="button" data-deck="deckB" onclick="flipAll(this)">すべてめくる</button></div>
+  <p class="deckhint">タップで裏返ります（英語 → 意味）。「←」の右側がシス単にある関連語です。</p>
+  <ul class="deck" id="deckB"></ul>
+</div>
+
+<div id="tierC">
+  <div class="tierhead"><span class="tl">C</span><h3>シス単に載っている語 — 復習範囲</h3><span class="tn" id="nC"></span>
+    <button class="util" type="button" data-deck="deckC" onclick="flipAll(this)">すべてめくる</button></div>
+  <p class="deckhint">英語だけ見て意味を言えるか確認。裏面の「→」は、シス単の訳と本文での意味がずれる語です。</p>
+  <ul class="deck" id="deckC"></ul>
+  <p class="caveat">落とし穴 — シス単で覚えた意味のままだと誤読する語：<b>tap</b>（軽くたたく → tap into「～を活用する」）／<b>bump</b>（ぶつかる → bump up「引き上げる」）／<b>force</b>（強制する → forcing はマジック用語の「フォース」）／<b>steer</b>（操縦する → steer our decisions「決定を誘導する」）／<b>expose</b>（さらす → expose the gap「隔たりを浮き彫りにする」）／<b>prime</b>（最も重要な → prime shelf space「棚の一等地」）／<b>except</b>（～を除いて → Except — 「ところが実は」）。<br>
+  シス単にない語でも注意：<b>deck</b>（甲板、ではなく「トランプの一組」）／<b>seasoned</b>（季節の、ではなく「熟練した」）／<b>means</b>（mean の三単現、ではなく名詞「手段」）／<b>shop</b>（店、ではなく do one's weekly shop「週の買い出し」）。</p>
+</div>
+
+<div id="tierD">
+  <div class="tierhead"><span class="tl">D</span><h3>あわせて押さえる熟語・表現</h3><span class="tn" id="nD"></span></div>
+  <div class="idioms" id="sxD"></div>
+</div>
+
+<div class="method">
+  <p><b>判定方法</b>：<code>システム英単語 5訂版.apkg</code> の notes 5,513件のうち、サブデッキ「単語」の見出し語 2,027語と「センターで間違えやすい単語100」の追加28語、計 2,055語を収録語とした。本文＋設問を語単位に分解した約330の異なり語について、屈折語尾と派生接辞（-ment／-ly／-able／-ion／-ship／un-／in- など）を展開して照合し、残った語を中高基礎語かどうか手作業で選別した（magic・trick・card などシス単にない基礎語は対象外）。</p>
+  <p>デッキ作者が追加した「似てる英単語」（1,359件。sway・gesture・means などを含む）は本の見出し語ではないため、収録扱いにしていない。</p>
+</div>
+</section>
+
+<!-- ============ ③ 英文＋全訳 ============ -->
+<section id="tab-tl" class="hide">
+<h2>読解の地図（論の流れ）</h2>
+<div class="mapbox">
+<ol>
+  <li><b>第1〜2段落 導入</b>：マジックは見せ物にとどまらず、心の限界を解き明かす<b>認知科学の道具</b>になった。だが新しい研究によれば、<b>マジシャン自身も</b>トリックが効く理由を誤解しているかもしれない。</li>
+  <li><b>第3〜6段落 マジックの技法</b>：ミスディレクション（注意をそらす）とフォース（気づかれずに選ばせる）。ダレン・ブラウンの予言カードは約20%で成功（偶然なら2%未満）→ 私たちの決定は、<b>気づかないうちに周りに左右される</b>。</li>
+  <li><b>第7〜8段落 日常への広がり</b>：スーパーでは<b>目の高さの棚</b>の商品が選ばれやすい。私たちは理性的なつもりでも「見えざる手」に導かれている。</li>
+  <li><b>第9〜12段落 マジシャンの思い込み①</b>：「カードの名前を言うほうが自由に選んだと感じる」→ 実験では<b>逆</b>。手で引いたほうが「自分で選んだ」と感じる＝<b>頭より手を信頼している</b>。</li>
+  <li><b>第13〜16段落 マジシャンの思い込み②</b>：「観客の手の中で起きるほうが驚く」→ 実験では、手の中でも箱の下でも<b>驚きは同じ</b>。</li>
+</ol>
+<p class="note">※ マジック研究の意義 → 技法の例 → 日常への拡張 → マジシャンの「思い込み」2つを実験で覆す、という構成。タイトルの <i>how magicians sometimes fool themselves</i>（マジシャンがときに自分自身をだます）は、後半の2つの実験で回収される。</p>
+<p class="note">筆者：ラドスワフ・ヴィンチャ（ランカシャー大学）とグスタフ・クーン（プリマス大学）は、マジックの科学を研究する心理学者。クーンはマジシャンとしての経験ももち、著書に <i>Experiencing the Impossible: The Science of Magic</i>（MIT Press, 2019）がある。本文の実験は、2025年4月に学術誌 <i>Psychology of Aesthetics, Creativity, and the Arts</i> に掲載された論文 “Challenging magicians’ intuitive insights: The role of audience participation in experiencing a magic trick” にもとづく。<a href="https://theconversation.com/what-magic-reveals-about-the-brain-and-how-magicians-sometimes-fool-themselves-255236" target="_blank" rel="noopener">The Conversation の元記事</a>／<a href="https://doi.org/10.1037/aca0000762" target="_blank" rel="noopener">論文（DOI）</a></p>
+</div>
+
+<h2>本文（英文＋全訳）</h2>
+<p class="lead">1文ずつ英文と訳を並べています。「左右2段で表示」で対訳のように見比べられます。訳や英文を隠したときは、文をタップするとその文だけ表示されます。空所①〜⑦と a の答えは紫のタグ、黄マーカーは下線部(1)〜(3)です。</p>
+<div class="controls">
+  <button class="util" id="btnJP" onclick="toggleJP()">訳を隠す</button>
+  <button class="util" id="btnEN" onclick="toggleEN()">英文を隠す</button>
+  <button class="util" id="btnANS" onclick="toggleANS()">空所の答えを隠す</button>
+  <button class="util" id="btnCOL" onclick="toggleCOL()">左右2段で表示</button>
+</div>
+<div id="tlbody"></div>
+</section>
+
+<!-- ============ ④ 設問 ============ -->
+<section id="tab-q" class="hide">
+<h2>設問の解答・解説</h2>
+<p class="lead">選択肢の英文もすべて訳しました。灰色の「解答・解説」ボックスはタップでぼかしが外れ、正解の選択肢に緑の印が付きます。まず自分で解いてから開いてください。</p>
+<div id="qbody"></div>
+</section>
+
+</div>
+
+<script>
+/* ================= ① 単語データ ================= */
+const LV={
+ "3級":{c:"var(--g3)",note:"中学卒業程度"},
+ "準2級":{c:"var(--g3p)",note:"高校中級程度"},
+ "2級":{c:"var(--g2)",note:"高校卒業程度"},
+ "準1級":{c:"var(--g2p)",note:"大学中級程度"},
+ "1級":{c:"var(--g1)",note:"大学上級程度"},
+ "級外":{c:"var(--gx)",note:"固有名詞・専門語"}
+};
+// [語句, 意味, 本文での使われ方, レベル, 箇所, 種類, シス単(A=載っていない難語／B=載っていないが推測可／空=収録済みまたは基礎語・熟語)]
+const DATA=[
+ /* ---- 第1〜3段落 ---- */
+ ["mind games","心理戦、相手の心を操る駆け引き","Magicians have long been masters of mind games","準1級","第1〜3段落","熟語",""],
+ ["turn A into B","AをBに変える","turning our brain's quirks and blind spots into moments of pure astonishment","2級","第1〜3段落","熟語",""],
+ ["quirk","名 （ちょっとした）癖、奇妙な特性","our brain's quirks","1級","第1〜3段落","単語","A"],
+ ["blind spot","盲点、死角","quirks and blind spots","準1級","第1〜3段落","熟語",""],
+ ["pure","形 まったくの、純粋な","moments of pure astonishment","2級","第1〜3段落","単語",""],
+ ["astonishment","名 驚き、驚嘆（astonish）","moments of pure astonishment","準1級","第1〜3段落","単語","B"],
+ ["just for show","見せるためだけの、見せ物の","magic isn't just for show","準1級","第1〜3段落","熟語",""],
+ ["cognitive science","認知科学（cognitive＝認知の）","a powerful tool in the cognitive science of ...","準1級","第1〜3段落","熟語",""],
+ ["unlock","動 （謎・可能性を）解き明かす（un＋lock）","the cognitive science of unlocking the mind's hidden limitations","2級","第1〜3段落","単語","B"],
+ ["limitation","名 限界、制約（limit）","the mind's hidden limitations","準1級","第1〜3段落","単語","B"],
+ ["grow into ~","成長して～になる","The science of magic has grown into a serious field of study","2級","第1〜3段落","熟語",""],
+ ["unreliable","形 当てにならない、信頼できない（un＋rely＋-able）","how unreliable our intuitions and self-perceptions can be","準1級","第1〜3段落","単語","B"],
+ ["intuition","名 直感、直観","our intuitions and self-perceptions","準1級","第1〜3段落","単語",""],
+ ["self-perception","名 自己認識、自分についての捉え方（perceive）","our intuitions and self-perceptions","1級","第1〜3段落","単語","B"],
+ ["from A to B","AからBまで（幅広い範囲）","From psychology and artificial intelligence to education and mental health","2級","第1〜3段落","熟語",""],
+ ["artificial intelligence","人工知能（AI）","psychology and artificial intelligence","2級","第1〜3段落","熟語",""],
+ ["inspire","動 （考え・行動を）生み出す、触発する","magic is inspiring fresh approaches","準1級","第1〜3段落","単語",""],
+ ["approach to ~","～への取り組み方、方法","fresh approaches to some of today's biggest challenges","2級","第1〜3段落","熟語",""],
+ ["challenge","名 （困難な）課題　※「挑戦」だけではない【空所①】","some of today's biggest challenges","2級","第1〜3段落","単語",""],
+ ["team up (with ~)","（～と）協力する、手を組む","scientists and magicians are teaming up","2級","第1〜3段落","熟語",""],
+ ["sleight-of-hand","名 手先の早業、手品","bringing sleight-of-hand into the lab","1級","第1〜3段落","単語","A"],
+ ["lab","名 研究室、実験室（laboratory の略）","into the lab","2級","第1〜3段落","単語",""],
+ ["reveal","動 明らかにする","to reveal surprising truths","準1級","第1〜3段落","単語",""],
+ ["misdirection","名 ミスディレクション（観客の注意を別の所へそらす技法）","misdirection is a key conjuring principle","級外","第1〜3段落","単語","A"],
+ ["conjuring","形 手品の（conjure 手品を使う、呪文で呼び出す）","a key conjuring principle","1級","第1〜3段落","単語","A"],
+ ["principle","名 原理、原則","a key conjuring principle","準1級","第1〜3段落","単語",""],
+ ["manipulate","動 巧みに操る、操作する","used to manipulate what we see","準1級","第1〜3段落","単語",""],
+ ["hijack","動 乗っ取る（ハイジャック）","how easily our attention can be hijacked","準1級","第1〜3段落","単語","B"],
+ ["forcing","名 フォース（マジック用語：気づかれないように特定のカードを選ばせる技法）","Other techniques such as forcing","級外","第1〜3段落","単語",""],
+ ["subtle","形 さりげない、微妙な","involve subtle ways to steer our decisions","準1級","第1〜3段落","単語",""],
+ ["steer","動 （ある方向へ）導く、誘導する（シス単：操縦する）","subtle ways to steer our decisions","準1級","第1〜3段落","単語",""],
+ ["without us even noticing","私たちが気づきさえしないうちに（us は動名詞の意味上の主語）","steer our decisions without us even noticing","2級","第1〜3段落","熟語",""],
+ ["illusion","名 錯覚、幻想","These illusions expose the gap","準1級","第1〜3段落","単語",""],
+ ["expose","動 あらわにする、浮き彫りにする（シス単：さらす）","These illusions expose the gap","準1級","第1〜3段落","単語",""],
+ ["the gap between A and B","AとBの隔たり【空所②】","the gap between what we think we're aware of and what's actually happening","2級","第1〜3段落","熟語",""],
+ ["be aware of ~","～に気づいている、～を意識している","what we think we're aware of","2級","第1〜3段落","熟語",""],
+ /* ---- 第4〜6段落 ---- */
+ ["mind control","人の心を操ること","Magicians are masters of mind control","2級","第4〜6段落","熟語",""],
+ ["guide A to B","AをBへ導く","to guide your attention to one thing","2級","第4〜6段落","熟語",""],
+ ["slip by unnoticed","気づかれずに通り過ぎる、すり抜ける","while something else slips by unnoticed","準1級","第4〜6段落","熟語",""],
+ ["Take ~.","～を例に取ろう","Take English illusionist Derren Brown","2級","第4〜6段落","熟語",""],
+ ["illusionist","名 イリュージョニスト、奇術師（illusion）","English illusionist Derren Brown","準1級","第4〜6段落","単語","B"],
+ ["claim that ~","～と主張する【下線部(1)】","He claims that ...","準1級","第4〜6段落","熟語",""],
+ ["with the right mix of A and B","AとBを適切に組み合わせれば（with＋名詞＝条件）","with the right mix of gestures and phrases","準1級","第4〜6段落","熟語",""],
+ ["gesture","名 身ぶり、しぐさ","gestures and phrases","2級","第4〜6段落","単語",""],
+ ["get O to do","Oに～させる（働きかけて）","he can get you to think of a card","2級","第4〜6段落","熟語",""],
+ ["think of ~","～を思い浮かべる、思いつく","to think of a card","準2級","第4〜6段落","熟語",""],
+ ["predict","動 予言する、予測する","a card he's already predicted","準1級","第4〜6段落","単語",""],
+ ["not 100% of the time","いつも～というわけではない（部分否定）","Not 100% of the time, but around 20%","2級","第4〜6段落","熟語",""],
+ ["consider this:","こう考えてみてほしい（コロン以下で中身を示す）","but consider this: ...","2級","第4〜6段落","熟語",""],
+ ["randomly","副 でたらめに、無作為に（random）","the chance of randomly naming a specific card","準1級","第4〜6段落","単語","B"],
+ ["specific","形 特定の","a specific card","準1級","第4〜6段落","単語",""],
+ ["deck","名 （トランプの）一組　※「甲板」ではない","a specific card from a deck","2級","第4〜6段落","単語","A"],
+ ["account for ~","～を考慮に入れる（「～を説明する」「～を占める」もある多義熟語）","even lower if we account for biases","準1級","第4〜6段落","熟語",""],
+ ["bias","名 偏り、偏見","if we account for biases","準1級","第4〜6段落","単語",""],
+ ["the Ace of Spades","スペードのエース","people often picking the Ace of Spades","級外","第4〜6段落","熟語",""],
+ ["bump up ~","～を引き上げる（シス単の bump は「ぶつかる」）","bumping that chance up tenfold","1級","第4〜6段落","熟語",""],
+ ["tenfold","副 10倍に（-fold＝～倍）","bumping that chance up tenfold","1級","第4〜6段落","単語","B"],
+ ["impressive","形 見事な、印象的な（impression）","pretty impressive","2級","第4〜6段落","単語","B"],
+ ["heavily","副 大いに、強く","heavily influenced by what's going on around us","2級","第4〜6段落","単語",""],
+ ["influence","動 影響を与える／名 影響","heavily influenced by ...","準1級","第4〜6段落","単語",""],
+ ["have no clue (that) ~","～にまったく気づいていない、見当もつかない【空所③】","even if we have no clue that it's happening","準1級","第4〜6段落","熟語",""],
+ /* ---- 第7〜8段落 ---- */
+ ["apply to ~","～に当てはまる","this doesn't just apply to magic","2級","第7〜8段落","熟語",""],
+ ["do one's weekly shop","週1回のまとめ買いをする（英。shop＝買い物）","as you are doing your weekly shop","準1級","第7〜8段落","熟語",""],
+ ["favourite","形 いちばん好きな（米 favorite）","your favourite brand of toilet paper","準2級","第7〜8段落","単語","B"],
+ ["brand","名 銘柄、ブランド","your favourite brand","2級","第7〜8段落","単語",""],
+ ["whatever is placed in ~","～に置かれているものなら何でも（whatever＝anything that）","whatever is placed in an eye-level position","2級","第7〜8段落","熟語",""],
+ ["eye-level","形 目の高さの【下線部(2)】","an eye-level position","2級","第7〜8段落","単語",""],
+ ["That is why ~","そういうわけで～","That is why the most profitable products are displayed ...","2級","第7〜8段落","熟語",""],
+ ["profitable","形 もうかる、利益の多い（profit）","the most profitable products","準1級","第7〜8段落","単語","B"],
+ ["display","動 陳列する、展示する","products are displayed in prime shelf space","2級","第7〜8段落","単語",""],
+ ["prime shelf space","棚の一等地、最も目立つ棚の場所（prime＝最も重要な）【設問2の答え】","displayed in prime shelf space","準1級","第7〜8段落","熟語",""],
+ ["sway","動 （判断・意見を）左右する、揺さぶる","to gently (but powerfully) sway your choices","1級","第7〜8段落","単語","A"],
+ ["rational","形 理性的な、合理的な","We love to believe we're rational thinkers","準1級","第7〜8段落","単語",""],
+ ["thinker","名 考える人【空所④】","rational thinkers","2級","第7〜8段落","単語",""],
+ ["invisible","形 目に見えない（in＋visible）","guided by invisible hands","2級","第7〜8段落","単語","B"],
+ ["invisible hands","見えざる手（アダム・スミスの「見えざる手」を思わせる表現）","we're often guided by invisible hands","1級","第7〜8段落","熟語",""],
+ /* ---- 第9〜12段落 ---- */
+ ["tap into ~","～を活用する、引き出す（シス単の tap は「軽くたたく」）","Magicians were tapping into the secrets of the human mind","1級","第9〜12段落","熟語",""],
+ ["secret","名 秘密、秘訣【空所⑤】","the secrets of the human mind","準2級","第9〜12段落","単語",""],
+ ["catch up","追いつく","long before scientists caught up","2級","第9〜12段落","熟語",""],
+ ["craft","動 巧みに作り上げる","to craft tricks","準1級","第9〜12段落","単語",""],
+ ["play on ~","～につけ込む、～を利用する","tricks that play perfectly on our mental blind spots","準1級","第9〜12段落","熟語",""],
+ ["seasoned","形 熟練した、経験豊富な　※「季節の」ではない","even seasoned professionals","1級","第9〜12段落","単語","A"],
+ ["be fooled by ~","～にだまされる","can be fooled by their own assumptions","2級","第9〜12段落","熟語",""],
+ ["assumption","名 思い込み、前提（assume）","their own assumptions","準1級","第9〜12段落","単語","B"],
+ ["standout","形 際立った、ずば抜けた（stand out 目立つ）","Here's a standout example","1級","第9〜12段落","単語","B"],
+ ["it is commonly believed that ~","一般に～と信じられている","it's commonly believed that ...","2級","第9〜12段落","熟語",""],
+ ["spectator","名 観客、見物人","if a spectator names a card out loud","準1級","第9〜12段落","単語","A"],
+ ["name","動 名前を言う、名指しする","a spectator names a card","2級","第9〜12段落","単語",""],
+ ["out loud","声に出して","names a card out loud","2級","第9〜12段落","熟語",""],
+ ["physically","副 物理的に、実際に手で（physical）","physically picked a card","準1級","第9〜12段落","単語","B"],
+ ["reasonable","形 もっともな、筋の通った","Sounds reasonable, right?","2級","第9〜12段落","単語",""],
+ ["Except —","ところが実は（前の内容への例外を示す）","Except — it's the opposite.","2級","第9〜12段落","熟語",""],
+ ["the opposite","正反対、逆【空所⑥】","it's the opposite","2級","第9〜12段落","熟語",""],
+ ["take part in ~","～に参加する","after taking part in a magic trick","2級","第9〜12段落","熟語",""],
+ ["either A or B","AかBのどちらか","they either named or physically picked a card","準2級","第9〜12段落","熟語",""],
+ ["on average","平均して","On average, people felt more in control","2級","第9〜12段落","熟語",""],
+ ["feel in control","自分で主導権を握っていると感じる","people felt more in control","準1級","第9〜12段落","熟語",""],
+ ["despite","前 ～にもかかわらず","despite what the magic community might expect","準1級","第9〜12段落","単語",""],
+ ["fascinating","形 とても興味深い（fascinate）","reveal something fascinating","2級","第9〜12段落","単語",""],
+ ["split","形 分かれた（split の過去分詞）","our sense of control is split","準1級","第9〜12段落","単語",""],
+ ["sense of control","自分で制御しているという感覚、主体感","our sense of control","準1級","第9〜12段落","熟語",""],
+ ["ownership","名 所有、自分のものだという感覚（own＋-ship）","more ownership over our actions","準1級","第9〜12段落","単語","B"],
+ ["In other words","言い換えれば","In other words, [ a ]","2級","第9〜12段落","熟語",""],
+ /* ---- 第13〜16段落 ---- */
+ ["It doesn't stop there.","それだけではない、話はそれで終わらない","But it doesn't stop there.","2級","第13〜16段落","熟語",""],
+ ["long-held","形 長年抱かれてきた（long＋held）","Another long-held belief","準1級","第13〜16段落","単語","B"],
+ ["belief","名 （～という）考え、信念【空所⑦】","Another long-held belief among magicians","2級","第13〜16段落","単語",""],
+ ["emotional punch","心に響く衝撃","creates a stronger emotional punch","準1級","第13〜16段落","熟語",""],
+ ["swap places (with ~)","（～と）入れ替わる（swap＝交換する）","a card magically swaps places with another","準1級","第13〜16段落","熟語","A"],
+ ["blow one's mind","ひどく驚かせる、圧倒する","that should blow your mind more","準1級","第13〜16段落","熟語",""],
+ ["say（挿入）","たとえば","if the same trick happens, say, under a box","2級","第13〜16段落","熟語",""],
+ ["participant","名 参加者（participate）","participants were shown two versions","準1級","第13〜16段落","単語","B"],
+ ["version","名 型、バージョン","two versions of the same trick","2級","第13〜16段落","単語",""],
+ ["underneath","前 ～の下に","the card changed underneath a box","2級","第13〜16段落","単語",""],
+ ["reaction","名 反応（react）","people's reactions to this kind of trick","2級","第13〜16段落","単語","B"],
+ ["significantly","副 大きく、（統計的に）有意に（significant）","didn't significantly change","準1級","第13〜16段落","単語","B"],
+ ["based on ~","～によって、～に基づいて","based on where it happened","2級","第13〜16段落","熟語",""],
+ ["whether A or B","AであろうとBであろうと（譲歩）","Whether the cards swapped places in their hands or under a box","2級","第13〜16段落","熟語",""],
+ ["amazement","名 驚き、驚嘆（amaze）","their sense of amazement was the same","準1級","第13〜16段落","単語","B"],
+ /* ---- 設問文 ---- */
+ ["have nothing to do with ~","～と何の関係もない","our sense of control has nothing to do with magic","2級","設問文","熟語",""],
+ ["no longer","もはや～ない","we are no longer surprised by magic","準2級","設問文","熟語",""],
+ ["trust","動 信頼する","we trust our hands more than our heads","2級","設問文","単語",""],
+ ["means","名 手段、方法（単複同形）　※動詞 mean の三単現ではない","(E) means","2級","設問文","単語",""],
+ ["scarcity","名 不足、欠乏（scarce）","(G) scarcity","1級","設問文","単語","B"]
+];
+
+const ORDER=["3級","準2級","2級","準1級","1級","級外"];
+const PORDER=["第1〜3段落","第4〜6段落","第7〜8段落","第9〜12段落","第13〜16段落","設問文"];
+let data=[...DATA],activeLv="all",activePara="all",activeType="all",activeSx="all",hideDone=false;
+const done=new Set();
+
+const cW=DATA.filter(d=>d[5]==="単語").length, cI=DATA.length-cW;
+document.getElementById("total").textContent=DATA.length;
+document.getElementById("nw").textContent=cW;
+document.getElementById("ni").textContent=cI;
+document.getElementById("nsx").textContent=DATA.filter(d=>d[6]).length;
+
+const cnt={},cntW={},cntI={},cntP={};
+ORDER.forEach(l=>{cnt[l]=0;cntW[l]=0;cntI[l]=0;});
+PORDER.forEach(p=>cntP[p]=0);
+DATA.forEach(d=>{cnt[d[3]]++;(d[5]==="単語"?cntW:cntI)[d[3]]++;cntP[d[4]]++;});
+document.getElementById("sumbody").innerHTML=ORDER.map(l=>{
+ const n=cnt[l],p=Math.round(n/DATA.length*100);
+ return `<tr><td><span class="badge" style="background:${LV[l].c}">${l}</span></td>
+ <td><b>${n}</b></td><td style="color:var(--tw);font-weight:700">${cntW[l]}</td>
+ <td style="color:var(--ti);font-weight:700">${cntI[l]}</td>
+ <td><span class="bar" style="width:${Math.max(p*2.6,6)}px;background:${LV[l].c}"></span>${p}%</td>
+ <td style="color:var(--sub)">${LV[l].note}</td></tr>`;}).join("");
+
+document.getElementById("filters").innerHTML=
+ `<button class="on" data-lv="all">すべて</button>`+
+ ORDER.map(l=>cnt[l]?`<button data-lv="${l}" style="color:${LV[l].c}">${l} (${cnt[l]})</button>`:"").join("");
+document.getElementById("filters").onclick=e=>{
+ if(e.target.tagName!=="BUTTON")return;
+ [...e.currentTarget.children].forEach(b=>b.classList.remove("on"));
+ e.target.classList.add("on");activeLv=e.target.dataset.lv;render();};
+
+document.getElementById("pfilters").innerHTML=
+ `<button class="on" data-p="all">すべて</button>`+
+ PORDER.map(p=>`<button data-p="${p}">${p} (${cntP[p]})</button>`).join("");
+document.getElementById("pfilters").onclick=e=>{
+ if(e.target.tagName!=="BUTTON")return;
+ [...e.currentTarget.children].forEach(b=>b.classList.remove("on"));
+ e.target.classList.add("on");activePara=e.target.dataset.p;render();};
+
+function list(){return data.filter(d=>
+ (activeLv==="all"||d[3]===activeLv)&&
+ (activePara==="all"||d[4]===activePara)&&
+ (activeType==="all"||d[5]===activeType)&&
+ (activeSx==="all"||d[6])&&
+ !(hideDone&&done.has(d[0])));}
+
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function sxTag(s){
+ if(!s)return"";
+ return s==="A"?`<span class="tag sa">シス単外</span>`:`<span class="tag sb">シス単外・推測可</span>`;}
+
+function render(){
+ const L=list();
+ document.getElementById("grid").innerHTML=L.map(d=>{
+  const[p,m,ex,lv,ln,ty,sx]=d, t=ty==="単語"?"w":"i";
+  return `<div class="card hidden" data-w="${esc(p)}" style="border-left-color:${LV[lv].c}">
+   <span class="check">✓ 覚えた</span>
+   <div class="top"><span class="phrase">${esc(p)}</span>
+   <span style="display:flex;flex-direction:column;gap:4px;align-items:flex-end">
+   <span class="badge" style="background:${LV[lv].c}">${lv}</span>
+   <span class="tag ${t}">${ty}</span>${sxTag(sx)}</span></div>
+   <div class="line">${ln}</div>
+   <div class="meaning">${m}</div>
+   <div class="ex">${esc(ex)}</div>
+   <div class="hint">タップで表示 ／ ダブルクリックで「覚えた」</div></div>`;}).join("");
+ [...document.getElementById("grid").children].forEach(c=>{
+  if(done.has(c.dataset.w))c.classList.add("done");
+  c.onclick=()=>c.classList.toggle("hidden");
+  c.ondblclick=e=>{e.preventDefault();const w=c.dataset.w;
+   done.has(w)?done.delete(w):done.add(w);render();};});
+
+ document.getElementById("tbody").innerHTML=L.map(d=>{
+  const[p,m,ex,lv,ln,ty,sx]=d, t=ty==="単語"?"w":"i";
+  return `<tr class="hid ${done.has(p)?'done':''}" data-w="${esc(p)}">
+   <td><span class="mark">✓</span></td>
+   <td><span class="tag ${t}">${ty}</span></td>
+   <td class="ph">${esc(p)}</td><td class="mn">${m}</td>
+   <td class="exc">${esc(ex)}</td>
+   <td><span class="badge" style="background:${LV[lv].c}">${lv}</span></td>
+   <td class="ln">${ln}</td><td>${sxTag(sx)}</td></tr>`;}).join("");
+ [...document.getElementById("tbody").children].forEach(tr=>{
+  tr.querySelector(".mn").onclick=()=>tr.classList.toggle("hid");
+  tr.querySelector(".exc").onclick=()=>tr.classList.toggle("hid");
+  tr.querySelector(".mark").onclick=()=>{const w=tr.dataset.w;
+   done.has(w)?done.delete(w):done.add(w);render();};});
+
+ document.getElementById("shown").textContent=L.length;
+ document.getElementById("doneN").textContent=done.size;
+}
+
+function setView(v){
+ document.getElementById("cardView").classList.toggle("hide",v!=="card");
+ document.getElementById("tableView").classList.toggle("hide",v!=="table");
+ document.getElementById("bCard").classList.toggle("on",v==="card");
+ document.getElementById("bTable").classList.toggle("on",v==="table");}
+function setType(t){activeType=t;
+ document.getElementById("tAll").classList.toggle("on",t==="all");
+ document.getElementById("tW").classList.toggle("on",t==="単語");
+ document.getElementById("tI").classList.toggle("on",t==="熟語");render();}
+function setSx(s){activeSx=s;
+ document.getElementById("sAll").classList.toggle("on",s==="all");
+ document.getElementById("sOut").classList.toggle("on",s==="out");render();}
+function allHide(){document.querySelectorAll(".card").forEach(c=>c.classList.add("hidden"));
+ document.querySelectorAll("#tbody tr").forEach(t=>t.classList.add("hid"));}
+function allShow(){document.querySelectorAll(".card").forEach(c=>c.classList.remove("hidden"));
+ document.querySelectorAll("#tbody tr").forEach(t=>t.classList.remove("hid"));}
+function shuffle(){for(let i=data.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[data[i],data[j]]=[data[j],data[i]];}render();}
+function resetOrder(){data=[...DATA];render();}
+function resetDone(){done.clear();render();}
+function toggleDoneFilter(){hideDone=!hideDone;
+ document.getElementById("hideDoneBtn").textContent=hideDone?"覚えた項目も表示":"覚えた項目を隠す";render();}
+
+/* ================= ② シス単にない語 ================= */
+// A: [見出し, 併記, 品詞, 意味, 本文での出方]
+const SXA=[
+ ["spectator","","名","観客、見物人（spect＝見る。inspect, respect と同じ語根）","第10段落 <em>if a spectator names a card out loud</em>／第13段落 <em>in the spectator’s hands</em>"],
+ ["sway","","動","（判断・意見を）左右する、揺さぶる","第7段落 <em>to gently (but powerfully) sway your choices</em>"],
+ ["swap","","動","交換する、入れ替える／入れ替わる。swap places (with ～)＝（～と）入れ替わる","第14・16段落 <em>a card magically swaps places with another</em>"],
+ ["deck","","名","（トランプの）一組。「甲板」とは別の意味","第5段落 <em>naming a specific card from a deck</em>／第10段落 <em>the deck the magician is holding</em>"],
+ ["seasoned","","形","熟練した、経験豊富な。season（季節／味付けする）→「年季の入った」","第9段落 <em>even seasoned professionals can be fooled</em>"],
+ ["quirk","","名","（ちょっとした）癖、奇妙な特性","第1段落 <em>turning our brain’s quirks and blind spots into ...</em>"],
+ ["sleight-of-hand","","名","手先の早業、手品。sleight＝巧妙さ（slight「わずかな」とは別語）","第2段落 <em>bringing sleight-of-hand into the lab</em>"],
+ ["misdirection","","名","ミスディレクション。観客の注意を別の所へそらす、マジックの基本技法（mis-＝誤って＋direction＝方向づけ）","第3段落 <em>misdirection is a key conjuring principle</em>"],
+ ["conjuring","","形","手品の。conjure＝手品を使う、呪文で呼び出す","第3段落 <em>a key conjuring principle</em>"]
+];
+// B: [英語, 意味 ← シス単の関連語]
+const SXB=[
+ ["astonishment","驚嘆 ← astonish"],
+ ["amazement","驚き ← amaze"],
+ ["unreliable","当てにならない ← rely"],
+ ["self-perception","自己認識 ← perceive"],
+ ["limitation","限界（limit＝リミット）"],
+ ["unlock","解き明かす（un＋lock）"],
+ ["illusionist","奇術師 ← illusion"],
+ ["randomly","無作為に ← random"],
+ ["tenfold","10倍に（ten＋-fold）"],
+ ["profitable","もうかる ← profit"],
+ ["invisible","目に見えない ← visible"],
+ ["assumption","思い込み ← assume"],
+ ["standout","際立った（stand out）"],
+ ["physically","実際に手で ← physical"],
+ ["participant","参加者 ← participate"],
+ ["ownership","自分のものという感覚 ← own"],
+ ["long-held","長年抱かれてきた（long＋held）"],
+ ["impressive","見事な ← impression"],
+ ["significantly","大きく、有意に ← significant"],
+ ["reaction","反応 ← react"],
+ ["hijack","乗っ取る（ハイジャック）"],
+ ["favourite","いちばん好きな ← favorite（英国綴り）"],
+ ["scarcity","不足（scarce の名詞。シス単は副詞 scarcely）"]
+];
+// C: [英語, シス単の訳（→ 本文での意味）]
+const SXC=[
+ ["cognitive","認知の"],
+ ["intuition","直感"],
+ ["artificial","人工の → artificial intelligence"],
+ ["inspire","奮起させる → （新しい考えを）生み出す"],
+ ["approach","取り組み、方法"],
+ ["reveal","明らかにする"],
+ ["principle","原理、原則"],
+ ["manipulate","操作する → 巧みに操る"],
+ ["technique","技術、技法"],
+ ["involve","伴う、含む"],
+ ["subtle","微妙な → さりげない"],
+ ["steer","操縦する → 決定を誘導する"],
+ ["expose","さらす → 浮き彫りにする"],
+ ["aware","気づいている"],
+ ["illusion","錯覚"],
+ ["claim","主張する"],
+ ["predict","予言する"],
+ ["specific","特定の"],
+ ["bias","偏見 → 偏り"],
+ ["prime","最も重要な → prime shelf space「棚の一等地」"],
+ ["shelf","棚"],
+ ["display","展示する → 陳列する"],
+ ["rational","理性的な"],
+ ["craft","巧みに作る"],
+ ["reasonable","理にかなった"],
+ ["except","～を除いて → Except —「ところが実は」"],
+ ["despite","～にもかかわらず"],
+ ["fascinate","夢中にさせる → fascinating「とても興味深い」"],
+ ["split","分裂する → 分かれた"],
+ ["influence","影響（を与える）"],
+ ["version","型、版"],
+ ["apply","当てはまる（apply to）"],
+ ["pure","純粋な → まったくの"],
+ ["trust","信頼する"],
+ ["clue","手がかり → have no clue「まったく気づかない」"],
+ ["force","強制する → forcing「フォース」（マジック用語）"],
+ ["bump","ぶつかる → bump up「引き上げる」"],
+ ["tap","軽くたたく → tap into「活用する」"],
+ ["mental","精神の、心の"],
+ ["decade","10年 → for decades「何十年も」"]
+];
+// D: [表現, 意味]
+const SXD=[
+ ["mind games","心理戦、駆け引き"],
+ ["turn A into B","AをBに変える"],
+ ["just for show","見せるためだけの"],
+ ["team up","協力する、手を組む"],
+ ["the gap between A and B","AとBの隔たり　※空所②"],
+ ["without us even noticing","私たちが気づきさえしないうちに"],
+ ["slip by unnoticed","気づかれずにすり抜ける"],
+ ["get O to do","Oに～させる　※下線部(1)"],
+ ["think of ~","～を思い浮かべる　※下線部(1)"],
+ ["account for ~","～を考慮に入れる"],
+ ["bump up ~","～を引き上げる"],
+ ["have no clue (that) ~","～にまったく気づかない　※空所③"],
+ ["apply to ~","～に当てはまる"],
+ ["do one's weekly shop","週の買い出しをする（英）"],
+ ["That is why ~","そういうわけで～"],
+ ["tap into ~","～を活用する、引き出す"],
+ ["catch up","追いつく"],
+ ["play on ~","～につけ込む"],
+ ["blind spot","盲点"],
+ ["out loud","声に出して"],
+ ["take part in ~","～に参加する"],
+ ["on average","平均して"],
+ ["feel in control","自分で主導権を握っていると感じる"],
+ ["blow one's mind","ひどく驚かせる"]
+];
+document.getElementById("sxstats").innerHTML=
+ `<div><b>2,055</b>シス単の収録語（単語2,027＋センター100の追加28）</div>
+  <div><b>約330</b>本文＋設問の異なり語（見出し語ベース）</div>
+  <div class="hit"><b>${SXA.length}</b>A 最優先で覚える</div>
+  <div><b>${SXB.length}</b>B 関連語・語の作りから推測</div>
+  <div><b>${SXC.length}</b>C シス単で復習</div>
+  <div><b>${SXD.length}</b>D 熟語・表現</div>`;
+document.getElementById("nA").textContent=SXA.length+"語";
+document.getElementById("nB").textContent=SXB.length+"語";
+document.getElementById("nC").textContent=SXC.length+"語";
+document.getElementById("nD").textContent=SXD.length+"表現";
+document.getElementById("sxA").innerHTML=SXA.map(e=>
+ `<div class="entry"><div class="hw"><span class="wd">${e[0]}</span>${e[1]?`<span class="alt">${e[1]}</span>`:""}<span class="pos">${e[2]}</span></div>
+  <div class="gl">${e[3]}</div><div class="ct">${e[4]}</div></div>`).join("");
+const flipHTML=(w,m)=>`<li><button class="flip" type="button" aria-pressed="false"><span class="f front">${w}</span><span class="f back">${m}</span></button></li>`;
+document.getElementById("deckB").innerHTML=SXB.map(e=>flipHTML(e[0],e[1])).join("");
+document.getElementById("deckC").innerHTML=SXC.map(e=>flipHTML(e[0],e[1])).join("");
+document.getElementById("sxD").innerHTML=SXD.map(e=>`<div class="idiom"><span>${e[0]}</span><small>${e[1]}</small></div>`).join("");
+document.querySelectorAll(".flip").forEach(b=>b.onclick=()=>
+ b.setAttribute("aria-pressed",b.getAttribute("aria-pressed")==="true"?"false":"true"));
+function flipAll(btn){
+ const cards=document.querySelectorAll("#"+btn.dataset.deck+" .flip");
+ const anyFront=[...cards].some(c=>c.getAttribute("aria-pressed")!=="true");
+ cards.forEach(c=>c.setAttribute("aria-pressed",anyFront?"true":"false"));
+ btn.textContent=anyFront?"すべて戻す":"すべてめくる";}
+
+/* ================= ③ 全訳データ（英文＋訳） ================= */
+// B(番号,答え) = 空所の答え／U(番号,文) = 下線部
+const B=(q,a)=>`<span class="bk sw2" data-q="( ${q} )" data-a="${a}">${a}</span>`;
+const U=(q,s)=>`<span class="ul"><span class="utag">${q}</span>${s}</span>`;
+const TL=[
+{p:"第1段落",ti:"マジシャンは心理戦の達人",items:[
+ [`Magicians have long been masters of mind games, turning our brain’s quirks and blind spots into moments of pure astonishment.`,
+  `マジシャンは昔から心理戦の達人であり、私たちの脳の癖や盲点を、純粋な驚きの瞬間へと変えてきた。`,
+  `turning 以下は分詞構文（付帯状況）。have long been ～「昔からずっと～である」`],
+ [`But magic isn’t just for show — it’s become a powerful tool in the cognitive science of unlocking the mind’s hidden limitations.`,
+  `しかし、マジックは見せ物にとどまらない。心に隠された限界を解き明かす認知科学において、強力な道具になっているのだ。`,
+  `it’s become＝it has become（現在完了）`]]},
+{p:"第2段落",ti:"本格的な研究分野になった「マジックの科学」",items:[
+ [`The science of magic has grown into a serious field of study, showing us how unreliable our intuitions and self-perceptions can be.`,
+  `マジックの科学は本格的な研究分野へと成長し、私たちの直感や自己認識がいかに当てにならないものになりうるかを示している。`],
+ [`However, a new study shows that magicians may be wrong about why their tricks work.`,
+  `ところが新しい研究によれば、マジシャンは、自分のトリックがなぜうまくいくのかについて誤解しているかもしれない。`,
+  `→ タイトルの「マジシャンがときに自分自身をだます」につながる伏線。第9段落以降で回収される`],
+ [`From psychology and artificial intelligence to education and mental health, magic is inspiring fresh approaches to some of today’s biggest ${B("①","challenges")}.`,
+  `心理学や人工知能から教育やメンタルヘルスに至るまで、マジックは、今日の最も大きな（<b>課題</b>）のいくつかに対して、新しい取り組み方を生み出している。`,
+  `approaches to challenges「課題への取り組み方」。challenge は「挑戦」より「（困難な）課題」の意味でよく使う`],
+ [`Today, scientists and magicians are teaming up, bringing sleight-of-hand into the lab to reveal surprising truths about how we think, see and behave.`,
+  `今日では科学者とマジシャンが手を組み、手先の早業を研究室に持ち込んで、私たちの考え方、ものの見方、ふるまい方について、驚くべき真実を明らかにしている。`]]},
+{p:"第3段落",ti:"ミスディレクションとフォース",items:[
+ [`For example, misdirection is a key conjuring principle used to manipulate what we see, and scientific research on misdirection shows just how easily our attention can be hijacked.`,
+  `たとえば、ミスディレクションは、私たちが目にするものを巧みに操るために使われる、手品の重要な原理である。ミスディレクションに関する科学研究は、私たちの注意がいかに簡単に乗っ取られてしまうかを示している。`,
+  `used to manipulate ... は principle を後ろから修飾する過去分詞（「～するために使われる原理」）。be used to ～ing「～に慣れている」ではない`],
+ [`Other techniques such as “forcing,” involve subtle ways to steer our decisions without us even noticing.`,
+  `「フォース」のような別の技法には、私たちが気づきさえしないうちに、さりげなく私たちの決定を誘導するやり方が含まれる。`,
+  `forcing（フォース）＝相手が自由に選んだと思っているカードを、実はマジシャンが選ばせている技法。us は動名詞 noticing の意味上の主語`],
+ [`These illusions expose the ${B("②","gap")} between what we think we’re aware of and what’s actually happening in our minds.`,
+  `こうした錯覚は、自分が意識していると思っていることと、実際に心の中で起きていることとの間の（<b>隔たり</b>）を浮き彫りにする。`,
+  `the gap between A and B「AとBの隔たり」。A＝what we think we’re aware of（意識していると思っていること）、B＝what’s actually happening（実際に起きていること）`]]},
+{p:"第4段落",ti:"ダレン・ブラウンの「予言カード」",items:[
+ [`Magicians are masters of mind control — using techniques like misdirection to guide your attention to one thing while something else slips by unnoticed.`,
+  `マジシャンは心を操る達人だ。ミスディレクションのような技法を使ってあなたの注意をあるものに向けさせ、その間に別の何かが気づかれないまま通り過ぎていくようにするのである。`],
+ [`Take English illusionist Derren Brown.`,
+  `イギリスのイリュージョニスト、ダレン・ブラウンを例に取ろう。`],
+ [`${U("(1)","He claims that, with the right mix of gestures and phrases, he can get you to think of a card he’s already predicted.")}`,
+  `<span class="ul">彼は、身ぶりと言葉を適切に組み合わせれば、自分がすでに予言しておいたカードを相手に思い浮かべさせることができると主張している。</span>`,
+  `設問1の和訳対象。with＋名詞＝条件「～があれば」、get O to do「Oに～させる」、a card (that) he’s already predicted（関係代名詞の省略。he’s＝he has）`]]},
+{p:"第5段落",ti:"成功率は約20%——偶然の10倍",items:[
+ [`According to research, it actually works.`,
+  `研究によれば、それは実際にうまくいく。`],
+ [`Not 100% of the time, but around 20%.`,
+  `いつもではないが、およそ20%の確率で。`,
+  `Not 100% of the time＝部分否定「いつも～というわけではない」`],
+ [`That might not sound like much, but consider this: the chance of randomly naming a specific card from a deck is less than 2%, and even lower if we account for biases (like people often picking the Ace of Spades).`,
+  `大したことはないように聞こえるかもしれないが、こう考えてみてほしい。トランプ一組の中から特定の1枚を当てずっぽうで言い当てる確率は2%未満であり、（多くの人がスペードのエースを選びがちだといった）偏りを考慮に入れれば、さらに低くなる。`,
+  `52枚から1枚を当てる確率は1/52≒1.9%。account for ～「～を考慮に入れる」`],
+ [`So, bumping that chance up tenfold is pretty impressive.`,
+  `だから、その確率を10倍に引き上げるというのは、かなり見事なことなのだ。`,
+  `2%未満 → 約20%＝およそ10倍（tenfold）`]]},
+{p:"第6段落",ti:"私たちの決定は、気づかないうちに左右されている",items:[
+ [`What does this tell us?`,
+  `このことから何がわかるだろうか。`],
+ [`That our decisions — what we choose, what we notice — are heavily influenced by what’s going on around us, even if we have no ${B("③","clue")} that it’s happening.`,
+  `それは、私たちの決定——何を選び、何に気づくか——は、たとえそれが起きていることに（<b>まったく気づいていなく</b>）ても、周りで起きていることに大きく左右されている、ということだ。`,
+  `That ～ は前の疑問への答え（It tells us that ～ の省略）。have no clue (that) ～「～にまったく気づかない、見当もつかない」`]]},
+{p:"第7段落",ti:"スーパーの「目の高さの棚」",items:[
+ [`And this doesn’t just apply to magic.`,
+  `しかもこれは、マジックだけに当てはまることではない。`],
+ [`For example, as you are doing your weekly shop, you might think you pick your favourite brand of toilet paper because it’s the best.`,
+  `たとえば、毎週の買い物をしているとき、あなたは、いちばん好きなブランドのトイレットペーパーを、それが最も良いから選んでいると思っているかもしれない。`,
+  `weekly shop（英）＝週1回のまとめ買い。favourite は英国綴り（米 favorite）`],
+ [`But research shows that people often choose whatever is placed in ${U("(2)","an eye-level position")}.`,
+  `しかし研究によれば、人は<span class="ul">目の高さの位置</span>に置かれているものを、何であれ選びがちなのだ。`,
+  `設問2：下線部(2)を言い換えた3語＝2文あとの prime shelf space`],
+ [`Supermarkets know this.`,
+  `スーパーマーケットはこのことを知っている。`],
+ [`That is why the most profitable products are displayed in prime shelf space — to gently (but powerfully) sway your choices.`,
+  `だからこそ、最も利益の上がる商品は棚の一等地に並べられているのだ。あなたの選択を、穏やかに（しかし強力に）左右するために。`,
+  `prime shelf space＝an eye-level position の言い換え（設問2の答え）`]]},
+{p:"第8段落",ti:"見えざる手",items:[
+ [`We love to believe we’re rational ${B("④","thinkers")}.`,
+  `私たちは、自分が理性的に（<b>考える人間</b>）だと信じたがる。`,
+  `rational thinkers「理性的に考える人」`],
+ [`But the truth is, we’re often guided by invisible hands — and not just the magician’s.`,
+  `だが実のところ、私たちはしばしば見えざる手に導かれている。それもマジシャンの手だけではない。`,
+  `the magician’s＝the magician’s hands。invisible hands は、経済学者アダム・スミスの「見えざる手」を思わせる言い回し`]]},
+{p:"第9段落",ti:"マジシャンの直観と思い込み",items:[
+ [`Magicians were tapping into the ${B("⑤","secrets")} of the human mind long before scientists caught up.`,
+  `マジシャンは、科学者が追いつくずっと前から、人間の心の（<b>秘密</b>）を活用していた。`,
+  `tap into ～「～を活用する、引き出す」`],
+ [`For decades, they’ve been using intuition to craft tricks that play perfectly on our mental blind spots.`,
+  `何十年もの間、彼らは直観を頼りに、私たちの心の盲点に見事につけこむトリックを作り上げてきた。`],
+ [`But even seasoned professionals can be fooled by their own assumptions.`,
+  `だが、熟練のプロでさえ、自分自身の思い込みにだまされることがある。`,
+  `ここから「マジシャンが自分をだます」2つの例が始まる`]]},
+{p:"第10段落",ti:"思い込み①：カードの名前を言うほうが自由？",items:[
+ [`Here’s a standout example: in the magic world, it’s commonly believed that if a spectator names a card out loud (like “Queen of Hearts”), that choice is freer and less influenced by a magician than if the spectator had physically picked a card from the deck the magician is holding.`,
+  `際立った例を挙げよう。マジックの世界では一般に、観客が（「ハートのクイーン」のように）カードの名前を声に出して言う場合のほうが、マジシャンが持っているトランプの束から観客が実際に手でカードを引いた場合よりも、その選択は自由で、マジシャンの影響を受けにくいと信じられている。`,
+  `比較の対象は「名前を言う場合」と「手で引いた場合」。the deck (that) the magician is holding（関係代名詞の省略）`],
+ [`Sounds reasonable, right?`,
+  `もっともらしく聞こえるだろう。`,
+  `(That) sounds reasonable の主語省略（口語的）`],
+ [`Except — it’s the ${B("⑥","opposite")}.`,
+  `ところが実は、（<b>正反対</b>）なのだ。`]]},
+{p:"第11段落",ti:"約140人への調査",items:[
+ [`In our recent study, we interviewed nearly 140 people after taking part in a magic trick where they either named or physically picked a card.`,
+  `私たちの最近の研究では、カードの名前を言うか、実際に手でカードを引くかのどちらかをするマジックに参加してもらったあとで、140人近くに聞き取りを行った。`,
+  `taking part の意味上の主語は we ではなく people（参加者）。文脈で判断する`],
+ [`On average, people felt more in control when they physically selected a card, and less influenced by the magician — despite what the magic community might expect.`,
+  `平均すると、人々は、実際に手でカードを選んだときのほうが「自分で選んでいる」と感じ、マジシャンの影響も受けていないと感じていた。マジック界の予想に反して、である。`]]},
+{p:"第12段落",ti:"頭より手を信頼する",items:[
+ [`These findings reveal something fascinating: our sense of control is split.`,
+  `この結果から、とても興味深いことがわかる。私たちの「自分でコントロールしている」という感覚は、二つに分かれているのだ。`],
+ [`We feel more ownership over our actions — what we do — than over our thoughts.`,
+  `私たちは、考えよりも、行動——自分がすること——のほうに、より強く「自分のものだ」という感覚をもつ。`],
+ [`In other words, ${B("a","we trust our hands more than our heads")}.`,
+  `言い換えれば、（<b>私たちは頭よりも手を信頼している</b>）のである。`,
+  `設問3：直前の actions（行動）＝hands、thoughts（考え）＝heads の言い換え`]]},
+{p:"第13段落",ti:"思い込み②：観客の手の中で起きるほうが驚く？",items:[
+ [`But it doesn’t stop there.`,
+  `だが、話はそれで終わらない。`],
+ [`Another long-held ${B("⑦","belief")} among magicians is that a trick feels more impossible and impressive — and creates a stronger emotional punch — when it happens in the spectator’s hands.`,
+  `マジシャンの間で長年抱かれてきたもう一つの（<b>考え</b>）は、トリックが観客の手の中で起きるときのほうが、より不可能で見事に感じられ、心に響く衝撃も強くなる、というものだ。`,
+  `Another は第10段落の「一般に信じられている」考え（思い込み①）を受ける。long-held belief「長年の考え」`]]},
+{p:"第14段落",ti:"手の中か、箱の下か",items:[
+ [`Think about it: if a card magically swaps places with another while you’re holding them that should blow your mind more than if the same trick happens, say, under a box on the table.`,
+  `考えてみてほしい。あなたがカードを手に持っている間に、1枚のカードが魔法のように別のカードと入れ替わったら、同じトリックが、たとえばテーブルの上の箱の下で起きた場合よりも、ずっと驚くはずだ。`,
+  `that should ～ の that は if 節の内容を受ける。say＝「たとえば」の挿入。マジシャンの思い込みを読者の立場で言い直した文`]]},
+{p:"第15段落",ti:"実験の方法",items:[
+ [`Surprisingly, that’s not ${U("(3)","what the research shows")}.`,
+  `驚いたことに、<span class="ul">研究が示していること</span>はそうではない。`,
+  `設問4：that＝「手の中で起きるほうが驚く」というマジシャンの考え。研究が実際に示したのは第16段落の結果`],
+ [`In our study, participants were shown two versions of the same trick — in one version, a freely selected card changed in the hands of the participant, while in the other version, the card changed underneath a box.`,
+  `私たちの研究では、参加者に同じトリックの二つのバージョンを見せた。一方では、自由に選ばれたカードが参加者の手の中で変わり、もう一方では、カードが箱の下で変わった。`,
+  `in one version ..., while in the other version ...「一方では…、もう一方では…」`]]},
+{p:"第16段落",ti:"結果：驚きは同じだった",items:[
+ [`We found that people’s reactions to this kind of trick didn’t significantly change based on where it happened.`,
+  `その結果、この種のトリックに対する人々の反応は、それがどこで起きたかによって大きく変わることはなかった。`,
+  `significantly＝統計的に「有意に」。based on where it happened「どこで起きたかによって」`],
+ [`Whether the cards swapped places in their hands or under a box, their sense of amazement was the same.`,
+  `カードが手の中で入れ替わろうと、箱の下で入れ替わろうと、驚きの感覚は同じだったのだ。`,
+  `whether A or B「AであろうとBであろうと」（譲歩）`]]}
+];
+document.getElementById("tlbody").innerHTML=TL.map(t=>
+ `<div class="para">
+   <div class="pt2"><span class="pno">${t.p}</span><span class="pti">${t.ti}</span></div>
+   <div class="sents">${t.items.map(s=>`<div class="sent">
+     <div class="en2">${s[0]}</div><div class="jp">${s[1]}</div>${s[2]?`<div class="tnote">${s[2]}</div>`:""}</div>`).join("")}</div>
+ </div>`).join("");
+document.getElementById("tlbody").onclick=e=>{
+ const s=e.target.closest(".sent");if(s)s.classList.toggle("peek");};
+
+let jpHidden=false,enHidden=false,ansHidden=false,twoCol=false;
+function clearPeek(){document.querySelectorAll("#tlbody .peek").forEach(s=>s.classList.remove("peek"));}
+function toggleJP(){jpHidden=!jpHidden;clearPeek();
+ document.getElementById("tlbody").classList.toggle("tlhide",jpHidden);
+ document.getElementById("btnJP").textContent=jpHidden?"訳を表示":"訳を隠す";}
+function toggleEN(){enHidden=!enHidden;clearPeek();
+ document.getElementById("tlbody").classList.toggle("enhide",enHidden);
+ document.getElementById("btnEN").textContent=enHidden?"英文を表示":"英文を隠す";}
+function toggleANS(){ansHidden=!ansHidden;
+ document.querySelectorAll("#tlbody .sw2").forEach(e=>{
+  e.textContent=ansHidden?e.dataset.q:e.dataset.a;
+  e.classList.toggle("blank",ansHidden);});
+ document.getElementById("btnANS").textContent=ansHidden?"空所の答えを表示":"空所の答えを隠す";}
+function toggleCOL(){twoCol=!twoCol;
+ document.getElementById("tlbody").classList.toggle("tl2",twoCol);
+ document.getElementById("btnCOL").textContent=twoCol?"上下に並べて表示":"左右2段で表示";}
+
+/* ================= ④ 設問データ ================= */
+const QS=[
+ {no:"設問 1（下線部(1)・和訳）",
+  ja:"下線部(1)を日本語に訳しなさい。",
+  ans:`<p class="en" style="font-size:.95rem">He claims that, with the right mix of gestures and phrases, he can get you to think of a card he’s already predicted.</p>
+  <p><span class="k">解答例：彼は、身ぶりと言葉を適切に組み合わせれば、自分がすでに予言しておいたカードを相手に思い浮かべさせることができると主張している。</span></p>
+  <p><b>ポイント</b></p>
+  <ul class="steps">
+   <li><b>He claims that ～</b>：「～と主張している」。claim は「（根拠がなくても）言い張る」含みのある語。「要求する」と訳さない。</li>
+   <li><b>with the right mix of gestures and phrases</b>：with＋名詞が<b>条件</b>を表す（～があれば）。the right mix＝ちょうどよい組み合わせ。phrases は「言い回し、言葉」。</li>
+   <li><b>get you to think of ～</b>：get O to do「Oに～させる」（説得や働きかけで）。think of ～「～を思い浮かべる」。</li>
+   <li><b>you</b>：一般の人・観客を指す総称の you。「あなたに」でも「相手に」「人に」でもよい。</li>
+   <li><b>a card he’s already predicted</b>：card のあとに関係代名詞 that（which）が省略されている。he’s＝he <b>has</b>（現在完了）。he is と読まないこと。</li>
+  </ul>`},
+ {no:"設問 2（下線部(2)・言い換えの抜き出し）",
+  ja:"下線部(2)を言い換えた3語の表現を本文から抜き出しなさい。",
+  ans:`<p><span class="k">正解：prime shelf space</span></p>
+  <p>下線部(2) <i>an eye-level position</i>（目の高さの位置）のすぐあとに <i>Supermarkets know this. That is why the most profitable products are displayed in <b>prime shelf space</b></i>（だからこそ最ももうかる商品は棚の一等地に並べられる）と続く。人が選びやすい「目の高さ」こそが、スーパーにとっての「棚の一等地」。</p>
+  <p>prime はシス単にある語で「最も重要な、主要な」。shelf＝棚、space＝場所。3語ちょうどで、名詞のかたまりになっていることも確認する。</p>`},
+ {no:"設問 3（空欄 a・英文の選択）",
+  ja:"空欄 a に入る最も適切な英文を選択肢から選び、記号で答えなさい。",
+  ch:[["(A)","our heads play a more important role than our hands","私たちの頭は、手よりも重要な役割を果たしている"],
+      ["(B)","our sense of control has nothing to do with magic","私たちの主体感は、マジックとは何の関係もない"],
+      ["(C)","we are no longer surprised by magic","私たちはもはやマジックに驚かない"],
+      ["(D)","we trust our hands more than our heads","私たちは、頭よりも手を信頼している",1]],
+  ans:`<p><span class="k">正解：(D)</span></p>
+  <p>直前の <i>We feel more ownership over our <b>actions</b> — what we do — than over our <b>thoughts</b>.</i>（考えよりも行動のほうに「自分のもの」という感覚をもつ）を、<b>In other words</b>（言い換えれば）で言い直す。actions（行動）→ <b>hands</b>、thoughts（考え）→ <b>heads</b> と置き換えたのが (D)。実験でも、手でカードを引いた人のほうが「自分で選んだ」と感じていた。</p>
+  <p><b>✕ (A)</b> 頭と手の重要度が逆。<b>✕ (B)</b> 主体感はマジックの実験そのもののテーマなので矛盾。<b>✕ (C)</b> 驚きについては述べていない。</p>`},
+ {no:"設問 4（下線部(3)・30〜40字の説明）",
+  ja:"下線部(3)はどのような実験結果を指すか、本文の内容に即して30字から40字（句読点も含む）の日本語で説明しなさい。",
+  ans:`<p><span class="k">解答例：カードが観客の手の中で変わっても箱の下で変わっても、驚きの大きさは同じだった。</span>（39字）</p>
+  <p><b>根拠</b>：下線部(3)を含む文は <i>Surprisingly, that’s not what the research shows.</i>（驚いたことに、研究が示していることはそうではない）。that は直前の「トリックが観客の手の中で起きるほうが驚く」というマジシャンの考え。研究が実際に示したことは、続く2つの段落にある。</p>
+  <ul class="steps">
+   <li>実験：同じトリックを、①カードが参加者の手の中で変わる版と、②箱の下で変わる版の二通りで見せた。</li>
+   <li>結果：<i>people’s reactions ... didn’t significantly change based on where it happened. ... their sense of amazement was the same.</i>（どこで起きても反応は大きく変わらず、驚きは同じだった）</li>
+  </ul>
+  <div class="model"><b>ほかの解答例</b>
+  <p>観客の手の中でも箱の下でも、カードが変わるトリックへの驚きは同じだった。（36字）</p></div>
+  <p class="note" style="font-size:.8rem;color:var(--sub)">採点の観点：「どこで起きても（手の中／箱の下）」と「驚きは変わらない（同じ）」の両方が入っているか。字数は句読点を含めて30〜40字。「手の中のほうが驚く」と逆に書くのは誤り。</p>`},
+ {no:"設問 5（空所①〜⑦・語の選択）",
+  ja:"（①）〜（⑦）に入る最も適切な語を選び、記号で答えなさい。ただし、各記号は1回しか使用できない。",
+  words:[["(A) belief","考え、信念",1],["(B) challenges","課題",1],["(C) clue","手がかり",1],
+         ["(D) gap","隔たり",1],["(E) means","手段",0],["(F) opposite","正反対",1],
+         ["(G) scarcity","不足",0],["(H) secrets","秘密",1],["(I) thinkers","考える人",1]],
+  ans:`<p><span class="k">正解：① (B) challenges　② (D) gap　③ (C) clue　④ (I) thinkers　⑤ (H) secrets　⑥ (F) opposite　⑦ (A) belief</span>（不使用：E means・G scarcity）</p>
+  <p><b>①</b> <i>fresh approaches to some of today’s biggest ( challenges )</i>「今日の最大級の課題への新しい取り組み方」。心理学・AI・教育・メンタルヘルスといった分野の「課題」。approaches to challenges は定番の組み合わせ。secrets を入れたくなるが、「新しい取り組み方」の対象になるのは「課題」。secrets は⑤で使う。</p>
+  <p><b>②</b> <i>expose the ( gap ) between A and B</i>「AとBの隔たりを浮き彫りにする」。<b>between A and B と結びつくのは gap</b>。means は「手段」で、between とは組まない（means of ～ の形をとる）。</p>
+  <p><b>③</b> <i>even if we have no ( clue ) that it’s happening</i>。<b>have no clue (that) ～</b>「～にまったく気づかない、見当もつかない」の定型。</p>
+  <p><b>④</b> <i>We love to believe we’re rational ( thinkers ).</i>「自分は理性的に考える人間だと信じたがる」。形容詞 rational のあとに入る名詞。</p>
+  <p><b>⑤</b> <i>Magicians were tapping into the ( secrets ) of the human mind</i>「人間の心の秘密を活用していた」。belief を入れたくなるが、belief は⑦の long-held belief（長年の考え）とセットで使う。</p>
+  <p><b>⑥</b> <i>Sounds reasonable, right? Except — it’s the ( opposite ).</i>「もっともらしいが、実は正反対だ」。次の段落で、手で引いたほうが「自分で選んだ」と感じるという<b>逆の結果</b>が示される。scarcity（不足）では意味が通らない。</p>
+  <p><b>⑦</b> <i>Another long-held ( belief ) among magicians is that ～</i>「マジシャンの間で長年抱かれてきたもう一つの考えは～」。<b>Another</b> は第10段落の <i>it’s commonly believed that ～</i>（一般に信じられていること）を受けるので、⑦も「考え・信念」。long-held belief はよく使う組み合わせ。gap は②で使う。</p>`}
+];
+document.getElementById("qbody").innerHTML=QS.map(q=>{
+ let inner=`<div class="qbox"><span class="qno">${q.no}</span><div class="qja">${q.ja}</div>`;
+ if(q.words){
+  inner+=`<div class="wl">`+q.words.map(w=>
+   `<div class="${w[2]?"used":""}"><b>${w[0]}</b><br><span style="font-size:.78rem;color:var(--sub)">${w[1]}</span></div>`).join("")+`</div>`;
+ }
+ if(q.ch){
+  inner+=q.ch.map(c=>`<div class="ch${c[3]?" ok":""}"><b>${c[0]}</b><span><span style="font-style:italic;color:#334155">${esc(c[1])}</span><br><span class="cja">${c[2]}</span></span></div>`).join("");
+ }
+ inner+=`<div class="ans hid"><div class="hd">解答・解説（タップで表示）</div><div class="body">${q.ans}</div></div></div>`;
+ return inner;}).join("");
+document.querySelectorAll(".ans").forEach(a=>a.onclick=()=>{
+ a.classList.toggle("hid");
+ a.closest(".qbox").classList.toggle("reveal",!a.classList.contains("hid"));});
+
+/* ================= タブ ================= */
+function setTab(t){
+ ["vocab","sx","tl","q"].forEach(k=>{
+  document.getElementById("tab-"+k).classList.toggle("hide",k!==t);
+  document.getElementById("tb-"+k).classList.toggle("on",k===t);});
+ window.scrollTo({top:0,behavior:"smooth"});}
+
+render();
+</script>
+</body>
+</html>
