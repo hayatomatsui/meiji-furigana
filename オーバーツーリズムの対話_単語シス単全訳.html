@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>大問Ⅲ｜オーバーツーリズムの対話 — 単語・シス単未収録語・全訳・設問</title>
+<style>
+:root{
+  --g3:#4CAF50; --g3p:#8BC34A; --g2:#03A9F4; --g2p:#7E57C2; --g1:#E91E63; --gx:#F44336;
+  --tw:#ff6a3d; --ti:#1668c7;
+  --bg:#f4f6fb; --card:#fff; --ink:#1b2233; --sub:#6b7590;
+  --ac:#15803d; --yk:#be123c; --mk:#1d4ed8;
+  --sxa:#dc2626; --sxb:#d97706; --sxc:#0f766e; --sxd:#475569;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+  background:var(--bg);color:var(--ink);padding:18px;line-height:1.65}
+.wrap{max-width:1180px;margin:0 auto}
+header{background:linear-gradient(135deg,#052e16,#166534 52%,#b91c1c);color:#fff;
+  border-radius:18px;padding:26px 24px 18px;margin-bottom:16px;box-shadow:0 8px 26px rgba(22,101,52,.3)}
+header h1{font-size:1.34rem;margin-bottom:6px}
+header p{opacity:.94;font-size:.87rem}
+header a{color:#fde68a;font-weight:700}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:15px}
+.stat{background:rgba(255,255,255,.2);border-radius:12px;padding:8px 14px;font-size:.8rem}
+.stat b{font-size:1.15rem;display:block}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.tabs button{background:rgba(255,255,255,.18);color:#fff;box-shadow:none;padding:9px 16px}
+.tabs button.on{background:#fff;color:#166534}
+h2{font-size:1.03rem;margin:24px 0 10px;padding-left:12px;border-left:5px solid var(--ac)}
+h3{font-size:.95rem;margin:16px 0 8px}
+p.lead{font-size:.86rem;color:var(--sub);margin-bottom:10px}
+
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 14px}
+.lbl{font-size:.72rem;color:var(--sub);font-weight:700;margin-right:2px}
+button{font-family:inherit;cursor:pointer;border:none;border-radius:999px;padding:8px 15px;
+  font-size:.82rem;font-weight:700;transition:.15s;background:#fff;color:var(--sub);
+  box-shadow:0 2px 6px rgba(0,0,0,.08)}
+button:hover{transform:translateY(-1px)}
+button.on{background:#1b2233;color:#fff}
+.util{background:#dcfce7;color:#166534}
+.sw{display:inline-flex;background:#fff;border-radius:999px;padding:4px;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.sw button{box-shadow:none;padding:8px 18px}
+.sw button.on{background:linear-gradient(135deg,#15803d,#166534);color:#fff}
+.spacer{flex:1}
+
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;
+  box-shadow:0 2px 10px rgba(0,0,0,.07)}
+th,td{padding:10px 13px;text-align:left;border-bottom:1px solid #eef1f6;font-size:.87rem;vertical-align:top}
+th{background:#1b2233;color:#fff;font-size:.76rem;letter-spacing:.04em}
+tbody tr:nth-child(even){background:#fafbfe}
+tbody tr:hover{background:#f0fdf4}
+tbody tr.done{opacity:.4}
+td.ph{font-weight:700}
+td.mn{cursor:pointer}
+tr.hid td.mn,tr.hid td.exc{filter:blur(5px);opacity:.5}
+td.exc{color:#5c6580;font-style:italic;font-size:.79rem}
+td.ln{color:#aab2c4;font-size:.75rem;white-space:nowrap}
+.mark{cursor:pointer;color:#c9cfdd;font-weight:800;user-select:none}
+tr.done .mark{color:#4CAF50}
+.bar{height:9px;border-radius:5px;display:inline-block;vertical-align:middle;margin-right:8px}
+.sumtbl td,.sumtbl th{font-size:.85rem}
+.tblwrap{overflow-x:auto}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:12px}
+.card{background:var(--card);border-radius:14px;padding:14px 16px;cursor:pointer;
+  box-shadow:0 2px 8px rgba(0,0,0,.07);border-left:6px solid #ccc;transition:.18s;
+  position:relative;user-select:none}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.12)}
+.card.done{opacity:.42}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.phrase{font-size:1.05rem;font-weight:700}
+.badge{font-size:.65rem;font-weight:800;color:#fff;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.tag{font-size:.63rem;font-weight:800;padding:2px 8px;border-radius:999px;color:#fff;white-space:nowrap}
+.tag.w{background:var(--tw)} .tag.i{background:var(--ti)}
+.tag.sa{background:var(--sxa)} .tag.sb{background:var(--sxb)}
+.meaning{margin-top:9px;padding-top:9px;border-top:1px dashed #dde2ec;font-size:.92rem}
+.ex{margin-top:7px;font-size:.77rem;color:#5c6580;font-style:italic}
+.hidden .meaning,.hidden .ex{filter:blur(6px);opacity:.5}
+.hint{font-size:.66rem;color:#b9c0d0;margin-top:6px}
+.line{font-size:.67rem;color:#aab2c4;margin-top:3px}
+.check{position:absolute;top:8px;right:10px;font-size:.66rem;color:#4CAF50;display:none;font-weight:800}
+.card.done .check{display:block}
+.hide{display:none}
+
+/* ---- ② シス単 ---- */
+.sxstats{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px;margin:8px 0 6px}
+.sxstats div{background:#fff;border-radius:12px;padding:10px 14px;box-shadow:0 2px 8px rgba(0,0,0,.06);
+  font-size:.74rem;color:var(--sub);line-height:1.5}
+.sxstats b{display:block;font-size:1.35rem;color:var(--ink);line-height:1.3}
+.sxstats .hit b{color:var(--sxa)}
+.tierhead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:28px 0 12px;
+  padding-bottom:8px;border-bottom:2px solid #e5e7eb}
+.tierhead .tl{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;
+  font-weight:800;color:#fff;background:var(--tc);flex:none}
+.tierhead h3{margin:0;font-size:.98rem}
+.tierhead .tn{font-size:.75rem;color:var(--sub)}
+.tierhead .util{margin-left:auto}
+#tierA{--tc:var(--sxa)} #tierB{--tc:var(--sxb);--tw2:#fffbeb} #tierC{--tc:var(--sxc);--tw2:#f0fdfa} #tierD{--tc:var(--sxd)}
+.entries{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+.entry{background:#fff;border-radius:14px;padding:13px 16px;box-shadow:0 2px 8px rgba(0,0,0,.06);
+  border-left:6px solid var(--sxa)}
+.entry .hw{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.entry .wd{font-size:1.2rem;font-weight:800;font-family:Georgia,"Times New Roman",serif}
+.entry .alt{font-size:.92rem;color:var(--sub);font-weight:600;font-family:Georgia,serif}
+.entry .pos{font-size:.66rem;font-weight:800;padding:2px 8px;border-radius:999px;background:#fee2e2;color:#b91c1c}
+.entry .gl{margin-top:6px;font-size:.9rem}
+.entry .ct{margin-top:6px;font-size:.78rem;color:var(--sub)}
+.entry .ct em{font-family:Georgia,serif;color:#334155}
+.deckhint{font-size:.76rem;color:var(--sub);margin-bottom:9px}
+.deck{display:flex;flex-wrap:wrap;gap:8px;list-style:none}
+.deck li{display:flex}
+button.flip{display:inline-grid;padding:0;background:none;box-shadow:none;border-radius:10px;perspective:700px}
+button.flip:hover{transform:none}
+.flip .f{grid-area:1/1;display:flex;align-items:center;justify-content:center;gap:6px;text-align:center;
+  padding:7px 14px;min-height:40px;border-radius:10px;background:#fff;border:1px solid #e5e7eb;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;transition:transform .42s cubic-bezier(.2,.75,.3,1)}
+.flip .front{font-family:Georgia,"Times New Roman",serif;font-size:1rem;color:var(--ink);border-bottom:3px solid var(--tc)}
+.flip .back{font-size:.82rem;color:var(--tc);background:var(--tw2);border-color:var(--tc);transform:rotateY(180deg)}
+.flip[aria-pressed="true"] .front{transform:rotateY(180deg)}
+.flip[aria-pressed="true"] .back{transform:rotateY(360deg)}
+.flip:focus-visible .f{outline:2px solid var(--tc);outline-offset:2px}
+.idioms{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px}
+.idiom{background:#fff;border-radius:12px;padding:10px 14px;box-shadow:0 2px 6px rgba(0,0,0,.05);
+  border-left:4px solid var(--sxd)}
+.idiom span{display:block;font-family:Georgia,"Times New Roman",serif;font-size:1rem;font-weight:700}
+.idiom small{font-size:.8rem;color:var(--sub)}
+.caveat{margin-top:14px;font-size:.85rem;background:#fef2f2;border-left:4px solid var(--sxa);
+  border-radius:0 10px 10px 0;padding:10px 14px}
+.caveat b{color:#b91c1c}
+.method{margin-top:24px;font-size:.78rem;color:var(--sub);background:#fff;border-radius:12px;
+  padding:12px 15px;border:1px dashed #cbd5e1}
+.method p+p{margin-top:6px}
+
+/* ---- ③ 全訳 ---- */
+.mapbox{background:#fff;border-radius:15px;padding:16px 18px;box-shadow:0 2px 9px rgba(0,0,0,.06);margin-bottom:14px}
+.mapbox ol{margin-left:19px;font-size:.89rem}
+.mapbox li{margin-bottom:5px}
+.mapbox li b{color:#166534}
+.turn{background:#fff;border-radius:14px;padding:13px 16px;box-shadow:0 2px 9px rgba(0,0,0,.06);
+  margin-bottom:9px;border-left:6px solid #cbd5e1}
+.turn.yuki{border-left-color:var(--yk);background:#fffafb}
+.turn.mike{border-left-color:var(--mk)}
+.turn.intro{border-left-color:#64748b;background:#f8fafc}
+.spk{font-size:.72rem;font-weight:800;color:#fff;padding:3px 11px;border-radius:999px;background:#64748b}
+.turn.yuki .spk{background:var(--yk)} .turn.mike .spk{background:var(--mk)}
+.role{font-size:.68rem;color:var(--sub);margin-left:8px}
+.sents{margin-top:6px}
+.sent{padding:8px 0;border-top:1px solid #f1f5f9;cursor:pointer}
+.sent:first-child{border-top:none}
+.en2{font-size:.9rem;color:#1e293b;line-height:1.85;padding-left:11px;border-left:3px solid #cbd5e1}
+.turn.yuki .en2{border-left-color:#fecdd3}
+.turn.mike .en2{border-left-color:#bfdbfe}
+.jp{margin-top:6px;font-size:.93rem;padding-left:11px;border-left:3px solid #e8ecf3}
+.tnote{margin-top:7px;font-size:.78rem;color:#14532d;background:#f0fdf4;border-radius:8px;padding:6px 10px}
+.tnote::before{content:"メモ";font-size:.62rem;font-weight:800;color:#fff;background:#15803d;
+  padding:1px 7px;border-radius:999px;margin-right:6px;vertical-align:1px}
+.ul{background:linear-gradient(transparent 62%,#fde68a 62%);font-weight:700}
+.utag{font-size:.62rem;font-weight:800;color:#fff;background:#d97706;padding:1px 6px;
+  border-radius:999px;margin-right:4px;vertical-align:middle}
+.tlhide .jp,.tlhide .tnote{filter:blur(6px)}
+.enhide .en2{filter:blur(6px)}
+.tlhide .sent.peek .jp,.tlhide .sent.peek .tnote,.enhide .sent.peek .en2{filter:none}
+#tlbody.tl2 .sent{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+#tlbody.tl2 .sent .jp{margin-top:0}
+#tlbody.tl2 .sent .tnote{grid-column:1/-1;margin-top:0}
+@media(max-width:860px){#tlbody.tl2 .sent{grid-template-columns:1fr;gap:0}
+  #tlbody.tl2 .sent .jp{margin-top:6px}#tlbody.tl2 .sent .tnote{margin-top:7px}}
+
+/* ---- ④ 設問 ---- */
+.stance th:nth-child(2){background:var(--yk)} .stance th:nth-child(3){background:var(--mk)}
+.stance td:first-child{font-weight:800;white-space:nowrap;color:#334155}
+.qbox{background:#fff;border-radius:16px;padding:17px 19px;box-shadow:0 2px 10px rgba(0,0,0,.07);margin-bottom:13px}
+.qno{display:inline-block;font-size:.7rem;font-weight:800;color:#fff;background:#1b2233;
+  padding:3px 11px;border-radius:999px;margin-bottom:9px}
+.qen{font-size:.84rem;color:#475569;font-style:italic;padding-left:11px;border-left:3px solid #e2e8f0;margin-bottom:8px}
+.qja{font-size:.93rem;font-weight:600;margin-bottom:10px}
+.ch{border:2px solid #eef1f6;border-radius:10px;padding:9px 13px;margin-bottom:7px;font-size:.87rem;
+  display:flex;gap:10px;align-items:flex-start}
+.ch b{color:#1b2233;flex-shrink:0}
+.ch .cja{color:#475569}
+.qbox.reveal .ch.ok{border-color:#16a34a;background:#f0fdf4}
+.qbox.reveal .ch.ok b::after{content:" ✓";color:#16a34a}
+.ans{margin-top:11px;background:#f1f5f9;border-radius:12px;padding:12px 15px;font-size:.88rem;cursor:pointer}
+.ans.hid .body{filter:blur(6px)}
+.ans .hd{font-size:.7rem;font-weight:800;color:#15803d;letter-spacing:.05em;margin-bottom:7px}
+.ans .body p+p{margin-top:7px}
+.ans .k{font-weight:800;color:#166534}
+.model{background:#eef6ff;border-radius:12px;padding:12px 15px;margin-top:9px;font-size:.87rem}
+.model p{margin-top:6px}
+.model .en{font-style:italic;color:#1e3a8a;font-family:Georgia,"Times New Roman",serif;font-size:.93rem}
+.model .wc{font-size:.72rem;color:var(--sub);font-weight:800;font-style:normal;font-family:inherit}
+.model .wb{font-size:.76rem;color:var(--sub)}
+.note{font-size:.8rem;color:var(--sub);margin-top:8px}
+.wcbox{margin:4px 0 2px;background:#f0fdf4;border:2px dashed #86efac;border-radius:12px;padding:12px 14px}
+.wcbox label{display:block;font-size:.84rem;margin-bottom:7px}
+.wcbox textarea{width:100%;font:inherit;font-size:.92rem;line-height:1.6;padding:10px 12px;border:1px solid #cbd5e1;
+  border-radius:10px;resize:vertical;background:#fff;color:var(--ink)}
+.wcout{margin-top:7px;font-size:.88rem;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.wcout b{font-size:1.35rem}
+.wcmsg{font-size:.8rem;font-weight:700;color:var(--sub)}
+.wcmsg.wcok{color:#15803d} .wcmsg.wcng{color:#b91c1c}
+@media(max-width:640px){body{padding:12px}th,td{padding:8px 9px;font-size:.79rem}td.exc,th.exc{display:none}
+  header h1{font-size:1.06rem}.qbox,.turn{padding:13px 14px}.entries{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>大問Ⅲ — オーバーツーリズムをめぐる対話：ユキとマイク</h1>
+  <p>学校の課題研究でオーバーツーリズム（観光公害）を調べるユキと、カナダから来た友人マイクの対話文（p.9〜12）。①難語リスト ②システム英単語に載っていない語 ③英文＋全訳（対訳） ④設問の全訳と解答解説（英作文の解答例・語数カウンターつき） の4タブ構成です。<a href="心理的豊かさ_Oishi_単語シス単全訳_WhatIf.html">→ 大問Ⅰ（心理的豊かさ）</a>／<a href="マジックと脳_Wincza_Kuhn_単語シス単全訳.html">→ 大問Ⅱ（マジックと脳）</a></p>
+  <div class="stats">
+    <div class="stat"><b id="total">0</b>総項目</div>
+    <div class="stat"><b id="nw">0</b>単語</div>
+    <div class="stat"><b id="ni">0</b>熟語・構文</div>
+    <div class="stat"><b id="nsx">0</b>シス単外</div>
+    <div class="stat"><b id="shown">0</b>表示中</div>
+    <div class="stat"><b id="doneN">0</b>覚えた</div>
+  </div>
+  <div class="tabs">
+    <button id="tb-vocab" class="on" onclick="setTab('vocab')">① 難単語・熟語</button>
+    <button id="tb-sx" onclick="setTab('sx')">② シス単にない語</button>
+    <button id="tb-tl" onclick="setTab('tl')">③ 英文＋全訳</button>
+    <button id="tb-q" onclick="setTab('q')">④ 設問 全訳＋解答</button>
+  </div>
+</header>
+
+<!-- ============ ① 単語・熟語 ============ -->
+<section id="tab-vocab">
+
+<h2>レベル別分布（単語 / 熟語 内訳つき）</h2>
+<div class="tblwrap">
+<table class="sumtbl"><thead><tr><th>英検レベル</th><th>合計</th><th>単語</th><th>熟語</th><th>割合</th><th>目安</th></tr></thead>
+<tbody id="sumbody"></tbody></table>
+</div>
+
+<div class="controls" style="margin-top:22px">
+  <span class="sw"><button id="bCard" class="on" onclick="setView('card')">カード形式</button><button id="bTable" onclick="setView('table')">表形式</button></span>
+  <span class="spacer"></span>
+  <span class="sw"><button id="tAll" class="on" onclick="setType('all')">単語＋熟語</button><button id="tW" onclick="setType('単語')">単語のみ</button><button id="tI" onclick="setType('熟語')">熟語のみ</button></span>
+</div>
+
+<div class="controls"><span class="lbl">レベル</span><span id="filters" style="display:contents"></span></div>
+<div class="controls"><span class="lbl">箇所</span><span id="pfilters" style="display:contents"></span></div>
+<div class="controls"><span class="lbl">シス単</span>
+  <span class="sw"><button id="sAll" class="on" onclick="setSx('all')">すべて</button><button id="sOut" onclick="setSx('out')">シス単に載っていない語だけ</button></span>
+</div>
+<div class="controls">
+  <button class="util" onclick="allHide()">すべて隠す</button>
+  <button class="util" onclick="allShow()">すべて表示</button>
+  <button class="util" onclick="shuffle()">シャッフル</button>
+  <button class="util" onclick="resetOrder()">本文順に戻す</button>
+  <button class="util" onclick="resetDone()">「覚えた」リセット</button>
+  <span class="spacer"></span>
+  <button class="util" id="hideDoneBtn" onclick="toggleDoneFilter()">覚えた項目を隠す</button>
+</div>
+
+<div id="cardView"><div class="grid" id="grid"></div></div>
+<div id="tableView" class="hide tblwrap">
+  <table><thead><tr><th style="width:30px"></th><th style="width:46px">種類</th><th>語句</th><th>意味</th><th class="exc">本文での使われ方</th><th>レベル</th><th>箇所</th><th>シス単</th></tr></thead>
+  <tbody id="tbody"></tbody></table>
+</div>
+</section>
+
+<!-- ============ ② シス単にない語 ============ -->
+<section id="tab-sx" class="hide">
+<h2>システム英単語では出会わない語</h2>
+<p class="lead">本文＋設問の語彙を、システム英単語（5訂版）の Anki デッキと機械照合して4段階に分けました。<b>A だけは必ずカード化</b>、B は語の作りやシス単の関連語から推測する練習用、C はシス単の復習範囲です。判定方法はページ末尾を見てください。</p>
+<div class="sxstats" id="sxstats"></div>
+
+<div id="tierA">
+  <div class="tierhead"><span class="tl">A</span><h3>シス単にない難語 — 意味を知らないと読めない（最優先）</h3><span class="tn" id="nA"></span></div>
+  <div class="entries" id="sxA"></div>
+</div>
+
+<div id="tierB">
+  <div class="tierhead"><span class="tl">B</span><h3>シス単にないが、シス単の関連語・語の作り・カタカナ語から推測できる語</h3><span class="tn" id="nB"></span>
+    <button class="util" type="button" data-deck="deckB" onclick="flipAll(this)">すべてめくる</button></div>
+  <p class="deckhint">タップで裏返ります（英語 → 意味）。「←」の右側がシス単にある関連語です。</p>
+  <ul class="deck" id="deckB"></ul>
+</div>
+
+<div id="tierC">
+  <div class="tierhead"><span class="tl">C</span><h3>シス単に載っている語 — 復習範囲</h3><span class="tn" id="nC"></span>
+    <button class="util" type="button" data-deck="deckC" onclick="flipAll(this)">すべてめくる</button></div>
+  <p class="deckhint">英語だけ見て意味を言えるか確認。裏面の「→」は、シス単の訳と本文での意味がずれる語です。</p>
+  <ul class="deck" id="deckC"></ul>
+  <p class="caveat">落とし穴 — シス単で覚えた訳のままだと誤読する語：<b>stress</b>（強調する → stressed「ストレスを感じた」）／<b>sign</b>（印、兆候 → signs at airports「空港の掲示・案内板」）／<b>custom</b>（習慣、税関 → local customs は「習慣」。空港の話の直後でも「税関」ではない）／<b>tough</b>（たくましい → a tough choice「難しい選択」）／<b>approach</b>（接近する → approach people kindly「人に親切に接する」）／<b>respond</b>（返答する → respond to the issue「問題に対処する」）／<b>support</b>（支持する → support your opinion「意見を裏づける」）／<b>witness</b>（証人〔名詞〕 → 設問4の witnessed は動詞「目撃した」）／<b>period</b>（時代 → 設問5の periods は「ピリオド」）。<br>
+  シス単にない基本語にも注意：<b>mean to do</b>（意味する、ではなく「～するつもりだ」）／<b>kind of</b>（種類の、ではなく口語の「ちょっと」）／<b>locals</b>（形容詞 local の名詞用法「地元の人々」）／<b>doubt that ～</b>（「～ではないと思う」。suspect that ～「～ではないかと思う」とは逆）／<b>observe</b>（観察する、ではなく customs を目的語にとって「守る」）。</p>
+</div>
+
+<div id="tierD">
+  <div class="tierhead"><span class="tl">D</span><h3>あわせて押さえる熟語・口語表現</h3><span class="tn" id="nD"></span></div>
+  <div class="idioms" id="sxD"></div>
+</div>
+
+<div class="method">
+  <p><b>判定方法</b>：<code>システム英単語 5訂版.apkg</code> の notes 5,513件のうち、サブデッキ「単語」の見出し語 2,027語と「センターで間違えやすい単語100」の追加28語、計 2,055語を収録語とした。本文＋設問を語単位に分解した約310の異なり語について、屈折語尾と派生接辞（-able／-ful／-ly／-er／-ion／-ience など）を展開して照合し、残った語を中高基礎語かどうか手作業で選別した（culture・visit・temple などシス単にない基礎語は対象外）。</p>
+  <p>デッキ作者が追加した「似てる英単語」（1,359件。observe・issue・doubt などを含む）は本の見出し語ではないため、収録扱いにしていない。なお infer はデッキ上 <b>inferred</b>（推量する）という形で登録されているため、収録として扱った。</p>
+</div>
+</section>
+
+<!-- ============ ③ 英文＋全訳 ============ -->
+<section id="tab-tl" class="hide">
+<h2>読解の地図（対話の流れ）</h2>
+<div class="mapbox">
+<ol>
+  <li><b>導入</b>：ユキはオーバーツーリズムの課題研究のため、マイクに話を聞く。オーバーツーリズム＝観光客が多すぎて問題が起きること。京都や富士山では、通りの混雑・満員の交通機関・地元の人のストレス。</li>
+  <li><b>マナーと文化の違い</b>：マイクは京都で、写真のために竹林へ入り込む観光客を見た。ユキ「悪気はなく、文化を知らないだけ」<b>【下線部(1)】</b>。例：食べ歩き。マイク「今は日本ではしない。郷に入っては郷に従え」<b>【下線部(2)】</b></li>
+  <li><b>対策① 旅行前に伝える</b>：文化教育が大切（ユキ）。空港の掲示や動画、ホテル・旅行代理店（マイク）。SNSのインフルエンサー（ユキ）。</li>
+  <li><b>環境と人数制限</b>：富士山の登山道にごみ。人数制限は「難しい選択」→ <b>数より質（quality tourism）</b>。数は減らしても、よりよい体験を。</li>
+  <li><b>お互いの歩み寄り</b>：地元の人のいらだちもわかる。地元の人も<b>忍耐</b>を、やさしい助言を（店主の例）。<b>Respect goes both ways.</b> → 持続可能で敬意ある観光へ。</li>
+</ol>
+<p class="note">※ 二人は対立せず、話し合いながら考えを深めていく構成。設問3・4は「誰が・どこで・何と言ったか」の照合が中心。</p>
+</div>
+
+<h2>本文（英文＋全訳）</h2>
+<p class="lead">発言を1文ずつ英文と訳に分けて並べています。「左右2段で表示」で対訳のように見比べられます（画面が狭いときは上下に並びます）。訳や英文を隠したときは、文をタップするとその文だけ表示されます。黄色マーカーは下線部、緑の「メモ」は設問の根拠になる箇所です。</p>
+<div class="controls">
+  <button class="util" id="btnJP" onclick="toggleJP()">訳を隠す</button>
+  <button class="util" id="btnEN" onclick="toggleEN()">英文を隠す</button>
+  <button class="util" id="btnCOL" onclick="toggleCOL()">左右2段で表示</button>
+  <span class="spacer"></span>
+  <span class="lbl">黄マーカー＝下線部(1)(2)</span>
+</div>
+<div id="tlbody"></div>
+</section>
+
+<!-- ============ ④ 設問 ============ -->
+<section id="tab-q" class="hide">
+<h2>解く前に：二人の発言の整理</h2>
+<div class="tblwrap">
+<table class="stance"><thead><tr><th>話題</th><th>Yuki（課題研究をしている）</th><th>Mike（カナダから来た友人）</th></tr></thead>
+<tbody>
+<tr><td>観光公害の様子</td><td>京都・富士山。通りの混雑、満員の交通機関、地元の人のストレス</td><td>先月の京都は人だらけ。写真のために竹林へ入り込む観光客を見た（設問4(B)）</td></tr>
+<tr><td>マナー違反の原因</td><td>悪気はなく、地元の文化を知らないだけ（下線部(1)→設問1）。食べ歩きの例</td><td>自分も来日当初は知らなかった。今は「郷に入っては郷に従え」（下線部(2)→設問2）</td></tr>
+<tr><td>対策（情報・教育）</td><td>文化教育は<b>大切</b>（設問3(D)）。インフルエンサーにも大きな役割がある（設問3(E)）</td><td>空港の掲示や動画、ホテル・旅行代理店の協力</td></tr>
+<tr><td>環境</td><td>富士山の登山道にごみ</td><td>自然は日本の美しさの一部。守るべき</td></tr>
+<tr><td>人数制限</td><td>数は減らしても、よりよい体験を</td><td>難しい選択。お金と仕事も大事だが、<b>数より質</b>。ユキの案に賛成（設問3(B)(C)）</td></tr>
+<tr><td>地元の人の側</td><td>気持ちはわかるが、双方の理解を。<b>Respect goes both ways.</b></td><td>地元の人も<b>忍耐</b>を、やさしい助言を（設問3(A)）。店主の例</td></tr>
+<tr><td>旅・観光の未来</td><td>親しみをこめて話せば問題は避けられる（設問4(E)）。<b>持続可能で敬意ある観光を望む</b>（設問4(C)）</td><td>写真を撮る<b>だけでなく</b>、その土地を理解したい（設問4(A)）。旅は学びと人とのつながり</td></tr>
+</tbody></table>
+</div>
+
+<h2>設問の全訳と解答・解説</h2>
+<p class="lead">英文の設問文と選択肢もすべて訳しました。灰色の「解答・解説」ボックスはタップでぼかしが外れ、正解の選択肢に緑の印が付きます。まず自分で解いてから開いてください。設問5には語数カウンターがあります。</p>
+<div id="qbody"></div>
+</section>
+
+</div>
+
+<script>
+/* ================= ① 単語データ ================= */
+const LV={
+ "3級":{c:"var(--g3)",note:"中学卒業程度"},
+ "準2級":{c:"var(--g3p)",note:"高校中級程度"},
+ "2級":{c:"var(--g2)",note:"高校卒業程度"},
+ "準1級":{c:"var(--g2p)",note:"大学中級程度"},
+ "1級":{c:"var(--g1)",note:"大学上級程度"},
+ "級外":{c:"var(--gx)",note:"固有名詞・専門語"}
+};
+// [語句, 意味, 本文での使われ方, レベル, 箇所, 種類, シス単(A=載っていない難語／B=載っていないが推測可／空=収録済みまたは基礎語・熟語)]
+const DATA=[
+ /* ---- 冒頭（観光公害とは） ---- */
+ ["work on ~","～に取り組む","Yuki is working on a school project about overtourism","2級","冒頭（観光公害とは）","熟語",""],
+ ["school project","学校の課題研究（シス単 project の訳は「計画」）","a school project about overtourism","2級","冒頭（観光公害とは）","熟語",""],
+ ["overtourism","名 オーバーツーリズム、観光公害（観光客が多すぎて、地域の暮らしや環境に悪影響が出ること。over＋tourism）","a school project about overtourism","準1級","冒頭（観光公害とは）","単語","B"],
+ ["be curious about ~","～に興味をもっている、～を知りたがっている","Mike is curious about the subject, too","2級","冒頭（観光公害とは）","熟語",""],
+ ["subject","名 話題、テーマ　※「教科」だけではない","curious about the subject","2級","冒頭（観光公害とは）","単語",""],
+ ["Do you have a minute?","ちょっといい？（少し時間ある？）","Hi, Mike, do you have a minute?","準2級","冒頭（観光公害とは）","熟語",""],
+ ["issue","名 （議論すべき）問題、課題","the issue of overtourism","2級","冒頭（観光公害とは）","単語",""],
+ ["affect","動 影響を与える（名詞は effect）","how overtourism affects local communities","準1級","冒頭（観光公害とは）","単語",""],
+ ["community","名 地域社会、共同体（カタカナ語：コミュニティ）","how overtourism affects local communities","2級","冒頭（観光公害とは）","単語","B"],
+ ["cause problems","問題を引き起こす","it starts to cause problems","準2級","冒頭（観光公害とは）","熟語",""],
+ ["~, right?","～だよね？（文末につけて相手に確認する口語）","it starts to cause problems, right?","準2級","冒頭（観光公害とは）","熟語",""],
+ ["Exactly.","（相づち）その通り、まさに","Exactly. For example, ...","2級","冒頭（観光公害とは）","熟語",""],
+ ["suffer from ~","～に苦しむ、～の被害を受ける","are suffering from overtourism","2級","冒頭（観光公害とは）","熟語",""],
+ ["crowded","形 混雑した、込み合った（crowd）","Streets get crowded","準2級","冒頭（観光公害とは）","単語",""],
+ ["public transportation","公共交通機関（電車・バスなど）","public transportation is full","2級","冒頭（観光公害とは）","熟語",""],
+ ["stressed","形 ストレスを感じている　※シス単 stress の訳は「強調する」","local people feel stressed","2級","冒頭（観光公害とは）","単語",""],
+ /* ---- マナーと文化の違い ---- */
+ ["bamboo","名 竹（bamboo forest＝竹林）","tourists climbing into bamboo forests","準2級","マナーと文化の違い","単語","A"],
+ ["climb into ~","～の中へ入り込む、よじ登って入る","climbing into bamboo forests","2級","マナーと文化の違い","熟語",""],
+ ["just to do","ただ～するためだけに","just to take photos","2級","マナーと文化の違い","熟語",""],
+ ["kind of","（口語）ちょっと、なんだか（kind of shocking＝ちょっとショック）","It was kind of shocking.","準2級","マナーと文化の違い","熟語",""],
+ ["behave","動 ふるまう（behave badly＝行儀の悪いふるまいをする）","some tourists behave badly","2級","マナーと文化の違い","単語","B"],
+ ["acceptable","形 受け入れられる、許される（accept＋-able）","they don't know what's acceptable here","準1級","マナーと文化の違い","単語","B"],
+ ["mean to do","～するつもりである（don't mean to be rude＝失礼なことをするつもりはない）【下線部(1)】","these people don't mean to be rude","2級","マナーと文化の違い","熟語",""],
+ ["rude","形 失礼な、無礼な","don't mean to be rude","2級","マナーと文化の違い","単語",""],
+ ["friction","名 摩擦、あつれき（人や集団の間の対立）","it can cause friction between locals and visitors","準1級","マナーと文化の違い","単語",""],
+ ["locals","名 地元の人々（local は形容詞「地元の」だけでなく名詞にもなる）","between locals and visitors","2級","マナーと文化の違い","単語",""],
+ ["eat while walking","食べ歩きをする（eating while walking＝食べ歩き）","eating while walking is usually not considered polite","2級","マナーと文化の違い","熟語",""],
+ ["be considered ~","～だとみなされる（consider O C の受け身）","is usually not considered polite","2級","マナーと文化の違い","熟語",""],
+ ["polite","形 礼儀正しい、行儀のよい","not considered polite","2級","マナーと文化の違い","単語",""],
+ ["traditional","形 伝統的な（tradition）","especially in traditional areas","2級","マナーと文化の違い","単語",""],
+ ["totally","副 （口語）まったく、すっかり（totally okay＝全然かまわない）","it's totally okay to eat while walking","2級","マナーと文化の違い","単語",""],
+ ["try not to do","～しないようにする（not の位置に注意）","I try not to do it in Japan","2級","マナーと文化の違い","熟語",""],
+ ["as the proverb says","ことわざにあるように","as the proverb says, ...","2級","マナーと文化の違い","熟語",""],
+ ["proverb","名 ことわざ","as the proverb says","準1級","マナーと文化の違い","単語",""],
+ ["When in Rome, do as the Romans do.","郷に入っては郷に従え（ローマにいるときはローマ人のするようにせよ）【下線部(2)】","“When in Rome, do as the Romans do.”","2級","マナーと文化の違い","熟語",""],
+ ["That's very thoughtful of you.","とても思いやりがあるね、気が利くね（It is＋人の性質を表す形容詞＋of＋人）","That's very thoughtful of you.","2級","マナーと文化の違い","熟語",""],
+ ["thoughtful","形 思いやりのある、気配りのある（thought＋-ful）","very thoughtful of you","準1級","マナーと文化の違い","単語","B"],
+ ["custom","名 （社会の）習慣、しきたり　※customs は「税関」の意味にもなる","Tourists need to learn local customs","2級","マナーと文化の違い","単語",""],
+ ["sign","名 掲示、案内板、標識　※シス単の訳は「印、兆候」","more signs or videos at airports","準2級","マナーと文化の違い","単語",""],
+ ["travel agency","旅行代理店（agency＝代理店）","Hotels and travel agencies could help","準1級","マナーと文化の違い","熟語",""],
+ /* ---- 環境と人数制限 ---- */
+ ["influencer","名 インフルエンサー（SNSで多くの人に影響を与える人。influence＋-er）","influencers on social media","準1級","環境と人数制限","単語","B"],
+ ["social media","ソーシャルメディア、SNS（英語では SNS より social media がふつう）","influencers on social media","2級","環境と人数制限","熟語",""],
+ ["play a big role","大きな役割を果たす（play a role in ~）","could play a big role","2級","環境と人数制限","熟語",""],
+ ["copy","動 まねる、模倣する","Many people copy what they see online","準2級","環境と人数制限","単語",""],
+ ["behavior","名 ふるまい、行動","If influencers show good behavior","2級","環境と人数制限","単語",""],
+ ["bin","名 入れ物（trash bin＝ごみ箱。米 trash can、英 rubbish bin）","like using trash bins","2級","環境と人数制限","単語","A"],
+ ["follow","動 後に続く、まねる；（規則・習慣に）従う","others will follow","準2級","環境と人数制限","単語",""],
+ ["damage","動 損なう、傷つける","tourism is damaging the environment","2級","環境と人数制限","単語",""],
+ ["climbing route","登山道、登山ルート","Along Mt. Fuji's climbing routes","2級","環境と人数制限","熟語",""],
+ ["garbage","名 ごみ","there's a lot of garbage left behind","2級","環境と人数制限","単語",""],
+ ["leave ~ behind","～を置いていく、置き去りにする（garbage left behind＝捨てていかれたごみ）","a lot of garbage left behind","2級","環境と人数制限","熟語",""],
+ ["protect","動 守る、保護する","it should be protected","準2級","環境と人数制限","単語",""],
+ ["ask O to do","Oに～するよう求める、頼む","asking the government to limit the number of tourists","準2級","環境と人数制限","熟語",""],
+ ["limit the number of ~","～の数を制限する","limit the number of tourists","2級","環境と人数制限","熟語",""],
+ ["a tough choice","難しい選択　※シス単 tough の訳は「たくましい、骨の折れる」","It's a tough choice.","2級","環境と人数制限","熟語",""],
+ ["hurt","動 傷つける、損なう","it shouldn't hurt the local communities","準2級","環境と人数制限","単語",""],
+ ["quality tourism","質の高い観光（数より質を重視する観光）","Maybe we need quality tourism","準1級","環境と人数制限","熟語",""],
+ ["not just ~","単に～だけでなく（～そのものは否定していない）","not just big numbers","2級","環境と人数制限","熟語",""],
+ ["fewer","形 （数が）より少ない（few の比較級。数えられる名詞に使う）","We can have fewer tourists","準2級","環境と人数制限","単語",""],
+ ["respectfully","副 敬意をもって、礼儀正しく（respect＋-ful＋-ly）","behave respectfully","準1級","環境と人数制限","単語","B"],
+ /* ---- お互いの歩み寄り ---- */
+ ["be about ~","（本質が）～である、～が大切だ","traveling should be about learning and connecting with others","2級","お互いの歩み寄り","熟語",""],
+ ["connect with ~","～とつながる、心を通わせる","connecting with others","2級","お互いの歩み寄り","熟語",""],
+ ["feel annoyed with ~","～にいらいらする、腹を立てる","some locals feel annoyed with foreign tourists","準1級","お互いの歩み寄り","熟語",""],
+ ["annoyed","形 いらいらした、むっとした（annoy）","feel annoyed with foreign tourists","準1級","お互いの歩み寄り","単語",""],
+ ["build understanding","理解を深める、相互理解を築く","build more understanding on both sides","2級","お互いの歩み寄り","熟語",""],
+ ["on both sides","双方で、両方の側に","build more understanding on both sides","2級","お互いの歩み寄り","熟語",""],
+ ["patient","形 忍耐強い、がまん強い（名詞なら「患者」）","Locals should try to be patient, too","準2級","お互いの歩み寄り","単語",""],
+ ["offer advice","助言をする（advice は数えられない名詞）","offer friendly advice","2級","お互いの歩み寄り","熟語",""],
+ ["approach","動 （人に）接する、話しかける","If we approach people kindly","2級","お互いの歩み寄り","単語",""],
+ ["shopkeeper","名 店主、商店主（shop＋keeper）","I once saw a shopkeeper nicely ask a tourist","2級","お互いの歩み寄り","単語","B"],
+ ["see O do","Oが～するのを見る（知覚動詞＋原形）","saw a shopkeeper nicely ask a tourist ...","2級","お互いの歩み寄り","熟語",""],
+ ["ask O not to do","Oに～しないように頼む","ask a tourist not to eat in front of the store","2級","お互いの歩み寄り","熟語",""],
+ ["apologize","動 謝る、わびる","The tourist apologized","2級","お互いの歩み寄り","単語",""],
+ ["immediately","副 すぐに、ただちに","stopped immediately","2級","お互いの歩み寄り","単語",""],
+ ["Respect goes both ways.","敬意はお互いさまだ（go both ways＝双方に当てはまる）","Respect goes both ways.","準1級","お互いの歩み寄り","熟語",""],
+ ["avoid","動 避ける","it can avoid problems","準2級","お互いの歩み寄り","単語",""],
+ ["sustainable","形 持続可能な（sustain＋-able）","more sustainable and respectful","準1級","お互いの歩み寄り","単語","B"],
+ ["respectful","形 敬意をはらった、礼儀正しい（respect＋-ful）","more sustainable and respectful","準1級","お互いの歩み寄り","単語","B"],
+ /* ---- 設問文 ---- */
+ ["the underlined sentence after (1)","＝下線部(1)の文。(1) の番号が下線の書き始めに印刷されているので「(1) の後に続く下線の文」と言う。after は時間ではなく位置（～の次に来る）を表す前置詞","What does Yuki mean by the underlined sentence after (1)?","2級","設問文","熟語",""],
+ ["on purpose","わざと、故意に【設問1(B)】","behaving rudely on purpose","2級","設問文","熟語",""],
+ ["rudely","副 無礼に、失礼に（rude＋-ly）","behaving rudely on purpose","2級","設問文","単語","B"],
+ ["be ignorant of ~","～を知らない（ignore「無視する」とは別の語）【設問1の正解(C)】","simply ignorant of the local customs","準1級","設問文","熟語",""],
+ ["simply","副 単に、ただ（＝just）","simply ignorant of the local customs","2級","設問文","単語",""],
+ ["be willing to do","進んで～する、～するのをいとわない","willing to observe the local customs","2級","設問文","熟語",""],
+ ["observe","動 （規則・習慣を）守る　※「観察する」だけではない【設問1(E)】","willing to observe the local customs","準1級","設問文","単語","A"],
+ ["infer","動 推論する、推測する（シス単デッキでは inferred の形で収録）","infer the most accurate explanation","準1級","設問文","単語",""],
+ ["accurate","形 正確な、的確な","the most accurate explanation","準1級","設問文","単語",""],
+ ["explanation","名 説明（explain）","the most accurate explanation","準2級","設問文","単語","B"],
+ ["context","名 文脈、前後関係","Based on the context","準1級","設問文","単語",""],
+ ["It is natural that S should do","SがVするのは当然だ（判断・感情を表す should）【設問2(A)】","It is natural that one should be ignorant of ...","準1級","設問文","熟語",""],
+ ["a place being visited","訪れている（訪問中の）土地（being visited は受け身の進行形で place を修飾）","the customs of a place being visited","準1級","設問文","熟語",""],
+ ["may well do","～するのももっともだ；おそらく～だろう【設問2(C)】","You may well feel ...","準1級","設問文","熟語",""],
+ ["ought not to do","～すべきでない（ought to の否定。not は to の前）【設問2(D)】","You ought not to follow the customs ...","2級","設問文","熟語",""],
+ ["most likely","最も可能性が高い","which of the following is most likely to be true?","2級","設問文","熟語",""],
+ ["patience","名 忍耐、がまん（patient の名詞）","patience is needed","2級","設問文","単語","B"],
+ ["on the part of ~","～の側で、～のほうで【設問3の正解(A)】","patience is needed on the part of the locals","準1級","設問文","熟語",""],
+ ["doubt that ~","～ではないと思う、～を疑わしく思う（suspect that ～「～ではないかと思う」と区別）【設問3(D)】","Yuki doubts that cultural education will solve ...","2級","設問文","熟語",""],
+ ["witness","動 目撃する、目の当たりにする（シス単は名詞「証人、目撃者」）","Mike witnessed the harms of overtourism","準1級","設問文","単語",""],
+ ["harm","名 害、被害","the harms of overtourism","2級","設問文","単語",""],
+ ["neither A nor B","AもBも～ない（動詞は B に一致：Neither Mike nor Yuki thinks）","Neither Mike nor Yuki thinks ...","準2級","設問文","熟語",""],
+ ["irritated","形 いらいらした（irritate）","some locals irritated by foreign tourists","準1級","設問文","単語",""],
+ ["mention","動 ～に言及する、～について述べる","Yuki mentions some locals ...","2級","設問文","単語",""],
+ ["respond to ~","～に対処する、対応する（シス単 respond の訳は「返答する」）","how should Japan respond to the issue of overtourism?","2級","設問文","熟語",""],
+ ["in one's opinion","～の意見では","In your opinion, ...","準2級","設問文","熟語",""],
+ ["support","動 （意見を）裏づける","Give one example to support your opinion","準2級","設問文","単語",""],
+ ["indicate","動 示す、明記する","Indicate the number of words you have written","準1級","設問文","単語",""],
+ ["punctuation","名 句読点（comma＝カンマ／period＝ピリオド）","Do not count punctuation such as commas or periods","準1級","設問文","単語","A"],
+ ["comma","名 カンマ（,）","such as commas or periods","2級","設問文","単語","B"],
+ ["period","名 ピリオド（.）　※シス単の訳は「時代」","commas or periods","2級","設問文","単語",""]
+];
+
+const ORDER=["3級","準2級","2級","準1級","1級","級外"];
+const PORDER=["冒頭（観光公害とは）","マナーと文化の違い","環境と人数制限","お互いの歩み寄り","設問文"];
+let data=[...DATA],activeLv="all",activePara="all",activeType="all",activeSx="all",hideDone=false;
+const done=new Set();
+
+const cW=DATA.filter(d=>d[5]==="単語").length, cI=DATA.length-cW;
+document.getElementById("total").textContent=DATA.length;
+document.getElementById("nw").textContent=cW;
+document.getElementById("ni").textContent=cI;
+document.getElementById("nsx").textContent=DATA.filter(d=>d[6]).length;
+
+const cnt={},cntW={},cntI={},cntP={};
+ORDER.forEach(l=>{cnt[l]=0;cntW[l]=0;cntI[l]=0;});
+PORDER.forEach(p=>cntP[p]=0);
+DATA.forEach(d=>{cnt[d[3]]++;(d[5]==="単語"?cntW:cntI)[d[3]]++;cntP[d[4]]++;});
+document.getElementById("sumbody").innerHTML=ORDER.map(l=>{
+ const n=cnt[l],p=Math.round(n/DATA.length*100);
+ return `<tr><td><span class="badge" style="background:${LV[l].c}">${l}</span></td>
+ <td><b>${n}</b></td><td style="color:var(--tw);font-weight:700">${cntW[l]}</td>
+ <td style="color:var(--ti);font-weight:700">${cntI[l]}</td>
+ <td><span class="bar" style="width:${Math.max(p*2.6,6)}px;background:${LV[l].c}"></span>${p}%</td>
+ <td style="color:var(--sub)">${LV[l].note}</td></tr>`;}).join("");
+
+document.getElementById("filters").innerHTML=
+ `<button class="on" data-lv="all">すべて</button>`+
+ ORDER.map(l=>cnt[l]?`<button data-lv="${l}" style="color:${LV[l].c}">${l} (${cnt[l]})</button>`:"").join("");
+document.getElementById("filters").onclick=e=>{
+ if(e.target.tagName!=="BUTTON")return;
+ [...e.currentTarget.children].forEach(b=>b.classList.remove("on"));
+ e.target.classList.add("on");activeLv=e.target.dataset.lv;render();};
+
+document.getElementById("pfilters").innerHTML=
+ `<button class="on" data-p="all">すべて</button>`+
+ PORDER.map(p=>`<button data-p="${p}">${p} (${cntP[p]})</button>`).join("");
+document.getElementById("pfilters").onclick=e=>{
+ if(e.target.tagName!=="BUTTON")return;
+ [...e.currentTarget.children].forEach(b=>b.classList.remove("on"));
+ e.target.classList.add("on");activePara=e.target.dataset.p;render();};
+
+function list(){return data.filter(d=>
+ (activeLv==="all"||d[3]===activeLv)&&
+ (activePara==="all"||d[4]===activePara)&&
+ (activeType==="all"||d[5]===activeType)&&
+ (activeSx==="all"||d[6])&&
+ !(hideDone&&done.has(d[0])));}
+
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function sxTag(s){
+ if(!s)return"";
+ return s==="A"?`<span class="tag sa">シス単外</span>`:`<span class="tag sb">シス単外・推測可</span>`;}
+
+function render(){
+ const L=list();
+ document.getElementById("grid").innerHTML=L.map(d=>{
+  const[p,m,ex,lv,ln,ty,sx]=d, t=ty==="単語"?"w":"i";
+  return `<div class="card hidden" data-w="${esc(p)}" style="border-left-color:${LV[lv].c}">
+   <span class="check">✓ 覚えた</span>
+   <div class="top"><span class="phrase">${esc(p)}</span>
+   <span style="display:flex;flex-direction:column;gap:4px;align-items:flex-end">
+   <span class="badge" style="background:${LV[lv].c}">${lv}</span>
+   <span class="tag ${t}">${ty}</span>${sxTag(sx)}</span></div>
+   <div class="line">${ln}</div>
+   <div class="meaning">${m}</div>
+   <div class="ex">${esc(ex)}</div>
+   <div class="hint">タップで表示 ／ ダブルクリックで「覚えた」</div></div>`;}).join("");
+ [...document.getElementById("grid").children].forEach(c=>{
+  if(done.has(c.dataset.w))c.classList.add("done");
+  c.onclick=()=>c.classList.toggle("hidden");
+  c.ondblclick=e=>{e.preventDefault();const w=c.dataset.w;
+   done.has(w)?done.delete(w):done.add(w);render();};});
+
+ document.getElementById("tbody").innerHTML=L.map(d=>{
+  const[p,m,ex,lv,ln,ty,sx]=d, t=ty==="単語"?"w":"i";
+  return `<tr class="hid ${done.has(p)?'done':''}" data-w="${esc(p)}">
+   <td><span class="mark">✓</span></td>
+   <td><span class="tag ${t}">${ty}</span></td>
+   <td class="ph">${esc(p)}</td><td class="mn">${m}</td>
+   <td class="exc">${esc(ex)}</td>
+   <td><span class="badge" style="background:${LV[lv].c}">${lv}</span></td>
+   <td class="ln">${ln}</td><td>${sxTag(sx)}</td></tr>`;}).join("");
+ [...document.getElementById("tbody").children].forEach(tr=>{
+  tr.querySelector(".mn").onclick=()=>tr.classList.toggle("hid");
+  tr.querySelector(".exc").onclick=()=>tr.classList.toggle("hid");
+  tr.querySelector(".mark").onclick=()=>{const w=tr.dataset.w;
+   done.has(w)?done.delete(w):done.add(w);render();};});
+
+ document.getElementById("shown").textContent=L.length;
+ document.getElementById("doneN").textContent=done.size;
+}
+
+function setView(v){
+ document.getElementById("cardView").classList.toggle("hide",v!=="card");
+ document.getElementById("tableView").classList.toggle("hide",v!=="table");
+ document.getElementById("bCard").classList.toggle("on",v==="card");
+ document.getElementById("bTable").classList.toggle("on",v==="table");}
+function setType(t){activeType=t;
+ document.getElementById("tAll").classList.toggle("on",t==="all");
+ document.getElementById("tW").classList.toggle("on",t==="単語");
+ document.getElementById("tI").classList.toggle("on",t==="熟語");render();}
+function setSx(s){activeSx=s;
+ document.getElementById("sAll").classList.toggle("on",s==="all");
+ document.getElementById("sOut").classList.toggle("on",s==="out");render();}
+function allHide(){document.querySelectorAll(".card").forEach(c=>c.classList.add("hidden"));
+ document.querySelectorAll("#tbody tr").forEach(t=>t.classList.add("hid"));}
+function allShow(){document.querySelectorAll(".card").forEach(c=>c.classList.remove("hidden"));
+ document.querySelectorAll("#tbody tr").forEach(t=>t.classList.remove("hid"));}
+function shuffle(){for(let i=data.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[data[i],data[j]]=[data[j],data[i]];}render();}
+function resetOrder(){data=[...DATA];render();}
+function resetDone(){done.clear();render();}
+function toggleDoneFilter(){hideDone=!hideDone;
+ document.getElementById("hideDoneBtn").textContent=hideDone?"覚えた項目も表示":"覚えた項目を隠す";render();}
+
+/* ================= ② シス単にない語 ================= */
+// A: [見出し, 併記, 品詞, 意味, 本文での出方]
+const SXA=[
+ ["bamboo","","名","竹。bamboo forest＝竹林（京都・嵐山の竹林は観光名所）","マイク <em>I even saw tourists climbing into bamboo forests just to take photos.</em>"],
+ ["bin","","名","（ふた付きの）入れ物。trash bin＝ごみ箱（米 trash can、英 rubbish bin）","ユキ <em>like using trash bins or being quiet in temples</em>"],
+ ["observe","","動","（規則・習慣・法律を）守る。「観察する」の意味もあるが、customs／rules／laws が目的語なら「守る」","設問1(E) <em>willing to observe the local customs</em>"],
+ ["punctuation","","名","句読点（comma＝カンマ、period＝ピリオド）。punct-（点）が語源。英作文の指示文の定型","設問5 <em>Do not count punctuation such as commas or periods as words.</em>"]
+];
+// B: [英語, 意味 ← シス単の関連語]
+const SXB=[
+ ["overtourism","観光公害（over＋tourism）"],
+ ["community","地域社会（コミュニティ）"],
+ ["behave","ふるまう ← behavior"],
+ ["acceptable","許される ← accept"],
+ ["thoughtful","思いやりのある（thought＋-ful）"],
+ ["influencer","インフルエンサー ← influence"],
+ ["respectful","敬意をはらった（respect＋-ful）"],
+ ["respectfully","敬意をもって（respect＋-ful＋-ly）"],
+ ["sustainable","持続可能な ← sustain"],
+ ["shopkeeper","店主（shop＋keeper）"],
+ ["patience","忍耐 ← patient"],
+ ["rudely","無礼に ← rude"],
+ ["explanation","説明 ← explain"],
+ ["comma","カンマ（カタカナ語）"]
+];
+// C: [英語, シス単の訳（→ 本文での意味）]
+const SXC=[
+ ["tourism","観光"],
+ ["affect","～に影響する"],
+ ["suffer","苦しむ → suffer from ～"],
+ ["crowd","群衆 → crowded「混雑した」"],
+ ["transportation","交通機関 → public transportation"],
+ ["stress","強調する → stressed「ストレスを感じた」"],
+ ["curious","好奇心の強い → be curious about ～"],
+ ["project","計画 → school project「課題研究」"],
+ ["exactly","正確に → Exactly.「その通り」"],
+ ["rude","失礼な"],
+ ["polite","礼儀正しい"],
+ ["friction","摩擦 → 人どうしの「あつれき」"],
+ ["tradition","伝統 → traditional areas"],
+ ["proverb","ことわざ"],
+ ["custom","習慣、税関 → local customs は「習慣」"],
+ ["sign","印、兆候 → 「掲示、案内板」"],
+ ["agency","代理店 → travel agency"],
+ ["role","役割 → play a big role"],
+ ["behavior","行動 → good behavior「よいふるまい」"],
+ ["environment","環境"],
+ ["garbage","ごみ"],
+ ["trash","ごみ → trash bin「ごみ箱」"],
+ ["protect","～を守る"],
+ ["tough","骨の折れる → a tough choice「難しい選択」"],
+ ["hurt","～を傷つける"],
+ ["quality","質 → quality tourism"],
+ ["connect","～をつなぐ → connect with others"],
+ ["annoy","いらいらさせる → feel annoyed with ～"],
+ ["patient","患者、忍耐強い → ここは「忍耐強い」"],
+ ["offer","申し出る → offer advice「助言する」"],
+ ["approach","接近する → 「（人に）接する」"],
+ ["apologize","謝る"],
+ ["immediately","すぐに"],
+ ["ignorant","無知な → be ignorant of「～を知らない」"],
+ ["purpose","目的 → on purpose「わざと」"],
+ ["willing","～する気がある → be willing to do"],
+ ["avoid","～を避ける"],
+ ["infer","推量する（デッキの見出しは inferred）"],
+ ["accurate","正確な"],
+ ["context","文脈"],
+ ["likely","可能性が高い → most likely"],
+ ["ought","～すべきである → ought not to"],
+ ["witness","証人、目撃者 → 動詞「目撃する」"],
+ ["harm","害"],
+ ["irritate","いらだたせる → irritated「いらいらした」"],
+ ["mention","～について述べる"],
+ ["respond","返答する → respond to「～に対処する」"],
+ ["support","支持する → 「（意見を）裏づける」"],
+ ["indicate","指し示す → 「明記する」"],
+ ["period","時代 → periods「ピリオド」"],
+ ["follow","～に従う → others will follow「まねる」"]
+];
+// D: [表現, 意味]
+const SXD=[
+ ["work on ~","～に取り組む"],
+ ["be curious about ~","～に興味がある"],
+ ["Do you have a minute?","ちょっといい？"],
+ ["suffer from ~","～に苦しむ"],
+ ["kind of","（口語）ちょっと、なんだか"],
+ ["just to do","ただ～するためだけに"],
+ ["mean to do","～するつもりである　※下線部(1)"],
+ ["cause friction between A and B","AとBの間に摩擦を生む"],
+ ["be considered ~","～とみなされる"],
+ ["try not to do","～しないようにする"],
+ ["When in Rome, do as the Romans do.","郷に入っては郷に従え　※下線部(2)"],
+ ["That's very thoughtful of you.","思いやりがあるね"],
+ ["play a big role","大きな役割を果たす"],
+ ["leave ~ behind","～を置いていく"],
+ ["limit the number of ~","～の数を制限する"],
+ ["a tough choice","難しい選択"],
+ ["not just ~","単に～だけでなく　※設問4(A)"],
+ ["feel annoyed with ~","～にいらいらする"],
+ ["on both sides","双方に"],
+ ["ask O not to do","Oに～しないように頼む"],
+ ["Respect goes both ways.","敬意はお互いさま"],
+ ["on purpose","わざと　※設問1"],
+ ["be ignorant of ~","～を知らない　※設問1"],
+ ["may well do","～するのももっともだ　※設問2"],
+ ["ought not to do","～すべきでない　※設問2"],
+ ["on the part of ~","～の側で　※設問3"],
+ ["doubt that ~","～ではないと思う　※設問3"],
+ ["neither A nor B","AもBも～ない　※設問4"],
+ ["respond to ~","～に対処する　※設問5"]
+];
+document.getElementById("sxstats").innerHTML=
+ `<div><b>2,055</b>シス単の収録語（単語2,027＋センター100の追加28）</div>
+  <div><b>約310</b>本文＋設問の異なり語（見出し語ベース）</div>
+  <div class="hit"><b>${SXA.length}</b>A 最優先で覚える</div>
+  <div><b>${SXB.length}</b>B 関連語・語の作りから推測</div>
+  <div><b>${SXC.length}</b>C シス単で復習</div>
+  <div><b>${SXD.length}</b>D 熟語・表現</div>`;
+document.getElementById("nA").textContent=SXA.length+"語";
+document.getElementById("nB").textContent=SXB.length+"語";
+document.getElementById("nC").textContent=SXC.length+"語";
+document.getElementById("nD").textContent=SXD.length+"表現";
+document.getElementById("sxA").innerHTML=SXA.map(e=>
+ `<div class="entry"><div class="hw"><span class="wd">${e[0]}</span>${e[1]?`<span class="alt">${e[1]}</span>`:""}<span class="pos">${e[2]}</span></div>
+  <div class="gl">${e[3]}</div><div class="ct">${e[4]}</div></div>`).join("");
+const flipHTML=(w,m)=>`<li><button class="flip" type="button" aria-pressed="false"><span class="f front">${w}</span><span class="f back">${m}</span></button></li>`;
+document.getElementById("deckB").innerHTML=SXB.map(e=>flipHTML(e[0],e[1])).join("");
+document.getElementById("deckC").innerHTML=SXC.map(e=>flipHTML(e[0],e[1])).join("");
+document.getElementById("sxD").innerHTML=SXD.map(e=>`<div class="idiom"><span>${e[0]}</span><small>${e[1]}</small></div>`).join("");
+document.querySelectorAll(".flip").forEach(b=>b.onclick=()=>
+ b.setAttribute("aria-pressed",b.getAttribute("aria-pressed")==="true"?"false":"true"));
+function flipAll(btn){
+ const cards=document.querySelectorAll("#"+btn.dataset.deck+" .flip");
+ const anyFront=[...cards].some(c=>c.getAttribute("aria-pressed")!=="true");
+ cards.forEach(c=>c.setAttribute("aria-pressed",anyFront?"true":"false"));
+ btn.textContent=anyFront?"すべて戻す":"すべてめくる";}
+
+/* ================= ③ 全訳データ（英文＋訳） ================= */
+// [話者, [[英文, 訳, 設問メモ(任意)], ...]]
+const UL=(n,s)=>`<span class="ul"><span class="utag">(${n})</span>${s}</span>`;
+const TL=[
+ ["intro",[
+  [`Yuki is working on a school project about overtourism. Her friend, Mike, is curious about the subject, too. Read the dialogue and answer the following questions.`,
+   `ユキは、オーバーツーリズム（観光公害）についての学校の課題研究に取り組んでいる。友人のマイクも、この話題に興味をもっている。対話を読み、以下の設問に答えなさい。`]]],
+ ["yuki",[
+  [`Hi, Mike, do you have a minute?`,`ねえ、マイク、ちょっといい？`],
+  [`I'm working on a school project about the issue of overtourism.`,`オーバーツーリズムの問題について、学校の課題研究をしているの。`],
+  [`Can I ask you some questions?`,`いくつか質問してもいい？`]]],
+ ["mike",[
+  [`Sure, Yuki!`,`もちろんだよ、ユキ！`],
+  [`I'm interested in the topic, too.`,`僕もその話題には興味があるんだ。`]]],
+ ["yuki",[
+  [`I'm trying to report how overtourism affects local communities.`,`オーバーツーリズムが地域社会にどんな影響を与えているかを報告しようと思っているの。`],
+  [`Have you heard anything about the issue?`,`この問題について、何か聞いたことある？`]]],
+ ["mike",[
+  [`Yes, I have.`,`うん、あるよ。`],
+  [`Overtourism happens when too many tourists visit a place, and it starts to cause problems, right?`,
+   `オーバーツーリズムって、ある場所をあまりに多くの観光客が訪れて、それが問題を引き起こし始めることだよね？`,
+   `文末の , right? は「～だよね？」と相手に確認する口語表現`]]],
+ ["yuki",[
+  [`Exactly.`,`その通り。`],
+  [`For example, many famous places in Japan, like Kyoto and Mt. Fuji, are suffering from overtourism.`,
+   `たとえば、京都や富士山のような日本の有名な場所の多くが、オーバーツーリズムに苦しんでいるの。`],
+  [`Streets get crowded, public transportation is full, and local people feel stressed.`,
+   `通りは混雑し、公共交通機関は満員で、地元の人たちはストレスを感じているわ。`]]],
+ ["mike",[
+  [`I went to Kyoto last month.`,`先月、京都に行ったんだ。`],
+  [`It was beautiful, but there were so many people.`,`きれいだったけど、ものすごい人出だったよ。`],
+  [`I even saw tourists climbing into bamboo forests just to take photos.`,
+   `写真を撮るためだけに、竹林の中に入り込んでいく観光客まで見たよ。`,
+   `see O doing「Oが～しているのを見る」。マイクが京都で観光公害を目の当たりにした場面 → 設問4(B)は本文と合う`],
+  [`It was kind of shocking.`,`ちょっとショックだったな。`]]],
+ ["yuki",[
+  [`Yes, some tourists behave badly because they don't know what's acceptable here.`,
+   `そうね、ここ（日本）で何が許されるのかを知らないせいで、行儀の悪いふるまいをする観光客もいるわ。`],
+  [`But I think ${UL(1,"these people don't mean to be rude")}.`,
+   `でも、<span class="ul">そういう人たちは、失礼なことをするつもりはない</span>んだと思う。`,
+   `mean to do「～するつもりである」。下線部(1)＝悪気はない、ということ`],
+  [`They just don't understand the local culture.`,
+   `ただ地元の文化をわかっていないだけなのよ。`,
+   `下線部(1)の理由。just＝simply、don't understand the local culture＝ignorant of the local customs → 設問1の正解(C)`],
+  [`But, when something like that happens, it can cause friction between locals and visitors.`,
+   `でも、そういうことが起きると、地元の人と訪問者の間に摩擦が生じることがあるの。`],
+  [`For example, in Japan, eating while walking is usually not considered polite, especially in traditional areas.`,
+   `たとえば日本では、食べ歩きは、特に伝統的な地域では、ふつう行儀のよいこととは考えられていないわ。`],
+  [`But some tourists do it because it's normal in their country.`,
+   `でも、自分の国ではふつうのことだから、食べ歩きをしてしまう観光客もいるのよ。`]]],
+ ["mike",[
+  [`I didn't know that when I first came here.`,`僕も、初めてここに来たときはそれを知らなかったよ。`],
+  [`In Canada, it's totally okay to eat while walking.`,`カナダでは、歩きながら食べてもまったく問題ないんだ。`],
+  [`But now, I try not to do it in Japan, as the proverb says, “${UL(2,"When in Rome, do as the Romans do")}.”`,
+   `でも今は、日本では食べ歩きをしないようにしている。ことわざにもあるようにね、「<span class="ul">郷に入っては郷に従え</span>」って。`,
+   `直訳は「ローマにいるときは、ローマ人がするようにせよ」。訪れた土地の習慣に従え、という教え → 設問2の正解(E)`]]],
+ ["yuki",[
+  [`That's very thoughtful of you.`,`とても思いやりがあるのね。`,
+   `It is＋人の性質を表す形容詞＋of＋人「（人が）～だ」。thoughtful＝思いやりのある、気配りのある`],
+  [`I think cultural education is important.`,`文化について学ぶ教育が大切だと思う。`,
+   `ユキは文化教育を「大切だ」と考えている → 設問3(D)「文化教育で解決するとは思っていない」は誤り`],
+  [`Tourists need to learn local customs before they travel.`,`観光客は、旅行する前に地元の習慣を学ぶ必要があるわ。`]]],
+ ["mike",[
+  [`I agree.`,`賛成だよ。`],
+  [`Maybe we need more signs or videos at airports to explain things.`,
+   `空港に、いろいろなことを説明する掲示や動画をもっと増やす必要があるかもしれないね。`,
+   `signs＝掲示、案内板（シス単の訳「印、兆候」ではない）`],
+  [`Hotels and travel agencies could help, too.`,`ホテルや旅行代理店も手助けできるだろうし。`]]],
+ ["yuki",[
+  [`Good idea.`,`いい考えね。`],
+  [`I also think influencers on social media could play a big role.`,
+   `それに、SNSのインフルエンサーも大きな役割を果たせると思うの。`,
+   `インフルエンサーの役割を述べているだけで、ユキ自身がなりたいとは言っていない → 設問3(E)は誤り`],
+  [`Many people copy what they see online.`,`多くの人は、ネットで見たことをまねするから。`],
+  [`If influencers show good behavior, like using trash bins or being quiet in temples, others will follow.`,
+   `インフルエンサーが、ごみ箱を使うとか、お寺では静かにするとかいった、よいふるまいを見せれば、ほかの人たちもそれにならうわ。`],
+  [`But another problem is that tourism is damaging the environment.`,
+   `でも、もうひとつの問題は、観光が環境を傷つけていることなの。`],
+  [`Along Mt. Fuji's climbing routes, for example, there's a lot of garbage left behind.`,
+   `たとえば富士山の登山道沿いには、捨てていかれたごみがたくさんあるのよ。`,
+   `garbage left behind＝「置き去りにされたごみ」（過去分詞の後置修飾）`]]],
+ ["mike",[
+  [`That's sad.`,`それは悲しいね。`],
+  [`Nature is a big part of Japan's beauty, and it should be protected.`,
+   `自然は日本の美しさの大きな部分なんだから、守られるべきだよ。`]]],
+ ["yuki",[
+  [`Some people are asking the government to limit the number of tourists.`,
+   `観光客の数を制限するよう、政府に求めている人たちもいるわ。`],
+  [`Do you think that's a good idea?`,`それはいい考えだと思う？`]]],
+ ["mike",[
+  [`It's a tough choice.`,`難しい選択だね。`],
+  [`Tourism brings money and jobs, but it shouldn't hurt the local communities.`,
+   `観光はお金や仕事をもたらしてくれるけど、地域社会を傷つけるものであってはいけない。`],
+  [`Maybe we need quality tourism, not just big numbers.`,
+   `数が多いことだけじゃなくて、質の高い観光が必要なのかもしれないね。`,
+   `マイクはお金より質を重視している → 設問3(C)は誤り。人数制限を否定してもいない → 設問3(B)は誤り`]]],
+ ["yuki",[
+  [`I agree!`,`賛成！`],
+  [`We can have fewer tourists, but give them better experiences.`,
+   `観光客の数は減っても、その人たちにもっといい体験をしてもらえばいいのよ。`],
+  [`They can learn more about the culture and behave respectfully.`,
+   `そうすれば観光客は文化についてもっと学べるし、敬意をもってふるまえるわ。`]]],
+ ["mike",[
+  [`That would be better for both tourists and locals.`,
+   `そのほうが、観光客にとっても地元の人にとっても、いいだろうね。`,
+   `「数を減らして質を上げる」案にマイクも賛成している`],
+  [`When I travel, I want to understand the place, not just take photos.`,
+   `僕は旅行するとき、写真を撮るだけじゃなくて、その土地を理解したいんだ。`,
+   `not just take photos＝「写真を撮るだけではなく」。写真を撮ること自体は否定していない → 設問4(A)は本文と合わない`],
+  [`I think traveling should be about learning and connecting with others.`,
+   `旅行というのは、学ぶことや人とつながることであるべきだと思う。`]]],
+ ["yuki",[
+  [`I also noticed some locals feel annoyed with foreign tourists.`,
+   `外国人観光客にいらいらしている地元の人がいることにも気づいたわ。`,
+   `annoyed≒irritated → 設問4(D)は本文と合う`],
+  [`I understand their feelings, but I hope we can build more understanding on both sides.`,
+   `その気持ちはわかるけど、双方がもっと理解し合えるようになるといいなと思う。`]]],
+ ["mike",[
+  [`Right.`,`そうだね。`],
+  [`Locals should try to be patient, too, and maybe offer friendly advice when something is wrong.`,
+   `地元の人たちも、がまん強くあろうとするべきだし、何か問題があるときは、やさしく助言してあげるといいかもしれない。`,
+   `地元の側にも忍耐が必要だという意見。直前のユキの「双方に理解を」、直後の「敬意はお互いさま」とあわせて、二人とも同じ考え → 設問3の正解(A)`],
+  [`If we approach people kindly, they will listen.`,`こちらが親切に接すれば、相手は耳を傾けてくれるよ。`],
+  [`I once saw a shopkeeper nicely ask a tourist not to eat in front of the store.`,
+   `前に、ある店主が観光客に、店の前で食べないでくださいと感じよくお願いしているのを見たことがあるんだ。`,
+   `see O do（原形）「Oが～するのを見る」、ask O not to do「Oに～しないように頼む」`],
+  [`The tourist apologized and stopped immediately.`,`その観光客は謝って、すぐに食べるのをやめたよ。`]]],
+ ["yuki",[
+  [`That's a good example.`,`いい例ね。`],
+  [`Respect goes both ways.`,`敬意はお互いさまよね。`,
+   `go both ways＝「双方に当てはまる」。観光客だけでなく、地元の人の側にも敬意（と忍耐）が必要、ということ`],
+  [`When tourists and locals talk kindly, it can avoid problems.`,
+   `観光客と地元の人が親しみをこめて話せば、問題は避けられるわ。`,
+   `→ 設問4(E)は本文と合う`],
+  [`In the future, I hope tourism can be more sustainable and respectful.`,
+   `将来、観光がもっと持続可能で、敬意に満ちたものになるといいな。`,
+   `ユキは観光が持続可能になることを望んでいる → 設問4(C)「二人とも、持続可能になるとは思っていない」は本文と合わない`]]]
+];
+const SPK={intro:["導入文","問題の指示"],yuki:["Yuki","課題研究をしている"],mike:["Mike","カナダから来た友人"]};
+document.getElementById("tlbody").innerHTML=TL.map(t=>{
+ const[k,items]=t;
+ return `<div class="turn ${k}">
+  <span class="spk">${SPK[k][0]}</span><span class="role">${SPK[k][1]}</span>
+  <div class="sents">${items.map(s=>`<div class="sent">
+   <div class="en2">${s[0]}</div><div class="jp">${s[1]}</div>${s[2]?`<div class="tnote">${s[2]}</div>`:""}</div>`).join("")}</div>
+ </div>`;}).join("");
+document.getElementById("tlbody").onclick=e=>{
+ const s=e.target.closest(".sent");if(s)s.classList.toggle("peek");};
+
+let jpHidden=false,enHidden=false,twoCol=false;
+function clearPeek(){document.querySelectorAll("#tlbody .peek").forEach(s=>s.classList.remove("peek"));}
+function toggleJP(){jpHidden=!jpHidden;clearPeek();
+ document.getElementById("tlbody").classList.toggle("tlhide",jpHidden);
+ document.getElementById("btnJP").textContent=jpHidden?"訳を表示":"訳を隠す";}
+function toggleEN(){enHidden=!enHidden;clearPeek();
+ document.getElementById("tlbody").classList.toggle("enhide",enHidden);
+ document.getElementById("btnEN").textContent=enHidden?"英文を表示":"英文を隠す";}
+function toggleCOL(){twoCol=!twoCol;
+ document.getElementById("tlbody").classList.toggle("tl2",twoCol);
+ document.getElementById("btnCOL").textContent=twoCol?"上下に並べて表示":"左右2段で表示";}
+
+/* ================= ④ 設問データ ================= */
+const WCBOX=`<div class="wcbox">
+  <label for="wcIn"><b>語数カウンター</b>：自分の答えを入力すると、設問の数え方（句読点は数えない）で語数を数えます。</label>
+  <textarea id="wcIn" rows="4" placeholder="I think Japan should ..." spellcheck="false"></textarea>
+  <div class="wcout"><b id="wcN">0</b><span>words</span><span id="wcMsg" class="wcmsg">30〜40語で書きましょう</span></div>
+ </div>`;
+const QS=[
+ {no:"設問 1",
+  en:"What does Yuki mean by the underlined sentence after (1)?",
+  ja:"下線部(1)の文で、ユキは何を言おうとしているか。",
+  ch:[["(A)","that some foreigners are avoiding friction between locals and them","一部の外国人は、地元の人と自分たちとの間の摩擦を避けている"],
+      ["(B)","that some foreigners are behaving rudely on purpose","一部の外国人は、わざと無礼にふるまっている"],
+      ["(C)","that some foreigners are simply ignorant of the local customs","一部の外国人は、単に地元の習慣を知らないだけだ",1],
+      ["(D)","that some foreigners are trying to understand the local culture","一部の外国人は、地元の文化を理解しようとしている"],
+      ["(E)","that some foreigners are willing to observe the local customs","一部の外国人は、進んで地元の習慣を守ろうとしている"]],
+  ans:`<p><span class="k">正解：(C) that some foreigners are simply ignorant of the local customs</span></p>
+  <p>下線部(1) <i>these people don't mean to be rude</i>（そういう人たちは、失礼なことをするつもりはない）の直後に、<i>They just don't understand the local culture.</i>（ただ地元の文化をわかっていないだけ）と理由が続く。<b>just → simply</b>、<b>don't understand the local culture → ignorant of the local customs</b> と言い換えたのが (C)。</p>
+  <p><b>mean to do</b>「～するつもりである」。<b>be ignorant of ～</b>「～を知らない」（ignore「無視する」とは別の語）。</p>
+  <p><b>✕ (A)</b> 摩擦を「避けている」のではなく、知らないせいで摩擦を「生んでしまう」（<i>it can cause friction</i>）。<br>
+  <b>✕ (B)</b> on purpose（わざと）は、don't mean to（そのつもりはない）の正反対。<br>
+  <b>✕ (D)</b> 文化を理解しようとしているとは言っていない。理解して「いない」だけ。<br>
+  <b>✕ (E)</b> observe the local customs＝地元の習慣を「守る」。進んで守ろうとしている、とは書かれていない（知らないので守れていない）。observe は「観察する」だけでなく「（規則・習慣を）守る」。</p>`},
+ {no:"設問 2",
+  en:"Based on the context, infer the most accurate explanation of the underlined sentence after (2).",
+  ja:"文脈から判断して、下線部(2)の文の説明として最も正確なものを推測しなさい。",
+  ch:[["(A)","It is natural that one should be ignorant of the customs of a place being visited.","訪問先の土地の習慣を知らないのは当然のことだ。"],
+      ["(B)","It is too difficult for most people to follow the customs of a place being visited.","訪問先の土地の習慣に従うのは、たいていの人には難しすぎる。"],
+      ["(C)","You may well feel the customs of a place being visited should seem strange.","訪問先の土地の習慣を奇妙に感じるのも、もっともなことだ。"],
+      ["(D)","You ought not to follow the customs of a place being visited.","訪問先の土地の習慣に従うべきではない。"],
+      ["(E)","You should follow the customs of a place being visited.","訪問先の土地の習慣に従うべきだ。",1]],
+  ans:`<p><span class="k">正解：(E) You should follow the customs of a place being visited.</span></p>
+  <p><i>When in Rome, do as the Romans do.</i>＝「ローマにいるときは、ローマ人がするようにせよ」。日本語の「<b>郷に入っては郷に従え</b>」にあたることわざ。マイクはこれを引いて、カナダではふつうの食べ歩きを、日本ではしないようにしていると言う。つまり「訪れた土地の習慣に従うべきだ」＝ (E)。</p>
+  <p><b>a place being visited</b>：being visited は受け身の進行形で place を後ろから修飾する（「（今）訪れられている場所」→「訪問先の土地」）。</p>
+  <p><b>✕ (A)</b> It is natural that S should do「SがVするのは当然だ」（この should は判断・感情を表す should）。知らないのは当然だ、はことわざの教えではない。ユキの「悪気はなく知らないだけ」と混同させるひっかけ。<br>
+  <b>✕ (B)</b> 難しすぎるとは言っていない。マイク自身が従っている。<br>
+  <b>✕ (C)</b> may well do「～するのももっともだ」。習慣を奇妙に感じるのは当然だ、という意味で、「従え」という内容がない。<br>
+  <b>✕ (D)</b> ought not to do「～すべきでない」。正反対。not は to の前に置く。</p>`},
+ {no:"設問 3",
+  en:"Based on the dialogue, which of the following is most likely to be true?",
+  ja:"対話に基づくと、次のうち正しい可能性が最も高いものはどれか。",
+  ch:[["(A)","Both Mike and Yuki think that patience is needed on the part of the locals.","マイクもユキも、地元の人の側にも忍耐が必要だと考えている。",1],
+      ["(B)","Mike does not think that the number of tourists should be limited.","マイクは、観光客の数を制限すべきだとは考えていない。"],
+      ["(C)","Mike thinks that making more money is more important than quality tourism.","マイクは、より多くのお金を稼ぐことのほうが、質の高い観光よりも大切だと考えている。"],
+      ["(D)","Yuki doubts that cultural education will solve the problem of overtourism.","ユキは、文化教育でオーバーツーリズムの問題が解決するとは思っていない。"],
+      ["(E)","Yuki wants to become an influencer to introduce Japanese customs.","ユキは、日本の習慣を紹介するためにインフルエンサーになりたいと思っている。"]],
+  ans:`<p><span class="k">正解：(A) Both Mike and Yuki think that patience is needed on the part of the locals.</span></p>
+  <p>終盤の流れ：ユキ <i>I understand their feelings, but I hope we can build more understanding on both sides.</i>（地元の人の気持ちはわかるが、双方の理解を）→ マイク <i>Right. Locals should try to be <b>patient</b>, too</i>（地元の人もがまん強く）→ ユキ <i>That's a good example. <b>Respect goes both ways.</b></i>（敬意はお互いさま）。二人とも、<b>地元の人の側にも</b>忍耐と歩み寄りが必要だと考えている。<b>on the part of ～</b>「～の側で」。</p>
+  <p><b>✕ (B)</b> マイクは <i>It's a tough choice.</i> と言いつつ、ユキの「数は減らしても、よりよい体験を」に <i>That would be better for both tourists and locals.</i> と賛成している。人数制限を否定してはいない。<br>
+  <b>✕ (C)</b> <i>Tourism brings money and jobs, but it shouldn't hurt the local communities. Maybe we need quality tourism, not just big numbers.</i> お金より<b>質</b>を重視している。<br>
+  <b>✕ (D)</b> <b>doubt that ～＝「～ではないと思う」</b>（suspect that ～「～ではないかと思う」とは逆）。ユキは <i>I think cultural education is important.</i> と言っていて、正反対。<br>
+  <b>✕ (E)</b> インフルエンサーの役割に触れただけ（<i>influencers on social media could play a big role</i>）。自分がなりたいとは言っていない。</p>`},
+ {no:"設問 4",
+  en:"Based on the dialogue, which TWO of the following are NOT true?",
+  ja:"対話に基づくと、次のうち正しく<b>ない</b>ものを<b>2つ</b>選びなさい。",
+  ch:[["(A)","Mike does not want to take pictures while traveling.","マイクは、旅行中に写真を撮りたくない。",1],
+      ["(B)","Mike witnessed the harms of overtourism when he visited Kyoto.","マイクは京都を訪れたとき、オーバーツーリズムの害を目の当たりにした。"],
+      ["(C)","Neither Mike nor Yuki thinks tourism will be more sustainable in the future.","マイクもユキも、観光が将来もっと持続可能になるとは考えていない。",1],
+      ["(D)","Yuki mentions some locals irritated by foreign tourists.","ユキは、外国人観光客にいらいらしている地元の人たちがいることに触れている。"],
+      ["(E)","Yuki thinks both tourists and locals should talk with each other to avoid problems.","ユキは、問題を避けるために、観光客と地元の人の双方が話し合うべきだと考えている。"]],
+  ans:`<p><span class="k">正解：(A) と (C)</span></p>
+  <p><b>(A) ✕</b> マイクは <i>When I travel, I want to understand the place, <b>not just</b> take photos.</i> と言っている。<b>not just ～</b>「～するだけではなく」なので、写真を撮ること自体は否定していない。「写真を撮りたくない」は言い過ぎ。</p>
+  <p><b>(C) ✕</b> ユキは最後に <i>In the future, I hope tourism can be more sustainable and respectful.</i>（将来、観光がもっと持続可能になってほしい）と前向きに語り、マイクも quality tourism を提案して <i>That would be better ...</i> と言う。「二人とも、持続可能になるとは思っていない」とは言えない。neither A nor B は「AもBも～ない」で、動詞は B に一致する（thinks）。</p>
+  <p><b>(B) ○</b> 先月の京都で <i>I even saw tourists climbing into bamboo forests just to take photos.</i> witness＝目撃する、目の当たりにする。<br>
+  <b>(D) ○</b> <i>some locals feel annoyed with foreign tourists</i>。annoyed ≒ irritated。<br>
+  <b>(E) ○</b> <i>When tourists and locals talk kindly, it can avoid problems.</i></p>`},
+ {no:"設問 5（英作文）",
+  en:"In your opinion, how should Japan respond to the issue of overtourism? Give one example to support your opinion. Your answer must be between 30 and 40 words. Indicate the number of words you have written at the end of your answer. Do not count punctuation such as commas or periods as words.",
+  ja:"あなたの意見では、日本はオーバーツーリズムの問題にどう対応すべきか。意見を裏づける例を1つ挙げなさい。解答は<b>30語以上40語以内</b>とすること。書いた語数を解答の最後に示すこと。カンマやピリオドなどの句読点は語数に数えないこと。",
+  tool:WCBOX,
+  ans:`<p><span class="k">書き方の型：① Japan should ～ で意見を1文で言い切る → ② For example, で具体例を1つ → ③ その効果（This would ～）を短く添える</span></p>
+  <p>問いは <i>how should Japan respond to ～?</i>（日本はどう対応すべきか）。<b>Japan should ～</b>（または the government should ～）と、問いの形に合わせて答えると題意からずれない。例は<b>1つ</b>に絞り、<b>30〜40語</b>に収め、最後に <b>(36 words)</b> のように語数を書く。<b>語数の書き忘れは失点に直結する。</b></p>
+  <p><b>語数配分の目安</b>：意見 10〜14語 ＋ 具体例 10〜15語 ＋ 効果 8〜12語 ＝ 30〜40語。3文で収まる。</p>
+  <div class="model"><b>解答例① 観光客を分散させる</b>
+  <p class="en">I think Japan should encourage tourists to visit less famous places. For example, the government could offer cheaper train tickets to small towns near Kyoto. This would reduce crowds in popular areas and help local economies. <span class="wc">(36 words)</span></p>
+  <p>【訳】日本は、観光客にあまり有名でない場所を訪れるよう促すべきだと思う。たとえば、政府が京都の近くの小さな町への電車の切符を安くすることもできる。そうすれば、人気のある地域の混雑が減り、地元の経済も助かるだろう。</p>
+  <p class="wb">語数：11＋14＋11＝36</p></div>
+  <div class="model"><b>解答例② 混雑する場所で料金を取る（富士山の例）</b>
+  <p class="en">Japan should make visitors pay a fee at very crowded places. For example, people who climb Mt. Fuji now have to pay a fee. Such a fee can reduce the number of visitors and pay for cleaning up garbage. <span class="wc">(39 words)</span></p>
+  <p>【訳】日本は、ひどく混雑する場所では、訪れる人に料金を払わせるべきだ。たとえば、富士山に登る人は、今では料金を払わなければならない。そうした料金で訪れる人の数を減らせるし、ごみの片づけの費用にもあてられる。</p>
+  <p class="wb">語数：11＋13＋15＝39（Mt. は1語）</p>
+  <p class="note">富士山では2024年夏から、山梨県側の吉田ルートで1人2,000円の通行料と、1日4,000人の登山者数の上限が導入された。2025年夏からは静岡県側の3ルートも含めて、通行料は1人4,000円になっている（2025年時点の情報）。</p></div>
+  <div class="model"><b>解答例③ 来日前にマナーを伝える（本文のアイデアを発展させる）</b>
+  <p class="en">In my opinion, Japan should teach visitors local manners before they arrive. For example, airlines could show a short video about rules such as not eating while walking. If visitors understand why these rules matter, most will follow them. <span class="wc">(39 words)</span></p>
+  <p>【訳】私の考えでは、日本は訪れる人に、到着する前にその土地のマナーを教えるべきだ。たとえば、航空会社が、食べ歩きをしないといった決まりについての短い動画を流すことができる。その決まりがなぜ大切なのかを理解すれば、ほとんどの人は従うだろう。</p>
+  <p class="wb">語数：12＋16＋11＝39</p></div>
+  <p><b>使える表現</b>：encourage A to do（Aに～するよう促す）／make A pay a fee（Aに料金を払わせる）／limit the number of ～（～の数を制限する）／less crowded places（あまり混んでいない場所）／teach A B（AにBを教える）／such as ～（～のような）／This would ～（そうすれば～だろう）／reduce crowds（混雑を減らす）／protect nature（自然を守る）</p>
+  <p class="note">語数の数え方：句読点は数えない。短縮形（don't）、ハイフンでつないだ語（eye-level）、数字（4,000）はそれぞれ1語。Mt. Fuji は2語。本文のアイデア（空港の案内、人数制限など）を使ってもよいが、本文の文をそのまま写さず、自分の言葉で書く。</p>`}
+];
+
+document.getElementById("qbody").innerHTML=QS.map(q=>{
+ let inner=`<div class="qbox"><span class="qno">${q.no}</span>
+  <div class="qen">${esc(q.en)}</div>
+  <div class="qja">${q.ja}</div>`;
+ if(q.ch){
+  inner+=q.ch.map(c=>`<div class="ch${c[3]?" ok":""}"><b>${c[0]}</b><span><span style="font-style:italic;color:#334155">${esc(c[1])}</span><br><span class="cja">${c[2]}</span></span></div>`).join("");
+ }
+ if(q.tool)inner+=q.tool;
+ inner+=`<div class="ans hid"><div class="hd">解答・解説（タップで表示）</div><div class="body">${q.ans}</div></div></div>`;
+ return inner;}).join("");
+document.querySelectorAll(".ans").forEach(a=>a.onclick=()=>{
+ a.classList.toggle("hid");
+ a.closest(".qbox").classList.toggle("reveal",!a.classList.contains("hid"));});
+
+/* 語数カウンター：空白で区切った語のうち、文字か数字を含むものを数える（句読点だけのものは数えない）。末尾の (36 words) は除く */
+function countWords(s){
+ return (s.replace(/\(\s*\d+\s*words?\s*\)\s*$/i,"").match(/\S+/g)||[]).filter(t=>/[A-Za-z0-9]/.test(t)).length;}
+document.getElementById("wcIn").addEventListener("input",e=>{
+ const n=countWords(e.target.value),m=document.getElementById("wcMsg");
+ document.getElementById("wcN").textContent=n;
+ m.className="wcmsg"+(n===0?"":(n<30||n>40)?" wcng":" wcok");
+ m.textContent=n===0?"30〜40語で書きましょう":n<30?`あと ${30-n} 語（30語以上）`:n>40?`${n-40} 語オーバー（40語以内）`:"30〜40語の範囲内です ✓";});
+
+/* ================= タブ ================= */
+function setTab(t){
+ ["vocab","sx","tl","q"].forEach(k=>{
+  document.getElementById("tab-"+k).classList.toggle("hide",k!==t);
+  document.getElementById("tb-"+k).classList.toggle("on",k===t);});
+ window.scrollTo({top:0,behavior:"smooth"});}
+
+render();
+</script>
+</body>
+</html>
