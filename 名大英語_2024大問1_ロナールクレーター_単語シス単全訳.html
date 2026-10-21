@@ -184,6 +184,42 @@ button.flip:hover{transform:none}
 .tablink{display:inline-block;margin-top:6px;font-size:.76rem;font-weight:800;color:#0f766e;background:#ccfbf1;
   border-radius:999px;padding:3px 11px;cursor:pointer}
 
+/* ---- ③ 意味段落 ---- */
+.m-1,.m-5{--mc:#1e293b;--mbg:#f1f5f9}.m-2{--mc:#0f766e;--mbg:#f0fdfa}.m-3{--mc:#c2410c;--mbg:#fff7ed}.m-4{--mc:#9a3412;--mbg:#fdf2ec}
+.mstruct{background:#fff;border-radius:15px;padding:16px 18px;box-shadow:0 2px 9px rgba(0,0,0,.06)}
+.mgrid{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:4px}
+.mgrid .c{border-radius:8px;padding:6px 4px;text-align:center;font-size:.74rem;font-weight:800;line-height:1.35}
+.mgrid .s2{grid-column:span 2}.mgrid .s4{grid-column:span 4}.mgrid .s6{grid-column:span 6}
+.mgrid .top{background:#1e293b;color:#fff}
+.mgrid .nat{background:#ccfbf1;color:#0f766e}.mgrid .cul{background:#ffedd5;color:#9a3412}
+.mgrid .mm{background:var(--mc);color:#fff}
+.mgrid .fp{background:#f8fafc;color:#64748b;border:1px solid #e2e8f0;font-weight:700}
+.mgrid .ghost{background:none}
+.mcards{display:grid;gap:10px;margin-top:14px}
+.mcard{background:#fff;border-radius:14px;padding:13px 16px 14px;box-shadow:0 2px 8px rgba(0,0,0,.06);border-left:6px solid var(--mc)}
+.mh{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.mno{font-size:.7rem;font-weight:800;color:#fff;background:var(--mc);padding:3px 11px;border-radius:999px}
+.mt{font-size:.98rem;font-weight:800}
+.mp{font-size:.72rem;font-weight:700;color:var(--sub)}
+.chip{font-size:.64rem;font-weight:800;padding:2px 8px;border-radius:999px}
+.chip.c-geo{background:#ccfbf1;color:#0f766e}.chip.c-arc{background:#e2e8f0;color:#334155}.chip.c-myt{background:#ffedd5;color:#9a3412}
+.ms{margin-top:7px;font-size:.9rem}
+.mk{margin-top:6px;font-size:.78rem;color:var(--sub)}
+.mk em,.sig em,.echo em{font-family:Georgia,"Times New Roman",serif;color:#1e3a8a}
+.sig{margin-top:8px;font-size:.83rem;background:var(--mbg);border-radius:10px;padding:8px 12px}
+.sig .lab{font-size:.62rem;font-weight:800;color:#fff;background:var(--mc);border-radius:999px;padding:1px 8px;margin-right:6px;vertical-align:1px}
+.echo{display:grid;grid-template-columns:1fr auto 1fr;gap:8px 10px;align-items:center;margin-top:10px}
+.echo>div{background:#f8fafc;border-radius:12px;padding:10px 13px;font-size:.84rem}
+.echo>div small{display:block;font-size:.68rem;font-weight:800;color:var(--sub)}
+.echo>.ar{background:none;padding:0;font-size:1.2rem;font-weight:800;color:#9a3412;text-align:center}
+.mdiv{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:22px 0 10px;padding:9px 14px;
+  border-radius:12px;background:var(--mbg);border:1px solid var(--mc)}
+.mdiv:first-child{margin-top:4px}
+.mdiv b{font-size:.92rem}
+.mdiv small{font-size:.74rem;color:var(--sub);margin-left:auto}
+@media(max-width:640px){.mgrid .c{font-size:.64rem;padding:5px 2px}
+  .echo{grid-template-columns:1fr}.echo>.ar{transform:rotate(90deg)}.mdiv small{margin-left:0}}
+
 /* ---- ④ 設問 ---- */
 .qbox{background:#fff;border-radius:16px;padding:17px 19px;box-shadow:0 2px 10px rgba(0,0,0,.07);margin-bottom:13px}
 .qno{display:inline-block;font-size:.7rem;font-weight:800;color:#fff;background:#1b2233;
@@ -258,7 +294,7 @@ button.flip:hover{transform:none}
 
 <header>
   <h1>名古屋大学 2024年度 英語 大問Ⅰ — 地質の驚異が聖地になるまで：ロナール・クレーター</h1>
-  <p>出典：Pushkar Sohoni and Swapna Joshi, “Geological Wonder as a Sacred Landscape: The Case of Lonar Crater.” <i>Education about Asia</i> 27(3): 37–41 (Winter 2022)（出題の都合上、一部改変）。①難語リスト ②システム英単語に載っていない語 ③英文＋全訳（対訳） ④設問の解答解説 ⑤固有名詞と背景 の5タブ構成です。<a href="nagoya_english_order_strategy.html">→ 名大英語 解く順番の戦略（2022〜2026）</a></p>
+  <p>出典：Pushkar Sohoni and Swapna Joshi, “Geological Wonder as a Sacred Landscape: The Case of Lonar Crater.” <i>Education about Asia</i> 27(3): 37–41 (Winter 2022)（出題の都合上、一部改変）。①難語リスト ②システム英単語に載っていない語 ③意味段落と英文＋全訳（対訳） ④設問の解答解説 ⑤固有名詞と背景 の5タブ構成です。<a href="nagoya_english_order_strategy.html">→ 名大英語 解く順番の戦略（2022〜2026）</a></p>
   <div class="stats">
     <div class="stat"><b id="total">0</b>総項目</div>
     <div class="stat"><b id="nw">0</b>単語</div>
@@ -366,8 +402,34 @@ button.flip:hover{transform:none}
   <li><b>第7段落 文化史④（多宗教）</b>：神話はクレーター理解の凝縮。ヒンドゥー教以外の人も訪れる。</li>
   <li><b>第8段落 まとめ</b>：［Ⅳ］地質現象に神話的意味が重なる好例。<b>地質・神話・考古</b>の三層が交わり、単なる<b>地理的な場所</b>が<b>文化的・宗教的な空間</b>になる。<b>【下線部(2)】</b></li>
 </ol>
-<p class="note">※ 導入（1）→ 自然史（2・3）→ 文化史（4〜7）→ 統合（8）という構成。設問1(C)「自然の歴史と文化の歴史」はこの二本立てそのもの。段落番号の色は緑＝自然史、オレンジ＝文化史、紺＝導入とまとめ。</p>
+<p class="note">※ 導入（1）→ 自然史（2・3）→ 文化史（4〜7）→ 統合（8）という構成。設問1(C)「自然の歴史と文化の歴史」はこの二本立てそのもの。段落番号の色は緑＝自然史、オレンジ＝文化史、紺＝導入とまとめ。8つの段落のまとまり方は、すぐ下の「意味段落の分け方」で説明しています。</p>
 </div>
+
+<h2>意味段落の分け方 — 8つの形式段落は5つのまとまり</h2>
+<p class="lead">改行で区切られた段落（形式段落）を、内容のまとまりでくくったものが意味段落です。この文章は<b>序論・本論・結論</b>の3部構成で、本論は<b>自然史</b>と<b>文化史</b>に分かれ、文化史はさらに<b>寺院</b>（物として残ったもの）と<b>神話</b>（心の中の捉え方）に分かれます。</p>
+<div class="mstruct">
+  <div class="mgrid">
+    <div class="c top">序論</div><div class="c top s6">本論</div><div class="c top">結論</div>
+    <div class="c ghost"></div><div class="c nat s2">自然史</div><div class="c cul s4">文化史</div><div class="c ghost"></div>
+    <div class="c mm m-1">1<br>導入</div><div class="c mm m-2 s2">2<br>地質・生態</div><div class="c mm m-3 s2">3<br>寺院</div><div class="c mm m-4 s2">4<br>神話</div><div class="c mm m-5">5<br>まとめ</div>
+    <div class="c fp">1</div><div class="c fp">2</div><div class="c fp">3</div><div class="c fp">4</div><div class="c fp">5</div><div class="c fp">6</div><div class="c fp">7</div><div class="c fp">8</div>
+  </div>
+  <p class="note">上から順に、3部構成 → 自然史と文化史 → 意味段落1〜5 → 形式段落（第1〜第8段落）。意味段落2・3・4は、第8段落の these three layers（地質・考古・神話）にそのまま対応します。</p>
+</div>
+<div class="mcards" id="mcards"></div>
+
+<h3>冒頭と結論の呼応 — 主張が最初と最後にある「双括型」</h3>
+<div class="echo">
+  <div><small>第1段落 第1文</small><em>celebrate unique geological formations ... by associating them with divinity</em><br>珍しい地形を神と結びつけて称える</div>
+  <div class="ar">⇄</div>
+  <div><small>第8段落 ［Ⅳ］(G)</small><em>geological phenomena are often overlaid with mythological meaning</em><br>地質の現象に神話的な意味が重なる</div>
+  <div><small>第1段落 空所 a</small><em>The natural history ... and the cultural history ...</em><br>自然の歴史と文化の歴史</div>
+  <div class="ar">⇄</div>
+  <div><small>第8段落 最終文</small><em>transforming a mere geographical place to a cultural and religious space</em><br>地理的な場所が文化的・宗教的な空間に変わる</div>
+</div>
+<p class="note">同じ主張を冒頭と結論で言い換えています。設問1（文章全体の趣旨）は、冒頭と結論の両方に合う選択肢を選べば確実です。</p>
+<p class="note"><b>別の分け方</b>：文化史をひとまとめにして「第1／第2・3／第4〜7／第8」の4つに分けても誤りではありません。必ず押さえたい境目は、第1｜第2（序論 → 本論）、第3｜第4（自然 → 文化）、第7｜第8（本論 → 結論）の3か所です。第5｜第6は、文化史の中を「物」と「心」に分ける、もう一段細かい境目です。</p>
+<p class="note"><b>設問とのつながり</b>：［Ⅰ］［Ⅲ］［Ⅳ］の3つは意味段落の冒頭にあるので、抽象度の高い主題文（E・C・G）が入ります。［Ⅱ］だけは意味段落2の途中にあるので、具体的な数値の文（F）が入ります。意味段落の切れ目がわかると、設問2は選びやすくなります。</p>
 
 <h2>本文（英文＋全訳）</h2>
 <p class="lead">1文ずつ英文と訳を並べています。「左右2段で表示」で対訳のように見比べられます。訳や英文を隠したときは、文をタップするとその文だけ表示されます。［Ⅰ］〜［Ⅳ］は段落冒頭の黄色い枠、空所 a・（あ）〜（え）・①〜⑤の答えはオレンジのタグ、黄マーカーは下線部(1)(2)です。「空所の答えを隠す」で問題を解く状態に戻せます。</p>
@@ -426,9 +488,9 @@ button.flip:hover{transform:none}
 <h2>第8段落の「三つの層」</h2>
 <p class="lead">下線部(2)の前後は、次の三つの層をまとめています。設問1(C)・設問2［Ⅳ］・設問3（う）（え）・設問6がすべてここにつながります。</p>
 <div class="layers">
-  <div class="layer ly1"><span class="lt">地質 Geology</span><h4>自然の物質と形で理解する</h4><p>隕石の衝突、くぼみ、塩湖、微生物。第2・3段落。</p><span class="en">Geology is understood through natural materials and forms</span></div>
-  <div class="layer ly2"><span class="lt">神話 Mythology</span><h4>物語を文学的に解釈する</h4><p>ビシュヌが悪魔を倒した結果として湖ができた。第6・7段落。</p><span class="en">mythology is based on literary interpretation of narratives</span></div>
-  <div class="layer ly3"><span class="lt">考古 Archaeology</span><h4>掘り出された人工物で年代をたどる</h4><p>寺院は10世紀以降、それ以前から集落。第4・5段落。</p><span class="en">man-made artifacts physically recovered on the site</span></div>
+  <div class="layer ly1"><span class="lt">地質 Geology</span><h4>自然の物質と形で理解する</h4><p>隕石の衝突、くぼみ、塩湖、微生物。第2・3段落（意味段落2）。</p><span class="en">Geology is understood through natural materials and forms</span></div>
+  <div class="layer ly2"><span class="lt">神話 Mythology</span><h4>物語を文学的に解釈する</h4><p>ビシュヌが悪魔を倒した結果として湖ができた。第6・7段落（意味段落4）。</p><span class="en">mythology is based on literary interpretation of narratives</span></div>
+  <div class="layer ly3"><span class="lt">考古 Archaeology</span><h4>掘り出された人工物で年代をたどる</h4><p>寺院は10世紀以降、それ以前から集落。第4・5段落（意味段落3）。</p><span class="en">man-made artifacts physically recovered on the site</span></div>
 </div>
 <div class="lyarrow">↓ 三つが交わるところ（intersection）に</div>
 <div class="lyout">ロナールの独自性（the identity of Lonar）<br>単なる<span style="color:#0f766e">地理的な場所（geographical place）</span> → <span style="color:#9a3412">文化的・宗教的な空間（cultural and religious space）</span><br><span class="en">thus transforming a mere geographical place to a cultural and religious space</span></div>
@@ -980,7 +1042,7 @@ function flipAll(btn){
 const B=(q,a,long)=>`<span class="bk sw2${long?" long":""}" data-q="( ${q} )" data-a="${a}">${a}</span>`;
 const U=(q,s)=>`<span class="ul"><span class="utag">${q}</span>${s}</span>`;
 const TL=[
-{p:"第1段落",ti:"導入 — 地質の驚異を神と結びつける",k:"sum",tag:"導入",ins:null,items:[
+{p:"第1段落",ti:"導入 — 地質の驚異を神と結びつける",k:"sum",m:1,tag:"導入",ins:null,items:[
  [`Many places around the world celebrate unique geological formations or natural phenomena by associating them with divinity.`,
   `世界の多くの場所では、珍しい地形や自然現象を神と結びつけることで、それらをあがめている。`,
   `them＝unique geological formations or natural phenomena。celebrate は「祝う」ではなく「称える・あがめる」`],
@@ -990,7 +1052,7 @@ const TL=[
  [`${B("a","The natural history of the formation of the crater and the cultural history of how it has been perceived by humans",1)} can be seen at this site.`,
   `この場所では、<b>クレーターができた自然の歴史と、それが人間にどう捉えられてきたかという文化の歴史</b>を見ることができる。`,
   `設問1：空所 a から始まる文が文章全体の趣旨。自然史（第2・3段落）と文化史（第4〜7段落）の二本立てで、第8段落で両者がまとめられる`]]},
-{p:"第2段落",ti:"自然史① — 更新世の隕石衝突",k:"nat",tag:"自然史",
+{p:"第2段落",ti:"自然史① — 更新世の隕石衝突",k:"nat",m:2,tag:"自然史",
  ins:{lab:"［Ⅰ］",ans:"＝(E)",en:"Geological processes often take tens of thousands or even millions of years to unfold.",
       ja:"地質の変化は、進行するのに何万年、ときには何百万年もかかることが多い。"},items:[
  [`The Pleistocene Epoch was the geological age that lasted from about 2,580,000 to 11,700 years ago, and it was in this period that a meteorite collision impact created a large depression in the ground at Lonar.`,
@@ -1021,7 +1083,7 @@ const TL=[
  [`Since 2000, the Government of India has declared the forest surrounding Lonar Lake a wildlife sanctuary ${B("①","under")} the jurisdiction of the Maharashtra State Forest Department.`,
   `2000年以来、インド政府はロナール湖を囲む森を、マハーラーシュトラ州森林局の管轄（<b>下</b>）にある野生生物保護区に指定している。`,
   `declare O C「OをCに指定する」：the forest surrounding Lonar Lake（O）a wildlife sanctuary（C）。under the jurisdiction of「～の管轄下で」→ 空所①`]]},
-{p:"第4段落",ti:"文化史① — 水源と寺院、10世紀という境目",k:"cul",tag:"文化史",
+{p:"第4段落",ti:"文化史① — 水源と寺院、10世紀という境目",k:"cul",m:3,tag:"文化史",
  ins:{lab:"［Ⅲ］",ans:"＝(C)",en:"At Lonar, material culture exists in the form of temples, which can be dated from the tenth century onwards.",
       ja:"ロナールでは、物質文化は寺院という形で存在しており、それらは10世紀以降のものと年代を特定できる。"},items:[
  [`The natural water sources and streams around the site that feed the lake are ${B("②","of")} particular importance in Hindu practice.`,
@@ -1058,7 +1120,7 @@ const TL=[
  [`Successive temple builders have not only honored the presence of the crater, but also added layers of meaning to the pilgrimage circuit, connecting all the places around and within the crater.`,
   `歴代の寺院の建設者たちは、クレーターの存在に敬意を払ってきただけでなく、巡礼路に幾重もの意味を加え、クレーターの周りと内側にあるすべての場所を結びつけてきた。`,
   `not only A but also B。successive は「歴代の」（successful「成功した」と混同しない）`]]},
-{p:"第6段落",ti:"文化史③ — 湖の誕生を語る神話",k:"cul",tag:"文化史",ins:null,items:[
+{p:"第6段落",ti:"文化史③ — 湖の誕生を語る神話",k:"cul",m:4,tag:"文化史",ins:null,items:[
  [`Beyond the ecological and geological significance of the crater, an important aspect of this landscape is its cultural perception.`,
   `クレーターの生態学的・地質学的な重要性にとどまらず、この景観の重要な側面は、それが文化的にどう捉えられているかということである。`,
   `自然史から文化史へ話題が切り替わる文。Beyond ~「～を超えて」`],
@@ -1078,7 +1140,7 @@ const TL=[
  [`Beyond Hinduism, ${B("⑤","like")} many other multivalent sites in India, Lonar is also frequented by people practicing different religions.`,
   `インドの他の多くの、複数の宗教にとって意味をもつ聖地（<b>と同じように</b>）、ロナールにも、ヒンドゥー教にとどまらず、さまざまな宗教を信仰する人々が数多く訪れる。`,
   `前置詞 like「～と同じように」→ 空所⑤。as を前置詞として使うと「～として」になり意味が通らない`]]},
-{p:"第8段落",ti:"まとめ — 三つの層が交わるところ",k:"sum",tag:"統合",
+{p:"第8段落",ti:"まとめ — 三つの層が交わるところ",k:"sum",m:5,tag:"統合",
  ins:{lab:"［Ⅳ］",ans:"＝(G)",en:"The Lonar crater is a fine example of how geological phenomena are often overlaid with mythological meaning.",
       ja:"ロナール・クレーターは、地質の現象にしばしば神話的な意味が重ね合わされることを示す格好の例である。"},items:[
  [`The archaeological evidence allows us to construct a timeline for this human attempt at explaining and comprehending a landscape.`,
@@ -1094,7 +1156,39 @@ const TL=[
   `ロナールの独自性は、これら三つの層と、湖の誕生に与えられた意味とが交わるところにあり、そうして単なる（<b>地理的な</b>）場所を、文化的で（<b>宗教的な</b>）空間へと変えているのである。`,
   `these three layers＝地質・神話・考古。thus transforming は分詞構文（結果）。geographical place → cultural and religious space の対比 → 設問3（う）（え）`]]}
 ];
+// 意味段落：[番号, 部, 見出し（本文の区切り用）, タイトル, 形式段落, 層(chipクラス,名前), 要旨, キーワード, 始まりの合図]
+const MS=[
+ [1,"序論","導入 — 主題の提示","主題の提示 — 地形を神と結びつける場所、ロナール","第1段落",null,
+  `世界には、珍しい地形や自然現象を神と結びつけて称える場所が多い（一般論）。インドのロナール・クレーターはその一例で、ここでは「自然の歴史」と「文化の歴史」の両方が見られる（空所 a＝主題文）。`,
+  `geological formations／divinity／holy site／(a) natural history ... cultural history`,
+  `一般論（<em>Many places around the world ...</em>）→ 具体例（<em>In India, Lonar ...</em>）→ 主題文（空所 a）という序論の型。空所 a の文が、本論の二本立て（自然史・文化史）を予告している。`],
+ [2,"本論・自然史","自然史 — 地質と生態","自然の歴史 — クレーターと湖の成り立ち","第2・3段落",["c-geo","層：地質"],
+  `更新世の隕石衝突でできた、保存状態のよいクレーター。火星に似ているので研究対象になる（第2段落）。底には塩湖があり、川や泉が流れ込み、塩分を好む微生物がすむ。ラムサール条約と野生生物保護区で守られている（第3段落）。`,
+  `Pleistocene／meteorite／impact／geomorphology／hydrology／salinity／microorganisms／Ramsar Convention`,
+  `［Ⅰ］(E) <em>Geological processes often take ...</em> で「地質の時間」という新しい話題が始まる。第2段落は地質、第3段落は生態（湖と生き物）。第6段落冒頭の <em>Beyond the ecological and geological significance</em> が、この二つの段落を「生態学的・地質学的な重要性」とまとめて振り返っているので、第2・3段落で一つのまとまりとわかる。`],
+ [3,"本論・文化史（物）","文化史（物）— 寺院と物質文化","文化の歴史① — 物として残る寺院","第4・5段落",["c-arc","層：考古"],
+  `寺院は10世紀以降のもの。湖に注ぐ水源ごとに寺院が建ち、ロナールが宗教的に重要になったのは10世紀以降だが、それ以前から集落があった（第4段落）。寺院はクレーターの縁に集まり、ダーラーティールタや祠など少なくとも400年分の建築が、巡礼路で結ばれている（第5段落）。`,
+  `material culture／temples／archaeological evidence／tenth century／rim／shrines／architecture／pilgrimage circuit`,
+  `［Ⅲ］(C) <em>At Lonar, material culture exists in the form of temples ...</em> で、話題が自然から人間の営み（寺院）に切り替わる。つなぎ目は「水」：第3段落の川と泉（自然）を、第4段落が <em>The natural water sources and streams ... are of particular importance in Hindu practice</em> と受けて、宗教の話に移している。`],
+ [4,"本論・文化史（心）","文化史（心）— 神話と捉え方","文化の歴史② — 心の中の捉え方（神話）","第6・7段落",["c-myt","層：神話"],
+  `クレーターは文化的にどう捉えられてきたか。湖の誕生と季節の変化を説明する神話体系ができ、その中心はビシュヌが悪魔を倒す話で、湖はその壊滅的な出来事の結果とされる（第6段落）。神話は人々のクレーター理解を凝縮しており、ロナールは他の宗教の人も訪れる聖地でもある（第7段落）。`,
+  `cultural perception／mythological system／myth／Vishnu／demon／narrative／comprehension／multivalent`,
+  `第6段落冒頭の <em>Beyond the ecological and geological significance of the crater, an important aspect of this landscape is its cultural perception.</em> が話題転換の合図。Beyond（～にとどまらず）で前の内容を越え、新しい観点 cultural perception を出している。第7段落の perception and comprehension はその言い換えなので、第6・7段落で一つのまとまり。第5段落の最後の added layers of meaning（意味を重ねた）が、「物」から「意味」への橋渡しになっている。`],
+ [5,"結論","まとめ — 三つの層の統合","三つの層が交わる — 地理的な場所が宗教的な空間になる","第8段落",null,
+  `ロナールは、地質の現象に神話の意味が重なる好例である（［Ⅳ］）。地質・神話・考古の三つの層と、湖の誕生に与えられた意味とが交わるところにロナールの独自性があり、単なる地理的な場所が文化的・宗教的な空間に変わる。`,
+  `a fine example／this human attempt／geology・mythology・archaeological evidence／these three layers／intersection`,
+  `［Ⅳ］(G) <em>The Lonar crater is a fine example of how ...</em> で、ロナールの話を「地質の現象に神話的な意味が重なる」という一般論に引き上げる。a fine example of（～の好例）は結論でよく使う形。三つの層は、意味段落2（地質）・3（考古）・4（神話）をそれぞれ一言でまとめたもの。`]
+];
+document.getElementById("mcards").innerHTML=MS.map(m=>
+ `<div class="mcard m-${m[0]}"><div class="mh"><span class="mno">意味段落${m[0]}</span><span class="mt">${m[3]}</span>
+   <span class="mp">${m[1]}｜${m[4]}</span>${m[5]?`<span class="chip ${m[5][0]}">${m[5][1]}</span>`:""}</div>
+   <div class="ms">${m[6]}</div>
+   <div class="mk">キーワード：<em>${m[7]}</em></div>
+   <div class="sig"><span class="lab">ここから始まる合図</span>${m[8]}</div></div>`).join("");
+const mdiv=n=>{const m=MS[n-1];
+ return `<div class="mdiv m-${n}"><span class="mno">意味段落${n}</span><b>${m[2]}</b><small>${m[1]}｜${m[4]}</small></div>`;};
 document.getElementById("tlbody").innerHTML=TL.map(t=>
+ (t.m?mdiv(t.m):"")+
  `<div class="para${t.ins?" ins":""}${t.k?" "+t.k:""}">
    <div class="pt2"><span class="pno">${t.p}</span><span class="pti">${t.ti}</span><span class="ptag">${t.tag}</span></div>
    ${t.ins?`<div class="boxsent"><span class="bl">${t.ins.lab} に入る文 <span class="bans">${t.ins.ans}</span>（段落冒頭）</span>
@@ -1147,6 +1241,7 @@ const QS=[
       ["(F)","The Lonar crater has a mean diameter of 1.12 miles and the floor of the crater is filled with salt water approximately 459 feet below the crater rim.","ロナール・クレーターは平均直径1.12マイルで、縁から約459フィート下にあるクレーターの底は塩水で満たされている。",1,"［Ⅱ］"],
       ["(G)","The Lonar crater is a fine example of how geological phenomena are often overlaid with mythological meaning.","ロナール・クレーターは、地質の現象にしばしば神話的な意味が重ね合わされることを示す格好の例である。",1,"［Ⅳ］"]],
   ans:`<p><span class="k">正解：［Ⅰ］(E)　［Ⅱ］(F)　［Ⅲ］(C)　［Ⅳ］(G)</span>（不使用：A・B・D）</p>
+  <p><b>解き方のヒント</b>：［Ⅰ］［Ⅲ］［Ⅳ］は<b>意味段落の冒頭</b>（自然史・文化史（物）・結論の始まり）にあるので、抽象度の高い主題文が入る。［Ⅱ］は意味段落2の途中なので、具体的な数値の文が入る。→ ③タブ「意味段落の分け方」</p>
   <p><b>［Ⅰ］(E)</b>：直後は「更新世は約258万年前〜1万1700年前まで続いた地質時代で、隕石の衝突はこの時代」。(E) の「地質の変化には何万年〜何百万年もかかる」が、この<b>長い時間のスケール</b>の導入になる。段落全体が地質の話。</p>
   <p><b>［Ⅱ］(F)</b>：直後の <i>This body of water</i>（この水域）が指すものが必要。(F) の <b>salt water</b>（塩水）がそれにあたる。(F) の rim・floor も、本文の shore・crater lake の描写につながる。</p>
   <p><b>［Ⅲ］(C)</b>：段落の後半 <i>Lonar gained importance as a religious site only after the tenth century</i> が、(C) の <b>from the tenth century onwards</b> と対応する。直後の「水源は宗教上重要で、寺院が目印になっている」も、(C) の「物質文化＝寺院」を具体的に説明している。</p>
