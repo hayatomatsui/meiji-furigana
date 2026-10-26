@@ -237,6 +237,10 @@ button.flip:hover{transform:none}
 .note{font-size:.8rem;color:var(--sub);margin-top:8px}
 .steps{margin:8px 0 0 20px}
 .steps li{margin-bottom:4px}
+.howto{background:#fff;border:2px dashed #f9a8d4;border-radius:12px;padding:11px 14px;margin-top:10px;font-size:.87rem}
+.howto .ht{font-size:.76rem;font-weight:800;color:var(--acd);margin-bottom:5px}
+.howto ol{margin:4px 0 0 20px}
+.howto li{margin-bottom:6px}
 .en{font-family:Georgia,"Times New Roman",serif;font-style:italic;color:#1e3a8a}
 
 /* ---- ⑤ 背景 ---- */
@@ -1184,7 +1188,16 @@ const QS=[
   <p><b>（え）small</b>：<i>what might seem small ... could matter a great deal</i>「<b>ささいな</b>ことに思えても、相手には非常に大きな意味をもちうる」。small ⇔ a great deal の対比。第6段落の inconsequential（取るに足らない）⇔ mattered の言い換え。big は（い）で使用済み。</p>
   <p><b>（お）given</b>：<i>Given that ~</i>「～を考えると、～であることを考慮すれば」。後ろが that 節なので、前置詞・接続詞として働く given が入る。<br>
   ✕ according は according to ~（～によれば）の形で使い、that 節を直接とらない。「温かい心づかいが気分を高めることによれば」も意味が通らない。</p>
-  <p class="note">解く順番：（い）と（え）はどちらも big／small の候補になるので、先に（い）を第5段落の “bigger” で確定させると、（え）は small に決まる。</p>`},
+  <p class="note">解く順番：（い）と（え）はどちらも big／small の候補になるので、先に（い）を第5段落の “bigger” で確定させると、（え）は small に決まる。</p>
+  <div class="howto"><div class="ht">（う）を contagious の意味を知らなくても決める手順</div>
+  <ol>
+   <li><b>確実な空所から先に埋める</b>：（あ）primary、（い）big、（え）small、（お）given。残る選択肢は according・compulsory・contagious・disappointed・insensitive・malicious の6つ。</li>
+   <li><b>文の形で消す</b>：<i>kindness can be (　)</i> は be のあとに形容詞が1語入る形。according は according to ~ の形で使うので1語では入らない。disappointed は「（人が）がっかりした」で、気持ちをもたない kindness（親切）の説明にならない。</li>
+   <li><b>段落の中身で消す</b>：第9段落は、親切を受けた人が見知らぬ人にお金を多く分けた、という良い結果の話（設問6の根拠と同じ文）。compulsory「義務的な」、insensitive「無神経な」では、この話の前置きにならない。compulsory はシス単に載っている語、insensitive は sensitive（シス単に載っている語）に否定の in- がついた形なので、シス単の範囲で消せる。</li>
+   <li><b>残った2つは語の形から推測する</b>：malicious を知っていれば「悪意のある」で消える。知らなくても、mal- は「悪い」（malware＝悪意のあるソフト）。contagious は contact（接触）と同じ語源（con-「共に」＋tag/tact「触れる」）で、「触れるとうつる」と推測できる。良い話の前置きになるのは contagious。</li>
+   <li><b>本文で確かめる</b>：段落の最後の <i>their generosity would spill over in these downstream interactions</i>（気前のよさが、その先のやりとりにまで広がる）と合う。contagious＝「（病気・感情・行動が）うつる、伝染する」。</li>
+  </ol>
+  <p class="note">選択肢から選ぶ空所補充は、全部の語を知らなくても解ける。わかる語から消していき、最後に残った語が本文と合うかを確かめる。</p></div>`},
  {no:"設問 3（下線部(2)・和訳）",
   ja:"下線部(2)を日本語に訳しなさい。",
   ctx:[`<b>In all cases, we compared the performer's expectations of the recipient's mood with the recipient's actual experience.</b>`],
@@ -1234,6 +1247,15 @@ const QS=[
   ctx:[`we had people play an economic game that allowed us to examine what are sometimes called <b>“pay it forward” effects</b>. In this game, participants allocated money between themselves and a person whom they would never meet. People who had just been on the receiving end of a kind act gave substantially more to an anonymous person than those who had not.（第9段落）`],
   ans:`<p><span class="k">解答例：親切を受けた人が、今度は見知らぬ他人により多くのお金を分け与える現象。</span>（35字）</p>
   <p><b>根拠</b>：下線部の2文後 <i>People who had just been on the receiving end of a kind act gave substantially more to an anonymous person than those who had not.</i> の内容をまとめる。入れる要素は、①親切を受けた人が ②（親切をしてくれた本人ではなく）会ったこともない別の人に ③より多くを与える（気前よくなる）、の三つ。</p>
+  <div class="howto"><div class="ht">pay it forward も contagious も知らなくても解ける手順</div>
+  <ol>
+   <li><b>知らない語句はいったん飛ばす</b>：設問文の「本文の内容に即して」は、熟語の知識ではなく本文から説明せよ、という指示。下線部は <i>what are sometimes called ~</i>「～と呼ばれることもあるもの」とかぎかっこつきで紹介されていて、筆者がこのあと中身を説明するつもりで出している語句だとわかる。</li>
+   <li><b>下線部の後ろから、結果を述べている文を探す</b>：<i>In this game, participants allocated money ...</i> はゲームのやり方（お金を自分と、会うことのない相手とで分ける）。結果を述べているのは次の <i>People who had just been on the receiving end of a kind act gave substantially more to an anonymous person than those who had not.</i></li>
+   <li><b>根拠の文を読む</b>：主語の <i>People who had just been on the receiving end of a kind act</i> は、receive（受け取る）が見えれば「親切を受ける側にいたばかりの人たち」と読める。<i>gave substantially more to an anonymous person</i>「匿名の（＝見知らぬ）人にかなり多く与えた」。anonymous はシス単に載っている語。<i>than those who had not</i> の後ろには (just been on the receiving end of a kind act) が省略されていて、「親切を受けていない人と比べて」。</li>
+   <li><b>要素を三つに分けて並べる</b>：①親切を受けた人が ②見知らぬ相手に ③より多くのお金を分け与える。文末を「～現象。」にして、25〜35字に入るかを数える。</li>
+   <li><b>最後に下線部と照らし合わせる</b>：pay は「払う」、forward は「先へ」なので、「受けた分を先へ払っていく」。手順3で読んだ内容と合えば、答えに自信をもってよい。熟語の知識は、ここで確認に使うだけ。</li>
+  </ol>
+  <p class="note">contagious の意味は、この手順のどこにも使わない。むしろ設問6を先に解いて「親切が次の人へうつる」とわかると、それが空所（う）の手がかりになる。</p></div>
   <div class="model"><b>ほかの解答例</b>
   <p>親切を受けたばかりの人が、匿名の相手により多くのお金を分ける現象。<span class="wc">（33字）</span></p>
   <p>親切を受けた人が、その親切を別の見知らぬ人へと気前よく回していく現象。<span class="wc">（35字）</span></p></div>
@@ -1243,7 +1265,7 @@ const QS=[
    <li>「親切をすると自分の気分もよくなる」：第5段落の内容で、下線部(4)の説明ではない。</li>
    <li>「本文の内容に即して」とあるので、お金を分けるゲームの結果（より多く分け与える）に触れると、より本文に沿った答えになる。</li>
   </ul>
-  <p class="note">直前の <i>And kindness can be (contagious)</i>（親切は伝染する）が、この現象をひとことで言ったもの。→ <a class="tablink" onclick="setTab('bg')">⑤タブ「pay it forward」</a></p>`}
+  <p class="note">直前の <i>And kindness can be (contagious)</i>（親切は伝染する）は、この現象をひとことで言ったもの（ただし、解くのに contagious の意味は要らない）。→<a class="tablink" onclick="setTab('bg')">⑤タブ「pay it forward」</a></p>`}
 ];
 document.getElementById("qbody").innerHTML=QS.map(q=>{
  let inner=`<div class="qbox"><span class="qno">${q.no}</span><div class="qja">${q.ja}</div>`;
