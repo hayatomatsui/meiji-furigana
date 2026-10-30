@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>パターンドリル重要度目次</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Zen+Kaku+Gothic+New:wght@700;900&display=swap">
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; }
+/* Layout: 問題集の目次をそのまま写し、右側に赤ペンで出題重要度を書き込んだ一枚 */
+:root {
+  --paper: #ffffff;
+  --ink: #1b2436;
+  --muted: #646e84;
+  --rule: #dce1ea;
+  --bar: #1f4e8c;
+  --bar-ink: #ffffff;
+  --num: #1f4e8c;
+  --pen: #cc2233;
+  --hl: #fdeef0;
+  --chip: #eef1f6;
+  --chip-ink: #4a5468;
+  --f-display: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+  --f-body: "BIZ UDPGothic", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #11151d; --ink: #e5e8ef; --muted: #8f97a9; --rule: #283044;
+    --bar: #2b5a9f; --bar-ink: #ffffff; --num: #93b6f5; --pen: #ff6f7c;
+    --hl: #2a1a20; --chip: #1c2230; --chip-ink: #a9b0c0; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #11151d; --ink: #e5e8ef; --muted: #8f97a9; --rule: #283044;
+  --bar: #2b5a9f; --bar-ink: #ffffff; --num: #93b6f5; --pen: #ff6f7c;
+  --hl: #2a1a20; --chip: #1c2230; --chip-ink: #a9b0c0; color-scheme: dark;
+}
+
+body { background: var(--paper); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.6; }
+.wrap {
+  max-width: 1100px; margin: 0 auto; display: grid; gap: 28px;
+  padding-block: 32px 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap > * { min-width: 0; }
+
+header { display: grid; gap: 6px; }
+.eyebrow { font-size: 12px; letter-spacing: .12em; color: var(--muted); margin: 0; }
+h1 { font-family: var(--f-display); font-weight: 900; font-size: clamp(24px, 4vw, 34px); line-height: 1.25; margin: 0; text-wrap: balance; }
+h1 .pen { color: var(--pen); }
+.lede { max-width: 65ch; margin: 0; }
+
+h2 { font-family: var(--f-display); font-weight: 700; font-size: 18px; margin: 0 0 10px; text-wrap: balance; }
+
+.legend { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+.legend li { border: 1px solid var(--rule); border-radius: 8px; padding: 10px 14px; display: grid; gap: 2px; align-content: start; }
+.legend .imp { color: var(--pen); font-size: 18px; letter-spacing: .06em; line-height: 1.3; }
+.legend .imp.later { color: var(--chip-ink); font-size: 13px; letter-spacing: 0; }
+.legend .lbl { font-weight: 700; }
+.legend .sub { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+
+.format ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; }
+.format li { border: 1px solid var(--rule); border-radius: 6px; padding: 8px 10px; display: grid; grid-template-columns: auto 1fr; gap: 2px 8px; align-items: start; }
+.format .box { grid-row: span 2; font-family: var(--f-display); font-weight: 700; border: 1.5px solid var(--ink); width: 1.6em; height: 1.6em; display: grid; place-items: center; font-size: 14px; line-height: 1; }
+.format .what { font-size: 13px; line-height: 1.45; }
+.format .pts { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.format .note { font-size: 12.5px; color: var(--muted); margin: 8px 0 0; }
+
+.filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.filters span { font-size: 13px; color: var(--muted); }
+.filters button {
+  font: inherit; font-size: 13.5px; color: var(--ink); background: var(--paper);
+  border: 1px solid var(--rule); border-radius: 999px; padding: 5px 14px; cursor: pointer;
+}
+.filters button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.filters button:focus-visible { outline: 2px solid var(--pen); outline-offset: 2px; }
+
+.books { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 470px), 1fr)); gap: 32px; align-items: start; }
+.book { min-width: 0; }
+.book h2 { font-size: 22px; }
+.chap { margin: 0 0 18px; }
+.chap h3 {
+  margin: 0; background: var(--bar); color: var(--bar-ink); font-family: var(--f-display); font-weight: 700;
+  font-size: 15px; padding: 5px 12px; border-radius: 4px;
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 12px; align-items: baseline;
+}
+.chap h3 .weight { font-family: var(--f-body); font-weight: 400; font-size: 12.5px; opacity: .92; }
+.chap ol { list-style: none; margin: 4px 0 0; padding: 0; }
+
+.row {
+  display: grid; grid-template-columns: 2.2em minmax(0, 1fr) auto 3.4em; gap: 2px 10px; align-items: baseline;
+  padding: 6px 8px; border-bottom: 1px dotted var(--rule);
+}
+.row .no { color: var(--num); font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
+.row .ttl { display: block; }
+.row .note { display: block; font-size: 12.5px; color: var(--muted); line-height: 1.45; }
+.row .imp { color: var(--pen); letter-spacing: .06em; white-space: nowrap; }
+.row .pg { font-size: 12px; color: var(--muted); text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.t-S { background: var(--hl); }
+.t-S .ttl { font-weight: 700; }
+.t-C .ttl, .t-C .no { color: var(--muted); }
+.t-C .imp { color: var(--chip-ink); background: var(--chip); font-size: 11.5px; letter-spacing: 0; padding: 1px 8px; border-radius: 999px; }
+
+.extra { border: 1.5px dashed var(--pen); border-radius: 8px; padding: 14px 18px; display: grid; gap: 10px; }
+.extra h2 { margin: 0; }
+.extra h2 .pen { color: var(--pen); }
+.extra ul { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; max-width: 75ch; }
+.extra b { font-weight: 700; }
+
+footer { font-size: 12.5px; color: var(--muted); display: grid; gap: 4px; max-width: 80ch; }
+footer p { margin: 0; }
+
+@media (max-width: 420px) {
+  .row { grid-template-columns: 1.8em minmax(0, 1fr) auto; }
+  .row .pg { grid-column: 2; text-align: left; }
+}
+
+@media print {
+  @page { size: A4; margin: 9mm; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-size: 10px; }
+  .wrap { padding: 0; gap: 10px; max-width: none; }
+  .filters { display: none; }
+  .books { grid-template-columns: 1fr 1fr; gap: 14px; }
+  .row { padding: 1px 4px; }
+  .row .note { font-size: 8.5px; }
+  .chap { margin-bottom: 6px; break-inside: avoid; }
+  .chap h3 { font-size: 11px; padding: 2px 8px; }
+  .legend { grid-template-columns: repeat(4, 1fr); }
+  .format ol { grid-template-columns: repeat(7, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <p class="eyebrow">看護専門学校 数学対策</p>
+    <h1>パターンドリル 数学Ⅰ・A<br>出題重要度つき目次 <span class="pen">★</span></h1>
+    <p class="lede">過去問8回分（令和4〜7年度の推薦・一般）を全問分類し、問題集の各項目に出題重要度の赤い星をつけました。本についている LEVEL の星（難しさ）とは別ものです。</p>
+  </header>
+
+  <ul class="legend" id="legend"></ul>
+
+  <section class="format" aria-labelledby="fmt-h">
+    <h2 id="fmt-h">出題形式（8回とも同じ）</h2>
+    <ol>
+      <li><span class="box">1</span><span class="what">小問集合（計算・因数分解・絶対値・2次方程式・三角比）</span><span class="pts">25点</span></li>
+      <li><span class="box">2</span><span class="what">割合の計算・確率</span><span class="pts">15点</span></li>
+      <li><span class="box">3</span><span class="what">2次関数（医療データ）</span><span class="pts">15点</span></li>
+      <li><span class="box">4</span><span class="what">命題</span><span class="pts">10点</span></li>
+      <li><span class="box">5</span><span class="what">場合の数</span><span class="pts">10点</span></li>
+      <li><span class="box">6</span><span class="what">データの分析</span><span class="pts">10点</span></li>
+      <li><span class="box">7</span><span class="what">三角比の応用</span><span class="pts">15点</span></li>
+    </ol>
+    <p class="note">60分・小問20問・各5点で100点満点。メモの [1](3) は「大問1の(3)」、「8/8回」は8回中8回出たという意味です。</p>
+  </section>
+
+  <div class="filters" role="group" aria-label="表示する項目">
+    <span>表示：</span>
+    <button type="button" id="f-all" data-f="all" aria-pressed="true">すべて</button>
+    <button type="button" id="f-s" data-f="S" aria-pressed="false">★★★だけ</button>
+    <button type="button" id="f-sa" data-f="SA" aria-pressed="false">★★以上</button>
+  </div>
+
+  <div class="books" id="books"></div>
+
+  <section class="extra" aria-labelledby="extra-h">
+    <h2 id="extra-h"><span class="pen">問題集にない出題</span>（毎回15点）</h2>
+    <ul>
+      <li><b>[1](1) 数の計算（8/8回）</b>：負の数・累乗・分数の計算。毎回、−4² と (−4)² の区別が引っかけになっています（例：−4³÷(−2)⁴）。</li>
+      <li><b>[2](1)(2) 割合の文章題（8/8回・10点）</b>：点滴の滴下量が4回、BMI・ローレル指数が3回、濃度（食塩水・エタノール）が3回。ほかに水分量、血液量、酸素ボンベなど。中学の割合・比・単位換算で解けます。過去問の [2] を集めて繰り返すのが効率的です。</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>分析した過去問：東海アクシス看護専門学校 令和4〜7年度 推薦入試・一般入試（計8回）。</p>
+    <p>目標時間の合計は、問題集に書かれた各項目の目標時間を足したものです。</p>
+  </footer>
+</div>
+
+<script>
+const TIERS = {
+  S: { stars: "★★★", label: "最重要", desc: "毎回出る大問の中心" },
+  A: { stars: "★★", label: "重要", desc: "よく出る、または隔年で出る" },
+  B: { stars: "★", label: "余裕があれば", desc: "8回で1回程度、または土台" },
+  C: { stars: "後回し", label: "出題なし", desc: "8回で一度も出ていない" }
+};
+
+// [番号, 項目名, 目標時間(分), ページ, 重要度, メモ]
+const BOOKS = [
+  { name: "数学Ⅰ", chapters: [
+    { title: "1章 数と式", weight: "毎回 約10点", items: [
+      [1, "単項式", 10, 4, "B", "累乗の計算の土台。[1](1)の計算は毎回出る"],
+      [2, "多項式", 10, 6, "B", "式の計算の土台"],
+      [3, "多項式の計算", 10, 8, "B", "式の計算の土台"],
+      [4, "展開の復習（中学）", 10, 10, "B", "因数分解の土台"],
+      [5, "展開（公式の利用）", 15, 12, "B", "因数分解の土台"],
+      [6, "展開（置き換え）", 20, 14, "B", "因数分解の土台"],
+      [7, "因数分解の復習（中学）", 15, 16, "S", "[1](2) 組にしてくくる型が4回。その土台"],
+      [8, "因数分解（公式の利用）", 20, 18, "S", "a²−b² などで仕上げる型"],
+      [9, "因数分解（たすき掛け）", 20, 20, "S", "[1](2) 3回。6x²+xy−2y² 型"],
+      [10, "因数分解（置き換え）", 20, 22, "S", "文字が2つ以上ある式の整理"],
+      [11, "実数の分類", 15, 24, "A", "命題で有理数・無理数が2回"],
+      [12, "絶対値", 15, 26, "A", "18・19の土台"],
+      [13, "平方根の計算", 15, 28, "A", "有理化・式の値で2回"],
+      [14, "二重根号", 20, 30, "B", "1回（公式は問題文にあった）"],
+      [15, "整数部分と小数部分", 20, 32, "B", "1回"],
+      [16, "対称式", 20, 34, "B", "式の値で1回"],
+      [17, "1次不等式", 15, 36, "A", "連立不等式が1回。絶対値の土台"],
+      [18, "絶対値を含む方程式", 20, 38, "S", "[1](3) 2回。|3x−8|=x 型"],
+      [19, "絶対値を含む不等式", 20, 40, "S", "[1](3) 5回。右辺に x がある型も"]
+    ]},
+    { title: "2章 集合と命題", weight: "毎回 10点", items: [
+      [20, "集合", 15, 42, "C", ""],
+      [21, "補集合・共通部分・和集合", 15, 44, "C", ""],
+      [22, "命題", 15, 46, "A", "[4]の土台"],
+      [23, "ド・モルガンの法則と「かつ」・「または」", 20, 48, "S", "[4] 毎回。「ともに」の否定は「いずれかが」"],
+      [24, "必要条件・十分条件", 20, 50, "S", "[4](2) 8/8回。反例を作る"],
+      [25, "逆・裏・対偶", 20, 52, "S", "[4](1) 8/8回（裏4回・対偶4回）"]
+    ]},
+    { title: "3章 2次関数とグラフ", weight: "毎回 約20点", items: [
+      [26, "関数", 10, 54, "A", "[3] 値を代入する問題"],
+      [27, "2次関数のグラフ①", 15, 56, "A", "軸・頂点が1回"],
+      [28, "2次関数のグラフ②", 15, 58, "C", ""],
+      [29, "平方完成", 15, 60, "S", "[3] 最大・最小の前提"],
+      [30, "2次関数の最大値と最小値", 20, 62, "S", "[3] 5回。定義域つき"],
+      [31, "平行移動", 15, 64, "C", ""],
+      [32, "関数の決定の復習（中学）", 15, 66, "C", ""],
+      [33, "2次関数の決定①", 20, 68, "B", "グラフのつながりから定数を決める型が1回"],
+      [34, "2次関数の決定②", 30, 70, "B", ""],
+      [35, "2次関数の決定③", 15, 72, "B", ""],
+      [36, "2次方程式", 15, 74, "S", "[1](4) 5回＋[3] ほぼ毎回。解の公式"],
+      [37, "2次方程式の実数解の個数", 15, 76, "C", ""],
+      [38, "2次関数のグラフと x 軸の共有点", 15, 78, "C", ""],
+      [39, "2次不等式①", 15, 80, "A", "[1](4) 2回"],
+      [40, "2次不等式②", 15, 82, "A", "[1](4) 2回"]
+    ]},
+    { title: "4章 図形と計量", weight: "毎回 約20点", items: [
+      [41, "三角比の値（直角三角形による定義）", 15, 84, "S", "[7] 8/8回"],
+      [42, "三角比の値（単位円による定義）", 20, 86, "A", "鈍角が3回"],
+      [43, "三角比の相互関係", 20, 88, "S", "7/8回。1つの値から残りを出す"],
+      [44, "三角比を含む方程式", 20, 90, "A", "[1](5) 3回"],
+      [45, "三角比を含む不等式", 25, 92, "C", ""],
+      [46, "正弦定理", 25, 94, "C", "出題なし。余弦定理のついでに1回"],
+      [47, "余弦定理", 30, 96, "S", "4〜5回。[7]で辺や角を出す"],
+      [48, "三角形の面積", 20, 98, "A", "3回。面積から距離を出す型も"],
+      [49, "三角形の内接円の半径", 20, 100, "C", ""]
+    ]},
+    { title: "5章 データの分析", weight: "毎回 10点", items: [
+      [50, "平均値", 15, 102, "S", "[6] 4回。ヒストグラムの階級値で出す平均も"],
+      [51, "四分位数", 15, 104, "S", "中央値が6回（箱ひげ図は出ていない）"],
+      [52, "分散と標準偏差", 20, 106, "S", "分散が4回"],
+      [53, "共分散と相関係数", 15, 108, "C", ""],
+      [54, "仮説検定", 20, 110, "C", ""]
+    ]}
+  ]},
+  { name: "数学A", chapters: [
+    { title: "1章 場合の数と確率", weight: "毎回 約15点", items: [
+      [1, "集合の要素の個数", 20, 4, "B", "包除の考え方が1回"],
+      [2, "数え上げ", 10, 6, "B", "完全順列（手紙の入れ違い）が1回"],
+      [3, "和の法則，積の法則", 10, 8, "A", "[5]の土台。2⁶−1 型が1回"],
+      [4, "順列①", 15, 10, "A", "[5] 2回"],
+      [5, "順列②", 15, 12, "B", "順列の応用"],
+      [6, "重複順列", 15, 14, "B", "1回"],
+      [7, "円順列", 15, 16, "C", ""],
+      [8, "辞書式配列", 20, 18, "C", ""],
+      [9, "組合せ①", 15, 20, "S", "[5] 6/8回の中心"],
+      [10, "組合せ②", 15, 22, "S", "組分け（7人を3・2・2人に）が定番"],
+      [11, "同じものを含む順列，最短経路", 20, 24, "B", "順番を固定する型が1回"],
+      [12, "重複組合せ", 20, 26, "A", "区別しない本の配り方が2回"],
+      [13, "確率の基本", 10, 28, "B", "確率の土台"],
+      [14, "確率の計算", 15, 30, "B", "確率の土台"],
+      [15, "確率の加法定理", 20, 32, "C", ""],
+      [16, "余事象の確率", 15, 34, "A", "[2](3)「少なくとも1回」が1回"],
+      [17, "独立試行の確率", 15, 36, "A", "[2](3) 2回"],
+      [18, "反復試行の確率", 20, 38, "A", "[2](3) 2回（n回中1回だけ）"],
+      [19, "条件付き確率", 15, 40, "B", "1回（割合でも解ける）"],
+      [20, "確率の乗法定理", 20, 42, "B", "1回（割合でも解ける）"],
+      [21, "期待値", 15, 44, "C", ""]
+    ]},
+    { title: "2章 図形の性質", weight: "8回で出題なし", items: [
+      [22, "平行線と角", 10, 46, "C", ""],
+      [23, "多角形と角", 15, 48, "C", ""],
+      [24, "合同と相似", 15, 50, "C", ""],
+      [25, "平行線と線分の比", 15, 52, "C", ""],
+      [26, "線分の比と面積比", 15, 54, "C", ""],
+      [27, "相似比と面積比", 15, 56, "C", ""],
+      [28, "円周角の定理，円に内接する四角形", 15, 58, "C", ""],
+      [29, "重心と垂心", 15, 60, "C", ""],
+      [30, "外心と内心", 15, 62, "C", ""],
+      [31, "チェバの定理", 15, 64, "C", ""],
+      [32, "メネラウスの定理", 20, 66, "C", ""],
+      [33, "円と接線，接弦定理", 15, 68, "C", ""],
+      [34, "方べきの定理", 15, 70, "C", ""],
+      [35, "多面体", 20, 72, "C", ""]
+    ]},
+    { title: "3章 数学と人間の活動", weight: "8回で1問だけ", items: [
+      [36, "倍数の判定，素因数分解", 15, 74, "C", ""],
+      [37, "約数の個数と総和", 15, 76, "C", ""],
+      [38, "公約数と最大公約数", 15, 78, "C", ""],
+      [39, "公倍数と最小公倍数", 15, 80, "C", ""],
+      [40, "ユークリッドの互除法", 20, 82, "C", ""],
+      [41, "一次不定方程式①", 20, 84, "B", "4m+7n=60 の自然数解が1回"],
+      [42, "一次不定方程式②", 20, 86, "B", ""],
+      [43, "方程式の整数解", 20, 88, "B", ""],
+      [44, "n 進法から10進法", 20, 90, "C", ""],
+      [45, "10進法から n 進法", 20, 92, "C", ""],
+      [46, "2点間の距離", 10, 94, "C", ""]
+    ]}
+  ]}
+];
+
+function fmtTime(m) {
+  const h = Math.floor(m / 60), r = m % 60;
+  return (h ? h + "時間" : "") + (r ? r + "分" : "");
+}
+
+function el(tag, cls, text) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text != null) e.textContent = text;
+  return e;
+}
+
+// 凡例：重要度ごとの項目数と目標時間の合計
+const totals = { S: [0, 0], A: [0, 0], B: [0, 0], C: [0, 0] };
+BOOKS.forEach(b => b.chapters.forEach(c => c.items.forEach(([, , min, , t]) => {
+  totals[t][0] += 1; totals[t][1] += min;
+})));
+const legend = document.getElementById("legend");
+["S", "A", "B", "C"].forEach(t => {
+  const li = el("li");
+  li.append(el("span", t === "C" ? "imp later" : "imp", t === "C" ? "後回し" : TIERS[t].stars));
+  li.append(el("span", "lbl", TIERS[t].label));
+  li.append(el("span", "sub", TIERS[t].desc));
+  const [n, min] = totals[t];
+  li.append(el("span", "sub", n + "項目" + (t === "C" ? "" : "・目標時間 計" + fmtTime(min))));
+  legend.append(li);
+});
+
+// 目次
+const booksEl = document.getElementById("books");
+BOOKS.forEach(book => {
+  const sec = el("section", "book");
+  sec.append(el("h2", null, book.name));
+  book.chapters.forEach(ch => {
+    const chap = el("div", "chap");
+    const h3 = el("h3");
+    h3.append(el("span", null, ch.title), el("span", "weight", ch.weight));
+    chap.append(h3);
+    const ol = el("ol");
+    ch.items.forEach(([no, title, min, page, t, note]) => {
+      const li = el("li", "row t-" + t);
+      li.dataset.tier = t;
+      li.append(el("span", "no", no));
+      const body = el("div");
+      body.append(el("span", "ttl", title));
+      if (note) body.append(el("span", "note", note));
+      li.append(body);
+      const imp = el("span", "imp", TIERS[t].stars);
+      imp.setAttribute("aria-label", "重要度：" + TIERS[t].label);
+      li.append(imp);
+      li.append(el("span", "pg", "p." + page));
+      ol.append(li);
+    });
+    chap.append(ol);
+    sec.append(chap);
+  });
+  booksEl.append(sec);
+});
+
+// 表示の絞り込み
+const buttons = document.querySelectorAll(".filters button");
+function applyFilter(f) {
+  const show = f === "S" ? ["S"] : f === "SA" ? ["S", "A"] : ["S", "A", "B", "C"];
+  document.querySelectorAll(".row").forEach(r => { r.hidden = !show.includes(r.dataset.tier); });
+  document.querySelectorAll(".chap").forEach(c => { c.hidden = !c.querySelector(".row:not([hidden])"); });
+  buttons.forEach(b => b.setAttribute("aria-pressed", String(b.dataset.f === f)));
+  try { localStorage.setItem("drill-filter", f); } catch (e) {}
+}
+buttons.forEach(b => b.addEventListener("click", () => applyFilter(b.dataset.f)));
+let saved = "all";
+try { saved = localStorage.getItem("drill-filter") || "all"; } catch (e) {}
+applyFilter(saved);
+</script>
+</body>
+</html>
