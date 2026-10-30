@@ -16,9 +16,9 @@ body { margin: 0; }
   --ink: #1b2436;
   --muted: #646e84;
   --rule: #dce1ea;
-  --bar: #1f4e8c;
+  --bar: #1e6b52;
   --bar-ink: #ffffff;
-  --num: #1f4e8c;
+  --num: #1e6b52;
   --pen: #cc2233;
   --hl: #fdeef0;
   --chip: #eef1f6;
@@ -29,13 +29,13 @@ body { margin: 0; }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --paper: #11151d; --ink: #e5e8ef; --muted: #8f97a9; --rule: #283044;
-    --bar: #2b5a9f; --bar-ink: #ffffff; --num: #93b6f5; --pen: #ff6f7c;
+    --bar: #2a7d61; --bar-ink: #ffffff; --num: #7fd3b2; --pen: #ff6f7c;
     --hl: #2a1a20; --chip: #1c2230; --chip-ink: #a9b0c0; color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --paper: #11151d; --ink: #e5e8ef; --muted: #8f97a9; --rule: #283044;
-  --bar: #2b5a9f; --bar-ink: #ffffff; --num: #93b6f5; --pen: #ff6f7c;
+  --bar: #2a7d61; --bar-ink: #ffffff; --num: #7fd3b2; --pen: #ff6f7c;
   --hl: #2a1a20; --chip: #1c2230; --chip-ink: #a9b0c0; color-scheme: dark;
 }
 
@@ -119,6 +119,7 @@ h2 { font-family: var(--f-display); font-weight: 700; font-size: 18px; margin: 0
 
 footer { font-size: 12.5px; color: var(--muted); display: grid; gap: 4px; max-width: 80ch; }
 footer p { margin: 0; }
+footer a { color: var(--num); }
 
 @media (max-width: 420px) {
   .row { grid-template-columns: 1.8em minmax(0, 1fr) auto; }
@@ -145,8 +146,8 @@ footer p { margin: 0; }
 
 <div class="wrap">
   <header>
-    <p class="eyebrow">島田市立看護専門学校 数学対策</p>
-    <h1>パターンドリル 数学Ⅰ・A<br>出題重要度つき目次 <span class="pen">★</span></h1>
+    <p class="eyebrow">パターンドリル 数学Ⅰ・A</p>
+    <h1>島田市立看護専門学校<br>出題重要度つき目次 <span class="pen">★</span></h1>
     <p class="lede">過去問2回分（令和8年度の推薦・一般）を全問分類し、問題集の各項目に出題重要度の赤い星をつけました。2回は大問の並びも型もそっくり同じなので、来年もこの型で出るとみて重みをつけています。ほかの分析2本と食い違った項目は、過去問を解き直して決めました。本についている LEVEL の星（難しさ）とは別ものです。</p>
   </header>
 
@@ -196,6 +197,7 @@ footer p { margin: 0; }
     <p>分析した過去問：島田市立看護専門学校 令和8年度 推薦入試・一般入試（計2回）。</p>
     <p>目標時間の合計は、問題集に書かれた各項目の目標時間を足したものです。</p>
     <p>2回分だけの分析なので、出ていない項目が今後も出ないとは限りません。ほかの年度の過去問が手に入れば見直します。</p>
+    <p>両校をまとめた毎日の予定は<a href="島田看護・東海アクシス_数学対策メニュー.html">対策メニュー</a>にあります。</p>
   </footer>
 </div>
 
