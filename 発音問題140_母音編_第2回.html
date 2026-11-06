@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>発音問題 140 実力チェックテスト 母音編 第2回</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', 'Noto Sans JP', sans-serif;
+      background-color: #faf7f5;
+      color: #1f2937;
+    }
+    .serif-word {
+      font-family: 'Noto Serif', Georgia, serif;
+      white-space: nowrap; /* 下線部(inline-block)の前後で単語が2行に割れないようにする */
+    }
+    /* Custom underline styling matching the printed test look */
+    .underlined-part {
+      display: inline-block;
+      border-bottom: 3px solid #e11d48;
+      padding-bottom: 1px;
+      font-weight: 700;
+      color: #be123c;
+      background-color: rgba(244, 63, 94, 0.08);
+      border-radius: 2px;
+      padding-left: 1px;
+      padding-right: 1px;
+    }
+    /* Speaking wave animation */
+    @keyframes soundWave {
+      0%, 100% { height: 4px; }
+      50% { height: 16px; }
+    }
+    .wave-bar {
+      width: 3px;
+      background-color: #e11d48;
+      border-radius: 9999px;
+      display: inline-block;
+      animation: soundWave 0.6s infinite ease-in-out;
+    }
+    .wave-bar:nth-child(2) { animation-delay: 0.15s; }
+    .wave-bar:nth-child(3) { animation-delay: 0.3s; }
+    .wave-bar:nth-child(4) { animation-delay: 0.45s; }
+
+    .playing-card {
+      box-shadow: 0 0 0 2px #e11d48, 0 10px 15px -3px rgba(225, 29, 72, 0.15);
+      background-color: #fff1f2 !important;
+      transform: translateY(-1px);
+    }
+    @keyframes revealPop {
+      0% { opacity: 0; transform: translateY(-4px) scale(0.98); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .ipa-reveal-anim {
+      animation: revealPop 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    /* Chamfered Red Header Box inspired by original worksheet */
+    .worksheet-banner {
+      background: linear-gradient(135deg, #ffe4e6 0%, #fecdd3 100%);
+      border: 2.5px solid #be123c;
+      position: relative;
+    }
+    .handwriting-hint {
+      color: #be123c;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+  </style>
+</head>
+<body class="min-h-screen pb-20">
+
+  <!-- Sticky Audio & Control Bar -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-rose-200 shadow-sm">
+    <div class="max-w-5xl mx-auto px-3 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-2">
+      <!-- App Title Short & Mode Switch -->
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-rose-600 text-white font-bold text-sm shadow-sm">
+          母音
+        </span>
+        <div>
+          <h1 class="text-sm sm:text-base font-black text-gray-900 leading-tight">発音問題 140 <span class="text-rose-600">母音編 第2回</span></h1>
+          <p class="text-[11px] text-gray-500 hidden sm:block">問21〜40 発音・発音記号(IPA)・実力チェックテスト</p>
+        </div>
+      </div>
+
+      <!-- Mode Switcher Tabs -->
+      <div class="flex bg-gray-100 p-1 rounded-xl border border-gray-200">
+        <button id="tabStudyBtn" onclick="switchMode('study')" class="px-3 py-1.5 rounded-lg text-xs sm:text-sm font-bold transition-all bg-rose-600 text-white shadow-sm flex items-center gap-1.5">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
+          発音確認・学習
+        </button>
+        <button id="tabQuizBtn" onclick="switchMode('quiz')" class="px-3 py-1.5 rounded-lg text-xs sm:text-sm font-bold transition-all text-gray-600 hover:text-gray-900 flex items-center gap-1.5">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+          実力テスト (20問)
+        </button>
+      </div>
+
+      <!-- Voice Settings (Accent & Speed) -->
+      <div class="flex items-center gap-1.5 sm:gap-2 text-xs">
+        <div class="flex items-center bg-gray-100 rounded-lg p-0.5 border border-gray-200">
+          <button id="accentUS" onclick="setAccent('en-US')" class="px-2 py-1 rounded-md font-bold bg-white text-rose-700 shadow-sm transition">🇺🇸 米音</button>
+          <button id="accentUK" onclick="setAccent('en-GB')" class="px-2 py-1 rounded-md font-medium text-gray-600 hover:text-gray-900 transition">🇬🇧 英音</button>
+        </div>
+        <select id="speedSelect" onchange="setSpeed(this.value)" aria-label="再生速度" class="bg-gray-100 border border-gray-200 text-gray-800 font-semibold rounded-lg px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-rose-500">
+          <option value="1.0">速度 1.0x</option>
+          <option value="0.85">速度 0.85x (少しゆっくり)</option>
+          <option value="0.7">速度 0.7x (ゆっくり)</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-5xl mx-auto px-3 sm:px-6 pt-5">
+
+    <!-- Worksheet Header Banner & Score Tracker (Faithful to original sheet) -->
+    <section class="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-200 mb-6">
+      <div class="worksheet-banner rounded-xl px-4 py-3 mb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+          <span class="text-lg sm:text-2xl font-black text-rose-800 tracking-tight">発音問題 140</span>
+          <span class="text-base sm:text-xl font-extrabold text-rose-700">実力チェックテスト</span>
+          <span class="text-base sm:text-xl font-black text-gray-900 bg-white/80 px-2.5 py-0.5 rounded-md border border-rose-300">母音編　第２回</span>
+        </div>
+        <span class="text-xs font-bold text-rose-800 bg-rose-100/90 px-2.5 py-1 rounded-full self-start sm:self-auto">
+          P.92 - P.93 (問21〜40)
+        </span>
+      </div>
+
+      <!-- Timer & 3-Attempt Score Box Row -->
+      <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2 text-sm sm:text-base font-bold text-gray-800">
+            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-amber-50 border border-amber-200 text-amber-900">
+              <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              解答時間 3分30秒
+            </span>
+            <span class="handwriting-hint text-xs sm:text-sm">20問一気に解いてみよう！</span>
+          </div>
+          <p class="text-xs sm:text-sm text-gray-700 font-medium leading-relaxed">
+            次のそれぞれの単語①〜④のうちから、下線の部分の発音が、<span class="font-bold text-rose-700 underline decoration-rose-400">ほかの3つと異なるもの</span>を1つ選べ。
+          </p>
+        </div>
+
+        <!-- 1回目 / 2回目 / 3回目 Score Table -->
+        <div class="flex items-center gap-3 self-end md:self-auto">
+          <div class="grid grid-cols-3 border-2 border-gray-800 rounded-lg overflow-hidden text-center bg-white shadow-sm min-w-[230px]">
+            <div class="border-r border-gray-800 p-1.5">
+              <div class="text-[11px] font-bold text-gray-600 text-left pl-1">1回目</div>
+              <div class="text-sm sm:text-base font-black text-rose-600">
+                <input id="score1" type="number" min="0" max="20" placeholder="-" onchange="saveManualScore(1, this.value)" class="w-8 text-right font-black text-rose-600 bg-transparent focus:outline-none border-b border-dashed border-gray-300" />
+                <span class="text-gray-700 font-bold text-xs">/20</span>
+              </div>
+            </div>
+            <div class="border-r border-gray-800 p-1.5">
+              <div class="text-[11px] font-bold text-gray-600 text-left pl-1">2回目</div>
+              <div class="text-sm sm:text-base font-black text-rose-600">
+                <input id="score2" type="number" min="0" max="20" placeholder="-" onchange="saveManualScore(2, this.value)" class="w-8 text-right font-black text-rose-600 bg-transparent focus:outline-none border-b border-dashed border-gray-300" />
+                <span class="text-gray-700 font-bold text-xs">/20</span>
+              </div>
+            </div>
+            <div class="p-1.5">
+              <div class="text-[11px] font-bold text-gray-600 text-left pl-1">3回目</div>
+              <div class="text-sm sm:text-base font-black text-rose-600">
+                <input id="score3" type="number" min="0" max="20" placeholder="-" onchange="saveManualScore(3, this.value)" class="w-8 text-right font-black text-rose-600 bg-transparent focus:outline-none border-b border-dashed border-gray-300" />
+                <span class="text-gray-700 font-bold text-xs">/20</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Controls Bar: Study / Quiz Mode Specific Controls -->
+    <section id="studyControls" class="bg-white rounded-2xl p-3.5 sm:p-4 shadow-sm border border-gray-200 mb-5 flex flex-wrap items-center justify-between gap-3">
+      <!-- Filter Pills -->
+      <div class="flex flex-wrap items-center gap-1.5">
+        <button onclick="setFilter('all')" id="filter-all" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-gray-900 text-white transition">
+          すべて表示 (20問)
+        </button>
+        <button onclick="setFilter('bookmarked')" id="filter-bookmarked" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-gray-100 text-gray-700 hover:bg-gray-200 transition flex items-center gap-1">
+          <span>★ 要復習チェック</span>
+          <span id="bookmarkCountBadge" class="px-1.5 py-0.2 bg-amber-200 text-amber-900 rounded-full text-[10px]">0</span>
+        </button>
+        <select id="vowelFilterSelect" onchange="setFilter(this.value)" aria-label="母音で絞り込み" class="bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold rounded-lg px-2.5 py-1.5 focus:outline-none">
+          <option value="all">🔍 母音テーマで絞り込み...</option>
+          <option value="ʌ">母音 /ʌ/ (blood, result, cousin等)</option>
+          <option value="iː">母音 /iː/ vs /e/ (legend, threaten等)</option>
+          <option value="ʊ">母音 /ʊ/ vs /uː/ (hood, cook, balloon等)</option>
+          <option value="oʊ">母音 /oʊ/ vs /aʊ/ (crow, allow, toast等)</option>
+          <option value="aɪ">母音 /aɪ/ vs /ɪ/ (polite, elite, client等)</option>
+          <option value="r">r音化母音 (core, bear, beer等)</option>
+        </select>
+      </div>
+
+      <!-- Visibility Toggles for Self-Study -->
+      <div class="flex flex-wrap items-center gap-2">
+        <button id="toggleIpaBtn" type="button" onclick="toggleAllIpaVisibility()" class="px-3 py-1.5 rounded-lg text-xs font-bold border border-amber-300 bg-amber-50 text-amber-900 hover:bg-amber-100 transition flex items-center gap-1.5">
+          <span id="ipaToggleDot" class="w-2 h-2 rounded-full bg-amber-500"></span>
+          <span id="ipaToggleText">全単語の発音記号を表示</span>
+        </button>
+        <button id="toggleAnsBtn" type="button" onclick="toggleAllAnswerVisibility()" class="px-3 py-1.5 rounded-lg text-xs font-bold border border-emerald-300 bg-emerald-50 text-emerald-900 hover:bg-emerald-100 transition flex items-center gap-1.5">
+          <span id="ansToggleDot" class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          <span id="ansToggleText">全問の正解を表示</span>
+        </button>
+        <button id="resetRevealedBtn" type="button" onclick="hideAllIndividualIpa()" class="px-2.5 py-1.5 rounded-lg text-xs font-bold border border-gray-200 bg-gray-100 text-gray-700 hover:bg-gray-200 transition">
+          すべて隠す (リセット)
+        </button>
+      </div>
+    </section>
+
+    <!-- Quiz Mode Timer & Action Bar (Hidden in Study Mode) -->
+    <section id="quizControls" class="hidden bg-gradient-to-r from-rose-900 to-rose-700 text-white rounded-2xl p-4 shadow-md mb-5">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-4">
+          <div class="bg-black/25 px-4 py-2 rounded-xl border border-white/15 flex items-center gap-2.5">
+            <svg class="w-5 h-5 text-rose-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <div>
+              <div class="text-[10px] text-rose-200 uppercase tracking-wider font-semibold">残り時間 (3分30秒)</div>
+              <div id="timerDisplay" class="text-xl sm:text-2xl font-mono font-black tracking-tight">03:30</div>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <button id="timerToggleBtn" onclick="toggleTimer()" class="px-3.5 py-2 rounded-xl bg-white text-rose-800 font-bold text-xs sm:text-sm shadow hover:bg-rose-50 transition">
+              ▶ タイマー開始
+            </button>
+            <button onclick="resetQuiz()" class="px-3 py-2 rounded-xl bg-rose-800/80 hover:bg-rose-800 text-rose-100 border border-rose-500/40 font-semibold text-xs sm:text-sm transition">
+              リセット
+            </button>
+            <button id="quizInstantIpaBtn" onclick="toggleQuizInstantIpa()" class="px-3 py-2 rounded-xl bg-white/15 hover:bg-white/25 text-white border border-white/25 font-bold text-xs transition flex items-center gap-1.5">
+              <span id="quizInstantIpaDot" class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              選択時に発音＆記号を表示: ON
+            </button>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
+          <div class="text-right">
+            <div class="text-xs text-rose-200">回答済み</div>
+            <div class="text-lg font-black"><span id="answeredCount">0</span> / 20 問</div>
+          </div>
+          <button id="gradeQuizBtn" onclick="gradeQuiz()" class="px-5 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-gray-900 font-black text-sm shadow-md transition">
+            採点して結果を見る
+          </button>
+        </div>
+      </div>
+
+      <!-- Quiz Result Banner (Revealed after grading) -->
+      <div id="quizResultBanner" class="hidden mt-4 pt-4 border-t border-white/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+        <div>
+          <span class="inline-block px-2.5 py-0.5 rounded-full bg-amber-300 text-gray-900 font-black text-xs mb-1">採点結果</span>
+          <h3 id="quizScoreHeadline" class="text-xl sm:text-2xl font-black">20問中 0問 正解！</h3>
+          <p id="quizScoreSub" class="text-xs text-rose-100 mt-0.5">間違えた問題は自動的に「★要復習チェック」に登録されました。各単語をクリックして発音を聴き比べましょう。</p>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <button onclick="recordScoreToSlot(1)" class="px-3 py-1.5 rounded-lg bg-white/15 hover:bg-white/25 text-xs font-bold border border-white/30 transition">1回目に記録</button>
+          <button onclick="recordScoreToSlot(2)" class="px-3 py-1.5 rounded-lg bg-white/15 hover:bg-white/25 text-xs font-bold border border-white/30 transition">2回目に記録</button>
+          <button onclick="recordScoreToSlot(3)" class="px-3 py-1.5 rounded-lg bg-white/15 hover:bg-white/25 text-xs font-bold border border-white/30 transition">3回目に記録</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Tip Banner -->
+    <div class="mb-4 px-3.5 py-2.5 rounded-xl bg-rose-50/90 border border-rose-200/80 flex items-center justify-between gap-2 text-xs text-rose-900">
+      <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+        <span>👆🔊 <strong>単語カードをタップ：</strong>英語発音の再生＋その単語の<strong>発音記号(IPA)・下線部の母音・意味</strong>を個別表示。<strong>もう1回タップ</strong>で発音記号を隠す</span>
+        <span>👁️ <strong>問題ごとの「正解・解説を表示」ボタン：</strong>各問題の正解と4単語の母音比較・解説を個別に表示</span>
+      </div>
+      <button type="button" onclick="stopAllSpeech()" id="stopAudioBtn" class="hidden shrink-0 px-2.5 py-1 rounded-lg bg-rose-600 text-white font-bold text-xs">
+        ■ 停止
+      </button>
+    </div>
+
+    <!-- Questions List Container -->
+    <div id="questionsContainer" class="space-y-4"></div>
+
+  </main>
+
+  <!-- Floating Bottom Status Bar when playing sequence -->
+  <div id="floatingPlayerBar" class="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 hidden bg-gray-900/95 text-white px-4 py-2.5 rounded-2xl shadow-xl border border-gray-700 flex items-center gap-3 min-w-[280px] max-w-[92vw]">
+    <div class="flex items-end gap-0.5 h-4">
+      <span class="wave-bar"></span>
+      <span class="wave-bar"></span>
+      <span class="wave-bar"></span>
+      <span class="wave-bar"></span>
+    </div>
+    <div class="flex-1 min-w-0">
+      <div id="nowPlayingLabel" class="text-xs font-bold text-rose-300 truncate">再生中...</div>
+      <div id="nowPlayingWord" class="text-sm font-black truncate">result /rɪˈzʌlt/</div>
+    </div>
+    <button onclick="stopAllSpeech()" class="px-2.5 py-1 rounded-lg bg-gray-700 hover:bg-gray-600 text-xs font-bold transition">
+      停止
+    </button>
+  </div>
+
+  <script>
+    // Vowel pronunciation tips for interactive individual cards
+    const VOWEL_TIPS = {
+      "/ʌ/": "口を軽く開けて短く強く「ア」",
+      "/aʊ/": "「ア」から「ウ」へ滑らかに二重母音「アウ」",
+      "/ɪ/": "「イ」と「エ」の中間のような短い「イ」",
+      "/e/": "口を横に引いてはっきり短く「エ」",
+      "/uː/": "唇を丸めて突き出し長く「ウー」",
+      "/aɪ/": "「ア」から「イ」へ滑らかに二重母音「アイ」",
+      "/oʊ/": "「オ」から「ウ」へ唇を丸める二重母音「オウ」",
+      "/iː/": "口を横に引いて長く「イー」",
+      "/ʊ/": "唇をあまり突き出さず短く「ウ」",
+      "/ɔː/": "口を縦に大きく開けて長く「オー」",
+      "/eɪ/": "「エ」から「イ」へ滑らかに二重母音「エイ」",
+      "/æ/": "口を横に大きく開け「エ」と「ア」の中間の音",
+      "/ɔːr/": "「オー」の後に舌先を巻く r の音",
+      "/ʊər/": "「ウア」の後に舌先を巻く r の音",
+      "/eər/": "「エア」の後に舌先を巻く r の音",
+      "/ɪər/": "「イア」の後に舌先を巻く r の音"
+    };
+
+    // Complete dataset for Questions 21 to 40 from "発音問題 140 実力チェックテスト 母音編 第2回"
+    const QUESTIONS = [
+      {
+        id: 21,
+        answer: 4,
+        majorityVowel: "/ʌ/",
+        oddVowel: "/aʊ/",
+        explanation: "①result, ②blood, ③trouble の下線部はすべて強く短く発音する「ア」(/ʌ/) ですが、④proudly は二重母音 /aʊ/（アウ）と発音します。",
+        options: [
+          { num: 1, raw: "result", markup: "res[u]lt", ipa: "/rɪzʌ́lt/", vowel: "/ʌ/", ja: "結果" },
+          { num: 2, raw: "blood", markup: "bl[oo]d", ipa: "/blʌ́d/", vowel: "/ʌ/", ja: "血液" },
+          { num: 3, raw: "trouble", markup: "tr[ou]ble", ipa: "/trʌ́bl/", vowel: "/ʌ/", ja: "困難・トラブル" },
+          { num: 4, raw: "proudly", markup: "pr[ou]dly", ipa: "/práʊdli/", vowel: "/aʊ/", ja: "誇らしげに" }
+        ]
+      },
+      {
+        id: 22,
+        answer: 3,
+        majorityVowel: "/ɪ/",
+        oddVowel: "/e/",
+        explanation: "①women (/wɪ́mɪn/), ②scissors, ④business の下線部はすべて /ɪ/（イ）と発音しますが、③bury は berry と同音で /e/（エ）と発音する頻出重要語です。",
+        options: [
+          { num: 1, raw: "women", markup: "w[o]men", ipa: "/wɪ́mɪn/", vowel: "/ɪ/", ja: "女性たち" },
+          { num: 2, raw: "scissors", markup: "sc[i]ssors", ipa: "/sɪ́zərz/", vowel: "/ɪ/", ja: "はさみ" },
+          { num: 3, raw: "bury", markup: "b[u]ry", ipa: "/béri/", vowel: "/e/", ja: "埋める" },
+          { num: 4, raw: "business", markup: "b[u]siness", ipa: "/bɪ́znəs/", vowel: "/ɪ/", ja: "仕事・ビジネス" }
+        ]
+      },
+      {
+        id: 23,
+        answer: 4,
+        majorityVowel: "/uː/",
+        oddVowel: "/ʌ/",
+        explanation: "①balloon, ②blew, ③clue は長母音 /uː/（ウー）ですが、④flood（洪水）は blood（血液）と同じく /ʌ/（ア）と発音します。",
+        options: [
+          { num: 1, raw: "balloon", markup: "ball[oo]n", ipa: "/bəlúːn/", vowel: "/uː/", ja: "風船" },
+          { num: 2, raw: "blew", markup: "bl[ew]", ipa: "/blúː/", vowel: "/uː/", ja: "blowの過去形" },
+          { num: 3, raw: "clue", markup: "cl[ue]", ipa: "/klúː/", vowel: "/uː/", ja: "手がかり" },
+          { num: 4, raw: "flood", markup: "fl[oo]d", ipa: "/flʌ́d/", vowel: "/ʌ/", ja: "洪水" }
+        ]
+      },
+      {
+        id: 24,
+        answer: 1,
+        majorityVowel: "/aɪ/",
+        oddVowel: "/ɪ/",
+        explanation: "②client, ③inspire, ④iron の i はすべて二重母音 /aɪ/（アイ）ですが、①bitten（biteの過去分詞）のみ短母音 /ɪ/（イ）です。",
+        options: [
+          { num: 1, raw: "bitten", markup: "b[i]tten", ipa: "/bɪ́tn/", vowel: "/ɪ/", ja: "biteの過去分詞" },
+          { num: 2, raw: "client", markup: "cl[i]ent", ipa: "/kláiənt/", vowel: "/aɪ/", ja: "依頼人・顧客" },
+          { num: 3, raw: "inspire", markup: "insp[i]re", ipa: "/ɪnspáiər/", vowel: "/aɪ/", ja: "鼓舞する" },
+          { num: 4, raw: "iron", markup: "[i]ron", ipa: "/áiərn/", vowel: "/aɪ/", ja: "鉄・アイロン" }
+        ]
+      },
+      {
+        id: 25,
+        answer: 2,
+        majorityVowel: "/aʊ/",
+        oddVowel: "/oʊ/",
+        explanation: "①allow, ③cow, ④endow の ow はすべて /aʊ/（アウ）ですが、②crow（カラス）は /oʊ/（オウ）と発音します。",
+        options: [
+          { num: 1, raw: "allow", markup: "all[ow]", ipa: "/əláʊ/", vowel: "/aʊ/", ja: "許す" },
+          { num: 2, raw: "crow", markup: "cr[ow]", ipa: "/króʊ/", vowel: "/oʊ/", ja: "カラス" },
+          { num: 3, raw: "cow", markup: "c[ow]", ipa: "/káʊ/", vowel: "/aʊ/", ja: "牝牛(めうし)" },
+          { num: 4, raw: "endow", markup: "end[ow]", ipa: "/ɪndáʊ/", vowel: "/aʊ/", ja: "授ける・寄付する" }
+        ]
+      },
+      {
+        id: 26,
+        answer: 1,
+        majorityVowel: "/iː/",
+        oddVowel: "/e/",
+        explanation: "②previous, ③species, ④theme の e は長母音 /iː/（イー）ですが、①legend（伝説）は短母音 /e/（エ）と発音します。",
+        options: [
+          { num: 1, raw: "legend", markup: "l[e]gend", ipa: "/lédʒənd/", vowel: "/e/", ja: "伝説" },
+          { num: 2, raw: "previous", markup: "pr[e]vious", ipa: "/príːviəs/", vowel: "/iː/", ja: "前の・以前の" },
+          { num: 3, raw: "species", markup: "sp[e]cies", ipa: "/spíːʃiːz/", vowel: "/iː/", ja: "（生物の）種" },
+          { num: 4, raw: "theme", markup: "th[e]me", ipa: "/θíːm/", vowel: "/iː/", ja: "テーマ・主題" }
+        ]
+      },
+      {
+        id: 27,
+        answer: 1,
+        majorityVowel: "/ʊ/",
+        oddVowel: "/ʌ/",
+        explanation: "②hood, ③wood, ④wool の oo はすべて短い「ウ」(/ʊ/) ですが、①blood（血液）は /ʌ/（ア）と発音します。",
+        options: [
+          { num: 1, raw: "blood", markup: "bl[oo]d", ipa: "/blʌ́d/", vowel: "/ʌ/", ja: "血液" },
+          { num: 2, raw: "hood", markup: "h[oo]d", ipa: "/hʊ́d/", vowel: "/ʊ/", ja: "フード・頭巾" },
+          { num: 3, raw: "wood", markup: "w[oo]d", ipa: "/wʊ́d/", vowel: "/ʊ/", ja: "木材・森" },
+          { num: 4, raw: "wool", markup: "w[oo]l", ipa: "/wʊ́l/", vowel: "/ʊ/", ja: "羊毛・ウール" }
+        ]
+      },
+      {
+        id: 28,
+        answer: 4,
+        majorityVowel: "/oʊ/",
+        oddVowel: "/ɔː/ (英/ɒ/)",
+        explanation: "①alone, ②explosion, ③sofa の o はすべて二重母音 /oʊ/（オウ）ですが、④cost は /ɔː/（英音では /ɒ/）と発音します。",
+        options: [
+          { num: 1, raw: "alone", markup: "al[o]ne", ipa: "/əlóʊn/", vowel: "/oʊ/", ja: "一人で" },
+          { num: 2, raw: "explosion", markup: "expl[o]sion", ipa: "/ɪksplóʊʒən/", vowel: "/oʊ/", ja: "爆発" },
+          { num: 3, raw: "sofa", markup: "s[o]fa", ipa: "/sóʊfə/", vowel: "/oʊ/", ja: "ソファ" },
+          { num: 4, raw: "cost", markup: "c[o]st", ipa: "/kɔ́ːst/", vowel: "/ɔː/", ja: "費用・コスト" }
+        ]
+      },
+      {
+        id: 29,
+        answer: 1,
+        majorityVowel: "/ʊ/",
+        oddVowel: "/ʌ/",
+        explanation: "②childhood, ③cook, ④fully の下線部はすべて /ʊ/（ウ）ですが、①supper（夕食）は /ʌ/（ア）と発音します。",
+        options: [
+          { num: 1, raw: "supper", markup: "s[u]pper", ipa: "/sʌ́pər/", vowel: "/ʌ/", ja: "夕食" },
+          { num: 2, raw: "childhood", markup: "childh[oo]d", ipa: "/tʃáɪldhʊd/", vowel: "/ʊ/", ja: "幼少期" },
+          { num: 3, raw: "cook", markup: "c[oo]k", ipa: "/kʊ́k/", vowel: "/ʊ/", ja: "料理する" },
+          { num: 4, raw: "fully", markup: "f[u]lly", ipa: "/fʊ́li/", vowel: "/ʊ/", ja: "十分に・完全に" }
+        ]
+      },
+      {
+        id: 30,
+        answer: 2,
+        majorityVowel: "/ɔː/",
+        oddVowel: "/aʊ/",
+        explanation: "①cause, ③taught, ④broad はすべて長母音 /ɔː/（オー）ですが、②town のみ二重母音 /aʊ/（アウ）です。",
+        options: [
+          { num: 1, raw: "cause", markup: "c[au]se", ipa: "/kɔ́ːz/", vowel: "/ɔː/", ja: "原因・引き起こす" },
+          { num: 2, raw: "town", markup: "t[ow]n", ipa: "/táʊn/", vowel: "/aʊ/", ja: "町" },
+          { num: 3, raw: "taught", markup: "t[augh]t", ipa: "/tɔ́ːt/", vowel: "/ɔː/", ja: "teachの過去形" },
+          { num: 4, raw: "broad", markup: "br[oa]d", ipa: "/brɔ́ːd/", vowel: "/ɔː/", ja: "幅の広い" }
+        ]
+      },
+      {
+        id: 31,
+        answer: 3,
+        majorityVowel: "/aɪ/",
+        oddVowel: "/iː/",
+        explanation: "①polite, ②decide, ④alive の i はすべて /aɪ/（アイ）ですが、フランス語由来の ③elite（エリート）は /iː/（イー）と発音します。",
+        options: [
+          { num: 1, raw: "polite", markup: "pol[i]te", ipa: "/pəláɪt/", vowel: "/aɪ/", ja: "礼儀正しい" },
+          { num: 2, raw: "decide", markup: "dec[i]de", ipa: "/dɪsáɪd/", vowel: "/aɪ/", ja: "決める" },
+          { num: 3, raw: "elite", markup: "el[i]te", ipa: "/eɪlíːt/", vowel: "/iː/", ja: "エリート" },
+          { num: 4, raw: "alive", markup: "al[i]ve", ipa: "/əláɪv/", vowel: "/aɪ/", ja: "生きている" }
+        ]
+      },
+      {
+        id: 32,
+        answer: 2,
+        majorityVowel: "/iː/",
+        oddVowel: "/e/",
+        explanation: "①league, ③clean, ④increase の ea はすべて /iː/（イー）ですが、②threaten（脅迫する）は /e/（エ）と発音します。",
+        options: [
+          { num: 1, raw: "league", markup: "l[ea]gue", ipa: "/líːɡ/", vowel: "/iː/", ja: "連盟・リーグ" },
+          { num: 2, raw: "threaten", markup: "thr[ea]ten", ipa: "/θrétn/", vowel: "/e/", ja: "脅迫する" },
+          { num: 3, raw: "clean", markup: "cl[ea]n", ipa: "/klíːn/", vowel: "/iː/", ja: "清潔な" },
+          { num: 4, raw: "increase", markup: "incr[ea]se", ipa: "/ɪnkríːs/", vowel: "/iː/", ja: "増える・増加" }
+        ]
+      },
+      {
+        id: 33,
+        answer: 3,
+        majorityVowel: "/oʊ/",
+        oddVowel: "/ʌ/",
+        explanation: "①compose, ②whole, ④remote の o は二重母音 /oʊ/（オウ）ですが、③month（月）は /ʌ/（ア）と発音します。",
+        options: [
+          { num: 1, raw: "compose", markup: "comp[o]se", ipa: "/kəmpóʊz/", vowel: "/oʊ/", ja: "構成する・作曲する" },
+          { num: 2, raw: "whole", markup: "wh[o]le", ipa: "/hóʊl/", vowel: "/oʊ/", ja: "全体の" },
+          { num: 3, raw: "month", markup: "m[o]nth", ipa: "/mʌ́nθ/", vowel: "/ʌ/", ja: "月（1ヶ月）" },
+          { num: 4, raw: "remote", markup: "rem[o]te", ipa: "/rɪmóʊt/", vowel: "/oʊ/", ja: "遠い・遠隔の" }
+        ]
+      },
+      {
+        id: 34,
+        answer: 4,
+        majorityVowel: "/ɔːr/",
+        oddVowel: "/ʊər/",
+        explanation: "①core, ②floor, ③pour はすべて /ɔːr/（オー）と発音しますが、④secure は /sɪkjʊ́ər/（〜キュア）と発音します。",
+        options: [
+          { num: 1, raw: "core", markup: "c[ore]", ipa: "/kɔ́ːr/", vowel: "/ɔːr/", ja: "中心・核" },
+          { num: 2, raw: "floor", markup: "fl[oor]", ipa: "/flɔ́ːr/", vowel: "/ɔːr/", ja: "床・階" },
+          { num: 3, raw: "pour", markup: "p[our]", ipa: "/pɔ́ːr/", vowel: "/ɔːr/", ja: "注ぐ" },
+          { num: 4, raw: "secure", markup: "sec[ure]", ipa: "/sɪkjʊ́ər/", vowel: "/ʊər/", ja: "安全な・確保する" }
+        ]
+      },
+      {
+        id: 35,
+        answer: 1,
+        majorityVowel: "/oʊ/",
+        oddVowel: "/aʊ/",
+        explanation: "②sew（縫う /sóʊ/）, ③toast, ④woke はすべて /oʊ/（オウ）ですが、①drown（溺れる）は /aʊ/（アウ）と発音します。",
+        options: [
+          { num: 1, raw: "drown", markup: "dr[ow]n", ipa: "/dráʊn/", vowel: "/aʊ/", ja: "溺れる" },
+          { num: 2, raw: "sew", markup: "s[ew]", ipa: "/sóʊ/", vowel: "/oʊ/", ja: "縫う" },
+          { num: 3, raw: "toast", markup: "t[oa]st", ipa: "/tóʊst/", vowel: "/oʊ/", ja: "トースト・乾杯" },
+          { num: 4, raw: "woke", markup: "w[o]ke", ipa: "/wóʊk/", vowel: "/oʊ/", ja: "wakeの過去形" }
+        ]
+      },
+      {
+        id: 36,
+        answer: 4,
+        majorityVowel: "/ʌ/",
+        oddVowel: "/oʊ/",
+        explanation: "①Russia, ②southern（southと異なり /ʌ/）, ③tunnel はすべて /ʌ/（ア）ですが、④won't は /wóʊnt/（ウォウント）と二重母音 /oʊ/ で発音します。",
+        options: [
+          { num: 1, raw: "Russia", markup: "R[u]ssia", ipa: "/rʌ́ʃə/", vowel: "/ʌ/", ja: "ロシア" },
+          { num: 2, raw: "southern", markup: "s[ou]thern", ipa: "/sʌ́ðərn/", vowel: "/ʌ/", ja: "南の" },
+          { num: 3, raw: "tunnel", markup: "t[u]nnel", ipa: "/tʌ́nl/", vowel: "/ʌ/", ja: "トンネル" },
+          { num: 4, raw: "won't", markup: "w[o]n't", ipa: "/wóʊnt/", vowel: "/oʊ/", ja: "will notの短縮形" }
+        ]
+      },
+      {
+        id: 37,
+        answer: 3,
+        majorityVowel: "/æ/",
+        oddVowel: "/eɪ/",
+        explanation: "①adding, ②album, ④attack の下線部の a はすべて /æ/（エァ）ですが、③Asia は二重母音 /eɪ/（エイ）と発音します。",
+        options: [
+          { num: 1, raw: "adding", markup: "[a]dding", ipa: "/ǽdɪŋ/", vowel: "/æ/", ja: "加えること" },
+          { num: 2, raw: "album", markup: "[a]lbum", ipa: "/ǽlbəm/", vowel: "/æ/", ja: "アルバム" },
+          { num: 3, raw: "Asia", markup: "[A]sia", ipa: "/éɪʒə/", vowel: "/eɪ/", ja: "アジア" },
+          { num: 4, raw: "attack", markup: "att[a]ck", ipa: "/ətǽk/", vowel: "/æ/", ja: "攻撃する" }
+        ]
+      },
+      {
+        id: 38,
+        answer: 1,
+        majorityVowel: "/ʌ/",
+        oddVowel: "/ɔː/ (英/ɒ/)",
+        explanation: "②cousin, ③double, ④rough の ou はすべて /ʌ/（ア）ですが、①cough（咳をする）は /kɔ́ːf/（英 /kɒf/）と発音します。",
+        options: [
+          { num: 1, raw: "cough", markup: "c[ou]gh", ipa: "/kɔ́ːf/", vowel: "/ɔː/", ja: "咳（せき）をする" },
+          { num: 2, raw: "cousin", markup: "c[ou]sin", ipa: "/kʌ́zn/", vowel: "/ʌ/", ja: "いとこ" },
+          { num: 3, raw: "double", markup: "d[ou]ble", ipa: "/dʌ́bl/", vowel: "/ʌ/", ja: "2倍の" },
+          { num: 4, raw: "rough", markup: "r[ou]gh", ipa: "/rʌ́f/", vowel: "/ʌ/", ja: "粗い・大まかな" }
+        ]
+      },
+      {
+        id: 39,
+        answer: 1,
+        majorityVowel: "/iː/",
+        oddVowel: "/e/",
+        explanation: "②region, ③sequence, ④vehicle の下線部 e はすべて長母音 /iː/（イー）ですが、①legend（伝説）は短母音 /e/（エ）と発音します。",
+        options: [
+          { num: 1, raw: "legend", markup: "l[e]gend", ipa: "/lédʒənd/", vowel: "/e/", ja: "伝説" },
+          { num: 2, raw: "region", markup: "r[e]gion", ipa: "/ríːdʒən/", vowel: "/iː/", ja: "地域" },
+          { num: 3, raw: "sequence", markup: "s[e]quence", ipa: "/síːkwəns/", vowel: "/iː/", ja: "連続・順序" },
+          { num: 4, raw: "vehicle", markup: "v[e]hicle", ipa: "/víːɪkl/", vowel: "/iː/", ja: "乗り物・車両" }
+        ]
+      },
+      {
+        id: 40,
+        answer: 1,
+        majorityVowel: "/ɪər/",
+        oddVowel: "/eər/",
+        explanation: "②beer, ③cheer, ④near はすべて /ɪər/（イア）ですが、①bear（熊・耐える）は /eər/（エア）と発音します。",
+        options: [
+          { num: 1, raw: "bear", markup: "b[ear]", ipa: "/béər/", vowel: "/eər/", ja: "熊・耐える" },
+          { num: 2, raw: "beer", markup: "b[eer]", ipa: "/bɪ́ər/", vowel: "/ɪər/", ja: "ビール" },
+          { num: 3, raw: "cheer", markup: "ch[eer]", ipa: "/tʃɪ́ər/", vowel: "/ɪər/", ja: "声援・元気づける" },
+          { num: 4, raw: "near", markup: "n[ear]", ipa: "/nɪ́ər/", vowel: "/ɪər/", ja: "近い" }
+        ]
+      }
+    ];
+
+    // App State
+    let state = {
+      mode: 'study', // 'study' | 'quiz'
+      accent: 'en-US',
+      speed: 1.0,
+      showIpa: false, // Default to false so tapping individual words reveals their IPA!
+      showAnswer: false, // Default to false so user can self-check or reveal per question
+      revealedCards: {}, // Key: `${qId}-${optNum}` -> true when individually tapped
+      cardTaps: {}, // Key: `${qId}-${optNum}` -> 'shown' (tapped once: next tap hides) | 'hidden' (tapped again: IPA is hidden)
+      revealedQuestions: {}, // Key: `${qId}` -> true when question answer/explanation is toggled
+      studyGuesses: {}, // Key: `${qId}` -> selected option num (1-4) for instant 1-by-1 check in study mode
+      quizInstantIpa: true, // In Quiz mode, tapping/selecting a word also plays & shows its IPA if enabled
+      filter: 'all',
+      bookmarks: [],
+      scores: { "1": "", "2": "", "3": "" },
+      quizAnswers: {},
+      quizGraded: false,
+      timerSeconds: 210, // 3 minutes 30 seconds
+      timerRunning: false,
+      timerInterval: null,
+      activeCardId: null,
+      sequenceCancelled: false
+    };
+
+    // Safely load saved state from localStorage
+    try {
+      const savedBookmarks = JSON.parse(localStorage.getItem('hatsuon140_v2_bookmarks') || '[]');
+      if (Array.isArray(savedBookmarks)) state.bookmarks = savedBookmarks;
+    } catch (e) {
+      state.bookmarks = [];
+    }
+
+    try {
+      const savedScores = JSON.parse(localStorage.getItem('hatsuon140_v2_scores') || '{"1":"","2":"","3":""}');
+      if (savedScores && typeof savedScores === 'object') state.scores = savedScores;
+    } catch (e) {
+      state.scores = { "1": "", "2": "", "3": "" };
+    }
+
+    const CIRCLED_NUMS = ['', '①', '②', '③', '④'];
+
+    // Convert markup like "res[u]lt" into HTML with underlined span
+    function formatUnderlinedWord(markup) {
+      return markup.replace(/\[([^\]]+)\]/g, '<span class="underlined-part">$1</span>');
+    }
+
+    // Keep each /IPA/ in an explanation on one line (browsers may break right after the slash)
+    function formatExplanation(text) {
+      return text.replace(/\/[^\/]+\//g, '<span class="whitespace-nowrap">$&</span>');
+    }
+
+    // Initialize Scores and Render
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('score1').value = state.scores[1] !== "" && state.scores[1] !== undefined ? state.scores[1] : "";
+      document.getElementById('score2').value = state.scores[2] !== "" && state.scores[2] !== undefined ? state.scores[2] : "";
+      document.getElementById('score3').value = state.scores[3] !== "" && state.scores[3] !== undefined ? state.scores[3] : "";
+      updateBookmarkBadge();
+      syncToolbarButtons();
+      renderQuestions();
+
+      // Warm up speechSynthesis voices on load
+      try {
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.getVoices();
+          window.speechSynthesis.onvoiceschanged = () => {
+            try { window.speechSynthesis.getVoices(); } catch (e) {}
+          };
+        }
+      } catch (e) {}
+    });
+
+    // Save 1st/2nd/3rd attempt score to localStorage
+    function saveManualScore(slot, value) {
+      const cleaned = value === "" ? "" : Math.max(0, Math.min(20, parseInt(value, 10) || 0));
+      state.scores[slot] = cleaned;
+      const inputEl = document.getElementById(`score${slot}`);
+      if (inputEl) inputEl.value = cleaned;
+      try {
+        localStorage.setItem('hatsuon140_v2_scores', JSON.stringify(state.scores));
+      } catch (e) {}
+    }
+
+    function recordScoreToSlot(slot) {
+      let correctCount = 0;
+      QUESTIONS.forEach(q => {
+        if (state.quizAnswers[q.id] === q.answer) correctCount++;
+      });
+      saveManualScore(slot, correctCount);
+    }
+
+    // Bookmark & Filter Functions
+    function updateBookmarkBadge() {
+      const badge = document.getElementById('bookmarkCountBadge');
+      if (badge) {
+        badge.textContent = state.bookmarks.length;
+      }
+    }
+
+    function toggleBookmark(qId, event) {
+      if (event) event.stopPropagation();
+      const idx = state.bookmarks.indexOf(qId);
+      if (idx >= 0) {
+        state.bookmarks.splice(idx, 1);
+      } else {
+        state.bookmarks.push(qId);
+      }
+      try {
+        localStorage.setItem('hatsuon140_v2_bookmarks', JSON.stringify(state.bookmarks));
+      } catch (e) {}
+      updateBookmarkBadge();
+      renderQuestions();
+    }
+
+    function setFilter(filterVal) {
+      state.filter = filterVal;
+      const allBtn = document.getElementById('filter-all');
+      const bmBtn = document.getElementById('filter-bookmarked');
+      const vowelSelect = document.getElementById('vowelFilterSelect');
+
+      if (allBtn && bmBtn) {
+        if (filterVal === 'all') {
+          allBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold bg-gray-900 text-white transition";
+          bmBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold bg-gray-100 text-gray-700 hover:bg-gray-200 transition flex items-center gap-1";
+          if (vowelSelect) vowelSelect.value = 'all';
+        } else if (filterVal === 'bookmarked') {
+          bmBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-500 text-white transition flex items-center gap-1";
+          allBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold bg-gray-100 text-gray-700 hover:bg-gray-200 transition";
+          if (vowelSelect) vowelSelect.value = 'all';
+        } else {
+          allBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold bg-gray-100 text-gray-700 hover:bg-gray-200 transition";
+          bmBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold bg-gray-100 text-gray-700 hover:bg-gray-200 transition flex items-center gap-1";
+        }
+      }
+      renderQuestions();
+    }
+
+    // Speech Synthesis Helper
+    function getBestVoice(lang) {
+      try {
+        if (!('speechSynthesis' in window)) return null;
+        const voices = window.speechSynthesis.getVoices();
+        if (!voices || !voices.length) return null;
+        const exactMatches = voices.filter(v => v.lang && v.lang.replace('_', '-') === lang);
+        const preferred = exactMatches.find(v => /Google|Samantha|Alex|Daniel|Siri|Natural|Premium/i.test(v.name));
+        if (preferred) return preferred;
+        if (exactMatches.length) return exactMatches[0];
+        return voices.find(v => v.lang && v.lang.startsWith('en')) || null;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function stopAllSpeech() {
+      state.sequenceCancelled = true;
+      try {
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.cancel();
+        }
+      } catch (e) {}
+      setActivePlayingCard(null);
+      const bar = document.getElementById('floatingPlayerBar');
+      const stopBtn = document.getElementById('stopAudioBtn');
+      if (bar) bar.classList.add('hidden');
+      if (stopBtn) stopBtn.classList.add('hidden');
+    }
+
+    function setActivePlayingCard(cardDomId, labelText = '', wordText = '') {
+      if (state.activeCardId) {
+        const prev = document.getElementById(state.activeCardId);
+        if (prev) prev.classList.remove('playing-card');
+      }
+      state.activeCardId = cardDomId;
+      const bar = document.getElementById('floatingPlayerBar');
+      const stopBtn = document.getElementById('stopAudioBtn');
+      if (cardDomId) {
+        const curr = document.getElementById(cardDomId);
+        if (curr) curr.classList.add('playing-card');
+        document.getElementById('nowPlayingLabel').textContent = labelText;
+        document.getElementById('nowPlayingWord').textContent = wordText;
+        if (bar) bar.classList.remove('hidden');
+        if (stopBtn) stopBtn.classList.remove('hidden');
+      } else {
+        if (bar) bar.classList.add('hidden');
+        if (stopBtn) stopBtn.classList.add('hidden');
+      }
+    }
+
+    // Check if an individual card's IPA should be visible
+    function isCardIpaVisible(qId, optNum) {
+      const key = `${qId}-${optNum}`;
+      if (state.cardTaps[key] === 'hidden') return false; // 2回目のタップで隠した単語は、一括表示中でも隠す
+      if (state.mode === 'study') {
+        return state.showIpa || !!state.revealedCards[key] || !!state.revealedQuestions[qId] || state.showAnswer;
+      } else {
+        return state.quizGraded || (state.quizInstantIpa && !!state.revealedCards[key]);
+      }
+    }
+
+    // Reveal a card's IPA without counting as a tap (the next tap on it still plays audio first)
+    function revealCard(qId, optNum) {
+      const key = `${qId}-${optNum}`;
+      state.revealedCards[key] = true;
+      delete state.cardTaps[key];
+    }
+
+    // Reveal a card's IPA because the user acted on that card (the next tap on it hides the IPA)
+    function revealTappedCard(qId, optNum) {
+      const key = `${qId}-${optNum}`;
+      state.revealedCards[key] = true;
+      state.cardTaps[key] = 'shown';
+    }
+
+    // Hide a card's IPA, even while it is opened by "show all" or by the answer reveal
+    function hideCard(qId, optNum) {
+      const key = `${qId}-${optNum}`;
+      delete state.revealedCards[key];
+      state.cardTaps[key] = 'hidden';
+    }
+
+    // Toggle individual card IPA without playing audio
+    function toggleCardIpaOnly(qId, optNum, event) {
+      if (event) event.stopPropagation();
+      if (isCardIpaVisible(qId, optNum)) {
+        hideCard(qId, optNum);
+      } else {
+        revealTappedCard(qId, optNum);
+      }
+      syncToolbarButtons();
+      renderQuestions();
+    }
+
+    // Toggle a single question's Answer & Explanation (and show all 4 words' IPA for comparison)
+    function toggleQuestionReveal(qId, event) {
+      if (event) event.stopPropagation();
+      const isCurrentlyShown = state.showAnswer || !!state.revealedQuestions[qId];
+
+      if (isCurrentlyShown) {
+        if (state.showAnswer) {
+          // Switch from global showAnswer to individual question state
+          state.showAnswer = false;
+          QUESTIONS.forEach(q => {
+            state.revealedQuestions[q.id] = true;
+          });
+        }
+        delete state.revealedQuestions[qId];
+        delete state.studyGuesses[qId];
+      } else {
+        state.revealedQuestions[qId] = true;
+        // Also reveal all 4 words' IPA for this question so the user can compare vowels immediately
+        [1, 2, 3, 4].forEach(n => revealCard(qId, n));
+      }
+      syncToolbarButtons();
+      renderQuestions();
+    }
+
+    // In Study Mode: Let user test themselves on a single question by picking an option
+    function checkStudyAnswer(qId, optNum, event) {
+      if (event) event.stopPropagation();
+      state.studyGuesses[qId] = optNum;
+      state.revealedQuestions[qId] = true;
+      [1, 2, 3, 4].forEach(n => revealCard(qId, n));
+      renderQuestions();
+      speakSingleWord(qId, optNum);
+    }
+
+    // Tap a word card: 1st tap speaks the word and reveals its IPA, 2nd tap hides the IPA.
+    // A card already opened by "show all" / the answer reveal still speaks on its 1st tap.
+    function handleWordTap(qId, optNum, event) {
+      if (event) event.stopPropagation();
+      if (state.cardTaps[`${qId}-${optNum}`] === 'shown' && isCardIpaVisible(qId, optNum)) {
+        stopAllSpeech();
+        hideCard(qId, optNum);
+        renderQuestions();
+        return;
+      }
+      speakSingleWord(qId, optNum);
+    }
+
+    function speakSingleWord(qId, optNum, event) {
+      if (event) event.stopPropagation();
+      stopAllSpeech();
+      state.sequenceCancelled = false;
+
+      const q = QUESTIONS.find(item => item.id === qId);
+      if (!q) return;
+      const opt = q.options.find(o => o.num === optNum);
+      if (!opt) return;
+
+      // Always reveal this word's IPA when its audio is triggered
+      revealTappedCard(qId, optNum);
+      renderQuestions();
+
+      const cardId = `card-${qId}-${optNum}`;
+      const wordLabel = `${opt.raw}  ${opt.ipa}  [下線部: ${opt.vowel}] (${opt.ja})`;
+
+      setActivePlayingCard(cardId, `問${qId} - ${CIRCLED_NUMS[optNum]} を発音＆記号表示中`, wordLabel);
+
+      if (!('speechSynthesis' in window)) {
+        setTimeout(() => setActivePlayingCard(null), 800);
+        return;
+      }
+
+      try {
+        const utter = new SpeechSynthesisUtterance(opt.raw);
+        utter.lang = state.accent;
+        utter.rate = state.speed;
+        const voice = getBestVoice(state.accent);
+        if (voice) utter.voice = voice;
+
+        utter.onend = () => {
+          if (state.activeCardId === cardId) {
+            setActivePlayingCard(null);
+          }
+        };
+        utter.onerror = () => {
+          setActivePlayingCard(null);
+        };
+
+        window.speechSynthesis.speak(utter);
+      } catch (e) {
+        setActivePlayingCard(null);
+      }
+    }
+
+    // Play all 4 words of a question sequentially & reveal each word's IPA as it plays
+    async function playQuestionSequence(qId, event) {
+      if (event) event.stopPropagation();
+      stopAllSpeech();
+      state.sequenceCancelled = false;
+
+      const q = QUESTIONS.find(item => item.id === qId);
+      if (!q) return;
+
+      for (let i = 0; i < q.options.length; i++) {
+        if (state.sequenceCancelled) break;
+        const opt = q.options[i];
+        const cardId = `card-${qId}-${opt.num}`;
+
+        // Reveal this option's IPA as soon as it starts playing
+        revealCard(qId, opt.num);
+        renderQuestions();
+
+        const wordLabel = `${opt.raw}  ${opt.ipa} (下線部: ${opt.vowel})`;
+        setActivePlayingCard(cardId, `問${qId} 連続再生 (${i + 1}/4)`, `${CIRCLED_NUMS[opt.num]} ${wordLabel}`);
+
+        await new Promise(resolve => {
+          if (!('speechSynthesis' in window)) {
+            setTimeout(resolve, 600);
+            return;
+          }
+          try {
+            const utter = new SpeechSynthesisUtterance(opt.raw);
+            utter.lang = state.accent;
+            utter.rate = state.speed;
+            const voice = getBestVoice(state.accent);
+            if (voice) utter.voice = voice;
+            utter.onend = () => setTimeout(resolve, 350);
+            utter.onerror = () => resolve();
+            window.speechSynthesis.speak(utter);
+          } catch (e) {
+            resolve();
+          }
+        });
+      }
+
+      if (!state.sequenceCancelled) {
+        setActivePlayingCard(null);
+      }
+    }
+
+    // Settings & Mode Handlers
+    function setAccent(lang) {
+      state.accent = lang;
+      const usBtn = document.getElementById('accentUS');
+      const ukBtn = document.getElementById('accentUK');
+      if (lang === 'en-US') {
+        usBtn.className = "px-2 py-1 rounded-md font-bold bg-white text-rose-700 shadow-sm transition";
+        ukBtn.className = "px-2 py-1 rounded-md font-medium text-gray-600 hover:text-gray-900 transition";
+      } else {
+        ukBtn.className = "px-2 py-1 rounded-md font-bold bg-white text-rose-700 shadow-sm transition";
+        usBtn.className = "px-2 py-1 rounded-md font-medium text-gray-600 hover:text-gray-900 transition";
+      }
+    }
+
+    function setSpeed(val) {
+      state.speed = parseFloat(val) || 1.0;
+    }
+
+    function switchMode(newMode) {
+      stopAllSpeech();
+      state.mode = newMode;
+      const studyBtn = document.getElementById('tabStudyBtn');
+      const quizBtn = document.getElementById('tabQuizBtn');
+      const studyControls = document.getElementById('studyControls');
+      const quizControls = document.getElementById('quizControls');
+
+      if (newMode === 'study') {
+        studyBtn.className = "px-3 py-1.5 rounded-lg text-xs sm:text-sm font-bold transition-all bg-rose-600 text-white shadow-sm flex items-center gap-1.5";
+        quizBtn.className = "px-3 py-1.5 rounded-lg text-xs sm:text-sm font-bold transition-all text-gray-600 hover:text-gray-900 flex items-center gap-1.5";
+        studyControls.classList.remove('hidden');
+        quizControls.classList.add('hidden');
+        pauseTimer();
+      } else {
+        quizBtn.className = "px-3 py-1.5 rounded-lg text-xs sm:text-sm font-bold transition-all bg-rose-600 text-white shadow-sm flex items-center gap-1.5";
+        studyBtn.className = "px-3 py-1.5 rounded-lg text-xs sm:text-sm font-bold transition-all text-gray-600 hover:text-gray-900 flex items-center gap-1.5";
+        studyControls.classList.add('hidden');
+        quizControls.classList.remove('hidden');
+        state.filter = 'all';
+      }
+      renderQuestions();
+    }
+
+    function toggleAllIpaVisibility() {
+      state.showIpa = !state.showIpa;
+      state.cardTaps = {};
+      if (state.showIpa) {
+        QUESTIONS.forEach(q => {
+          q.options.forEach(o => {
+            state.revealedCards[`${q.id}-${o.num}`] = true;
+          });
+        });
+      } else {
+        state.revealedCards = {};
+      }
+      syncToolbarButtons();
+      renderQuestions();
+    }
+
+    function toggleAllAnswerVisibility() {
+      state.showAnswer = !state.showAnswer;
+      state.cardTaps = {};
+      if (state.showAnswer) {
+        QUESTIONS.forEach(q => {
+          state.revealedQuestions[q.id] = true;
+          q.options.forEach(o => {
+            state.revealedCards[`${q.id}-${o.num}`] = true;
+          });
+        });
+      } else {
+        state.revealedQuestions = {};
+        state.studyGuesses = {};
+      }
+      syncToolbarButtons();
+      renderQuestions();
+    }
+
+    function hideAllIndividualIpa() {
+      state.showIpa = false;
+      state.showAnswer = false;
+      state.revealedCards = {};
+      state.cardTaps = {};
+      state.revealedQuestions = {};
+      state.studyGuesses = {};
+      syncToolbarButtons();
+      renderQuestions();
+    }
+
+    function syncToolbarButtons() {
+      const ipaBtn = document.getElementById('toggleIpaBtn');
+      const ipaDot = document.getElementById('ipaToggleDot');
+      const ipaText = document.getElementById('ipaToggleText');
+      const ansBtn = document.getElementById('toggleAnsBtn');
+      const ansDot = document.getElementById('ansToggleDot');
+      const ansText = document.getElementById('ansToggleText');
+
+      if (ipaBtn && ipaDot && ipaText) {
+        if (state.showIpa) {
+          ipaBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold border border-rose-300 bg-rose-600 text-white shadow-sm transition flex items-center gap-1.5";
+          ipaDot.className = "w-2 h-2 rounded-full bg-white";
+          ipaText.textContent = "全単語の発音記号を隠す";
+        } else {
+          ipaBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold border border-amber-300 bg-amber-50 text-amber-900 hover:bg-amber-100 transition flex items-center gap-1.5";
+          ipaDot.className = "w-2 h-2 rounded-full bg-amber-500";
+          ipaText.textContent = "全単語の発音記号を表示";
+        }
+      }
+
+      if (ansBtn && ansDot && ansText) {
+        if (state.showAnswer) {
+          ansBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold border border-emerald-600 bg-emerald-600 text-white shadow-sm transition flex items-center gap-1.5";
+          ansDot.className = "w-2 h-2 rounded-full bg-white";
+          ansText.textContent = "全問の正解を隠す";
+        } else {
+          ansBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold border border-emerald-300 bg-emerald-50 text-emerald-900 hover:bg-emerald-100 transition flex items-center gap-1.5";
+          ansDot.className = "w-2 h-2 rounded-full bg-emerald-500";
+          ansText.textContent = "全問の正解を表示";
+        }
+      }
+    }
+
+    function toggleQuizInstantIpa() {
+      state.quizInstantIpa = !state.quizInstantIpa;
+      const btn = document.getElementById('quizInstantIpaBtn');
+      if (state.quizInstantIpa) {
+        btn.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-400"></span>選択時に発音＆記号を表示: ON`;
+      } else {
+        btn.innerHTML = `<span class="w-2 h-2 rounded-full bg-gray-400"></span>選択時に発音＆記号を表示: OFF`;
+      }
+      renderQuestions();
+    }
+
+    function filterQuestionList() {
+      if (state.mode === 'quiz' || state.filter === 'all') return QUESTIONS;
+      if (state.filter === 'bookmarked') {
+        return QUESTIONS.filter(q => state.bookmarks.includes(q.id));
+      }
+      if (state.filter === 'r') {
+        return QUESTIONS.filter(q => [34, 40].includes(q.id));
+      }
+      return QUESTIONS.filter(q =>
+        q.options.some(o => o.vowel.includes(state.filter))
+      );
+    }
+
+    // Quiz Mode Logic & 3:30 Countdown Timer
+    function selectQuizOption(qId, optNum, event) {
+      if (event) event.stopPropagation();
+      if (state.quizGraded) {
+        handleWordTap(qId, optNum, event);
+        return;
+      }
+      const wasSelected = state.quizAnswers[qId] === optNum;
+      state.quizAnswers[qId] = optNum;
+      updateAnsweredCount();
+      if (state.quizInstantIpa) {
+        // Re-tapping the selected word toggles its IPA (the answer stays selected)
+        if (wasSelected) {
+          handleWordTap(qId, optNum);
+        } else {
+          speakSingleWord(qId, optNum);
+        }
+      } else {
+        renderQuestions();
+      }
+    }
+
+    function updateAnsweredCount() {
+      const count = Object.keys(state.quizAnswers).length;
+      const el = document.getElementById('answeredCount');
+      if (el) el.textContent = count;
+    }
+
+    function formatTime(sec) {
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    }
+
+    function toggleTimer() {
+      if (state.timerRunning) {
+        pauseTimer();
+      } else {
+        startTimer();
+      }
+    }
+
+    function startTimer() {
+      if (state.timerRunning) return;
+      state.timerRunning = true;
+      document.getElementById('timerToggleBtn').textContent = "⏸ 一時停止";
+      state.timerInterval = setInterval(() => {
+        if (state.timerSeconds > 0) {
+          state.timerSeconds--;
+          document.getElementById('timerDisplay').textContent = formatTime(state.timerSeconds);
+          if (state.timerSeconds <= 30) {
+            document.getElementById('timerDisplay').classList.add('text-amber-300');
+          }
+        } else {
+          pauseTimer();
+          if (!state.quizGraded) {
+            gradeQuiz();
+          }
+        }
+      }, 1000);
+    }
+
+    function pauseTimer() {
+      state.timerRunning = false;
+      if (state.timerInterval) clearInterval(state.timerInterval);
+      const btn = document.getElementById('timerToggleBtn');
+      if (btn) btn.textContent = "▶ タイマー開始";
+    }
+
+    function resetQuiz() {
+      pauseTimer();
+      state.timerSeconds = 210;
+      state.quizAnswers = {};
+      state.quizGraded = false;
+      document.getElementById('timerDisplay').textContent = "03:30";
+      document.getElementById('timerDisplay').classList.remove('text-amber-300');
+      document.getElementById('quizResultBanner').classList.add('hidden');
+      updateAnsweredCount();
+      renderQuestions();
+    }
+
+    function gradeQuiz() {
+      pauseTimer();
+      state.quizGraded = true;
+      let correct = 0;
+      QUESTIONS.forEach(q => {
+        if (state.quizAnswers[q.id] === q.answer) {
+          correct++;
+        } else {
+          if (!state.bookmarks.includes(q.id)) {
+            state.bookmarks.push(q.id);
+          }
+        }
+      });
+      try {
+        localStorage.setItem('hatsuon140_v2_bookmarks', JSON.stringify(state.bookmarks));
+      } catch (e) {}
+      updateBookmarkBadge();
+
+      const banner = document.getElementById('quizResultBanner');
+      const headline = document.getElementById('quizScoreHeadline');
+      banner.classList.remove('hidden');
+      headline.textContent = `20問中 ${correct}問 正解！ (${Math.round((correct / 20) * 100)}%)`;
+
+      renderQuestions();
+    }
+
+    // Main Render Function
+    function renderQuestions() {
+      const container = document.getElementById('questionsContainer');
+      if (!container) return;
+      const list = filterQuestionList();
+
+      if (list.length === 0) {
+        container.innerHTML = `
+          <div class="bg-white rounded-2xl p-8 text-center border border-gray-200">
+            <p class="text-gray-600 font-bold mb-2">該当する問題がありません</p>
+            <p class="text-xs text-gray-500 mb-4">各問題の右上にある「☆ 復習」ボタンを押すと、ここに問題を集めて重点的に発音練習ができます。</p>
+            <button type="button" onclick="setFilter('all')" class="px-4 py-2 rounded-xl bg-rose-600 text-white text-xs font-bold">すべての問題を表示する</button>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = list.map(q => {
+        const isBookmarked = state.bookmarks.includes(q.id);
+        const userChoice = state.quizAnswers[q.id];
+        const isCorrect = userChoice === q.answer;
+        const studyGuess = state.studyGuesses[q.id];
+
+        const revealOddOneOut = state.mode === 'study'
+          ? (state.showAnswer || !!state.revealedQuestions[q.id])
+          : state.quizGraded;
+
+        return `
+          <article class="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border ${
+            state.mode === 'quiz' && state.quizGraded
+              ? (isCorrect ? 'border-emerald-300 bg-emerald-50/15' : 'border-rose-300 bg-rose-50/15')
+              : (revealOddOneOut ? 'border-rose-200' : 'border-gray-200')
+          } transition-all">
+
+            <!-- Question Header Row -->
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3 pb-2.5 border-b border-gray-100">
+              <div class="flex flex-wrap items-center gap-2">
+                <!-- Question Number & Answer Box matching worksheet -->
+                <div class="flex items-center gap-1.5">
+                  <span class="text-base sm:text-lg font-black text-gray-900">${q.id}</span>
+                  <button
+                    type="button"
+                    onclick="toggleQuestionReveal(${q.id}, event)"
+                    title="タップして問${q.id}の正解・解説を表示/非表示"
+                    class="w-7 h-7 inline-flex items-center justify-center rounded-md border-2 transition ${
+                      revealOddOneOut
+                        ? 'border-rose-600 bg-rose-600 text-white font-black text-sm shadow-sm'
+                        : 'border-gray-400 hover:border-rose-500 bg-white text-gray-400 hover:text-rose-600 text-xs font-bold'
+                    }"
+                  >
+                    ${revealOddOneOut ? CIRCLED_NUMS[q.answer] : '?'}
+                  </button>
+                </div>
+
+                ${revealOddOneOut ? `
+                  <div class="flex flex-wrap items-center gap-1.5 text-xs">
+                    <span class="px-2.5 py-0.5 rounded-md bg-rose-600 text-white font-black shadow-sm">
+                      正解: ${CIRCLED_NUMS[q.answer]} (${q.options[q.answer - 1].raw})
+                    </span>
+                    <span class="px-2 py-0.5 rounded-md bg-rose-50 text-rose-800 border border-rose-200 font-semibold">
+                      仲間外れの母音: <strong class="font-mono">${q.oddVowel}</strong>
+                    </span>
+                    <span class="px-2 py-0.5 rounded-md bg-gray-100 text-gray-700 font-semibold">
+                      他3つの母音: <strong class="font-mono text-gray-900">${q.majorityVowel}</strong>
+                    </span>
+                  </div>
+                ` : `
+                  <span class="text-[11px] text-gray-400 font-medium">単語をタップで発音＆記号表示（もう1回で隠す） / 右のボタンで正解を表示</span>
+                `}
+
+                ${state.mode === 'study' && studyGuess ? `
+                  <span class="px-2.5 py-0.5 rounded-full text-xs font-black ${
+                    studyGuess === q.answer ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'
+                  }">
+                    ${studyGuess === q.answer ? `⭕ 正解！（${CIRCLED_NUMS[studyGuess]}）` : `❌ あなたの選択: ${CIRCLED_NUMS[studyGuess]} → 正解は ${CIRCLED_NUMS[q.answer]}`}
+                  </span>
+                ` : ''}
+
+                ${state.mode === 'quiz' && state.quizGraded ? `
+                  <span class="px-2.5 py-0.5 rounded-full text-xs font-black ${
+                    isCorrect ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'
+                  }">
+                    ${isCorrect ? '⭕ 正解' : (userChoice ? `❌ 不正解（あなたの解答: ${CIRCLED_NUMS[userChoice]}）` : '❌ 未解答')}
+                  </span>
+                ` : ''}
+              </div>
+
+              <!-- Action Buttons: Play All 4, Dedicated Individual Answer Reveal Button & Bookmark -->
+              <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                <button type="button" onclick="playQuestionSequence(${q.id}, event)" class="px-2.5 py-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold text-xs flex items-center gap-1 transition" title="①〜④を順番に連続再生し、発音記号も順番に表示します">
+                  <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"/></svg>
+                  4単語連続再生
+                </button>
+                ${state.mode === 'study' ? `
+                  <button type="button" onclick="toggleQuestionReveal(${q.id}, event)" class="px-3 py-1.5 rounded-lg border text-xs font-bold transition flex items-center gap-1 shadow-sm ${
+                    revealOddOneOut
+                      ? 'bg-emerald-600 border-emerald-600 text-white hover:bg-emerald-700'
+                      : 'bg-emerald-50 border-emerald-300 text-emerald-900 hover:bg-emerald-100'
+                  }">
+                    <span>${revealOddOneOut ? '🙈 正解を隠す' : '👁️ 正解・解説を表示'}</span>
+                  </button>
+                ` : ''}
+                <button type="button" onclick="toggleBookmark(${q.id}, event)" class="px-2.5 py-1.5 rounded-lg border text-xs font-bold transition ${
+                  isBookmarked
+                    ? 'bg-amber-100 border-amber-300 text-amber-900'
+                    : 'bg-gray-50 border-gray-200 text-gray-500 hover:text-gray-800'
+                }">
+                  ${isBookmarked ? '★ 要復習' : '☆ 復習'}
+                </button>
+              </div>
+            </div>
+
+            <!-- 4 Options Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
+              ${q.options.map(opt => {
+                const isAnswerOpt = opt.num === q.answer;
+                const isSelectedQuizOpt = state.mode === 'quiz' && userChoice === opt.num;
+                const isStudyGuessedOpt = state.mode === 'study' && studyGuess === opt.num;
+                const showThisCardIpa = isCardIpaVisible(q.id, opt.num);
+                const vowelTip = VOWEL_TIPS[opt.vowel] || "";
+
+                let cardStyle = "bg-gray-50/70 hover:bg-rose-50/50 border-gray-200";
+                if (state.mode === 'study' && revealOddOneOut && isAnswerOpt) {
+                  cardStyle = "bg-rose-50/90 hover:bg-rose-100/70 border-rose-400 ring-2 ring-rose-300 shadow-sm";
+                } else if (state.mode === 'study' && revealOddOneOut && isStudyGuessedOpt && !isAnswerOpt) {
+                  cardStyle = "bg-amber-50/70 border-amber-300";
+                } else if (state.mode === 'study' && showThisCardIpa) {
+                  cardStyle = "bg-white hover:bg-rose-50/40 border-rose-200 shadow-sm";
+                } else if (state.mode === 'quiz' && !state.quizGraded && isSelectedQuizOpt) {
+                  cardStyle = "bg-rose-50 border-rose-500 ring-2 ring-rose-400";
+                } else if (state.mode === 'quiz' && state.quizGraded) {
+                  if (isAnswerOpt) {
+                    cardStyle = "bg-emerald-50/90 border-emerald-400 ring-2 ring-emerald-300";
+                  } else if (isSelectedQuizOpt && !isAnswerOpt) {
+                    cardStyle = "bg-rose-50 border-rose-400";
+                  }
+                }
+
+                const onClickAction = state.mode === 'study'
+                  ? `handleWordTap(${q.id}, ${opt.num}, event)`
+                  : `selectQuizOption(${q.id}, ${opt.num}, event)`;
+
+                return `
+                  <div
+                    id="card-${q.id}-${opt.num}"
+                    onclick="${onClickAction}"
+                    role="button"
+                    tabindex="0"
+                    class="group relative rounded-xl p-3 border transition-all cursor-pointer select-none touch-manipulation flex flex-col justify-between ${cardStyle}"
+                  >
+                    <!-- Answer / Odd-one-out Badge when question answer is revealed -->
+                    ${revealOddOneOut && isAnswerOpt ? `
+                      <div class="mb-1.5 flex items-center justify-between">
+                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-rose-600 text-white text-[10px] font-black tracking-wide shadow-sm">
+                          ★ 正解（仲間外れ）
+                        </span>
+                        <span class="text-[10px] font-mono font-bold text-rose-700">${opt.vowel}</span>
+                      </div>
+                    ` : ''}
+
+                    <!-- Top Row: Number, Word with Underline, and Action Buttons -->
+                    <div class="flex flex-wrap items-start justify-between gap-x-1.5 gap-y-2">
+                      <div class="flex items-baseline gap-1.5">
+                        <span class="text-sm font-bold ${revealOddOneOut && isAnswerOpt ? 'text-rose-700' : 'text-gray-500'}">${CIRCLED_NUMS[opt.num]}</span>
+                        <span class="serif-word text-lg sm:text-xl text-gray-900 tracking-wide">
+                          ${formatUnderlinedWord(opt.markup)}
+                        </span>
+                      </div>
+
+                      <!-- 4列表示(lg)ではボタンを単語の下の段に置き、単語の幅を確保する -->
+                      <div class="flex items-center gap-1 shrink-0 ml-auto lg:w-full lg:justify-end">
+                        ${state.mode === 'study' && !revealOddOneOut ? `
+                          <!-- Instant 1-question answer check button -->
+                          <button
+                            type="button"
+                            onclick="checkStudyAnswer(${q.id}, ${opt.num}, event)"
+                            title="この選択肢を正解として回答判定する"
+                            class="px-1.5 h-7 rounded-lg text-[10px] font-bold border border-emerald-200 bg-emerald-50/80 text-emerald-800 hover:bg-emerald-600 hover:text-white transition inline-flex items-center justify-center"
+                          >
+                            回答
+                          </button>
+                        ` : ''}
+
+                        <!-- Toggle IPA Only Button -->
+                        <button
+                          type="button"
+                          onclick="toggleCardIpaOnly(${q.id}, ${opt.num}, event)"
+                          title="${showThisCardIpa ? 'この単語の発音記号を隠す' : '音声なしでこの単語の発音記号のみ表示'}"
+                          class="px-1.5 h-7 rounded-lg text-[10px] font-mono font-bold border transition inline-flex items-center justify-center ${
+                            showThisCardIpa
+                              ? 'bg-rose-100/80 text-rose-800 border-rose-200 hover:bg-rose-200'
+                              : 'bg-white/80 text-gray-500 border-gray-200 hover:border-rose-300 hover:text-rose-700'
+                          }"
+                        >
+                          ${showThisCardIpa ? '記号×' : 'IPA'}
+                        </button>
+
+                        <!-- Dedicated Speaker Button (Always plays audio & reveals IPA) -->
+                        <button
+                          type="button"
+                          onclick="speakSingleWord(${q.id}, ${opt.num}, event)"
+                          title="${opt.raw} の発音を聴く＆発音記号を表示"
+                          class="w-7 h-7 rounded-lg bg-white/90 group-hover:bg-rose-600 text-gray-600 group-hover:text-white border border-gray-200 group-hover:border-rose-600 inline-flex items-center justify-center shadow-sm transition shrink-0"
+                        >
+                          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- Bottom Row: Individual IPA, Target Vowel Badge, Meaning, and Vowel Tip -->
+                    ${showThisCardIpa ? `
+                      <div class="ipa-reveal-anim mt-2.5 pt-2 border-t border-rose-100 space-y-1">
+                        <div class="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-xs">
+                          <span class="font-mono text-sm font-bold text-gray-900 bg-gray-100 px-1.5 py-0.5 rounded whitespace-nowrap">${opt.ipa}</span>
+                          <span class="px-1.5 py-0.5 rounded font-mono font-bold text-xs whitespace-nowrap ${
+                            revealOddOneOut && isAnswerOpt
+                              ? 'bg-rose-600 text-white shadow-sm'
+                              : 'bg-rose-100 text-rose-800 border border-rose-200'
+                          }" title="下線部の母音">
+                            下線: ${opt.vowel}
+                          </span>
+                          <span class="text-gray-600 font-medium text-[11px] ml-auto lg:ml-0 lg:w-full">${opt.ja}</span>
+                        </div>
+                        ${vowelTip ? `
+                          <div class="text-[10px] text-gray-500 bg-gray-50 px-2 py-0.5 rounded flex items-start gap-1">
+                            <span class="text-rose-500 font-bold">💡</span>
+                            <span>${vowelTip}</span>
+                          </div>
+                        ` : ''}
+                      </div>
+                    ` : `
+                      <div class="mt-2.5 pt-2 border-t border-dashed border-gray-200/80 flex items-center justify-between text-[11px] text-gray-400 group-hover:text-rose-600 transition">
+                        <span class="flex items-center gap-1 font-medium">
+                          <span>👆</span>
+                          <span>${state.mode === 'quiz' && !state.quizGraded ? (isSelectedQuizOpt ? '✓ 選択中 (タップで再確認)' : 'タップで選択＆発音記号') : 'タップで発音＆発音記号を表示'}</span>
+                        </span>
+                        <span class="font-mono text-[10px] bg-gray-100 group-hover:bg-rose-100 px-1.5 py-0.5 rounded text-gray-500 group-hover:text-rose-700">/?/</span>
+                      </div>
+                    `}
+                  </div>
+                `;
+              }).join('')}
+            </div>
+
+            <!-- Explanation Footer (Shown when question answer is toggled or global answer is on) -->
+            ${revealOddOneOut ? `
+              <div class="ipa-reveal-anim mt-3 px-3.5 py-2.5 rounded-xl bg-rose-50/70 border border-rose-200 text-xs text-gray-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div class="flex items-start gap-2">
+                  <span class="px-2 py-0.5 rounded bg-rose-600 text-white font-black shrink-0">正解 ${CIRCLED_NUMS[q.answer]}</span>
+                  <span class="leading-relaxed font-medium">${formatExplanation(q.explanation)}</span>
+                </div>
+                <button type="button" onclick="toggleQuestionReveal(${q.id}, event)" class="self-end sm:self-center shrink-0 text-[11px] text-gray-500 hover:text-gray-800 underline">
+                  閉じる
+                </button>
+              </div>
+            ` : ''}
+
+          </article>
+        `;
+      }).join('');
+    }
+  </script>
+</body>
+</html>
